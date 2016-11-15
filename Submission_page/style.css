@@ -1,0 +1,65 @@
+.scale {
+    height: 2em;
+    width: auto;
+}
+
+.scalearrow {
+    height: 1em;
+    width: auto;
+}
+
+.formtextarea {
+  vertical-align: top;
+}
+
+.leftmargin {
+  margin-left: 2%;
+}
+
+.form {
+  background-color: #CBE8BA;
+  border-radius: 25px;
+  margin-left: 2%;
+  margin-right: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.TopText {
+  padding-left: 4em;
+}
+
+.titleform {
+  padding-left: 1.5%;
+  padding-top: 1%;
+}
+
+.forminput {
+  padding-left: 1.5%;
+  padding-top: 0.5%;
+  display: flex;
+}
+
+.inputform {
+  right: 4%;
+}
+
+.tutorialbotton {
+  padding-right: 2%;
+}
+
+.button_fixed {
+  position: fixed;
+  margin-left: 2%;
+  bottom: 1%;
+}
+
+.generated span {
+  transition: 0.5s;
+}
+
+.generated span:after {
+  content: 'Generating';
+  right: 100%;
+  transition: 0.5s;
+}
