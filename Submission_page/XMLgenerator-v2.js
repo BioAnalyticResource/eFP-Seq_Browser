@@ -6,7 +6,6 @@ $(function (){
 
 $(function () {
   $('#SubmitButton').click(update);
-  });
 });
 
 var template = [
