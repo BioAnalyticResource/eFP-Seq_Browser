@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!-- saved from url=(0104)https://jamiewaese.wufoo.com/embed/shvmgyz181mhf1/def/embedKey=shvmgyz181mhf1706047&entsource=&referrer= -->
+<html class="embed safari"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>
+		Do you have any comments or suggestions?
+	</title>
+
+	<!-- Meta Tags -->
+	<script type="text/javascript" src="./1e390569c3"></script><script src="./nr-998.min.js.download"></script><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[(new Date).getTime()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=NREUM;"undefined"==typeof window.newrelic&&(newrelic=f);var s=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit"],l="api-",p=l+"ixn-";a(s,function(e,t){f[t]=o(l+t,!0,"api")}),f.addPageAction=o(l+"addPageAction",!0),f.setCurrentRouteName=o(l+"routeName",!0),t.exports=newrelic,f.interaction=function(){return(new r).get()};var d=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(p+"tracer",[Date.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[Date.now(),r,o],n),o)try{return t.apply(this,arguments)}finally{c.emit("fn-end",[Date.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){d[t]=o(p+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,(new Date).getTime()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o){if(!p.aborted){e&&e(n,r,o);for(var i=t(o),a=v(n),u=a.length,c=0;c<u;c++)a[c].apply(i,r);var f=s[w[n]];return f&&f.push([y,n,r,i]),i}}function d(e,t){b[e]=v(e).concat(t)}function v(e){return b[e]||[]}function g(e){return l[e]=l[e]||o(n)}function m(e,t){f(e,function(e,n){t=t||"feature",w[n]=t,t in s||(s[t]=[])})}var b={},w={},y={on:d,emit:n,get:g,listeners:v,context:t,buffer:m,abort:a,aborted:!1};return y}function i(){return new r}function a(){(s.api||s.feature)&&(p.aborted=!0,s=p.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},l={},p=t.exports=o();p.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!h++){var e=y.info=NREUM.info,t=l.getElementsByTagName("script")[0];if(setTimeout(f.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return f.abort();c(b,function(t,n){e[t]||(e[t]=n)}),u("mark",["onload",a()],null,"api");var n=l.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===l.readyState&&i()}function i(){u("mark",["domContent",a()],null,"api")}function a(){return(new Date).getTime()}var u=e("handle"),c=e(2),f=e("ee"),s=window,l=s.document,p="addEventListener",d="attachEvent",v=s.XMLHttpRequest,g=v&&v.prototype;NREUM.o={ST:setTimeout,CT:clearTimeout,XHR:v,REQ:s.Request,EV:s.Event,PR:s.Promise,MO:s.MutationObserver},e(1);var m=""+location,b={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-998.min.js"},w=v&&g&&g[p]&&!/CriOS/.test(navigator.userAgent),y=t.exports={offset:a(),origin:m,features:{},xhrWrappable:w};l[p]?(l[p]("DOMContentLoaded",i,!1),s[p]("load",r,!1)):(l[d]("onreadystatechange",o),s[d]("onload",r)),u("mark",["firstbyte",a()],null,"api");var h=0},{}]},{},["loader"]);</script>
+	<meta name="generator" content="Wufoo">
+	<meta name="robots" content="noindex, noarchive">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+			<meta name="description" content="Wufoo is a web form builder that helps anyone create beautiful forms, surveys and invitations without writing a single line of code.">
+				<link rel="canonical" href="https://jamiewaese.wufoo.com/forms/shvmgyz181mhf1/">
+	
+	<!-- CSS -->
+	<link href="./index.0315.css" rel="stylesheet">
+			<link href="./theme.css" rel="stylesheet">
+				<link href="https:" rel="stylesheet">
+	
+	
+	<!--[if lt IE 10]>
+	<script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	</head>
+
+<body id="public" class="noI" onorientationchange="window.scrollTo(0, 1)">
+
+
+
+<div id="container" class="ltr">
+	<h1 id="logo">
+					<a>Wufoo</a>
+			</h1>
+
+	<form id="form5" name="form5" class="wufoo topLabel page1" accept-charset="UTF-8" autocomplete="off" enctype="multipart/form-data" method="post" novalidate="" action="https://jamiewaese.wufoo.com/embed/shvmgyz181mhf1/def/embedKey=shvmgyz181mhf1706047&amp;entsource=&amp;referrer=#public">
+  
+<header id="header" class="info">
+	<h2>Do you have any comments or suggestions?</h2>
+	<div></div>
+</header>
+
+	
+<ul>
+		
+	
+	
+<li id="fo5li1" class="notranslate      ">
+	<label class="desc" id="title1" for="Field1">
+		Name
+			</label>
+	<span>
+		<input id="Field1" name="Field1" type="text" class="field text fn" value="" size="8" tabindex="1" onkeyup="handleInput(this);" onchange="handleInput(this);">
+		<label for="Field1">First</label>
+	</span>
+	<span>
+		<input id="Field2" name="Field2" type="text" class="field text ln" value="" size="14" tabindex="2" onkeyup="handleInput(this);" onchange="handleInput(this);">
+		<label for="Field2">Last</label>
+	</span>
+	</li>
+
+
+
+<li id="fo5li3" class="notranslate      ">
+	<label class="desc" id="title3" for="Field3">
+		Email
+			</label>
+	<div>
+		<input id="Field3" name="Field3" type="email" spellcheck="false" class="field text medium" value="" maxlength="255" tabindex="3" onkeyup="handleInput(this);" onchange="handleInput(this);">
+	</div>
+	</li>
+
+
+
+<li id="fo5li4" class="likert notranslate
+	col5
+			 ">
+	<table cellspacing="0">
+		<caption id="title4">
+					</caption>
+		<thead>
+			<tr>
+				<th>&nbsp;</th>
+								<td>Strongly Disagree</td>
+								<td>Disagree</td>
+								<td>Neutral</td>
+								<td>Agree</td>
+								<td>Strongly Agree</td>
+							</tr>
+		</thead>
+		<tbody>
+						<tr class="statement4">
+				<th><label for="Field4">I use the BAR frequently</label></th>
+								<td title="Strongly Disagree">
+					<input id="Field4_1" name="Field4" type="radio" tabindex="4" value="Strongly Disagree" onchange="handleInput(this);">
+					<label for="Field4_1">1</label>
+				</td>
+								<td title="Disagree">
+					<input id="Field4_2" name="Field4" type="radio" tabindex="5" value="Disagree" onchange="handleInput(this);">
+					<label for="Field4_2">2</label>
+				</td>
+								<td title="Neutral">
+					<input id="Field4_3" name="Field4" type="radio" tabindex="6" value="Neutral" onchange="handleInput(this);">
+					<label for="Field4_3">3</label>
+				</td>
+								<td title="Agree">
+					<input id="Field4_4" name="Field4" type="radio" tabindex="7" value="Agree" onchange="handleInput(this);">
+					<label for="Field4_4">4</label>
+				</td>
+								<td title="Strongly Agree">
+					<input id="Field4_5" name="Field4" type="radio" tabindex="8" value="Strongly Agree" onchange="handleInput(this);">
+					<label for="Field4_5">5</label>
+				</td>
+							</tr>
+						<tr class="alt statement5">
+				<th><label for="Field5">I like the new website</label></th>
+								<td title="Strongly Disagree">
+					<input id="Field5_1" name="Field5" type="radio" tabindex="9" value="Strongly Disagree" onchange="handleInput(this);">
+					<label for="Field5_1">1</label>
+				</td>
+								<td title="Disagree">
+					<input id="Field5_2" name="Field5" type="radio" tabindex="10" value="Disagree" onchange="handleInput(this);">
+					<label for="Field5_2">2</label>
+				</td>
+								<td title="Neutral">
+					<input id="Field5_3" name="Field5" type="radio" tabindex="11" value="Neutral" onchange="handleInput(this);">
+					<label for="Field5_3">3</label>
+				</td>
+								<td title="Agree">
+					<input id="Field5_4" name="Field5" type="radio" tabindex="12" value="Agree" onchange="handleInput(this);">
+					<label for="Field5_4">4</label>
+				</td>
+								<td title="Strongly Agree">
+					<input id="Field5_5" name="Field5" type="radio" tabindex="13" value="Strongly Agree" onchange="handleInput(this);">
+					<label for="Field5_5">5</label>
+				</td>
+							</tr>
+						<tr class="statement6">
+				<th><label for="Field6">I will come back</label></th>
+								<td title="Strongly Disagree">
+					<input id="Field6_1" name="Field6" type="radio" tabindex="14" value="Strongly Disagree" onchange="handleInput(this);">
+					<label for="Field6_1">1</label>
+				</td>
+								<td title="Disagree">
+					<input id="Field6_2" name="Field6" type="radio" tabindex="15" value="Disagree" onchange="handleInput(this);">
+					<label for="Field6_2">2</label>
+				</td>
+								<td title="Neutral">
+					<input id="Field6_3" name="Field6" type="radio" tabindex="16" value="Neutral" onchange="handleInput(this);">
+					<label for="Field6_3">3</label>
+				</td>
+								<td title="Agree">
+					<input id="Field6_4" name="Field6" type="radio" tabindex="17" value="Agree" onchange="handleInput(this);">
+					<label for="Field6_4">4</label>
+				</td>
+								<td title="Strongly Agree">
+					<input id="Field6_5" name="Field6" type="radio" tabindex="18" value="Strongly Agree" onchange="handleInput(this);">
+					<label for="Field6_5">5</label>
+				</td>
+							</tr>
+					</tbody>
+	</table>
+	</li>
+
+
+
+<li id="fo5li104" class="notranslate      ">
+
+	
+	<label class="desc" id="title104" for="Field104">
+		Comments
+			</label>
+
+	<div>
+				<textarea id="Field104" name="Field104" class="field textarea medium" spellcheck="true" rows="10" cols="50" tabindex="19" onkeyup="handleInput(this); " onchange="handleInput(this);"></textarea>
+
+			</div>
+
+	
+	
+	</li>
+
+
+ 
+
+	
+	<li class="buttons ">
+		<div>
+								<input type="hidden" name="currentPage" id="currentPage" value="DDJCBzrDSCqwuBedyix6wuslashocJsszndgmNIJqwuBeTePZkVwGlk=">
+			
+			    			    			        						    <input id="saveForm" name="saveForm" class="btTxt submit" type="submit" value="Submit" onmousedown="doSubmitEvents();">
+					
+		
+				</div>
+	</li>
+
+		<li class="hide">
+		<label for="comment">Do Not Fill This Out</label>
+		<textarea name="comment" id="comment" rows="1" cols="1"></textarea>
+		<input type="hidden" id="idstamp" name="idstamp" value="Fj0G/i9crp0AHZwN1kt84PK+SU8vr0QcCaE8wRSGKuI=">
+				<input type="hidden" id="stats" name="stats" value="{&quot;errors&quot;:0,&quot;startTime&quot;:0,&quot;endTime&quot;:0,&quot;referer&quot;:&quot;http:\/\/bar.utoronto.ca\/~dev\/eFP-Seq_Browser\/&quot;}">
+				<input type="hidden" id="clickOrEnter" name="clickOrEnter" value="">
+			</li>
+	</ul>
+</form>
+ 
+
+</div><!--container-->
+
+
+<!-- JavaScript -->
+<script src="./dynamic.0315.js.download"></script>
+
+<script>
+	__RULES = [];
+	__ENTRY = [];
+	__PRICES = null;
+
+	
+</script>
+
+
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"1e390569c3","applicationID":"34857700","transactionName":"YQdTbENQXUFVAUxbDFhNZEpYHlVdRg9LHQpYBlRAH1lHX1g=","queueTime":0,"applicationTime":60,"atts":"TUBQGgtKTk8=","errorBeacon":"bam.nr-data.net","agent":""}</script>
+
+<script type="text/javascript">__EMBEDKEY = "shvmgyz181mhf1706047"</script></body></html>
