@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <!-- saved from url=(0044)http://bar.utoronto.ca/~dev/eFP-Seq_Browser/ -->
 <html class="mdl-js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+
     <title>eFP-Seq Browser</title>
     <meta name="author" content="Priyank Purohit">
-    <script src="./eFP-Seq Browser_files/form.js.download"></script><script src="./eFP-Seq Browser_files/jquery.min.js.download"></script>
+    <script src="./eFP-Seq Browser_files/form.js.download"></script>
+    <script src="./eFP-Seq Browser_files/jquery.min.js.download"></script>
     <script src="./eFP-Seq Browser_files/bootstrap.min.js.download"></script>
     <link rel="stylesheet" href="./eFP-Seq Browser_files/icon">
     <link rel="stylesheet" href="./eFP-Seq Browser_files/material.green-pink.min.css">
@@ -55,17 +56,20 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <p style="font-size: 25px; margin: 5px; text-align: center;"><i>A. thaliana</i> eFP-Seq Browser</p>
                         <p style="font-size: 15px; margin: 5px; text-align: center;">Priyank Purohit, Dr. Nicholas Provart. University of Toronto.</p>
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-xs-offset-9 col-sm-offset-9 col-md-offset-9" style="margin-top: -50px;">
-                            <div class="col-xs-6" id="feedback_div">
+                        <div class="col-xs-3 col-sm-3 col-md-4 col-xs-offset-9 col-sm-offset-9 col-md-offset-8" style="margin-top: -50px;">
+                            <div class="col-sm-4" id="feedback_div">
                                 <button id="feedback_button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#feedbackModal" data-upgraded=",MaterialButton,MaterialRipple">Feedback<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                             </div>
                             <!--
                             <div class="col-xs-6" id="cite_button_div">
                                 <button id="cite_button" disabled="" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect ">Cite</button>
-                            </div> 
+                            </div>
                             -->
-                            <div class="col-xs-6">
+                            <div class="col-sm-3">
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Help<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                            </div>
+                            <div class="col-sm-4">
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                             </div>
                         </div>
                     </div>
@@ -12120,7 +12124,7 @@
                             <!-- end of WUFOO form -->
 
 
-                        </div>        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -12134,7 +12138,7 @@
                         </div>
                         <div class="modal-body">
 			    <p>
-				Enter your AGI ID of interest and click the Arrow button to search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, <a href="http://biorxiv.org/content/early/2016/04/05/047308">http://biorxiv.org/content/early/2016/04/05/047308</a>). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns. <br><br> 
+				Enter your AGI ID of interest and click the Arrow button to search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, <a href="http://biorxiv.org/content/early/2016/04/05/047308">http://biorxiv.org/content/early/2016/04/05/047308</a>). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns. <br><br>
 
 * If you sort based on the PCC column you can see the readmap profiles that best or least match a given gene model, based on the Pearson correlation coefficient (we generate a "all or nothing" vector for exons/introns for a given gene model and compare that to the readmap vector) <br>
 * If you sort based on the eFP (RPKM) you will sort the rows by the plant part used for RNA-seq sampling <br>
@@ -12149,6 +12153,22 @@ You can ajdust the RNA-seq readmap scale or the RPKM colour scale from their def
 We welcome feedback to nicholas.provart@utoronto.ca.<br>
 
                             </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="SubmissionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="modal-body">
+                          <iframe src="Submission_page.html"></iframe>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

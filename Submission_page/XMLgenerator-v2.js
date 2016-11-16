@@ -33,7 +33,8 @@ var added = [
   '\t\t\t<groupwidth>',
   '\t\t\t\t<bam_exp><?channelgroupwidth?></bam_exp>',
   '\t\t\t</groupwidth>',
-  '\t\t</bam_file>'
+  '\t\t</bam_file>',
+  '\n'
 ].join('\r\n');
 
 var adding = [
@@ -44,7 +45,8 @@ var adding = [
   '\t\t\t<groupwidth>',
   '\t\t\t\t<bam_exp><?channelgroupwidth?></bam_exp>',
   '\t\t\t</groupwidth>',
-  '\t\t</bam_file>'
+  '\t\t</bam_file>',
+  '\n'
 ].join('\r\n');
 
 function update(formatXML,v) {
