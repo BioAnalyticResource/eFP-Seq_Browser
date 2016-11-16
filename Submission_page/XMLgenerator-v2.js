@@ -2,10 +2,17 @@ $(function () {
   $('#SubmitButton').click(update);
 });
 
-var template = [
+var base = [
   '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
-  '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata_amazon_links.dtd">',
-  '\t<rnaseq_experiments>',
+  '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata_amazon_links.dtd"',
+  '\t<rnaseq_experiments>'
+].join('\r\n');
+
+var end = [
+  '\t</rnaseq_experiments>'
+].join('\r\n');
+
+var added = [
   '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_color=\"<?channelhexcolor?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
@@ -13,18 +20,7 @@ var template = [
   '\t\t\t<groupwidth>',
   '\t\t\t\t<bam_exp><?channelgroupwidth?></bam_exp>',
   '\t\t\t</groupwidth>',
-  '\t\t</bam_file>',
-  '\t</rnaseq_experiments>'
-].join('\r\n');
-
-var base = [
-  '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
-  '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata_amazon_links.dtd"',
-  '\t<rnaseq_experiments>',
-].join('\r\n');
-
-var end = [
-  '\t</rnaseq_experiments>'
+  '\t\t</bam_file>'
 ].join('\r\n');
 
 var adding = [
@@ -35,7 +31,7 @@ var adding = [
   '\t\t\t<groupwidth>',
   '\t\t\t\t<bam_exp><?channelgroupwidth?></bam_exp>',
   '\t\t\t</groupwidth>',
-  '\t\t</bam_file>',
+  '\t\t</bam_file>'
 ].join('\r\n');
 
 function update() {
@@ -54,12 +50,12 @@ function update() {
     'channelgroupwidth': $('#channelgroupwidth').val()
   };
 
-  var newXml = adding.replace(/<\?(\w+)\?>/g,
+  var newXml = added.replace(/<\?(\w+)\?>/g,
     function(match, name) {
       return variables[name];
     });
 
-  var finalXML = base + '\n' + newXml + '\n' + end; 
+  var finalXML = base + '\n' + newXml + '\n' + end;
 
   $('#ResultXml').val(finalXML);
   $('#DownloadLink')
@@ -68,10 +64,11 @@ function update() {
   $('#generated').show();
 }
 
-onClick = 0
-
-$(function (){
-  $("#CloneForm").click(function (){
-    $("body").append($("#Entries:first").clone(true));
-  });
+$(function () {
+  $("#CloneForm").click(CloneSection);
 });
+
+function CloneSection() {
+  added = added + '\n' + adding;
+  $("body").append($("#Entries:first").clone(true));
+}
