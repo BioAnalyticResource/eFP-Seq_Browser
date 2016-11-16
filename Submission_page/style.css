@@ -49,9 +49,9 @@
 }
 
 .button_fixed {
-  position: fixed;
   margin-left: 2%;
   bottom: 1%;
+  padding-top: 1%;
 }
 
 .generated span {

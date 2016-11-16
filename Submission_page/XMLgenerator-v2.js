@@ -1,11 +1,24 @@
+// Code was edited and modified by StackOverFlow user: madalin ivascu, who made the XML generator work for multiple entries. With greatest thanks <3
+
 $(function () {
-  $('#SubmitButton').click(update);
+
+  $('#SubmitButton').click(function(){
+       var formatXML = '';
+       $(".Entries").each(function(i,v) {formatXML +=update(formatXML,v)
+         $('#ResultXml').val(base + formatXML + end)
+  $('#DownloadLink')
+    .attr('href', 'data:text/xml;base64,' + btoa(formatXML))
+    .attr('download', 'bamdata.xml');
+  $('#generated').show();
+          });
+  });
 });
 
 var base = [
   '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
   '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata_amazon_links.dtd"',
-  '\t<rnaseq_experiments>'
+  '\t<rnaseq_experiments>',
+  '\n'
 ].join('\r\n');
 
 var end = [
@@ -34,34 +47,30 @@ var adding = [
   '\t\t</bam_file>'
 ].join('\r\n');
 
-function update() {
+function update(formatXML,v) {
   var variables = {
-    'channeldescription': $('#channeldescription').val(),
-    'channelrecordnumber': $('#channelrecordnumber').val(),
-    'channelhexcolor': $('#channelhexcolor').val(),
-    'channelbamlink': $('#channelbamlink').val(),
-    'channeltotalreadsmapped': $('#channeltotalreadsmapped').val(),
-    'channelpublicationlink': $('#channelpublicationlink').val(),
-    'channeltissue': $('#channeltissue').val(),
-    'channelsvgname': $('#channelsvgname').val(),
-    'channeltitle': $('#channeltitle').val(),
-    'channelpublicationlink': $('#channelpublicationlink').val(),
-    'channelcontrols': $('#channelcontrols').val(),
-    'channelgroupwidth': $('#channelgroupwidth').val()
+    'channeldescription': $(v).find('.channeldescription').val(),
+    'channelrecordnumber': $(v).find('.channelrecordnumber').val(),
+    'channelhexcolor': $(v).find('.channelhexcolor').val(),
+    'channelbamlink': $(v).find('.channelbamlink').val(),
+    'channeltotalreadsmapped': $(v).find('.channeltotalreadsmapped').val(),
+    'channelpublicationlink': $(v).find('.channelpublicationlink').val(),
+    'channeltissue': $(v).find('.channeltissue').val(),
+    'channelsvgname': $(v).find('.channelsvgname').val(),
+    'channeltitle': $(v).find('.channeltitle').val(),
+    'channelpublicationlink': $(v).find('.channelpublicationlink').val(),
+    'channelcontrols': $(v).find('.channelcontrols').val(),
+    'channelgroupwidth': $(v).find('.channelgroupwidth').val()
   };
 
-  var newXml = added.replace(/<\?(\w+)\?>/g,
+  var fillXML = added.replace(/<\?(\w+)\?>/g,
     function(match, name) {
       return variables[name];
     });
 
-  var finalXML = base + '\n' + newXml + '\n' + end;
+  return fillXML;
 
-  $('#ResultXml').val(finalXML);
-  $('#DownloadLink')
-    .attr('href', 'data:text/xml;base64,' + btoa(finalXML))
-    .attr('download', 'bamdata.xml');
-  $('#generated').show();
+
 }
 
 $(function () {
@@ -69,6 +78,5 @@ $(function () {
 });
 
 function CloneSection() {
-  added = added + '\n' + adding;
-  $("body").append($("#Entries:first").clone(true));
+  $(".SubmissionArea").append($(".Entries:first").clone(true));
 }
