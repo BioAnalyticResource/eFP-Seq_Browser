@@ -7,7 +7,7 @@ $(function () {
        $(".Entries").each(function(i,v) {formatXML +=update(formatXML,v)
          $('#ResultXml').val(base + formatXML + end)
   $('#DownloadLink')
-    .attr('href', 'data:text/xml;base64,' + btoa(formatXML))
+    .attr('href', 'data:text/xml;base64,' + btoa(base + formatXML + end))
     .attr('download', 'bamdata.xml');
   $('#generated').show();
           });
@@ -16,7 +16,7 @@ $(function () {
 
 var base = [
   '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
-  '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata_amazon_links.dtd"',
+  '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata_amazon_links.dtd">',
   '\t<rnaseq_experiments>',
   '\n'
 ].join('\r\n');
@@ -26,25 +26,25 @@ var end = [
 ].join('\r\n');
 
 var added = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_color=\"<?channelhexcolor?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\">',
+  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
-  '\t\t\t<groupwidth>',
+  '\t\t\t<groupwith>',
   '\t\t\t\t<bam_exp><?channelgroupwidth?></bam_exp>',
-  '\t\t\t</groupwidth>',
+  '\t\t\t</groupwith>',
   '\t\t</bam_file>',
   '\n'
 ].join('\r\n');
 
 var adding = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_color=\"<?channelhexcolor?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\">',
+  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
-  '\t\t\t<groupwidth>',
+  '\t\t\t<groupwith>',
   '\t\t\t\t<bam_exp><?channelgroupwidth?></bam_exp>',
-  '\t\t\t</groupwidth>',
+  '\t\t\t</groupwith>',
   '\t\t</bam_file>',
   '\n'
 ].join('\r\n');
