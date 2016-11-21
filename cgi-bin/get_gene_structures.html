@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <title>Splice Variants Images</title>
+    <meta name="author" content="Priyank Purohit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="container" id="rna_seq_images">
+        <!-- Images are inserted here using jQuery. -->
+    </div>
+    <div class="container" id="gene_structure_images">
+        <!-- Images are inserted here using jQuery. -->
+    </div>
+    <script type="text/javascript">
+    // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function populate() {
+        // Get the locus requested from the URL variables
+        locus = getParameterByName('locus');
+        console.log("Locus requested: " + locus);
+
+        $.ajax({
+            url: 'http://bar.utoronto.ca/~ppurohit/RNA-Browser/cgi-bin/get_gene_structures.cgi?locus=' + locus,
+            dataType: 'json',
+            success: function(response) { // When the file is retrieved:
+                console.log("BAR's web service (which calls Araport service) returned a total of " + response['variant_count'] + " splice variants for locus = " + locus);
+                // Iterate through all variants and insert their images in the DOM
+                for (var i = 0; i < parseInt(response['variant_count']); i++) {
+                    $('#gene_structure_images').append('<img id="variant_index_' + i + '" src="data:image/png;base64,' + response['splice_variants'][i]['gene_structure'] + '" /> <br/>');
+                    console.log("DOM updated with splice variant index = " + i + "'s gene structure.");
+                }
+
+                $.ajax({
+                    url: 'http://ec2-52-70-232-122.compute-1.amazonaws.com/~ppurohit/RNA-Browser/cgi-bin/webservice.cgi?tissue=aerial&record=ERR274310&locus=' + locus + '&variant=1&start=' + response["locus_start"] + '&end=' + response["locus_end"],
+                    dataType: 'json',
+                    success: function(res) { // When the file is retrieved:
+                        console.log("RNA-Seq request successful for tissue = aerial, record = ERR274310, locus = " + locus + ', variant = 1, start = ' + response["locus_start"] + ', end = ' + response["locus_end"]);
+                        $('#rna_seq_images').append('<img id="rna-seq-img" src="data:image/png;base64,' + res['rnaseqbase64'] + '" /> <br/>');
+                    }
+                });
+            }
+        });
+
+    }
+    populate();
+    </script>
+</body>
+
+</html>

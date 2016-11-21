@@ -1,0 +1,27 @@
+.vcenter {
+display: inline-block;
+vertical-align: middle;
+float: none;
+}
+th.sortable {
+cursor: pointer;
+}
+.arrows {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC45bDN+TgAAAK9JREFUKFOdkt0JhTAMRuMe7QCiA7VzqBvoJE7Sh3YA3cEHUegGuXwBL+LN/fPhJKT0UJqEcs4MlmVh773k4+wdIu37zsMwMBFx3/dSXy+eESmlxHVdi4QcY1QvH9C6rtx1HRdFIRIy6m3bVAFQCIGttSIcoJ7nWRUANU3DZVm+MI6jKoBn9/7h3kvan4wxPE2TKgC1e23bfu4ewnlOVVV9nxPCrY0A2Dnn3A+7l/kBTysUq9Bl38cAAAAASUVORK5CYII=) no-repeat 100%;
+}
+thead, tbody, td, th {
+border: 1px solid #D3D3D3;
+}
+.hidden {
+display: none;
+}
+.locus_button_style {
+	margin-left: 20px;
+}
+
+.mdl-tooltip.is-active {
+    animation: none;
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+}

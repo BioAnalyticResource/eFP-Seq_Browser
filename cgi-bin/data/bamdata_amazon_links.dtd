@@ -1,0 +1,16 @@
+<!ELEMENT rnaseq_experiments (bam_file)+>
+	<!ELEMENT bam_file (controls, groupwith)>
+		<!ATTLIST bam_file 
+			title CDATA #REQUIRED 
+			publication_url CDATA #REQUIRED 
+			svgname CDATA #REQUIRED 
+			svg_subunit CDATA #REQUIRED 
+			desc CDATA #REQUIRED 
+			record_number CDATA #REQUIRED 
+			hex_colour CDATA #REQUIRED 
+			bam_link CDATA #REQUIRED 
+			total_reads_mapped CDATA #REQUIRED 
+			publication_link CDATA #REQUIRED>
+<!ELEMENT controls (bam_exp+)>
+<!ELEMENT groupwith (bam_exp+)>
+<!ELEMENT bam_exp (#PCDATA)>

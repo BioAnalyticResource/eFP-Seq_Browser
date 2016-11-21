@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Multi-track RNA-Seq Browser</title>
+    <meta name="author" content="Priyank Purohit">
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="core/tablesorter.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="core/style.css">
+    <!--http://stackoverflow.com/questions/1802936/stop-all-active-ajax-requests-in-jquery-->
+    <script type="text/javascript">
+    $(function() {
+        $.xhrPool = [];
+        $.xhrPool.abortAll = function() {
+            $(this).each(function(i, jqXHR) { //  cycle through list of recorded connection
+                jqXHR.abort(); //  aborts connection
+                $.xhrPool.splice(i, 1); //  removes from list by index
+            });
+        }
+        $.ajaxSetup({
+            beforeSend: function(jqXHR) {
+                $.xhrPool.push(jqXHR);
+            }, //  annd connection to list
+            complete: function(jqXHR) {
+                var i = $.xhrPool.indexOf(jqXHR); //  get index for current connection completed
+                if (i > -1) $.xhrPool.splice(i, 1); //  removes from list by index
+            }
+        });
+    })
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Title + Help + Cite -->
+        <div class="row" style="">
+            <p style="font-size: 25px; height: 40px; margin-top: 5px; margin-bottom: 5px; text-align: center;"><i>A. thaliana</i> Multi-track RNA-Seq Browser</p>
+            <p style="font-size: 15px; margin-top: 5px; margin-bottom: 5px; text-align: center;">Priyank Purohit, Nicholas Provart. University of Toronto.</p>
+        </div>
+        <hr style="border: 1px solid black; margin: 5px; " />
+        <!-- Options and Variants selection. -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <div id="variants_div">
+                    <!-- Variants will go here. -->
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="radio_group" value="0" checked="checked"><img id="variant_0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAElBMVEX///8AAADcFDz/jAAA/wAA AP/7d9nXAAAAZUlEQVQ4jWMIJQYEMIAAnIvKwwLAClhxCwSgcAOwyaJoh5kAB2iSeN1ClKpRH2KY OupDevpQcLgDBiV8wAUKHMABB+O5oPKwALACFtwCDihcB2yyKNphJsABQtLZmAAY9eHQ9yEARKto sEubL6AAAAAASUVORK5CYII= " class="">
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="radio_group" value="1"><img id="variant_1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAElBMVEX///8AAADcFDz/jAAA/wAA AP/7d9nXAAAAWUlEQVQ4jWNgDSUCBDAMMsCK6TisHgnAJTHqwwEHoz5ElhMc7oCBSQkPcIECB3Ao wXguqDwsAKyABbeAAwrXAZssinaYCXCALOmAIuRsjAwMgBKjPhzyPgQAN+feVrOPc0wAAAAASUVO RK5CYII= " class="">
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="radio_group" value="2"><img id="variant_2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAElBMVEX///8AAADcFDz/jAAA/wAA AP/7d9nXAAAAWklEQVQ4jWNggIJQfCCAYZABVky3sRJy86gPBxcY9SGymwWHO4CHihI24AIFDmAl MJ4LKg8LACtgwS3ggMJ1wCaLoh1mAhwgJJ0NoELMxqjAgAENjPpwyPoQAKVqxM3mHQZdAAAAAElF TkSuQmCC " class="">
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="radio_group" value="3"><img id="variant_3" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAElBMVEX///8AAADcFDz/jAAA/wAA AP/7d9nXAAAAVklEQVQ4jWNggIJQKGBABqxQwQCGYQBGfTj0wfD1oeBwB3CfKoGAiosLivdZXCDA AcxzgQFUHhaAohmLgAMK1wGbLIp2FzR3IUk6GxsQGZejPhyyPgQAkQ+AWsNBkCYAAAAASUVORK5C YII= " class="">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <p>
+                            <input type="text" class="form-control" name="Locus" id="locus" value="AT2G24270" style="width: 175px; height: 35px;" />Locus
+                        </p>
+                    </div>
+                    <div class="col-xs-1">
+                        <input type="button" class="btn btn-success" onclick="update_gene_structure_and_rna_seq_images()" value="GO" style="height: 35px;" />
+                    </div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-4">
+                        <p>
+                            <input type="text" class="form-control" name="" id="" value="" style="width: 175px; height: 35px;" />Y-axis Scale
+                        </p>
+                    </div>
+                    <div class="col-xs-1">
+                        <input type="button" class="btn btn-success" onclick="" value="GO" style="height: 35px;" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <p>
+                            <input type="text" class="form-control" name="" id="" value="" style="width: 175px; height: 35px;" />Y-axis Scale
+                        </p>
+                    </div>
+                    <div class="col-xs-1">
+                        <input type="button" class="btn btn-success" onclick="" value="GO" style="height: 35px;" />
+                    </div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-4">
+                        <p>
+                            <input type="text" class="form-control" name="" id="" value="" style="width: 175px; height: 35px;" />Y-axis Scale
+                        </p>
+                    </div>
+                    <div class="col-xs-1">
+                        <input type="button" class="btn btn-success" onclick="" value="GO" style="height: 35px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="border: 1px solid black; margin: 5px; " />
+        <!-- RNA-Seq table. -->
+        <div class="col-xs-12 table-responsive">
+            <table id="thetable" class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 250px;">Title</th>
+                        <th style="width: 460px;">RNA-Seq Coverage</th>
+                        <th style="width: 100px;">eFP - RPKM</th>
+                        <th style="width: 275px;">Description and Details</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var locus = document.getElementById("locus").value;
+    var locus_start = 10326918;
+    var locus_end = 10330048;
+    var rnaseq_calls = [];
+
+    /* Re-read the value from the input box*/
+    function update_locus() {
+        locus = document.getElementById("locus").value;
+    }
+
+    /* When user clicks GO button, this function is called to updated gene structure AND RNA-Seq images*/
+    function update_gene_structure_and_rna_seq_images() {
+        $.xhrPool.abortAll();
+        variants_radio_options();
+        //moved the populate_table() call inside the variants_radio_options()'s success: fun {} call.... TO DO: figure out a better way to do all this
+        // This was done to make sure that the new locus' start and end were determined before making the new AJAX requests.
+    }
+
+    /* Updates the radio button <DIV> with new variants*/
+    function variants_radio_options() {
+        update_locus();
+        $.ajax({
+            url: 'http://bar.utoronto.ca/~ppurohit/RNA-Browser/cgi-bin/get_gene_structures.cgi?locus=' + locus,
+            dataType: 'json',
+            success: function(gene_res) {
+                // Update locus_start and locus_end
+                locus_start = gene_res['locus_start'];
+                locus_end = gene_res['locus_end'];
+                populate_table();
+
+                // Remove existing variant images.
+                var variants_div = document.getElementById("variants_div");
+                while (variants_div.firstChild) {
+                    variants_div.removeChild(variants_div.firstChild);
+                }
+                for (var i = 0; i < parseInt(gene_res['variant_count']); i++) {
+                    // retrieve the base64 and create the element to insert
+                    var append_str = "<div class=\"radio\"><label><input type=\"radio\" value=\"" + i + "\"";
+                    if (i == 0) {
+                        append_str += "checked=\"checked\"";
+                    }
+                    append_str += " name=\"radio_group\"><img id=\"variant_" + i + "\" src=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + "\" ></label></div>";
+                    // Append the element to the div
+                    $("#variants_div").append(append_str);
+                }
+                var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
+                for (var i = 0; i < all_gene_structure_imgs.length; i++) {
+                    all_gene_structure_imgs[i].src = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
+                }
+                $('input[type=radio][name=radio_group]').change(function() {
+                    gene_structure_radio_on_change();
+                });
+            }
+        });
+    }
+
+    /* When radio button changes, update the gene structure throughout the document */
+    function gene_structure_radio_on_change() {
+        // Find out which variant is currently selected
+        var variant_selected = $('input[type="radio"][name="radio_group"]:checked').val();
+        // Get the variant's img src
+        var base64 = document.getElementById('variant_' + variant_selected).src;
+        //console.log(base64);
+        // Find all img tags that should be updated (all the <img> with class gene_structure)
+        var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
+        // Change their src to the newly selected variant's src
+        for (var i = 0; i < all_gene_structure_imgs.length; i++) {
+            all_gene_structure_imgs[i].src = base64;
+        }
+    }
+
+    /* Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function */
+    function rnaseq_images() {
+        update_locus();
+        // GET RNA-Seq data for this row
+        // Need: tissue, experimentno, locus, start, end
+        if (rnaseq_calls.length == 113) {
+            for (var i = 0; i < 113; i++) {
+                $.ajax({
+                    url: 'http://ec2-52-70-232-122.compute-1.amazonaws.com/~ppurohit/RNA-Browser/cgi-bin/webservice.cgi?tissue=' + rnaseq_calls[i][0] + '&record=' + rnaseq_calls[i][1] + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end,
+                    dataType: 'json',
+                    success: function(response_rnaseq) {
+                        // find the element and update picture
+                        document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
+                    }
+                });
+            }
+        }
+    }
+
+    /* On page load, gets the BAM locator XML file to create and populate the table. Also keeps track of all RNA-Seq calls it will have to make. */
+    function populate_table() {
+        // Clear up the table + RNA-Seq Calls
+        $("#thetable").empty();
+        rnaseq_calls = [];
+
+        // Insert table headers
+        $("#thetable").append('<thead><tr>' + '<th style="width: 250px;">Title</th>' + '<th style="width: 460px;">RNA-Seq Coverage<br/>(blue=exon, green=CDS, pink=5\'UTR, orange=3\'UTR)</th>' + '<th style="width:  75px;">eFP - RPKM</th>' + '<th style="width: 275px;">Description and Details</th>' + '</tr></thead>' + '<tbody></tbody>');
+
+        $.ajax({
+            url: 'data/bamdata_amazon_links.xml',
+            dataType: 'xml',
+            success: function(xml_res) {
+                var $title = $(xml_res).find("file");
+                $title.each(function() { // Iterate over each subtag inside the <file> tag.
+                    // Extract information
+                    var title = $(this).attr('title');
+                    var description = $(this).attr('description');
+                    var svg = $(this).attr('svgname');
+                    var experimentno = $(this).attr('experimentno');
+                    var url = $(this).attr('url');
+                    var publicationid = $(this).attr('publicationid');
+                    var numberofreads = $(this).attr('numberofreads');
+                    var controls = $(this).find("control")[0].innerHTML.replace(/<experiment>/g, "").replace(/<\/experiment>/g, ",").replace(/\n/g, " ").replace(/ /g, "").split(",");
+                    var links = "";
+                    for (var i = controls.length; i--;) {
+                        if (controls[i] != "MEDIAN") {
+                            links += '<a href="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=' + controls[i] + '" target="blank">' + controls[i] + '</a> ';
+                        } else {
+                            links += controls[i];
+                        }
+                    }
+                    var name = $(this).attr('name').split("/");
+                    var tissue = $(this).attr('name').split("/")[8];
+                    var subunitname = $(this).attr('subunitname'); // supposed to be the one that gets coloured
+
+                    // Keep track of what experiments we want to query:
+                    // Need: tissue, experimentno in rnaseq_calls ... (also need start, end, and locus)
+                    rnaseq_calls.push([tissue, experimentno]);
+
+                    // Construct a table row <tr> element
+                    var append_str = '<tr>';
+                    // Append title
+                    append_str += '<td style="width: 250px;">' + title + '</td>\n';
+                    // Append RNA-Seq and Gene Structure images (2 imgs)
+                    // src="data:image/png;base64,' + response_rnaseq['rnaseqbase64'] + '" 
+                    append_str += '<td style="width: 460px;">' + '<img id="' + experimentno + '_rnaseq_img" width="450px" height="50px" class="rnaseq_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAA3CAIAAAAQUt0MAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAAOcSURBVHhe7dohUGpbFIBhg8FgIBIIBgOBYCAaDAaDwWA0GAwGg8FAYEabgWAwGAwEAsFgNBAMBgLBYCAQDAaCwWAwGHy/LB7z5t3rvHkucZw7/xeczeacw03/rA135kiSlPCe0TdJ0qeYUUlKMaOSlGJGJSnFjEpSihmVpBQzKkkpZlSSUsyoJKWYUUlKMaOSlGJGJSnFjEpSihmVpBQzKkkpZlSSUsyoJKWYUUlKMaOSlGJGJSnFjEpSihnVz/Xy8nJ9fd3pdMavpR/JjOrrDYfDtbW1crnc7XbHW5/y+vp6fHy8sLAQL1kj1tLPYUY1FYeHhysrK+MXCUyjk4xejsRa+jnMqKbio4xyTmdE7fV6TJrjrbe3p6cncnl3dzd+PcJIy2ar1YqMxst+v8+av6y5KzZ55uiOd4PBgJ1we3s73pWmyYxqKn6bUbpWqVQo497eHqf+2Nze3t7a2mo2m6VSqd1ux+b+/v7GxsbV1RWXRUaJ5vr6OhezppWFQoGHHBwcrK6uVqvV0U1vPGR5eZm72OTTWcS+NFVmVFPx24zSu/PzcxaMosViMcbPi4uLGCfr9frOzg6LTqczNzcX4yrryaGeZ0ZGwWZ8T3p/fz8zM/Pw8MB6aWkpQkxAFxcX36+Tps+Maip+zSitnJ2dnRy0GS0bjUasiSAxZYSMSrLPUBlvcTb/KKO8FWsySkxZMLrGMy8vLzc3N0dvSlNnRjUV/8ro6ekpp3J6N2kfZ/aTkxMWnOiJI1MnB/moJPcyV46u+n8Z7fV67NdqNc77fjGqb2NGNRX/zGi/3481B+2YFjmwl0qlm5sb5lBG1DjUMz9GJVutFpvD4ZA1qf0oowywsZ5klCcMBoPYDMQ0Yj35lZ+HWFh9LTOqr0cB6WaxWKR6qFQqkdEYLWNaZD5lh56Wy2UO4/F7Ee/SQTaZVQuFwu7ubrvdppIUk2dWq1VCzAVMnfPz81zDE87Ozrggvidlhw/lIXwi9z4/Pzebzahw/EtYcDGbLKSvYkb13R4fH8erv/26g9gkqTFp/idGWnLc7Xa5nr+E2/+rr+9hRvWH4KheKpXi930wezp16nuYUf0hCGitVuNcX6/XWTQajUlSpakyo5KUYkYlKcWMSlKKGZWkFDMqSSlmVJJSzKgkpZhRSUoxo5KUYkYlKcWMSlKKGZWkFDMqSSlmVJJSzKgkpZhRSUoxo5KUYkYlKcWMSlLKOKOSpE86OvoL1LenALcIq0UAAAAASUVORK5CYII=" /><br/>' + '<img id="' + experimentno + '_gene_structure_img" width="450px" height="8px" class="gene_structure_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAElBMVEX///8AAADcFDz/jAAA/wAA AP/7d9nXAAAAZUlEQVQ4jWMIJQYEMIAAnIvKwwLAClhxCwSgcAOwyaJoh5kAB2iSeN1ClKpRH2KY OupDevpQcLgDBiV8wAUKHMABB+O5oPKwALACFtwCDihcB2yyKNphJsABQtLZmAAY9eHQ9yEARKto sEubL6AAAAAASUVORK5CYII= " />' + '</td>\n';
+                    // Append the approparite SVG with correct sorting number in front of it (number stays hidden)
+                    append_str += '<td style="width:  75px;">' + '<span style="display: none;">' + numberofreads + '</span>' + '<object id="' + experimentno + '_svg' + '" data="SVGs/' + svg.substring(4) + '" width="75" height="75" type="image/svg+xml"></object>' + '</td>\n';
+                    // Append the details  
+                    append_str += '<td style="width: 200px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA' + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '<br/><a href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()">More Details</a><div id="' + url.substring(44) + '" style="display:none">Total reads = ' + numberofreads + '.<br/>Controls: ' + links + '</div></td>\n';
+                    append_str += '</tr>';
+
+                    // Append the <tr> to the table
+                    $("#thetable").append(append_str);
+
+                    if (rnaseq_calls.length == 113) {
+                        rnaseq_images();
+                    }
+                });
+            }
+        });
+    }
+
+    // Leave this document ready here, even if there is nothing in it... just leave it pls.
+    // A $( document ).ready() block.
+    $(document).ready(function() {
+        // For the first time
+        $('input[type=radio][name=radio_group]').change(function() {
+            gene_structure_radio_on_change();
+        });
+    });
+    populate_table();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SVG Colouring DEMO (Priyank)</title>
+</head>
+
+<body>
+    <object class="emb" id="svgtest" data="SVGs/FlowerParts.svg" width="200" height="200" type="image/svg+xml"></object>
+    
+    <script>
+    	function colour_part_by_id (part, colour) {
+    		var allElements = document.getElementById("svgtest").getSVGDocument().getElementById(part);
+    		var a2 = allElements.getElementsByTagName("path");
+    		//a2[0].style.fill = "blue";
+    		for (var i = 0; i < a2.length; i++)
+			{
+				a2[i].style.fill = colour;
+			}
+    	}
+
+    	window.onload = function () {
+    		colour_part_by_id("Stamen", "blue");
+    		colour_part_by_id("Petals", "red");
+    		colour_part_by_id("Sepals", "green");
+    		colour_part_by_id("Carpels", "yellow");
+    		//colour_part_by_id("Shapes", "blue"); // PART value of "Shapes" will colour the entire SVG
+    	}
+    </script>
+</body>
+
+</html>

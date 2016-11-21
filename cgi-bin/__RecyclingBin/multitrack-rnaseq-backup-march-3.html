@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="core/tablesorter.js"></script>
+    <title>Multi-track RNA-Seq Browser</title>
+    <meta name="author" content="Priyank Purohit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="core/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="col-xs-12 col-sm-7 col-md-9 text-center" style="line-height: 60px;">
+                <h2 id="title">Multi-track RNA-Seq Browser</h2>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-2 text-center" style="line-height: 60px;">
+                <select id="locus_input" style="width: 170px; height: 40px;">
+                    <option value="AT1G01010">AT1G01010</option>
+                    <option value="AT2G24270" selected="selected">AT2G24270</option>
+                    <option value="AT3G24650">AT3G24650</option>
+                    <option value="AT3G24660">AT3G24660</option>
+                    <option value="AT5G66460">AT5G66460</option>
+                </select>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-1 text-center" style="line-height: 60px;">
+                <input type="button" class="btn btn-success" onclick="cgi_call()" value="Update" />
+            </div>
+        </div>
+        <hr style="border: 1px solid black;" />
+        <div class="col-xs-12 table-responsive">
+            <table id="thetable" class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 250px;">Title</th>
+                        <th style="width: 460px;">RNA-Seq Coverage</th>
+                        <th style="width: 150px;">eFP - RPKM</th>
+                        <th style="width: 150px;">SortingDemo</th>
+                        <th style="width: 275px;">Description and Details</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var locus = $('#locus_input').val();
+
+    function cgi_call() {
+        locus = $('#locus_input').val();
+        var get_url = "multi.cgi?locus=" + locus;
+        $.ajax({
+            type: 'GET',
+            url: get_url,
+            success: function(data) {
+                window.location.href = "http://bar.utoronto.ca/~ppurohit/RNA-Browser/cgi-bin/multitrack-rnaseq.html?locus=" + locus;
+            }
+        });
+    }
+
+    function update() {
+        locus = $('#locus_input').val();
+        console.log("Locus = " + locus);
+
+        $.ajax({
+            url: 'get_gene_structures.cgi?locus=' + locus,
+            dataType: 'text',
+            success: function(response) {
+                console.log("Got base64 image back for exon; repopulating the table.");
+                console.log(response);
+                $("#thetable").empty();
+                $("#thetable").append('<thead><tr><th style="width: 250px;">Title</th><th style="width: 460px;">RNA-Seq Coverage</th><th style="width: 150px;">eFP - RPKM</th><th style="width: 150px;">SortingDemo</th><th style="width: 275px;">Description and Details</th></tr></thead><tbody></tbody>');
+                $.ajax({
+                    url: 'data/bamdata_amazon_links.xml',
+                    dataType: 'xml',
+                    success: function(xmlDoc) {
+                        var $xml = $(xmlDoc),
+                            $title = $xml.find("file");
+
+                        $title.each(function() {
+                            var img = "img/" + $(this).attr('name').substring(66).replace(/\//g, "_").replace(/.bam/g, ".png");
+                            //console.log(img);
+                            var title = $(this).attr('title');
+                            var description = $(this).attr('description');
+                            var svg = $(this).attr('svgname');
+                            var experimentno = $(this).attr('experimentno'); //SVGs/" + child.attrib.get(key)[4:]
+                            var url = $(this).attr('url'); //SVGs/" + child.attrib.get(key)[4:]
+                            var publicationid = $(this).attr('publicationid');
+                            var numberofreads = $(this).attr('numberofreads');
+                            var control = $(this).find("control")[0].innerHTML.replace(/<experiment>/g, "").replace(/<\/experiment>/g, ",").replace(/\n/g, " ").replace(/ /g, "");
+                            var controls = control.split(",");
+                            var links = "";
+                            for (var i = controls.length; i--;) {
+                                if (controls[i] != "MEDIAN") {
+                                    links += '<a href="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=' + controls[i] + '" target="blank">' + controls[i] + '</a> ';
+                                } else {
+                                    links += controls[i];
+                                }
+                            }
+
+                            $("#thetable").append(
+                                '<tr>' +
+                                '<td style="width: 250px;">' + title + '</td>\n' +
+                                '<td style="width: 460px;">' + '<img src="' + img + '" /><br/>' + '<img src="data:image/png;base64,' + response + '" />' + '</td>\n' +
+                                '<td style="width: 150px;">' + '<img style="height:50px; width:auto;" src="SVGs/' + svg.substring(4) + '" />' + '</td>\n' +
+                                '<td style="width: 150px;">' + '<span style="display: none;">' + numberofreads + '</span>' + '<img style="height:50px; width:auto;" src="SVGs/' + svg.substring(4) + '" />' + '</td>\n' +
+                                '<td style="width: 200px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA' + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '<br/><a href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()">More Details</a><div id="' + url.substring(44) + '" style="display:none">Total reads = ' + numberofreads + '.<br/>Controls: ' + links + '</div></td>\n' +
+                                '</tr>'
+                            );
+
+                            $('#thetable').tablesorter();
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    update();
+    </script>
+</body>
+
+</html>
