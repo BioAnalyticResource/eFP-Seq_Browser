@@ -16,7 +16,7 @@ $(function () {
 
 var base = [
   '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
-  '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata_amazon_links.dtd">',
+  '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">',
   '\t<rnaseq_experiments>',
   '\n'
 ].join('\r\n');

@@ -64,7 +64,7 @@ for child in e.getroot():
 				print "<td style=\"background-color:#" + child.attrib.get(key)[2:] + "; border: 1px solid grey;\">"
 			except:
 				print "<td style=\"border: 3px solid red;\">"
-		else: 
+		else:
 			print "<td style=\"border: 1px solid grey;\">"
 
 		if child.attrib.get(key):
@@ -73,7 +73,7 @@ for child in e.getroot():
 			cases = {
 				"publication_url": "<a href='" + child.attrib.get(key) + "'>URL Link</a><br />",
 				"publication_link": "<a href='" + child.attrib.get(key) + "'> Publication Link</a><br />",
-				"bam_link": "<a href='" + child.attrib.get(key) + "'>BAM File Link</a><br />", 
+				"bam_link": "<a href='" + child.attrib.get(key) + "'>BAM File Link</a><br />",
 			}
 			if key == "svgname":
 				print open("SVGs/" + child.attrib.get(key)[4:], "r").read()

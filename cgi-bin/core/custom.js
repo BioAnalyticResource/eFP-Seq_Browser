@@ -615,7 +615,7 @@ function populate_table(status) {
                 append_str += '<td style="width:  75px;">' + '<div id="' + experimentno + '_svg' + '" width="75" height="75" style="width: 75px; height: 75px; max-width: 75px; max-height: 75px;">' + document.getElementById(svg.substring(4).replace(".svg", "_svg")).innerHTML + '</div>' + '<div class="mdl-tooltip" for="' + experimentno + '_svg' + '">' + svg.substring(4).replace(".svg", "") + '</div></td>\n';
                 // Append abs/rel RPKM
                 append_str += '<td id="' + experimentno + '_rpkm' + '" style="font-size: 10px; width: 50px; ">-9999</td>';
-                // Append the details <td>  
+                // Append the details <td>
                 append_str += '<td style="width: 200px; font-size: 12px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA' + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '<br/><a href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()">More Details</a><div id="' + url.substring(44) + '" style="display:none">Total reads = ' + numberofreads + '.<br/>Controls: ' + links + '</div></td>\n';
                 append_str += '</tr>';
 
@@ -628,12 +628,12 @@ function populate_table(status) {
                     rnaseq_images(status);
                 }
             });
-            // add parser through the tablesorter addParser method 
+            // add parser through the tablesorter addParser method
             $.tablesorter.addParser({
-                // set a unique id 
+                // set a unique id
                 id: 'pcc_sorter',
                 is: function(s) {
-                    // return false so this parser is not auto detected 
+                    // return false so this parser is not auto detected
                     return false;
                 },
                 format: function(s) {
@@ -650,18 +650,18 @@ function populate_table(status) {
                         return parseFloat(s);
                     }
                 },
-                // set type, either numeric or text 
+                // set type, either numeric or text
                 type: 'numeric'
             });
             $.tablesorter.addParser({
-                // set a unique id 
+                // set a unique id
                 id: 'rpkm_sorter',
                 is: function(s) {
-                    // return false so this parser is not auto detected 
+                    // return false so this parser is not auto detected
                     return false;
                 },
                 format: function(s) {
-                    // format your data for normalization 
+                    // format your data for normalization
                     if (s == NaN) {
                         return -99999;
                     } else if (s == undefined) {
@@ -676,7 +676,7 @@ function populate_table(status) {
                         return parseFloat(s);
                     }
                 },
-                // set type, either numeric or text 
+                // set type, either numeric or text
                 type: 'numeric'
             });
             $('#thetable').tablesorter({
