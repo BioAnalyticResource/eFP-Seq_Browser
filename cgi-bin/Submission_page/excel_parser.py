@@ -1,3 +1,5 @@
+from webbrowser import open_new_tab
+from webbrowser import get
 import openpyxl
 
 f = open('submission_parse.html','w')
@@ -8,19 +10,51 @@ all_rows = tuple(sheet.rows)
 # Store string to be written into html file after all content is read.
 total_XML = """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
+<title> Submitting your RNA-Seq data for eFP-Seq Browser</title>
+<meta name="description" content="Submiting your RNA-Seq data for eFP-Seq Browser" />
+<meta name="keyboard" content="eFP, RNA-Seq" />
+<meta name="author" content="Michelle Chen" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css">
+<script src="processing-api.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="XMLgenerator-v2.js"></script>
-<div class="SubmissionArea">
+
+<!-- This script is to ask the user if they are sure if they want to close the submission system or not -->
+<script>
+window.onbeforeunload = function() { return "You are about to the submission system. Are you sure?"}
+</script>
+
+<div>
+
+    <header>
+        <div>
+            <h1 class="leftmargin">Pre-Alpha</h1>
+        <div>
+            <p class="leftmargin">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+          Or, upload XMl file:
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Choose file<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                <a target="_blank" href=" Tutorial-Help.html"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect tutorialbotton leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Tutorial/Help<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a>
+            </p>
+        </div>
+        </div>
+    </header>
+    
+    <br>
+    <body>
+    <div class="SubmissionArea">
 """
 
 # Iterate through each entry and corresponding cells.
 for row in range(1, len(all_rows)):
     crow = all_rows[row] # Current entry
     total_XML += """
-<div class="Entries" name="Entries">
-<legend class="leftmargin"> Entry </legend>
-    <form class="form">
-        <fieldset>"""
+    <div class="Entries" name="Entries">
+    <legend class="leftmargin"> Entry </legend>
+        <form class="form">
+            <fieldset>
+                <table>"""
 
     for x in range(1, 12):
         ccell = crow[x].value
@@ -35,57 +69,75 @@ for row in range(1, len(all_rows)):
         else:
             if x == 1:
                 total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channelspecies' name='channelspecies' data-help-text='species' value='""" + ccell + """'/>
-                </div>"""
+                </div>
+                </tr>"""
 
             elif x == 2:
                 total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channeltitle' name='channeltitle' data-help-text='title' value='""" + ccell + """'/>
-                </div>"""
+                </div>
+                </tr>"""
 
             elif x == 3: #how to validate BAM link?
                 total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channelbamlink' name='channelbamlink' data-help-text='bam_link' value='""" + ccell + """'/>
-                </div>"""
+                </div>
+                </tr>"""
 
             elif x == 4:
                 total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channelpublicationlink' name='channelpublicationlink' data-help-text='publication_link' value='""" + ccell + """'/>
-                </div>"""
+                </div>
+                </tr>"""
 
             elif x == 5 and ("ncbi" or "NCBI" in ccell):
                 total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channelpublicationurl' name='channelpublicationurl' data-help-text='publication_url' value='""" + ccell + """'/>
-                </div>"""
+                </div>
+                </tr>"""
 
             elif x == 6:
                 total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channeltotalreadsmapped' name='channeltotalreadsmapped' data-help-text='svgname' value='""" + str(ccell) + """'/>
-                </div>"""
+                </div>
+                </tr>"""
 
             elif x == 7 and ".svg" in ccell:
                 total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channelsvgname' name='channelsvgname' data-help-text='total_reads_mapped' value='""" + ccell + """'/>
-                </div>"""
+                </div>
+                </tr>"""
 
             elif x == 8:
                 total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channeltissue' name='channeltissue' data-help-text='tissue' value='""" + ccell + """'/>
-                </div>"""
+                </div>
+                </tr>"""
 
             elif x == 9:
                 total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channelcontrols' name='channelcontrols' data-help-text='total_controls' value='""" + ccell + """'/>
-                </div>"""
+                </div>
+                </tr>"""
 
             elif x == 10:
                 replicates = ccell.split(", ")
@@ -100,52 +152,65 @@ for row in range(1, len(all_rows)):
 
                         if replicates.index(i) == 0:
                             total_XML += """
+                <tr>            
                 <div class='forminput'>
                     <input class='channelgroupwidtho' name='channelgroupwidtho' data-help-text='groupwidth' value='""" + i + """'/>
-                </div>"""
+                </div>
+                </tr>"""
                             k += 1
                         else:    
                             total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channelgroupwidth""" + str(k) + "' name='channelgroupwidth""" + str(k) + "' data-help-text='groupwidth' value='""" + i + """'/>
-                </div>"""
+                </div>
+                </tr>"""
                             k += 1
 
-# Add in the remaining empty replicates.
+# Add in the remaining empty replicates, change 5 to whatever max # you want.
                     j = k
                     for x in range(len(replicates), 5):
 
                         total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channelgroupwidth""" + str(j) + "' name='channelgroupwidth""" + str(j) + """' data-help-text='groupwidth' value=''/>
-                </div>"""
+                </div>
+                </tr>"""
                         j += 1
 
 
             elif x == 11:
                  total_XML += """
+                <tr>
                 <div class='forminput'>
                     <input class='channeldescription' name='channeldescription' data-help-text='description' value='""" + ccell + """'/>
-                </div>"""
+                </div>
+                </tr>"""
 
     total_XML += """
-        </fieldset>
-    </form>
-</div>
+                </table>
+            </fieldset>
+        </form>
+    </div>
 """
 
 
 total_XML += """
-</div>
-<div id="Cloning" class="button_fixed">
-    <p>
-        <button id="SubmitButton">Generate XML</button>
-    </p>
-</div>
-<div id="generated" style="display:none">
-  <h2>bamdata.xml</h2>
-  <a href="#" id="DownloadLink">Download XML</a>
-  <textarea id="ResultXml" style="width: 100%; height: 30em" readonly="readonly"></textarea>
+    </div>
+    </body>
+    </br>
+    <div id="Cloning" class="button_fixed">
+        <p>
+            <button id="CloneForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple">Add another entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+            <button id="SubmitButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple">Generate XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+        </p>
+    </div>
+    <div id="generated" style="display:none">
+        <h2>bamdata.xml</h2>
+        <a href="#" id="DownloadLink">Download XML</a>
+        <textarea id="ResultXml" style="width: 100%; height: 30em" readonly="readonly"></textarea>
+    </div>    
 </div>
 </html>"""
 
@@ -154,5 +219,5 @@ print (total_XML) # Testing purposes
 f.write(total_XML)
 f.close()
 
-
-
+filename = "/Users/michellechen/Dropbox/Multi-track_RNA-Seq_Browser/eFP-Seq-Browser/cgi-bin/Submission_page/submission_parse.html"
+get("safari").open_new_tab(filename)

@@ -5,10 +5,15 @@
 <meta name="keyboard" content="eFP, RNA-Seq" />
 <meta name="author" content="Alexander Sullivan" />
 <link rel="stylesheet" type="text/css" href="Submission_page/style.css" />
-<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css">
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css"/>
 <script src="Submission_page/processing-api.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="Submission_page/XMLgenerator-v2.js"></script>
+
+<!--Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- This script is to ask the user if they are sure if they want to close the submission system or not -->
 <script>
@@ -20,13 +25,12 @@ window.onbeforeunload = function() { return "You are about to the submission sys
   <!-- Titles and top buttons -->
   <header>
     <div>
-      <h1 class="leftmargin">Pre-Alpha</h1>
+      <h1 class="leftmargin">Alpha v0.0</h1>
       <div>
         <p class="leftmargin">
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
           Or, upload XMl file:
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Choose file<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-          <a target="_blank" href=" Tutorial-Help.html"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect tutorialbotton leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Tutorial/Help<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a>
         </p>
       </div>
     </div>
@@ -43,195 +47,211 @@ window.onbeforeunload = function() { return "You are about to the submission sys
   <legend class="leftmargin"> Entry </legend>
     <form class="form">
       <fieldset>
+        <table class="container">
+            <!-- Title -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-title" title="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment">Title</label></th>
+              <input class="channeltitle col-sm-8" name="channeltitle" type="text" placeholder="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment"  data-help-text="title"/>
+            </div>
+            </tr>
 
-        <!-- Title -->
-        <div class="titleform">
-          <label for="channel-title" title="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment">Title</label>
-          <input class="channeltitle" name="channeltitle" type="text" placeholder="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment"  data-help-text="title"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment. Open the tutorial for more examples."></a>
-        </div>
+            <!-- Description -->
+            <tr>
+            <div class="forminput row">
+              <label for="channel-description" class="formtextarea col-sm-3" title="Description of your RNA-Seq submission data">Description</label>
+              <textarea class="channeldescription col-sm-8" name="channeldescription" type="text" placeholder="A description of your RNA-Seq data such as what it is or what it contains. This can be brief like: E-MTAB-1668:24hCS-RNA or GSM798296: mRNASeq_WT_rep2 or something long" data-help-text="description"></textarea>
+            </div>
+            </tr>
 
-        <!-- Description -->
-        <div class="forminput">
-          <label for="channel-description" class="formtextarea" title="Description of your RNA-Seq submission data">Description</label>
-          <textarea class="channeldescription" name="channeldescription" type="text" placeholder="A description of your RNA-Seq data such as what it is or what it contains. This can be brief like: E-MTAB-1668:24hCS-RNA or GSM798296: mRNASeq_WT_rep2 or something long" data-help-text="description"></textarea>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="Description of your RNA-Seq submission data. Open the tutorial for more examples."></a>
-        </div>
+            <!-- Record number -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-record_number" title="Record or run number. For example ERR274310 or SRR547531">Record number</label>
+              <input class="channelrecordnumber col-sm-8" name="channelrecordnumber" placeholder="ERR274310 or SRR547531" type="text" data-help-text="record_number"/>
+            </div>
+            </tr>
 
-        <!-- Record number -->
-        <div class="forminput">
-          <label for="channel-record_number" title="Record or run number. For example ERR274310 or SRR547531">Record number</label>
-          <input class="channelrecordnumber" name="channelrecordnumber" placeholder="ERR274310 or SRR547531" type="text" data-help-text="record_number"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="Record or run number. For example ERR274310 or SRR547531. Open tutorial on how to find this information."></a>
-        </div>
-
-        <!-- Hex color -->
-        <div class="forminput">
-          <label for="channel-hex_color" title="Admin use, this temp">Hex color</label>
-          <input class="channelhexcolor" name="channelhexcolor" placeholder="0x64cc65" type="text" data-help-text="record_number"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="Admin use, this temp. Use 0x64cc65"></a>
-        </div>
-
-        <!-- BAM Repository link -->
-        <div class="forminput">
-          <label for="channel-bam_link" title="It is required for your your BAM files or RNA-Seq data files to have a .dl repository link for the eFP-Seq Browser to give you input.">RNA-Seq Data/BAM file Repsitory Link</label>
-          <input class="channelbamlink" name="channelbamlink" placeholder="THIS IS REQUIRED. Examples: http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam or " type="text" data-help-text="bam_link"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="It is required for your your BAM files or RNA-Seq data files to have a .dl repository link for the eFP-Seq Browser to give you input. Open tutorial on how to create this link."></a>
-        </div>
-
-        <!-- Publication link -->
-        <div class="forminput">
-          <label for="channel-publication_link" title="If your research has been published or referencing a research, it may be useful to link to the publication.">Publicaiton Link</label>
-          <input class="channelpublicationlink" name="channelpublicationlink" placeholder="http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="If your research has been published or referencing a research, it may be useful to link to the publication. Open tutorial on how to find this link."></a>
-        </div>
-
-        <!-- SRA Link -->
-        <div class="forminput">
-          <label for="channel-publication_url" title="If your RNA-Seq data is available on NCBI's Sequence Read Archive, it may be useful to include this informaiton.">Sequence Reach Archive/NCBI Link</label>
-          <input class="channelpublicationurl" name="channelpublicationurl" placeholder="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="If your RNA-Seq data is available on NCBI's Sequence Read Archive, it may be useful to include this informaiton. Open tutorial on how to find this link."></a>
-        </div>
-
-        <!-- Total reads mapped -->
-        <div class="forminput">
-          <label for="channel-total_reads_mapped" title="The total amount of reads mapped in your RNA-Seq data.">Total Reads Mapped</label>
-          <input class="channeltotalreadsmapped" name="channeltotalreadsmapped" placeholder="29098868" type="text" data-help-text="total_reads_mapped"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="The total amount of reads mapped in your RNA-Seq data. Open tutorial on how to find or understand this."></a>
-        </div>
-
-        <!-- SVG Name -->
-        <div class="forminput">
-          <label for="channel-svgname" title="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg">SVG Name</label>
-          <input class="channelsvgname" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="sngname"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="Admin use only: SVG Name. Ex:   ath-rosettePlusRoot.svg . Open tutorial on how to find or understand this."></a>
-        </div>
-
-        <!-- Spcies -->
-        <div class="forminput">
-          <label for="channel-species" title="The species of the organism (latin name with exception of human) that your RNA-Seq data is for.">Species</label>
-          <input class="channelspecies" list="channelspecieslist" name="channelspecies" placeholder="Arabidopsis" type="text" data-help-text="species"/>
-          <datalist id="channelspecieslist">
-            <option value="Arabidopsis thaliana"/>
-            <option value="Selaginella moellendorffi"/>
-            <option value="Brachypodium distachyon"/>
-            <option value="Setaria viridis"/>
-            <option value="Lotus japonicus"/>
-            <option value="Maize"/>
-            <option value="Nicotiana benthamiana"/>
-            <option value="Oryza sativa"/>
-            <option value="Caenorhabditis elegans"/>
-            <option value="Saccharomyces cerevisiae"/>
-            <option value="Tobacco mosaic virus"/>
-            <option value="Escherichia coli"/>
-            <option value="Bacillus subtilis"/>
-            <option value="Pseudomonas fluorescens"/>
-            <option value="Human"/>
-            <option value="Mus muculus"/>
-          </datalist>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="The species of the organism (latin name with exception of human) that your RNA-Seq data is for. Open tutorial for list of available species."></a>
-        </div>
-
-        <!-- Tissue -->
-        <div class="forminput">
-          <label for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue</label>
-          <input class="channeltissue" list="channeltissuelist" name="channeltissue" placeholder="Etiolated seedling" type="text" data-help-text="tissue"/>
-          <datalist id="channeltissuelist">
-            <option value="Dry seed"/>
-            <option value="Imbibed seed, 24 h"/>
-            <option value="1st Node"/>
-            <option value="Flower Stage 12, Stamens"/>
-            <option value="Cauline Leaf"/>
-            <option value="Cotyledon"/>
-            <option value="Root"/>
-            <option value="Entire Rosette After Transition to Flowering"/>
-            <option value="Flower Stage 9"/>
-            <option value="Flower Stage 10/11"/>
-            <option value="Flower Stage 12"/>
-            <option value="Flower Stage 15"/>
-            <option value="Flower Stage 12, Carpels"/>
-            <option value="Flower Stage 15, Carpels"/>
-            <option value="Flower Stage 12, Petals"/>
-            <option value="Flower Stage 15, Petals"/>
-            <option value="Flower Stage 12, Sepals"/>
-            <option value="Flower Stage 15, Sepals"/>
-            <option value="Flowers Stage 15, Pedicels"/>
-            <option value="Leaf 1 + 2"/>
-            <option value="Leaf 7, Petiole"/>
-            <option value="Leaf 7, Distal Half"/>
-            <option value="Leaf 7, Proximal Half"/>
-            <option value="Hypocotyl"/>
-            <option value="Root"/>
-            <option value="Rosette Leaf 2"/>
-            <option value="Rosette Leaf 4"/>
-            <option value="Rosette Leaf 6"/>
-            <option value="Rosette Leaf 8"/>
-            <option value="Rosette Leaf 10"/>
-            <option value="Rosette Leaf 12"/>
-            <option value="Senescing Leaf"/>
-            <option value="Shoot Apex, Inflorescence"/>
-            <option value="Shoot Apex, Transition"/>
-            <option value="Shoot Apex, Vegetative"/>
-            <option value="Stem, 2nd Internode"/>
-            <option value="Mature Pollen"/>
-            <option value="Seeds Stage 3 w/ Siliques"/>
-            <option value="Seeds Stage 4 w/ Siliques"/>
-            <option value="Seeds Stage 5 w/ Siliques"/>
-            <option value="Seeds Stage 6 w/o Siliques"/>
-            <option value="Seeds Stage 7 w/o Siliques"/>
-            <option value="Seeds Stage 8 w/o Siliques"/>
-            <option value="Seeds Stage 9 w/o Siliques"/>
-            <option value="Seeds Stage 10 w/o Siliques"/>
-            <option value="Vegetative Rosette"/>
-          </datalist>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="The tissue the RNA-Seq data is from. Open tutorial for list of available species."></a>
-        </div>
-
-        <!-- Control -->
-        <div class="forminput">
-          <label for="channel-controls" title="The BAM exp number of the controls in your RNA-Seq data.">Controls</label>
-          <input class="channelcontrols" name="channelcontrols" placeholder="ERR274310" type="text" data-help-text="total_controls"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="The BAM exp number of the controls in your RNA-Seq data. Open tutorial to learn more about this."></a>
-        </div>
-
-        <!-- Replicate control 1 -->
-        <div class="forminput">
-          <label for="channel-groupwidtho" title="The BAM exp number of the replicate controls in your RNA-Seq data."><img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1</label>
-          <input class="channelgroupwidtho" name="channelgroupwidtho" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="The BAM exp number of the replicate controls in your RNA-Seq data. Open tutorial to learn more about this."></a>
-        </div>
+            <!-- Hex color -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-hex_color" title="Admin use, this temp">Hex color</label>
+              <input class="channelhexcolor col-sm-8" name="channelhexcolor" placeholder="0x64cc65" type="text" data-help-text="record_number"/>
+            </div>
 
 
-        <!-- Replicate control 2 -->
-        <div class="forminput">
-          <label for="channel-groupwidth2" title="The BAM exp number of the replicate controls in your RNA-Seq data."><img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 2</label>
-          <input class="channelgroupwidth2" name="channelgroupwidth2" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="The BAM exp number of the replicate controls in your RNA-Seq data. Open tutorial to learn more about this."></a>
-        </div>
+            <!-- BAM Repository link -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-bam_link" title="It is required for your your BAM files or RNA-Seq data files to have a .dl repository link for the eFP-Seq Browser to give you input.">RNA-Seq Data/BAM file Repsitory Link</label>
+              <input class="channelbamlink col-sm-8" name="channelbamlink" placeholder="THIS IS REQUIRED. Examples: http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam or " type="text" data-help-text="bam_link"/>
+            </div>
 
-        <!-- Replicate control 3 -->
-        <div class="forminput">
-          <label for="channel-groupwidth3" title="The BAM exp number of the replicate controls in your RNA-Seq data."><img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 3</label>
-          <input class="channelgroupwidth3" name="channelgroupwidth3" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="The BAM exp number of the replicate controls in your RNA-Seq data. Open tutorial to learn more about this."></a>
-        </div>
 
-        <!-- Replicate control 4 -->
-        <div class="forminput">
-          <label for="channel-groupwidth4" title="The BAM exp number of the replicate controls in your RNA-Seq data."><img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 4</label>
-          <input class="channelgroupwidth4" name="channelgroupwidth4" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="The BAM exp number of the replicate controls in your RNA-Seq data. Open tutorial to learn more about this."></a>
-        </div>
+            <!-- Publication link -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-publication_link" title="If your research has been published or referencing a research, it may be useful to link to the publication.">Publicaiton Link</label>
+              <input class="channelpublicationlink col-sm-8" name="channelpublicationlink" placeholder="http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
+            </div>
+            </tr>
 
-        <!-- Replicate control 5 -->
-        <div class="forminput">
-          <label for="channel-groupwidth5" title="The BAM exp number of the replicate controls in your RNA-Seq data."><img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 5</label>
-          <input class="channelgroupwidth5" name="channelgroupwidth5" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
-          <a target="_blank" href=" Tutorial-Help.html"><img class="scale" src=" Submission_page/Images/help2.png" title="The BAM exp number of the replicate controls in your RNA-Seq data. Open tutorial to learn more about this."></a>
-        </div>
+            <!-- SRA Link -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-publication_url" title="If your RNA-Seq data is available on NCBI's Sequence Read Archive, it may be useful to include this informaiton.">Sequence Reach Archive/NCBI Link</label>
+              <input class="channelpublicationurl col-sm-8" name="channelpublicationurl" placeholder="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
+            </div>
+            </tr>
 
-	  </fieldset>
-	</form>
+            <!-- Total reads mapped -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-total_reads_mapped" title="The total amount of reads mapped in your RNA-Seq data.">Total Reads Mapped</label>
+              <input class="channeltotalreadsmapped col-sm-8" name="channeltotalreadsmapped" placeholder="29098868" type="text" data-help-text="total_reads_mapped"/>
+            </div>
+            </tr>
+
+            <!-- SVG Name -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-svgname" title="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg">SVG Name</label>
+              <input class="channelsvgname col-sm-8" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="sngname"/>
+            </div>
+            </tr>
+
+            <!-- Spcies -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-species" title="The species of the organism (latin name with exception of human) that your RNA-Seq data is for.">Species</label>
+              <input class="channelspecies col-sm-8" list="channelspecieslist" name="channelspecies" placeholder="Arabidopsis" type="text" data-help-text="species"/>
+              <datalist id="channelspecieslist">
+                <option value="Arabidopsis thaliana"/>
+                <option value="Selaginella moellendorffi"/>
+                <option value="Brachypodium distachyon"/>
+                <option value="Setaria viridis"/>
+                <option value="Lotus japonicus"/>
+                <option value="Maize"/>
+                <option value="Nicotiana benthamiana"/>
+                <option value="Oryza sativa"/>
+                <option value="Caenorhabditis elegans"/>
+                <option value="Saccharomyces cerevisiae"/>
+                <option value="Tobacco mosaic virus"/>
+                <option value="Escherichia coli"/>
+                <option value="Bacillus subtilis"/>
+                <option value="Pseudomonas fluorescens"/>
+                <option value="Human"/>
+                <option value="Mus muculus"/>
+              </datalist>
+            </div>
+            </tr>
+
+            <!-- Tissue -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue</label>
+              <input class="channeltissue col-sm-8" list="channeltissuelist" name="channeltissue" placeholder="Etiolated seedling" type="text" data-help-text="tissue"/>
+              <datalist id="channeltissuelist">
+                <option value="Dry seed"/>
+                <option value="Imbibed seed, 24 h"/>
+                <option value="1st Node"/>
+                <option value="Flower Stage 12, Stamens"/>
+                <option value="Cauline Leaf"/>
+                <option value="Cotyledon"/>
+                <option value="Root"/>
+                <option value="Entire Rosette After Transition to Flowering"/>
+                <option value="Flower Stage 9"/>
+                <option value="Flower Stage 10/11"/>
+                <option value="Flower Stage 12"/>
+                <option value="Flower Stage 15"/>
+                <option value="Flower Stage 12, Carpels"/>
+                <option value="Flower Stage 15, Carpels"/>
+                <option value="Flower Stage 12, Petals"/>
+                <option value="Flower Stage 15, Petals"/>
+                <option value="Flower Stage 12, Sepals"/>
+                <option value="Flower Stage 15, Sepals"/>
+                <option value="Flowers Stage 15, Pedicels"/>
+                <option value="Leaf 1 + 2"/>
+                <option value="Leaf 7, Petiole"/>
+                <option value="Leaf 7, Distal Half"/>
+                <option value="Leaf 7, Proximal Half"/>
+                <option value="Hypocotyl"/>
+                <option value="Root"/>
+                <option value="Rosette Leaf 2"/>
+                <option value="Rosette Leaf 4"/>
+                <option value="Rosette Leaf 6"/>
+                <option value="Rosette Leaf 8"/>
+                <option value="Rosette Leaf 10"/>
+                <option value="Rosette Leaf 12"/>
+                <option value="Senescing Leaf"/>
+                <option value="Shoot Apex, Inflorescence"/>
+                <option value="Shoot Apex, Transition"/>
+                <option value="Shoot Apex, Vegetative"/>
+                <option value="Stem, 2nd Internode"/>
+                <option value="Mature Pollen"/>
+                <option value="Seeds Stage 3 w/ Siliques"/>
+                <option value="Seeds Stage 4 w/ Siliques"/>
+                <option value="Seeds Stage 5 w/ Siliques"/>
+                <option value="Seeds Stage 6 w/o Siliques"/>
+                <option value="Seeds Stage 7 w/o Siliques"/>
+                <option value="Seeds Stage 8 w/o Siliques"/>
+                <option value="Seeds Stage 9 w/o Siliques"/>
+                <option value="Seeds Stage 10 w/o Siliques"/>
+                <option value="Vegetative Rosette"/>
+              </datalist>
+            </div>
+            </tr>
+
+            <!-- Control -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-controls" title="The BAM exp number of the controls in your RNA-Seq data.">Controls</label>
+              <input class="channelcontrols col-sm-8" name="channelcontrols" placeholder="ERR274310" type="text" data-help-text="total_controls"/>
+            </div>
+            </tr>
+
+            <!-- Replicate control 1 -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3 " for="channel-groupwidtho" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1</label>
+              <input class="channelgroupwidtho col-sm-8" name="channelgroupwidtho" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+            </div>
+            </tr>
+
+            <!-- Replicate control 2 -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3 " for="channel-groupwidth2" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 2</label>
+              <input class="channelgroupwidth2 col-sm-8" name="channelgroupwidth2" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+            </div>
+            </tr>
+
+            <!-- Replicate control 3 -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3 " for="channel-groupwidth3" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 3</label>
+              <input class="channelgroupwidth3 col-sm-8" name="channelgroupwidth3" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+            </div>
+            </tr>
+
+            <!-- Replicate control 4 -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3 " for="channel-groupwidth4" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 4</label>
+              <input class="channelgroupwidth4 col-sm-8" name="channelgroupwidth4" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+            </div>
+            </tr>
+
+            <!-- Replicate control 5 -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3 " for="channel-groupwidth5" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 5</label>
+              <input class="channelgroupwidth5 col-sm-8" name="channelgroupwidth5" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+            </div>
+            </tr>
+        </table>
+  	  </fieldset>
+  	</form>
   </div>
   </div>
   </body>
@@ -251,4 +271,7 @@ window.onbeforeunload = function() { return "You are about to the submission sys
     <textarea id="ResultXml" style="width: 100%; height: 30em" readonly="readonly"></textarea>
   </div>
 </div>
+
+<!-- Floating help button -->
+<a href="Tutorial-Help.html"><img src="Submission_page/Images/help2.png" style="position: fixed; bottom: 10px; right: 10px;" height="40" title="Tutorial on how the submission system works for the eFP-Seq Browser and what to put in each input field (including how to find it)."></a>
 </html>
