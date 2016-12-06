@@ -19,6 +19,15 @@ var max_log_fpkm = -1;
 var svg_colouring_element = null; // the element for inserting the SVG colouring scale legend
 var gene_structure_colouring_element = null; // the element for inserting the gene structure scale legend
 
+//Following lines are used to count and determine how many BAM entries are in the XML file
+var xhr = new XMLHttpRequest();
+xhr.open( 'GET', 'cgi-bin/data/bamdata_amazon_links.xml', true );
+xhr.onreadystatechange = function ( e ) {
+    if ( xhr.readyState == 4 && xhr.status == 200 )
+        document.getElementById("testing_code").innerHTML = xhr.responseXML.getElementsByTagName( "bam_file" ).length ;
+};
+xhr.send( null );
+
 // Base 64 images
 var img_loading_base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyCAYAAADP/dvoAAAABmJLR0QAwADAAMAanQdUAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAB3RJTUUH4AoRDzYeAMpyUgAABGJJREFUeNrt3TFoE3scwPGvjxtOzKAQMEOECBkyROhQsWOEChURBFtssdJFB9Gl4OJkwaEtRRAUdLAUqYJgwamIEFAwUoS43RCw0AwpOjhkuCHDQd5Qes9q+7A+7cP2+1na5K53cH/Kl19yIfu63W4XSZL2qL+8BJIkQyhJ0h4VfPvExMSEV0WStGt92zknQkmSE+GPFFOSpN00CToRSpJkCCVJhlCSJEMoSZIhlCTJEEqSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKe8HDhw/5/Pnzbzn2/v3709/Hx8d/23kkGULpp01PT9NoNH7LsTudDgBJktBut0mSxAsu/Q8CL4G0fUmSEEURcRxTLpc5ePBguu3Lly9EUUQ2m6VcLm/4u0ajQRzH9PT0/PNPGARcu3aNXC6X7lMqlVheXv5u3/Xt69NjJpOht7fXBZEMobRz2u02Z8+eJY5jCoUCtVqN58+fU6lUePLkCXfu3KGnp4d6vU5vby9zc3PA2peCzs7OUiqVvjvm8ePHWVlZoVAocPr0aQYHB6nX6zSbTSqVSnqMkZGRdHp88+YNw8PDzM/PuyiSIZR2zv3798lms7x9+xZYex/x5s2bLC0tce7cOYaHhwmCgHa7zaFDh5ibm6PZbDI9Pc3Hjx/J5/MsLCxQrVa3PMfhw4d5/fo1rVaLI0eOMDk5CUC1WuXTp08EQcCxY8e4cOGCCyIZQmlnffjwgfPnz6ePBwYGuHr1KrD2UmW1WqVWq7G6upru02w2yeVy5PN5AAYHB//1HOvb1/fvdDpkMhniOGZ5eZlCoUCSJOnLqZIMobRjkiRJb3RZF4YhAFNTUywuLnLr1i2KxSKPHj36df+sQUChUODSpUt0Oh0uXrzo+4PSL+Bdo9I2nThxgsePH6d3eS4sLDAwMADA+/fvOXPmDP39/RtiWSqVaLVaRFEEwN27d7d93iiKCIKA27dv8+DBAy5fvpxuazQa1Ov1dHp89uxZuq1ardJqtVw4yYlQ2r4wDDl58mT6eGZmhuvXr/Pu3TuOHj1KJpMhDENevHgBwNjYGFeuXOHVq1eEYUg2mwUgl8sxMzPDqVOnyOfz9PX1pS97/sgkCFAul2m32zx9+pQkSajVaoyOjjI5Ocns7CxRFPHy5UuiKGJkZIT+/n6y2Szj4+OMjY1x48YNF1TaxL5ut9v9+omJiYkNPyVtLo5jkiTZ8NEJWPv4BJBG8GudTockSchkMts+39TUFKurq9y7dw+Aer3O0NAQKysrLob0A7bqmxOh9JO2itlmAfx6wvxZfX19DA0NEYYhBw4cYHFxkdHRURdC+o8MofSHqFQqLC0tUavVAJifn9/0M4mSDKG0axWLRYrFohdC+oW8a1SSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKkmQIJUkyhJIkGUJJkgyhJEmGUJKkP9mWX8PkN9RLkpwIJUna5fZ1u92ul0GS5EQoSdIe9DfEVWhcl8IjHgAAAABJRU5ErkJggg==";
 
@@ -292,12 +301,12 @@ function colour_part_by_id(id, part, fpkm, mode) {
 /* Find and update each SVG in the DOM. */
 function colour_svgs_now(mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val()) {
     //console.log("colour_svgs_now function is called with mode = " + mode);
-    for (var i = 0; i < 113; i++) {
+    for (var i = 0; i < count_bam_entries_in_xml; i++) {
         // For every exp, figure out the fpkm average of the controls
         var ctrl_fpkm_sum = 0;
         var ctrl_count = 0;
         var ctrl_avg_fpkm = 0;
-        for (var ii = 0; ii < 113; ii++) {
+        for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
             if (exp_info[i][2].indexOf(exp_info[ii][0].slice(0, -4)) != -1) {
                 // experiment ii is a control for experiment i, save FPKM of exp ii
                 ctrl_count++;
@@ -447,8 +456,8 @@ function rnaseq_images(status) {
     //date_obj2 = new Date();
     //rnaseq_success_start_time = date_obj2.getTime(); // Keep track of start time
     get_input_values();
-    if (rnaseq_calls.length == 113) {
-        for (var i = 0; i < 113; i++) {
+    if (rnaseq_calls.length == count_bam_entries_in_xml) {
+        for (var i = 0; i < count_bam_entries_in_xml; i++) {
             $.ajax({
                 url: 'http://ec2-52-70-232-122.compute-1.amazonaws.com/~ppurohit/RNA-Browser/cgi-bin/webservice.cgi?tissue=' + rnaseq_calls[i][0] + '&record=' + rnaseq_calls[i][1] + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' + yscale_input + '&status=' + status + '&struct=' + splice_variants,
                 dataType: 'json',
@@ -464,9 +473,9 @@ function rnaseq_images(status) {
                         rnaseq_success++;
                         date_obj3 = new Date();
                         rnaseq_success_current_time = date_obj3.getTime(); // Keep track of start time
-                        var progress_percent = rnaseq_success / 113 * 100;
+                        var progress_percent = rnaseq_success / count_bam_entries_in_xml * 100;
                         $('div#progress').width(progress_percent + '%');
-                        document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / 113 requests completed<br/>Load time <= " + String(round(parseInt(rnaseq_success_current_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
+                        document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time <= " + String(round(parseInt(rnaseq_success_current_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
                         //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
                     } else {
                         $('#failure').show();
@@ -509,7 +518,7 @@ function rnaseq_images(status) {
                     document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
 
                     // Save the abs-fpkm, and the stats numbers
-                    for (var ii = 0; ii < 113; ii++) {
+                    for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
                         if (exp_info[ii][0] == response_rnaseq['record'] + '_svg') { // Find the correct element
                             exp_info[ii].splice(3, 1, response_rnaseq['absolute-fpkm']);
                             exp_info[ii].splice(5, 1, r);
@@ -522,18 +531,18 @@ function rnaseq_images(status) {
                     // Colour SVG by Absolute RPKM
                     colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'], 'abs');
 
-                    if (rnaseq_success == 113 || rnaseq_success % 10 == 0) {
+                    if (rnaseq_success == count_bam_entries_in_xml || rnaseq_success % 10 == 0) {
                         // Execute the colour_svgs_now() function
                         colour_svgs_now();
                         // Change the input box value to max absolute fpkm
                         document.getElementById("rpkm_scale_input").value = parseInt(round(max_absolute_fpkm));
                         // Execute the colour_svgs_now() function and use the new max absolute fpkm
                         colour_svgs_now();
-                        if (rnaseq_success == 113) {
+                        if (rnaseq_success == count_bam_entries_in_xml) {
                             date_obj4 = new Date();
                             rnaseq_success_end_time = date_obj4.getTime(); // Keep track of start time
                             //console.log(rnaseq_success_end_time);
-                            document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / 113 requests completed<br/>Load time ~= " + String(round(parseInt(rnaseq_success_end_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
+                            document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time ~= " + String(round(parseInt(rnaseq_success_end_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
                             //console.log("**** Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_end_time - rnaseq_success_start_time)));
                         }
                     }
@@ -624,7 +633,7 @@ function populate_table(status) {
 
                 exp_info.push([experimentno + '_svg', svg_part, controls, 0, 0, 0, 0]);
 
-                if (rnaseq_calls.length == 113) {
+                if (rnaseq_calls.length == count_bam_entries_in_xml) {
                     rnaseq_images(status);
                 }
             });

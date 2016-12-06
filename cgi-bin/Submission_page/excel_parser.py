@@ -22,7 +22,7 @@ for row in range(1, len(all_rows)):
     <form class="form">
         <fieldset>"""
 
-    for x in range(1, 11):
+    for x in range(1, 12):
         ccell = crow[x].value
 
 # Prints alert to user if cell is empty. 
@@ -33,67 +33,99 @@ for row in range(1, len(all_rows)):
 # Stores content of each cell in a HTML wrapper
 # form field is set to column index number (would need to be manually changed if template is changed)
         else:
-            if x == 1 and ccell.isalpha():
+            if x == 1:
                 total_XML += """
                 <div class='forminput'>
-                    <p class='channelspecies' name='channelspecies' data-help-text='species'>""" + ccell + """</p>
+                    <input class='channelspecies' name='channelspecies' data-help-text='species' value='""" + ccell + """'/>
                 </div>"""
 
             elif x == 2:
                 total_XML += """
                 <div class='forminput'>
-                    <p class='channeltitle' name='channeltitle' data-help-text='title'>""" + ccell + """</p>
+                    <input class='channeltitle' name='channeltitle' data-help-text='title' value='""" + ccell + """'/>
                 </div>"""
 
             elif x == 3: #how to validate BAM link?
                 total_XML += """
                 <div class='forminput'>
-                    <p class='channelbamlink' name='channelbamlink' data-help-text='bam_link'>""" + ccell + """</p>
+                    <input class='channelbamlink' name='channelbamlink' data-help-text='bam_link' value='""" + ccell + """'/>
                 </div>"""
 
             elif x == 4:
                 total_XML += """
                 <div class='forminput'>
-                    <p name='channelpublicationlink' name='channelpublicationlink' data-help-text='publication_link'>""" + ccell + """</p>
+                    <input class='channelpublicationlink' name='channelpublicationlink' data-help-text='publication_link' value='""" + ccell + """'/>
                 </div>"""
 
             elif x == 5 and ("ncbi" or "NCBI" in ccell):
                 total_XML += """
                 <div class='forminput'>
-                    <p name='channelpublicationurl' name='channelpublicationurl' data-help-text='publication_url'>""" + ccell + """</p>
+                    <input class='channelpublicationurl' name='channelpublicationurl' data-help-text='publication_url' value='""" + ccell + """'/>
                 </div>"""
 
             elif x == 6:
                 total_XML += """
                 <div class='forminput'>
-                    <p name='channeltotalreadsmapped' name='channeltotalreadsmapped' data-help-text='svgname'>""" + str(ccell) + """</p>
+                    <input class='channeltotalreadsmapped' name='channeltotalreadsmapped' data-help-text='svgname' value='""" + str(ccell) + """'/>
                 </div>"""
 
             elif x == 7 and ".svg" in ccell:
                 total_XML += """
                 <div class='forminput'>
-                    <p name='channelsvgname' name='channelsvgname' data-help-text='total_reads_mapped'>""" + ccell + """</p>
+                    <input class='channelsvgname' name='channelsvgname' data-help-text='total_reads_mapped' value='""" + ccell + """'/>
                 </div>"""
 
             elif x == 8:
                 total_XML += """
                 <div class='forminput'>
-                    <p name='channeltissue' name='channeltissue' data-help-text='tissue'>""" + ccell + """</p>
+                    <input class='channeltissue' name='channeltissue' data-help-text='tissue' value='""" + ccell + """'/>
                 </div>"""
 
             elif x == 9:
                 total_XML += """
                 <div class='forminput'>
-                    <p name='channelcontrols' name='channelcontrols' data-help-text='total_controls'>""" + ccell + """</p>
+                    <input class='channelcontrols' name='channelcontrols' data-help-text='total_controls' value='""" + ccell + """'/>
                 </div>"""
 
             elif x == 10:
                 replicates = ccell.split(", ")
 
-                for i in replicates:
-                    total_XML += """
+# Checks to make sure they don't have over 5 replicates.
+                if len(replicates) > 5:
+                    print("Sorry, you have over 5 replicates in Entry " + str(row))
+
+                else:
+                    k = 1
+                    for i in replicates: # Populate w/ each replicate.
+
+                        if replicates.index(i) == 0:
+                            total_XML += """
                 <div class='forminput'>
-                    <p name='channelgroupwith' name='channelgroupwith' data-help-text='groupwith'>""" + i + """</p>
+                    <input class='channelgroupwidtho' name='channelgroupwidtho' data-help-text='groupwidth' value='""" + i + """'/>
+                </div>"""
+                            k += 1
+                        else:    
+                            total_XML += """
+                <div class='forminput'>
+                    <input class='channelgroupwidth""" + str(k) + "' name='channelgroupwidth""" + str(k) + "' data-help-text='groupwidth' value='""" + i + """'/>
+                </div>"""
+                            k += 1
+
+# Add in the remaining empty replicates.
+                    j = k
+                    for x in range(len(replicates), 5):
+
+                        total_XML += """
+                <div class='forminput'>
+                    <input class='channelgroupwidth""" + str(j) + "' name='channelgroupwidth""" + str(j) + """' data-help-text='groupwidth' value=''/>
+                </div>"""
+                        j += 1
+
+
+            elif x == 11:
+                 total_XML += """
+                <div class='forminput'>
+                    <input class='channeldescription' name='channeldescription' data-help-text='description' value='""" + ccell + """'/>
                 </div>"""
 
     total_XML += """

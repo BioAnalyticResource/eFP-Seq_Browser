@@ -31,7 +31,11 @@ var added = [
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
   '\t\t\t<groupwith>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidtho?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidth2?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidth3?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidth4?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidth5?></bam_exp>',
   '\t\t\t</groupwith>',
   '\t\t</bam_file>',
   '\n'
@@ -43,7 +47,11 @@ var adding = [
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
   '\t\t\t<groupwith>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidtho?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidth2?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidth3?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidth4?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidth5?></bam_exp>',
   '\t\t\t</groupwith>',
   '\t\t</bam_file>',
   '\n'
@@ -62,7 +70,11 @@ function update(formatXML,v) {
     'channeltitle': $(v).find('.channeltitle').val(),
     'channelpublicationlink': $(v).find('.channelpublicationlink').val(),
     'channelcontrols': $(v).find('.channelcontrols').val(),
-    'channelgroupwidth': $(v).find('.channelgroupwidth').val()
+    'channelgroupwidtho': $(v).find('.channelgroupwidtho').val(),
+    'channelgroupwidth2': $(v).find('.channelgroupwidth2').val(),
+    'channelgroupwidth3': $(v).find('.channelgroupwidth3').val(),
+    'channelgroupwidth4': $(v).find('.channelgroupwidth4').val(),
+    'channelgroupwidth5': $(v).find('.channelgroupwidth5').val()
   };
 
   var fillXML = added.replace(/<\?(\w+)\?>/g,

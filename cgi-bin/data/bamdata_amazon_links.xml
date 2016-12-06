@@ -11,6 +11,7 @@
                 <bam_exp>ERR274309</bam_exp>
                 <bam_exp>ERR274310</bam_exp>
                 <bam_exp>ERR274311</bam_exp>
+                <bam_exp></bam_exp>
             </groupwith>
         </bam_file>
 
@@ -22,6 +23,8 @@
                 <bam_exp>SRR547531</bam_exp>
                 <bam_exp>SRR547532</bam_exp>
                 <bam_exp>SRR547533</bam_exp>
+                <bam_exp></bam_exp>
+                <bam_exp></bam_exp>
             </groupwith>
         </bam_file>
 
@@ -32,6 +35,9 @@
             <groupwith>
                 <bam_exp>SRR548277</bam_exp>
                 <bam_exp>SRR548278</bam_exp>
+                <bam_exp></bam_exp>
+                <bam_exp></bam_exp>
+                <bam_exp></bam_exp>
             </groupwith>
         </bam_file>
 
