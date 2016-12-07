@@ -8,7 +8,7 @@ $(function () {
          $('#ResultXml').val(base + formatXML + end)
   $('#DownloadLink')
     .attr('href', 'data:text/xml;base64,' + btoa(base + formatXML + end))
-    .attr('download', 'bamdata.xml');
+    .attr('download', 'bamdata_amazon_links.xml');
   $('#generated').show();
           });
   });

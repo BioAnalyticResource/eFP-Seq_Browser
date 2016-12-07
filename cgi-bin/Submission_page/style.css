@@ -73,3 +73,50 @@ label {
 .replicate_controls {
   margin-left: 2%;
 }
+
+.welcome {
+  text-align: center;
+  font-weight: bold;
+}
+
+.option_create {
+  background-color: #CBE8BA;
+  border-radius: 25px;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  margin-left: 5%;
+}
+
+.create_button {
+  background-color: #e7e7e7 !important;
+  color: black;
+}
+
+.downloadlinktext {
+  font-weight: bold;
+  font-size: 3em;
+}
+
+.finalsubmitbutton {
+  position: fixed;
+  bottom: 1%;
+  right: 7%;
+  -webkit-border-radius: 27;
+  -moz-border-radius: 27;
+  border-radius: 27px;
+  text-shadow: 1px 1px 3px #000000;
+  -webkit-box-shadow: 0px 1px 3px #000000;
+  -moz-box-shadow: 0px 1px 3px #000000;
+  box-shadow: 0px 1px 3px #000000;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 34px;
+  background: #3ebae0;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.finalsubmitbutton:hover {
+  background: #0d9e00;
+  text-decoration: none;
+}

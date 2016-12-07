@@ -5,10 +5,15 @@
 <meta name="keyboard" content="eFP, RNA-Seq" />
 <meta name="author" content="Michelle Chen" />
 <link rel="stylesheet" type="text/css" href="style.css" />
-<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css">
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css/">
 <script src="processing-api.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="XMLgenerator-v2.js"></script>
+
+<!--Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- This script is to ask the user if they are sure if they want to close the submission system or not -->
 <script>
@@ -19,15 +24,15 @@ window.onbeforeunload = function() { return "You are about to the submission sys
 
     <header>
         <div>
-            <h1 class="leftmargin">Pre-Alpha</h1>
-        <div>
-            <p class="leftmargin">
+            <h1 class="leftmargin">Alpha v0.0</h1>
+            <div>
+                <p class="leftmargin">
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
           Or, upload XMl file:
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Choose file<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                 <a target="_blank" href=" Tutorial-Help.html"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect tutorialbotton leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Tutorial/Help<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a>
-            </p>
-        </div>
+                </p>
+            </div>
         </div>
     </header>
     
@@ -39,80 +44,101 @@ window.onbeforeunload = function() { return "You are about to the submission sys
     <legend class="leftmargin"> Entry </legend>
         <form class="form">
             <fieldset>
-                <table>
+                <table class="container">
                 <tr>
-                <div class='forminput'>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-species" title="The species of the organism (latin name with exception of human) that your RNA-Seq data is for.">Species</label>
                     <input class='channelspecies' name='channelspecies' data-help-text='species' value='A. thaliana'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channeltitle' name='channeltitle' data-help-text='title' value='Germinating seeds 2'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-title" title="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment">Title</label></th>
+                    <input class='channeltitle' name='channeltitle' data-help-text='title' value='Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelbamlink' name='channelbamlink' data-help-text='bam_link' value='amazons3.com'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-bam_link" title="It is required for your your BAM files or RNA-Seq data files to have a .dl repository link for the eFP-Seq Browser to give you input.">RNA-Seq Data/BAM file Repsitory Link</label>
+                    <input class='channelbamlink' name='channelbamlink' data-help-text='bam_link' value='http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelpublicationlink' name='channelpublicationlink' data-help-text='publication_link' value='Pub1'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-publication_link" title="If your research has been published or referencing a research, it may be useful to link to the publication.">Publicaiton Link</label>
+                    <input class='channelpublicationlink' name='channelpublicationlink' data-help-text='publication_link' value='http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelpublicationurl' name='channelpublicationurl' data-help-text='publication_url' value='NCBI1'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-publication_url" title="If your RNA-Seq data is available on NCBI's Sequence Read Archive, it may be useful to include this informaiton.">Sequence Reach Archive/NCBI Link</label>
+                    <input class='channelpublicationurl' name='channelpublicationurl' data-help-text='publication_url' value='http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channeltotalreadsmapped' name='channeltotalreadsmapped' data-help-text='svgname' value='2433'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-total_reads_mapped" title="The total amount of reads mapped in your RNA-Seq data.">Total Reads Mapped</label>
+                    <input class='channeltotalreadsmapped' name='channeltotalreadsmapped' data-help-text='svgname' value='29098868'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelsvgname' name='channelsvgname' data-help-text='total_reads_mapped' value='test.svg'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-svgname" title="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg">SVG Name</label>
+                    <input class='channelsvgname' name='channelsvgname' data-help-text='total_reads_mapped' value='Internode.svg'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channeltissue' name='channeltissue' data-help-text='tissue' value='sub1'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue</label>
+                    <input class='channeltissue' name='channeltissue' data-help-text='tissue' value='all'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelcontrols' name='channelcontrols' data-help-text='total_controls' value='C1'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-controls" title="The BAM exp number of the controls in your RNA-Seq data.">Controls</label>
+                    <input class='channelcontrols' name='channelcontrols' data-help-text='total_controls' value='ERR274310'/>
+                </div>
+                </tr>
+                <tr>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-record_number" title="Record or run number. For example ERR274310 or SRR547531">Record number</label>
+                    <input class='channelrecordnumber' name='channelrecordnumber' data-help-text='record_number' value='ERR274310'/>
                 </div>
                 </tr>
                 <tr>            
-                <div class='forminput'>
-                    <input class='channelgroupwidtho' name='channelgroupwidtho' data-help-text='groupwidth' value='R1'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3">Replicate</label>
+                    <input class='channelgroupwidtho' name='channelgroupwidtho' data-help-text='groupwidth' value='ERR274308'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelgroupwidth2' name='channelgroupwidth2' data-help-text='groupwidth' value='R2'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3">Replicate</label>
+                    <input class='channelgroupwidth2' name='channelgroupwidth2' data-help-text='groupwidth' value='ERR274309'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelgroupwidth3' name='channelgroupwidth3' data-help-text='groupwidth' value=''/>
+                <div class='forminput row'>
+                    <label class="col-sm-3">Replicate</label>
+                    <input class='channelgroupwidth3' name='channelgroupwidth3' data-help-text='groupwidth' value='ERR274310'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelgroupwidth4' name='channelgroupwidth4' data-help-text='groupwidth' value=''/>
+                <div class='forminput row'>
+                    <label class="col-sm-3">Replicate</label>
+                    <input class='channelgroupwidth4' name='channelgroupwidth4' data-help-text='groupwidth' value='ERR274311'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
+                <div class='forminput row'>
+                    <label class="col-sm-3">Replicate</label>
                     <input class='channelgroupwidth5' name='channelgroupwidth5' data-help-text='groupwidth' value=''/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channeldescription' name='channeldescription' data-help-text='description' value='Desc1'/>
+                <div class='forminput row'>
+                    <label for="channel-description" class="formtextarea col-sm-3" title="Description of your RNA-Seq submission data">Description</label>
+                    <input class='channeldescription' name='channeldescription' data-help-text='description' value='E-MTAB-1668:24hCS-RNA'/>
                 </div>
                 </tr>
                 </table>
@@ -124,165 +150,101 @@ window.onbeforeunload = function() { return "You are about to the submission sys
     <legend class="leftmargin"> Entry </legend>
         <form class="form">
             <fieldset>
-                <table>
+                <table class="container">
                 <tr>
-                <div class='forminput'>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-species" title="The species of the organism (latin name with exception of human) that your RNA-Seq data is for.">Species</label>
                     <input class='channelspecies' name='channelspecies' data-help-text='species' value='A. thaliana'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channeltitle' name='channeltitle' data-help-text='title' value='title2'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-title" title="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment">Title</label></th>
+                    <input class='channeltitle' name='channeltitle' data-help-text='title' value='Transcription profiling of Arabidopsis plants overexpressing SlHsfA3 (thale cress)'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelbamlink' name='channelbamlink' data-help-text='bam_link' value='BAM2'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-bam_link" title="It is required for your your BAM files or RNA-Seq data files to have a .dl repository link for the eFP-Seq Browser to give you input.">RNA-Seq Data/BAM file Repsitory Link</label>
+                    <input class='channelbamlink' name='channelbamlink' data-help-text='bam_link' value='http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/SRR547531/accepted_hits.bam'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelpublicationlink' name='channelpublicationlink' data-help-text='publication_link' value='pub2'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-publication_link" title="If your research has been published or referencing a research, it may be useful to link to the publication.">Publicaiton Link</label>
+                    <input class='channelpublicationlink' name='channelpublicationlink' data-help-text='publication_link' value='http://www.ncbi.nlm.nih.gov/pubmed/23349984'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelpublicationurl' name='channelpublicationurl' data-help-text='publication_url' value='NCBI2'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-publication_url" title="If your RNA-Seq data is available on NCBI's Sequence Read Archive, it may be useful to include this informaiton.">Sequence Reach Archive/NCBI Link</label>
+                    <input class='channelpublicationurl' name='channelpublicationurl' data-help-text='publication_url' value='http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR547531'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channeltotalreadsmapped' name='channeltotalreadsmapped' data-help-text='svgname' value='2000'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-total_reads_mapped" title="The total amount of reads mapped in your RNA-Seq data.">Total Reads Mapped</label>
+                    <input class='channeltotalreadsmapped' name='channeltotalreadsmapped' data-help-text='svgname' value='13627154'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelsvgname' name='channelsvgname' data-help-text='total_reads_mapped' value='test2.svg'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-svgname" title="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg">SVG Name</label>
+                    <input class='channelsvgname' name='channelsvgname' data-help-text='total_reads_mapped' value='LeafParts.svg'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channeltissue' name='channeltissue' data-help-text='tissue' value='sub2'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue</label>
+                    <input class='channeltissue' name='channeltissue' data-help-text='tissue' value='lamina'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelcontrols' name='channelcontrols' data-help-text='total_controls' value='C2'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-controls" title="The BAM exp number of the controls in your RNA-Seq data.">Controls</label>
+                    <input class='channelcontrols' name='channelcontrols' data-help-text='total_controls' value='SRR547531'/>
+                </div>
+                </tr>
+                <tr>
+                <div class='forminput row'>
+                    <label class="col-sm-3" for="channel-record_number" title="Record or run number. For example ERR274310 or SRR547531">Record number</label>
+                    <input class='channelrecordnumber' name='channelrecordnumber' data-help-text='record_number' value='SRR547531'/>
                 </div>
                 </tr>
                 <tr>            
-                <div class='forminput'>
-                    <input class='channelgroupwidtho' name='channelgroupwidtho' data-help-text='groupwidth' value='R2'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3">Replicate</label>
+                    <input class='channelgroupwidtho' name='channelgroupwidtho' data-help-text='groupwidth' value='SRR547531'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelgroupwidth2' name='channelgroupwidth2' data-help-text='groupwidth' value='R3'/>
+                <div class='forminput row'>
+                    <label class="col-sm-3">Replicate</label>
+                    <input class='channelgroupwidth2' name='channelgroupwidth2' data-help-text='groupwidth' value='SRR547532'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channelgroupwidth3' name='channelgroupwidth3' data-help-text='groupwidth' value=''/>
+                <div class='forminput row'>
+                    <label class="col-sm-3">Replicate</label>
+                    <input class='channelgroupwidth3' name='channelgroupwidth3' data-help-text='groupwidth' value='SRR547533'/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
+                <div class='forminput row'>
+                    <label class="col-sm-3">Replicate</label>
                     <input class='channelgroupwidth4' name='channelgroupwidth4' data-help-text='groupwidth' value=''/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
+                <div class='forminput row'>
+                    <label class="col-sm-3">Replicate</label>
                     <input class='channelgroupwidth5' name='channelgroupwidth5' data-help-text='groupwidth' value=''/>
                 </div>
                 </tr>
                 <tr>
-                <div class='forminput'>
-                    <input class='channeldescription' name='channeldescription' data-help-text='description' value='Desc 2'/>
-                </div>
-                </tr>
-                </table>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="Entries" name="Entries">
-    <legend class="leftmargin"> Entry </legend>
-        <form class="form">
-            <fieldset>
-                <table>
-                <tr>
-                <div class='forminput'>
-                    <input class='channelspecies' name='channelspecies' data-help-text='species' value='A. thaliana'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channeltitle' name='channeltitle' data-help-text='title' value='title2'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channelbamlink' name='channelbamlink' data-help-text='bam_link' value='BAM2'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channelpublicationlink' name='channelpublicationlink' data-help-text='publication_link' value='pub2'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channelpublicationurl' name='channelpublicationurl' data-help-text='publication_url' value='NCBI2'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channeltotalreadsmapped' name='channeltotalreadsmapped' data-help-text='svgname' value='2000'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channelsvgname' name='channelsvgname' data-help-text='total_reads_mapped' value='test2.svg'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channeltissue' name='channeltissue' data-help-text='tissue' value='sub2'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channelcontrols' name='channelcontrols' data-help-text='total_controls' value='C2'/>
-                </div>
-                </tr>
-                <tr>            
-                <div class='forminput'>
-                    <input class='channelgroupwidtho' name='channelgroupwidtho' data-help-text='groupwidth' value='R2'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channelgroupwidth2' name='channelgroupwidth2' data-help-text='groupwidth' value='R3'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channelgroupwidth3' name='channelgroupwidth3' data-help-text='groupwidth' value='r4'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channelgroupwidth4' name='channelgroupwidth4' data-help-text='groupwidth' value='r5'/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channelgroupwidth5' name='channelgroupwidth5' data-help-text='groupwidth' value=''/>
-                </div>
-                </tr>
-                <tr>
-                <div class='forminput'>
-                    <input class='channeldescription' name='channeldescription' data-help-text='description' value='Desc 2'/>
+                <div class='forminput row'>
+                    <label for="channel-description" class="formtextarea col-sm-3" title="Description of your RNA-Seq submission data">Description</label>
+                    <input class='channeldescription' name='channeldescription' data-help-text='description' value='GSM798296: mRNASeq_WT_rep2'/>
                 </div>
                 </tr>
                 </table>
@@ -305,4 +267,7 @@ window.onbeforeunload = function() { return "You are about to the submission sys
         <textarea id="ResultXml" style="width: 100%; height: 30em" readonly="readonly"></textarea>
     </div>    
 </div>
+
+<!-- Floating help button -->
+<a href="Tutorial-Help.html"><img src="Images/help2.png" style="position: fixed; bottom: 10px; right: 10px;" height="40" title="Tutorial on how the submission system works for the eFP-Seq Browser and what to put in each input field (including how to find it)."></a>
 </html>
