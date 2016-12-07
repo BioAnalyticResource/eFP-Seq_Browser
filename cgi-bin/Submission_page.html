@@ -26,6 +26,7 @@ window.onbeforeunload = function() { return "You are about to the submission sys
   <header>
     <div>
       <h1 class="leftmargin">Alpha v0.0</h1>
+      <!-- old buttons
       <div>
         <p class="leftmargin">
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
@@ -33,6 +34,7 @@ window.onbeforeunload = function() { return "You are about to the submission sys
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Choose file<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
         </p>
       </div>
+      -->
     </div>
   </header>
 
@@ -260,16 +262,25 @@ window.onbeforeunload = function() { return "You are about to the submission sys
   <div id="Cloning" class="button_fixed">
     <p>
   	   <button id="CloneForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple">Add another entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-       <button id="SubmitButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple">Generate XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+       <button id="SubmitButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Generate Readable Data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
     </p>
   </div>
 
   <!-- Generate XML download -->
-  <div id="generated" style="display:none">
-    <h2>bamdata.xml</h2>
-    <a href="#" id="DownloadLink">Download XML</a>
-    <textarea id="ResultXml" style="width: 100%; height: 30em" readonly="readonly"></textarea>
+  <div id="generated" style="display:none" class="leftmargin">
+    <p style="font-size:2em;">Recommended to download the following XML to use your data at a later point without the necessicity of filling in the form again.</p>
+
+    <button href="#" class="finalsubmitbutton" onclick="document.getElementById('fileID').click(); return false;" />Submit</button>
+    <input type="file" id="fileID" style="visibility: hidden;" />
+
+    <a href="#" id="DownloadLink" class="downloadlinktext">Download Readable Data (XML)</a>
   </div>
+
+</div>
+
+<!-- Back to welcome page -->
+<div class="leftmargin" style="padding-top:50px;">
+  <a href="Opening_Submission.html"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple"> Return to welcome back <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a>
 </div>
 
 <!-- Floating help button -->

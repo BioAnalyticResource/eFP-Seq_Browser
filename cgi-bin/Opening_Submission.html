@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<!-- meta data -->
+<title> Submiting your RNA-Seq data for eFP-Seq Browser</title>
+<meta name="description" content="Welcome to the Submission System of the eFP-Seq Browser" />
+<meta name="keyboard" content="eFP, RNA-Seq" />
+<meta name="author" content="Alexander Sullivan" />
+<link rel="stylesheet" type="text/css" href="Submission_page/style.css" />
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css"/>
+<script src="Submission_page/processing-api.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="Submission_page/XMLgenerator-v2.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<body>
+
+  <h1 class="welcome">Welcome to the eFP-Seq Browser Submissions System</h1>
+  <p style="text-align: center;"> Here you are provided two options for having your RNA-Seq data interpreted by the eFP-Seq Browser:</p>
+  <div class="container">
+    <div class="row">
+        <div class="option_create col-sm-5">
+          <p style="text-align:center;"><a href="Submission_page.html"><button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple"> Generate Readable Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a></p>
+          <p style="text-align:center;">If you have not created a readable dataset yet or wish to create a new readable dataset, fill in the following form with your RNA-Seq information here</p>
+        </div>
+        <div class="option_create col-sm-5">
+          <p style="text-align:center;"><button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple"> Upload Readable Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></p>
+          <p style="text-align:center;">If you have already created a readable dataset (file name similar to bamdata_amazon_links.xml), then you can upload it here to have your data visualized and interpreted by the eFP-Seq Browser</p>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<!-- Floating help button -->
+<a href="Tutorial-Help.html"><img src="Submission_page/Images/help2.png" style="position: fixed; bottom: 10px; right: 10px;" height="40" title="Tutorial on how the submission system works for the eFP-Seq Browser and what to put in each input field (including how to find it)."></a>
+
+</html>

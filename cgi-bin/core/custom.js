@@ -28,7 +28,7 @@ xhr.open( 'GET', 'cgi-bin/data/bamdata_amazon_links.xml', true );
 xhr.onreadystatechange = function ( e ) {
     if ( xhr.readyState == 4 && xhr.status == 200 )
         count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName( "bam_file" ).length ;
-        document.getElementById("testing_code").innerHTML = xhr.responseXML.getElementsByTagName( "bam_file" ).length;
+        document.getElementById("testing_code").innerHTML = count_bam_entries_in_xml;
 };
 xhr.send( null );
 
