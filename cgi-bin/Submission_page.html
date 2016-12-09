@@ -268,18 +268,19 @@ window.onbeforeunload = function() { return "You are about to the submission sys
 
   <!-- Generate XML download -->
   <div id="generated" style="display:none" class="leftmargin">
-    <p style="font-size:2em;">Recommended to download the following XML to use your data at a later point without the necessicity of filling in the form again.</p>
-
-    <button href="#" class="finalsubmitbutton" onclick="document.getElementById('fileID').click(); return false;" />Submit</button>
-    <input type="file" id="fileID" style="visibility: hidden;" />
+    <p style="font-size:2em;">Please download the following XML to use your data at a later point without the necessicity of filling in the form again. Click the submit button and add in the following XML.</p>
 
     <a href="#" id="DownloadLink" class="downloadlinktext">Download Readable Data (XML)</a>
+
+    <br>
+    <button href="#" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click(); return false;"/>Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+    <input type="file" id="fileID" style="visibility: hidden;" />
   </div>
 
 </div>
 
 <!-- Back to welcome page -->
-<div class="leftmargin" style="padding-top:50px;">
+<div class="leftmargin return" style="padding-top:50px;" id="return">
   <a href="Opening_Submission.html"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple"> Return to welcome back <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a>
 </div>
 

@@ -10,6 +10,7 @@ $(function () {
     .attr('href', 'data:text/xml;base64,' + btoa(base + formatXML + end))
     .attr('download', 'bamdata_amazon_links.xml');
   $('#generated').show();
+    $('.return').hide();
           });
   });
 });
