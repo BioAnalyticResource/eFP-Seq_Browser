@@ -246,5 +246,5 @@ print (total_XML) # Testing purposes
 f.write(total_XML)
 f.close()
 
-filename = "/Users/michellechen/Dropbox/Multi-track_RNA-Seq_Browser/eFP-Seq-Browser/cgi-bin/Submission_page/submission_parse.html"
-get("safari").open_new_tab(filename)
+filename = "/Users/Alexander/Dropbox/School/CSB498/eFP-Seq Browser submission development/eFP-Seq-Browser/cgi-bin/Submission_page/submission_parse.html"
+# get("firefox").open_new_tab(filename)
