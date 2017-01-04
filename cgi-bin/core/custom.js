@@ -19,12 +19,13 @@ var max_log_fpkm = -1;
 var svg_colouring_element = null; // the element for inserting the SVG colouring scale legend
 var gene_structure_colouring_element = null; // the element for inserting the gene structure scale legend
 
+var test_url = 'cgi-bin/data/bamdata_amazon_links.xml'
 
 //Following lines are used to count and determine how many BAM entries are in the XML file
 var count_bam_entries_in_xml = 0;
 
 var xhr = new XMLHttpRequest();
-xhr.open( 'GET', 'cgi-bin/data/bamdata_amazon_links.xml', true );
+xhr.open( 'GET', test_url, true );
 xhr.onreadystatechange = function ( e ) {
     if ( xhr.readyState == 4 && xhr.status == 200 )
         count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName( "bam_file" ).length ;
@@ -586,7 +587,7 @@ function populate_table(status) {
         '<tbody></tbody>');
 
     $.ajax({
-        url: 'cgi-bin/data/bamdata_amazon_links.xml',
+        url: test_url,
         dataType: 'xml',
         success: function(xml_res) {
             var $title = $(xml_res).find("bam_file");
