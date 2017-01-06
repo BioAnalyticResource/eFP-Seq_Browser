@@ -17,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="cgi-bin/core/tablesorter.js"></script>
     <script src="cgi-bin/core/tablefilter/tablefilter.js"></script>
+    <script src="cgi-bin/Submission_page/XMLgenerator-v2.js"></script>
     <link rel="stylesheet" href="cgi-bin/core/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- http://stackoverflow.com/questions/1802936/stop-all-active-ajax-requests-in-jquery -->
@@ -58,8 +59,8 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <p style="font-size: 25px; margin: 5px; text-align: center;"><i>A. thaliana</i> eFP-Seq Browser</p>
                         <p style="font-size: 15px; margin: 5px; text-align: center;">Priyank Purohit, Dr. Nicholas Provart. University of Toronto.</p>
-                        <div class="col-xs-3 col-sm-3 col-md-4 col-xs-offset-9 col-sm-offset-9 col-md-offset-8" style="margin-top: -50px;">
-                            <div class="col-sm-4" id="feedback_div">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-xs-offset-9 col-sm-offset-9 col-md-offset-9" style="margin-top: -50px;">
+                            <div class="col-sm-6" id="feedback_div">
                                 <button id="feedback_button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#feedbackModal">Feedback</button>
                             </div>
                             <!--
@@ -67,15 +68,91 @@
                                 <button id="cite_button" disabled="" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect ">Cite</button>
                             </div>
                             -->
-                            <div class="col-sm-3">
+                            <div class="col-sm-6">
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#myModal">Help</button>
                             </div>
+                            <!--
                             <div class="col-sm-4">
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                             </div>
+                          -->
                         </div>
                     </div>
                 </div>
+
+                <!-- Options for uploading and generating data -->
+                <hr style="border: 1px solid gray; margin: 5px; " />
+                <div class="row">
+                  <div class="col-md-2" style="padding-left: 2%;">
+                    <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();">Upload Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                    <input type="file" id="fileID" style="visibility: hidden;" accept="text/xml"/>
+
+                    <!-- Script for changing base_src and uploading XML, clienside -->
+                    <script>
+                    $(function() {
+                            $("#fileID").on('change', function() {
+                              //Get count of selected files
+                              var countFiles = $(this)[0].files.length;
+                              var imgPath = $(this)[0].value;
+                              var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+                              var hold_xml = $("#hold-xml");
+                              hold_xml.empty();
+                              if (extn == "xml") {
+                                if (typeof(FileReader) != "undefined") {
+                                  //loop for each file selected for uploaded.
+                                  for (var i = 0; i < countFiles; i++) {
+                                    var reader = new FileReader();
+
+                                    reader.onload = function(e) {
+                                      //var data = e.target.result;
+                                      //window.alert(data);
+                                      $("<div />", {
+                                        "src": e.target.result,
+                                        "id": "test_link"
+                                      }).appendTo(hold_xml);
+
+                                      base_src = document.getElementById("test_link").getAttribute("src");
+                                      //window.open(base_src);
+                                    }
+                                    hold_xml.show();
+                                    reader.readAsDataURL($(this)[0].files[i]);
+                                  }
+                                } else {
+                                  alert("This browser does not support FileReader. Please use an updated version of Internet Explorer, Google Chrome, Mozilla Firefox, that Apple one and the other one");
+                                }
+                              } else {
+                                alert("Insert valid XML only");
+                              }
+                              //count_bam_num();
+                              update_all_images(0);
+                            });
+                          });
+
+                    window.setInterval(function(){
+                      if (base_src != 'cgi-bin/data/bamdata_amazon_links.xml') {
+                        count_bam_num();
+                      }
+                    }, 500);
+                    </script>
+
+                    <div id="hold-xml"></div>
+                  </div>
+                  <div class="col-md-5" style="padding-top: 0.5%;">
+                    <p>Public RNA-Seq Databases: </button>
+                    <input class="xmldatabase" list="xmldatabaselist" name="xmldatabase" placeholder="Default" type="text" data-help-text="xmldatabase" style="width:50%;"/>
+                    <datalist id="xmldatabaselist">
+                      <option value="Default"/>
+                      <option value="Capa"/>
+                      <option value="Local"/>
+                      <option value="Placeholder #4"/>
+                    </datalist>
+                  </div>
+                  <div class="col-md-3"></div>
+                  <div class="col-md-2">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple">Generate data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                  </div>
+                </div>
+
                 <hr style="border: 1px solid gray; margin: 5px; " />
                 <!-- Options and Variants selection. -->
                 <div class="row">

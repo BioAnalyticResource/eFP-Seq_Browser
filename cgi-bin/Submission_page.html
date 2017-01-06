@@ -9,6 +9,7 @@
 <script src="Submission_page/processing-api.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="Submission_page/XMLgenerator-v2.js"></script>
+<script src="core/custom.js"></script>
 
 <!--Bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -275,6 +276,7 @@ window.onbeforeunload = function() { return "You are about to the submission sys
     <br>
     <button href="#" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click(); return false;"/>Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
     <input type="file" id="fileID" style="visibility: hidden;" accept="text/xml"/>
+    <div id="hold-xml">
   </div>
 
 </div>

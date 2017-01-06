@@ -11,6 +11,7 @@
                 <bam_exp>ERR274309</bam_exp>
                 <bam_exp>ERR274310</bam_exp>
                 <bam_exp>ERR274311</bam_exp>
+                <bam_exp></bam_exp>
             </groupwith>
         </bam_file>
 
@@ -22,17 +23,9 @@
                 <bam_exp>SRR547531</bam_exp>
                 <bam_exp>SRR547532</bam_exp>
                 <bam_exp>SRR547533</bam_exp>
+                <bam_exp></bam_exp>
+                <bam_exp></bam_exp>
             </groupwith>
         </bam_file>
 
-        <bam_file desc="GSM994838; SRA: SRS360059" record_number="SRR548277" hex_colour="0x64cc65" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/SRR548277/accepted_hits.bam" total_reads_mapped="10647001" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/23755095" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" title="Aerial part of 4-week-old plant" publication_url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR548277">
-            <controls>
-                <bam_exp>SRR548277</bam_exp>
-            </controls>
-            <groupwith>
-                <bam_exp>SRR548277</bam_exp>
-                <bam_exp>SRR548278</bam_exp>
-            </groupwith>
-        </bam_file>
-        
-	</rnaseq_experiments>
+    </rnaseq_experiments>

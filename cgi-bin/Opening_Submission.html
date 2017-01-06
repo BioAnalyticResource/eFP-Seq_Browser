@@ -11,6 +11,7 @@
 <script src="Submission_page/processing-api.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="Submission_page/XMLgenerator-v2.js"></script>
+<script src="core/custom.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -26,8 +27,53 @@
           <p style="text-align:center;">If you have not created a readable dataset yet or wish to create a new readable dataset, fill in the following form with your RNA-Seq information here</p>
         </div>
         <div class="option_create col-sm-5">
-          <p style="text-align:center; height:36px;"><button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click(); return false;"> Upload Readable Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button><input type="file" id="fileID" style="visibility: hidden;" accept="text/xml"/></p>
+          <p style="text-align:center; height:36px;">
+            <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();"> Upload Readable Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+            <input type="file" id="fileID" style="visibility: hidden;" accept="text/xml"/>
+          </p>
           <p style="text-align:center;">If you have already created a readable dataset, then you can upload it here to have your data visualized and interpreted by the eFP-Seq Browser</p>
+
+          <!-- Script for changing base_src and uploading XML, clienside -->
+          <script>
+          $(function() {
+                  $("#fileID").on('change', function() {
+                    //Get count of selected files
+                    var countFiles = $(this)[0].files.length;
+                    var imgPath = $(this)[0].value;
+                    var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+                    var hold_xml = $("#hold-xml");
+                    hold_xml.empty();
+                    if (extn == "xml") {
+                      if (typeof(FileReader) != "undefined") {
+                        //loop for each file selected for uploaded.
+                        for (var i = 0; i < countFiles; i++) {
+                          var reader = new FileReader();
+
+                          reader.onload = function(e) {
+                            //var data = e.target.result;
+                            //window.alert(data);
+                            $("<div />", {
+                              "src": e.target.result,
+                              "id": "test_link"
+                            }).appendTo(hold_xml);
+
+                            base_src = document.getElementById("test_link").getAttribute("src");
+                            //window.open(base_src);
+                          }
+                          hold_xml.show();
+                          reader.readAsDataURL($(this)[0].files[i]);
+                        }
+                      } else {
+                        alert("This browser does not support FileReader. Please use an updated version of Internet Explorer, Google Chrome, Mozilla Firefox, that Apple one and the other one");
+                      }
+                    } else {
+                      alert("Insert valid XML only");
+                    }
+                  });
+                });
+          </script>
+
+          <div id="hold-xml"></div>
         </div>
     </div>
 </div>
