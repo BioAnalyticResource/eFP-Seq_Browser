@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<p id="testing_count">count</p>
-<p id="testing_code">test</p>
+<div id="testing_count" hidden>count</div>
+<div id="testing_code" hidden>test</div>
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>eFP-Seq Browser</title>
@@ -56,10 +56,10 @@
             <div class="container">
                 <!-- Title + Help + Cite -->
                 <div id="title_bar" class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top:1%;">
                         <p style="font-size: 25px; margin: 5px; text-align: center;"><i>A. thaliana</i> eFP-Seq Browser</p>
-                        <p style="font-size: 15px; margin: 5px; text-align: center;">Priyank Purohit, Dr. Nicholas Provart. University of Toronto.</p>
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-xs-offset-9 col-sm-offset-9 col-md-offset-9" style="margin-top: -50px;">
+                        <p style="font-size: 15px; margin: 5px; text-align: center;">Priyank Purohit, Alexander Sullivan, Michelle Chen, Dr. Nicholas Provart. University of Toronto.</p>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-xs-offset-9 col-sm-offset-9 col-md-offset-9" style="margin-top: -50px; padding-left:3%;">
                             <div class="col-sm-6" id="feedback_div">
                                 <button id="feedback_button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#feedbackModal">Feedback</button>
                             </div>
@@ -85,7 +85,7 @@
                 <div class="row">
                   <div class="col-md-2" style="padding-left: 2%;">
                     <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();">Upload Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                    <input type="file" id="fileID" style="visibility: hidden;" accept="text/xml"/>
+                    <input type="file" id="fileID" hidden accept="text/xml"/>
 
                     <!-- Script for changing base_src and uploading XML, clienside -->
                     <script>
@@ -338,10 +338,11 @@ We welcome feedback to nicholas.provart@utoronto.ca.<br>
                     </div>
                 </div>
             </div>
+
             <div id="SubmissionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header" style="padding-bottom:3%;">
                             <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
                         <div class="modal-body">

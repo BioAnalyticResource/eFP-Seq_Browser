@@ -3,17 +3,17 @@ var count_clicks = 1;
 
 $(function () {
 
-  $('#SubmitButton').click(function(){
-       var formatXML = '';
-       $(".Entries").each(function(i,v) {formatXML +=update(formatXML,v)
-         $('#ResultXml').val(base + formatXML + end)
-  $('#DownloadLink')
-    .attr('href', 'data:text/xml;base64,' + btoa(base + formatXML + end))
-    .attr('download', 'bamdata_amazon_links.xml');
-  $('#generated').show();
-    $('.return').hide();
-          });
-  });
+    $('#SubmitButton').click(function(){
+         var formatXML = '';
+         $(".Entries").each(function(i,v) {formatXML +=update(formatXML,v)
+           $('#ResultXml').val(base + formatXML + end)
+    $('#DownloadLink')
+      .attr('href', 'data:text/xml;base64,' + btoa(base + formatXML + end))
+      .attr('download', 'bamdata_amazon_links.xml');
+    $('#generated').show();
+      $('.return').hide();
+            });
+    });
 });
 
 var base = [

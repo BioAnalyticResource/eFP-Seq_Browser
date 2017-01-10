@@ -58,7 +58,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-xml-title" title="Name/title of your generated data. For example: Analysis of 113 RNA-Seq Data collected from Experiment 3">Title</label></th>
-              <input class="channelxmltitle col-sm-8" name="channelxmltitle" type="text" placeholder="Name/title of your generated data. For example: Analysis of 113 RNA-Seq Data collected from Experiment 3"  data-help-text="xmltitle" required/>
+              <input class="channelxmltitle col-sm-8" id="reqxml" name="channelxmltitle" type="text" placeholder="Name/title of your generated data. For example: Analysis of 113 RNA-Seq Data collected from Experiment 3"  data-help-text="xmltitle" />
             </div>
             </tr>
 
@@ -66,14 +66,14 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-author" title="The author of the generated data. Either you or your lab. Optional if you are keeping this data private.">Author</label></th>
-              <input class="channelauthor col-sm-8" name="channelauthor" type="text" placeholder="The author of the generated data. Either you or your lab. Optional if you are keeping this data private."  data-help-text="author" required/>
+              <input class="channelauthor col-sm-8" id="reqauthor" name="channelauthor" type="text" placeholder="The author of the generated data. Either you or your lab. Optional if you are keeping this data private."  data-help-text="author" />
             </div>
             </tr>
 
             <!-- Contact info -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-contact" title="Optional: Your contact information regarding your data.">Optional: Contact info</label></th>
+              <label class="col-sm-3" for="channel-contact" title="Optional: Your contact information regarding your data.">Contact info</label></th>
               <input class="channelcontact col-sm-8" name="channelcontact" type="text" placeholder="Optional: Your contact information regarding your data."  data-help-text="contact"/>
             </div>
             </tr>
@@ -92,7 +92,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-title" title="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment">Title</label></th>
-              <input class="channeltitle col-sm-8" name="channeltitle" type="text" placeholder="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment"  data-help-text="title"/>
+              <input class="channeltitle col-sm-8" id="req" name="channeltitle" type="text" placeholder="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment"  data-help-text="title" />
             </div>
             </tr>
 
@@ -100,7 +100,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label for="channel-description" class="formtextarea col-sm-3" title="Description of your RNA-Seq submission data">Description</label>
-              <textarea class="channeldescription col-sm-8" name="channeldescription" type="text" placeholder="A description of your RNA-Seq data such as what it is or what it contains. This can be brief like: E-MTAB-1668:24hCS-RNA or GSM798296: mRNASeq_WT_rep2 or something long" data-help-text="description"></textarea>
+              <textarea class="channeldescription col-sm-8" id="req" name="channeldescription" type="text" placeholder="A description of your RNA-Seq data such as what it is or what it contains. This can be brief like: E-MTAB-1668:24hCS-RNA or GSM798296: mRNASeq_WT_rep2 or something long" data-help-text="description" ></textarea>
             </div>
             </tr>
 
@@ -108,7 +108,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-record_number" title="Record or run number. For example ERR274310 or SRR547531">Record number</label>
-              <input class="channelrecordnumber col-sm-8" name="channelrecordnumber" placeholder="ERR274310 or SRR547531" type="text" data-help-text="record_number"/>
+              <input class="channelrecordnumber col-sm-8" id="req" name="channelrecordnumber" placeholder="ERR274310 or SRR547531" type="text" data-help-text="record_number" />
             </div>
             </tr>
 
@@ -116,15 +116,15 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-hex_color" title="Admin use, this temp">Hex color</label>
-              <input class="channelhexcolor col-sm-8" name="channelhexcolor" placeholder="0x64cc65" type="text" data-help-text="record_number"/>
+              <input class="channelhexcolor col-sm-8" id="req" name="channelhexcolor" placeholder="0x64cc65" type="text" data-help-text="record_number" />
             </div>
 
 
             <!-- BAM Repository link -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-bam_link" title="It is required for your your BAM files or RNA-Seq data files to have a .dl repository link for the eFP-Seq Browser to give you input.">RNA-Seq Data/BAM file Repsitory Link</label>
-              <input class="channelbamlink col-sm-8" name="channelbamlink" placeholder="THIS IS REQUIRED. Examples: http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam or " type="text" data-help-text="bam_link"/>
+              <label class="col-sm-3" for="channel-bam_link" title="It is  for your your BAM files or RNA-Seq data files to have a .dl repository link for the eFP-Seq Browser to give you input.">RNA-Seq Data/BAM file Repsitory Link</label>
+              <input class="channelbamlink col-sm-8" id="req" name="channelbamlink" placeholder="THIS IS . Examples: http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam or " type="text" data-help-text="bam_link" />
             </div>
 
 
@@ -132,7 +132,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-publication_link" title="If your research has been published or referencing a research, it may be useful to link to the publication.">Publicaiton Link</label>
-              <input class="channelpublicationlink col-sm-8" name="channelpublicationlink" placeholder="http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
+              <input class="channelpublicationlink col-sm-8" name="channelpublicationlink" placeholder="Optional: http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
             </div>
             </tr>
 
@@ -140,7 +140,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-publication_url" title="If your RNA-Seq data is available on NCBI's Sequence Read Archive, it may be useful to include this informaiton.">Sequence Reach Archive/NCBI Link</label>
-              <input class="channelpublicationurl col-sm-8" name="channelpublicationurl" placeholder="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
+              <input class="channelpublicationurl col-sm-8" name="channelpublicationurl" placeholder="Optional: http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
             </div>
             </tr>
 
@@ -148,7 +148,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-total_reads_mapped" title="The total amount of reads mapped in your RNA-Seq data.">Total Reads Mapped</label>
-              <input class="channeltotalreadsmapped col-sm-8" name="channeltotalreadsmapped" placeholder="29098868" type="text" data-help-text="total_reads_mapped"/>
+              <input class="channeltotalreadsmapped col-sm-8" id="req" name="channeltotalreadsmapped" placeholder="29098868" type="text" data-help-text="total_reads_mapped" />
             </div>
             </tr>
 
@@ -156,7 +156,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-svgname" title="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg">SVG Name</label>
-              <input class="channelsvgname col-sm-8" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="sngname"/>
+              <input class="channelsvgname col-sm-8" id="req" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="sngname" />
             </div>
             </tr>
 
@@ -164,7 +164,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-species" title="The species of the organism (latin name with exception of human) that your RNA-Seq data is for.">Species</label>
-              <input class="channelspecies col-sm-8" list="channelspecieslist" name="channelspecies" placeholder="Arabidopsis" type="text" data-help-text="species"/>
+              <input class="channelspecies col-sm-8" list="channelspecieslist" id="req" name="channelspecies" placeholder="Arabidopsis" type="text" data-help-text="species" />
               <datalist id="channelspecieslist">
                 <option value="Arabidopsis thaliana"/>
                 <option value="Selaginella moellendorffi"/>
@@ -190,7 +190,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue</label>
-              <input class="channeltissue col-sm-8" list="channeltissuelist" name="channeltissue" placeholder="Etiolated seedling" type="text" data-help-text="tissue"/>
+              <input class="channeltissue col-sm-8" list="channeltissuelist" id="req" name="channeltissue" placeholder="Etiolated seedling" type="text" data-help-text="tissue" />
               <datalist id="channeltissuelist">
                 <option value="Dry seed"/>
                 <option value="Imbibed seed, 24 h"/>
@@ -246,7 +246,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-controls" title="The BAM exp number of the controls in your RNA-Seq data.">Controls</label>
-              <input class="channelcontrols col-sm-8" name="channelcontrols" placeholder="ERR274310" type="text" data-help-text="total_controls"/>
+              <input class="channelcontrols col-sm-8" name="channelcontrols" placeholder="Optional: ERR274310" type="text" data-help-text="total_controls"/>
             </div>
             </tr>
 
@@ -254,7 +254,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3 " for="channel-groupwidtho" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1</label>
-              <input class="channelgroupwidtho col-sm-8" name="channelgroupwidtho" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidtho col-sm-8" name="channelgroupwidtho" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
             </tr>
 
@@ -262,7 +262,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3 " for="channel-groupwidth2" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 2</label>
-              <input class="channelgroupwidth2 col-sm-8" name="channelgroupwidth2" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidth2 col-sm-8" name="channelgroupwidth2" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
             </tr>
 
@@ -270,7 +270,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3 " for="channel-groupwidth3" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 3</label>
-              <input class="channelgroupwidth3 col-sm-8" name="channelgroupwidth3" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidth3 col-sm-8" name="channelgroupwidth3" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
             </tr>
 
@@ -278,7 +278,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3 " for="channel-groupwidth4" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 4</label>
-              <input class="channelgroupwidth4 col-sm-8" name="channelgroupwidth4" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidth4 col-sm-8" name="channelgroupwidth4" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
             </tr>
 
@@ -286,7 +286,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3 " for="channel-groupwidth5" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 5</label>
-              <input class="channelgroupwidth5 col-sm-8" name="channelgroupwidth5" placeholder="ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidth5 col-sm-8" name="channelgroupwidth5" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
             </tr>
         </table>
@@ -301,7 +301,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
   <div id="Cloning" class="button_fixed">
     <p>
   	   <button id="CloneForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple">Add another entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-       <button type="submit" id="SubmitButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Generate Readable Data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+       <button type="button" id="SubmitButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Generate Readable Data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
     </p>
   </div>
 
