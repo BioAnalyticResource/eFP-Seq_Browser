@@ -1,4 +1,5 @@
 // Code was edited and modified by StackOverFlow user: madalin ivascu, who made the XML generator work for multiple entries. With greatest thanks <3
+var count_clicks = 1;
 
 $(function () {
 
@@ -18,7 +19,7 @@ $(function () {
 var base = [
   '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
   '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">',
-  '\t<rnaseq_experiments>',
+  '\t<rnaseq_experiments name=\"<?channelxmltitle?>\" author=\"<?channelauthor?>\" contact_info=\"<?channelcontact?>\">',
   '\n'
 ].join('\r\n');
 
@@ -60,6 +61,9 @@ var adding = [
 
 function update(formatXML,v) {
   var variables = {
+    'channelxmltitle': $(v).find('.channelxmltitle').val(),
+    'channelauthor': $(v).find('.channelauthor').val(),
+    'channelcontact': $(v).find('.channelcontact').val(),
     'channeldescription': $(v).find('.channeldescription').val(),
     'channelrecordnumber': $(v).find('.channelrecordnumber').val(),
     'channelhexcolor': $(v).find('.channelhexcolor').val(),
@@ -94,4 +98,6 @@ $(function () {
 
 function CloneSection() {
   $(".SubmissionArea").append($(".Entries:first").clone(true));
+  count_clicks += 1;
+  $("legend:last").text("Enty " + count_clicks);
 }

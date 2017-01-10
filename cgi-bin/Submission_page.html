@@ -18,7 +18,7 @@
 
 <!-- This script is to ask the user if they are sure if they want to close the submission system or not -->
 <script>
-window.onbeforeunload = function() { return "You are about to the submission system. Are you sure?"}
+window.onbeforeunload = function() { return "You are about to close the submission system. Are you sure?"}
 </script>
 
 <div>
@@ -26,7 +26,7 @@ window.onbeforeunload = function() { return "You are about to the submission sys
   <!-- Titles and top buttons -->
   <header>
     <div>
-      <h1 class="leftmargin">Alpha v0.0</h1>
+      <h1 class="leftmargin">Alpha v1.0</h1>
       <!-- old buttons
       <div>
         <p class="leftmargin">
@@ -42,13 +42,50 @@ window.onbeforeunload = function() { return "You are about to the submission sys
   <br>
 
   <body>
+
+  <form>
+
   <!-- Submission system -->
   <div class="SubmissionArea">
 
+  <!-- Basic information of each XML file -->
+  <div class="Basic_info" name="Basic_info">
+  <legend class="leftmargin" style="padding-top:2%;" id="basic_yo"> Basic Information </legend>
+    <div class="form_in">
+      <fieldset>
+        <table class="container">
+            <!-- Title of XML file -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-xml-title" title="Name/title of your generated data. For example: Analysis of 113 RNA-Seq Data collected from Experiment 3">Title</label></th>
+              <input class="channelxmltitle col-sm-8" name="channelxmltitle" type="text" placeholder="Name/title of your generated data. For example: Analysis of 113 RNA-Seq Data collected from Experiment 3"  data-help-text="xmltitle" required/>
+            </div>
+            </tr>
+
+            <!-- Author -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-author" title="The author of the generated data. Either you or your lab. Optional if you are keeping this data private.">Author</label></th>
+              <input class="channelauthor col-sm-8" name="channelauthor" type="text" placeholder="The author of the generated data. Either you or your lab. Optional if you are keeping this data private."  data-help-text="author" required/>
+            </div>
+            </tr>
+
+            <!-- Contact info -->
+            <tr>
+            <div class="forminput row">
+              <label class="col-sm-3" for="channel-contact" title="Optional: Your contact information regarding your data.">Optional: Contact info</label></th>
+              <input class="channelcontact col-sm-8" name="channelcontact" type="text" placeholder="Optional: Your contact information regarding your data."  data-help-text="contact"/>
+            </div>
+            </tr>
+        </table>
+      </fieldset>
+    </div>
+  </div>
+
   <!-- Single entry for the submission -->
   <div class="Entries" name="Entries">
-  <legend class="leftmargin"> Entry </legend>
-    <form class="form">
+  <legend class="leftmargin" style="padding-top:2%;" id="Enty_num"> Entry 1 </legend>
+    <div class="form_in">
       <fieldset>
         <table class="container">
             <!-- Title -->
@@ -254,16 +291,17 @@ window.onbeforeunload = function() { return "You are about to the submission sys
             </tr>
         </table>
   	  </fieldset>
-  	</form>
+  	</div>
   </div>
+
   </div>
-  </body>
+
 
   <!-- Add another entry and generate XML buttons -->
   <div id="Cloning" class="button_fixed">
     <p>
   	   <button id="CloneForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple">Add another entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-       <button id="SubmitButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Generate Readable Data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+       <button type="submit" id="SubmitButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Generate Readable Data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
     </p>
   </div>
 
@@ -276,15 +314,20 @@ window.onbeforeunload = function() { return "You are about to the submission sys
     <br>
     <button href="#" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click(); return false;"/>Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
     <input type="file" id="fileID" style="visibility: hidden;" accept="text/xml"/>
-    <div id="hold-xml">
+    <div id="hold-xml"></div>
+
   </div>
 
-</div>
+  </form>
+  </body>
 
-<!-- Back to welcome page -->
+<!-- Back to welcome page
+
 <div class="leftmargin return" style="padding-top:50px;" id="return">
   <a href="Opening_Submission.html"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple"> Return to welcome back <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a>
 </div>
+
+-->
 
 <!-- Floating help button -->
 <a href="Tutorial-Help.html"><img src="Submission_page/Images/help2.png" style="position: fixed; bottom: 10px; right: 10px;" height="40" title="Tutorial on how the submission system works for the eFP-Seq Browser and what to put in each input field (including how to find it)."></a>

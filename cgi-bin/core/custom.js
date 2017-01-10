@@ -632,6 +632,7 @@ function populate_table(status) {
                 var url = $(this).attr('publication_url');
                 var publicationid = $(this).attr('publication_link');
                 var numberofreads = $(this).attr('total_reads_mapped');
+                var species = $(this).attr('species');
                 var controls = $(this).find("controls")[0].innerHTML.replace(/<bam_exp>/g, "").replace(/<\/bam_exp>/g, ",").replace(/\n/g, " ").replace(/ /g, "").split(",");
                 var links = "";
                 for (var i = controls.length; i--;) {
@@ -663,7 +664,7 @@ function populate_table(status) {
                 // Append abs/rel RPKM
                 append_str += '<td id="' + experimentno + '_rpkm' + '" style="font-size: 10px; width: 50px; ">-9999</td>';
                 // Append the details <td>
-                append_str += '<td style="width: 200px; font-size: 12px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA' + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '<br/><a href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()">More Details</a><div id="' + url.substring(44) + '" style="display:none">Total reads = ' + numberofreads + '.<br/>Controls: ' + links + '</div></td>\n';
+                append_str += '<td style="width: 200px; font-size: 12px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA' + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '<br/><a href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()">More Details</a><div id="' + url.substring(44) + '" style="display:none">Total reads = ' + numberofreads + '.<br/>Controls: ' + links + '.<br/>Species: ' + species + '</div></td>\n';
                 append_str += '</tr>';
 
                 // Append the <tr> to the table
