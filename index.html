@@ -2,6 +2,7 @@
 <html>
 <div id="testing_count" hidden>count</div>
 <div id="testing_code" hidden>test</div>
+<div id="testing_modal">modal</div>
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>eFP-Seq Browser</title>
@@ -108,10 +109,10 @@
                                       //window.alert(data);
                                       $("<div />", {
                                         "src": e.target.result,
-                                        "id": "test_link"
+                                        "id": "newsrc"
                                       }).appendTo(hold_xml);
 
-                                      base_src = document.getElementById("test_link").getAttribute("src");
+                                      base_src = document.getElementById("newsrc").getAttribute("src");
                                       //window.open(base_src);
                                     }
                                     hold_xml.show();
@@ -133,6 +134,10 @@
                         count_bam_num();
                       }
                     }, 500);
+
+                    function closeGenerate() {
+                      document.getElementById("closemodal").click();
+                    };
                     </script>
 
                     <div id="hold-xml"></div>
@@ -349,11 +354,12 @@ We welcome feedback to nicholas.provart@utoronto.ca.<br>
                           <iframe src="cgi-bin\Submission_page.html" height="600px"></iframe>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="closemodal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
+
             <script>
             (function() {
                 'use strict';

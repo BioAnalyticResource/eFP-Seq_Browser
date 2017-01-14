@@ -34,7 +34,7 @@
 
 .forminput {
   padding-left: 3.5%;
-  padding-top: 0.5%;
+  padding-top: 0.7%;
   display: flex;
 }
 
@@ -119,4 +119,37 @@ label {
 .finalsubmitbutton:hover {
   background: #0d9e00;
   text-decoration: none;
+}
+
+.reqasterisk {
+  color: #CBE8BA;
+  font-weight:bold;
+}
+
+input {
+    float:right;
+    border:2px solid #dadada;
+    border-radius:7px;
+    padding:5px;
+    margin-top:-10px;
+}
+
+input:focus {
+    outline:none;
+    border-color:#9ecaed;
+    box-shadow:0 0 10px #9ecaed;
+}
+
+textarea {
+    float:right;
+    border:2px solid #dadada;
+    border-radius:7px;
+    padding:5px;
+    margin-top:-10px;
+}
+
+textarea:focus {
+    outline:none;
+    border-color:#9ecaed;
+    box-shadow:0 0 10px #9ecaed;
 }

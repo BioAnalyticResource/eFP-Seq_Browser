@@ -5,16 +5,30 @@ $(function () {
 
     $('#SubmitButton').click(function(){
          var formatXML = '';
-         $(".Entries").each(function(i,v) {formatXML +=update(formatXML,v)
-           $('#ResultXml').val(base + formatXML + end)
-    $('#DownloadLink')
-      .attr('href', 'data:text/xml;base64,' + btoa(base + formatXML + end))
-      .attr('download', 'bamdata_amazon_links.xml');
-    $('#generated').show();
-      $('.return').hide();
-            });
+         remove_outline(".reqfield");
+         if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqtitle"))  {
+           document.getElementById("float_test").innerHTML = "yup";
+
+
+           $(".Entries").each(function(i,v) {formatXML +=update(formatXML,v)
+             $('#ResultXml').val(base + formatXML + end);
+           $('#DownloadLink')
+             .attr('href', 'data:text/xml;base64,' + btoa(base + formatXML + end))
+             .attr('download', 'bamdata_amazon_links.xml');
+           $('#generated').show();
+             $('.return').hide();
+                   });
+         }
+         else {
+           document.getElementById("float_test").innerHTML = "nope";
+           outline_req(".reqfield");
+           document.getElementById("not_filled").innerHTML = "Please fill in all red highlighted fields";
+         }
+
     });
 });
+
+
 
 var base = [
   '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
@@ -99,5 +113,48 @@ $(function () {
 function CloneSection() {
   $(".SubmissionArea").append($(".Entries:first").clone(true));
   count_clicks += 1;
-  $("legend:last").text("Enty " + count_clicks);
-}
+  $("legend:last").text("Entry " + count_clicks);
+};
+
+function check_req(class_name) {
+  var filled = 0;
+  var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
+  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].value.length > 0) {
+      filled += 1
+    }
+  }
+  if (filled == match) {
+    return true
+  }
+  else {
+    return false
+  }
+};
+
+function outline_req(class_name) {
+  var filled = 0;
+  var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
+  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].value.length <= 0) {
+      x[i].style.borderColor = "#ff2626";
+      x[i].style.boxShadow = "0 0 10px #ff2626";
+    }
+  }
+};
+
+function remove_outline(class_name) {
+  document.getElementById("not_filled").innerHTML = "";
+  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].value.length > 0) {
+      x[i].style.borderColor = "#dadada";
+      x[i].style.boxShadow = "none";
+    }
+  }
+};
