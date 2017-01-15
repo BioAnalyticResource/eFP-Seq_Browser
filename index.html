@@ -85,7 +85,7 @@
                 <hr style="border: 1px solid gray; margin: 5px; " />
                 <div class="row">
                   <div class="col-md-2" style="padding-left: 2%;">
-                    <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();">Upload Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                    <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();" style="margin-top:3%;">Upload Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                     <input type="file" id="fileID" hidden accept="text/xml"/>
 
                     <!-- Script for changing base_src and uploading XML, clienside -->
@@ -142,19 +142,62 @@
 
                     <div id="hold-xml"></div>
                   </div>
+
+
+
                   <div class="col-md-5" style="padding-top: 0.5%;">
-                    <p>Public RNA-Seq Databases: </button>
-                    <input class="xmldatabase" list="xmldatabaselist" name="xmldatabase" placeholder="Default" type="text" data-help-text="xmldatabase" style="width:50%;"/>
-                    <datalist id="xmldatabaselist">
-                      <option value="Default"/>
-                      <option value="Capa"/>
-                      <option value="Local"/>
-                      <option value="Placeholder #4"/>
-                    </datalist>
+                    <p class="public-rna">Public RNA-Seq Databases: </button>
+                    <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" onclick="change_dataset()"/>
+                      <option value="Default test">Default test</option>
+                      <option value="Original 113">Original 113</option>
+                      <option value="Test modification">Test modification</option>
+                      <option value="Cloud test">Cloud test</option>
+                    </select>
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;"><i class="material-icons">input</i></button>
                   </div>
+                  <script>
+                  function change_dataset() {
+                    if (document.getElementById("xmldatabase").value == "Default test") {
+                      base_src = 'cgi-bin/data/bamdata_amazon_links.xml';
+                    }
+                    else if (document.getElementById("xmldatabase").value == "Original 113") {
+                      base_src = 'bamdata_amazon_links - ORIGINAL';
+                    }
+                    else if (document.getElementById("xmldatabase").value == "Test modification") {
+                      base_src = 'cgi-bin/data/bamdata.xml';
+                    }
+                    else if (document.getElementById("xmldatabase").value == "Cloud test") {
+                      base_src = 'cgi-bin/data/bamdata_cloud.xml';
+                    }
+                    update_all_images(0);
+                  };
+                  </script>
+                  <style>
+                  select {
+                      border:2px solid #dadada;
+                      border-radius:7px;
+                      padding:5px;
+                      height: 40px;
+                  }
+
+                  select:focus {
+                      outline:none;
+                      border-color:#9ecaed;
+                      box-shadow:0 0 10px #9ecaed;
+                  }
+
+                  .public-rna {
+                    font-size: 15px;
+                    font-weight: 500;
+                    font-family: "Roboto","Helvetica","Arial",sans-serif;
+                  }
+                  </style>
+
+
+
                   <div class="col-md-3"></div>
                   <div class="col-md-2">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple">Generate data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%">Generate data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                   </div>
                 </div>
 

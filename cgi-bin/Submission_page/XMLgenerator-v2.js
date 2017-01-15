@@ -2,47 +2,38 @@
 var count_clicks = 1;
 
 $(function () {
-
-    $('#SubmitButton').click(function(){
+    $('#GenerateButton').click(function(){
+         var file_name = document.getElementById("reqxml").value.replace(/ /g, "_")
          var formatXML = '';
          remove_outline(".reqfield");
-         if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqtitle"))  {
-           document.getElementById("float_test").innerHTML = "yup";
-
-
+         no_null_contact();
+         if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield"))  {
            $(".Entries").each(function(i,v) {formatXML +=update(formatXML,v)
-             $('#ResultXml').val(base + formatXML + end);
+             $('#ResultXml').val(formatXML + end);
            $('#DownloadLink')
-             .attr('href', 'data:text/xml;base64,' + btoa(base + formatXML + end))
-             .attr('download', 'bamdata_amazon_links.xml');
+             .attr('href', 'data:text/xml;base64,' + btoa(formatXML + end))
+             .attr('download', file_name + '.xml');
            $('#generated').show();
-             $('.return').hide();
                    });
          }
          else {
-           document.getElementById("float_test").innerHTML = "nope";
            outline_req(".reqfield");
            document.getElementById("not_filled").innerHTML = "Please fill in all red highlighted fields";
          }
-
     });
 });
 
 
-
-var base = [
-  '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
-  '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">',
-  '\t<rnaseq_experiments name=\"<?channelxmltitle?>\" author=\"<?channelauthor?>\" contact_info=\"<?channelcontact?>\">',
-  '\n'
-].join('\r\n');
 
 var end = [
   '\t</rnaseq_experiments>'
 ].join('\r\n');
 
 var added = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\">',
+  '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
+  '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">',
+  '\t<rnaseq_experiments xmltitle=\"<?channelxmltitle?>\" author=\"<?channelauthor?>\" contact=\"<?channelcontact?>\">',
+  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\" species=\"<?channelspecies?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
@@ -58,7 +49,7 @@ var added = [
 ].join('\r\n');
 
 var adding = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\">',
+  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\" species=\"<?channelspecies?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
@@ -75,9 +66,9 @@ var adding = [
 
 function update(formatXML,v) {
   var variables = {
-    'channelxmltitle': $(v).find('.channelxmltitle').val(),
-    'channelauthor': $(v).find('.channelauthor').val(),
-    'channelcontact': $(v).find('.channelcontact').val(),
+    'channelxmltitle': document.getElementById("reqxml").value,
+    'channelauthor': document.getElementById("reqauthor").value,
+    'channelcontact': document.getElementById("contectinfo").value,
     'channeldescription': $(v).find('.channeldescription').val(),
     'channelrecordnumber': $(v).find('.channelrecordnumber').val(),
     'channelhexcolor': $(v).find('.channelhexcolor').val(),
@@ -88,6 +79,7 @@ function update(formatXML,v) {
     'channelsvgname': $(v).find('.channelsvgname').val(),
     'channeltitle': $(v).find('.channeltitle').val(),
     'channelpublicationlink': $(v).find('.channelpublicationlink').val(),
+    'channelspecies': $(v).find('.channelspecies').val(),
     'channelcontrols': $(v).find('.channelcontrols').val(),
     'channelgroupwidtho': $(v).find('.channelgroupwidtho').val(),
     'channelgroupwidth2': $(v).find('.channelgroupwidth2').val(),
@@ -153,8 +145,14 @@ function remove_outline(class_name) {
   var i;
   for (i = 0; i < x.length; i++) {
     if (x[i].value.length > 0) {
-      x[i].style.borderColor = "#dadada";
-      x[i].style.boxShadow = "none";
+      x[i].style.borderColor = null;
+      x[i].style.boxShadow = null;
     }
+  }
+};
+
+function no_null_contact() {
+  if (document.getElementById("contectinfo") == null) {
+    document.getElementById("contectinfo").innerHTML = " ";
   }
 };

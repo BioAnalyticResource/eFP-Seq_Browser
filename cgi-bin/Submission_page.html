@@ -61,8 +61,28 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <!-- Title of XML file -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-xml-title" title="Name/title of your generated data. For example: Analysis of 113 RNA-Seq Data collected from Experiment 3">Title <span style="font-weight:bold;">*</span></label></th>
-              <input class="channelxmltitle col-sm-8 reqfield" id="reqxml" name="channelxmltitle" type="text" placeholder="Name/title of your generated data. For example: Analysis of 113 RNA-Seq Data collected from Experiment 3"  data-help-text="xmltitle" />
+              <label class="col-sm-3" for="channel-xml-title" title="Name/title of your generated data. No special characters allowed except for '-' (dash)">Title <span style="font-weight:bold;">*</span></label></th>
+              <input class="channelxmltitle col-sm-8 reqfield" id="reqxml" name="channelxmltitle" type="text" placeholder="Name/title of your generated data. No special characters allowed except for '-' (dash). For example: Analysis of 113 RNA-Seq Data collected from Experiment 3"  data-help-text="xmltitle"/>
+              <script>
+              // Code taken from http://stackoverflow.com/questions/7144167/only-allow-english-characters-and-numbers-for-text-input
+              $("#reqxml").keypress(function(event){
+                var ew = event.which;
+                  if(48 <= ew && ew <= 57)
+                      return true;
+                  if(65 <= ew && ew <= 90)
+                      return true;
+                  if(97 <= ew && ew <= 122)
+                      return true;
+                  if(ew == 8)
+                      return true;
+                  if(ew == 32)
+                      return true;
+                  if(ew == 45)
+                      return true;
+                  return false;
+              });
+              </script>
+
             </div>
             </tr>
 
@@ -78,7 +98,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-contact" title="Optional: Your contact information regarding your data.">Contact info </label></th>
-              <input class="channelcontact col-sm-8" name="channelcontact" type="text" placeholder="Optional: Your contact information regarding your data."  data-help-text="contact"/>
+              <input class="channelcontact col-sm-8" name="channelcontact" id="contectinfo" type="text" placeholder="Optional: Your contact information regarding your data."  data-help-text="contact"/>
             </div>
             </tr>
         </table>
@@ -168,25 +188,25 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-species" title="The species of the organism (latin name with exception of human) that your RNA-Seq data is for.">Species <span style="font-weight:bold;">*</span></label>
-              <input class="channelspecies col-sm-8" list="channelspecieslist reqfield" id="req" name="channelspecies" placeholder="Arabidopsis" type="text" data-help-text="species" />
-              <datalist id="channelspecieslist">
-                <option value="Arabidopsis thaliana"/>
-                <option value="Selaginella moellendorffi"/>
-                <option value="Brachypodium distachyon"/>
-                <option value="Setaria viridis"/>
-                <option value="Lotus japonicus"/>
-                <option value="Maize"/>
-                <option value="Nicotiana benthamiana"/>
-                <option value="Oryza sativa"/>
-                <option value="Caenorhabditis elegans"/>
-                <option value="Saccharomyces cerevisiae"/>
-                <option value="Tobacco mosaic virus"/>
-                <option value="Escherichia coli"/>
-                <option value="Bacillus subtilis"/>
-                <option value="Pseudomonas fluorescens"/>
-                <option value="Human"/>
-                <option value="Mus muculus"/>
-              </datalist>
+              <select class="channelspecies col-sm-8" list="channelspecieslist reqfield" id="req" name="channelspecies" placeholder="Arabidopsis" type="text" data-help-text="species" />
+                <option value="Arabidopsis thaliana">Arabidopsis thaliana</option>
+                <option value="Selaginella moellendorffi">Selaginella moellendorffi</option>
+                <option value="Brachypodium distachyon">Brachypodium distachyon</option>
+                <option value="Setaria viridis">Setaria viridis</option>
+                <option value="Lotus japonicus">Lotus japonicus</option>
+                <option value="Maize">Maize</option>
+                <option value="Nicotiana benthamiana">Nicotiana benthamiana</option>
+                <option value="Oryza sativa">Oryza sativa</option>
+                <option value="Caenorhabditis elegans">Caenorhabditis elegans</option>
+                <option value="Saccharomyces cerevisiae">Saccharomyces cerevisiae</option>
+                <option value="Tobacco mosaic virus">Tobacco mosaic virus</option>
+                <option value="Escherichia coli">Escherichia coli</option>
+                <option value="Bacillus subtilis">Bacillus subtilis</option>
+                <option value="Pseudomonas fluorescens">Pseudomonas fluorescens</option>
+                <option value="Human">Human</option>
+                <option value="Mus muculus">Mus muculus</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
             </tr>
 
@@ -194,58 +214,26 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <tr>
             <div class="forminput row">
               <label class="col-sm-3" for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue <span style="font-weight:bold;">*</span></label>
-              <input class="channeltissue col-sm-8" list="channeltissuelist reqfield" id="req" name="channeltissue" placeholder="Etiolated seedling" type="text" data-help-text="tissue" />
-              <datalist id="channeltissuelist">
-                <option value="Dry seed"/>
-                <option value="Imbibed seed, 24 h"/>
-                <option value="1st Node"/>
-                <option value="Flower Stage 12, Stamens"/>
-                <option value="Cauline Leaf"/>
-                <option value="Cotyledon"/>
-                <option value="Root"/>
-                <option value="Entire Rosette After Transition to Flowering"/>
-                <option value="Flower Stage 9"/>
-                <option value="Flower Stage 10/11"/>
-                <option value="Flower Stage 12"/>
-                <option value="Flower Stage 15"/>
-                <option value="Flower Stage 12, Carpels"/>
-                <option value="Flower Stage 15, Carpels"/>
-                <option value="Flower Stage 12, Petals"/>
-                <option value="Flower Stage 15, Petals"/>
-                <option value="Flower Stage 12, Sepals"/>
-                <option value="Flower Stage 15, Sepals"/>
-                <option value="Flowers Stage 15, Pedicels"/>
-                <option value="Leaf 1 + 2"/>
-                <option value="Leaf 7, Petiole"/>
-                <option value="Leaf 7, Distal Half"/>
-                <option value="Leaf 7, Proximal Half"/>
-                <option value="Hypocotyl"/>
-                <option value="Root"/>
-                <option value="Rosette Leaf 2"/>
-                <option value="Rosette Leaf 4"/>
-                <option value="Rosette Leaf 6"/>
-                <option value="Rosette Leaf 8"/>
-                <option value="Rosette Leaf 10"/>
-                <option value="Rosette Leaf 12"/>
-                <option value="Senescing Leaf"/>
-                <option value="Shoot Apex, Inflorescence"/>
-                <option value="Shoot Apex, Transition"/>
-                <option value="Shoot Apex, Vegetative"/>
-                <option value="Stem, 2nd Internode"/>
-                <option value="Mature Pollen"/>
-                <option value="Seeds Stage 3 w/ Siliques"/>
-                <option value="Seeds Stage 4 w/ Siliques"/>
-                <option value="Seeds Stage 5 w/ Siliques"/>
-                <option value="Seeds Stage 6 w/o Siliques"/>
-                <option value="Seeds Stage 7 w/o Siliques"/>
-                <option value="Seeds Stage 8 w/o Siliques"/>
-                <option value="Seeds Stage 9 w/o Siliques"/>
-                <option value="Seeds Stage 10 w/o Siliques"/>
-                <option value="Vegetative Rosette"/>
-                <option value="Other"/>
-              </datalist>
+              <button  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect col-sm-2" data-toggle="modal" data-target="#eFPTissue" data-upgraded=",MaterialButton,MaterialRipple" style="background-color:#ECECEC; border-radius:5px;" disabled="disabled"> Choose tissue <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button/>
+              <input class="channeltissue col-sm-6" list="channeltissuelist reqfield" id="req" name="channeltissue" placeholder="Etiolated seedling" type="text" data-help-text="tissue" />
             </div>
             </tr>
+
+            <div id="SubmissionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding-bottom:3%;">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="modal-body">
+                          <iframe src="cgi-bin\Submission_page.html" height="600px"></iframe>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="closemodal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Control -->
             <tr>
@@ -308,7 +296,7 @@ window.onbeforeunload = function() { return "You are about to close the submissi
     <p>
   	   <button type="button" id="CloneForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple">Add another entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
-       <button type="button" id="SubmitButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Generate Readable Data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+       <button type="button" id="GenerateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Generate Readable Data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
        <span id="not_filled" style="margin-left:10px;"></span>
     </p>
@@ -318,50 +306,19 @@ window.onbeforeunload = function() { return "You are about to close the submissi
   <div id="generated" style="display:none" class="leftmargin">
     <p style="font-size:2em;">Please download the following XML to use your data at a later point without the necessicity of filling in the form again. Click the submit button and add in the following XML.</p>
 
-    <button type="button" href="#" id="DownloadLink" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple">Download Readable Data (XML)<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+    <a class="downloadfile" href="#" id="DownloadLink"><button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" download>Download Readable Data (XML)<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a>
 
-    <button type="button" class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();" style="margin-left:10px;">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-    <input type="file" id="fileID" hidden accept="text/xml"/>
+    <button type="button" class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" id="sendXML"  data-upgraded=",MaterialButton,MaterialRipple"  style="margin-left:10px;">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
-    <!-- Script for changing base_src and uploading XML, clienside -->
+    <!-- Script for changing base_src and uploading XML, clienside. This script is based off the following StackOverFlow http://stackoverflow.com/questions/37699927/file-not-uploading-in-file-reader -->
     <script>
+    var generatesrc = '';
     $(function() {
-      $("#fileID").on('change', function() {
-        //Get count of selected files
-        var countFiles = $(this)[0].files.length;
-        var imgPath = $(this)[0].value;
-        var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
-        var hold_xml = $("#hold-xml");
-        hold_xml.empty();
-        if (extn == "xml") {
-          if (typeof(FileReader) != "undefined") {
-            //loop for each file selected for uploaded.
-            for (var i = 0; i < countFiles; i++) {
-              var reader = new FileReader();
-
-              reader.onload = function(e) {
-                //var data = e.target.result;
-                //window.alert(data);
-                $("<div />", {
-                  "src": e.target.result,
-                  "id": "newsrc"
-                }).appendTo(window.parent.document.getElementById("hold-xml"));
-
-                parent.base_src = window.parent.document.getElementById("newsrc").getAttribute("src");
-                //window.open(base_src);
-              }
-              hold_xml.show();
-              reader.readAsDataURL($(this)[0].files[i]);
-              parent.update_all_images(0);
-              parent.closeGenerate();
-            }
-          } else {
-            alert("This browser does not support FileReader. Please use an updated version of Internet Explorer, Google Chrome, Mozilla Firefox, that Apple one and the other one");
-          }
-        } else {
-          alert("Insert valid XML only");
-        }
-        //count_bam_num();
+      $("#sendXML").click(function() {
+          generatesrc = $('.downloadfile').attr('href');
+          parent.base_src = generatesrc;
+          parent.update_all_images(0);
+          parent.closeGenerate();
       });
     });
     </script>
