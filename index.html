@@ -2,7 +2,7 @@
 <html>
 <div id="testing_count" hidden>count</div>
 <div id="testing_code" hidden>test</div>
-<div id="testing_modal" hidden>modal</div>
+<div id="testing_mobile" >mobile</div>
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>eFP-Seq Browser</title>
@@ -70,7 +70,7 @@
                             </div>
                             -->
                             <div class="col-sm-6">
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#myModal">Help</button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#myModal" id="help_button">Help</button>
                             </div>
                             <!--
                             <div class="col-sm-4">
@@ -82,8 +82,8 @@
                 </div>
 
                 <!-- Options for uploading and generating data -->
-                <hr style="border: 1px solid gray; margin: 5px; " />
-                <div class="row">
+                <hr style="border: 1px solid gray; margin: 5px; " id="topbarborder"/>
+                <div class="row" id="middle_buttons">
                   <div class="col-md-2" style="padding-left: 2%;">
                     <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();" style="margin-top:3%;">Upload Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                     <input type="file" id="fileID" hidden accept="text/xml"/>
@@ -146,7 +146,7 @@
 
 
                   <div class="col-md-5" style="padding-top: 0.5%;">
-                    <p class="public-rna">Public RNA-Seq Databases: </button>
+                    <p class="public-rna">Public RNA-Seq Databases:
                     <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" onclick="change_dataset()"/>
                       <option value="Default test">Default test</option>
                       <option value="Original 113">Original 113</option>
@@ -205,7 +205,7 @@
                 <!-- Options and Variants selection. -->
                 <div class="row">
                     <!-- Variants selection -->
-                    <div class="col-xs-12 col-sm-12 col-md-6">
+                    <div class="col-xs-12 col-sm-12 col-md-6" id="variants_portion">
                         <div id="variants_div">
                             <!-- Prepopulated with AT2G24270 data. -->
                             <div class="radio">
@@ -231,16 +231,21 @@
                         </div>
                     </div>
                     <!-- Options -->
-                    <div class="col-xs-12 col-sm-12 col-md-6">
+                    <div class="col-xs-12 col-sm-12 col-md-6" id="options_portion">
                         <div class="row">
-                            <div class="col-xs-1">
+                            <div class="col-xs-1" id="correctspacing">
                                 <!-- For correct spacing. -->
                             </div>
                             <!-- Locus input -->
-                            <div class="col-xs-4">
+                            <div class="col-xs-4" id="locusbrowser">
                                 <p>
                                     <input type="text" class="form-control" name="Locus" id="locus" value="AT2G24270" style="width: 175px; height: 35px; border: 1.5px solid rgb(76,175,80);" autofocus/><i>Locus</i>
                                 </p>
+                            </div>
+                            <div id="locusmobile" class="col-xs-4" style="display:none;">
+                              <p>
+                                Locus: <input type="text" class="form-control" name="Locus" id="locus" value="AT2G24270" style="width: 125px; height: 35px; border: 1.5px solid rgb(76,175,80);" autofocus/>
+                              </p>
                             </div>
                             <div class="mdl-tooltip" for="locus">e.g. AT2G24270</div>
                             <!-- Y axis scaling -->
@@ -249,8 +254,17 @@
                                     <input type="text" class="form-control" name="yscale_inp" id="yscale_input" value="Auto" style="width: 175px; height: 35px;" /><i>RNA-Seq Y-axis Scale</i>
                                 </p>
                             </div>
+                            <div id="tt4mobile" class="col-xs-4" style="display:none;">
+                              <p>
+                                RNA-Seq Y-axis Scale:
+                                <input type="text" class="form-control" name="yscale_inp" id="yscale_input" value="Auto" style="width: 125px; height: 35px;" />
+                                <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style">
+                                    <i class="material-icons">trending_flat</i>
+                                </button>
+                              </p>
+                            </div>
                             <div class="mdl-tooltip" for="yscale_input">'Auto' or >= 1 </div>
-                            <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style">
+                            <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style locus_button_visual">
                                 <i class="material-icons">trending_flat</i>
                             </button>
                             <!--
