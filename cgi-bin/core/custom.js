@@ -94,7 +94,7 @@ if (testmobile() == true) {
   //document.getElementById("absolutedefault").className="col-xs-6";
   document.getElementById("rpkm_scale_input").style.width="100%";
   //document.getElementById("variants_div").style.width="475px";
-  document.getElementById("mobilenavbar").style.display="inline";
+  document.getElementById("mobilenavbar").style.display="block";
 };
 
 // Base 64 images

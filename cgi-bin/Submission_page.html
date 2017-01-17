@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css"/>
 <script src="Submission_page/processing-api.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="Submission_page/XMLgenerator-v2.js"></script>
 <script src="core/custom.js"></script>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 
 <!--Bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -61,8 +61,8 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <!-- Title of XML file -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-xml-title" title="Name/title of your generated data. No special characters allowed except for '-' (dash)">Title <span style="font-weight:bold;">*</span></label></th>
-              <input class="channelxmltitle col-sm-8 reqfield" id="reqxml" name="channelxmltitle" type="text" placeholder="Name/title of your generated data. No special characters allowed except for '-' (dash). For example: Analysis of 113 RNA-Seq Data collected from Experiment 3"  data-help-text="xmltitle"/>
+              <label class="col-xs-4 col-sm-4 col-md-3" for="channel-xml-title" title="Name/title of your generated data. No special characters allowed except for '-' (dash)">Title <span style="font-weight:bold;">*</span></label></th>
+              <input class="channelxmltitle col-xs-7 col-sm-7 col-md-8  reqfield" id="reqxml" name="channelxmltitle" type="text" placeholder="Name/title of your generated data. No special characters allowed except for '-' (dash). For example: Analysis of 113 RNA-Seq Data collected from Experiment 3"  data-help-text="xmltitle"/>
               <script>
               // Code taken from http://stackoverflow.com/questions/7144167/only-allow-english-characters-and-numbers-for-text-input
               $("#reqxml").keypress(function(event){
@@ -89,16 +89,16 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <!-- Author -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-author" title="The author of the generated data. Either you or your lab. Optional if you are keeping this data private.">Author <span style="font-weight:bold;">*</span></label></th>
-              <input class="channelauthor col-sm-8 reqfield" id="reqauthor" name="channelauthor" type="text" placeholder="The author of the generated data. Either you or your lab. Optional if you are keeping this data private."  data-help-text="author" />
+              <label class="col-xs-4 col-sm-4 col-md-3" for="channel-author" title="The author of the generated data. Either you or your lab. Optional if you are keeping this data private.">Author <span style="font-weight:bold;">*</span></label></th>
+              <input class="channelauthor col-xs-7 col-sm-7 col-md-8 reqfield" id="reqauthor" name="channelauthor" type="text" placeholder="The author of the generated data. Either you or your lab. Optional if you are keeping this data private."  data-help-text="author" />
             </div>
             </tr>
 
             <!-- Contact info -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-contact" title="Optional: Your contact information regarding your data.">Contact info </label></th>
-              <input class="channelcontact col-sm-8" name="channelcontact" id="contectinfo" type="text" placeholder="Optional: Your contact information regarding your data."  data-help-text="contact"/>
+              <label class="col-sm-3 col-xs-3" for="channel-contact" title="Optional: Your contact information regarding your data.">Contact info </label></th>
+              <input class="channelcontact col-sm-8 col-xs-8" name="channelcontact" id="contectinfo" type="text" placeholder="Optional: Your contact information regarding your data."  data-help-text="contact"/>
             </div>
             </tr>
         </table>
@@ -115,80 +115,80 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <!-- Title -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-title" title="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment">Title <span style="font-weight:bold;">*</span></label></th>
-              <input class="channeltitle col-sm-8 reqfield test_field" id="reqtitle" name="channeltitle" type="text" placeholder="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment"  data-help-text="title" />
+              <label class="col-sm-3 col-xs-3" for="channel-title" title="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment">Title <span style="font-weight:bold;">*</span></label></th>
+              <input class="channeltitle col-sm-8 col-xs-8 reqfield" id="reqtitle" name="channeltitle" type="text" placeholder="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment"  data-help-text="title" />
             </div>
             </tr>
 
             <!-- Description -->
             <tr>
             <div class="forminput row">
-              <label for="channel-description" class="formtextarea col-sm-3" title="Description of your RNA-Seq submission data">Description <span style="font-weight:bold;">*</span></label>
-              <textarea class="channeldescription col-sm-8 reqfield" id="reqdesc" name="channeldescription" type="text" placeholder="A description of your RNA-Seq data such as what it is or what it contains. This can be brief like: E-MTAB-1668:24hCS-RNA or GSM798296: mRNASeq_WT_rep2 or something long" data-help-text="description" ></textarea>
+              <label for="channel-description" class="formtextarea col-sm-3 col-xs-3" title="Description of your RNA-Seq submission data">Description <span style="font-weight:bold;">*</span></label>
+              <textarea class="channeldescription col-sm-8 col-xs-8 reqfield" id="reqdesc" name="channeldescription" type="text" placeholder="A description of your RNA-Seq data such as what it is or what it contains. This can be brief like: E-MTAB-1668:24hCS-RNA or GSM798296: mRNASeq_WT_rep2 or something long" data-help-text="description" ></textarea>
             </div>
             </tr>
 
             <!-- Record number -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-record_number" title="Record or run number. For example ERR274310 or SRR547531">Record number <span style="font-weight:bold;">*</span></label>
-              <input class="channelrecordnumber col-sm-8 reqfield" id="req" name="channelrecordnumber" placeholder="ERR274310 or SRR547531" type="text" data-help-text="record_number" />
+              <label class="col-sm-3 col-xs-3" for="channel-record_number" title="Record or run number. For example ERR274310 or SRR547531">Record number <span style="font-weight:bold;">*</span></label>
+              <input class="channelrecordnumber col-sm-8 col-xs-8 reqfield" id="req" name="channelrecordnumber" placeholder="ERR274310 or SRR547531" type="text" data-help-text="record_number" />
             </div>
             </tr>
 
             <!-- Hex color -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-hex_color" title="Admin use, this temp">Hex color <span style="font-weight:bold;">*</span></label>
-              <input class="channelhexcolor col-sm-8 reqfield" id="req" name="channelhexcolor" placeholder="0x64cc65" type="text" data-help-text="record_number" />
+              <label class="col-sm-3 col-xs-3" for="channel-hex_color" title="Admin use, this temp">Hex color <span style="font-weight:bold;">*</span></label>
+              <input class="channelhexcolor col-sm-8 col-xs-8 reqfield" id="req" name="channelhexcolor" placeholder="0x64cc65" type="text" data-help-text="record_number" />
             </div>
 
 
             <!-- BAM Repository link -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-bam_link" title="It is  for your your BAM files or RNA-Seq data files to have a .dl repository link for the eFP-Seq Browser to give you input.">RNA-Seq Data/BAM file Repsitory Link <span style="font-weight:bold;">*</span></label>
-              <input class="channelbamlink col-sm-8 reqfield" id="req" name="channelbamlink" placeholder="This is required. Examples: http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam or " type="text" data-help-text="bam_link" />
+              <label class="col-sm-3 col-xs-3" for="channel-bam_link" title="It is  for your your BAM files or RNA-Seq data files to have a .dl repository link for the eFP-Seq Browser to give you input.">RNA-Seq Data/BAM file Repsitory Link <span style="font-weight:bold;">*</span></label>
+              <input class="channelbamlink col-sm-8 col-xs-8 reqfield" id="req" name="channelbamlink" placeholder="This is required. Examples: http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam or " type="text" data-help-text="bam_link" />
             </div>
 
 
             <!-- Publication link -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-publication_link" title="If your research has been published or referencing a research, it may be useful to link to the publication.">Publicaiton Link </label>
-              <input class="channelpublicationlink col-sm-8" name="channelpublicationlink" placeholder="Optional: http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
+              <label class="col-sm-3 col-xs-3" for="channel-publication_link" title="If your research has been published or referencing a research, it may be useful to link to the publication.">Publicaiton Link </label>
+              <input class="channelpublicationlink col-sm-8 col-xs-8" name="channelpublicationlink" placeholder="Optional: http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
             </div>
             </tr>
 
             <!-- SRA Link -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-publication_url" title="If your RNA-Seq data is available on NCBI's Sequence Read Archive, it may be useful to include this informaiton.">Sequence Reach Archive/NCBI Link </label>
-              <input class="channelpublicationurl col-sm-8" name="channelpublicationurl" placeholder="Optional: http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
+              <label class="col-sm-3 col-xs-3" for="channel-publication_url" title="If your RNA-Seq data is available on NCBI's Sequence Read Archive, it may be useful to include this informaiton.">Sequence Reach Archive/NCBI Link </label>
+              <input class="channelpublicationurl col-sm-8 col-xs-8" name="channelpublicationurl" placeholder="Optional: http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
             </div>
             </tr>
 
             <!-- Total reads mapped -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-total_reads_mapped" title="The total amount of reads mapped in your RNA-Seq data.">Total Reads Mapped <span style="font-weight:bold;">*</span></label>
-              <input class="channeltotalreadsmapped col-sm-8 reqfield" id="req" name="channeltotalreadsmapped" placeholder="29098868" type="text" data-help-text="total_reads_mapped" />
+              <label class="col-sm-3 col-xs-3" for="channel-total_reads_mapped" title="The total amount of reads mapped in your RNA-Seq data.">Total Reads Mapped <span style="font-weight:bold;">*</span></label>
+              <input class="channeltotalreadsmapped col-sm-8 col-xs-8 reqfield" id="req" name="channeltotalreadsmapped" placeholder="29098868" type="text" data-help-text="total_reads_mapped" />
             </div>
             </tr>
 
             <!-- SVG Name -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-svgname" title="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg">SVG Name <span style="font-weight:bold;">*</span></label>
-              <input class="channelsvgname col-sm-8 reqfield" id="req" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="sngname" />
+              <label class="col-sm-3 col-xs-3" for="channel-svgname" title="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg">SVG Name <span style="font-weight:bold;">*</span></label>
+              <input class="channelsvgname col-sm-8 col-xs-8 reqfield" id="req" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="sngname" />
             </div>
             </tr>
 
             <!-- Spcies -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-species" title="The species of the organism (latin name with exception of human) that your RNA-Seq data is for.">Species <span style="font-weight:bold;">*</span></label>
-              <select class="channelspecies col-sm-8" list="channelspecieslist reqfield" id="req" name="channelspecies" placeholder="Arabidopsis" type="text" data-help-text="species" />
+              <label class="col-sm-3 col-xs-3" for="channel-species" title="The species of the organism (latin name with exception of human) that your RNA-Seq data is for.">Species <span style="font-weight:bold;">*</span></label>
+              <select class="channelspecies col-sm-8 col-xs-8" list="channelspecieslist reqfield" id="req" name="channelspecies" placeholder="Arabidopsis" type="text" data-help-text="species" />
                 <option value="Arabidopsis thaliana">Arabidopsis thaliana</option>
                 <option value="Selaginella moellendorffi">Selaginella moellendorffi</option>
                 <option value="Brachypodium distachyon">Brachypodium distachyon</option>
@@ -213,20 +213,20 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <!-- Tissue -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue <span style="font-weight:bold;">*</span></label>
-              <button  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect col-sm-2" data-toggle="modal" data-target="#eFPTissue" data-upgraded=",MaterialButton,MaterialRipple" style="background-color:#ECECEC; border-radius:5px;" disabled="disabled"> Choose tissue <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button/>
-              <input class="channeltissue col-sm-6" list="channeltissuelist reqfield" id="req" name="channeltissue" placeholder="Etiolated seedling" type="text" data-help-text="tissue" />
+              <label class="col-sm-3 col-xs-3" for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue <span style="font-weight:bold;">*</span></label>
+              <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect col-sm-2 col-xs-2" data-toggle="modal" data-target="#eFPTissue" data-upgraded=",MaterialButton,MaterialRipple" style="background-color:#ECECEC; border-radius:5px;" > Choose tissue <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button/>
+              <input class="channeltissue col-sm-6 col-xs-6" list="channeltissuelist reqfield" id="req" name="channeltissue" placeholder="Etiolated seedling" type="text" data-help-text="tissue" />
             </div>
             </tr>
 
-            <div id="SubmissionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div id="eFPTissue" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header" style="padding-bottom:3%;">
-                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <button type="button" class="close" data-dismiss="modal"> x </button>
                         </div>
                         <div class="modal-body">
-                          <iframe src="cgi-bin\Submission_page.html" height="600px"></iframe>
+                          <p>test</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal" id="closemodal">Close</button>
@@ -238,48 +238,48 @@ window.onbeforeunload = function() { return "You are about to close the submissi
             <!-- Control -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3" for="channel-controls" title="The BAM exp number of the controls in your RNA-Seq data.">Controls </label>
-              <input class="channelcontrols col-sm-8" name="channelcontrols" placeholder="Optional: ERR274310" type="text" data-help-text="total_controls"/>
+              <label class="col-sm-3 col-xs-3" for="channel-controls" title="The BAM exp number of the controls in your RNA-Seq data.">Controls </label>
+              <input class="channelcontrols col-sm-8 col-xs-8" name="channelcontrols" placeholder="Optional: ERR274310" type="text" data-help-text="total_controls"/>
             </div>
             </tr>
 
             <!-- Replicate control 1 -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3 " for="channel-groupwidtho" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1 </label>
-              <input class="channelgroupwidtho col-sm-8" name="channelgroupwidtho" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 " for="channel-groupwidtho" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1 </label>
+              <input class="channelgroupwidtho col-sm-8 col-xs-8" name="channelgroupwidtho" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
             </tr>
 
             <!-- Replicate control 2 -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3 " for="channel-groupwidth2" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 2 </label>
-              <input class="channelgroupwidth2 col-sm-8" name="channelgroupwidth2" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth2" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 2 </label>
+              <input class="channelgroupwidth2 col-sm-8 col-xs-8" name="channelgroupwidth2" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
             </tr>
 
             <!-- Replicate control 3 -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3 " for="channel-groupwidth3" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 3 </label>
-              <input class="channelgroupwidth3 col-sm-8" name="channelgroupwidth3" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth3" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 3 </label>
+              <input class="channelgroupwidth3 col-sm-8 col-xs-8" name="channelgroupwidth3" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
             </tr>
 
             <!-- Replicate control 4 -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3 " for="channel-groupwidth4" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 4 </label>
-              <input class="channelgroupwidth4 col-sm-8" name="channelgroupwidth4" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth4" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 4 </label>
+              <input class="channelgroupwidth4 col-sm-8 col-xs-8" name="channelgroupwidth4" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
             </tr>
 
             <!-- Replicate control 5 -->
             <tr>
             <div class="forminput row">
-              <label class="col-sm-3 " for="channel-groupwidth5" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 5 </label>
-              <input class="channelgroupwidth5 col-sm-8" name="channelgroupwidth5" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth5" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 5 </label>
+              <input class="channelgroupwidth5 col-sm-8 col-xs-8" name="channelgroupwidth5" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
             </tr>
         </table>
