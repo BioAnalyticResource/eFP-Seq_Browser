@@ -2,7 +2,7 @@
 <html>
 <div id="testing_count" hidden>count</div>
 <div id="testing_code" hidden>test</div>
-<div id="testing_mobile" >mobile</div>
+<div id="testing_mobile" hidden>mobile</div>
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>eFP-Seq Browser</title>
@@ -44,6 +44,16 @@
     </script>
 </head>
 
+<!-- mobile nav bar -->
+<nav class="navbar navbar-default navbar-top" id="mobilenavbar" style="display:none;">
+  <div class="nav">
+      <div class="col-xs-3" style="padding-left:0%; padding-right:0%;"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " style="width:100%"  onclick="document.getElementById('fileID').click();" style="margin-top:3%;"><i class="material-icons">file_upload</i></button></div>
+      <div class="col-xs-3" style="padding-left:0%; padding-right:0%;"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " style="width:100%" data-toggle="modal" data-target="#SubmissionModal"><i class="material-icons">create</i></button></div>
+      <div class="col-xs-3" style="padding-left:0%; padding-right:0%;"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " style="width:100%" data-toggle="modal" data-target="#feedbackModal"><i class="material-icons">feedback</i></button></div>
+      <div class="col-xs-3" style="padding-left:0%; padding-right:0%;"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " style="width:100%" data-toggle="modal" data-target="#myModal"><i class="material-icons">help</i></button></div>
+  </div>
+</nav>
+
 <body>
     <div class="progress" style="width: 100%; height: 5px; position: fixed; margin-top: 0px; top: 0px; z-index: 100;">
         <div id="progress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="113" style="width:1%;"></div>
@@ -84,7 +94,7 @@
                 <!-- Options for uploading and generating data -->
                 <hr style="border: 1px solid gray; margin: 5px; " id="topbarborder"/>
                 <div class="row" id="middle_buttons">
-                  <div class="col-md-2" style="padding-left: 2%;">
+                  <div class="col-md-2" style="padding-left: 2%;" id="uploaddata">
                     <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();" style="margin-top:3%;">Upload Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                     <input type="file" id="fileID" hidden accept="text/xml"/>
 
@@ -145,15 +155,15 @@
 
 
 
-                  <div class="col-md-5" style="padding-top: 0.5%;">
+                  <div class="col-md-5" style="padding-top: 0.5%;" id="publicdatabase">
                     <p class="public-rna">Public RNA-Seq Databases:
-                    <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" onclick="change_dataset()"/>
+                    <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" />
                       <option value="Default test">Default test</option>
                       <option value="Original 113">Original 113</option>
                       <option value="Test modification">Test modification</option>
                       <option value="Cloud test">Cloud test</option>
                     </select>
-                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;"><i class="material-icons">input</i></button>
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" onclick="change_dataset()"><i class="material-icons">input</i></button>
                   </div>
                   <script>
                   function change_dataset() {
@@ -187,7 +197,7 @@
                   }
 
                   .public-rna {
-                    font-size: 15px;
+                    font-size: 14px;
                     font-weight: 500;
                     font-family: "Roboto","Helvetica","Arial",sans-serif;
                   }
@@ -195,17 +205,20 @@
 
 
 
+
                   <div class="col-md-3"></div>
-                  <div class="col-md-2">
+                  <div class="col-md-2" id="generatedata">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%">Generate data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                   </div>
                 </div>
 
-                <hr style="border: 1px solid gray; margin: 5px; " />
+
+
+                <hr style="border: 1px solid gray; margin: 5px; " id="butbarborder"/>
                 <!-- Options and Variants selection. -->
                 <div class="row">
                     <!-- Variants selection -->
-                    <div class="col-xs-12 col-sm-12 col-md-6" id="variants_portion">
+                    <div class="col-xs-12 col-sm-12 col-md-6 table-responsive" id="variants_portion">
                         <div id="variants_div">
                             <!-- Prepopulated with AT2G24270 data. -->
                             <div class="radio">
@@ -242,11 +255,6 @@
                                     <input type="text" class="form-control" name="Locus" id="locus" value="AT2G24270" style="width: 175px; height: 35px; border: 1.5px solid rgb(76,175,80);" autofocus/><i>Locus</i>
                                 </p>
                             </div>
-                            <div id="locusmobile" class="col-xs-4" style="display:none;">
-                              <p>
-                                Locus: <input type="text" class="form-control" name="Locus" id="locus" value="AT2G24270" style="width: 125px; height: 35px; border: 1.5px solid rgb(76,175,80);" autofocus/>
-                              </p>
-                            </div>
                             <div class="mdl-tooltip" for="locus">e.g. AT2G24270</div>
                             <!-- Y axis scaling -->
                             <div class="col-xs-4" id="tt4">
@@ -254,19 +262,17 @@
                                     <input type="text" class="form-control" name="yscale_inp" id="yscale_input" value="Auto" style="width: 175px; height: 35px;" /><i>RNA-Seq Y-axis Scale</i>
                                 </p>
                             </div>
-                            <div id="tt4mobile" class="col-xs-4" style="display:none;">
-                              <p>
-                                RNA-Seq Y-axis Scale:
-                                <input type="text" class="form-control" name="yscale_inp" id="yscale_input" value="Auto" style="width: 125px; height: 35px;" />
-                                <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style">
-                                    <i class="material-icons">trending_flat</i>
-                                </button>
-                              </p>
-                            </div>
                             <div class="mdl-tooltip" for="yscale_input">'Auto' or >= 1 </div>
+
                             <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style locus_button_visual">
                                 <i class="material-icons">trending_flat</i>
                             </button>
+
+                            <div id="locusbuttonmobile" style="display:none;">
+                                <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style" style="margin:auto; display:block;">
+                                    <i class="material-icons">trending_flat</i>
+                                </button>
+                            </div>
                             <!--
                     <div class="col-xs-1">
                         <input id="locus_button" type="button" class="btn btn-success" onclick="update_all_images(0)" value="Go" style="height: 35px;" />
@@ -277,7 +283,8 @@
                                 <!-- For correct spacing. -->
                             </div>
                             <!-- SVG colouring mode: abs or rel -->
-                            <div class="col-xs-4">
+                            <br id="mobilebrspacing" style="display:none;">
+                            <div class="col-xs-4" id="default_radio">
                                 <p>
                                     <div class="radio">
                                         <label id="abs_radio">
@@ -297,7 +304,7 @@
                                 <input id="svg_colour_button" type="button" class="btn" onclick="colour_svgs_now()" value="Go" style="height: 35px;" />
                             </div>
                             <!-- Absolute SVG scaling -->
-                            <div class="col-xs-4">
+                            <div class="col-xs-4" id="absolutedefault">
                                 <p>
                                     <input type="text" class="form-control" name="rpkm_inp" id="rpkm_scale_input" value="1000" style="width: 175px; height: 35px;" /><i>eFP Absolute Max Value</i>
                                 </p>
@@ -416,7 +423,6 @@ We welcome feedback to nicholas.provart@utoronto.ca.<br>
                     </div>
                 </div>
             </div>
-
             <script>
             (function() {
                 'use strict';

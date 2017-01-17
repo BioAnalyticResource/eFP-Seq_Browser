@@ -79,14 +79,22 @@ if (testmobile() == true) {
   document.getElementById("correctspacing").style.display="none";
   document.getElementById("feedback_button").style.display="none";
   document.getElementById("help_button").style.display="none";
-  document.getElementById("topbarborder").style.display="none";
-  document.getElementById("middle_buttons").style.display="none";
-  document.getElementById("locusbrowser").style.display="none";
-  document.getElementById("locusmobile").style.display="inline";
-  document.getElementById("tt4").style.display="none";
-  $(".locus_button_visual").hide();
-  document.getElementById("tt4mobile").style.display="inline";
-
+  document.getElementById("butbarborder").style.display="none";
+  //document.getElementById("middle_buttons").style.display="none";
+  document.getElementById("uploaddata").style.display="none";
+  document.getElementById("generatedata").style.display="none";
+  document.getElementById("locusbrowser").className="col-xs-6";
+  document.getElementById("locus").style.width="100%";
+  //$(".locus_button_visual").hide();
+  //document.getElementById("tt4").className="col-xs-6";
+  document.getElementById("yscale_input").style.width="100%";
+  //document.getElementById("locusbuttonmobile").style.display="inline";
+  document.getElementById("mobilebrspacing").style.display="inline";
+  document.getElementById("default_radio").className="col-xs-6";
+  //document.getElementById("absolutedefault").className="col-xs-6";
+  document.getElementById("rpkm_scale_input").style.width="100%";
+  //document.getElementById("variants_div").style.width="475px";
+  document.getElementById("mobilenavbar").style.display="inline";
 };
 
 // Base 64 images
