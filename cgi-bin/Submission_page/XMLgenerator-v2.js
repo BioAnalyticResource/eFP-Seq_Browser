@@ -43,6 +43,7 @@ var added = [
   '\t\t\t\t<bam_exp><?channelgroupwidth3?></bam_exp>',
   '\t\t\t\t<bam_exp><?channelgroupwidth4?></bam_exp>',
   '\t\t\t\t<bam_exp><?channelgroupwidth5?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidth6?></bam_exp>',
   '\t\t\t</groupwith>',
   '\t\t</bam_file>',
   '\n'
@@ -59,6 +60,7 @@ var adding = [
   '\t\t\t\t<bam_exp><?channelgroupwidth3?></bam_exp>',
   '\t\t\t\t<bam_exp><?channelgroupwidth4?></bam_exp>',
   '\t\t\t\t<bam_exp><?channelgroupwidth5?></bam_exp>',
+  '\t\t\t\t<bam_exp><?channelgroupwidth6?></bam_exp>',
   '\t\t\t</groupwith>',
   '\t\t</bam_file>',
   '\n'
@@ -85,7 +87,8 @@ function update(formatXML,v) {
     'channelgroupwidth2': $(v).find('.channelgroupwidth2').val(),
     'channelgroupwidth3': $(v).find('.channelgroupwidth3').val(),
     'channelgroupwidth4': $(v).find('.channelgroupwidth4').val(),
-    'channelgroupwidth5': $(v).find('.channelgroupwidth5').val()
+    'channelgroupwidth5': $(v).find('.channelgroupwidth5').val(),
+    'channelgroupwidth6': $(v).find('.channelgroupwidth6').val()
   };
 
   var fillXML = added.replace(/<\?(\w+)\?>/g,
@@ -105,7 +108,12 @@ $(function () {
 function CloneSection() {
   $(".SubmissionArea").append($(".Entries:first").clone(true));
   count_clicks += 1;
+  var new_tissue = "tissue" + count_clicks;
+  var new_svg = "svg" + count_clicks;
   $("legend:last").text("Entry " + count_clicks);
+  $(".change_div_id").last().attr("name", new_tissue);
+  $(".change_id_tissue").last().attr("id", new_tissue);
+  $(".change_svg").last().attr("id", new_svg);
 };
 
 function check_req(class_name) {
@@ -155,4 +163,11 @@ function no_null_contact() {
   if (document.getElementById("contectinfo") == null) {
     document.getElementById("contectinfo").innerHTML = " ";
   }
+};
+
+
+function clickclick(clickid) {
+    document.getElementById(tissue_click).value = clickid;
+    var count_which_click = tissue_click.slice(-1);
+    var which_svg = "svg" + count_which_click;
 };
