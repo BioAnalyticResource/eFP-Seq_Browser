@@ -520,6 +520,9 @@ function parseIntArray(arr) {
 }
 
 /* Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function */
+var rnaseq_image_url = "http://ec2-52-70-232-122.compute-1.amazonaws.com/RNA-Browser/cgi-bin/webservice.cgi?tissue="
+var match_drive = ""
+
 function rnaseq_images(status) {
     rnaseq_success = 0;
     //date_obj2 = new Date();
@@ -527,8 +530,20 @@ function rnaseq_images(status) {
     get_input_values();
     if (rnaseq_calls.length == count_bam_entries_in_xml) {
         for (var i = 0; i < count_bam_entries_in_xml; i++) {
+            var bam_type = $(this).attr('bam_type');
+            if (bam_type == "Google Drive") {
+              var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
+              var linkString = drive_link;
+              match_drive = myRegexp.exec(linkString);
+              rnaseq_image_url = "http://142.150.214.168/~asher/webservices/RNA-Browser/cgi-bin/webservice_gdrive.cgi?gdrive=" + match_drive[1] + "&tissue=";
+            }
+
+            else {
+              rnaseq_image_url = "http://ec2-52-70-232-122.compute-1.amazonaws.com/RNA-Browser/cgi-bin/webservice.cgi?tissue=";
+            }
+
             $.ajax({
-                url: 'http://ec2-52-70-232-122.compute-1.amazonaws.com/RNA-Browser/cgi-bin/webservice.cgi?tissue=' + rnaseq_calls[i][0] + '&record=' + rnaseq_calls[i][1] + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' + yscale_input + '&status=' + status + '&struct=' + splice_variants,
+                url: rnaseq_image_url + rnaseq_calls[i][0] + '&record=' + rnaseq_calls[i][1] + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' + yscale_input + '&status=' + status + '&struct=' + splice_variants,
                 dataType: 'json',
                 failure: function(failure_response) {
                     $('#failure').show();
@@ -674,7 +689,11 @@ function populate_table(status) {
                     }
                 }
                 var name = $(this).attr('bam_link').split("/");
-                var tissue = $(this).attr('bam_link').split("/")[8];
+                if ($(this).attr('bam_type') == "Amazon AWS") {
+                  var tissue = $(this).attr('bam_link').split("/")[8];
+                };
+                var bam_type = $(this).attr('bam_type');
+                var drive_link = $(this).attr('bam_link')
 
                 //console.log(experimentno + ", " + svg_part);
 

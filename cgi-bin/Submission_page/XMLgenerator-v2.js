@@ -5,13 +5,14 @@ $(function () {
     $('#GenerateButton').click(function(){
          var file_name = document.getElementById("reqxml").value.replace(/ /g, "_")
          var formatXML = '';
+         var filledbase = updatebase(filledbase);
          remove_outline(".reqfield");
          no_null_contact();
          if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield"))  {
-           $(".Entries").each(function(i,v) {formatXML +=update(formatXML,v)
-             $('#ResultXml').val(formatXML + end);
+           $(".Entries").each(function(i,v) {formatXML +=update(formatXML, v)
+             $('#ResultXml').val(filledbase + formatXML + end);
            $('#DownloadLink')
-             .attr('href', 'data:text/xml;base64,' + btoa(formatXML + end))
+             .attr('href', 'data:text/xml;base64,' + btoa(filledbase + formatXML + end))
              .attr('download', file_name + '.xml');
            $('#generated').show();
                    });
@@ -29,11 +30,15 @@ var end = [
   '\t</rnaseq_experiments>'
 ].join('\r\n');
 
-var added = [
+var base = [
   '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
   '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">',
   '\t<rnaseq_experiments xmltitle=\"<?channelxmltitle?>\" author=\"<?channelauthor?>\" contact=\"<?channelcontact?>\">',
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\" species=\"<?channelspecies?>\">',
+  '\n'
+].join('\r\n');
+
+var added = [
+  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\" species=\"<?channelspecies?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
@@ -50,7 +55,7 @@ var added = [
 ].join('\r\n');
 
 var adding = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\" species=\"<?channelspecies?>\">',
+  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\" species=\"<?channelspecies?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
@@ -68,12 +73,10 @@ var adding = [
 
 function update(formatXML,v) {
   var variables = {
-    'channelxmltitle': document.getElementById("reqxml").value,
-    'channelauthor': document.getElementById("reqauthor").value,
-    'channelcontact': document.getElementById("contectinfo").value,
     'channeldescription': $(v).find('.channeldescription').val(),
     'channelrecordnumber': $(v).find('.channelrecordnumber').val(),
     'channelhexcolor': $(v).find('.channelhexcolor').val(),
+    'channelbamtype': $(v).find('.channelbamtype').val(),
     'channelbamlink': $(v).find('.channelbamlink').val(),
     'channeltotalreadsmapped': $(v).find('.channeltotalreadsmapped').val(),
     'channelpublicationlink': $(v).find('.channelpublicationlink').val(),
@@ -98,6 +101,21 @@ function update(formatXML,v) {
 
   return fillXML;
 
+}
+
+function updatebase(filledbase) {
+  var variables = {
+    'channelxmltitle': document.getElementById("reqxml").value,
+    'channelauthor': document.getElementById("reqauthor").value,
+    'channelcontact': document.getElementById("contectinfo").value
+  };
+
+  var fillbase = base.replace(/<\?(\w+)\?>/g,
+    function(match, name) {
+      return variables[name];
+    });
+
+  return fillbase;
 
 }
 
@@ -166,8 +184,18 @@ function no_null_contact() {
 };
 
 
+var which_svg = "";
+var clickid_test = "";
 function clickclick(clickid) {
     document.getElementById(tissue_click).value = clickid;
-    var count_which_click = tissue_click.slice(-1);
-    var which_svg = "svg" + count_which_click;
+    clickid_test = clickid;
+    var count_which_click = tissue_click.match(/\d/g).join("");
+    which_svg = "svg" + count_which_click;
+    document.getElementById(which_svg).value = determine_svgname(clickid);
 };
+
+function determine_svgname(from_svg) {
+  if (from_svg == "shoots") {
+    return "ath-rosettePlusRoot.svg";
+  }
+}

@@ -157,7 +157,11 @@ function myFunction() {
             <!-- BAM Repository link -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3" for="channel-bam_link" title="It is  for your your BAM files or RNA-Seq data files to have a .dl repository link for the eFP-Seq Browser to give you input.">RNA-Seq Data/BAM file Repsitory Link <span style="font-weight:bold;">*</span></label>
-              <input class="channelbamlink col-sm-8 col-xs-8 reqfield" id="req" name="channelbamlink" placeholder="This is required. Examples: http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam or " type="text" data-help-text="bam_link" />
+              <select class="channelbamtype col-sm-2 col-xs-2" list="channelbamtype reqfield" id="req" name="channelbamtype" placeholder="Link type" type="text" data-help-text="bamtype" />
+                <option value="Google Drive">Google Drive</option>
+                <option value="Amazon AWS">Amazon AWS</option>
+              </select>
+              <input class="channelbamlink col-sm-6 col-xs-6 reqfield" id="req" name="channelbamlink" placeholder="This is required. Examples: http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam or " type="text" data-help-text="bam_link" />
             </div>
 
 
@@ -1010,7 +1014,7 @@ function myFunction() {
             <!-- Replicate control 6 -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 " for="channel-groupwidth6" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 6 </label>
-              <input class="channelgroupwidth5 col-sm-8 col-xs-8" name="channelgroupwidth5" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidth6 col-sm-8 col-xs-8" name="channelgroupwidth6" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
   	  </fieldset>
   	</div>
