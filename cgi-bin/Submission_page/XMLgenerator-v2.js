@@ -200,7 +200,22 @@ function clickclick(clickid) {
 };
 
 function determine_svgname(from_svg) {
-  if (from_svg == "10_Day_old_Seedling" | from_svg == "10_Day_old_Seedling_roots" | from_svg == "10_Day_old_Seedling_shoots") {
+  if (from_svg == "10_Day_old_Seedling" || from_svg == "10_Day_old_Seedling_roots" || from_svg == "10_Day_old_Seedling_shoots") {
     return "ath-10dayOldSeedling.svg";
-  };
+  }
+  else if (from_svg == "15_Day_old_Seedling" || from_svg == "15_Day_old_Seedling_roots" || from_svg == "15_Day_old_Seedling_shoots") {
+    return "ath-15dayOldSeedling.svg";
+  }
+  else if (from_svg == "Etiolated_seedling") {
+    return "ath-etiolatedSeedling.svg";
+  }
+  else if (from_svg == "Flower" || from_svg == "Flower_receptacle") {
+    return "ath-Flower.svg";
+  }
+  else if (from_svg == "Carpel_petals_stamen_and_sepals" || from_svg == "Flowers_petals" || from_svg == "Flowres_stamen" || from_svg == "Flowers_sepals" || from_svg == "Flowers_carpel") {
+    return "ath-FlowerParts.svg";
+  }
+  else if (from_svg == "Germinating_seed") {
+    return "ath-GerminatingSeed.svg";
+  }
 };
