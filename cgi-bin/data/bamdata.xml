@@ -16,7 +16,7 @@
 			</groupwith>
 		</bam_file>
 
-		<bam_file desc="GSM798296: mRNASeq_WT_rep2" record_number="SRR547531" hex_colour="0x64cc65" bam_type="Google Drive" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/SRR547531/accepted_hits.bam" total_reads_mapped="13627154" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/23349984" svg_subunit="undefined" svgname="ath-rosettePlusRoot.svg" title="Transcription profiling of Arabidopsis plants overexpressing SlHsfA3 (thale cress)" publication_url="http://www.ncbi.nlm.nih.gov/pubmed/23349984" species="Arabidopsis thaliana">
+		<bam_file desc="GSM798296: mRNASeq_WT_rep2" record_number="SRR547531" hex_colour="0x64cc65" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/SRR547531/accepted_hits.bam" total_reads_mapped="13627154" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/23349984" svg_subunit="undefined" svgname="ath-rosettePlusRoot.svg" title="Transcription profiling of Arabidopsis plants overexpressing SlHsfA3 (thale cress)" publication_url="http://www.ncbi.nlm.nih.gov/pubmed/23349984" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp>SRR547531</bam_exp>
 			</controls>

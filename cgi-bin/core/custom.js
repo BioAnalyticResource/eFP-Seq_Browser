@@ -36,6 +36,7 @@ var gene_structure_colouring_element = null; // the element for inserting the ge
 //Code taken from: http://stackoverflow.com/questions/37699927/file-not-uploading-in-file-reader
 var default_url = 'cgi-bin/data/bamdata_amazon_links.xml';
 var base_src = 'cgi-bin/data/bamdata_amazon_links.xml';
+var upload_src = '';
 
 
 //Following lines are used to count and determine how many BAM entries are in the XML file
@@ -520,8 +521,9 @@ function parseIntArray(arr) {
 }
 
 /* Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function */
-var rnaseq_image_url = "http://ec2-52-70-232-122.compute-1.amazonaws.com/RNA-Browser/cgi-bin/webservice.cgi?tissue="
-var match_drive = ""
+var rnaseq_image_url = "http://ec2-52-70-232-122.compute-1.amazonaws.com/RNA-Browser/cgi-bin/webservice.cgi?tissue=";
+var match_drive = "";
+//var testing_rnaseq_image = 0;
 
 function rnaseq_images(status) {
     rnaseq_success = 0;
@@ -530,12 +532,12 @@ function rnaseq_images(status) {
     get_input_values();
     if (rnaseq_calls.length == count_bam_entries_in_xml) {
         for (var i = 0; i < count_bam_entries_in_xml; i++) {
-            var bam_type = $(this).attr('bam_type');
-            if (bam_type == "Google Drive") {
+            if (bam_type_list[i] == "Google Drive") {
               var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
-              var linkString = drive_link;
+              var linkString = drive_link_list[i];
               match_drive = myRegexp.exec(linkString);
               rnaseq_image_url = "http://142.150.214.168/~asher/webservices/RNA-Browser/cgi-bin/webservice_gdrive.cgi?gdrive=" + match_drive[1] + "&tissue=";
+              //testing_rnaseq_image += 1;
             }
 
             else {
@@ -639,6 +641,9 @@ function rnaseq_images(status) {
 }
 
 /* Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make. */
+var bam_type_list = []
+var drive_link_list = []
+
 function populate_table(status) {
     // Reset values
     $("#thetable").empty();
@@ -651,6 +656,8 @@ function populate_table(status) {
     max_log_fpkm = -1;
     svg_colouring_element = null;
     gene_structure_colouring_element = null;
+    bam_type_list = []
+    drive_link_list = []
 
     // Insert table headers
     $("#thetable").append('<thead><tr>' +
@@ -693,7 +700,9 @@ function populate_table(status) {
                   var tissue = $(this).attr('bam_link').split("/")[8];
                 };
                 var bam_type = $(this).attr('bam_type');
-                var drive_link = $(this).attr('bam_link')
+                bam_type_list.push(bam_type);
+                var drive_link = $(this).attr('bam_link');
+                drive_link_list.push(drive_link);
 
                 //console.log(experimentno + ", " + svg_part);
 

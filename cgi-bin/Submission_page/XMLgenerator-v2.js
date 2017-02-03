@@ -127,9 +127,11 @@ function CloneSection() {
   $(".SubmissionArea").append($(".Entries:first").clone(true));
   count_clicks += 1;
   var new_tissue = "tissue" + count_clicks;
+  var new_tissue = "tissue" + count_clicks + "_subunit";
   var new_svg = "svg" + count_clicks;
   $("legend:last").text("Entry " + count_clicks);
   $(".change_div_id").last().attr("name", new_tissue);
+  $(".change_div_id_subunit").last().attr("name", new_tissue);
   $(".change_id_tissue").last().attr("id", new_tissue);
   $(".change_svg").last().attr("id", new_svg);
 };
@@ -185,17 +187,20 @@ function no_null_contact() {
 
 
 var which_svg = "";
-var clickid_test = "";
+var tissue_subunit = "";
+var clicked_id = "";
 function clickclick(clickid) {
-    document.getElementById(tissue_click).value = clickid;
-    clickid_test = clickid;
+    document.getElementById(tissue_click).value = clickid.replace(/_/g, " ");
+    tissue_subunit = tissue_click + "_subunit";
+    clicked_id = clickid;
+    document.getElementById(tissue_subunit).value = document.getElementById(clickid).className.split(" ")[1];
     var count_which_click = tissue_click.match(/\d/g).join("");
     which_svg = "svg" + count_which_click;
     document.getElementById(which_svg).value = determine_svgname(clickid);
 };
 
 function determine_svgname(from_svg) {
-  if (from_svg == "shoots") {
-    return "ath-rosettePlusRoot.svg";
-  }
-}
+  if (from_svg == "10_Day_old_Seedling" | from_svg == "10_Day_old_Seedling_roots" | from_svg == "10_Day_old_Seedling_shoots") {
+    return "ath-10dayOldSeedling.svg";
+  };
+};
