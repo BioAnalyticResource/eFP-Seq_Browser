@@ -524,7 +524,7 @@ function parseIntArray(arr) {
 var rnaseq_image_url = "http://ec2-52-70-232-122.compute-1.amazonaws.com/RNA-Browser/cgi-bin/webservice.cgi?tissue=";
 var match_drive = "";
 //var testing_rnaseq_image = 0;
-
+var progress_percent = 0
 function rnaseq_images(status) {
     rnaseq_success = 0;
     //date_obj2 = new Date();
@@ -559,7 +559,7 @@ function rnaseq_images(status) {
                         rnaseq_success++;
                         date_obj3 = new Date();
                         rnaseq_success_current_time = date_obj3.getTime(); // Keep track of start time
-                        var progress_percent = rnaseq_success / count_bam_entries_in_xml * 100;
+                        progress_percent = rnaseq_success / count_bam_entries_in_xml * 100;
                         $('div#progress').width(progress_percent + '%');
                         document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time <= " + String(round(parseInt(rnaseq_success_current_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
                         //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
@@ -639,6 +639,10 @@ function rnaseq_images(status) {
         }
     }
 }
+
+window.setInterval(function(){
+  document.getElementById("testing_progress").innerHTML = progress_percent
+}, 50);
 
 /* Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make. */
 var bam_type_list = []

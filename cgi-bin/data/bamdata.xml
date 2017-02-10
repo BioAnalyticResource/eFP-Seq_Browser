@@ -1,33 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">
-	<rnaseq_experiments xmltitle="Test data" author="BAR" contact="">
+	<rnaseq_experiments xmltitle="Test" author="BAR" contact="">
 
-		<bam_file desc="E-MTAB-1668:24hCS-RNA" record_number="ERR274310" hex_colour="0x64cc65" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam" total_reads_mapped="29098868" publication_link="http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" svg_subunit="undefined" svgname="ath-rosettePlusRoot.svg" title="Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment" publication_url="http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" species="Arabidopsis thaliana">
-			<controls>
-				<bam_exp>ERR274310</bam_exp>
-			</controls>
-			<groupwith>
-				<bam_exp>ERR274308</bam_exp>
-				<bam_exp>ERR274309</bam_exp>
-				<bam_exp>ERR274310</bam_exp>
-				<bam_exp>ERR274311</bam_exp>
-				<bam_exp></bam_exp>
-				<bam_exp></bam_exp>
-			</groupwith>
+		<bam_file desc="" record_number="SRR1001909" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR1001909/accepted_hits.bam" total_reads_mapped="" svg_subunit="" svgname="ath-10dayOldSeedling.svg" title="" publication_url="">
+				<controls>
+						<bam_exp></bam_exp>
+				</controls>
+				<groupwith>
+						<bam_exp></bam_exp>
+				</groupwith>
 		</bam_file>
 
-		<bam_file desc="GSM798296: mRNASeq_WT_rep2" record_number="SRR547531" hex_colour="0x64cc65" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/SRR547531/accepted_hits.bam" total_reads_mapped="13627154" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/23349984" svg_subunit="undefined" svgname="ath-rosettePlusRoot.svg" title="Transcription profiling of Arabidopsis plants overexpressing SlHsfA3 (thale cress)" publication_url="http://www.ncbi.nlm.nih.gov/pubmed/23349984" species="Arabidopsis thaliana">
-			<controls>
-				<bam_exp>SRR547531</bam_exp>
-			</controls>
-			<groupwith>
-				<bam_exp>SRR547531</bam_exp>
-				<bam_exp>SRR547532</bam_exp>
-				<bam_exp>SRR547533</bam_exp>
-				<bam_exp></bam_exp>
-				<bam_exp></bam_exp>
-				<bam_exp></bam_exp>
-			</groupwith>
+		<bam_file desc="10 day old root, Col-0, GSM1287167, SRA: SRS513532" record_number="SRR1046909" hex_colour="0xCCCC97" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/root/SRR1046909/accepted_hits.bam" total_reads_mapped="5254981" svg_subunit="root" svgname="ath-10dayOldSeedling.svg" title="Root from 10-day-old seedling" publication_url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1046909">
+				<controls>
+						<bam_exp>SRR1046909</bam_exp>
+						<bam_exp>SRR1046910</bam_exp>
+				</controls>
+				<groupwith>
+						<bam_exp>SRR1046905</bam_exp>
+						<bam_exp>SRR1046906</bam_exp>
+						<bam_exp>SRR1046907</bam_exp>
+						<bam_exp>SRR1046908</bam_exp>
+						<bam_exp>SRR1046909</bam_exp>
+						<bam_exp>SRR1046910</bam_exp>
+						<bam_exp>SRR1046911</bam_exp>
+						<bam_exp>SRR1046912</bam_exp>
+						<bam_exp>SRR1046913</bam_exp>
+						<bam_exp>SRR1046914</bam_exp>
+						<bam_exp>SRR1046915</bam_exp>
+						<bam_exp>SRR1046916</bam_exp>
+						<bam_exp>SRR1046917</bam_exp>
+						<bam_exp>SRR1046918</bam_exp>
+						<bam_exp>SRR1046919</bam_exp>
+						<bam_exp>SRR1046920</bam_exp>
+						<bam_exp>SRR1046921</bam_exp>
+						<bam_exp>SRR1046922</bam_exp>
+						<bam_exp>SRR1046923</bam_exp>
+						<bam_exp>SRR1046924</bam_exp>
+						<bam_exp>SRR1046925</bam_exp>
+						<bam_exp>SRR1046926</bam_exp>
+						<bam_exp>SRR1046927</bam_exp>
+						<bam_exp>SRR1046928</bam_exp>
+						<bam_exp>SRR1046929</bam_exp>
+						<bam_exp>SRR1046930</bam_exp>
+						<bam_exp>SRR1046931</bam_exp>
+						<bam_exp>SRR1046932</bam_exp>
+						<bam_exp>SRR1046933</bam_exp>
+						<bam_exp>SRR1046934</bam_exp>
+						<bam_exp>SRR1046935</bam_exp>
+						<bam_exp>SRR1046936</bam_exp>
+						<bam_exp>SRR1046937</bam_exp>
+						<bam_exp>SRR1046938</bam_exp>
+						<bam_exp>SRR1046939</bam_exp>
+						<bam_exp>SRR1046940</bam_exp>
+						<bam_exp>SRR1046941</bam_exp>
+						<bam_exp>SRR1046942</bam_exp>
+				</groupwith>
 		</bam_file>
 
 	</rnaseq_experiments>

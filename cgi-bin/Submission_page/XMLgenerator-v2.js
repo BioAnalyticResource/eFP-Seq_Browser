@@ -218,4 +218,16 @@ function determine_svgname(from_svg) {
   else if (from_svg == "Germinating_seed") {
     return "ath-GerminatingSeed.svg";
   }
+  else if (from_svg == "Internode") {
+    return "ath-Internode.svg";
+  }
+  else if (from_svg == "leaf") {
+    return "ath-leaf.svg";
+  }
+  else if (from_svg == "Full_leaf"|| from_svg == "Leaf_lamina" || from_svg == "Leaf_veins") {
+    return "ath-LeafParts.svg";
+  }
+  else if (from_svg == "Pollen") {
+    return "ath-Pollen.svg";
+  }
 };
