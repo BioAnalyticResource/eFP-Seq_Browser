@@ -11,7 +11,7 @@
 				</groupwith>
 		</bam_file>
 
-		<bam_file desc="10 day old root, Col-0, GSM1287167, SRA: SRS513532" record_number="SRR1046909" hex_colour="0xCCCC97" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/root/SRR1046909/accepted_hits.bam" total_reads_mapped="5254981" svg_subunit="root" svgname="ath-10dayOldSeedling.svg" title="Root from 10-day-old seedling" publication_url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1046909">
+		<bam_file desc="10 day old root, Col-0, GSM1287167, SRA: SRS513532" record_number="SRR1046909" hex_colour="0xCCCC97" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/root/SRR1046909/accepted_hits.bam" total_reads_mapped="5254981" svg_subunit="" svgname="ath-10dayOldSeedling.svg" title="Root from 10-day-old seedling" publication_url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1046909">
 				<controls>
 						<bam_exp>SRR1046909</bam_exp>
 						<bam_exp>SRR1046910</bam_exp>
