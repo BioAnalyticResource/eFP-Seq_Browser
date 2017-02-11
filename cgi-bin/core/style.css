@@ -32,10 +32,25 @@ display: none;
   border-radius: 50%;
   border-top: 16px solid #53f442;
   margin-left: 44%;
-  margin-top: 10%;
+  margin-top: 13%;
   width: 120px;
   height: 120px;
   animation: spin 2s linear infinite;
+  opacity: 100%;
+  transition: opacity 1s ease-in-out;
+}
+
+.done_loading {
+  opacity: 0;
+}
+
+.body_of_loading {
+  filter: grayscale(1);
+  transition: filter 1s ease-in-out;
+}
+
+.body_of_loading_done {
+  filter: none;
 }
 
 @keyframes spin {
