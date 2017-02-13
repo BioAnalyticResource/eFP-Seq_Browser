@@ -257,3 +257,21 @@ hr.light{
 #carpels:hover > path {
     fill: #00FFFF;
 }
+
+#receptacle > path {
+    fill: #FF69B4;
+    transition: fill 1s;
+}
+
+#receptacle:hover > path {
+    fill: #00FFFF;
+}
+
+#flower > path {
+    fill: #FF69B4;
+    transition: fill 1s;
+}
+
+#flower:hover > path {
+    fill: #00FFFF;
+}
