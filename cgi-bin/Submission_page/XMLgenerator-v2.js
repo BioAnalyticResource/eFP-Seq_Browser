@@ -123,15 +123,18 @@ $(function () {
   $("#CloneForm").click(CloneSection);
 });
 
+var tissue_sub_name = ""
 function CloneSection() {
   $(".SubmissionArea").append($(".Entries:first").clone(true));
   count_clicks += 1;
   var new_tissue = "tissue" + count_clicks;
-  var new_tissue = "tissue" + count_clicks + "_subunit";
+  var new_tissue_subunit = "tissue" + count_clicks + "_subunit";
   var new_svg = "svg" + count_clicks;
   $("legend:last").text("Entry " + count_clicks);
   $(".change_div_id").last().attr("name", new_tissue);
-  $(".change_div_id_subunit").last().attr("name", new_tissue);
+  $(".change_button_id").last().attr("id", new_tissue);
+  $(".change_id_tissue_subunit").last().attr("name", new_tissue_subunit);
+  $(".change_id_tissue_subunit").last().attr("id", new_tissue_subunit);
   $(".change_id_tissue").last().attr("id", new_tissue);
   $(".change_svg").last().attr("id", new_svg);
 };
@@ -190,13 +193,14 @@ var which_svg = "";
 var tissue_subunit = "";
 var clicked_id = "";
 function clickclick(clickid) {
-    document.getElementById(tissue_click).value = clickid.replace(/_/g, " ");
-    tissue_subunit = tissue_click + "_subunit";
-    clicked_id = clickid;
-    document.getElementById(tissue_subunit).value = document.getElementById(clickid).className.split(" ")[1];
-    var count_which_click = tissue_click.match(/\d/g).join("");
-    which_svg = "svg" + count_which_click;
-    document.getElementById(which_svg).value = determine_svgname(clickid);
+  document.getElementById(tissue_click).innerHTML = clickid.replace(/_/g, " ");
+  tissue_subunit = tissue_click + "_subunit";
+  clicked_id = clickid;
+  tissue_sub_name = document.getElementById(clickid).className.split(" ")[1];
+  document.getElementById(tissue_subunit).value = tissue_sub_name;
+  var count_which_click = tissue_click.match(/\d/g).join("");
+  which_svg = "svg" + count_which_click;
+  document.getElementById(which_svg).value = determine_svgname(clickid);
 };
 
 function determine_svgname(from_svg) {
@@ -224,10 +228,19 @@ function determine_svgname(from_svg) {
   else if (from_svg == "leaf") {
     return "ath-leaf.svg";
   }
-  else if (from_svg == "Full_leaf"|| from_svg == "Leaf_lamina" || from_svg == "Leaf_veins") {
+  else if (from_svg == "Full_leaf" || from_svg == "Leaf_lamina" || from_svg == "Leaf_veins") {
     return "ath-LeafParts.svg";
   }
   else if (from_svg == "Pollen") {
     return "ath-Pollen.svg";
+  }
+  else if (from_svg == "Roots_tip") {
+    return "ath-RootTip.svg";
+  }
+  else if (from_svg == "Rosette_shoot" || from_svg == "Rosette_Plus_Root" || from_svg == "Rosette_root") {
+    return "ath-rosettePlusRoot.svg";
+  }
+  else if (from_svg == "Seed_stage_1-4") {
+    return "ath-SeedStage1-4.svg";
   }
 };

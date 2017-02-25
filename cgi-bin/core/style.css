@@ -38,6 +38,7 @@ display: none;
   animation: spin 2s linear infinite;
   opacity: 100%;
   transition: opacity 1s ease-in-out;
+  z-index:1000;
 }
 
 .done_loading {

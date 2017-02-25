@@ -197,6 +197,11 @@ textarea:focus {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+    transition: all 0.5s ease;
+}
+
+.tissue_box:hover {
+  background-color: #FFFBCC;
 }
 
 #myInput {
@@ -204,8 +209,14 @@ textarea:focus {
   background-position: 10px 10px;
   background-repeat: no-repeat;
   width: 100%;
-  font-size: 16px;
+  font-size: 14px;
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 400px;
+    overflow-x: hidden;
 }

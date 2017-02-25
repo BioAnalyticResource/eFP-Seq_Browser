@@ -101,11 +101,11 @@ if (testmobile() == true) {
 // Code edited by StackOverFlow user Matthew "Treeless" Rowlandson http://stackoverflow.com/questions/42166138/css-transition-triggered-by-javascript?noredirect=1#comment71503764_42166138
 function generate_loading_screen() {
   window.setInterval(function(){
-    if (progress_percent < 75) {
+    if (progress_percent < 90) {
       document.getElementById("loading_screen").className = "loading";
       document.getElementById("body_of").className = "body_of_loading";
     }
-    else if (progress_percent > 75) {
+    else if (progress_percent > 90) {
       document.getElementById("loading_screen").className = "loading done_loading";
       document.getElementById("body_of").className = "body_of_loading body_of_loading_done";
       stop_generating_loading();
