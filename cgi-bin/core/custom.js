@@ -104,10 +104,12 @@ function generate_loading_screen() {
     if (progress_percent < 90) {
       document.getElementById("loading_screen").className = "loading";
       document.getElementById("body_of").className = "body_of_loading";
+      $(':button').prop('disabled', true);
     }
     else if (progress_percent > 90) {
       document.getElementById("loading_screen").className = "loading done_loading";
       document.getElementById("body_of").className = "body_of_loading body_of_loading_done";
+      $(':button').prop('disabled', false);
       stop_generating_loading();
     }
   }, 50);

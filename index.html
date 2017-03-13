@@ -7,7 +7,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>eFP-Seq Browser</title>
-    <meta name="author" content="Priyank Purohit">
+    <meta name="author" content="Priyank Purohit, Alexander Sullivan">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -55,7 +55,7 @@
   </div>
 </nav>
 
-<div class="done_loading" id="loading_screen"></div>
+<div><div class="done_loading" id="loading_screen"></div></div>
 
 <body>
     <div class="progress" style="width: 100%; height: 5px; position: fixed; margin-top: 0px; top: 0px; z-index: 100;">
@@ -98,7 +98,7 @@
                 <hr style="border: 1px solid gray; margin: 5px; " id="topbarborder"/>
                 <div class="row" id="middle_buttons">
                   <div class="col-md-2" style="padding-left: 2%;" id="uploaddata">
-                    <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();" style="margin-top:3%;">Upload Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                    <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();" style="margin-top:3%;" id="upload_button">Upload Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                     <input type="file" id="fileID" hidden accept="text/xml"/>
 
                     <!-- Script for changing base_src and uploading XML, clienside -->
@@ -172,7 +172,7 @@
                       <option value="Cloud test">Cloud test</option>
                       <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;">Uploaded dataset</option>
                     </select>
-                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" onclick="change_dataset()"><i class="material-icons">input</i></button>
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" onclick="change_dataset()"><i class="material-icons" id="send_database">input</i></button>
                   </div>
                   <script>
                   function change_dataset() {

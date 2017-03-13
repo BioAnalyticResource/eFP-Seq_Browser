@@ -150,7 +150,7 @@ function myFunction() {
             <!-- Hex color -->
             <div class="forminput row" hidden>
               <label class="col-sm-3 col-xs-3" for="channel-hex_color" title="Admin use, this temp">Hex color <span style="font-weight:bold;">*</span></label>
-              <input class="channelhexcolor col-sm-8 col-xs-8" id="req" name="channelhexcolor" placeholder="Alpha purposes only, will be removed later" type="text" data-help-text="record_number" />
+              <input class="channelhexcolor col-sm-8 col-xs-8" name="channelhexcolor" placeholder="Alpha purposes only, will be removed later" type="text" data-help-text="record_number" />
             </div>
 
 
@@ -180,7 +180,7 @@ function myFunction() {
             <!-- Total reads mapped -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3" for="channel-total_reads_mapped" title="The total amount of reads mapped in your RNA-Seq data.">Total Reads Mapped <span style="font-weight:bold;">*</span></label>
-              <input class="channeltotalreadsmapped col-sm-8 col-xs-8 reqfield" id="req" name="channeltotalreadsmapped" placeholder="29098868" type="text" data-help-text="total_reads_mapped" />
+              <input class="channeltotalreadsmapped col-sm-8 col-xs-8" id="req" name="channeltotalreadsmapped" placeholder="29098868" type="text" data-help-text="total_reads_mapped" />
             </div>
 
             <!-- SVG Name -->
@@ -202,7 +202,7 @@ function myFunction() {
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3" for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue <span style="font-weight:bold;">*</span></label>
               <div class="btn-group col-sm-8 col-xs-8 change_div_id" style="padding-left:0px; padding-right:0px;" name="tissue1" id="tissue_input">
-                <button id="tissue1" type="button" class="btn btn-default dropdown-toggle channeltissue col-sm-12 col-xs-12 change_button_id" data-toggle="dropdown" name="channeltissue_false" style="text-align:left;">Tissue select </button>
+                <button id="tissue1" type="button" class="btn btn-default dropdown-toggle channeltissue col-sm-12 col-xs-12 change_button_id reqfield" data-toggle="dropdown" name="channeltissue_false" style="text-align:left;">Tissue select </button>
                 <input class="col-sm-12 col-xs-12 change_id_tissue_subunit channeltissue"  list="channeltissuelist" id="tissue1_subunit" name="channeltissues"type="text" style="float:inherit;" hidden>
                 <ul class="dropdown-menu scrollable-menu col-sm-12 col-xs-12" role="menu">
                     <li>
