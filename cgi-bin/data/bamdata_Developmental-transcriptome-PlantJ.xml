@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">
+	<rnaseq_experiments xmltitle="Test data" author="BAR" contact="">
+
+		<bam_file desc="" record_number="SRR3581685" hex_colour="" bam_type="Google Drive" bam_link="https://drive.google.com/drive/folders/0B6Z4m6vl-WRucEJnaGNDdFBLNVU" total_reads_mapped="" publication_link="" svg_subunit="undefined" svgname="ath-rosettePlusRoot.svg" title="Google drive SRR3581685 testing" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581685" species="Arabidopsis thaliana">
+			<controls>
+				<bam_exp></bam_exp>
+			</controls>
+			<groupwith>
+				<bam_exp></bam_exp>
+			</groupwith>
+		</bam_file>
+
+		<bam_file desc="" record_number="SRR3581728" hex_colour="" bam_type="Google Drive" bam_link="https://drive.google.com/drive/folders/0B6Z4m6vl-WRuV2cySk5GLVhpR00" total_reads_mapped="" publication_link="" svg_subunit="undefined" svgname="ath-rosettePlusRoot.svg" title="Google drive SRR3581728 testing" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581728" species="Arabidopsis thaliana">
+			<controls>
+				<bam_exp></bam_exp>
+			</controls>
+			<groupwith>
+				<bam_exp></bam_exp>
+			</groupwith>
+		</bam_file>
+
+	</rnaseq_experiments>

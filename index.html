@@ -170,6 +170,9 @@
                       <option value="Original 113">Original 113</option>
                       <option value="Test modification">Test modification</option>
                       <option value="Cloud test">Cloud test</option>
+                      <option value="Developmental-transcriptome-PlantJ">Developmental-transcriptome-PlantJ</option>
+                      <option value="Cloud v2">Cloud v2</option>
+                      <option value="Min needed">Min needed</option>
                       <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;">Uploaded dataset</option>
                     </select>
                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" onclick="change_dataset()"><i class="material-icons" id="send_database">input</i></button>
@@ -188,6 +191,15 @@
                     }
                     else if (document.getElementById("xmldatabase").value == "Cloud test") {
                       base_src = 'cgi-bin/data/bamdata_cloud.xml';
+                    }
+                    else if (document.getElementById("xmldatabase").value == "Developmental-transcriptome-PlantJ") {
+                      base_src = 'cgi-bin/data/bamdata_Developmental-transcriptome-PlantJ.xml';
+                    }
+                    else if (document.getElementById("xmldatabase").value == "Cloud v2") {
+                      base_src = 'cgi-bin/data/bamdata_cloud_v2.xml';
+                    }
+                    else if (document.getElementById("xmldatabase").value == "Min needed") {
+                      base_src = 'cgi-bin/data/bamdata_min.xml';
                     }
                     else if (document.getElementById("xmldatabase").value == "Uploaded dataset") {
                       base_src = upload_src;

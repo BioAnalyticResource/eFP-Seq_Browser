@@ -40,18 +40,7 @@ var upload_src = '';
 
 
 //Following lines are used to count and determine how many BAM entries are in the XML file
-var count_bam_entries_in_xml = 0;
-
-var xhr = new XMLHttpRequest();
-xhr.open( 'GET', base_src, true );
-xhr.onreadystatechange = function ( e ) {
-    if ( xhr.readyState == 4 && xhr.status == 200 )
-        count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName( "bam_file" ).length ;
-        document.getElementById("testing_code").innerHTML = count_bam_entries_in_xml;
-};
-xhr.send( null );
-
-document.getElementById("testing_count").innerHTML = count_bam_entries_in_xml;
+var count_bam_entries_in_xml = 3; // This should be set the number of start-up/default
 
 function count_bam_num () {
   var xhr = new XMLHttpRequest();
@@ -61,7 +50,7 @@ function count_bam_num () {
           count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName( "bam_file" ).length ;
           document.getElementById("testing_code").innerHTML = count_bam_entries_in_xml;
   };
-  xhr.send( null );
+  //xhr.send( null );
 
   document.getElementById("testing_count").innerHTML = count_bam_entries_in_xml;
 };

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE rnaseq_experiments SYSTEM "bamdata_amazon_links.dtd">
+    <rnaseq_experiments>
+
+        <bam_file desc="" record_number="ERR274310" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam" total_reads_mapped="" publication_link="" svg_subunit="" svgname="ath-rosettePlusRoot.svg" title="Only has record_number, bam_type, bam_link and svgname (title is filled to give this description but not needed)" publication_url="" species="">
+            <controls>
+                <bam_exp></bam_exp>
+            </controls>
+            <groupwith>
+                <bam_exp></bam_exp>
+                <bam_exp></bam_exp>
+            </groupwith>
+        </bam_file>
+
+        <bam_file desc="GSM798296: mRNASeq_WT_rep2" record_number="SRR547531" hex_colour="0x64cc65" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/SRR547531/accepted_hits.bam" total_reads_mapped="13627154" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/23349984" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" title="Has all sections of XML filled" publication_url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR547531" species="Arabidopsis thaliana">
+            <controls>
+                <bam_exp>SRR547531</bam_exp>
+            </controls>
+            <groupwith>
+                <bam_exp>SRR547531</bam_exp>
+                <bam_exp>SRR547532</bam_exp>
+                <bam_exp>SRR547533</bam_exp>
+                <bam_exp></bam_exp>
+                <bam_exp></bam_exp>
+            </groupwith>
+        </bam_file>
+
+	</rnaseq_experiments>
