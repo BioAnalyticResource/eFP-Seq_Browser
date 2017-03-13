@@ -40,7 +40,16 @@ var upload_src = '';
 
 
 //Following lines are used to count and determine how many BAM entries are in the XML file
-var count_bam_entries_in_xml = 3; // This should be set the number of start-up/default
+var count_bam_entries_in_xml = 0;
+
+var xhr = new XMLHttpRequest();
+xhr.open( 'GET', base_src, true );
+xhr.onreadystatechange = function ( e ) {
+    if ( xhr.readyState == 4 && xhr.status == 200 )
+        count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName( "bam_file" ).length ;
+        //document.getElementById("testing_code").innerHTML = count_bam_entries_in_xml;
+};
+xhr.send( null );
 
 function count_bam_num () {
   var xhr = new XMLHttpRequest();
@@ -48,9 +57,11 @@ function count_bam_num () {
   xhr.onreadystatechange = function ( e ) {
       if ( xhr.readyState == 4 && xhr.status == 200 )
           count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName( "bam_file" ).length ;
-          document.getElementById("testing_code").innerHTML = count_bam_entries_in_xml;
+          //document.getElementById("testing_code").innerHTML = count_bam_entries_in_xml;
   };
-  //xhr.send( null );
+  if (progress_percent < 100) {
+    xhr.send(null);
+  };
 
   document.getElementById("testing_count").innerHTML = count_bam_entries_in_xml;
 };
@@ -90,12 +101,12 @@ if (testmobile() == true) {
 // Code edited by StackOverFlow user Matthew "Treeless" Rowlandson http://stackoverflow.com/questions/42166138/css-transition-triggered-by-javascript?noredirect=1#comment71503764_42166138
 function generate_loading_screen() {
   window.setInterval(function(){
-    if (progress_percent < 90) {
+    if (progress_percent < 99) {
       document.getElementById("loading_screen").className = "loading";
       document.getElementById("body_of").className = "body_of_loading";
       $(':button').prop('disabled', true);
     }
-    else if (progress_percent > 90) {
+    else if (progress_percent > 99) {
       document.getElementById("loading_screen").className = "loading done_loading";
       document.getElementById("body_of").className = "body_of_loading body_of_loading_done";
       $(':button').prop('disabled', false);
@@ -649,10 +660,11 @@ function rnaseq_images(status) {
         }
     }
 }
-
+/*
 window.setInterval(function(){
   document.getElementById("testing_progress").innerHTML = progress_percent
 }, 50);
+*/
 
 /* Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make. */
 var bam_type_list = []
