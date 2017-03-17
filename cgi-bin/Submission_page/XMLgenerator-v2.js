@@ -243,4 +243,49 @@ function determine_svgname(from_svg) {
   else if (from_svg == "Seed_stage_1-4") {
     return "ath-SeedStage1-4.svg";
   }
+  else if (from_svg == "Seed_stage_5-7") {
+    return "ath-SeedStage5-7.svg";
+  }
+  else if (from_svg == "Seed_Stage_8+") {
+    return "ath-SeedStage8+.svg";
+  }
+  else if (from_svg == "Senescent_Leaf") {
+    return "ath-SenescentLeaf.svg";
+  }
+  else if (from_svg == "Shoot_Apex_Inflorescense") {
+    return "ath-ShootApexInflorescense.svg";
+  }
+  else if (from_svg == "Shoot_Apex_Vegetative-Transition") {
+    return "ath-ShootApexVegetative-Transition.svg";
+  }
+  else if (from_svg == "Silique_Stage_1-5") {
+    return "ath-SiliqueStage1-5.svg";
+  }
+  else if (from_svg == "Silique_Stage_6-10") {
+    return "ath-SiliqueStage6-10.svg";
+  }
+  else if (from_svg == "Stage_1-4_Leaf") {
+    return "ath-Stage1-4Leaf.svg";
+  }
+  else if (from_svg == "Stage_1_Flowers" || from_svg == "Stage_1_Flowers_shoot" || from_svg == "Stage_1_Flowers_buds") {
+    return "ath-Stage1Flowers.svg";
+  }
+  else if (from_svg == "Stage_12_Bud") {
+    return "ath-Stage12Bud.svg";
+  }
+  else if (from_svg == "Stamen" || from_svg == "Stamen_anthers" || from_svg == "Stamen_filament") {
+    return "ath-Stamen.svg";
+  }
+  else if (from_svg == "Stigma_and_Ovaries" || from_svg == "Stigma" || from_svg == "Ovaries") {
+    return "ath-StigmaAndOvaries.svg";
+  }
+  else if (from_svg == "Whole_Silique") {
+    return "ath-WholeSilique.svg";
+  }
+  else if (from_svg == "young_Seedling" || from_svg == "young_Seedling_root" || from_svg == "young_Seedling_hypocotyl" || from_svg == "young_Seedling_cotyledon") {
+    return "ath-youngSeedling.svg";
+  }
+  else if (from_svg == "Other") {
+    return "ath-google_material_help-ic_help_black_24px.svg";
+  }
 };
