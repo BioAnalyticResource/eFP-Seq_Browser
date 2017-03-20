@@ -78,8 +78,8 @@ document.getElementById("testing_mobile").innerHTML = testmobile();
 
 if (testmobile() == true) {
   document.getElementById("correctspacing").style.display="none";
-  document.getElementById("feedback_button").style.display="none";
-  document.getElementById("help_button").style.display="none";
+  //document.getElementById("feedback_button").style.display="none";
+  //document.getElementById("help_button").style.display="none";
   document.getElementById("butbarborder").style.display="none";
   //document.getElementById("middle_buttons").style.display="none";
   document.getElementById("uploaddata").style.display="none";

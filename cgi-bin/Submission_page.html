@@ -202,14 +202,13 @@ function myFunction() {
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3" for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue <span style="font-weight:bold;">*</span></label>
               <div class="btn-group col-sm-8 col-xs-8 change_div_id" style="padding-left:0px; padding-right:0px;" name="tissue1" id="tissue_input">
-                <button id="tissue1" type="button" class="btn btn-default dropdown-toggle channeltissue col-sm-12 col-xs-12 change_button_id reqfield" data-toggle="dropdown" name="channeltissue_false" style="text-align:left;">Tissue select </button>
-                <input class="col-sm-12 col-xs-12 change_id_tissue_subunit channeltissue"  list="channeltissuelist" id="tissue1_subunit" name="channeltissues"type="text" style="float:inherit;" hidden>
+                <button id="tissue1" type="button" class="btn btn-default dropdown-toggle channeltissue col-sm-12 col-xs-12 change_button_id reqtissuebutton" data-toggle="dropdown" name="channeltissue_false" style="text-align:left;">Tissue select </button>
+                <input class="col-sm-12 col-xs-12 change_id_tissue_subunit channeltissue reqtissue"  list="channeltissuelist" id="tissue1_subunit" name="channeltissues"type="text" style="float:inherit;" hidden>
                 <ul class="dropdown-menu scrollable-menu col-sm-12 col-xs-12" role="menu">
                     <li>
                       <p style="margin-left:2px;"> Please click on your tissue: </p>
                       <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for tissue.." title="Tissue search" name="channeltissue" placeholder="Etiolated seedling" data-help-text="tissue">
                       <table id="tissueTable" class="tissue_table" style="margin-left:2px; margin-right:4px;">
-                        Colour hex: 53f442
                         <tr>
                             <th onclick="clickclick(this.id)" id="10_Day_old_Seedling" class="tissue_box all">10 Day Old Seedling: <br>
                                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -5591,43 +5590,13 @@ function myFunction() {
             <!-- Control -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3" for="channel-controls" title="The BAM exp number of the controls in your RNA-Seq data.">Controls </label>
-              <input class="channelcontrols col-sm-8 col-xs-8" name="channelcontrols" placeholder="Optional: ERR274310" type="text" data-help-text="total_controls"/>
+              <input class="channelcontrols col-sm-8 col-xs-8" name="channelcontrols" placeholder="Optional: ERR274310. Seperate by commas" type="text" data-help-text="total_controls"/>
             </div>
 
-            <!-- Replicate control 1 -->
+            <!-- Replicate control -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidtho" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1 </label>
-              <input class="channelgroupwidtho col-sm-8 col-xs-8" name="channelgroupwidtho" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
-            </div>
-
-            <!-- Replicate control 2 -->
-            <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth2" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 2 </label>
-              <input class="channelgroupwidth2 col-sm-8 col-xs-8" name="channelgroupwidth2" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
-            </div>
-
-            <!-- Replicate control 3 -->
-            <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth3" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 3 </label>
-              <input class="channelgroupwidth3 col-sm-8 col-xs-8" name="channelgroupwidth3" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
-            </div>
-
-            <!-- Replicate control 4 -->
-            <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth4" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 4 </label>
-              <input class="channelgroupwidth4 col-sm-8 col-xs-8" name="channelgroupwidth4" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
-            </div>
-
-            <!-- Replicate control 5 -->
-            <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth5" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 5 </label>
-              <input class="channelgroupwidth5 col-sm-8 col-xs-8" name="channelgroupwidth5" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
-            </div>
-
-            <!-- Replicate control 6 -->
-            <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth6" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 6 </label>
-              <input class="channelgroupwidth6 col-sm-8 col-xs-8" name="channelgroupwidth6" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth1" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls. Seperate by commas </label>
+              <input class="channelgroupwidth1 col-sm-8 col-xs-8" name="channelgroupwidth1" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
   	  </fieldset>
   	</div>

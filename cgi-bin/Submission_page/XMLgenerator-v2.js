@@ -7,6 +7,7 @@ $(function () {
          var formatXML = '';
          var filledbase = updatebase(filledbase);
          remove_outline(".reqfield");
+         remove_outline(".reqtissuebutton");
          no_null_contact();
          if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield"))  {
            $(".Entries").each(function(i,v) {formatXML +=update(formatXML, v)
@@ -19,6 +20,7 @@ $(function () {
          }
          else {
            outline_req(".reqfield");
+           outline_req(".reqtissuebutton");
            document.getElementById("not_filled").innerHTML = "Please fill in all red highlighted fields";
          }
     });
@@ -71,7 +73,9 @@ var adding = [
   '\n'
 ].join('\r\n');
 
+var all_controls = "";
 function update(formatXML,v) {
+  all_controls = $(v).find('.channelcontrols').val().split(',');
   var variables = {
     'channeldescription': $(v).find('.channeldescription').val(),
     'channelrecordnumber': $(v).find('.channelrecordnumber').val(),
@@ -86,7 +90,7 @@ function update(formatXML,v) {
     'channelpublicationlink': $(v).find('.channelpublicationlink').val(),
     'channelspecies': $(v).find('.channelspecies').val(),
     'channelcontrols': $(v).find('.channelcontrols').val(),
-    'channelgroupwidtho': $(v).find('.channelgroupwidtho').val(),
+    'channelgroupwidth1': $(v).find('.channelgroupwidth1').val(),
     'channelgroupwidth2': $(v).find('.channelgroupwidth2').val(),
     'channelgroupwidth3': $(v).find('.channelgroupwidth3').val(),
     'channelgroupwidth4': $(v).find('.channelgroupwidth4').val(),
@@ -149,7 +153,14 @@ function check_req(class_name) {
       filled += 1
     }
   }
-  if (filled == match) {
+  var sub_filled = 0
+  for (i = 1; i <= count_clicks; i++) {
+    var tissue_sub_parse = "tissue" + i + "_subunit"
+    if (document.getElementById(tissue_sub_parse).value.length > 0) {
+      sub_filled += 1
+    }
+  }
+  if (filled == match || sub_filled == count_clicks) {
     return true
   }
   else {
