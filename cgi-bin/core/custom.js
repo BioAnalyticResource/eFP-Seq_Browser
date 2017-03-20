@@ -79,7 +79,7 @@ document.getElementById("testing_mobile").innerHTML = testmobile();
 if (testmobile() == true) {
   document.getElementById("correctspacing").style.display="none";
   //document.getElementById("feedback_button").style.display="none";
-  document.getElementById("help_icon").style.display="none";
+  //document.getElementById("help_icon").style.display="none";
   document.getElementById("butbarborder").style.display="none";
   //document.getElementById("middle_buttons").style.display="none";
   document.getElementById("uploaddata").style.display="none";
@@ -563,7 +563,7 @@ function rnaseq_images(status) {
             }
 
             else {
-              rnaseq_image_url = "http://ec2-52-70-232-122.compute-1.amazonaws.com/RNA-Browser/cgi-bin/webservice.cgi?tissue=";
+              rnaseq_image_url = "http://bar.utoronto.ca/webservices/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
             }
 
             $.ajax({

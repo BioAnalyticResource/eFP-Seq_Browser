@@ -60,23 +60,6 @@ var added = [
   '\n'
 ].join('\r\n');
 
-var adding = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\" species=\"<?channelspecies?>\">',
-  '\t\t\t<controls>',
-  '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
-  '\t\t\t</controls>',
-  '\t\t\t<groupwith>',
-  '\t\t\t\t<bam_exp><?channelgroupwidtho?></bam_exp>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth2?></bam_exp>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth3?></bam_exp>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth4?></bam_exp>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth5?></bam_exp>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth6?></bam_exp>',
-  '\t\t\t</groupwith>',
-  '\t\t</bam_file>',
-  '\n'
-].join('\r\n');
-
 var all_controls = "";
 function update(formatXML,v) {
   all_controls = $(v).find('.channelcontrols').val().split(',');
