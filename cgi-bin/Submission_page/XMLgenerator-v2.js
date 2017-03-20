@@ -7,9 +7,9 @@ $(function () {
          var formatXML = '';
          var filledbase = updatebase(filledbase);
          remove_outline(".reqfield");
-         remove_outline(".reqtissuebutton");
+         remove_outline_tissue(".reqtissue");
          no_null_contact();
-         if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield"))  {
+         if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield") && check_req_tissue(".reqtissuebutton"))  {
            $(".Entries").each(function(i,v) {formatXML +=update(formatXML, v)
              $('#ResultXml').val(filledbase + formatXML + end);
            $('#DownloadLink')
@@ -19,8 +19,12 @@ $(function () {
                    });
          }
          else {
-           outline_req(".reqfield");
-           outline_req(".reqtissuebutton");
+           if (check_req(".reqfield") == false) {
+             outline_req(".reqfield");
+           }
+           if (check_req_tissue(".reqtissuebutton") == false) {
+             outline_req_tissue(".reqtissuebutton");
+           }
            document.getElementById("not_filled").innerHTML = "Please fill in all red highlighted fields";
          }
     });
@@ -153,14 +157,26 @@ function check_req(class_name) {
       filled += 1
     }
   }
+  if (filled == match) {
+    return true
+  }
+  else {
+    return false
+  }
+};
+
+function check_req_tissue(class_name) {
+  var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
+  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+  var i;
   var sub_filled = 0
   for (i = 1; i <= count_clicks; i++) {
-    var tissue_sub_parse = "tissue" + i + "_subunit"
+    var tissue_sub_parse = "tissue" + i + "_subunit";
     if (document.getElementById(tissue_sub_parse).value.length > 0) {
       sub_filled += 1
     }
   }
-  if (filled == match || sub_filled == count_clicks) {
+  if (sub_filled == count_clicks) {
     return true
   }
   else {
@@ -181,6 +197,19 @@ function outline_req(class_name) {
   }
 };
 
+function outline_req_tissue(class_name) {
+  var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
+  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+  var i;
+  for (i = 0; i < x.length; i++) {
+    var tissue_sub_parse = "tissue" + (i + 1) + "_subunit";
+    if (document.getElementById(tissue_sub_parse).value.length <= 0) {
+      x[i].style.borderColor = "#ff2626";
+      x[i].style.boxShadow = "0 0 10px #ff2626";
+    }
+  }
+};
+
 function remove_outline(class_name) {
   document.getElementById("not_filled").innerHTML = "";
   var x = document.getElementById("Entries_all").querySelectorAll(class_name);
@@ -189,6 +218,22 @@ function remove_outline(class_name) {
     if (x[i].value.length > 0) {
       x[i].style.borderColor = null;
       x[i].style.boxShadow = null;
+    }
+  }
+};
+
+var tissue_doc;
+var tissue_sub_parse_remove;
+function remove_outline_tissue(class_name) {
+  document.getElementById("not_filled").innerHTML = "";
+  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+  var i;
+  for (i = 0; i < x.length; i++) {
+    tissue_doc = "tissue" + (i + 1);
+    tissue_sub_parse_remove = "tissue" + (i + 1) + "_subunit";
+    if (document.getElementById(tissue_sub_parse_remove).value.length > 0) {
+      document.getElementById(tissue_doc).style.borderColor = null;
+      document.getElementById(tissue_doc).style.boxShadow = null;
     }
   }
 };

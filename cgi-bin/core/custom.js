@@ -79,7 +79,7 @@ document.getElementById("testing_mobile").innerHTML = testmobile();
 if (testmobile() == true) {
   document.getElementById("correctspacing").style.display="none";
   //document.getElementById("feedback_button").style.display="none";
-  //document.getElementById("help_button").style.display="none";
+  document.getElementById("help_icon").style.display="none";
   document.getElementById("butbarborder").style.display="none";
   //document.getElementById("middle_buttons").style.display="none";
   document.getElementById("uploaddata").style.display="none";
@@ -558,7 +558,7 @@ function rnaseq_images(status) {
               var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
               var linkString = drive_link_list[i];
               match_drive = myRegexp.exec(linkString);
-              rnaseq_image_url = "http://bar.utoronto.ca/webservices/eFP-Seq_Browser/cgi-bin/webservice_gdrive.cgi?gdrive" + match_drive[1] + "&tissue=";
+              rnaseq_image_url = "http://142.150.214.168/~asher/webservices/RNA-Browser/cgi-bin/webservice_gdrive.cgi?gdrive=" + match_drive[1] + "&tissue=";
               //testing_rnaseq_image += 1;
             }
 
