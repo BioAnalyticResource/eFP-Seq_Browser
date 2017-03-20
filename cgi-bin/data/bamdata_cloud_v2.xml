@@ -2,7 +2,7 @@
 <!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">
 	<rnaseq_experiments xmltitle="Test data" author="BAR" contact="">
 
-		<bam_file desc="GSM798296: mRNASeq_WT_rep2" record_number="SRR547531" hex_colour="0x64cc65" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/SRR547531/accepted_hits.bam" total_reads_mapped="13627154" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/23349984" svg_subunit="undefined" svgname="ath-rosettePlusRoot.svg" title="Amazon AWS default" publication_url="http://www.ncbi.nlm.nih.gov/pubmed/23349984" species="Arabidopsis thaliana">
+		<bam_file desc="GSM798296: mRNASeq_WT_rep2" record_number="SRR547531" hex_colour="0x64cc65" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/SRR547531/accepted_hits.bam" total_reads_mapped="13627154" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/23349984" svg_subunit="undefined" svgname="ath-rosettePlusRoot.svg" title="Amazon AWS default" publication_url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR547531" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp>SRR547531</bam_exp>
 			</controls>
@@ -16,7 +16,7 @@
 			</groupwith>
 		</bam_file>
 
-		<bam_file desc="E-MTAB-1668:24hCS-RNA" record_number="ERR274310" hex_colour="0x64cc65" bam_type="Google Drive" bam_link="https://drive.google.com/drive/folders/0B6Z4m6vl-WRuNzAtQXBxR1d1T3M" total_reads_mapped="29098868" publication_link="http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" svg_subunit="undefined" svgname="ath-rosettePlusRoot.svg" title="Google drive default" publication_url="http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" species="Arabidopsis thaliana">
+		<bam_file desc="E-MTAB-1668:24hCS-RNA" record_number="ERR274310" hex_colour="0x64cc65" bam_type="Google Drive" bam_link="https://drive.google.com/drive/folders/0B6Z4m6vl-WRuNzAtQXBxR1d1T3M" total_reads_mapped="29098868" publication_link="http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" svg_subunit="undefined" svgname="ath-rosettePlusRoot.svg" title="Google drive default" publication_url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp>ERR274310</bam_exp>
 			</controls>
