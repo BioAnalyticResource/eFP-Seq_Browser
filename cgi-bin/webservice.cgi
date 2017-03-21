@@ -75,7 +75,7 @@ def validateChromosome(chromosome):
 		return chromosome
 	else:
 		error("Chromosome validation error: 2.")
-
+	
 # Validate Start
 def validateStart(start, end):
 	if (start > 0 and start < end):
@@ -104,7 +104,7 @@ def hex_to_rgb(val):
 
 
 ''' Once we have chromosome, start, end and filename, we can make the image.'''
-def makeImage(filename, chromosome, start, end, record, yscale):
+def makeImage(filedir, filename, chromosome, start, end, record, yscale):
 	max_mapped_reads_count = 0 # For setting the appropriate Y scale
 
 	x_bp_vals = [] # Holds nucleotide positions...
@@ -117,7 +117,13 @@ def makeImage(filename, chromosome, start, end, record, yscale):
 	# Call samtools and get mpileup
 	chromosome = "Chr" + str(chromosome)
 	region = chromosome + ":" + str(start) + "-" + str(end)
-	mpileup = subprocess.check_output(['samtools', 'mpileup', '-r', region, filename])
+	
+	# Set the environment
+	os.chdir("data/" + filedir)
+	my_env = os.environ.copy()
+	my_env["LD_LIBRARY_PATH"] = "/usr/local/lib/"
+	mpileup = subprocess.check_output(['samtools', 'mpileup', '-r', region, filename], env=my_env)
+	os.chdir("../../../")
 
 	# Read pileup output
 	for read in mpileup.splitlines():
@@ -215,6 +221,7 @@ def main():
 	# Generate new data or return cached data for speedy first-load.
 	############################################################################
 	# (status == 0) => RETURN NEWLY GENERATED DATA
+	#subprocess.check_output(['export', 'LD_LIBRARY_PATH=/usr/local/lib/'])
 	if (status == 0):
 		# Get info required for generating new data
 		variant_structure = json.loads(form.getvalue('struct')) # Exon-Intron
@@ -253,10 +260,11 @@ def main():
 					expected_expr_in_variant[variants_count].append(1)
 
 		# Make S3FS filename here
-		bam_file = "/mnt/RNASeqData/" + tissue + "/" + record + "/accepted_hits.bam"
-
+		bam_file = "s3://iplant-cdn/iplant/home/araport/rnaseq_bam/" + tissue + "/" + record + "/accepted_hits.bam"
+		bam_dir = tissue + "/" + record
+		
 		# Now make a image using samtools
-		base64img = makeImage(bam_file, chromosome, start, end, record, yscale)
+		base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale)
 
 		# OFTEN, mpileup output doesn't include all the bases assigned to locus
 		# The ones that are no included should get a mpileup expression value of 0
@@ -309,14 +317,19 @@ def main():
 		# Count the number of mapped reads to the locus
 		# TODO: modify the mpileup call to include this information in it
 		# Hypothesis: since you need this info to create the mpileup output
-		# the same info would be there. So just pass that along instead of
+		# the same info would be there. So just pass that along instead of 
 		# making this call .. to speed things up.
-		lines = subprocess.check_output(['samtools', 'view', bam_file, region])
+		# Set the environment
+		os.chdir("data/" + bam_dir)
+		my_env = os.environ
+		my_env["LD_LIBRARY_PATH"] = "/usr/local/lib/"
+		lines = subprocess.check_output(['samtools', 'view', bam_file, region], env=my_env)
+		os.chdir("../../../")
 		mapped_reads = lines.count('Chr')
 
 		# Total reads in each experiment, extracted from BAM Locator XML file.
-		reads_in_exp_dict = {'ERR274310' : '29098868', 'SRR547531' : '13627154', 'SRR548277' : '10647001', 'ERR274310' : '29098868', 'SRR547531' : '13627154', 'SRR548277' : '10647001', 'SRR847503' : '19012222', 'SRR847504' : '17652623', 'SRR847505' : '14547829', 'SRR847506' : '14547829', 'SRR1207194' : '41295666', 'SRR1207195' : '39074103', 'SRR1019436' : '22144930', 'SRR1019437' : '24158853', 'SRR1049784' : '51665293', 'SRR477075' : '33569708', 'SRR477076' : '20201654', 'SRR493237' : '27039911', 'SRR493238' : '25704434', 'SRR314815' : '25509908', 'SRR800753' : '7506384', 'SRR800754' : '7063908', 'SRR1105822' : '38483470', 'SRR1105823' : '30583559', 'SRR1159821' : '19343538', 'SRR1159827' : '9138919', 'SRR1159837' : '5659168', 'SRR314813' : '26044624', 'SRR446027' : '31481295', 'SRR446028' : '42228711', 'SRR446033' : '61481964', 'SRR446034' : '63386459', 'SRR446039' : '60325368', 'SRR446040' : '74683660', 'SRR446484' : '30583559', 'SRR446485' : '35231736', 'SRR446486' : '31078655', 'SRR446487' : '34996434', 'SRR493036' : '21043986', 'SRR493097' : '31976667', 'SRR493098' : '13408363', 'SRR493101' : '7679343', 'SRR764885' : '50380962', 'SRR924656' : '39590367', 'SRR934391' : '36196662', 'SRR942022' : '17975524', 'SRR070570' : '8793425', 'SRR070571' : '8590680', 'SRR1001909' : '8168891', 'SRR1001910' : '8168891', 'SRR1019221' : '49462416', 'SRR345561' : '17838931', 'SRR345562' : '13627154', 'SRR346552' : '19200418', 'SRR346553' : '23724986', 'SRR394082' : '46284902', 'SRR504179' : '25512109', 'SRR504180' : '21115421', 'SRR504181' : '37241776', 'SRR515073' : '5196385', 'SRR515074' : '4527721', 'SRR527164' : '19992786', 'SRR527165' : '19917758', 'SRR584115' : '25097748', 'SRR584121' : '39243947', 'SRR584129' : '41360269', 'SRR584134' : '40452559', 'SRR653555' : '13572463', 'SRR653556' : '16154755', 'SRR653557' : '13556594', 'SRR653561' : '10241986', 'SRR653562' : '15917411', 'SRR653563' : '8824547', 'SRR653564' : '11800058', 'SRR653565' : '11623867', 'SRR653566' : '10246632', 'SRR653567' : '10750893', 'SRR653568' : '9057212', 'SRR653569' : '14316928', 'SRR653570' : '9656892', 'SRR653571' : '10805755', 'SRR653572' : '8849410', 'SRR653573' : '10559600', 'SRR653574' : '11134265', 'SRR653575' : '10916285', 'SRR653576' : '12643682', 'SRR653577' : '9781713', 'SRR653578' : '12201145', 'SRR797194' : '54048815', 'SRR797230' : '51421658', 'SRR833246' : '57084121', 'SRR847501' : '57084121', 'SRR847502' : '20633235', 'SRR1260032' : '41362473', 'SRR1260033' : '38879470', 'SRR1261509' : '46745857', 'SRR401413' : '13365743', 'SRR401414' : '9535671', 'SRR401415' : '15780686', 'SRR401416' : '16555068', 'SRR401417' : '11954841', 'SRR401418' : '19982775', 'SRR401419' : '13267215', 'SRR401420' : '9409649', 'SRR401421' : '15714100', 'ERR274309' : '29192485', 'SRR1046909' : '5254981', 'SRR1046910' : '5367327', 'SRR1524935' : '21855410', 'SRR1524938' : '16760164', 'SRR1524940' : '14685479', 'SRR314814' : '23367623', 'SRR949956' : '4537769', 'SRR949965' : '3984129', 'SRR949988' : '4955792', 'SRR949989' : '4717225'}
-
+		reads_in_exp_dict = {'ERR274310' : '29098868', 'SRR547531' : '13627154', 'SRR548277' : '10647001', 'SRR847503' : '19012222', 'SRR847504' : '17652623', 'SRR847505' : '14547829', 'SRR847506' : '14547829', 'SRR1207194' : '41295666', 'SRR1207195' : '39074103', 'SRR1019436' : '22144930', 'SRR1019437' : '24158853', 'SRR1049784' : '51665293', 'SRR477075' : '33569708', 'SRR477076' : '20201654', 'SRR493237' : '27039911', 'SRR493238' : '25704434', 'SRR314815' : '25509908', 'SRR800753' : '7506384', 'SRR800754' : '7063908', 'SRR1105822' : '38483470', 'SRR1105823' : '30583559', 'SRR1159821' : '19343538', 'SRR1159827' : '9138919', 'SRR1159837' : '5659168', 'SRR314813' : '26044624', 'SRR446027' : '31481295', 'SRR446028' : '42228711', 'SRR446033' : '61481964', 'SRR446034' : '63386459', 'SRR446039' : '60325368', 'SRR446040' : '74683660', 'SRR446484' : '30583559', 'SRR446485' : '35231736', 'SRR446486' : '31078655', 'SRR446487' : '34996434', 'SRR493036' : '21043986', 'SRR493097' : '31976667', 'SRR493098' : '13408363', 'SRR493101' : '7679343', 'SRR764885' : '50380962', 'SRR924656' : '39590367', 'SRR934391' : '36196662', 'SRR942022' : '17975524', 'SRR070570' : '8793425', 'SRR070571' : '8590680', 'SRR1001909' : '8168891', 'SRR1001910' : '8168891', 'SRR1019221' : '49462416', 'SRR345561' : '17838931', 'SRR345562' : '13627154', 'SRR346552' : '19200418', 'SRR346553' : '23724986', 'SRR394082' : '46284902', 'SRR504179' : '25512109', 'SRR504180' : '21115421', 'SRR504181' : '37241776', 'SRR515073' : '5196385', 'SRR515074' : '4527721', 'SRR527164' : '19992786', 'SRR527165' : '19917758', 'SRR584115' : '25097748', 'SRR584121' : '39243947', 'SRR584129' : '41360269', 'SRR584134' : '40452559', 'SRR653555' : '13572463', 'SRR653556' : '16154755', 'SRR653557' : '13556594', 'SRR653561' : '10241986', 'SRR653562' : '15917411', 'SRR653563' : '8824547', 'SRR653564' : '11800058', 'SRR653565' : '11623867', 'SRR653566' : '10246632', 'SRR653567' : '10750893', 'SRR653568' : '9057212', 'SRR653569' : '14316928', 'SRR653570' : '9656892', 'SRR653571' : '10805755', 'SRR653572' : '8849410', 'SRR653573' : '10559600', 'SRR653574' : '11134265', 'SRR653575' : '10916285', 'SRR653576' : '12643682', 'SRR653577' : '9781713', 'SRR653578' : '12201145', 'SRR797194' : '54048815', 'SRR797230' : '51421658', 'SRR833246' : '57084121', 'SRR847501' : '57084121', 'SRR847502' : '20633235', 'SRR1260032' : '41362473', 'SRR1260033' : '38879470', 'SRR1261509' : '46745857', 'SRR401413' : '13365743', 'SRR401414' : '9535671', 'SRR401415' : '15780686', 'SRR401416' : '16555068', 'SRR401417' : '11954841', 'SRR401418' : '19982775', 'SRR401419' : '13267215', 'SRR401420' : '9409649', 'SRR401421' : '15714100', 'ERR274309' : '29192485', 'SRR1046909' : '5254981', 'SRR1046910' : '5367327', 'SRR1524935' : '21855410', 'SRR1524938' : '16760164', 'SRR1524940' : '14685479', 'SRR314814' : '23367623', 'SRR949956' : '4537769', 'SRR949965' : '3984129', 'SRR949988' : '4955792', 'SRR949989' : '4717225'}
+		
 		# Calculate the RPKM
 		try:
 			total_reads_in_exp = reads_in_exp_dict[record]
@@ -565,7 +578,7 @@ def main():
 		elif (record == "SRR653575"):
 			dumpJSON(200, "AT2G24270", 1, 2, 10326918, 10330048, "SRR653575", "light", "iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyBAMAAAA908bbAAAAFVBMVEX/////AABkzGX//wAAAADAwMCY/wBd7RS/AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACG0lEQVRoge3XTZaDIAwAYBa+nMtFrzD7bCb3P8JYBEFMqPx0DD6z6Dwh0HyCODXmiSeeeOLr8dMr6LfbVF2j250iwm5ztcU0m5d5vWqHk9ihRjhPk5nNVDucDAodaoQrb64cDET8KpLUcUFY31wzElYIcl2KhHaX1m1SWoUcEST6BWFPmlIh2s+FYIXkr0JE7WMG2s9EGINc+7BGQPuHfLirKKFMCJ3raw9BiCFhbcdTQlC41JLQtUc9yA1PZ1NzJoVwFaVCAr8YVEL0WZr2qiT0jyLshLnKMXqvAGx74PKQhWvHTphdx2VnB6GeV2ipMFP3e2fHQiVnDn0QQiSkzMoA+cR12BBC20OxkOS6OSFC/sBBYapyhRgQTvdSIblCwDWENNwuMbOnl6NavFnioOKAdw05Icbvil3Cu0B0ma7hKMzt1LgzWTTAPkbyZchCProIIeTCQZi5MQWxrF+b0JX3SYiuN/n6bTL7/HL6ZiBsPyYuFa6vUE7YulOJ2oVUInT1gkmyw5SJsG0V3Ze3CjFtyAh9MybZOWGDcTd9vZBvEIQ2j/lHSRYeOs7Hfv5/E7LX3xHup9csrD1uxhFW/j5JplctrNunScW6hXh7YRVxLGHNPh1MWE5MJ1AvxFJhWvHthIeK1QsLiceK9QuLnsTj6BGEJUSm4hGE543c4HsJubFjCPEcMDNWu/DcIvIVDyI8YZQqHkbIEP8Av127TiieGo4AAAAASUVORK5CYII=", 3539, 103.57653, [0.60551, 0.62693, 0.72123, 0.83385])
 
-
+		
 # The main program
 if __name__ == '__main__':
 	main()
