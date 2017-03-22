@@ -75,7 +75,7 @@ function update(formatXML,v) {
     'channelpublicationlink': $(v).find('.channelpublicationlink').val(),
     'channelspecies': $(v).find('.channelspecies').val(),
     'channelcontrols': $(v).find('.channelcontrols').val(),
-    'channelgroupwidth1': $(v).find('.channelgroupwidth1').val(),
+    'channelgroupwidtho': $(v).find('.channelgroupwidtho').val(),
     'channelgroupwidth2': $(v).find('.channelgroupwidth2').val(),
     'channelgroupwidth3': $(v).find('.channelgroupwidth3').val(),
     'channelgroupwidth4': $(v).find('.channelgroupwidth4').val(),
