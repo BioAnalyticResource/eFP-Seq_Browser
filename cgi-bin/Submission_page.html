@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="Submission_page/style.css" />
 <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css"/>
 <script src="Submission_page/processing-api.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="Submission_page/XMLgenerator-v2.js"></script>
 <script src="core/custom.js"></script>
 <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
@@ -19,12 +19,12 @@
 
 <!-- This script is to ask the user if they are sure if they want to close the submission system or not -->
 <script>
-var tissue_click = ""
-$( document ).ready(function() {
-  $('button').hover(function() {
-      var parentId = $(this).parents("div").eq(0).attr("name");
-      tissue_click = parentId;
-      // alert(parentId);
+var tissue_click = "";
+$(document).ready(function(){
+  $("button").hover(function() {
+      //var parentId = $(this).parents("div").eq(0).attr("name");
+      tissue_click = $(this).attr("id");
+      //alert(tissue_click);
   });
 });
 
@@ -180,7 +180,7 @@ function myFunction() {
             <!-- Total reads mapped -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3" for="channel-total_reads_mapped" title="The total amount of reads mapped in your RNA-Seq data.">Total Reads Mapped <span style="font-weight:bold;">*</span></label>
-              <input class="channeltotalreadsmapped col-sm-8 col-xs-8" id="req" name="channeltotalreadsmapped" placeholder="29098868" type="text" data-help-text="total_reads_mapped" />
+              <input class="channeltotalreadsmapped col-sm-8 col-xs-8 reqfield" id="req" name="channeltotalreadsmapped" placeholder="29098868" type="text" data-help-text="total_reads_mapped" />
             </div>
 
             <!-- SVG Name -->
@@ -1217,31 +1217,31 @@ function myFunction() {
                                     <path fill="grey" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M196.821,150.994c0,0-6.162-6.723,2.521-10.365
                                       c3.923-0.56,13.445,0.281,12.886,10.365c-0.281,4.48-4.481,14.285-13.165,8.122C196.543,156.876,193.461,155.195,196.821,150.994z
                                       "/>
-                                    <path fill="#53f442" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M106.349,151.834c0,0,8.404-4.48-1.96-8.962
+                                    <path fill="grey" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M106.349,151.834c0,0,8.404-4.48-1.96-8.962
                                       c-5.322-0.562-14.006-0.84-15.406,10.083c0.281,4.762,1.121,10.924,7.003,11.765c5.321,0.841,14.286,1.119,12.324-7.003
                                       C106.91,154.915,104.947,152.115,106.349,151.834z"/>
-                                    <path fill="#53f442" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M157.607,119.902c0,0-3.361-9.524,5.042-13.726
+                                    <path fill="grey" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M157.607,119.902c0,0-3.361-9.524,5.042-13.726
                                       c3.921-0.56,12.886,1.682,12.604,12.045c-1.681,3.64-5.602,6.161-10.083,1.119C162.649,122.423,159.569,123.544,157.607,119.902z"
                                       />
                                   </g>
                                   <g id="sepals">
-                                    <path fill="#53f442" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M84.5,82.929c0,0,1.961-7.844,16.247-12.885
+                                    <path fill="grey" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M84.5,82.929c0,0,1.961-7.844,16.247-12.885
                                       c16.245-7.563,36.412-13.443,59.101-14.005c11.205,1.119,26.332,6.721,40.896,14.564c11.484,4.202,23.808,9.243,16.245,14.285
                                       c-5.882-0.279-13.724-6.161-13.724-6.161l-18.768-7.284l-20.168-5.321l-20.448,0.279l-20.446,3.642l-14.847,5.601l-11.203,7.284
                                       l-9.805,3.921C87.581,86.85,82.26,88.811,84.5,82.929z"/>
-                                    <path fill="#53f442" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M208.307,97.773c0,0-4.763-7.284,4.762-3.642
+                                    <path fill="grey" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M208.307,97.773c0,0-4.763-7.284,4.762-3.642
                                       c6.163,4.763,20.446,17.367,24.369,51.54c-0.56,11.484-1.121,58.824-30.251,61.624c0-2.802,6.722-11.484,12.885-21.848
                                       c5.042-14.285,10.363-20.729,3.081-59.384C219.512,117.661,212.229,103.375,208.307,97.773z"/>
-                                    <path fill="#53f442" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M86.742,223.82c0,0-8.403-9.243,4.761-7.562
+                                    <path fill="grey" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M86.742,223.82c0,0-8.403-9.243,4.761-7.562
                                       c5.602,2.802,20.726,14.005,32.211,16.807c10.364,2.801,41.177,7.281,58.543-3.643c9.243-5.32,26.049-13.726,34.452-15.125
                                       c2.24,0,4.203-0.279,1.962,4.763c-2.521,4.201-23.809,19.327-49.579,25.769c-20.167,2.802-44.817,5.602-64.984-5.882
                                       C96.545,233.624,86.742,223.82,86.742,223.82z"/>
-                                    <path fill="#53f442" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M78.618,103.656c0,0,9.803-11.482,12.605-9.522
+                                    <path fill="grey" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M78.618,103.656c0,0,9.803-11.482,12.605-9.522
                                       c0.28,1.959-4.763,14.006-8.403,21.848c-2.8,7.563-9.801,28.011-3.64,53.78c2.8,9.803,8.403,28.01,10.644,32.211
                                       c1.121,2.241,0.28,9.805-8.963-1.4c-6.444-7.562-14.005-18.766-15.126-53.499C65.454,133.628,64.052,125.783,78.618,103.656z"/>
                                   </g>
                                   <g id="carpels">
-                                    <path fill="#53f442" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M126.797,151.834c0,0-3.361-2.8,4.761-8.403
+                                    <path fill="grey" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M126.797,151.834c0,0-3.361-2.8,4.761-8.403
                                       c6.723-5.042,8.403-6.442,17.646-5.042c7.844-0.281,21.569,1.679,23.81,16.246c-0.84,4.201-3.922,16.244-24.09,12.604
                                       C139.681,166.68,127.637,165.279,126.797,151.834z"/>
                                   </g>

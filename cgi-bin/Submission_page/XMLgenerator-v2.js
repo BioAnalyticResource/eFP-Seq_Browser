@@ -30,8 +30,6 @@ $(function () {
     });
 });
 
-
-
 var end = [
   '\t</rnaseq_experiments>'
 ].join('\r\n');
