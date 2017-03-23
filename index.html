@@ -171,12 +171,7 @@
                     <p class="public-rna" id="public_words">Public RNA-Seq Databases:
                     <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" />
                       <option value="Default test">Default test</option>
-                      <option value="Original 113">Original 113</option>
-                      <option value="Test modification">Test modification</option>
-                      <option value="Cloud test">Cloud test</option>
-                      <option value="Developmental-transcriptome-PlantJ">Developmental-transcriptome-PlantJ</option>
-                      <option value="Cloud v2">Cloud v2</option>
-                      <option value="Min needed">Min needed</option>
+                      <option value="Developmental transcriptome - Plant J - Sample">Developmental transcriptome - Plant J - Sample</option>
                       <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;">Uploaded dataset</option>
                     </select>
 
@@ -189,23 +184,8 @@
                     if (document.getElementById("xmldatabase").value == "Default test") {
                       base_src = 'cgi-bin/data/bamdata_amazon_links.xml';
                     }
-                    else if (document.getElementById("xmldatabase").value == "Original 113") {
-                      base_src = 'cgi-bin/data/bamdata_amazon_links - ORIGINAL.xml';
-                    }
-                    else if (document.getElementById("xmldatabase").value == "Test modification") {
-                      base_src = 'cgi-bin/data/bamdata.xml';
-                    }
-                    else if (document.getElementById("xmldatabase").value == "Cloud test") {
-                      base_src = 'cgi-bin/data/bamdata_cloud.xml';
-                    }
-                    else if (document.getElementById("xmldatabase").value == "Developmental-transcriptome-PlantJ") {
+                    else if (document.getElementById("xmldatabase").value == "Developmental transcriptome - Plant J - Sample") {
                       base_src = 'cgi-bin/data/bamdata_Developmental-transcriptome-PlantJ.xml';
-                    }
-                    else if (document.getElementById("xmldatabase").value == "Cloud v2") {
-                      base_src = 'cgi-bin/data/bamdata_cloud_v2.xml';
-                    }
-                    else if (document.getElementById("xmldatabase").value == "Min needed") {
-                      base_src = 'cgi-bin/data/bamdata_min.xml';
                     }
                     else if (document.getElementById("xmldatabase").value == "Uploaded dataset") {
                       base_src = upload_src;
@@ -360,13 +340,60 @@
                 <hr style="border: 1px solid gray; margin: 5px; " />
                 <!-- RNA-Seq table. -->
                 <div class="col-xs-12 table-responsive">
-                    <table id="thetable" class="table"></table>
+                    <table id="thetable" class="table" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);"></table>
                     <div class="mdl-tooltip" for="eFP_th">Sorts by plant part.</div>
                     <div class="mdl-tooltip" for="flt0_thetable">See Help for advanced options.</div>
                     <div class="mdl-tooltip" for="flt2_thetable">See Help for advanced options.</div>
                     <div class="mdl-tooltip" for="flt4_thetable">See Help for advanced options.</div>
                     <div class="mdl-tooltip" for="flt5_thetable">See Help for advanced options.</div>
                 </div>
+                <script>
+                var filter1 = "flt2_thetable"
+                var filter2 = "flt4_thetable"
+                function checkNum(n) {
+                  var test = parseFloat(document.getElementById(n).value);
+                	if (isNaN(test)) { return false}
+                  else {return true}
+                }
+                function filter_num(filter_id1, filter_id2) {
+                	if ((
+                        ((document.getElementById(filter_id1).value.includes("<=")) == false) &&
+                        ((document.getElementById(filter_id1).value.includes(">")) == false) &&
+                        ((document.getElementById(filter_id1).value.includes("<")) == false) &&
+                        ((document.getElementById(filter_id1).value.includes(">=")) == false)
+                      )
+                      &&
+                      (
+                        ((document.getElementById(filter_id1).value == "") == false)
+                      )
+                      &&
+                      (
+                        (checkNum(filter_id1) == true)
+                      )
+                    )
+                    {
+                		    document.getElementById(filter_id1).value = (">=" + document.getElementById(filter_id1).value);
+                    }
+                  if ((
+                        ((document.getElementById(filter_id2).value.includes("<=")) == false) &&
+                        ((document.getElementById(filter_id2).value.includes(">")) == false) &&
+                        ((document.getElementById(filter_id2).value.includes("<")) == false) &&
+                        ((document.getElementById(filter_id2).value.includes(">=")) == false)
+                      )
+                      &&
+                      (
+                        ((document.getElementById(filter_id2).value == "") == false)
+                      )
+                      &&
+                      (
+                        (checkNum(filter_id2) == true)
+                      )
+                    )
+                    {
+                		    document.getElementById(filter_id2).value = (">=" + document.getElementById(filter_id2).value);
+                    }
+                };
+                </script>
             </div>
             <div id="toast" class="mdl-js-snackbar mdl-snackbar">
                 <div class="mdl-snackbar__text"></div>
@@ -2520,8 +2547,8 @@
               <?xml version="1.0" encoding="utf-8"?>
               <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
               <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                   width="100%" viewBox="0 0 900 600" enable-background="new 0 0 900 600" xml:space="preserve">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100px" height="75px" x="0px" y="0px"
+                   viewBox="0 0 900 600" enable-background="new 0 0 900 600" xml:space="preserve">
                    <g id="samples">
                    	<g id="Stigma_tissue" fill="#FFFFFF" >
                    		<path d="M547.319,90.517c-0.771-0.45-1.562-0.112-2.054,0.539c0.062-0.102,0.033-0.083-0.088,0.055

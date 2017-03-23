@@ -63,8 +63,8 @@ function myFunction() {
       </div>
       -->
       <p> To have your data visualized and interpreted by the eFP-Seq Browser, please fill out the form below with the information regarding your data. All forms that have an <span style="font-weight:bold;">*</span> on it are required fields to enter. </p>
-      <p>  When you have finished filling in the forms, please click the "Generate Readable Data" button at the bottom of the page. It will give you an option to down an XML of readable data, it is highly recommended that you download that XML so you may simply submit that XML next time instead of needing to fill out the following form again.</p>
-      <p> If you have any questions or need help, a tutorial is available by clicking on the floating "?" at the bottom right of the page. </p>
+      <p>  When you have finished filling in the forms, please click the "Generate Readable Data" button at the bottom of the page. It will give you an option to download an XML of readable data; it is highly recommended that you download that XML so you may simply submit that XML next time instead of needing to fill out the following form again.</p>
+      <!-- <p> If you have any questions or need help, a tutorial is available by clicking on the floating "?" at the bottom right of the page. </p> -->
     </div>
   </header>
 
@@ -202,8 +202,8 @@ function myFunction() {
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3" for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue <span style="font-weight:bold;">*</span></label>
               <div class="btn-group col-sm-8 col-xs-8 change_div_id reqtissuediv" style="padding-left:0px; padding-right:0px;" name="tissue1" id="tissue_input">
-                <button id="tissue1" type="button" class="btn btn-default dropdown-toggle channeltissue col-sm-12 col-xs-12 change_button_id reqtissuebutton" data-toggle="dropdown" name="channeltissue_false" style="text-align:left;">Tissue select </button>
-                <input class="col-sm-12 col-xs-12 change_id_tissue_subunit channeltissue reqtissue"  list="channeltissuelist" id="tissue1_subunit" name="channeltissues"type="text" style="float:inherit;" hidden>
+                <button id="tissue1" type="button" class="btn btn-default dropdown-toggle col-sm-12 col-xs-12 change_button_id reqtissuebutton" data-toggle="dropdown" name="channeltissue_false" style="text-align:left;">Tissue select </button>
+                <input class="col-sm-12 col-xs-12 change_id_tissue_subunit channeltissue reqtissue"  list="channeltissuelist" id="tissue1_subunit" name="channeltissue"type="text" style="float:inherit;" hidden>
                 <ul class="dropdown-menu scrollable-menu col-sm-12 col-xs-12" role="menu">
                     <li>
                       <p style="margin-left:2px;"> Please click on your tissue: </p>
@@ -5657,7 +5657,7 @@ function myFunction() {
 
     <button type="button" class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" id="sendXML"  data-upgraded=",MaterialButton,MaterialRipple"  style="margin-left:10px;">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
-    &nbsp&nbsp&nbsp<input class="public" type="checkbox" name="public" value="public" style="float:none;"> I would like my data to be accessible on a public database </input>
+    <!-- &nbsp&nbsp&nbsp<input class="public" type="checkbox" name="public" value="public" style="float:none;"> I would like my data to be accessible on a public database </input> -->
 
     <!-- Script for changing base_src and uploading XML, clienside. This script is based off the following StackOverFlow http://stackoverflow.com/questions/37699927/file-not-uploading-in-file-reader -->
     <script>

@@ -872,7 +872,7 @@ function populate_table(status) {
         auto_filter: true,
         auto_filter_delay: 500, //milliseconds
         col_1: 'none', // no filter option
-        // col_3: 'none', 
+        // col_3: 'none',
         popup_filters: false,
         filters_row_index: 1,
         alternate_rows: false,
