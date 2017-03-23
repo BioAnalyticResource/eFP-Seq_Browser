@@ -173,6 +173,8 @@ function round(x, digits) {
     return parseFloat(x.toFixed(digits))
 }
 
+var colouring_part;
+var colouring_count = 1;
 /* Find and colour a particular SVG in the DOM. */
 function colour_part_by_id(id, part, fpkm, mode) {
     var exp_to_colouring_part = [
@@ -291,11 +293,19 @@ function colour_part_by_id(id, part, fpkm, mode) {
         ["SRR949989", "all"]
     ];
 
-    var colouring_part = "all";
+    colouring_part = "all";
 
+    /*
     for (var i = 0; i < exp_to_colouring_part.length; i++) {
         if (id.replace("_svg", "") == exp_to_colouring_part[i][0]) {
             colouring_part = exp_to_colouring_part[i][1];
+        }
+    }
+    */
+
+    for (var i = 0; i < svg_part_list.length; i++) {
+        if (id.replace("_svg", "") == svg_part_list[i][0]) {
+            colouring_part = svg_part_list[i][1];
         }
     }
 
@@ -675,6 +685,7 @@ window.setInterval(function(){
 var bam_type_list = []
 var drive_link_list = []
 var numberofreads_list = []
+var svg_part_list = []
 
 function populate_table(status) {
     // Reset values
@@ -691,6 +702,7 @@ function populate_table(status) {
     bam_type_list = []
     drive_link_list = []
     numberofreads_list = []
+    svg_part_list = []
 
     // Insert table headers
     $("#thetable").append('<thead><tr>' +
@@ -715,6 +727,7 @@ function populate_table(status) {
                 var svg = $(this).attr('svgname');
                 var svg_part = $(this).attr('svg_subunit');
                 var experimentno = $(this).attr('record_number');
+                svg_part_list.push([experimentno, svg_part]);
                 var url = $(this).attr('publication_url');
                 var publicationid = $(this).attr('publication_link');
                 var numberofreads = $(this).attr('total_reads_mapped');
