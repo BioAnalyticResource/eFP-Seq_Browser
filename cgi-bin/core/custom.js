@@ -865,14 +865,14 @@ function populate_table(status) {
     });
     var filtersConfig = {
         base_path: 'cgi-bin/core/tablefilter/',
-        columns_exact_match: [false, false, true, false, true, false],
+        columns_exact_match: [false, false, false, false, false, false],
         watermark: ["Filter", "Filter", "Filter", "Filter", "Filter", "Filter"],
         highlight_keywords: false,
         no_results_message: true,
         auto_filter: true,
         auto_filter_delay: 500, //milliseconds
         col_1: 'none', // no filter option
-        //col_3: 'none', // no filter option
+        // col_3: 'none', 
         popup_filters: false,
         filters_row_index: 1,
         alternate_rows: false,
