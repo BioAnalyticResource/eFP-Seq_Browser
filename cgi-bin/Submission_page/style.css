@@ -220,3 +220,10 @@ textarea:focus {
     max-height: 400px;
     overflow-x: hidden;
 }
+
+.mdl-tooltip.is-active {
+    animation: none;
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+}

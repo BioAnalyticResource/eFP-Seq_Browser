@@ -347,7 +347,8 @@
                     <div class="mdl-tooltip" for="flt4_thetable">See Help for advanced options.</div>
                     <div class="mdl-tooltip" for="flt5_thetable">See Help for advanced options.</div>
                 </div>
-                <script>
+            </div>
+            <script>
                 var filter1 = "flt2_thetable"
                 var filter2 = "flt4_thetable"
                 function checkNum(n) {
@@ -393,8 +394,7 @@
                 		    document.getElementById(filter_id2).value = (">=" + document.getElementById(filter_id2).value);
                     }
                 };
-                </script>
-            </div>
+            </script>
             <div id="toast" class="mdl-js-snackbar mdl-snackbar">
                 <div class="mdl-snackbar__text"></div>
                 <button class="mdl-snackbar__action" type="button"></button>
@@ -447,25 +447,40 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
-                <p>
-                Enter your AGI ID of interest and click the Arrow button to search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, <a href="http://biorxiv.org/content/early/2016/04/05/047308">http://biorxiv.org/content/early/2016/04/05/047308</a>). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns. <br><br>
+                          <p>
+                          Enter your AGI ID of interest and click the Arrow button to search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, <a href="http://biorxiv.org/content/early/2016/04/05/047308">http://biorxiv.org/content/early/2016/04/05/047308</a>). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns. <br><br>
 
-                            * If you sort based on the PCC column you can see the readmap profiles that best or least match a given gene model, based on the Pearson correlation coefficient (we generate a "all or nothing" vector for exons/introns for a given gene model and compare that to the readmap vector) <br>
-                            * If you sort based on the eFP (RPKM) you will sort the rows by the plant part used for RNA-seq sampling <br>
-                            * If you sort based on RPKM the rows will be sorted by RPKM expression level <br>
-                            * Linkouts are provided to the SRA at NCBI and to associated publications <br>
-                            * You may filter the data in the columns, and you can combine multiple filter criteria. For example, try '&gt; 100 &amp;&amp; &lt; 110' filter in the RPKM column.<br><br>
+                                      * If you sort based on the PCC column you can see the readmap profiles that best or least match a given gene model, based on the Pearson correlation coefficient (we generate a "all or nothing" vector for exons/introns for a given gene model and compare that to the readmap vector) <br>
+                                      * If you sort based on the eFP (RPKM) you will sort the rows by the plant part used for RNA-seq sampling <br>
+                                      * If you sort based on RPKM the rows will be sorted by RPKM expression level <br>
+                                      * Linkouts are provided to the SRA at NCBI and to associated publications <br>
+                                      * You may filter the data in the columns, and you can combine multiple filter criteria. For example, try '&gt; 100 &amp;&amp; &lt; 110' filter in the RPKM column.<br><br>
 
-                            You can also set the mode to be "Relative" in which case the RPKM values of the appropriate control experiment or experiments (if no control is apparent, we used all samples in an experiment) are used to compute the fold-change in expression (increase or decrease) of the gene in question in that sample (row) relative to the control. You can then sort on this fold-change. <br><br>
+                                      You can also set the mode to be "Relative" in which case the RPKM values of the appropriate control experiment or experiments (if no control is apparent, we used all samples in an experiment) are used to compute the fold-change in expression (increase or decrease) of the gene in question in that sample (row) relative to the control. You can then sort on this fold-change. <br><br>
 
-                            You can ajdust the RNA-seq readmap scale or the RPKM colour scale from their default settings of "auto" (readmap y-axes are autoscaled on a per sample basis) and whatever the maximum RPKM value is (any sample which has this score would have a red-coloured pictograph, while samples where expression is lower would have pictographs tending towards yellow in colour.) <br><br>
+                                      You can ajdust the RNA-seq readmap scale or the RPKM colour scale from their default settings of "auto" (readmap y-axes are autoscaled on a per sample basis) and whatever the maximum RPKM value is (any sample which has this score would have a red-coloured pictograph, while samples where expression is lower would have pictographs tending towards yellow in colour.) <br><br>
 
-                            We welcome feedback to nicholas.provart@utoronto.ca.<br>
+                                      We welcome feedback to nicholas.provart@utoronto.ca.<br>
 
-                            </p>
+                                      </p>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  </div>
+                              </div>
+                          </div>
+            </div>
+
+            <div id="eFPModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <div class="modal-body" >
+                          <div class="table-responsive">
+                              <table id="eFPtable" class="table"></table>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -510,7 +525,7 @@
             </script>
             <script src="cgi-bin/core/custom.js"></script>
             <div id="10dayOldSeedling_svg" style="display: none;">
-            <!-- all -->
+              <!-- all -->
               <?xml version="1.0" encoding="utf-8"?>
               <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
               <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -712,7 +727,7 @@
 
             </div>
             <div id="rosettePlusRoot_svg" style="display: none;">
-            <!-- Shoot -->
+              <!-- Shoot -->
               <?xml version="1.0" encoding="utf-8"?>
               <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
               <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -808,7 +823,7 @@
 
             </div>
             <div id="15dayOldSeedling_svg" style="display: none;">
-            <!-- all -->
+              <!-- all -->
               <?xml version="1.0" encoding="utf-8"?>
               <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
               <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -935,7 +950,7 @@
 
             </div>
             <div id="leaf_svg" style="display: none;">
-            <!-- Leaf -->
+              <!-- Leaf -->
               <?xml version="1.0" encoding="utf-8"?>
               <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
               <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -2547,8 +2562,8 @@
               <?xml version="1.0" encoding="utf-8"?>
               <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
               <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100px" height="75px" x="0px" y="0px"
-                   viewBox="0 0 900 600" enable-background="new 0 0 900 600" xml:space="preserve">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                   width="100%" viewBox="0 0 900 600" enable-background="new 0 0 900 600" xml:space="preserve">
                    <g id="samples">
                    	<g id="Stigma_tissue" fill="#FFFFFF" >
                    		<path d="M547.319,90.517c-0.771-0.45-1.562-0.112-2.054,0.539c0.062-0.102,0.033-0.083-0.088,0.055
@@ -3345,4 +3360,5 @@
             </div>
 </body>
 <a data-toggle="modal" data-target="#myModal" id="help_button"><img src="cgi-bin/Submission_page/Images/help2.png" id="help_icon" style="position: fixed; bottom: 10px; right: 10px;" height="40"></a>
+<a data-toggle="modal" data-target="#eFPModal" id="eFP_button" onclick="populate_efp_modal(1)"><i class="material-icons" style="position: fixed; bottom: 15px; right: 56px;">compare</i></a>
 </html>
