@@ -50,9 +50,6 @@ xhr.onreadystatechange = function ( e ) {
         //document.getElementById("testing_code").innerHTML = count_bam_entries_in_xml;
 };
 xhr.send( null );
-if (progress_percent == 100) {
-  populate_efp_modal(1);
-};
 
 function count_bam_num () {
   var xhr = new XMLHttpRequest();
@@ -65,9 +62,6 @@ function count_bam_num () {
   };
   if (progress_percent < 100) {
     xhr.send(null);
-  }
-  else if (progress_percent == 100) {
-    populate_efp_modal(1);
   }
 
   document.getElementById("testing_count").innerHTML = count_bam_entries_in_xml;
@@ -411,8 +405,10 @@ function colour_part_by_id(id, part, fpkm, mode) {
 }
 
 /* Find and update each SVG in the DOM. */
+var current_radio = "abs";
 function colour_svgs_now(mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val()) {
     //console.log("colour_svgs_now function is called with mode = " + mode);
+    current_radio = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
     for (var i = 0; i < count_bam_entries_in_xml; i++) {
         // For every exp, figure out the fpkm average of the controls
         var ctrl_fpkm_sum = 0;
@@ -700,6 +696,7 @@ var efp_rep_2d = [];
 var efp_column_count = 0;
 var efp_table_column;
 var efp_rep_2d_title = [];
+var efp_rpkm_names = [];
 
 function populate_table(status) {
     // Reset values
@@ -719,6 +716,7 @@ function populate_table(status) {
     svg_part_list = [];
     efp_rep_2d = [];
     efp_rep_2d_title = [];
+    efp_rpkm_names = [];
 
     // Insert table headers
     $("#thetable").append('<thead><tr>' +
@@ -745,7 +743,8 @@ function populate_table(status) {
                 var experimentno = $(this).attr('record_number');
                 svg_part_list.push([experimentno, svg_part]);
                 efp_rep_2d.push(experimentno + "_svg");
-                efp_rep_2d_title.push(title)
+                efp_rep_2d_title.push(title);
+                efp_rpkm_names.push(experimentno + "_rpkm");
                 var url = $(this).attr('publication_url');
                 var publicationid = $(this).attr('publication_link');
                 var numberofreads = $(this).attr('total_reads_mapped');
@@ -914,15 +913,32 @@ function populate_table(status) {
 
 var remainder_efp = 0;
 var efp_length = 0;
+var efp_RPKM_values = [];
 function populate_efp_modal(status) {
   $("#eFPtable").empty();
   efp_table_column = '';
   efp_column_count = 0;
   remainder_efp = efp_rep_2d.length % 11;
   efp_length = efp_rep_2d.length;
+  efp_RPKM_values = [];
+
+  for (i = 0; i < efp_rpkm_names.length; i++) {
+    if (isNaN(parseFloat(document.getElementById(efp_rpkm_names[i]).textContent)) == false) {
+      efp_RPKM_values.push(parseFloat(document.getElementById(efp_rpkm_names[i]).textContent));
+    }
+  }
 
   // Insert eFP Table header
-  $("#eFPtable").append('<p> The head of modal test </p>' + '<br>' + '<table><tbody></tbody>');
+  $("#eFPtable").append('<p class="eFP_thead"> AGI-ID: <a href="https://www.arabidopsis.org/servlets/TairObject?type=locus&name=' + locus + '" target="_blank">' + locus +  '</a></p>');
+
+  // Check radio
+  if (current_radio == "abs") {
+    $("#eFPtable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII="> Min: ' + Math.min.apply(null, efp_RPKM_values) + ', Max: ' + Math.max.apply(null, efp_RPKM_values) + '</p>' + '<br><table><tbody class="eFP_tbody"></tbody>');
+  }
+
+  else if (current_radio == "rel") {
+    $("#eFPtable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg=="> Min: ' + Math.min.apply(null, efp_RPKM_values) + ', Max: '+ Math.max.apply(null, efp_RPKM_values) + '</p>' + '<br><table><tbody></tbody>');
+  }
 
   // Creating eFP representative table
   for (i = 0; i < (~~(efp_rep_2d.length/11) * 11); i+=11) {
@@ -947,12 +963,14 @@ function populate_efp_modal(status) {
   if (remainder_efp == 1) {
     efp_table_column = '<tr>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-1] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-1]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-1] + '</span></div></td>';
+    efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 2) {
     efp_table_column = '<tr>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-2] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-2]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-2] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-1] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-1]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-1] + '</span></div></td>';
+    efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 3) {
@@ -960,6 +978,7 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-3] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-3]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-3] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-2] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-2]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-2] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-1] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-1]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-1] + '</span></div></td>';
+    efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 4) {
@@ -968,6 +987,7 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-3] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-3]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-3] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-2] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-2]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-2] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-1] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-1]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-1] + '</span></div></td>';
+    efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 5) {
@@ -977,6 +997,7 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-3] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-3]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-3] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-2] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-2]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-2] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-1] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-1]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-1] + '</span></div></td>';
+    efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 6) {
@@ -987,6 +1008,7 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-3] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-3]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-3] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-2] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-2]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-2] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-1] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-1]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-1] + '</span></div></td>';
+    efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 7) {
@@ -998,6 +1020,7 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-3] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-3]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-3] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-2] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-2]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-2] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-1] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-1]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-1] + '</span></div></td>';
+    efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 8) {
@@ -1010,6 +1033,7 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-3] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-3]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-3] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-2] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-2]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-2] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-1] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-1]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-1] + '</span></div></td>';
+    efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 9) {
@@ -1023,6 +1047,7 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-3] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-3]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-3] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-2] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-2]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-2] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-1] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-1]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-1] + '</span></div></td>';
+    efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 10) {
@@ -1037,8 +1062,12 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-3] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-3]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-3] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-2] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-2]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-2] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + efp_rep_2d[efp_length-1] + '_rep">' + document.getElementById(efp_rep_2d[efp_length-1]).outerHTML + '<span class="efp_table_tooltip_text">' + efp_rep_2d_title[efp_length-1] + '</span></div></td>';
+    efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
+
+  // Insert eFP modal close button
+  $("#eFPtable").append('<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal" id="closemodal">Close</button></div>');
 
 }
 

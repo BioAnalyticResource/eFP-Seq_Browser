@@ -215,11 +215,10 @@
                     font-family: "Roboto","Helvetica","Arial",sans-serif;
                   }
                   </style>
-
-
-
-
-                  <div class="col-md-3"></div>
+                  <div class="col-md-3" id="eFP_button" style="padding-left:50px;">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#eFPModal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%" onclick="populate_efp_modal(1)">eFP Overview<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                    <div class="mdl-tooltip" for="generatedata">See all the eFP tissue localization in one table</div>
+                  </div>
                   <div class="col-md-2" id="generatedata">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%">Generate data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                     <div class="mdl-tooltip" for="generatedata">Visualize your BAM files in the eFP-Seq Browser</div>
@@ -441,7 +440,7 @@
 
 
             <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-lg" style="width: 940px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -450,35 +449,35 @@
                           <p>
                           Enter your AGI ID of interest and click the Arrow button to search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, <a href="http://biorxiv.org/content/early/2016/04/05/047308">http://biorxiv.org/content/early/2016/04/05/047308</a>). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns. <br><br>
 
-                                      * If you sort based on the PCC column you can see the readmap profiles that best or least match a given gene model, based on the Pearson correlation coefficient (we generate a "all or nothing" vector for exons/introns for a given gene model and compare that to the readmap vector) <br>
-                                      * If you sort based on the eFP (RPKM) you will sort the rows by the plant part used for RNA-seq sampling <br>
-                                      * If you sort based on RPKM the rows will be sorted by RPKM expression level <br>
-                                      * Linkouts are provided to the SRA at NCBI and to associated publications <br>
-                                      * You may filter the data in the columns, and you can combine multiple filter criteria. For example, try '&gt; 100 &amp;&amp; &lt; 110' filter in the RPKM column.<br><br>
+                          * If you sort based on the PCC column you can see the readmap profiles that best or least match a given gene model, based on the Pearson correlation coefficient (we generate a "all or nothing" vector for exons/introns for a given gene model and compare that to the readmap vector) <br>
+                          * If you sort based on the eFP (RPKM) you will sort the rows by the plant part used for RNA-seq sampling <br>
+                          * If you sort based on RPKM the rows will be sorted by RPKM expression level <br>
+                          * Linkouts are provided to the SRA at NCBI and to associated publications <br>
+                          * You may filter the data in the columns, and you can combine multiple filter criteria. For example, try '&gt; 100 &amp;&amp; &lt; 110' filter in the RPKM column.<br><br>
 
-                                      You can also set the mode to be "Relative" in which case the RPKM values of the appropriate control experiment or experiments (if no control is apparent, we used all samples in an experiment) are used to compute the fold-change in expression (increase or decrease) of the gene in question in that sample (row) relative to the control. You can then sort on this fold-change. <br><br>
+                          You can also set the mode to be "Relative" in which case the RPKM values of the appropriate control experiment or experiments (if no control is apparent, we used all samples in an experiment) are used to compute the fold-change in expression (increase or decrease) of the gene in question in that sample (row) relative to the control. You can then sort on this fold-change. <br><br>
 
-                                      You can ajdust the RNA-seq readmap scale or the RPKM colour scale from their default settings of "auto" (readmap y-axes are autoscaled on a per sample basis) and whatever the maximum RPKM value is (any sample which has this score would have a red-coloured pictograph, while samples where expression is lower would have pictographs tending towards yellow in colour.) <br><br>
+                          You can ajdust the RNA-seq readmap scale or the RPKM colour scale from their default settings of "auto" (readmap y-axes are autoscaled on a per sample basis) and whatever the maximum RPKM value is (any sample which has this score would have a red-coloured pictograph, while samples where expression is lower would have pictographs tending towards yellow in colour.) <br><br>
 
-                                      We welcome feedback to nicholas.provart@utoronto.ca.<br>
+                          We welcome feedback to nicholas.provart@utoronto.ca.<br>
 
-                                      </p>
-                                  </div>
-                                  <div class="modal-footer">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                  </div>
-                              </div>
-                          </div>
+                          </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="eFPModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-lg" style="width: 940px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body" >
-                          <div class="table-responsive">
+                          <div class="table-responsive efp_modal_table">
                               <table id="eFPtable" class="table"></table>
                           </div>
                         </div>
@@ -487,7 +486,7 @@
             </div>
 
             <div id="SubmissionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-lg" style="width: 940px;">
                     <div class="modal-content">
                         <div class="modal-header" style="padding-bottom:3%;">
                             <button type="button" class="close" data-dismiss="modal">×</button>
@@ -3360,5 +3359,7 @@
             </div>
 </body>
 <a data-toggle="modal" data-target="#myModal" id="help_button"><img src="cgi-bin/Submission_page/Images/help2.png" id="help_icon" style="position: fixed; bottom: 10px; right: 10px;" height="40"></a>
+<!--
 <a data-toggle="modal" data-target="#eFPModal" id="eFP_button" onclick="populate_efp_modal(1)"><i class="material-icons" style="position: fixed; bottom: 15px; right: 56px;">compare</i></a>
+-->
 </html>
