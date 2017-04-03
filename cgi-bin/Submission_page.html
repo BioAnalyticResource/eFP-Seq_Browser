@@ -9,7 +9,6 @@
 <script src="Submission_page/processing-api.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="Submission_page/XMLgenerator-v2.js"></script>
-<script src="core/custom.js"></script>
 <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 
 <!--Bootstrap -->
@@ -84,8 +83,9 @@ function myFunction() {
       <fieldset>
             <!-- Title of XML file -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-xml-title" title="Name/title of your generated data. No special characters allowed except for '-' (dash)">Title <span style="font-weight:bold;">*</span></label></th>
-              <input class="channelxmltitle col-sm-8 col-xs-8 reqfield" id="reqxml" name="channelxmltitle" type="text" placeholder="Name/title of your generated data. No special characters allowed except for '-' (dash). For example: Analysis of 113 RNA-Seq Data collected from Experiment 3"  data-help-text="xmltitle"/>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-xml-title">Title <span style="font-weight:bold;">*</span>
+              <span class="sub_tooltip_text">Name/title of your generated data. No special characters allowed except for '-' (dash)</span></label></th>
+              <input class="channelxmltitle col-sm-8 col-xs-8 reqfield" id="reqxml" name="channelxmltitle" type="text" placeholder="Example: Analysis of 113 RNA-Seq Data collected from Experiment 3"  data-help-text="xmltitle"/>
               <script>
               // Code taken from http://stackoverflow.com/questions/7144167/only-allow-english-characters-and-numbers-for-text-input
               $("#reqxml").keypress(function(event){
@@ -105,19 +105,18 @@ function myFunction() {
                   return false;
               });
               </script>
-
             </div>
 
             <!-- Author -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-author" title="The author of the generated data. Either you or your lab. Optional if you are keeping this data private.">Author <span style="font-weight:bold;">*</span></label></th>
-              <input class="channelauthor col-sm-8 col-xs-8 reqfield" id="reqauthor" name="channelauthor" type="text" placeholder="The author of the generated data. Either you or your lab. Optional if you are keeping this data private."  data-help-text="author" />
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-author">Author <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The author(s) of the generated data. Optional if you are keeping this data private.</span></label></th>
+              <input class="channelauthor col-sm-8 col-xs-8 reqfield" id="reqauthor" name="channelauthor" type="text" placeholder="My name, my lab, paper's authors, etc..."  data-help-text="author" />
             </div>
 
             <!-- Contact info -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-contact" title="Optional: Your contact information regarding your data.">Contact info </label></th>
-              <input class="channelcontact col-sm-8 col-xs-8" name="channelcontact" id="contectinfo" type="text" placeholder="Optional: Your contact information regarding your data."  data-help-text="contact"/>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-contact">Contact info <span class="sub_tooltip_text">Optional: Your contact information regarding your data.</span></label></th>
+              <input class="channelcontact col-sm-8 col-xs-8" name="channelcontact" id="contectinfo" type="text" placeholder="An email or some form of contact."  data-help-text="contact"/>
             </div>
         </table>
       </fieldset>
@@ -131,20 +130,20 @@ function myFunction() {
       <fieldset>
             <!-- Title -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-title" title="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment">Title <span style="font-weight:bold;">*</span></label></th>
-              <input class="channeltitle col-sm-8 col-xs-8 reqfield" id="reqtitle" name="channeltitle" type="text" placeholder="Title of RNA-Seq coverage. For example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment"  data-help-text="title" />
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-title" >Title <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">Title for the RNA-Seq coverage.</span></label></th>
+              <input class="channeltitle col-sm-8 col-xs-8 reqfield" id="reqtitle" name="channeltitle" type="text" placeholder="Example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment"  data-help-text="title" />
             </div>
 
             <!-- Description -->
             <div class="forminput row">
-              <label for="channel-description" class="formtextarea col-sm-3 col-xs-3" title="Description of your RNA-Seq submission data">Description <span style="font-weight:bold;">*</span></label>
-              <textarea class="channeldescription col-sm-8 col-xs-8 reqfield" id="reqdesc" name="channeldescription" type="text" placeholder="A description of your RNA-Seq data such as what it is or what it contains. This can be brief like: E-MTAB-1668:24hCS-RNA or GSM798296: mRNASeq_WT_rep2 or something long" data-help-text="description" ></textarea>
+              <label for="channel-description" class="formtextarea col-sm-3 col-xs-3 sub_tooltip" >Description <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">Description of your RNA-Seq submission data.</span></label>
+              <textarea class="channeldescription col-sm-8 col-xs-8 reqfield" id="reqdesc" name="channeldescription" type="text" placeholder="Example: E-MTAB-1668 24hCS-RNA or GSM798296 mRNASeq_WT_rep2" data-help-text="description" ></textarea>
             </div>
 
             <!-- Record number -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-record_number" title="Record or run number. For example ERR274310 or SRR547531">Record number <span style="font-weight:bold;">*</span></label>
-              <input class="channelrecordnumber col-sm-8 col-xs-8 reqfield" id="req" name="channelrecordnumber" placeholder="ERR274310 or SRR547531" type="text" data-help-text="record_number" />
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-record_number">Record number <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">A SRA's record or run number.</span></label>
+              <input class="channelrecordnumber col-sm-8 col-xs-8 reqfield" id="req" name="channelrecordnumber" placeholder="Example: ERR274310 or SRR547531" type="text" data-help-text="record_number" />
             </div>
 
             <!-- Hex color -->
@@ -156,31 +155,56 @@ function myFunction() {
 
             <!-- BAM Repository link -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-bam_link" title="It is  for your your BAM files or RNA-Seq data files to have a .dl repository link for the eFP-Seq Browser to give you input.">RNA-Seq Data/BAM file Repsitory Link <span style="font-weight:bold;">*</span></label>
-              <select class="channelbamtype col-sm-2 col-xs-2" list="channelbamtype reqfield" id="req" name="channelbamtype" placeholder="Link type" type="text" data-help-text="bamtype" />
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-bam_link">RNA-Seq Data/BAM file Repsitory Link <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">A link to your RNA-Seq Data/BAM file repository. If it is Googe Drive, please add a Shared View link WITHOUT the "?usp=sharing." at the end. If Amazon AWS, please have the link end with the file like /name.bam</span></label>
+              <select class="channelbamtype col-sm-2 col-xs-2" list="channelbamtype reqfield" id="bamtype" name="channelbamtype" placeholder="Link type" type="text" data-help-text="bamtype" onchange="bamtype_placeholder()" onclick="bamtype_placeholder()"/>
                 <option value="Google Drive">Google Drive</option>
                 <option value="Amazon AWS">Amazon AWS</option>
               </select>
-              <input class="channelbamlink col-sm-6 col-xs-6 reqfield" id="req" name="channelbamlink" placeholder="This is required. Examples: http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam or " type="text" data-help-text="bam_link" />
+              <input class="channelbamlink col-sm-6 col-xs-6 reqfield" id="bam_input" name="channelbamlink" placeholder="Examples: https://drive.google.com/drive/folders/0B6Z4m6vl-WRucEJnaGNDdFBLNVU or http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam" type="text" data-help-text="bam_link" />
+              <script>
+              function bamtype_placeholder() {
+                if (document.getElementById("bamtype").value == "Google Drive") {
+                  $("#bam_input").attr('placeholder','Please input a Shared View link WITHOUT the "?usp=sharing." at the end')
+                }
+                else if (document.getElementById("bamtype").value == "Amazon AWS") {
+                  $("#bam_input").attr('placeholder','Please input the link end with the file like /name.bam')
+                }
+              }
+              </script>
             </div>
 
 
             <!-- Publication link -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-publication_link" title="If your research has been published or referencing a research, it may be useful to link to the publication.">Publicaiton Link </label>
-              <input class="channelpublicationlink col-sm-8 col-xs-8" name="channelpublicationlink" placeholder="Optional: http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-publication_link">Publicaiton Link <span class="sub_tooltip_text">If your research has been published or referencing a research, it may be useful to link to the publication.</span></label>
+              <input class="channelpublicationlink col-sm-8 col-xs-8" name="channelpublicationlink" placeholder="Example: http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
             </div>
 
             <!-- SRA Link -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-publication_url" title="If your RNA-Seq data is available on NCBI's Sequence Read Archive, it may be useful to include this informaiton.">Sequence Reach Archive/NCBI Link </label>
-              <input class="channelpublicationurl col-sm-8 col-xs-8" name="channelpublicationurl" placeholder="Optional: http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-publication_url">Sequence Reach Archive/NCBI Link<span class="sub_tooltip_text">A link to your experiment run on the NCBI's Sequence Read Archive (SRA).</span></label>
+              <input class="channelpublicationurl col-sm-8 col-xs-8" name="channelpublicationurl" placeholder="Example: http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
             </div>
 
             <!-- Total reads mapped -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-total_reads_mapped" title="The total amount of reads mapped in your RNA-Seq data.">Total Reads Mapped <span style="font-weight:bold;">*</span></label>
-              <input class="channeltotalreadsmapped col-sm-8 col-xs-8 reqfield" id="req" name="channeltotalreadsmapped" placeholder="29098868" type="text" data-help-text="total_reads_mapped" />
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-total_reads_mapped">Total Reads Mapped <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The total amount of reads mapped in your RNA-Seq data without commas</span></label>
+              <input class="channeltotalreadsmapped col-sm-8 col-xs-8 reqfield" id="reqread" name="channeltotalreadsmapped" placeholder="Example: 29098868" type="text" data-help-text="total_reads_mapped" />
+              <script>
+              // Code taken from http://stackoverflow.com/questions/7144167/only-allow-english-characters-and-numbers-for-text-input
+              $("#reqread").keypress(function(event){
+                var ew = event.which;
+                  if(48 <= ew && ew <= 57)
+                    return true;
+                  if(ew == 31)
+                    return true;
+                  if(ew == 8)
+                    return true;
+                  if(ew == 46)
+                    return true;
+                  return false;
+              });
+              </script>
             </div>
 
             <!-- SVG Name -->
@@ -191,7 +215,7 @@ function myFunction() {
 
             <!-- Spcies -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-species" title="The species of the organism (latin name with exception of human) that your RNA-Seq data is for.">Species <span style="font-weight:bold;">*</span></label>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-species">Species <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The organism that your RNA-Seq data is for. Currently, the eFP-Seq Browser is only functional for Arabidopsis thaliana but if your dataset is for another species, please select Other</span></label>
               <select class="channelspecies col-sm-8 col-xs-8" list="channelspecieslist reqfield" id="req" name="channelspecies" placeholder="Arabidopsis" type="text" data-help-text="species" />
                 <option value="Arabidopsis thaliana">Arabidopsis thaliana</option>
                 <option value="Other">Other</option>
@@ -200,7 +224,7 @@ function myFunction() {
 
             <!-- Tissue -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-tissue" title="The tissue the RNA-Seq data is from.">Tissue <span style="font-weight:bold;">*</span></label>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-tissue">Tissue <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The tissue the RNA-Seq data is from.</span></label>
               <div class="btn-group col-sm-8 col-xs-8 change_div_id reqtissuediv" style="padding-left:0px; padding-right:0px;" name="tissue1" id="tissue_input">
                 <button id="tissue1" type="button" class="btn btn-default dropdown-toggle col-sm-12 col-xs-12 change_button_id reqtissuebutton" data-toggle="dropdown" name="channeltissue_false" style="text-align:left;">Tissue select </button>
                 <input class="col-sm-12 col-xs-12 change_id_tissue_subunit channeltissue reqtissue"  list="channeltissuelist" id="tissue1_subunit" name="channeltissue"type="text" style="float:inherit;" hidden>
@@ -5589,44 +5613,44 @@ function myFunction() {
 
             <!-- Control -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3" for="channel-controls" title="The BAM exp number of the controls in your RNA-Seq data.">Controls </label>
-              <input class="channelcontrols col-sm-8 col-xs-8" name="channelcontrols" placeholder="Optional: ERR274310" type="text" data-help-text="total_controls"/>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-controls">Controls<span class="sub_tooltip_text">The BAM exp number of the controls in your RNA-Seq data.</span></label>
+              <input class="channelcontrols col-sm-8 col-xs-8" name="channelcontrols" placeholder="Example: ERR274310" type="text" data-help-text="total_controls"/>
             </div>
 
             <!-- Replicate control 1 -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidtho" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1 </label>
-              <input class="channelgroupwidtho col-sm-8 col-xs-8" name="channelgroupwidtho" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidtho">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
+              <input class="channelgroupwidtho col-sm-8 col-xs-8" name="channelgroupwidtho" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
 
             <!-- Replicate control 2 -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth2" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 2 </label>
-              <input class="channelgroupwidth2 col-sm-8 col-xs-8" name="channelgroupwidth2" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidth2">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src="Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 2 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
+              <input class="channelgroupwidth2 col-sm-8 col-xs-8" name="channelgroupwidth2" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
 
             <!-- Replicate control 3 -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth3" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 3 </label>
-              <input class="channelgroupwidth3 col-sm-8 col-xs-8" name="channelgroupwidth3" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidth3">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 3 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
+              <input class="channelgroupwidth3 col-sm-8 col-xs-8" name="channelgroupwidth3" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
 
             <!-- Replicate control 4 -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth4" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 4 </label>
-              <input class="channelgroupwidth4 col-sm-8 col-xs-8" name="channelgroupwidth4" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidth4">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 4 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
+              <input class="channelgroupwidth4 col-sm-8 col-xs-8" name="channelgroupwidth4" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
 
             <!-- Replicate control 5 -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth5" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 5 </label>
-              <input class="channelgroupwidth5 col-sm-8 col-xs-8" name="channelgroupwidth5" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidth5">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 5 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
+              <input class="channelgroupwidth5 col-sm-8 col-xs-8" name="channelgroupwidth5" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
 
             <!-- Replicate control 6 -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 " for="channel-groupwidth6" title="The BAM exp number of the replicate controls in your RNA-Seq data.">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 6 </label>
-              <input class="channelgroupwidth6 col-sm-8 col-xs-8" name="channelgroupwidth6" placeholder="Optional: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidth6">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src="Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 6 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
+              <input class="channelgroupwidth6 col-sm-8 col-xs-8" name="channelgroupwidth6" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
   	  </fieldset>
   	</div>

@@ -227,3 +227,38 @@ textarea:focus {
     opacity: 1;
     visibility: visible;
 }
+
+.sub_tooltip {
+  position: inherit;
+}
+
+.sub_tooltip .sub_tooltip_text {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgba(97,97,97,.9);
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  font-size: 10px;
+  padding: 2px;
+  position: absolute;
+  z-index: 1155;
+  top:80%;
+  margin-left: -60px;
+  max-width: 120px;
+}
+
+.sub_tooltip .sub_tooltip_text::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent rgba(97,97,97,.9) transparent;
+}
+
+.sub_tooltip:hover .sub_tooltip_text {
+    visibility: visible;
+}
