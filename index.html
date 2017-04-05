@@ -99,7 +99,7 @@
                 <!-- Options for uploading and generating data -->
                 <hr style="border: 1px solid gray; margin: 5px; " id="topbarborder"/>
                 <div class="row" id="middle_buttons">
-                  <div class="col-md-2" style="padding-left: 2%;" id="uploaddata">
+                  <div class="col-md-2 col-xs-2" style="padding-left: 2%;" id="uploaddata">
                     <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();" style="margin-top:3%;" id="upload_button">Upload Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                     <div class="mdl-tooltip" for="upload_button">Upload your XML data to be visualized in eFP-Seq Browser</div>
                     <input type="file" id="fileID" hidden accept="text/xml"/>
@@ -167,7 +167,7 @@
 
 
 
-                  <div class="col-md-5" style="padding-top: 0.5%;" id="publicdatabase">
+                  <div class="col-md-5 col-xs-4" style="padding-top: 0.5%;" id="publicdatabase">
                     <p class="public-rna" id="public_words">Public RNA-Seq Databases:
                     <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" />
                       <option value="Default data">Default data</option>
@@ -215,11 +215,11 @@
                     font-family: "Roboto","Helvetica","Arial",sans-serif;
                   }
                   </style>
-                  <div class="col-md-3" id="eFP_button" style="padding-left:50px;">
+                  <div class="col-md-3 col-xs-3" id="eFP_button" style="padding-left:50px;">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#eFPModal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%" onclick="populate_efp_modal(1)">eFP Overview<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                     <div class="mdl-tooltip" for="generatedata">See all the eFP tissue localization in one table</div>
                   </div>
-                  <div class="col-md-2" id="generatedata">
+                  <div class="col-md-2 col-xs-2" id="generatedata">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%">Generate data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                     <div class="mdl-tooltip" for="generatedata">Visualize your BAM files in the eFP-Seq Browser</div>
                   </div>
