@@ -85,6 +85,7 @@ if (testmobile() == true) {
   //document.getElementById("middle_buttons").style.display="none";
   document.getElementById("uploaddata").style.display="none";
   document.getElementById("generatedata").style.display="none";
+  document.getElementById("publicdatabase").className = document.getElementById("publicdatabase").className.replace("col-xs-4","")
   document.getElementById("eFP_button").style.display="none";
   document.getElementById("locusbrowser").className="col-xs-6";
   document.getElementById("locus").style.width="100%";
