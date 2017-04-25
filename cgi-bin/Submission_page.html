@@ -109,7 +109,7 @@ function myFunction() {
 
             <!-- Author -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-author">Author <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The author(s) of the generated data. Optional if you are keeping this data private.</span></label></th>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-author">Author(s) <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The author(s) of the generated data. Optional if you are keeping this data private.</span></label></th>
               <input class="channelauthor col-sm-8 col-xs-8 reqfield" id="reqauthor" name="channelauthor" type="text" placeholder="My name, my lab, paper's authors, etc..."  data-help-text="author" />
             </div>
 
@@ -155,7 +155,7 @@ function myFunction() {
 
             <!-- BAM Repository link -->
             <div class="forminput row">
-              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-bam_link">RNA-Seq Data/BAM file Repsitory Link <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">A link to your RNA-Seq Data/BAM file repository. If it is Googe Drive, please add a Shared View link WITHOUT the "?usp=sharing." at the end. If Amazon AWS, please have the link end with the file like /name.bam</span></label>
+              <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-bam_link">RNA-Seq Data/BAM file Repository Link <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">A link to your RNA-Seq Data/BAM file repository. If it is Googe Drive, please add a Shared View link WITHOUT the "?usp=sharing." at the end. If Amazon AWS, please have the link end with the file like /name.bam</span></label>
               <select class="channelbamtype col-sm-2 col-xs-2" list="channelbamtype reqfield" id="bamtype" name="channelbamtype" placeholder="Link type" type="text" data-help-text="bamtype" onchange="bamtype_placeholder()" onclick="bamtype_placeholder()"/>
                 <option value="Google Drive">Google Drive</option>
                 <option value="Amazon AWS">Amazon AWS</option>
