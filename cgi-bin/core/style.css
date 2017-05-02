@@ -111,3 +111,7 @@ display: none;
   padding-left: 24px;
   padding-right: 10px;
 }
+
+.modal-footer-colour {
+  background-color: #eafaea;
+}

@@ -9,6 +9,10 @@
 <script src="Submission_page/processing-api.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="Submission_page/XMLgenerator-v2.js"></script>
+<script src="Submission_page/mrDataConverter/Controller.js"></script>
+<script src="Submission_page/mrDataConverter/converter.js"></script>
+<script src="Submission_page/mrDataConverter/CSVParser.js"></script>
+<script src="Submission_page/mrDataConverter/DataGridRenderer.js"></script>
 <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 
 <!--Bootstrap -->
@@ -64,6 +68,9 @@ function myFunction() {
       <p> To have your data visualized and interpreted by the eFP-Seq Browser, please fill out the form below with the information regarding your data. All forms that have an <span style="font-weight:bold;">*</span> on it are required fields to enter. </p>
       <p>  When you have finished filling in the forms, please click the "Generate Readable Data" button at the bottom of the page. It will give you an option to download an XML of readable data; it is highly recommended that you download that XML so you may simply submit that XML next time instead of needing to fill out the following form again.</p>
       <!-- <p> If you have any questions or need help, a tutorial is available by clicking on the floating "?" at the bottom right of the page. </p> -->
+      <p> If you have a lot of RNA-Seq data files to input on the eFP-Seq Browser, it may be best to upload an Excel file with all the filled in information instead of typing it below. You can download the Excel template <a href="http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/Submission_page/bulk_template.xlsx" download>here</a></p>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-toggle="modal" data-target="#excelModal" data-upgraded=",MaterialButton,MaterialRipple">Upload Excel<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
     </div>
   </header>
 
@@ -143,7 +150,7 @@ function myFunction() {
             <!-- Record number -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-record_number">Record number <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">A SRA's record or run number.</span></label>
-              <input class="channelrecordnumber col-sm-8 col-xs-8 reqfield" id="req" name="channelrecordnumber" placeholder="Example: ERR274310 or SRR547531" type="text" data-help-text="record_number" />
+              <input class="channelrecordnumber col-sm-8 col-xs-8 reqfield" id="rec" name="channelrecordnumber" placeholder="Example: ERR274310 or SRR547531" type="text" data-help-text="record_number" />
             </div>
 
             <!-- Hex color -->
@@ -151,7 +158,6 @@ function myFunction() {
               <label class="col-sm-3 col-xs-3" for="channel-hex_color" title="Admin use, this temp">Hex color <span style="font-weight:bold;">*</span></label>
               <input class="channelhexcolor col-sm-8 col-xs-8" name="channelhexcolor" placeholder="Alpha purposes only, will be removed later" type="text" data-help-text="record_number" />
             </div>
-
 
             <!-- BAM Repository link -->
             <div class="forminput row">
@@ -177,13 +183,13 @@ function myFunction() {
             <!-- Publication link -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-publication_link">Publicaiton Link <span class="sub_tooltip_text">If your research has been published or referencing a research, it may be useful to link to the publication.</span></label>
-              <input class="channelpublicationlink col-sm-8 col-xs-8" name="channelpublicationlink" placeholder="Example: http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
+              <input class="channelpublicationlink col-sm-8 col-xs-8" name="channelpublicationlink" id="publink" placeholder="Example: http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
             </div>
 
             <!-- SRA Link -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-publication_url">Sequence Reach Archive/NCBI Link<span class="sub_tooltip_text">A link to your experiment run on the NCBI's Sequence Read Archive (SRA).</span></label>
-              <input class="channelpublicationurl col-sm-8 col-xs-8" name="channelpublicationurl" placeholder="Example: http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
+              <input class="channelpublicationurl col-sm-8 col-xs-8" name="channelpublicationurl" id="sralink" placeholder="Example: http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
             </div>
 
             <!-- Total reads mapped -->
@@ -216,7 +222,7 @@ function myFunction() {
             <!-- Spcies -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-species">Species <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The organism that your RNA-Seq data is for. Currently, the eFP-Seq Browser is only functional for Arabidopsis thaliana but if your dataset is for another species, please select Other</span></label>
-              <select class="channelspecies col-sm-8 col-xs-8" list="channelspecieslist reqfield" id="req" name="channelspecies" placeholder="Arabidopsis" type="text" data-help-text="species" />
+              <select class="channelspecies col-sm-8 col-xs-8" list="channelspecieslist reqfield" id="reqspecies" name="channelspecies" placeholder="Arabidopsis" type="text" data-help-text="species" />
                 <option value="Arabidopsis thaliana">Arabidopsis thaliana</option>
                 <option value="Other">Other</option>
               </select>
@@ -5614,43 +5620,43 @@ function myFunction() {
             <!-- Control -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-controls">Controls<span class="sub_tooltip_text">The BAM exp number of the controls in your RNA-Seq data.</span></label>
-              <input class="channelcontrols col-sm-8 col-xs-8" name="channelcontrols" placeholder="Example: ERR274310" type="text" data-help-text="total_controls"/>
+              <input class="channelcontrols col-sm-8 col-xs-8" name="channelcontrols" id="controls" placeholder="Example: ERR274310" type="text" data-help-text="total_controls"/>
             </div>
 
             <!-- Replicate control 1 -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidtho">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
-              <input class="channelgroupwidtho col-sm-8 col-xs-8" name="channelgroupwidtho" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidtho col-sm-8 col-xs-8" name="channelgroupwidtho" id="replicate_controls1" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
 
             <!-- Replicate control 2 -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidth2">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src="Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 2 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
-              <input class="channelgroupwidth2 col-sm-8 col-xs-8" name="channelgroupwidth2" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidth2 col-sm-8 col-xs-8" name="channelgroupwidth2" id="replicate_controls2" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
 
             <!-- Replicate control 3 -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidth3">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 3 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
-              <input class="channelgroupwidth3 col-sm-8 col-xs-8" name="channelgroupwidth3" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidth3 col-sm-8 col-xs-8" name="channelgroupwidth3" id="replicate_controls3" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
 
             <!-- Replicate control 4 -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidth4">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 4 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
-              <input class="channelgroupwidth4 col-sm-8 col-xs-8" name="channelgroupwidth4" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidth4 col-sm-8 col-xs-8" name="channelgroupwidth4" id="replicate_controls4" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
 
             <!-- Replicate control 5 -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidth5">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 5 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
-              <input class="channelgroupwidth5 col-sm-8 col-xs-8" name="channelgroupwidth5" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidth5 col-sm-8 col-xs-8" name="channelgroupwidth5" id="replicate_controls5" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
 
             <!-- Replicate control 6 -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidth6">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src="Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 6 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data.</span></label>
-              <input class="channelgroupwidth6 col-sm-8 col-xs-8" name="channelgroupwidth6" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidth6 col-sm-8 col-xs-8" name="channelgroupwidth6" id="replicate_controls6" placeholder="Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
   	  </fieldset>
   	</div>
@@ -5679,7 +5685,7 @@ function myFunction() {
 
     <a class="downloadfile" href="#" id="DownloadLink"><button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" download>Download XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a>
 
-    <button type="button" class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" id="sendXML"  data-upgraded=",MaterialButton,MaterialRipple"  style="margin-left:10px;">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+    <button type="button" class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" id="sendXML"  data-upgraded=",MaterialButton,MaterialRipple" data-dismiss="modal" style="margin-left:10px;">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
     <!-- &nbsp&nbsp&nbsp<input class="public" type="checkbox" name="public" value="public" style="float:none;"> I would like my data to be accessible on a public database </input> -->
 
@@ -5701,6 +5707,32 @@ function myFunction() {
   </div>
 
   </form>
+
+  <!-- Excel modal -->
+  <div id="excelModal" class="modal fade" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg" style="width: 84%;">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body" >
+                <div class="table-responsive">
+                  <p> Once you have filled the Excel template with the data you wish to upload, copy and paste all the content in your "Fill Data" Excel sheet into the box below. </p>
+                  <p> Please note, if you fill cells outside of the designated areas on the Excel sheet, it may cause an error to occur when generating your data.</p>
+                  <input class="settingsElement" type="checkbox" name="" value="" id="headersProvidedCB" checked="" hidden>
+                  <div id='converter' class=''>
+                  </div>
+                  <button type="button" id="convert_to_json" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="convert_to_json()" style="margin-top:1%; margin-bottom:1%;" data-dismiss="modal">Convert data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                  <p> The following Excel converted was created using <a href="https://github.com/shancarter/Mr-Data-Converter">Shan Carter's Mr-Data-Converted</a></p>
+                </div>
+              </div>
+              <div class="modal-footer" style="background-color: #eafaea;">
+                  <button type="button" class="btn btn-default" data-dismiss="modal" id="closemodal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
   </body>
 
 <!-- Back to welcome page

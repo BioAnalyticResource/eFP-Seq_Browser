@@ -326,3 +326,36 @@ function determine_svgname(from_svg) {
     return "ath-google_material_help-ic_help_black_24px.svg";
   }
 };
+
+var json_convert_output;
+function convert_to_json() {
+  json_convert_output = JSON.parse(document.getElementById("dataOutput").value)
+  var json_length = json_convert_output.length
+  for (i = 0; i <= json_length; i++) {
+    $("input[id=reqtitle]").last().val(json_convert_output[i]["title*"]);
+    $("#reqdesc").last().val(json_convert_output[i]["description*"]);
+    $("#rec").last().val(json_convert_output[i]["record number *"]);
+    $("#bamtype").last().val(json_convert_output[i]["repository type* (amazon aws or google drive)"]);
+    $("#bam_input").last().val(json_convert_output[i]["rna-seq data/bam file repository link*"]);
+    $("#publink").last().val(json_convert_output[i]["publication link"]);
+    $("#sralink").last().val(json_convert_output[i]["sra/ncbi link"]);
+    $("#reqread").last().val(json_convert_output[i]["total reads mapped*"]);
+    $("#reqspecies").last().val(json_convert_output[i]["species*"]);
+    var json_svg = "svg" + (i + 1);
+    $("#" + json_svg).last().val(determine_svgname(json_convert_output[i]["tissue*"]));
+    var json_subunit = "tissue" + (i + 1) + "_subunit";
+    $("#" + json_subunit).last().val(json_convert_output[i]["tissue subunit*"]);
+    $("#controls").last().val(json_convert_output[i]["controls"]);
+    $("#replicate_controls1").last().val(json_convert_output[i]["replicate control"]);
+    $("#replicate_controls2").last().val(json_convert_output[i]["replicate control2"]);
+    $("#replicate_controls3").last().val(json_convert_output[i]["replicate control3"]);
+    $("#replicate_controls4").last().val(json_convert_output[i]["replicate control4"]);
+    $("#replicate_controls5").last().val(json_convert_output[i]["replicate control5"]);
+    $("#replicate_controls6").last().val(json_convert_output[i]["replicate control6"]);
+    var json_tissue = "tissue" + (i + 1)
+    $("#" + json_tissue).last().html(determine_svgname(json_convert_output[i]["tissue*"]));
+    if (json_convert_output[i+1] != undefined) {
+      CloneSection()
+    }
+  }
+}

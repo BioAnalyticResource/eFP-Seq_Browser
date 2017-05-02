@@ -1068,9 +1068,6 @@ function populate_efp_modal(status) {
     $("#eFPtable").append(efp_table_column);
   }
 
-  // Insert eFP modal close button
-  $("#eFPtable").append('<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal" id="closemodal">Close</button></div>');
-
 }
 
 /* Changes the legend for scales. */
