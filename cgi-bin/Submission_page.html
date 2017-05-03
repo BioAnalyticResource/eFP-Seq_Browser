@@ -5696,6 +5696,8 @@ function myFunction() {
       $("#sendXML").click(function() {
           generatesrc = $('.downloadfile').attr('href');
           parent.base_src = generatesrc;
+          parent.progress_percent = 0;
+          parent.generate_loading_screen();
           parent.update_all_images(0);
           parent.closeGenerate();
       });

@@ -65,7 +65,7 @@
     </div>
     <div id="progress_tooltip" class="mdl-tooltip" for="title_bar">Typical load time < 10 mins.</div>
     <div id="body_of" class="body_of_loading_done">
-            <div class="container" >
+            <div class="container">
                 <!-- Title + Help + Cite -->
                 <div id="title_bar" class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top:1%;">
@@ -158,7 +158,8 @@
                     }, 500);
 
                     function closeGenerate() {
-                      document.getElementById("closemodal").click();
+                      //document.getElementById("closemodal").click();
+                      $('.modal-close').click();
                     };
                     </script>
 
@@ -463,7 +464,7 @@
 
                           </p>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer modal-footer-colour">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -481,21 +482,24 @@
                               <table id="eFPtable" class="table"></table>
                           </div>
                         </div>
+                        <div class="modal-footer modal-footer-colour">
+                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div id="SubmissionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                 <div class="modal-dialog modal-lg" style="width: 940px;">
-                    <div class="modal-content">
+                    <div class="modal-content" style="margin-left:1%;">
                         <div class="modal-header" style="padding-bottom:3%;">
                             <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
                         <div class="modal-body">
                           <iframe src="cgi-bin\Submission_page.html" height="600px"></iframe>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="closemodal">Close</button>
+                        <div class="modal-footer modal-footer-colour">
+                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
                         </div>
                     </div>
                 </div>
