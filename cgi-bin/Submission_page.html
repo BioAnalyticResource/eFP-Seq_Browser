@@ -29,7 +29,13 @@ $(document).ready(function(){
       tissue_click = $(this).attr("id");
       //alert(tissue_click);
   });
+  changeWidthConverter();
 });
+
+function changeWidthConverter() {
+  document.getElementById("converter").style.width="100%";
+  document.getElementById("dataInput").style.width="100%";
+}
 
 function myFunction() {
   var input, filter, table, tr, td, i;
@@ -69,7 +75,15 @@ function myFunction() {
       <p>  When you have finished filling in the forms, please click the "Generate Readable Data" button at the bottom of the page. It will give you an option to download an XML of readable data; it is highly recommended that you download that XML so you may simply submit that XML next time instead of needing to fill out the following form again.</p>
       <!-- <p> If you have any questions or need help, a tutorial is available by clicking on the floating "?" at the bottom right of the page. </p> -->
       <p> If you have a lot of RNA-Seq data files to input on the eFP-Seq Browser, it may be best to upload an Excel file with all the filled in information instead of typing it below. You can download the Excel template <a href="http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/Submission_page/bulk_template.xlsx" download>here</a></p>
+
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-toggle="modal" data-target="#excelModal" data-upgraded=",MaterialButton,MaterialRipple">Upload Excel<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
+      <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px; margin-top:1px;" onclick="showWarning()">Reset form<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+      <div class="warning_nope" id="warning">
+        <strong>Warning!</strong> "Reset form" clears all filled entires below, are you sure you wish to continue?
+        <span class="warning_button" onclick="hideWarning()"> No </span>
+        <span class="warning_button" onclick="resetForm()"> Yes </span>
+      </div>
 
     </div>
   </header>
@@ -87,7 +101,7 @@ function myFunction() {
   <div class="Basic_info" name="Basic_info">
   <legend class="leftmargin" style="padding-top:2%; font-weight:bold;" id="basic_yo"> Basic Information </legend>
     <div class="form_in">
-      <fieldset>
+      <fieldset id="basic_info">
             <!-- Title of XML file -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-xml-title">Title <span style="font-weight:bold;">*</span>
@@ -131,7 +145,7 @@ function myFunction() {
   </div>
 
   <!-- Single entry for the submission -->
-  <div class="Entries" name="Entries">
+  <div class="Entries" name="Entries" id="entries">
   <legend class="leftmargin" style="padding-top:2%; font-weight:bold;" id="Enty_num"> Entry 1 </legend>
     <div class="form_in">
       <fieldset>
@@ -178,7 +192,6 @@ function myFunction() {
               }
               </script>
             </div>
-
 
             <!-- Publication link -->
             <div class="forminput row">
@@ -5671,6 +5684,8 @@ function myFunction() {
     <p>
   	   <button type="button" id="CloneForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple">Add another entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
+       <button type="button" onclick="DeleteSection()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Delete last entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
        <button type="button" id="GenerateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Generate XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
        <span id="not_filled" style="margin-left:10px;"></span>
@@ -5678,7 +5693,7 @@ function myFunction() {
   </div>
 
   <!-- Generate XML download -->
-  <div id="generated" style="display:none" class="leftmargin">
+  <div id="generated" style="display:none; padding-bottom:6px;" class="leftmargin">
     <p style="font-size:2em;">Please download the following XML to use your data at a later point without the necessicity of filling in the form again. Click the submit button and add in the following XML.</p>
 
 
@@ -5712,7 +5727,7 @@ function myFunction() {
 
   <!-- Excel modal -->
   <div id="excelModal" class="modal fade" role="dialog" aria-labelledby="myLargeModalLabel">
-      <div class="modal-dialog modal-lg" style="width: 84%;">
+      <div class="modal-dialog modal-lg">
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -5722,7 +5737,7 @@ function myFunction() {
                   <p> Once you have filled the Excel template with the data you wish to upload, copy and paste all the content in your "Fill Data" Excel sheet into the box below. </p>
                   <p> Please note, if you fill cells outside of the designated areas on the Excel sheet, it may cause an error to occur when generating your data.</p>
                   <input class="settingsElement" type="checkbox" name="" value="" id="headersProvidedCB" checked="" hidden>
-                  <div id='converter' class=''>
+                  <div id='converter' style="width: 100%;">
                   </div>
                   <button type="button" id="convert_to_json" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="convert_to_json()" style="margin-top:1%; margin-bottom:1%;" data-dismiss="modal">Convert data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                   <p> The following Excel converted was created using <a href="https://github.com/shancarter/Mr-Data-Converter">Shan Carter's Mr-Data-Converted</a></p>

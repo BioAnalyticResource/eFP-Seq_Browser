@@ -16,7 +16,7 @@ $(document).ready(function(){
 
   $(".settingsElement").change(updateSettings);
 
-  $(window).bind('resize',function() {  
+  $(window).bind('resize',function() {
 
       w = win.width() - widthOffset;
       h = win.height() - heightOffset;
@@ -27,13 +27,13 @@ $(document).ready(function(){
 
 
   function updateSettings (evt) {
-    
+
     if (evt) {
       _gaq.push(['_trackEvent', 'Settings',evt.currentTarget.id ]);
     };
 
     d.includeWhiteSpace = $('#includeWhiteSpaceCB').attr('checked');
-    
+
     if (d.includeWhiteSpace) {
       $("input[name=indentType]").removeAttr("disabled");
       var indentType = $('input[name=indentType]:checked').val();
@@ -65,16 +65,15 @@ $(document).ready(function(){
     } else {
       $("input[name=headerModifications]").attr("disabled", "disabled");
     }
-    
+
     d.delimiter = $('input[name=delimiter]:checked').val();
     d.decimal = $('input[name=decimal]:checked').val();
-    
+
     d.useUnderscores = true;
-    
+
     d.convert();
   };
 
   updateSettings();
-  
-})
 
+})

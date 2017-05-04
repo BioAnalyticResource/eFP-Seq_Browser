@@ -112,13 +112,16 @@ $(function () {
   $("#CloneForm").click(CloneSection);
 });
 
-var tissue_sub_name = ""
+var tissue_sub_name = "";
+var new_tissue = "";
+var new_tissue_subunit = "";
+var new_svg = "";
 function CloneSection() {
   $(".SubmissionArea").append($(".Entries:first").clone(true));
   count_clicks += 1;
-  var new_tissue = "tissue" + count_clicks;
-  var new_tissue_subunit = "tissue" + count_clicks + "_subunit";
-  var new_svg = "svg" + count_clicks;
+  new_tissue = "tissue" + count_clicks;
+  new_tissue_subunit = "tissue" + count_clicks + "_subunit";
+  new_svg = "svg" + count_clicks;
   $("legend:last").text("Entry " + count_clicks);
   $(".change_div_id").last().attr("name", new_tissue);
   $(".change_button_id").last().attr("id", new_tissue);
@@ -126,7 +129,46 @@ function CloneSection() {
   $(".change_id_tissue_subunit").last().attr("id", new_tissue_subunit);
   $(".change_id_tissue").last().attr("id", new_tissue);
   $(".change_svg").last().attr("id", new_svg);
+  // resetting form values
+  resetLastEntryValues();
 };
+
+function resetLastEntryValues() {
+  $("input[id=reqtitle]").last().val("");
+  $("textarea[id=reqdesc]").last().val("");
+  $("input[id=rec]").last().val("");
+  $("input[id=bam_input]").last().val("");
+  $("input[id=publink]").last().val("");
+  $("input[id=sralink]").last().val("");
+  $("input[id=reqread]").last().val("");
+  $("button[id=" + new_tissue + "]").html("Tissue select");
+  $("input[id=" + new_tissue_subunit +"]").last().val("");
+  $("input[id=controls]").last().val("");
+  $("input[id=replicate_controls1]").last().val("");
+  $("input[id=replicate_controls2]").last().val("");
+  $("input[id=replicate_controls3]").last().val("");
+  $("input[id=replicate_controls4]").last().val("");
+  $("input[id=replicate_controls5]").last().val("");
+  $("input[id=replicate_controls6]").last().val("");
+  $("input[id=" + new_svg +"]").last().html("");
+}
+
+function DeleteSection() {
+  if ($("div[id=entries]").length > 1) {
+    $("div[id=entries]").last().remove();
+    count_clicks -= 1;
+  }
+}
+
+function resetForm() {
+  count_clicks = 0;
+  CloneSection();
+  while ($("div[id=entries]").length != 1) {
+    $("div[id=entries]").first().remove();
+  }
+  resetLastEntryValues();
+  hideWarning();
+}
 
 function check_req(class_name) {
   var filled = 0;
@@ -331,6 +373,7 @@ var json_convert_output;
 function convert_to_json() {
   json_convert_output = JSON.parse(document.getElementById("dataOutput").value)
   var json_length = json_convert_output.length
+  resetForm();
   for (i = 0; i < json_length; i++) {
     if (i != 0) {
       CloneSection()
@@ -358,4 +401,20 @@ function convert_to_json() {
     var json_tissue = "tissue" + (i + 1)
     $("button[id=" + json_tissue +"]").last().html(determine_svgname(json_convert_output[i]["tissue*"]));
   }
+}
+
+var warningActive = "nope";
+function showWarning() {
+  if (warningActive == "nope") {
+    document.getElementById("warning").className = "warning";
+    warningActive = "yes";
+  }
+  else if (warningActive == "yes") {
+    hideWarning();
+  }
+}
+
+function hideWarning() {
+  document.getElementById("warning").className = "warning_nope";
+  warningActive = "nope";
 }
