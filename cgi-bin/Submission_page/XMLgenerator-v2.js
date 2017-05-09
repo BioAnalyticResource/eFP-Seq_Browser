@@ -307,7 +307,7 @@ function determine_svgname(from_svg) {
   else if (from_svg == "leaf") {
     return "ath-leaf.svg";
   }
-  else if (from_svg == "Full_leaf" || from_svg == "Leaf_lamina" || from_svg == "Leaf_veins") {
+  else if (from_svg == "Full_leaf" || from_svg == "Leaf_lamina" || from_svg == "Leaf_veins" || from_svg == "Leaf_petiole") {
     return "ath-LeafParts.svg";
   }
   else if (from_svg == "Pollen") {
@@ -378,10 +378,10 @@ function convert_to_json() {
     if (i != 0) {
       CloneSection()
     }
+    $("select[id=bamtype]").last().val(json_convert_output[i]["repository type*"]);
     $("input[id=reqtitle]").last().val(json_convert_output[i]["title*"]);
     $("textarea[id=reqdesc]").last().val(json_convert_output[i]["description*"]);
     $("input[id=rec]").last().val(json_convert_output[i]["record number *"]);
-    $("select[id=bamtype]").last().val(json_convert_output[i]["repository type* (amazon aws or google drive)"]);
     $("input[id=bam_input]").last().val(json_convert_output[i]["rna-seq data/bam file repository link*"]);
     $("input[id=publink]").last().val(json_convert_output[i]["publication link"]);
     $("input[id=sralink]").last().val(json_convert_output[i]["sra/ncbi link"]);

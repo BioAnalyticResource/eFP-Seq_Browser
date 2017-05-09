@@ -486,6 +486,8 @@ function get_input_values() {
 function update_all_images(status) {
     $.xhrPool.abortAll();
     variants_radio_options(status);
+    setTimeout(function(){ populate_table(0); }, 2500); //Currently existing a bug that prevents this from being called
+    // later on in the code. This forces the populate_table(status) call after 2.5 seconds. Temporary placement
 }
 
 /* Updates the radio button <DIV> with new variants images. */
