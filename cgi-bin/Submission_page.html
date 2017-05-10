@@ -1,60 +1,73 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<title> Submiting your RNA-Seq data for eFP-Seq Browser</title>
-<meta name="description" content="Submiting your RNA-Seq data for eFP-Seq Browser" />
-<meta name="keyboard" content="eFP, RNA-Seq" />
-<meta name="author" content="Alexander Sullivan" />
-<link rel="stylesheet" type="text/css" href="Submission_page/style.css" />
-<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css"/>
-<script src="Submission_page/processing-api.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="Submission_page/XMLgenerator-v2.js"></script>
-<script src="Submission_page/mrDataConverter/Controller.js"></script>
-<script src="Submission_page/mrDataConverter/converter.js"></script>
-<script src="Submission_page/mrDataConverter/CSVParser.js"></script>
-<script src="Submission_page/mrDataConverter/DataGridRenderer.js"></script>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+  <head>
+    <title> Submiting your RNA-Seq data for eFP-Seq Browser</title>
+    <meta name="description" content="Submiting your RNA-Seq data for eFP-Seq Browser" />
+    <meta name="keyboard" content="eFP, RNA-Seq" />
+    <meta name="author" content="Alexander Sullivan" />
+    <link rel="stylesheet" type="text/css" href="Submission_page/style.css" />
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css"/>
+    <script src="Submission_page/processing-api.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="Submission_page/XMLgenerator-v2.js"></script>
+    <script src="Submission_page/mrDataConverter/Controller.js"></script>
+    <script src="Submission_page/mrDataConverter/converter.js"></script>
+    <script src="Submission_page/mrDataConverter/CSVParser.js"></script>
+    <script src="Submission_page/mrDataConverter/DataGridRenderer.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 
-<!--Bootstrap -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<!-- This script is to ask the user if they are sure if they want to close the submission system or not -->
-<script>
-var tissue_click = "";
-$(document).ready(function(){
-  $("button").hover(function() {
-      //var parentId = $(this).parents("div").eq(0).attr("name");
-      tissue_click = $(this).attr("id");
-      //alert(tissue_click);
-  });
-  changeWidthConverter();
-});
+    <!-- This script is to ask the user if they are sure if they want to close the submission system or not -->
+    <script>
+    var tissue_click = "";
+    $(document).ready(function(){
+      $("button").hover(function() {
+          //var parentId = $(this).parents("div").eq(0).attr("name");
+          tissue_click = $(this).attr("id");
+          //alert(tissue_click);
+      });
+      changeWidthConverter();
+    });
 
-function changeWidthConverter() {
-  document.getElementById("converter").style.width="100%";
-  document.getElementById("dataInput").style.width="100%";
-}
+    function changeWidthConverter() {
+      document.getElementById("converter").style.width="100%";
+      document.getElementById("dataInput").style.width="100%";
+    }
 
-function myFunction() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("tissueTable");
-  th = table.getElementsByTagName("th");
-  for (i = 0; i < th.length; i++) {
-    td = th[i];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        th[i].style.display = "";
-      } else {
-        th[i].style.display = "none";
+    function myFunction() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("tissueTable");
+      th = table.getElementsByTagName("th");
+      for (i = 0; i < th.length; i++) {
+        td = th[i];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            th[i].style.display = "";
+          } else {
+            th[i].style.display = "none";
+          }
+        }
       }
     }
-  }
-}
-</script>
+    </script>
+    <!-- Google Analytics ID -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-38961857-5', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </head>
 
 <div>
 
@@ -5694,7 +5707,7 @@ function myFunction() {
 
   <!-- Generate XML download -->
   <div id="generated" style="display:none; padding-bottom:6px;" class="leftmargin">
-    <p style="font-size:2em;">Please download the following XML to use your data at a later point without the necessicity of filling in the form again. Click the submit button and add in the following XML.</p>
+    <p style="font-size:2em;">Please download the following XML to use your data at a later point without the necessicity of filling in the form again. Click the submit button to start generating your data on the eFP-Seq Browser.</p>
 
 
 

@@ -486,7 +486,7 @@ function get_input_values() {
 function update_all_images(status) {
     $.xhrPool.abortAll();
     variants_radio_options(status);
-    setTimeout(function(){ populate_table(0); }, 2500); //Currently existing a bug that prevents this from being called
+    //setTimeout(function(){ populate_table(0); }, 2500); //Currently existing a bug that prevents this from being called
     // later on in the code. This forces the populate_table(status) call after 2.5 seconds. Temporary placement
 }
 
@@ -701,6 +701,7 @@ var efp_column_count = 0;
 var efp_table_column;
 var efp_rep_2d_title = [];
 var efp_rpkm_names = [];
+var xmlTitleName = "";
 
 function populate_table(status) {
     // Reset values
@@ -737,6 +738,16 @@ function populate_table(status) {
         url: base_src,
         dataType: 'xml',
         success: function(xml_res) {
+            var $xmltitle = $(xml_res).find("rnaseq_experiments");
+            $xmltitle.each(function() {
+              xmlTitleName = $(this).attr('xmltitle');
+              if (xmlTitleName != "" || xmlTitleName != "Uploaded dataset") {
+                document.getElementById("uplodaed_dataset").innerHTML = xmlTitleName;
+              }
+              else if (xmlTitleName == "" || xmlTitleName == "Uploaded dataset") {
+                document.getElementById("uplodaed_dataset").innerHTML = "Uploaded dataset";
+              }
+            });
             var $title = $(xml_res).find("bam_file");
             $title.each(function() { // Iterate over each subtag inside the <file> tag.
                 // Extract information

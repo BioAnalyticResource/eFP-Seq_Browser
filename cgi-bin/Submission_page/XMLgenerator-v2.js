@@ -61,6 +61,16 @@ var added = [
 var all_controls = "";
 function update(formatXML,v) {
   all_controls = $(v).find('.channelcontrols').val().split(',');
+  for (i = 0; i < all_controls.length; i++) {
+    if (all_controls[i][0] == " ") {
+      all_controls[i] = all_controls[i].substr(1);
+    }
+    var allcontrolslength = all_controls[i].length - 1;
+    while (all_controls[i][allcontrolslength] == " ") {
+      all_controls[i] = all_controls[i].slice(0, -1);
+      allcontrolslength -= 1;
+    }
+  };
   var variables = {
     'channeldescription': $(v).find('.channeldescription').val(),
     'channelrecordnumber': $(v).find('.channelrecordnumber').val(),
