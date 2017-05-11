@@ -41,18 +41,32 @@ var base = [
   '\n'
 ].join('\r\n');
 
-var added = [
+var template = [
   '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\" species=\"<?channelspecies?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
   '\t\t\t<groupwith>',
   '\t\t\t\t<bam_exp><?channelgroupwidtho?></bam_exp>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth2?></bam_exp>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth3?></bam_exp>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth4?></bam_exp>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth5?></bam_exp>',
-  '\t\t\t\t<bam_exp><?channelgroupwidth6?></bam_exp>',
+  '\t\t\t</groupwith>',
+  '\t\t</bam_file>',
+  '\n'
+].join('\r\n');
+
+var topXML = [
+  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\" species=\"<?channelspecies?>\">',
+  '\t\t\t<controls>\n',
+].join('\r\n');
+
+var controlsXML = [
+].join('\r\n');
+
+var replicatesXML = [
+  '\t\t\t</controls>',
+  '\t\t\t<groupwith>\n',
+].join('\r\n');
+
+var endingXML = [
   '\t\t\t</groupwith>',
   '\t\t</bam_file>',
   '\n'
@@ -70,7 +84,22 @@ function update(formatXML,v) {
       all_controls[i] = all_controls[i].slice(0, -1);
       allcontrolslength -= 1;
     }
+    controlsXML += "\t\t\t\t<bam_exp>" + all_controls[i] + "</bam_exp>\n";
   };
+
+  all_replicates = $(v).find('.channelgroupwidtho').val().split(',');
+  for (i = 0; i < all_replicates.length; i++) {
+    if (all_replicates[i][0] == " ") {
+      all_replicates[i] = all_replicates[i].substr(1);
+    }
+    var all_replicateslength = all_replicates[i].length - 1;
+    while (all_replicates[i][all_replicateslength] == " ") {
+      all_replicates[i] = all_replicates[i].slice(0, -1);
+      all_replicateslength -= 1;
+    }
+    replicatesXML += "\t\t\t\t<bam_exp>" + all_replicates[i] + "</bam_exp>\n";
+  };
+
   var variables = {
     'channeldescription': $(v).find('.channeldescription').val(),
     'channelrecordnumber': $(v).find('.channelrecordnumber').val(),
@@ -85,18 +114,18 @@ function update(formatXML,v) {
     'channelpublicationlink': $(v).find('.channelpublicationlink').val(),
     'channelspecies': $(v).find('.channelspecies').val(),
     'channelcontrols': $(v).find('.channelcontrols').val(),
-    'channelgroupwidtho': $(v).find('.channelgroupwidtho').val(),
-    'channelgroupwidth2': $(v).find('.channelgroupwidth2').val(),
-    'channelgroupwidth3': $(v).find('.channelgroupwidth3').val(),
-    'channelgroupwidth4': $(v).find('.channelgroupwidth4').val(),
-    'channelgroupwidth5': $(v).find('.channelgroupwidth5').val(),
-    'channelgroupwidth6': $(v).find('.channelgroupwidth6').val()
+    'channelgroupwidtho': $(v).find('.channelgroupwidtho').val()
   };
 
-  var fillXML = added.replace(/<\?(\w+)\?>/g,
+  var fillXML = topXML.replace(/<\?(\w+)\?>/g,
     function(match, name) {
       return variables[name];
     });
+
+  fillXML += controlsXML;
+  fillXML += replicatesXML;
+  fillXML += endingXML;
+
 
   return fillXML;
 
@@ -155,11 +184,6 @@ function resetLastEntryValues() {
   $("input[id=" + new_tissue_subunit +"]").last().val("");
   $("input[id=controls]").last().val("");
   $("input[id=replicate_controls1]").last().val("");
-  $("input[id=replicate_controls2]").last().val("");
-  $("input[id=replicate_controls3]").last().val("");
-  $("input[id=replicate_controls4]").last().val("");
-  $("input[id=replicate_controls5]").last().val("");
-  $("input[id=replicate_controls6]").last().val("");
   $("input[id=" + new_svg +"]").last().html("");
 }
 
@@ -402,12 +426,7 @@ function convert_to_json() {
     var json_subunit = "tissue" + (i + 1) + "_subunit";
     $("input[id=" + json_subunit +"]").last().val(json_convert_output[i]["tissue subunit*"]);
     $("input[id=controls]").last().val(json_convert_output[i]["controls"]);
-    $("input[id=replicate_controls1]").last().val(json_convert_output[i]["replicate control"]);
-    $("input[id=replicate_controls2]").last().val(json_convert_output[i]["replicate control2"]);
-    $("input[id=replicate_controls3]").last().val(json_convert_output[i]["replicate control3"]);
-    $("input[id=replicate_controls4]").last().val(json_convert_output[i]["replicate control4"]);
-    $("input[id=replicate_controls5]").last().val(json_convert_output[i]["replicate control5"]);
-    $("input[id=replicate_controls6]").last().val(json_convert_output[i]["replicate control6"]);
+    $("input[id=replicate_controls1]").last().val(json_convert_output[i]["replicate controls"]);
     var json_tissue = "tissue" + (i + 1)
     $("button[id=" + json_tissue +"]").last().html(determine_svgname(json_convert_output[i]["tissue*"]));
   }
