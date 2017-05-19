@@ -51,9 +51,11 @@ xhr.onreadystatechange = function ( e ) {
 };
 xhr.send( null );
 
+var send_null_count = 0;
 function count_bam_num () {
   var xhr = new XMLHttpRequest();
   var old_count = count_bam_entries_in_xml
+  //send_null_count = 0;
   xhr.open( 'GET', base_src, true );
   xhr.onreadystatechange = function ( e ) {
       if ( xhr.readyState == 4 && xhr.status == 200 )
@@ -61,7 +63,11 @@ function count_bam_num () {
           //document.getElementById("testing_code").innerHTML = count_bam_entries_in_xml;
   };
   if (progress_percent < 100) {
-    xhr.send(null);
+    var max_null_calls = (count_bam_entries_in_xml * 1.5);
+    if (send_null_count < max_null_calls) {
+      xhr.send(null);
+      send_null_count += 1;
+    }
   }
 
   document.getElementById("testing_count").innerHTML = count_bam_entries_in_xml;
@@ -486,8 +492,10 @@ function get_input_values() {
 function update_all_images(status) {
     $.xhrPool.abortAll();
     variants_radio_options(status);
-    //setTimeout(function(){ populate_table(0); }, 2500); //Currently existing a bug that prevents this from being called
-    // later on in the code. This forces the populate_table(status) call after 2.5 seconds. Temporary placement
+    send_null_count = 0;
+    //count_bam_num();
+    //setTimeout(function(){ populate_table(0); }, 3500); //Currently existing a bug that prevents this from being called
+    // later on in the code. This forces the populate_table(status) call after 3.5 seconds. Temporary placement
 }
 
 /* Updates the radio button <DIV> with new variants images. */
@@ -529,6 +537,17 @@ function variants_radio_options(status) {
             });
 
             $("#thetable").trigger("update");
+        },
+        error: function() {
+          populate_table(status);
+          populate_efp_modal(status);
+          var variants_div = document.getElementById("variants_div");
+          while (variants_div.firstChild) {
+              variants_div.removeChild(variants_div.firstChild);
+          }
+          var append_str = "<p class=\"warning_core\" style=\"text-align:center;\"> ERROR IN get_gene_structures ! PLEASE RELOAD DATA/PAGE OR CONTACT AN ADMIN </p>"
+          $("#variants_div").append(append_str);
+          $("#thetable").trigger("update");
         }
     });
 }
@@ -573,6 +592,7 @@ function rnaseq_images(status) {
     //date_obj2 = new Date();
     //rnaseq_success_start_time = date_obj2.getTime(); // Keep track of start time
     get_input_values();
+    //count_bam_num();
     if (rnaseq_calls.length == count_bam_entries_in_xml) {
         for (var i = 0; i < count_bam_entries_in_xml; i++) {
             if (bam_type_list[i] == "Google Drive") {
@@ -683,7 +703,7 @@ function rnaseq_images(status) {
                 }
             });
         }
-    }
+    } // this one
 }
 /*
 window.setInterval(function(){
@@ -815,9 +835,13 @@ function populate_table(status) {
 
                 exp_info.push([experimentno + '_svg', svg_part, controls, 0, 0, 0, 0]);
 
+                /* Checking to see if this causes the error in loading uploaded files
                 if (rnaseq_calls.length == count_bam_entries_in_xml) {
                     rnaseq_images(status);
                 }
+                */
+                //count_bam_num();
+                rnaseq_images(status);
             });
             // add parser through the tablesorter addParser method
             $.tablesorter.addParser({

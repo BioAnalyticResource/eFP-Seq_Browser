@@ -20,6 +20,9 @@
     <script src="cgi-bin/core/tablesorter.js"></script>
     <script src="cgi-bin/core/tablefilter/tablefilter.js"></script>
     <script src="cgi-bin/Submission_page/XMLgenerator-v2.js"></script>
+    <script src="cgi-bin/core/xml_src_dic.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- Google Identity login -->
+    <meta name="google-signin-client_id" content="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com"> <!-- Google Identity login -->
     <link rel="stylesheet" href="cgi-bin/core/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- http://stackoverflow.com/questions/1802936/stop-all-active-ajax-requests-in-jquery -->
@@ -143,12 +146,14 @@
                                       upload_src = document.getElementById("newsrc").getAttribute("src");
                                       document.getElementById("uplodaed_dataset").style.display = 'block';
                                       document.getElementById("xmldatabase").value = "Uploaded dataset";
+                                      dataset_dictionary["Uploaded dataset"] = upload_src;
                                       //window.open(base_src);
                                     }
                                     hold_xml.show();
                                     reader.readAsDataURL($(this)[0].files[i]);
                                     progress_percent = 0;
                                     generate_loading_screen();
+                                    count_bam_num();
                                   }
                                 } else {
                                   alert("This browser does not support FileReader. Please use an updated version of Internet Explorer, Google Chrome, Mozilla Firefox, that Apple one and the other one");
@@ -164,9 +169,10 @@
 
                     window.setInterval(function(){
                       if (base_src != 'cgi-bin/data/bamdata_amazon_links.xml') {
+                        send_null_count = 0;
                         count_bam_num();
                       }
-                    }, 500);
+                    }, 500); // Need to find alternative ot calling eveyr 0.5 seconds
 
                     function closeGenerate() {
                       //document.getElementById("closemodal").click();
@@ -188,11 +194,15 @@
                     </select>
 
                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" onclick="change_dataset()"><i class="material-icons" id="send_database">input</i></button>
-                    <div class="mdl-tooltip" for="public_words">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser</div>
+
+                    <button class="mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;"><div class="g-signin2" data-onsuccess="onSignIn" id="google_login"></div></button><!-- Google Identity login -->
+
+                    <div class="mdl-tooltip" for="public_words">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases (to change login accounts, simply click the login button again)</div>
                   </div>
                   <script>
                   function change_dataset() {
                     progress_percent = 0;
+                    /*
                     if (document.getElementById("xmldatabase").value == "Default data") {
                       base_src = 'cgi-bin/data/bamdata_amazon_links.xml';
                     }
@@ -202,9 +212,26 @@
                     else if (document.getElementById("xmldatabase").value == "Uploaded dataset") {
                       base_src = upload_src;
                     }
+                    */
+                    base_src = dataset_dictionary[document.getElementById("xmldatabase").value];
                     generate_loading_screen();
+                    count_bam_num();
                     update_all_images(0);
                     //setTimeout(function(){ populate_table(0); }, 3000);
+                  };
+
+                  var profile_image = "";
+                  var users_email = "";
+                  function onSignIn(googleUser) {
+                    var profile = googleUser.getBasicProfile();
+                    //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                    //console.log('Name: ' + profile.getName());
+                    //console.log('Image URL: ' + profile.getImageUrl());
+                    profile_image = profile.getImageUrl();
+                    var append_google_str = '<img src=\"' + profile_image + '\">"';
+                    document.getElementsByClassName("abcRioButtonSvgImageWithFallback")[0].innerHTML = '<img class="mdl-js-button mdl-button--fab mdl-button--mini-fab" style="margin-left: -42%; height:40px; width:40px; margin-top: -42%;" src=\"' + profile_image + '\">"';
+                    //console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+                    users_email = profile.getEmail();
                   };
                   </script>
                   <style>

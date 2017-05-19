@@ -265,7 +265,7 @@ textarea:focus {
 
 .warning {
     padding: 20px;
-    background-color: #f44336;
+    background-color: #d62a1d;
     color: white;
     opacity: 100%;
     transition: 1s ease-in-out;
