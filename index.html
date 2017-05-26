@@ -21,8 +21,10 @@
     <script src="cgi-bin/core/tablefilter/tablefilter.js"></script>
     <script src="cgi-bin/Submission_page/XMLgenerator-v2.js"></script>
     <script src="cgi-bin/core/xml_src_dic.js"></script>
+    <script src="cgi-bin/core/tmm_normalization.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- Google Identity login -->
     <meta name="google-signin-client_id" content="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com"> <!-- Google Identity login -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.9.0/math.min.js"></script> <!-- For TMM normalization -->
     <link rel="stylesheet" href="cgi-bin/core/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- http://stackoverflow.com/questions/1802936/stop-all-active-ajax-requests-in-jquery -->
@@ -172,7 +174,7 @@
                         send_null_count = 0;
                         count_bam_num();
                       }
-                    }, 500); // Need to find alternative ot calling eveyr 0.5 seconds
+                    }, 500); // Need to find alternative to calling every 0.5 seconds
 
                     function closeGenerate() {
                       //document.getElementById("closemodal").click();
@@ -268,7 +270,7 @@
 
                 <hr style="border: 1px solid gray; margin: 5px; " id="butbarborder"/>
                 <!-- Options and Variants selection. -->
-                <div class="row">
+                <div class="row" id="options_and_variants">
                     <!-- Variants selection -->
                     <div class="col-xs-12 col-sm-12 col-md-6 table-responsive" id="variants_portion" style="padding-left:2.5%;">
                       <i style="font-size:1.2em;">Splicing variants:</i>

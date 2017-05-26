@@ -539,15 +539,15 @@ function variants_radio_options(status) {
             $("#thetable").trigger("update");
         },
         error: function() {
-          populate_table(status);
-          populate_efp_modal(status);
+          $("tbody").empty();
           var variants_div = document.getElementById("variants_div");
           while (variants_div.firstChild) {
               variants_div.removeChild(variants_div.firstChild);
           }
-          var append_str = "<p class=\"warning_core\" style=\"text-align:center;\"> ERROR IN get_gene_structures ! PLEASE RELOAD DATA/PAGE OR CONTACT AN ADMIN </p>"
+          var append_str = "<p class=\"warning_core\" style=\"text-align:center;\"> ERROR IN get_gene_structures ! PLEASE REFRESH PAGE AND UPLOAD DATA AGAIN OR CONTACT AN ADMIN </p>"
           $("#variants_div").append(append_str);
-          $("#thetable").trigger("update");
+          $('#locus_button').prop('disabled', true);
+          $('#abs_scale_button').prop('disabled', true);
         }
     });
 }
