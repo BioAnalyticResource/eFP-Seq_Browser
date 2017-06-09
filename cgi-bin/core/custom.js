@@ -586,14 +586,22 @@ function parseIntArray(arr) {
 var rnaseq_image_url = "http://bar.utoronto.ca/webservices/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
 var match_drive = "";
 //var testing_rnaseq_image = 0;
-var progress_percent = 0
+var progress_percent = 0;
+var recordReg = /&record(.+&l)/g;
+var regRecord;
+var sra_list_check = [];
+var rnaseq_change = 1;
+var check_sra;
+var sra_array;
 function rnaseq_images(status) {
-    rnaseq_success = 0;
+    rnaseq_success = 1;
     //date_obj2 = new Date();
     //rnaseq_success_start_time = date_obj2.getTime(); // Keep track of start time
     get_input_values();
     //count_bam_num();
     if (rnaseq_calls.length == count_bam_entries_in_xml) {
+        sra_list_check = [];
+        rnaseq_change = 1;
         for (var i = 0; i < count_bam_entries_in_xml; i++) {
             if (bam_type_list[i] == "Google Drive") {
               var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
@@ -615,8 +623,11 @@ function rnaseq_images(status) {
                 dataType: 'json',
                 failure: function(failure_response) {
                     $('#failure').show();
+                    //console.log(response_rnaseq['record']);
                 },
                 success: function(response_rnaseq) {
+                    //console.log(response_rnaseq['record']);
+                    sra_list_check.push(response_rnaseq['record']);
                     if (locus != response_rnaseq['locus']) {
                         console.log("ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.");
                     }
@@ -625,13 +636,14 @@ function rnaseq_images(status) {
                         rnaseq_success++;
                         date_obj3 = new Date();
                         rnaseq_success_current_time = date_obj3.getTime(); // Keep track of start time
-                        progress_percent = rnaseq_success / count_bam_entries_in_xml * 100;
+                        // progress_percent = rnaseq_success / count_bam_entries_in_xml * 100;
+                        progress_percent = rnaseq_change / count_bam_entries_in_xml * 100;
                         $('div#progress').width(progress_percent + '%');
                         document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time <= " + String(round(parseInt(rnaseq_success_current_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
                         //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
                     } else {
                         $('#failure').show();
-                        console.log("ERROR CODE = " + response_rnaseq['status'] + " returned for " + locus + " RNA-Seq data.");
+                        console.log("ERROR CODE = " + response_rnaseq['status'] + " returned for " + locus + " RNA-Seq data on " + response_rnaseq['record'] + ".");
                     }
 
                     var r = [];
@@ -665,7 +677,14 @@ function rnaseq_images(status) {
                     //console.log("\tdumpJSON(" + response_rnaseq['status'] + ", \"" + response_rnaseq['locus'] + "\", " + response_rnaseq['variant'] + ", " + response_rnaseq['chromosome'] + ", " + response_rnaseq['start'] + ", " + response_rnaseq['end'] + ", \"" + response_rnaseq['record'] + "\", \"" + response_rnaseq['tissue'] + "\", \"" + response_rnaseq['rnaseqbase64'] + "\", " + response_rnaseq['reads_mapped_to_locus'] + ", " + response_rnaseq['absolute-fpkm'] + ", \"" + response_rnaseq['r'] + "\")");
 
                     // find the correct row and update coverage image, and stats info
+                    /*
+                    if (response_rnaseq['record'] == null || response_rnaseq['record'] == undefined) {
+                      document.getElementById(currentSRA + '_rnaseq_img').src = 'cgi-bin/img/error.png';
+                      console.log("Error in generating image for: " + currentSRA);
+                    }
+                    */
                     document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
+                    rnaseq_change += 1;
                     document.getElementById(response_rnaseq['record'] + '_pcc').innerHTML = r[0];
                     document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
 
@@ -681,6 +700,12 @@ function rnaseq_images(status) {
                     // TODO: Need a map of record to svg subunits
 
                     // Colour SVG by Absolute RPKM
+                    /*
+                    if (response_rnaseq['record'] == null || response_rnaseq['record'] == undefined) {
+                      // document.getElementById(sraNum + '_rnaseq_img').src = 'cgi-bin/img/error.png';
+                      console.log("Error in generating image for: " + currentSRA);
+                    }
+                    */
                     colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'], 'abs');
 
                     if (rnaseq_success == count_bam_entries_in_xml || rnaseq_success % 10 == 0) {
@@ -711,8 +736,239 @@ window.setInterval(function(){
 }, 50);
 */
 
+
+/* Checking subunit matches tissue */
+function checkSubunit(svg, subunit) {
+  if (svg = "10_Day_old_Seedling") {
+    if (subunit != "all" || subunit != "root" || subunit != "shoot") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "15_Day_old_Seedling") {
+    if (subunit != "all" || subunit != "root" || subunit != "shoot") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Etiolated_seedling") {
+    if (subunit != "etiolatedseedling") {
+      return "etiolatedseedling";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Flower") {
+    if (subunit != "flower" || subunit != "receptacle") {
+      return "flower";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Carpel_petals_stamen_and_sepals") {
+    if (subunit != "all" || subunit != "petals" || subunit != "stamen" || subunit != "sepals" || subunit != "carpels") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Germinating_seed") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Internode") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "leaf") {
+    if (subunit != "leaf") {
+      return "leaf";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Full_leaf") {
+    if (subunit != "all" || subunit != "lamina" || subunit != "petiole" || subunit != "veins") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Pollen") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Roots_tip") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Rosette_Plus_Root") {
+    if (subunit != "all" || subunit != "shoot" || subunit != "root") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Seed_stage_1") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Seed_stage_5-7") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Seed_Stage_8+") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Senescent_Leaf") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Shoot_Apex_Inflorescense") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Shoot_Apex_Vegetative-Transition") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Silique_Stage_1-5") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Silique_Stage_6-10") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Stage_1-4_Leaf") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Stage_1_Flowers") {
+    if (subunit != "all" || subunit != "shoot" || subunit != "buds") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Stage_12_Bud") {
+    if (subunit != "stage12bud") {
+      return "stage12bud";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Stamen") {
+    if (subunit != "all" || subunit != "anthers" || subunit != "filament") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Stigma_and_Ovaries") {
+    if (subunit != "all" || subunit != "Stigma_tissue" || subunit != "ovaries") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Whole_Silique") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "young_Seedling") {
+    if (subunit != "all" || subunit != "root" || subunit != "hypocotyl" || subunit != "cotyledon") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg = "Other") {
+    if (subunit != "all") {
+      return "all";
+    }
+    else {
+      return subunit
+    }
+  }
+
+}
+
 /* Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make. */
 var bam_type_list = [];
+var sra_list = [];
 var drive_link_list = [];
 var numberofreads_list = [];
 var svg_part_list = [];
@@ -742,6 +998,7 @@ function populate_table(status) {
     efp_rep_2d = [];
     efp_rep_2d_title = [];
     efp_rpkm_names = [];
+    sra_list = [];
 
     // Insert table headers
     $("#thetable").append('<thead><tr>' +
@@ -775,7 +1032,9 @@ function populate_table(status) {
                 var description = $(this).attr('desc');
                 var svg = $(this).attr('svgname');
                 var svg_part = $(this).attr('svg_subunit');
+                svg_part = checkSubunit(svg, svg_part);
                 var experimentno = $(this).attr('record_number');
+                sra_list.push(experimentno);
                 svg_part_list.push([experimentno, svg_part]);
                 efp_rep_2d.push(experimentno + "_svg");
                 efp_rep_2d_title.push(title);

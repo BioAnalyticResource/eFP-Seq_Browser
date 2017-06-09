@@ -42,7 +42,7 @@ var base = [
 ].join('\r\n');
 
 var template = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\" species=\"<?channelspecies?>\">',
+  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
@@ -54,7 +54,7 @@ var template = [
 ].join('\r\n');
 
 var topXML = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationlink?>\" species=\"<?channelspecies?>\">',
+  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\">',
   '\t\t\t<controls>\n',
 ].join('\r\n');
 
@@ -111,7 +111,7 @@ function update(formatXML,v) {
     'channeltissue': $(v).find('.channeltissue').val(),
     'channelsvgname': $(v).find('.channelsvgname').val(),
     'channeltitle': $(v).find('.channeltitle').val(),
-    'channelpublicationlink': $(v).find('.channelpublicationlink').val(),
+    'channelpublicationurl': $(v).find('.channelpublicationurl').val(),
     'channelspecies': $(v).find('.channelspecies').val(),
     'channelcontrols': $(v).find('.channelcontrols').val(),
     'channelgroupwidtho': $(v).find('.channelgroupwidtho').val()
@@ -399,7 +399,7 @@ function determine_svgname(from_svg) {
     return "ath-youngSeedling.svg";
   }
   else if (from_svg == "Other") {
-    return "ath-google_material_help-ic_help_black_24px.svg";
+    return "ath-Other.svg";
   }
 };
 

@@ -44,6 +44,19 @@ function divide_matrix(data, divide_num) {
   return divdedM;
 }
 
+function calcLibsize(data, libsize) {
+  var calculating_libsize = [];
+  var og_num_rows = data[0].length;
+  for(var i=0; i<data.length; i++) {
+      var colSum = 0;
+      for(var j=0; j<og_num_rows; j++) {
+          colSum += data[i][j];
+      }
+      calculating_libsize.push(colSum);
+  }
+  return calculating_libsize
+}
+
 function calcFactorQuantile(data, libsize, p) {
   var first_y = transpose_matrix(data);
   var second_y = divide_matrix(first_y, libsize);
