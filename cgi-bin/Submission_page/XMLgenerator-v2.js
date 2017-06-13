@@ -4,12 +4,15 @@ var count_clicks = 1;
 $(function () {
     $('#GenerateButton').click(function(){
          var file_name = document.getElementById("reqxml").value.replace(/ /g, "_")
+         document.getElementById("not_filled").innerHTML = "";
          var formatXML = '';
          var filledbase = updatebase(filledbase);
+         correct_links(".sub_link");
+         correct_ReadMapCount(".readNumberClass");
          remove_outline(".reqfield");
          remove_outline_tissue(".reqtissue");
          no_null_contact();
-         if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield") && check_req_tissue(".reqtissuebutton"))  {
+         if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield") && check_req_tissue(".reqtissuebutton") && check_links(".sub_link"))  {
            $(".Entries").each(function(i,v) {formatXML +=update(formatXML, v)
              $('#ResultXml').val(filledbase + formatXML + end);
            $('#DownloadLink')
@@ -25,7 +28,11 @@ $(function () {
            if (check_req_tissue(".reqtissuebutton") == false) {
              outline_req_tissue(".reqtissuebutton");
            }
-           document.getElementById("not_filled").innerHTML = "Please fill in all red highlighted fields";
+           document.getElementById("not_filled").innerHTML += "Please fill in all red highlighted fields. ";
+           if (check_links(".bam_link") == false) {
+             outline_links(".bam_link");
+             document.getElementById("not_filled").innerHTML += "Please only use proper and valid links only. BAM Repository Links can only contain Google Drive URLs and/or Amazon AWS URLs. ";
+           }
          }
     });
 });
@@ -204,6 +211,72 @@ function resetForm() {
   hideWarning();
 }
 
+function correct_links(class_name) {
+  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+  var i;
+  var gDriveChecking = "?usp=sharing";
+  for (i = 0; i < x.length; i++) {
+    if (x[i].value.length > 0) {
+      x[i].value = x[i].value.trim();
+      if ((x[i].value.substring(0,7) == "http://" || x[i].value.substring(0,8) == "https://") == false) {
+        x[i].value = "https://" + x[i].value;
+      }
+      if (x[i].id == "bam_input") {
+        if ((x[i].value.substr(x[i].value.length - gDriveChecking.length)) == gDriveChecking) {
+          x[i].value = x[i].value.split(gDriveChecking)[0];
+        }
+      }
+    }
+  }
+}
+
+var read_num = "";
+function correct_ReadMapCount(class_name) {
+  read_num = "";
+  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+  var i;
+  var u;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].value.length > 0) {
+      x[i].value = x[i].value.trim();
+      x[i].value = only_ReadNum(x[i].value);
+    }
+  }
+}
+
+function only_ReadNum(input_string) {
+  var u;
+  read_num = "";
+  for (u = 0; u < input_string.length; u++) {
+    if (isNaN(input_string[u]) == false) {
+      read_num += input_string[u];
+    }
+  }
+  input_string = read_num;
+  input_string = Math.round(input_string);
+  return input_string;
+}
+
+function check_links(class_name) {
+  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+  var i;
+  for (i = 0; i < x.length; i++) {
+    if (x[i].id = "bam_input") {
+      if (x[i].value.length > 0) {
+        if ((x[i].value.includes("amazonaws.com/") || x[i].value.includes("drive.google.com/drive/folders/")) == true) {
+          return true;
+        }
+        else if ((x[i].value.includes("amazonaws.com/") || x[i].value.includes("drive.google.com/drive/folders/")) == false) {
+          return false;
+        }
+      }
+      else {
+        return false;
+      }
+    }
+  }
+}
+
 function check_req(class_name) {
   var filled = 0;
   var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
@@ -211,7 +284,8 @@ function check_req(class_name) {
   var i;
   for (i = 0; i < x.length; i++) {
     if (x[i].value.length > 0) {
-      filled += 1
+      x[i].value = x[i].value.trim();
+      filled += 1;
     }
   }
   if (filled == match) {
@@ -266,6 +340,31 @@ function outline_req_tissue(class_name) {
     }
   }
 };
+
+function outline_links(class_name) {
+  var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
+  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+  var i;
+  var gDriveChecking = "?usp=sharing"
+  for (i = 0; i < x.length; i++) {
+    if (x[i].id = "bam_input") {
+      if (x[i].value.length > 0) {
+        if ((x[i].value.includes("amazonaws.com/") || x[i].value.includes("drive.google.com/drive/folders/")) == true) {
+          x[i].style.borderColor = null;
+          x[i].style.boxShadow = null;
+        }
+        else if ((x[i].value.includes("amazonaws.com/") || x[i].value.includes("drive.google.com/drive/folders/")) == false){
+          x[i].style.borderColor = "#ff2626";
+          x[i].style.boxShadow = "0 0 10px #ff2626";
+        }
+      }
+      else if ((x[i].value.length <= 0) == true) {
+        x[i].style.borderColor = "#ff2626";
+        x[i].style.boxShadow = "0 0 10px #ff2626";
+      }
+    }
+  }
+}
 
 function remove_outline(class_name) {
   document.getElementById("not_filled").innerHTML = "";
