@@ -90,6 +90,7 @@ if (testmobile() == true) {
   document.getElementById("butbarborder").style.display="none";
   //document.getElementById("middle_buttons").style.display="none";
   document.getElementById("uploaddata").style.display="none";
+  document.getElementById("google_iden_login_button").style.display="none";
   document.getElementById("generatedata").style.display="none";
   document.getElementById("publicdatabase").className = document.getElementById("publicdatabase").className.replace("col-xs-4","")
   document.getElementById("eFP_button").style.display="none";
@@ -616,7 +617,8 @@ function rnaseq_images(status) {
             }
 
             else {
-              rnaseq_image_url = "http://bar.utoronto.ca/webservices/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
+              var amazon_filename = repo_list[i].split("amazonaws.com/");
+              rnaseq_image_url = "http://bar.utoronto.ca/webservices/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&amazonfile=" + amazon_filename[1] + "&tissue=";
             }
             $.ajax({
                 url: rnaseq_image_url + rnaseq_calls[i][0] + '&record=' + rnaseq_calls[i][1] + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' + yscale_input + '&status=' + status + '&struct=' + splice_variants,
@@ -976,6 +978,7 @@ var efp_rep_2d = [];
 var efp_column_count = 0;
 var efp_table_column;
 var efp_rep_2d_title = [];
+var repo_list = [];
 var efp_rpkm_names = [];
 var xmlTitleName = "";
 
@@ -999,6 +1002,7 @@ function populate_table(status) {
     efp_rep_2d_title = [];
     efp_rpkm_names = [];
     sra_list = [];
+    repo_list = [];
 
     // Insert table headers
     $("#thetable").append('<thead><tr>' +
@@ -1059,8 +1063,12 @@ function populate_table(status) {
                     }
                 }
                 var name = $(this).attr('bam_link').split("/");
+                repo_list.push($(this).attr('bam_link'));
                 if ($(this).attr('bam_type') == "Amazon AWS") {
                   var tissue = $(this).attr('bam_link').split("/")[8];
+                  if ($(this).attr('bam_link').split("/")[8] != "aerial") {
+                    tissue = undefined;
+                  }
                 };
                 var bam_type = $(this).attr('bam_type');
                 bam_type_list.push(bam_type);

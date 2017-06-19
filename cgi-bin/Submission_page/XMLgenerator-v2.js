@@ -10,9 +10,10 @@ $(function () {
          correct_links(".sub_link");
          correct_ReadMapCount(".readNumberClass");
          remove_outline(".reqfield");
+         remove_outline(".bam_link");
          remove_outline_tissue(".reqtissue");
          no_null_contact();
-         if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield") && check_req_tissue(".reqtissuebutton") && check_links(".sub_link"))  {
+         if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield") && check_req_tissue(".reqtissuebutton") && check_links(".channelbamtype", ".bam_link"))  {
            $(".Entries").each(function(i,v) {formatXML +=update(formatXML, v)
              $('#ResultXml').val(filledbase + formatXML + end);
            $('#DownloadLink')
@@ -29,8 +30,8 @@ $(function () {
              outline_req_tissue(".reqtissuebutton");
            }
            document.getElementById("not_filled").innerHTML += "Please fill in all red highlighted fields. ";
-           if (check_links(".bam_link") == false) {
-             outline_links(".bam_link");
+           if (check_links(".channelbamtype", ".bam_link") == false) {
+             outline_links(".channelbamtype", ".bam_link");
              document.getElementById("not_filled").innerHTML += "Please only use proper and valid links only. BAM Repository Links can only contain Google Drive URLs and/or Amazon AWS URLs. ";
            }
          }
@@ -232,7 +233,6 @@ function correct_links(class_name) {
 
 var read_num = "";
 function correct_ReadMapCount(class_name) {
-  read_num = "";
   var x = document.getElementById("Entries_all").querySelectorAll(class_name);
   var i;
   var u;
@@ -257,12 +257,41 @@ function only_ReadNum(input_string) {
   return input_string;
 }
 
-function check_links(class_name) {
-  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+function check_links(bam_name, repo_name) {
+  var repo_match = document.getElementById("Entries_all").querySelectorAll(repo_name).length;
+  var x = document.getElementById("Entries_all").querySelectorAll(repo_name);
+  var bam_x = document.getElementById("Entries_all").querySelectorAll(bam_name);
   var i;
   for (i = 0; i < x.length; i++) {
     if (x[i].id = "bam_input") {
       if (x[i].value.length > 0) {
+        if (bam_x[i].value == "Google Drive") {
+          if ((x[i].value.includes("drive.google.com/drive/folders/")) == true) {
+            return true;
+          }
+          else if ((x[i].value.includes("drive.google.com/drive/folders/")) == false) {
+            return false;
+          }
+          else {
+            return false;
+          }
+        }
+        else if (bam_x[i].value == "Amazon AWS") {
+          if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == true) {
+            return true;
+          }
+          else if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == false) {
+            return false;
+          }
+          else {
+            return false;
+          }
+        }
+        else {
+          return false;
+        }
+
+
         if ((x[i].value.includes("amazonaws.com/") || x[i].value.includes("drive.google.com/drive/folders/")) == true) {
           return true;
         }
@@ -341,28 +370,62 @@ function outline_req_tissue(class_name) {
   }
 };
 
-function outline_links(class_name) {
-  var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
-  var x = document.getElementById("Entries_all").querySelectorAll(class_name);
+function outline_links(bam_name, repo_name) {
+  var repo_match = document.getElementById("Entries_all").querySelectorAll(repo_name).length;
+  var x = document.getElementById("Entries_all").querySelectorAll(repo_name);
+  var bam_x = document.getElementById("Entries_all").querySelectorAll(bam_name);
   var i;
-  var gDriveChecking = "?usp=sharing"
-  for (i = 0; i < x.length; i++) {
+  for (i = 0; i < repo_match; i++) {
     if (x[i].id = "bam_input") {
       if (x[i].value.length > 0) {
-        if ((x[i].value.includes("amazonaws.com/") || x[i].value.includes("drive.google.com/drive/folders/")) == true) {
-          x[i].style.borderColor = null;
-          x[i].style.boxShadow = null;
+        if (bam_x[i].value == "Google Drive") {
+          if ((x[i].value.includes("drive.google.com/drive/folders/")) == true) {
+            x[i].style.borderColor = null;
+            x[i].style.boxShadow = null;
+          }
+          else if ((x[i].value.includes("drive.google.com/drive/folders/")) == false) {
+            x[i].style.borderColor = "#ff2626";
+            x[i].style.boxShadow = "0 0 10px #ff2626";
+          }
+          else {
+            x[i].style.borderColor = "#ff2626";
+            x[i].style.boxShadow = "0 0 10px #ff2626";
+          }
         }
-        else if ((x[i].value.includes("amazonaws.com/") || x[i].value.includes("drive.google.com/drive/folders/")) == false){
+        else if (bam_x[i].value == "Amazon AWS") {
+          if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == true) {
+            x[i].style.borderColor = null;
+            x[i].style.boxShadow = null;
+          }
+          else if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == false) {
+            x[i].style.borderColor = "#ff2626";
+            x[i].style.boxShadow = "0 0 10px #ff2626";
+          }
+          else {
+            x[i].style.borderColor = "#ff2626";
+            x[i].style.boxShadow = "0 0 10px #ff2626";
+          }
+        }
+        else {
           x[i].style.borderColor = "#ff2626";
           x[i].style.boxShadow = "0 0 10px #ff2626";
         }
       }
-      else if ((x[i].value.length <= 0) == true) {
+      else {
         x[i].style.borderColor = "#ff2626";
         x[i].style.boxShadow = "0 0 10px #ff2626";
       }
     }
+  }
+}
+
+function check_amazon_for_bam(input) {
+  var checking = "accepted_hits.bam"
+  if (input.slice(-17) == checking) {
+    return true
+  }
+  else {
+    return false
   }
 }
 

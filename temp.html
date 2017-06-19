@@ -120,74 +120,8 @@
                 <!-- Options for uploading and generating data -->
                 <hr style="border: 1px solid gray; margin: 5px; " id="topbarborder"/>
                 <div class="row" id="middle_buttons">
-                  <div class="col-md-2 col-xs-2" style="padding-left: 2%;" id="uploaddata">
-                    <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();" style="margin-top:3%;" id="upload_button">Upload Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                    <div class="mdl-tooltip" for="upload_button">Upload your XML data to be visualized in eFP-Seq Browser</div>
-                    <input type="file" id="fileID" hidden accept="text/xml"/>
-
-                    <!-- Script for changing base_src and uploading XML, clienside -->
-                    <script>
-                    $(function() {
-                            $("#fileID").on('change', function() {
-                              //Get count of selected files
-                              var countFiles = $(this)[0].files.length;
-                              var imgPath = $(this)[0].value;
-                              var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
-                              var hold_xml = $("#hold-xml");
-                              hold_xml.empty();
-                              if (extn == "xml") {
-                                if (typeof(FileReader) != "undefined") {
-                                  //loop for each file selected for uploaded.
-                                  for (var i = 0; i < countFiles; i++) {
-                                    var reader = new FileReader();
-
-                                    reader.onload = function(e) {
-                                      //var data = e.target.result;
-                                      //window.alert(data);
-                                      $("<div />", {
-                                        "src": e.target.result,
-                                        "id": "newsrc"
-                                      }).appendTo(hold_xml);
-
-                                      base_src = document.getElementById("newsrc").getAttribute("src");
-                                      upload_src = document.getElementById("newsrc").getAttribute("src");
-                                      document.getElementById("uplodaed_dataset").style.display = 'block';
-                                      document.getElementById("xmldatabase").value = "Uploaded dataset";
-                                      dataset_dictionary["Uploaded dataset"] = upload_src;
-                                      //window.open(base_src);
-                                    }
-                                    hold_xml.show();
-                                    reader.readAsDataURL($(this)[0].files[i]);
-                                    progress_percent = 0;
-                                    generate_loading_screen();
-                                    count_bam_num();
-                                  }
-                                } else {
-                                  alert("This browser does not support FileReader. Please use an updated version of Internet Explorer, Google Chrome, Mozilla Firefox, that Apple one and the other one");
-                                }
-                              } else {
-                                alert("Insert valid XML only");
-                              }
-                              //count_bam_num();
-                              update_all_images(0);
-                              //setTimeout(function(){ populate_table(0); }, 3000);
-                            });
-                          });
-
-                    window.setInterval(function(){
-                      if (base_src != 'cgi-bin/data/bamdata_amazon_links.xml') {
-                        send_null_count = 0;
-                        count_bam_num();
-                      }
-                    }, 500); // Need to find alternative to calling every 0.5 seconds
-                    </script>
-
-                    <div id="hold-xml"></div>
-                  </div>
-
-
-
-                  <div class="col-md-5 col-xs-4" style="padding-top: 0.5%;" id="publicdatabase">
+                  <div class="col-md-1 col-xs-1" id="placeholder2" style="padding-left:6.5%;"></div>
+                  <div class="col-xs-12 col-sm-12 col-md-6" style="padding-top: 0.5%;" id="publicdatabase">
                     <p class="public-rna" id="public_words">RNA-Seq Databases:
                     <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" />
                       <option value="Default data">Default data</option>
@@ -197,9 +131,7 @@
 
                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" onclick="change_dataset()"><i class="material-icons" id="send_database">input</i></button>
 
-                    <button class="mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" id="google_iden_login_button"><div class="g-signin2" data-onsuccess="onSignIn" id="google_login"></div></button><!-- Google Identity login -->
-
-                    <div class="mdl-tooltip" for="public_words">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases (to change login accounts, simply click the login button again)</div>
+                    <div class="mdl-tooltip" for="public_words">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser.</div>
                   </div>
                   <script>
                   function change_dataset() {
@@ -256,13 +188,10 @@
                     font-family: "Roboto","Helvetica","Arial",sans-serif;
                   }
                   </style>
+                  <div class="col-md-3 col-xs-3" id="placeholder1" style="padding-left:6.5%;"></div>
                   <div class="col-md-3 col-xs-3" id="eFP_button" style="padding-left:6.5%;">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#eFPModal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%" onclick="populate_efp_modal(1)">eFP Overview<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                     <div class="mdl-tooltip" for="eFP_button">See all the eFP tissue localization in one table</div>
-                  </div>
-                  <div class="col-md-2 col-xs-2" id="generatedata">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%">Generate data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                    <div class="mdl-tooltip" for="generatedata">Visualize your BAM files in the eFP-Seq Browser</div>
                   </div>
                 </div>
 
