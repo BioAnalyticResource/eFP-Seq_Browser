@@ -111,13 +111,13 @@ if (testmobile() == true) {
 // Code edited by StackOverFlow user Matthew "Treeless" Rowlandson http://stackoverflow.com/questions/42166138/css-transition-triggered-by-javascript?noredirect=1#comment71503764_42166138
 function generate_loading_screen() {
   window.setInterval(function(){
-    if (progress_percent < 99) {
+    if (progress_percent < 96) {
       document.getElementById("loading_screen").className = "loading";
       document.getElementById("body_of").className = "body_of_loading";
       $(':button').prop('disabled', true);
       $('#help_button').prop('disabled', true);
     }
-    else if (progress_percent > 99) {
+    else if (progress_percent > 96) {
       document.getElementById("loading_screen").className = "loading done_loading";
       document.getElementById("body_of").className = "body_of_loading body_of_loading_done";
       $(':button').prop('disabled', false);
@@ -584,7 +584,7 @@ function parseIntArray(arr) {
 }
 
 /* Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function */
-var rnaseq_image_url = "http://bar.utoronto.ca/webservices/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
+var rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
 var match_drive = "";
 //var testing_rnaseq_image = 0;
 var progress_percent = 0;
@@ -617,8 +617,9 @@ function rnaseq_images(status) {
             }
 
             else {
-              var amazon_filename = repo_list[i].split("amazonaws.com/");
-              rnaseq_image_url = "http://bar.utoronto.ca/webservices/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&amazonfile=" + amazon_filename[1] + "&tissue=";
+              var amazon_filename = repo_list[i].split("/");
+              rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&amazonfile=" + amazon_filename[amazon_filename.length - 1] + "&tissue=";
+              // rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
             }
             $.ajax({
                 url: rnaseq_image_url + rnaseq_calls[i][0] + '&record=' + rnaseq_calls[i][1] + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' + yscale_input + '&status=' + status + '&struct=' + splice_variants,
@@ -1066,9 +1067,11 @@ function populate_table(status) {
                 repo_list.push($(this).attr('bam_link'));
                 if ($(this).attr('bam_type') == "Amazon AWS") {
                   var tissue = $(this).attr('bam_link').split("/")[8];
+                  /*
                   if ($(this).attr('bam_link').split("/")[8] != "aerial") {
                     tissue = undefined;
                   }
+                  */
                 };
                 var bam_type = $(this).attr('bam_type');
                 bam_type_list.push(bam_type);

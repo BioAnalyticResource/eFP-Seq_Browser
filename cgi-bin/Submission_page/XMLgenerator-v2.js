@@ -420,8 +420,8 @@ function outline_links(bam_name, repo_name) {
 }
 
 function check_amazon_for_bam(input) {
-  var checking = "accepted_hits.bam"
-  if (input.slice(-17) == checking) {
+  var checking = ".bam"
+  if (input.slice(-4) == checking) {
     return true
   }
   else {
