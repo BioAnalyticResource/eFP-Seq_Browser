@@ -53,6 +53,7 @@ xhr.send( null );
 
 var send_null_count = 0;
 function count_bam_num () {
+  send_null_count = 0;
   var xhr = new XMLHttpRequest();
   var old_count = count_bam_entries_in_xml
   //send_null_count = 0;
@@ -69,7 +70,6 @@ function count_bam_num () {
       send_null_count += 1;
     }
   }
-
   document.getElementById("testing_count").innerHTML = count_bam_entries_in_xml;
 };
 
@@ -742,23 +742,23 @@ window.setInterval(function(){
 
 /* Checking subunit matches tissue */
 function checkSubunit(svg, subunit) {
-  if (svg = "10_Day_old_Seedling") {
-    if (subunit != "all" || subunit != "root" || subunit != "shoot") {
+  if (svg == "ath-10dayOldSeedling.svg") {
+    if (subunit != "all" && subunit != "root" && subunit != "shoot") {
       return "all";
     }
     else {
       return subunit
     }
   }
-  else if (svg = "15_Day_old_Seedling") {
-    if (subunit != "all" || subunit != "root" || subunit != "shoot") {
+  else if (svg == "ath-15dayOldSeedling.svg") {
+    if (subunit != "all" && subunit != "root" && subunit != "shoot") {
       return "all";
     }
     else {
       return subunit
     }
   }
-  else if (svg = "Etiolated_seedling") {
+  else if (svg == "ath-etiolatedSeedling.svg") {
     if (subunit != "etiolatedseedling") {
       return "etiolatedseedling";
     }
@@ -766,23 +766,23 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Flower") {
-    if (subunit != "flower" || subunit != "receptacle") {
+  else if (svg == "ath-Flower.svg") {
+    if (subunit != "flower" && subunit != "receptacle") {
       return "flower";
     }
     else {
       return subunit
     }
   }
-  else if (svg = "Carpel_petals_stamen_and_sepals") {
-    if (subunit != "all" || subunit != "petals" || subunit != "stamen" || subunit != "sepals" || subunit != "carpels") {
+  else if (svg == "ath-FlowerParts.svg") {
+    if (subunit != "all" && subunit != "petals" && subunit != "stamen" && subunit != "sepals" && subunit != "carpels") {
       return "all";
     }
     else {
       return subunit
     }
   }
-  else if (svg = "Germinating_seed") {
+  else if (svg == "ath-GerminatingSeed.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -790,7 +790,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Internode") {
+  else if (svg == "ath-Internode.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -798,7 +798,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "leaf") {
+  else if (svg == "ath-leaf.svg") {
     if (subunit != "leaf") {
       return "leaf";
     }
@@ -806,15 +806,15 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Full_leaf") {
-    if (subunit != "all" || subunit != "lamina" || subunit != "petiole" || subunit != "veins") {
+  else if (svg == "ath-LeafParts.svg") {
+    if (subunit != "all" && subunit != "lamina" && subunit != "petiole" && subunit != "veins") {
       return "all";
     }
     else {
       return subunit
     }
   }
-  else if (svg = "Pollen") {
+  else if (svg == "ath-Pollen.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -822,7 +822,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Roots_tip") {
+  else if (svg == "ath-RootTip.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -830,15 +830,15 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Rosette_Plus_Root") {
-    if (subunit != "all" || subunit != "shoot" || subunit != "root") {
+  else if (svg == "ath-rosettePlusRoot.svg") {
+    if (subunit != "all" && subunit != "shoot" && subunit != "root") {
       return "all";
     }
     else {
       return subunit
     }
   }
-  else if (svg = "Seed_stage_1") {
+  else if (svg == "ath-SeedStage1-4.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -846,7 +846,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Seed_stage_5-7") {
+  else if (svg == "ath-SeedStage5-7.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -854,7 +854,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Seed_Stage_8+") {
+  else if (svg == "ath-SeedStage8+.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -862,7 +862,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Senescent_Leaf") {
+  else if (svg == "ath-SenescentLeaf.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -870,7 +870,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Shoot_Apex_Inflorescense") {
+  else if (svg == "ath-ShootApexInflorescense.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -878,7 +878,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Shoot_Apex_Vegetative-Transition") {
+  else if (svg == "ath-ShootApexVegetative-Transition.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -886,7 +886,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Silique_Stage_1-5") {
+  else if (svg == "ath-SiliqueStage1-5.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -894,7 +894,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Silique_Stage_6-10") {
+  else if (svg == "ath-SiliqueStage6-10.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -902,7 +902,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Stage_1-4_Leaf") {
+  else if (svg == "ath-Stage1-4Leaf.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -910,15 +910,15 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Stage_1_Flowers") {
-    if (subunit != "all" || subunit != "shoot" || subunit != "buds") {
+  else if (svg == "ath-Stage1Flowers.svg") {
+    if (subunit != "all" && subunit != "shoot" && subunit != "buds") {
       return "all";
     }
     else {
       return subunit
     }
   }
-  else if (svg = "Stage_12_Bud") {
+  else if (svg == "ath-Stage12Bud.svg") {
     if (subunit != "stage12bud") {
       return "stage12bud";
     }
@@ -926,23 +926,23 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "Stamen") {
-    if (subunit != "all" || subunit != "anthers" || subunit != "filament") {
+  else if (svg == "ath-Stamen.svg") {
+    if (subunit != "all" && subunit != "anthers" && subunit != "filament") {
       return "all";
     }
     else {
       return subunit
     }
   }
-  else if (svg = "Stigma_and_Ovaries") {
-    if (subunit != "all" || subunit != "Stigma_tissue" || subunit != "ovaries") {
+  else if (svg == "ath-StigmaAndOvaries.svg") {
+    if (subunit != "all" && subunit != "Stigma_tissue" && subunit != "ovaries") {
       return "all";
     }
     else {
       return subunit
     }
   }
-  else if (svg = "Whole_Silique") {
+  else if (svg == "ath-WholeSilique.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -950,15 +950,15 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg = "young_Seedling") {
-    if (subunit != "all" || subunit != "root" || subunit != "hypocotyl" || subunit != "cotyledon") {
+  else if (svg == "ath-youngSeedling.svg") {
+    if (subunit != "all" && subunit != "root" && subunit != "hypocotyl" && subunit != "cotyledon") {
       return "all";
     }
     else {
       return subunit
     }
   }
-  else if (svg = "Other") {
+  else if (svg == "ath-Other.svg") {
     if (subunit != "all") {
       return "all";
     }
