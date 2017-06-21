@@ -554,7 +554,7 @@ function determine_svgname(from_svg) {
   else if (from_svg == "Stigma_and_Ovaries" || from_svg == "Stigma" || from_svg == "Ovaries") {
     return "ath-StigmaAndOvaries.svg";
   }
-  else if (from_svg == "Whole_Silique") {
+  else if (from_svg == "Whole_Silique" || from_svg == "Whole_Silique_silique" || from_svg == "Whole_Silique_seed") {
     return "ath-WholeSilique.svg";
   }
   else if (from_svg == "young_Seedling" || from_svg == "young_Seedling_root" || from_svg == "young_Seedling_hypocotyl" || from_svg == "young_Seedling_cotyledon") {

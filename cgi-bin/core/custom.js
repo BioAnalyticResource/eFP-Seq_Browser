@@ -943,7 +943,7 @@ function checkSubunit(svg, subunit) {
     }
   }
   else if (svg == "ath-WholeSilique.svg") {
-    if (subunit != "all") {
+    if (subunit != "all" && subunit != "silique" && subunit != "seed") {
       return "all";
     }
     else {
