@@ -81,22 +81,31 @@ var endingXML = [
 ].join('\r\n');
 
 var all_controls = "";
+var all_replicates = "";
 function update(formatXML,v) {
+  controlsXML = [].join('\r\n');
   all_controls = $(v).find('.channelcontrols').val().split(',');
   for (i = 0; i < all_controls.length; i++) {
+    /*
     if (all_controls[i][0] == " ") {
       all_controls[i] = all_controls[i].substr(1);
     }
+    */
+    all_controls[i] = all_controls[i].trim()
+    /*
     var allcontrolslength = all_controls[i].length - 1;
     while (all_controls[i][allcontrolslength] == " ") {
       all_controls[i] = all_controls[i].slice(0, -1);
       allcontrolslength -= 1;
     }
+    */
     controlsXML += "\t\t\t\t<bam_exp>" + all_controls[i] + "</bam_exp>\n";
   };
 
+  replicatesXML = ['\t\t\t</controls>','\t\t\t<groupwith>\n',].join('\r\n');
   all_replicates = $(v).find('.channelgroupwidtho').val().split(',');
   for (i = 0; i < all_replicates.length; i++) {
+    /*
     if (all_replicates[i][0] == " ") {
       all_replicates[i] = all_replicates[i].substr(1);
     }
@@ -105,6 +114,8 @@ function update(formatXML,v) {
       all_replicates[i] = all_replicates[i].slice(0, -1);
       all_replicateslength -= 1;
     }
+    */
+    all_replicates[i] = all_replicates[i].trim()
     replicatesXML += "\t\t\t\t<bam_exp>" + all_replicates[i] + "</bam_exp>\n";
   };
 
