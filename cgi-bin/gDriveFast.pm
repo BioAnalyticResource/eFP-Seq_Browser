@@ -15,7 +15,7 @@ our @ISA = qw(Exporter);
 our @EXPORT = qw(verifyFolder buildFileSystem getPartialFileData getFileSize systemExit);
 
 # Google API Key:
-my $apiKey = "AIzaSyAuhxum2GvwZ88oDXbHt8TNentcxc1FffQ";
+my $apiKey = "AIzaSyDxuD5HgK1H1xIvDqaKY0EMSIjc-9e7I_c";
 
 # Check if folder is real
 sub verifyFolder {
@@ -42,7 +42,7 @@ sub verifyFolder {
 		$response_code = $curl->getinfo(CURLINFO_HTTP_CODE);
 		if ($response_code == 200) {
 			$jsonData = $json->decode($response_body);
-			
+
 			# Now check if it is a google app folder
 			unless ($jsonData->{"mimeType"} eq "application/vnd.google-apps.folder") {
 				systemExit("The link provided does not look like a google drive folder.");
@@ -97,6 +97,7 @@ sub getPartialFileData {
 	my $retcode;
 	my $curl = WWW::Curl::Easy->new;
 
+	# sleep(2);
 	my $fileURL = "https://www.googleapis.com/drive/v3/files/" . $fileId. "?key=" . $apiKey . "&alt=media";
 	my $size = $buffer + $offset - 1;
 	my $range = "$offset" . "-" . $size;
@@ -123,7 +124,7 @@ sub getPartialFileData {
 	}
 }
 
-# Build the file system	
+# Build the file system
 sub buildFileSystem {
 	my ($files, $folderId) = @_;
 	my $folderListURL;
@@ -139,7 +140,7 @@ sub buildFileSystem {
 	# Check if file is not deleted and in the parent folder
 	# Note: Deleted file are retrieved if trashed = false is not set!
 	$folderListURL = "https://www.googleapis.com/drive/v3/files?q=trashed%3Dfalse+and+'" . $folderId . "'+in+parents&key=". $apiKey;
-	
+
 	# Configure curl
 	$curl->setopt(CURLOPT_URL, $folderListURL);
 	$curl->setopt(CURLOPT_WRITEDATA,\$response_body);
@@ -160,7 +161,7 @@ sub buildFileSystem {
 					$fileName = $jsonData->{"files"}[$i]{"name"};
 
 					# Mounting only accepted accepted_hits.bam and accepted_hits.bam.bai
-					next unless ($fileName eq "accepted_hits.bam" || $fileName eq "accepted_hits.bam.bai"); 
+					next unless ($fileName eq "accepted_hits.bam" || $fileName eq "accepted_hits.bam.bai");
 					$fileSize = getFileSize($jsonData->{"files"}[$i]{"id"});
 
 					# Adding
@@ -183,7 +184,7 @@ sub buildFileSystem {
 		systemExit("Error accessing Google drive folder.\n");
 	}
 
-}	
+}
 
 # Graceful exit
 sub systemExit {

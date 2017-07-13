@@ -55,6 +55,17 @@ display: none;
   filter: none;
 }
 
+.signout-button{
+  transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+}
+
+button:hover {
+  outline:none;
+  border-color:#19af06;
+  box-shadow:0 0 10px #19af06;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

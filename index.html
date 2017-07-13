@@ -152,6 +152,7 @@
                                       base_src = document.getElementById("newsrc").getAttribute("src");
                                       upload_src = document.getElementById("newsrc").getAttribute("src");
                                       document.getElementById("uplodaed_dataset").style.display = 'block';
+                                      document.getElementById("uploaded_dataset_header").style.display = 'block';
                                       document.getElementById("xmldatabase").value = "Uploaded dataset";
                                       dataset_dictionary["Uploaded dataset"] = upload_src;
                                       //window.open(base_src);
@@ -189,17 +190,22 @@
 
                   <div class="col-md-5 col-xs-4" style="padding-top: 0.5%;" id="publicdatabase">
                     <p class="public-rna" id="public_words">RNA-Seq Databases:
-                    <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" />
+                    <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" onclick="check_if_Google_login()"/>
+                      <option value="-- eFP-Seq Browser public database options --" disabled> -- eFP-Seq Browser Public Database Options -- </option>
                       <option value="Araport 11 RNA-seq data">Araport 11 RNA-seq data</option>
                       <option value="Developmental transcriptome - Klepikova et al">Developmental transcriptome - Klepikova et al</option>
+                      <option value="-- Uploaded dataset --" id="uploaded_dataset_header" disabled style="display:none;">-- Uploaded dataset --</option>
                       <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;">Uploaded dataset</option>
+                      <option value="-- Private database options --" id="private_dataset_header" disabled style="display:none;">-- Private database options --</option>
                     </select>
 
                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" onclick="change_dataset()"><i class="material-icons" id="send_database">input</i></button>
 
-                    <button class="mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" id="google_iden_login_button"><div class="g-signin2" data-onsuccess="onSignIn" id="google_login"></div></button><!-- Google Identity login -->
+                    <button class="mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" id="google_iden_login_button"><div class="g-signin2" data-onsuccess="onSignIn" id="google_login"></div></button><!-- Google Identity login Button-->
 
-                    <div class="mdl-tooltip" for="public_words">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases (to change login accounts, simply click the login button again)</div>
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab signout-button" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px; display:none; opacity: 0%;" id="google_iden_logout_button" data-toggle="modal" data-target="#logoutModal"></button> <!-- Google logged in/signout button -->
+
+                    <div class="mdl-tooltip" for="public_words">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases (to sign-out, simply click on your Google profile icon)</div>
                   </div>
                   <script>
                   function change_dataset() {
@@ -222,6 +228,17 @@
                     //setTimeout(function(){ populate_table(0); }, 3000);
                   };
 
+                  function signOut() {
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                      console.log('User signed out.');
+                      users_email = "";
+                      remove_private_database()
+                      document.getElementById("google_iden_login_button").style.display = '';
+                      document.getElementById("google_iden_logout_button").style.display = 'none';
+                    });
+                  }
+
                   var profile_image = "";
                   var users_email = "";
                   function onSignIn(googleUser) {
@@ -230,11 +247,27 @@
                     //console.log('Name: ' + profile.getName());
                     //console.log('Image URL: ' + profile.getImageUrl());
                     profile_image = profile.getImageUrl();
-                    var append_google_str = '<img src=\"' + profile_image + '\">"';
-                    document.getElementsByClassName("abcRioButtonSvgImageWithFallback")[0].innerHTML = '<img class="mdl-js-button mdl-button--fab mdl-button--mini-fab" style="margin-left: -42%; height:40px; width:40px; margin-top: -42%;" src=\"' + profile_image + '\">"';
+                    // var append_google_str = '<img src=\"' + profile_image + '\">"';
+                    document.getElementById("google_iden_logout_button").innerHTML = '<img class="mdl-js-button mdl-button--fab mdl-button--mini-fab" src=\"' + profile_image + '\">"';
                     //console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
                     users_email = profile.getEmail();
+                    check_if_Google_login();
+                    document.getElementById("google_iden_login_button").style.display = 'none';
+                    document.getElementById("google_iden_logout_button").style.display = '';
                   };
+
+                  function check_if_Google_login() {
+                    if (users_email != "") {
+                      document.getElementById("private_dataset_header").style.display = 'block';
+                    }
+                    else {
+                      remove_private_database();
+                    }
+                  }
+
+                  function remove_private_database() {
+                    document.getElementById("private_dataset_header").style.display = 'none';
+                  }
                   </script>
                   <style>
                   select {
@@ -537,6 +570,28 @@
                         </div>
                         <div class="modal-body">
                           <iframe src="cgi-bin\Submission_page.html" height="600px"></iframe>
+                        </div>
+                        <div class="modal-footer modal-footer-colour">
+                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="logoutModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" style="width: 400px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body" >
+                          <div class="table-responsive efp_modal_table">
+                              <p style="text-align: center;"> Are you sure you wish to sign-out? </p>
+                              <div style="text-align: center; padding-bottom: 3px;">
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" onclick="signOut()" data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:3%">No<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                              </div>
+                          </div>
                         </div>
                         <div class="modal-footer modal-footer-colour">
                             <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>

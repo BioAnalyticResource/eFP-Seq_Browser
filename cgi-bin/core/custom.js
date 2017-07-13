@@ -63,7 +63,7 @@ function count_bam_num () {
           count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName( "bam_file" ).length ;
           //document.getElementById("testing_code").innerHTML = count_bam_entries_in_xml;
   };
-  if (progress_percent < 100) {
+  if (progress_percent < 10) {
     var max_null_calls = (count_bam_entries_in_xml * 1.5);
     if (send_null_count < max_null_calls) {
       xhr.send(null);
@@ -604,12 +604,12 @@ function rnaseq_images(status) {
         sra_list_check = [];
         rnaseq_change = 1;
         for (var i = 0; i < count_bam_entries_in_xml; i++) {
+            var delay = i * 500;
             if (bam_type_list[i] == "Google Drive") {
               var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
               var linkString = drive_link_list[i];
               match_drive = myRegexp.exec(linkString);
-              var numberofreads_push = numberofreads_list[i]
-              rnaseq_image_url = "http://bar.utoronto.ca/webservices/eFP-Seq_Browser/cgi-bin/webservice_gdrive.cgi?numberofreads=" + numberofreads_push + "&gdrive=" + match_drive[1] + "&tissue=";
+              rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice_gdrive.cgi?numberofreads=" + numberofreads_list[i] + "&gdrive=" + match_drive[1] + "&tissue=";
               //testing_rnaseq_image += 1;
               if (splice_variants == '') {
                 splice_variants = "[{\"exon_coordinates\":[{\"exon_start\":10326918,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10330048},{\"exon_start\":10329457,\"exon_end\":10329601}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAARklEQVQ4jWNIIwYkMIAAnIvKwwLACthwCySgcBOwyaJoh5kABwjJ1FACgCEt cdj7UHC4+zBx2PtQcLiDERCHwz8fDvuyFACN3Nv0vy8+hAAAAABJRU5ErkJggg== \"},{\"exon_coordinates\":[{\"exon_start\":10326925,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329722,\"exon_end\":10330008},{\"exon_start\":10329722,\"exon_end\":10329824}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAS0lEQVQ4jWNgSyMCJDCAAJyLysMCwArYcAskoHATsMmiaIeZAAfIkgkoQqmh yCAAJJE47H0oONx9yDjsfSg43MEIiMPhnw+HfVkKAGJJyHVybZqTAAAAAElFTkSuQmCC \"},{\"exon_coordinates\":[{\"exon_start\":10327035,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329607},{\"exon_start\":10329457,\"exon_end\":10329601},{\"exon_start\":10329722,\"exon_end\":10329941}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAASklEQVQ4jWNggII0fCABVQlBDWAFbLgFElC4CdhkUbTDTIADhGRqAFSINRQV BMAVMw57HwoOdx8yDnsfCg53MALicPjnw2FflgIAMFykVMBo2gsAAAAASUVORK5CYII= \"},{\"exon_coordinates\":[{\"exon_start\":10327035,\"exon_end\":10327134},{\"exon_start\":10327109,\"exon_end\":10327134},{\"exon_start\":10327330,\"exon_end\":10327438},{\"exon_start\":10327330,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329457,\"exon_end\":10329601},{\"exon_start\":10329722,\"exon_end\":10329941}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggII0KGBABmxQwQQUJWmoPCwARTMWgQQUbgI2WRTt6O5CkkwN DYAIsYaiggC4YsZh70PB4e5DxmHvQ8HhDkZAHA7/fDjsy1IAaSZ/xYh30LgAAAAASUVORK5CYII=\"}]";
@@ -617,119 +617,128 @@ function rnaseq_images(status) {
             }
 
             else {
-              var amazon_filename = repo_list[i].split("/");
-              rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&amazonfile=" + amazon_filename[amazon_filename.length - 1] + "&tissue=";
+              // New rnaseq_image_url with BAM file name
+              //var amazon_filename = repo_list[i].split("/");
+              //rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&amazonfile=" + amazon_filename[amazon_filename.length - 1] + "&tissue=";
+
+              // New rnaseq_image_url with numberofreads
+              rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&tissue=";
+
+              // Original rnaseq_image_url
               // rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
             }
-            $.ajax({
-                url: rnaseq_image_url + rnaseq_calls[i][0] + '&record=' + rnaseq_calls[i][1] + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' + yscale_input + '&status=' + status + '&struct=' + splice_variants,
-                dataType: 'json',
-                failure: function(failure_response) {
-                    $('#failure').show();
-                    //console.log(response_rnaseq['record']);
-                },
-                success: function(response_rnaseq) {
-                    //console.log(response_rnaseq['record']);
-                    sra_list_check.push(response_rnaseq['record']);
-                    if (locus != response_rnaseq['locus']) {
-                        console.log("ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.");
-                    }
-                    // Update the progress bar
-                    if (response_rnaseq['status'] == 200) {
-                        rnaseq_success++;
-                        date_obj3 = new Date();
-                        rnaseq_success_current_time = date_obj3.getTime(); // Keep track of start time
-                        // progress_percent = rnaseq_success / count_bam_entries_in_xml * 100;
-                        progress_percent = rnaseq_change / count_bam_entries_in_xml * 100;
-                        $('div#progress').width(progress_percent + '%');
-                        document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time <= " + String(round(parseInt(rnaseq_success_current_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
-                        //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
-                    } else {
-                        $('#failure').show();
-                        console.log("ERROR CODE = " + response_rnaseq['status'] + " returned for " + locus + " RNA-Seq data on " + response_rnaseq['record'] + ".");
-                    }
+            function call_ajax(i) {
+              $.ajax({
+                  url: rnaseq_image_url + rnaseq_calls[i][0] + '&record=' + rnaseq_calls[i][1] + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' + yscale_input + '&status=' + status + '&struct=' + splice_variants,
+                  dataType: 'json',
+                  failure: function(failure_response) {
+                      $('#failure').show();
+                      //console.log(response_rnaseq['record']);
+                  },
+                  success: function(response_rnaseq) {
+                      //console.log(response_rnaseq['record']);
+                      sra_list_check.push(response_rnaseq['record']);
+                      if (locus != response_rnaseq['locus']) {
+                          console.log("ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.");
+                      }
+                      // Update the progress bar
+                      if (response_rnaseq['status'] == 200) {
+                          rnaseq_success++;
+                          date_obj3 = new Date();
+                          rnaseq_success_current_time = date_obj3.getTime(); // Keep track of start time
+                          // progress_percent = rnaseq_success / count_bam_entries_in_xml * 100;
+                          progress_percent = rnaseq_change / count_bam_entries_in_xml * 100;
+                          $('div#progress').width(progress_percent + '%');
+                          document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time <= " + String(round(parseInt(rnaseq_success_current_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
+                          //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
+                      } else {
+                          $('#failure').show();
+                          console.log("ERROR CODE = " + response_rnaseq['status'] + " returned for " + locus + " RNA-Seq data on " + response_rnaseq['record'] + ".");
+                      }
 
-                    var r = [];
-                    if (status == 2) { // Used to be 1
-                        // Finalize statistical calculations
-                        var ss_y = parseInt(response_rnaseq['ss_y']);
-                        var sum_y = parseInt(response_rnaseq['sum_y']);
-                        var ssy = parseInt(response_rnaseq['ss_y']);
-                        var sum_xy = parseIntArray(response_rnaseq['sum_xy'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
-                        var sum_x = parseIntArray(response_rnaseq['sum_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
-                        var sum_xx = parseIntArray(response_rnaseq['sum_xx'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
-                        var ss_x = parseIntArray(response_rnaseq['ss_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
-                        var ssx = parseIntArray(response_rnaseq['ss_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
-                        var n = parseInt(response_rnaseq['end']) - parseInt(response_rnaseq['start']);
-                        var sp = [];
-                        // Compute the r values for each variant
-                        for (var i = 0; i < sum_xy.length; i++) {
-                            sp.splice(i, 0, sum_xy[i] - ((sum_x[i] * sum_y) / n));
-                            r.splice(i, 0, sp[i] / (Math.sqrt(ssx[i] * ssy)));
-                        }
-                    } else {
-                        //r.push(parseIntArray(String(response_rnaseq['r']).replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(',')));
-                        r = response_rnaseq['r'];
-                        //console.log(r);
-                    }
-                    //console.log("ss_y = ", ss_y, ", sum_y = ", sum_y, ", sum_xy = ", sum_xy, ", sum_x = ", sum_x, ", sum_xx = ", sum_xx, ", ss_x = ", ss_x, ", ssx = ", ssx, ", ssy = ", ssy, ", n = ", n, ", sp = ", sp, ", ssx = ", ssx, ", ssy = ", ssy, ", r = ", r);
+                      var r = [];
+                      if (status == 2) { // Used to be 1
+                          // Finalize statistical calculations
+                          var ss_y = parseInt(response_rnaseq['ss_y']);
+                          var sum_y = parseInt(response_rnaseq['sum_y']);
+                          var ssy = parseInt(response_rnaseq['ss_y']);
+                          var sum_xy = parseIntArray(response_rnaseq['sum_xy'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
+                          var sum_x = parseIntArray(response_rnaseq['sum_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
+                          var sum_xx = parseIntArray(response_rnaseq['sum_xx'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
+                          var ss_x = parseIntArray(response_rnaseq['ss_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
+                          var ssx = parseIntArray(response_rnaseq['ss_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
+                          var n = parseInt(response_rnaseq['end']) - parseInt(response_rnaseq['start']);
+                          var sp = [];
+                          // Compute the r values for each variant
+                          for (var i = 0; i < sum_xy.length; i++) {
+                              sp.splice(i, 0, sum_xy[i] - ((sum_x[i] * sum_y) / n));
+                              r.splice(i, 0, sp[i] / (Math.sqrt(ssx[i] * ssy)));
+                          }
+                      } else {
+                          //r.push(parseIntArray(String(response_rnaseq['r']).replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(',')));
+                          r = response_rnaseq['r'];
+                          //console.log(r);
+                      }
+                      //console.log("ss_y = ", ss_y, ", sum_y = ", sum_y, ", sum_xy = ", sum_xy, ", sum_x = ", sum_x, ", sum_xx = ", sum_xx, ", ss_x = ", ss_x, ", ssx = ", ssx, ", ssy = ", ssy, ", n = ", n, ", sp = ", sp, ", ssx = ", ssx, ", ssy = ", ssy, ", r = ", r);
 
-                    // FOR CACHE PURPOSES, swap the 2nd and 3rd statements
-                    //console.log("if (record == \"" + response_rnaseq['record'] + "\"):");
-                    //console.log("\tdumpJSON(" + response_rnaseq['status'] + ", \"" + response_rnaseq['locus'] + "\", " + response_rnaseq['variant'] + ", " + response_rnaseq['chromosome'] + ", " + response_rnaseq['start'] + ", " + response_rnaseq['end'] + ", \"" + response_rnaseq['record'] + "\", \"" + response_rnaseq['tissue'] + "\", \"" + response_rnaseq['rnaseqbase64'] + "\", " + response_rnaseq['reads_mapped_to_locus'] + ", " + response_rnaseq['absolute-fpkm'] + ", " + response_rnaseq['ss_y'] + ", " + response_rnaseq['sum_y'] + ", \"" + response_rnaseq['sum_xy'] + "\", \"" + response_rnaseq['sum_x'] + "\", \"" + response_rnaseq['sum_xx'] + "\", \"" + response_rnaseq['ss_x'] + "\")");
-                    //console.log("\tdumpJSON(" + response_rnaseq['status'] + ", \"" + response_rnaseq['locus'] + "\", " + response_rnaseq['variant'] + ", " + response_rnaseq['chromosome'] + ", " + response_rnaseq['start'] + ", " + response_rnaseq['end'] + ", \"" + response_rnaseq['record'] + "\", \"" + response_rnaseq['tissue'] + "\", \"" + response_rnaseq['rnaseqbase64'] + "\", " + response_rnaseq['reads_mapped_to_locus'] + ", " + response_rnaseq['absolute-fpkm'] + ", \"" + response_rnaseq['r'] + "\")");
+                      // FOR CACHE PURPOSES, swap the 2nd and 3rd statements
+                      //console.log("if (record == \"" + response_rnaseq['record'] + "\"):");
+                      //console.log("\tdumpJSON(" + response_rnaseq['status'] + ", \"" + response_rnaseq['locus'] + "\", " + response_rnaseq['variant'] + ", " + response_rnaseq['chromosome'] + ", " + response_rnaseq['start'] + ", " + response_rnaseq['end'] + ", \"" + response_rnaseq['record'] + "\", \"" + response_rnaseq['tissue'] + "\", \"" + response_rnaseq['rnaseqbase64'] + "\", " + response_rnaseq['reads_mapped_to_locus'] + ", " + response_rnaseq['absolute-fpkm'] + ", " + response_rnaseq['ss_y'] + ", " + response_rnaseq['sum_y'] + ", \"" + response_rnaseq['sum_xy'] + "\", \"" + response_rnaseq['sum_x'] + "\", \"" + response_rnaseq['sum_xx'] + "\", \"" + response_rnaseq['ss_x'] + "\")");
+                      //console.log("\tdumpJSON(" + response_rnaseq['status'] + ", \"" + response_rnaseq['locus'] + "\", " + response_rnaseq['variant'] + ", " + response_rnaseq['chromosome'] + ", " + response_rnaseq['start'] + ", " + response_rnaseq['end'] + ", \"" + response_rnaseq['record'] + "\", \"" + response_rnaseq['tissue'] + "\", \"" + response_rnaseq['rnaseqbase64'] + "\", " + response_rnaseq['reads_mapped_to_locus'] + ", " + response_rnaseq['absolute-fpkm'] + ", \"" + response_rnaseq['r'] + "\")");
 
-                    // find the correct row and update coverage image, and stats info
-                    /*
-                    if (response_rnaseq['record'] == null || response_rnaseq['record'] == undefined) {
-                      document.getElementById(currentSRA + '_rnaseq_img').src = 'cgi-bin/img/error.png';
-                      console.log("Error in generating image for: " + currentSRA);
-                    }
-                    */
-                    document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
-                    rnaseq_change += 1;
-                    document.getElementById(response_rnaseq['record'] + '_pcc').innerHTML = r[0];
-                    document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
+                      // find the correct row and update coverage image, and stats info
+                      /*
+                      if (response_rnaseq['record'] == null || response_rnaseq['record'] == undefined) {
+                        document.getElementById(currentSRA + '_rnaseq_img').src = 'cgi-bin/img/error.png';
+                        console.log("Error in generating image for: " + currentSRA);
+                      }
+                      */
+                      document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
+                      rnaseq_change += 1;
+                      document.getElementById(response_rnaseq['record'] + '_pcc').innerHTML = r[0];
+                      document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
 
-                    // Save the abs-fpkm, and the stats numbers
-                    for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
-                        if (exp_info[ii][0] == response_rnaseq['record'] + '_svg') { // Find the correct element
-                            exp_info[ii].splice(3, 1, response_rnaseq['absolute-fpkm']);
-                            exp_info[ii].splice(5, 1, r);
-                            //console.log("Found " + response_rnaseq['record'] + " == " + exp_info[ii][0] + ".");
-                        }
-                    }
+                      // Save the abs-fpkm, and the stats numbers
+                      for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
+                          if (exp_info[ii][0] == response_rnaseq['record'] + '_svg') { // Find the correct element
+                              exp_info[ii].splice(3, 1, response_rnaseq['absolute-fpkm']);
+                              exp_info[ii].splice(5, 1, r);
+                              //console.log("Found " + response_rnaseq['record'] + " == " + exp_info[ii][0] + ".");
+                          }
+                      }
 
-                    // TODO: Need a map of record to svg subunits
+                      // TODO: Need a map of record to svg subunits
 
-                    // Colour SVG by Absolute RPKM
-                    /*
-                    if (response_rnaseq['record'] == null || response_rnaseq['record'] == undefined) {
-                      // document.getElementById(sraNum + '_rnaseq_img').src = 'cgi-bin/img/error.png';
-                      console.log("Error in generating image for: " + currentSRA);
-                    }
-                    */
-                    colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'], 'abs');
+                      // Colour SVG by Absolute RPKM
+                      /*
+                      if (response_rnaseq['record'] == null || response_rnaseq['record'] == undefined) {
+                        // document.getElementById(sraNum + '_rnaseq_img').src = 'cgi-bin/img/error.png';
+                        console.log("Error in generating image for: " + currentSRA);
+                      }
+                      */
+                      colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'], 'abs');
 
-                    if (rnaseq_success == count_bam_entries_in_xml || rnaseq_success % 10 == 0) {
-                        // Execute the colour_svgs_now() function
-                        colour_svgs_now();
-                        // Change the input box value to max absolute fpkm
-                        document.getElementById("rpkm_scale_input").value = parseInt(round(max_absolute_fpkm));
-                        // Execute the colour_svgs_now() function and use the new max absolute fpkm
-                        colour_svgs_now();
-                        if (rnaseq_success == count_bam_entries_in_xml) {
-                            date_obj4 = new Date();
-                            rnaseq_success_end_time = date_obj4.getTime(); // Keep track of start time
-                            //console.log(rnaseq_success_end_time);
-                            document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time ~= " + String(round(parseInt(rnaseq_success_end_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
-                            //console.log("**** Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_end_time - rnaseq_success_start_time)));
-                        }
-                    }
+                      if (rnaseq_success == count_bam_entries_in_xml || rnaseq_success % 10 == 0) {
+                          // Execute the colour_svgs_now() function
+                          colour_svgs_now();
+                          // Change the input box value to max absolute fpkm
+                          document.getElementById("rpkm_scale_input").value = parseInt(round(max_absolute_fpkm));
+                          // Execute the colour_svgs_now() function and use the new max absolute fpkm
+                          colour_svgs_now();
+                          if (rnaseq_success == count_bam_entries_in_xml) {
+                              date_obj4 = new Date();
+                              rnaseq_success_end_time = date_obj4.getTime(); // Keep track of start time
+                              //console.log(rnaseq_success_end_time);
+                              document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time ~= " + String(round(parseInt(rnaseq_success_end_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
+                              //console.log("**** Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_end_time - rnaseq_success_start_time)));
+                          }
+                      }
 
-                    $("#thetable").trigger("update");
-                }
-            });
+                      //$("#thetable").trigger("update");
+                  }
+              });
+            }
+            setTimeout(call_ajax(i), 1000);
         }
     } // this one
 }

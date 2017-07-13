@@ -6,7 +6,7 @@ print "Content-Type: text/html\n\n"
 ################################################################################
 # This program return the base64 of the RNA-Seq mapping coverage image.
 #
-# Authors: Asher, Priyank and Alexander
+# Authors: Asher and Priyank
 # Date: January 2016
 ################################################################################
 
@@ -287,13 +287,14 @@ def main():
 		while not (os.path.isfile(bam_file)):
 			#pass
 			currentTime = time.time()
-			if currentTime > (startTime + 180):
+			if currentTime > (startTime + 300):
 				subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + googleDrive + "_" + uniqId])
 				subprocess.call(["rm", "-rf", "/mnt/gDrive/" + googleDrive + "_" + uniqId])
 				error("Mounting timed out")
 
 
 		# Now make a image using samtools
+		# sleep(10);
 		base64img = makeImage(bam_file, "Chr" + chromosome, start, end, record, yscale)
 
 		if base64img == "FAILED":
