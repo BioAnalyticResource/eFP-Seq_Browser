@@ -20,7 +20,7 @@
 			</groupwith>
 		</bam_file>
 
-		<bam_file desc="POD.sn1, Pod of the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581897" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581897/accepted_hits.bam" total_reads_mapped="29523454" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage1-5.svg" title="Arabidopsis thaliana Pod of the senescent silique 1" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581897" species="Arabidopsis thaliana">
+		<bam_file desc="POD.sn1, Pod of the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581897" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581897/accepted_hits.bam" total_reads_mapped="29523454" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="silique" svgname="ath-WholeSilique.svg" title="Arabidopsis thaliana Pod of the senescent silique 1" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581897" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -29,7 +29,7 @@
 			</groupwith>
 		</bam_file>
 
-		<bam_file desc="SD.sn1, Seeds from the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581896" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581896/accepted_hits.bam" total_reads_mapped="36195511" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage1-5.svg" title="Arabidopsis thaliana Seeds from the senescent silique 1" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581896" species="Arabidopsis thaliana">
+		<bam_file desc="SD.sn1, Seeds from the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581896" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581896/accepted_hits.bam" total_reads_mapped="36195511" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="seed" svgname="ath-WholeSilique.svg" title="Arabidopsis thaliana Seeds from the senescent silique 1" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581896" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -65,7 +65,7 @@
 			</groupwith>
 		</bam_file>
 
-		<bam_file desc="SD.d, Dry seeds." record_number="SRR3581892" hex_colour="" bam_type="Google Drive" bam_link="https://drive.google.com/drive/folders/0BzH93baaqS1BdEVTWnJod2tJRVE" total_reads_mapped="29214380" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" title="Arabidopsis thaliana Dry Seeds" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581892" species="Arabidopsis thaliana">
+		<bam_file desc="SD.d, Dry seeds." record_number="SRR3581892" hex_colour="" bam_type="Google Drive" bam_link="https://drive.google.com/drive/folders/0BzH93baaqS1BdEVTWnJod2tJRVE" total_reads_mapped="29214380" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage8+.svg" title="Arabidopsis thaliana Dry Seeds" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581892" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -641,7 +641,7 @@
 			</groupwith>
 		</bam_file>
 
-		<bam_file desc="POD.sn1, Pod of the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581736" hex_colour="" bam_type="Google Drive" bam_link="https://drive.google.com/drive/folders/0BzH93baaqS1BUEZtVEtmQThQclE" total_reads_mapped="24839123" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage1-5.svg" title="Arabidopsis thaliana Pod of the senescent silique 1" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581736" species="Arabidopsis thaliana">
+		<bam_file desc="POD.sn1, Pod of the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581736" hex_colour="" bam_type="Google Drive" bam_link="https://drive.google.com/drive/folders/0BzH93baaqS1BUEZtVEtmQThQclE" total_reads_mapped="24839123" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="silique" svgname="ath-WholeSilique.svg" title="Arabidopsis thaliana Pod of the senescent silique 1" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581736" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -650,7 +650,7 @@
 			</groupwith>
 		</bam_file>
 
-		<bam_file desc="SD.sn1, Seeds from the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581735" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581735/accepted_hits.bam" total_reads_mapped="65011968" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage1-5.svg" title="Arabidopsis thaliana Seeds from the senescent silique 1" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581735" species="Arabidopsis thaliana">
+		<bam_file desc="SD.sn1, Seeds from the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581735" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581735/accepted_hits.bam" total_reads_mapped="65011968" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="seed" svgname="ath-WholeSilique.svg" title="Arabidopsis thaliana Seeds from the senescent silique 1" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581735" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -686,7 +686,7 @@
 			</groupwith>
 		</bam_file>
 
-		<bam_file desc="SD.d, Dry seeds." record_number="SRR3581731" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581731/accepted_hits.bam" total_reads_mapped="27928371" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" title="Arabidopsis thaliana Dry Seeds" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581731" species="Arabidopsis thaliana">
+		<bam_file desc="SD.d, Dry seeds." record_number="SRR3581731" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581731/accepted_hits.bam" total_reads_mapped="27928371" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage8+.svg" title="Arabidopsis thaliana Dry Seeds" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581731" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
