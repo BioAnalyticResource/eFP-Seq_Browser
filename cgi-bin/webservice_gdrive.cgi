@@ -282,7 +282,7 @@ def main():
 		# Make S3FS filename here
 		bam_file = "/mnt/gDrive/" + googleDrive + "_" + uniqId + "/accepted_hits.bam"
 
-		# Wait unilt the file is ready, without locking up the system forever, locking system for three minutes
+		# Wait unilt the file is ready, without locking up the system forever, locking system for five minutes
 		startTime = time.time()
 		while not (os.path.isfile(bam_file)):
 			#pass
@@ -294,7 +294,6 @@ def main():
 
 
 		# Now make a image using samtools
-		# sleep(10);
 		base64img = makeImage(bam_file, "Chr" + chromosome, start, end, record, yscale)
 
 		if base64img == "FAILED":

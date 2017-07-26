@@ -92,7 +92,7 @@
 			</groupwith>
 		</bam_file>
 
-		<bam_file desc="OV.y6-7, Ovules from 6th and 7th flowers (before pollination). Sample collected at the moment of the abscission of the first flower." record_number="SRR3581889" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581889/accepted_hits.bam" total_reads_mapped="27576535" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="ovaries" svgname="ath-StigmaAndOvaries.svg" title="Arabidopsis thaliana Ovules from 6th and 7th flowers" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581889" species="Arabidopsis thaliana">
+		<bam_file desc="OV.y6-7, Ovules from 6th and 7th flowers (before pollination). Sample collected at the moment of the abscission of the first flower." record_number="SRR3581889" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581889/accepted_hits.bam" total_reads_mapped="27576535" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="Ovary_tissue" svgname="ath-StigmaAndOvaries.svg" title="Arabidopsis thaliana Ovules from 6th and 7th flowers" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581889" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -713,7 +713,7 @@
 			</groupwith>
 		</bam_file>
 
-		<bam_file desc="OV.y6-7, Ovules from 6th and 7th flowers (before pollination). Sample collected at the moment of the abscission of the first flower." record_number="SRR3581727" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581727/accepted_hits.bam" total_reads_mapped="27252357" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="ovaries" svgname="ath-StigmaAndOvaries.svg" title="Arabidopsis thaliana Ovules from 6th and 7th flowers" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581727" species="Arabidopsis thaliana">
+		<bam_file desc="OV.y6-7, Ovules from 6th and 7th flowers (before pollination). Sample collected at the moment of the abscission of the first flower." record_number="SRR3581727" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581727/accepted_hits.bam" total_reads_mapped="27252357" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="Ovary_tissue" svgname="ath-StigmaAndOvaries.svg" title="Arabidopsis thaliana Ovules from 6th and 7th flowers" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581727" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
