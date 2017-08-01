@@ -1256,7 +1256,11 @@ function populate_efp_modal(status) {
   to_be_removed_efp = [];
   for (i = 0; i < tr_of_table.length; i++) {
     var single_trs = tr_of_table[i].split('"'); // Split items so increased of having a long string, have large array
-    for (u = 0; u < single_trs.length; u++) {
+    var dislpay_loop_number = single_trs.length; // The max number of the display:none; loop so it does not go on for too long
+    if (single_trs.length >= 3) { // An if statement to make sure single_trs is longer than 4 to prevent any errors
+      display_loop_number = 3; // To check for display:none; in early parts only
+    }
+    for (u = 0; u < dislpay_loop_number; u++) {
       var single_var = single_trs[u]; // Testing purposes for debugging
       if (single_trs[u] == "display: none;") {
         to_be_removed_efp.push(i); // The index of what item needs to be removed
@@ -1275,12 +1279,20 @@ function populate_efp_modal(status) {
   filtered_2d_title = [];
   for (i = 0; i < tr_of_table.length; i++) {
     var single_trs = tr_of_table[i].split('"'); // Split items so increased of having a long string, have large array
+    var svg_loop_number = single_trs.length; // The max number of the display:none; loop so it does not go on for too long
+    if (single_trs.length >= 36) { // An if statement to make sure single_trs is longer than 35 to prevent any errors
+      svg_loop_number = 36; // To check for _svg is within the first 36 variables
+    }
     for (u = 0; u < single_trs.length; u++) {
       var single_var = single_trs[u]; // Testing purposes for debugging
       if ((single_trs[u].length > 4) && (single_trs[u].substr(single_trs[u].length - 4) == "_svg")) {
         filtered_2d.push(single_trs[u]);
         break;
       }
+    }
+    var title_loop_number = single_trs.length; // The max number of the display:none; loop so it does not go on for too long
+    if (single_trs.length >= 4) { // An if statement to make sure single_trs is longer than 4 to prevent any errors
+      title_loop_number = 4; // To check for _title in early parts only
     }
     for (u = 0; u < single_trs.length; u++) {
       var single_var = single_trs[u]; // Testing purposes for debugging
