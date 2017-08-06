@@ -20,7 +20,6 @@
     <script src="cgi-bin/core/tablesorter.js"></script>
     <script src="cgi-bin/core/tablefilter/tablefilter.js"></script>
     <script src="cgi-bin/Submission_page/XMLgenerator-v2.js"></script>
-    <script src="cgi-bin/core/xml_src_dic.js"></script>
     <script src="cgi-bin/core/tmm_normalization.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- Google Identity login -->
     <meta name="google-signin-client_id" content="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com"> <!-- Google Identity login -->
@@ -169,6 +168,7 @@
                               } else {
                                 alert("Insert valid XML only");
                               }
+                              add_user_xml_by_upload();
                               //count_bam_num();
                               update_all_images(0);
                               //setTimeout(function(){ populate_table(0); }, 3000);
@@ -208,6 +208,8 @@
                     <div class="mdl-tooltip" for="public_words">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases (to sign-out, simply click on your Google profile icon)</div>
                   </div>
                   <script>
+                  var account_inOut = 0;
+
                   function change_dataset() {
                     progress_percent = 0;
                     /*
@@ -237,6 +239,7 @@
                       document.getElementById("google_iden_login_button").style.display = '';
                       document.getElementById("google_iden_logout_button").style.display = 'none';
                     });
+                    account_inOut = 0;
                   }
 
                   var profile_image = "";
@@ -254,11 +257,13 @@
                     check_if_Google_login();
                     document.getElementById("google_iden_login_button").style.display = 'none';
                     document.getElementById("google_iden_logout_button").style.display = '';
+                    account_inOut = 1;
                   };
 
                   function check_if_Google_login() {
                     if (users_email != "") {
                       document.getElementById("private_dataset_header").style.display = 'block';
+                      get_user_XML_display();
                     }
                     else {
                       remove_private_database();

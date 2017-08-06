@@ -33,11 +33,14 @@ var svg_colouring_element = null; // the element for inserting the SVG colouring
 var gene_structure_colouring_element = null; // the element for inserting the gene structure scale legend
 
 //Used to create location for uploaded XML, clientside
-//Code taken from: http://stackoverflow.com/questions/37699927/file-not-uploading-in-file-reader
 var default_url = 'data/bamdata_amazon_links.xml';
 var base_src = 'cgi-bin/data/bamdata_amazon_links.xml';
 var upload_src = '';
-
+var dataset_dictionary = {
+  "Araport 11 RNA-seq data":'cgi-bin/data/bamdata_amazon_links.xml',
+  "Developmental transcriptome - Plant J - Sample": 'cgi-bin/data/bamdata_Developmental-transcriptome-PlantJ.xml',
+  "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
+};
 
 //Following lines are used to count and determine how many BAM entries are in the XML file
 var count_bam_entries_in_xml = 0;
@@ -126,7 +129,7 @@ function generate_loading_screen() {
     }
   }, 50);
   stop_generating_loading();
-  populate_efp_modal(1);
+  // populate_efp_modal(1); // Not needed to be called during loading
 };
 
 function stop_generating_loading() {
@@ -1524,6 +1527,138 @@ function rpkm_validation() {
     } else {
         $("#abs_scale_button").prop("disabled", true);
     }
+}
+
+var base_dataset_dictionary = {
+  "Araport 11 RNA-seq data":'cgi-bin/data/bamdata_amazon_links.xml',
+  "Developmental transcriptome - Plant J - Sample": 'cgi-bin/data/bamdata_Developmental-transcriptome-PlantJ.xml',
+  "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
+};
+
+function reset_database_options() {
+  $('.userAdded').remove();
+  dataset_dictionary = base_dataset_dictionary;
+  list_modified = false;
+}
+
+var get_xml_list_output = [];
+var user_exist = false;
+var list_modified = false;
+var check_for_change = 0;
+var xml_title;
+var match_title = {};
+var title_list = [];
+var data_list = [];
+function get_user_XML_display() {
+  // First check to make sure there is is a user logged in or else this script will not run
+  if (users_email != "" || users_email != undefined || users_email != null) {
+    $.ajax({
+      url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml_list.php?user=" + users_email,
+      dataType: 'json',
+      failure: function(get_xml_list_return) {
+  		    //get_xml_list_output = get_xml_list_return
+          console.log("ERROR! Something went wrong");
+    	},
+      success: function(get_xml_list_return) {
+          // reset all variables
+          xml_title;
+          match_title = {};
+          title_list = [];
+          data_list = [];
+          // Check if the output is working and store as variable
+  		    get_xml_list_output = get_xml_list_return
+          if (get_xml_list_output["status"] == "fail") {
+            console.log("Error code: " + get_xml_list_output["error"]);
+            user_exist = false;
+          }
+          else if (get_xml_list_output["status"] == "success") {
+            user_exist = true;
+            // Check for change in output from last time ran function
+            if (check_for_change != get_xml_list_output["files"].length) {
+              reset_database_options();
+              list_modified = false;
+            }
+            check_for_change = get_xml_list_output["files"].length;
+            // Check each file in output
+            if (get_xml_list_output["files"].length > 0) {
+              for (i = 0; i < get_xml_list_output["files"].length; i++) {
+                var xml_file;
+                xml_title;
+                xml_title = get_xml_list_output["files"][i][1];
+                // Make sure there is a title or if not, make one
+                if (xml_title == "" || xml_title == "Uploaded dataset" || xml_title == undefined || xml_title == null) {
+                  xml_title = "Uploaded dataset - Unnamed dataset";
+                }
+                title_list.push(xml_title);
+                xml_fle_name = get_xml_list_output["files"][i][0]
+                // This needed for later on
+                match_title[xml_title] = xml_fle_name;
+                // Obtain data locatio for each individual XML
+                $.ajax({
+                  url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml.php?file=" + xml_fle_name,
+                  dataType: 'json',
+                  success: function(get_xml_return) {
+                    xml_file = get_xml_return;
+                    data_list.push(xml_file["data"]);
+                  }
+                })
+              }
+            }
+            setTimeout(function() {
+              if (list_modified == false) {
+                for (i = 0; i < get_xml_list_output["files"].length; i++) {
+                  // Add data to list of accessible datasets
+                  dataset_dictionary[title_list[i]] = data_list[i];
+                  // Create option to select data from user
+                  document.getElementById("xmldatabase").innerHTML += '<option class="userAdded" value="' + title_list[i] + '" id="' + title_list[i] + '">' + title_list[i] + '</option>';
+                }
+              };
+              list_modified = true;
+            }, 1000)
+          }
+    	}
+    })
+  }
+}
+
+function add_user_xml_by_upload() {
+  get_user_XML_display(); // Updates data and determines if user_exists or now
+  // setTimeout is necessary due to xmlTitleName taking a while to be generated. Though only requires 3 seconds to obtain, setTimeout set to 4 just in case
+  setTimeout(function() {
+    if (user_exist == false) {
+      // Creates a new user if the user does not already exist
+      $.ajax({
+        method: "POST",
+        url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
+        data: {user : users_email, xml : upload_src, title: xmlTitleName}
+      })
+    }
+    else if (user_exist == true) {
+      if (dataset_dictionary[xmlTitleName] == undefined) {
+        // If the file does not already exist in the account, add it
+        $.ajax({
+          method: "POST",
+          url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
+          data: {user : users_email, xml : upload_src, title: xmlTitleName}
+        })
+      }
+      else if (dataset_dictionary[xmlTitleName] != undefined) {
+        // reset variables for get_user_XML_display
+        list_modified = false;
+        check_for_change = 0;
+        // If the file does already exist in the account, delete old and add new
+        $.ajax({
+          url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[xmlTitleName]
+        })
+        $.ajax({
+          method: "POST",
+          url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
+          data: {user : users_email, xml : upload_src, title: xmlTitleName}
+        })
+      }
+    }
+    get_user_XML_display(); // Update data again
+  }, 4000);
 }
 
 $(document).ready(function() {
