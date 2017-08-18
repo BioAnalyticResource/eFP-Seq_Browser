@@ -1661,6 +1661,56 @@ function add_user_xml_by_upload() {
   }, 4000);
 }
 
+var show_dropSelect_upload = false;
+var show_dropSelect_account = false;
+function change_dropSelect_width(id_bot, id_top, dropSelect_variable, size) {
+	if (dropSelect_variable == false) {
+		document.getElementById(id_bot).style.visibility = "visible";
+		document.getElementById(id_bot).style.width = (document.getElementById(id_top).clientWidth * size) + "px";
+		return dropSelect_variable = true;
+	}
+	else if (dropSelect_variable == true) {
+		document.getElementById(id_bot).style.visibility = "hidden";
+		return dropSelect_variable = false;
+	}
+}
+
+function which_upload_option() {
+  if (users_email != "") {
+    document.getElementById("upload_modal").click();
+  }
+  else if (users_email == "") {
+    document.getElementById("upload_logX").click();
+  }
+}
+
+function if_user_in_dropSelect() {
+  if (users_email != "") {
+    change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_account, 1.5);
+    show_dropSelect_upload = change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_account, 1.5);
+  }
+}
+
+function delete_fill() {
+  // Fills the manage XML modal with all available XMLs to delete from an account
+  $("#delete_fill").empty(); // Empties the manage XML modal every time it is loaded
+  for (i = 0; i < title_list.length; i++) {
+    // Fills the manage XML modal with available XMLs on the account
+    $("#delete_fill").append('<input type="checkbox" id="deleteBox_' + i + '" value="' + title_list[i] + '"> ' + title_list[i] + '</input><br>');
+  }
+}
+
+function delete_selectedXML() {
+  for (i = 0; i < title_list.length; i++) {
+    var deleteBox_id = "deleteBox_" + i; // Find id of what is being called
+    if (document.getElementById(deleteBox_id).checked == true) {
+      $.ajax({
+        url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
+      });
+    }
+  }
+}
+
 $(document).ready(function() {
     // On load, validate input
     locus_validation();

@@ -143,3 +143,79 @@ button:hover {
     height: 0px;
     transition: 1s ease;
 }
+
+.drop_select {
+    position: relative;
+    display: inline-block;
+}
+
+.drop_select .drop_selecttext_up {
+    width: 120px;
+    background-color: #64cc65;
+    color: #fff;
+    border-radius: 6px;
+    padding: 0 16px;
+    padding-top: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 10%;
+    opacity: 0.975;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+.drop_select .drop_selecttext_up li {
+  color: black;
+}
+
+.drop_select .drop_selecttext_up a {
+    color: black;
+    cursor: pointer;
+}
+
+.drop_select .drop_selecttext_up::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 20%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #64cc65 transparent;
+    opacity: 0.8;
+}
+
+.drop_select .drop_selecttext_ac {
+    width: 120px;
+    background-color: #64cc65;
+    color: #fff;
+    border-radius: 6px;
+    padding: 0 16px;
+    padding-top: 5px;
+    position: absolute;
+    z-index: 1;
+    right: 15%;
+    opacity: 0.975;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+.drop_select .drop_selecttext_ac li {
+  color: black;
+}
+
+.drop_select .drop_selecttext_ac a {
+    color: black;
+    cursor: pointer;
+}
+
+.drop_select .drop_selecttext_ac::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    right: 5%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #64cc65 transparent;
+    opacity: 0.8;
+}
