@@ -15,9 +15,9 @@ $(function () {
          no_null_contact();
          if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield") && check_req_tissue(".reqtissuebutton") && check_links(".channelbamtype", ".bam_link"))  {
            $(".Entries").each(function(i,v) {formatXML +=update(formatXML, v)
-             $('#ResultXml').val(filledbase + formatXML + end);
+             $('#ResultXml').val(filledbase + formatXML + existingXML + end);
            $('#DownloadLink')
-             .attr('href', 'data:text/xml;base64,' + btoa(filledbase + formatXML + end))
+             .attr('href', 'data:text/xml;base64,' + btoa(filledbase + formatXML + existingXML + end))
              .attr('download', file_name + '.xml');
            $('#generated').show();
                    });
@@ -78,6 +78,9 @@ var endingXML = [
   '\t\t\t</groupwith>',
   '\t\t</bam_file>',
   '\n'
+].join('\r\n');
+
+var existingXML = [
 ].join('\r\n');
 
 var all_controls = "";
@@ -221,6 +224,11 @@ function resetForm() {
   }
   resetLastEntryValues();
   hideWarning();
+
+  // Empty all in "Add from existing" whenever called to refresh data
+  $("#araport11XML").empty();
+  $("#klepikovaXML").empty();
+  display_add_button(false);
 }
 
 function correct_links(class_name) {
@@ -474,7 +482,6 @@ function no_null_contact() {
   }
 };
 
-
 var which_svg = "";
 var tissue_subunit = "";
 var clicked_id = "";
@@ -619,4 +626,134 @@ function showWarning() {
 function hideWarning() {
   document.getElementById("warning").className = "warning_nope";
   warningActive = "nope";
+}
+
+function retriveSRR_existing(xml, id_name) {
+  var x, xmlDoc;
+  xmlDoc = xml.responseXML;
+  x = xmlDoc.getElementsByTagName('bam_file');
+  var i;
+	for (i = 0; i < x.length; i++) {
+    $("#" + id_name).append('<input type="checkbox" class="xmlSRR_select" id="addBox' + i + '" value="' + x[i].getAttribute('record_number') + '"> ' + x[i].getAttribute('record_number') + '</input><br>');
+  }
+}
+
+var xml_url;
+function retriveSRR_call(filename) { // Unfinished
+  var accountSRR = new XMLHttpRequest();
+  accountSRR.open('GET', parent.dataset_dictionary[filename], true);
+  accountSRR.responseType = 'document';
+  accountSRR.send();
+  var new_filename = filename + "_xml";
+  setTimeout(function() {retriveSRR_existing(accountSRR, new_filename)}, 1000);
+}
+
+function update_accountAdd_options() { // Unfinished
+  if (parent.users_email != "" && parent.title_list.length > 0) {
+    document.getElementById("account_dataDisplay").removeAttribute("style");
+    for (i = 0; i < parent.title_list.length; i++) {
+      var account_SRR_var = "'"+ parent.title_list[i]+"'";
+      $("#existingDropdown_menu").append('<li style="padding-left: 3px;" onclick="openDataset(event, ' + account_SRR_var + '); display_add_button(true); display_or = true;">' + parent.title_list[i] + '</li>');
+      $("#privateDatasets").append('<div id="' + parent.title_list[i] + '" class="tabcontent"><h3>' + parent.title_list[i] + '</h3><div id="' + parent.title_list[i] + '_xml"></div></div>');
+    }
+  }
+  else {
+      document.getElementById("account_dataDisplay").style.display = "none";
+  }
+}
+
+function update_existingAdd_options() {
+  display_add_button(display_or);
+  parent.get_user_XML_display();
+
+  // Add private databases:
+  update_accountAdd_options();
+
+  // Add Araport 11 database:
+  var araport11XML = new XMLHttpRequest();
+  araport11XML.open('GET', 'http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/data/bamdata_amazon_links.xml', true);
+  araport11XML.responseType = 'document';
+  araport11XML.send();
+  setTimeout(function() {retriveSRR_existing(araport11XML, "araport11XML")}, 1000);
+
+  // Add Klepikova database:
+  var klepikovaXML = new XMLHttpRequest();
+  klepikovaXML.open('GET', 'http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/data/bamdata_Developmental_transcriptome.xml', true);
+  klepikovaXML.responseType = 'document';
+  klepikovaXML.send();
+  setTimeout(function() {retriveSRR_existing(klepikovaXML, "klepikovaXML")}, 1000);
+}
+
+var display_or = false;
+function display_add_button(display_out) {
+  if (display_out == true) {
+    document.getElementById("addToData").removeAttribute("style");
+  }
+  else if (display_out == false) {
+    document.getElementById("addToData").style.display = "none";
+  }
+}
+
+var testing;
+function retriveCONTENT_existing(xml, SRR_num) {
+  console.log("Being called?");
+  var x, xmlDoc;
+  xmlDoc = xml.responseXML;
+  x = xmlDoc.getElementsByTagName('bam_file');
+  var i;
+	for (i = 0; i < x.length; i++) {
+    if (x[i].getAttribute('record_number') == SRR_num) {
+      console.log(x[i]);
+      testing = x[i];
+      existingXML += "\t\t";
+      existingXML += x[i].outerHTML;
+      existingXML += "\n";
+    }
+  }
+}
+
+function addPublic_toExisting() {
+  console.log("Make sure its running");
+  existingXML = [].join('\r\n');
+
+  // See what Araport 11 data the user wants to add to their dataset:
+  var araport11_count = (document.getElementById("araport11XML").childElementCount)/2;
+  for (i = 0; i < araport11_count; i++) {
+    var addBox_id = "addBox" + i;
+    if (document.getElementById(addBox_id).checked == true) {
+      var araport11XML = new XMLHttpRequest();
+      araport11XML.open('GET', 'http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/data/bamdata_amazon_links.xml', true);
+      araport11XML.responseType = 'document';
+      araport11XML.send();
+      setTimeout(function() {retriveCONTENT_existing(araport11XML, document.getElementById(addBox_id).value)}, 1000);
+    }
+  }
+
+  // See what Araport 11 data the user wants to add to their dataset:
+  var klepikovaXML_count = (document.getElementById("klepikovaXML").childElementCount)/2;
+  for (i = 0; i < klepikovaXML_count; i++) {
+    var addBox_id = "addBox" + i;
+    if (document.getElementById(addBox_id).checked == true) {
+      var klepikovaXML = new XMLHttpRequest();
+      klepikovaXML.open('GET', 'http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/data/bamdata_Developmental_transcriptome.xml', true);
+      klepikovaXML.responseType = 'document';
+      klepikovaXML.send();
+      setTimeout(function() {retriveCONTENT_existing(klepikovaXML, document.getElementById(addBox_id).value)}, 1000);
+    }
+  }
+}
+
+// Taken from w3schools Tab tutorial scripts
+function openDataset(evt, datasetName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(datasetName).style.display = "block";
+    evt.currentTarget.className += " active";
 }

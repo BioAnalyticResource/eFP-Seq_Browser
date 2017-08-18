@@ -127,17 +127,24 @@ label {
 }
 
 input {
-    float:right;
     border:2px solid #dadada;
     border-radius:7px;
     padding:5px;
     margin-top:-10px;
 }
 
+input .input_right {
+    float:right;
+}
+
 input:focus {
     outline:none;
     border-color:#9ecaed;
     box-shadow:0 0 10px #9ecaed;
+}
+
+input .xmlSRR_select {
+    float:left !important;
 }
 
 select {
@@ -303,4 +310,30 @@ textarea:focus {
 
 .warning_button:hover {
   background: #9ecaed;
+}
+
+.word_overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* w3schools Tab tutorial scripts */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }

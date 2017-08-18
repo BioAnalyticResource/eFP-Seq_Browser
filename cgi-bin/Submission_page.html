@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
   <head>
     <title> Submiting your RNA-Seq data for eFP-Seq Browser</title>
@@ -15,6 +15,7 @@
     <script src="Submission_page/mrDataConverter/CSVParser.js"></script>
     <script src="Submission_page/mrDataConverter/DataGridRenderer.js"></script>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!--Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -119,7 +120,7 @@
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-xml-title">Title <span style="font-weight:bold;">*</span>
               <span class="sub_tooltip_text">Name/title of your generated data. No special characters allowed except for '-' (dash)</span></label></th>
-              <input class="channelxmltitle col-sm-8 col-xs-8 reqfield" id="reqxml" name="channelxmltitle" type="text" placeholder="Example: Analysis of 113 RNA-Seq Data collected from Experiment 3"  data-help-text="xmltitle"/>
+              <input class="channelxmltitle col-sm-8 col-xs-8 reqfield input_right" id="reqxml" name="channelxmltitle" type="text" placeholder="Example: Analysis of 113 RNA-Seq Data collected from Experiment 3"  data-help-text="xmltitle"/>
               <script>
               // Code taken from http://stackoverflow.com/questions/7144167/only-allow-english-characters-and-numbers-for-text-input
               $("#reqxml").keypress(function(event){
@@ -144,13 +145,13 @@
             <!-- Author -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-author">Author(s) <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The author(s) of the generated data. Optional if you are keeping this data private.</span></label></th>
-              <input class="channelauthor col-sm-8 col-xs-8 reqfield" id="reqauthor" name="channelauthor" type="text" placeholder="My name, my lab, paper's authors, etc..."  data-help-text="author" />
+              <input class="channelauthor col-sm-8 col-xs-8 reqfield input_right" id="reqauthor" name="channelauthor" type="text" placeholder="My name, my lab, paper's authors, etc..."  data-help-text="author" />
             </div>
 
             <!-- Contact info -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-contact">Contact info <span class="sub_tooltip_text">Optional: Your contact information regarding your data.</span></label></th>
-              <input class="channelcontact col-sm-8 col-xs-8" name="channelcontact" id="contectinfo" type="text" placeholder="An email or some form of contact."  data-help-text="contact"/>
+              <input class="channelcontact col-sm-8 col-xs-8 input_right" name="channelcontact" id="contectinfo" type="text" placeholder="An email or some form of contact."  data-help-text="contact"/>
             </div>
         </table>
       </fieldset>
@@ -165,7 +166,7 @@
             <!-- Title -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-title" >Title <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">Title for the RNA-Seq coverage.</span></label></th>
-              <input class="channeltitle col-sm-8 col-xs-8 reqfield" id="reqtitle" name="channeltitle" type="text" placeholder="Example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment"  data-help-text="title" />
+              <input class="channeltitle col-sm-8 col-xs-8 reqfield input_right" id="reqtitle" name="channeltitle" type="text" placeholder="Example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment"  data-help-text="title" />
             </div>
 
             <!-- Description -->
@@ -177,13 +178,13 @@
             <!-- Record number -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-record_number">Record number <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">A SRA's record or run number.</span></label>
-              <input class="channelrecordnumber col-sm-8 col-xs-8 reqfield" id="rec" name="channelrecordnumber" placeholder="Example: ERR274310 or SRR547531" type="text" data-help-text="record_number" />
+              <input class="channelrecordnumber col-sm-8 col-xs-8 reqfield input_right" id="rec" name="channelrecordnumber" placeholder="Example: ERR274310 or SRR547531" type="text" data-help-text="record_number" />
             </div>
 
             <!-- Hex color -->
             <div class="forminput row" hidden>
               <label class="col-sm-3 col-xs-3" for="channel-hex_color" title="Admin use, this temp">Hex color <span style="font-weight:bold;">*</span></label>
-              <input class="channelhexcolor col-sm-8 col-xs-8" name="channelhexcolor" placeholder="Alpha purposes only, will be removed later" type="text" data-help-text="record_number" />
+              <input class="channelhexcolor col-sm-8 col-xs-8 input_right" name="channelhexcolor" placeholder="Alpha purposes only, will be removed later" type="text" data-help-text="record_number" />
             </div>
 
             <!-- BAM Repository link -->
@@ -193,7 +194,7 @@
                 <option value="Google Drive">Google Drive</option>
                 <option value="Amazon AWS">Amazon AWS</option>
               </select>
-              <input class="channelbamlink col-sm-6 col-xs-6 sub_link bam_link" id="bam_input" name="channelbamlink" placeholder="Examples: https://drive.google.com/drive/folders/0B6Z4m6vl-WRucEJnaGNDdFBLNVU or http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam" type="text" data-help-text="bam_link" />
+              <input class="channelbamlink col-sm-6 col-xs-6 sub_link bam_link input_right" id="bam_input" name="channelbamlink" placeholder="Examples: https://drive.google.com/drive/folders/0B6Z4m6vl-WRucEJnaGNDdFBLNVU or http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/aerial/ERR274310/accepted_hits.bam" type="text" data-help-text="bam_link" />
               <script>
               function bamtype_placeholder() {
                 if (document.getElementById("bamtype").value == "Google Drive") {
@@ -209,19 +210,19 @@
             <!-- Publication link -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-publication_link">Publicaiton Link <span class="sub_tooltip_text">If your research has been published or referencing a research, it may be useful to link to the publication.</span></label>
-              <input class="channelpublicationlink col-sm-8 col-xs-8 sub_link" name="channelpublicationlink" id="publink" placeholder="Example: http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
+              <input class="channelpublicationlink col-sm-8 col-xs-8 sub_link input_right" name="channelpublicationlink" id="publink" placeholder="Example: http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link"/>
             </div>
 
             <!-- SRA Link -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-publication_url">Sequence Reach Archive/NCBI Link<span class="sub_tooltip_text">A link to your experiment run on the NCBI's Sequence Read Archive (SRA).</span></label>
-              <input class="channelpublicationurl col-sm-8 col-xs-8 sub_link" name="channelpublicationurl" id="sralink" placeholder="Example: http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
+              <input class="channelpublicationurl col-sm-8 col-xs-8 sub_link input_right" name="channelpublicationurl" id="sralink" placeholder="Example: http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url"/>
             </div>
 
             <!-- Total reads mapped -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-total_reads_mapped">Total Reads Mapped <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The total amount of reads mapped in your RNA-Seq data without commas</span></label>
-              <input class="channeltotalreadsmapped col-sm-8 col-xs-8 reqfield readNumberClass" id="reqread" name="channeltotalreadsmapped" placeholder="Example: 29098868" type="text" data-help-text="total_reads_mapped" />
+              <input class="channeltotalreadsmapped col-sm-8 col-xs-8 reqfield readNumberClass input_right" id="reqread" name="channeltotalreadsmapped" placeholder="Example: 29098868" type="text" data-help-text="total_reads_mapped" />
               <script>
               // Code taken from http://stackoverflow.com/questions/7144167/only-allow-english-characters-and-numbers-for-text-input
               $("#reqread").keypress(function(event){
@@ -242,7 +243,7 @@
             <!-- SVG Name -->
             <div class="forminput row" hidden>
               <label class="col-sm-3 col-xs-3 " for="channel-svgname" title="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg">SVG Name <span style="font-weight:bold;">*</span></label>
-              <input class="channelsvgname col-sm-8 col-xs-8 reqfield change_svg" id="svg1" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="sngname" />
+              <input class="channelsvgname col-sm-8 col-xs-8 reqfield change_svg input_right" id="svg1" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="sngname" />
             </div>
 
             <!-- Spcies -->
@@ -259,11 +260,11 @@
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-tissue">Tissue <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The tissue the RNA-Seq data is from.</span></label>
               <div class="btn-group col-sm-8 col-xs-8 change_div_id reqtissuediv" style="padding-left:0px; padding-right:0px;" name="tissue1" id="tissue_input">
                 <button id="tissue1" type="button" class="btn btn-default dropdown-toggle col-sm-12 col-xs-12 change_button_id reqtissuebutton" data-toggle="dropdown" name="channeltissue_false" style="text-align:left;">Tissue select </button>
-                <input class="col-sm-12 col-xs-12 change_id_tissue_subunit channeltissue reqtissue"  list="channeltissuelist" id="tissue1_subunit" name="channeltissue"type="text" style="float:inherit;" hidden>
+                <input class="col-sm-12 col-xs-12 change_id_tissue_subunit channeltissue reqtissue input_right"  list="channeltissuelist" id="tissue1_subunit" name="channeltissue"type="text" style="float:inherit;" hidden>
                 <ul class="dropdown-menu scrollable-menu col-sm-12 col-xs-12" role="menu">
                     <li>
                       <p style="margin-left:2px;"> Please click on your tissue: </p>
-                      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for tissue.." title="Tissue search" name="channeltissue" placeholder="Etiolated seedling" data-help-text="tissue">
+                      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for tissue.." title="Tissue search" name="channeltissue" placeholder="Etiolated seedling" data-help-text="tissue" class="input_right">
                       <table id="tissueTable" class="tissue_table" style="margin-left:2px; margin-right:4px;">
                         <tr>
                             <th onclick="clickclick(this.id)" id="10_Day_old_Seedling" class="tissue_box all">10 Day Old Seedling: <br>
@@ -5670,13 +5671,13 @@
             <!-- Control -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-controls">Controls<span class="sub_tooltip_text">The BAM exp number of the controls in your RNA-Seq data. Seperate controls by commas.</span></label>
-              <input class="channelcontrols col-sm-8 col-xs-8" name="channelcontrols" id="controls" placeholder="Seperate controls by commas. Example: ERR274310" type="text" data-help-text="total_controls"/>
+              <input class="channelcontrols col-sm-8 col-xs-8 input_right" name="channelcontrols" id="controls" placeholder="Seperate controls by commas. Example: ERR274310" type="text" data-help-text="total_controls"/>
             </div>
 
             <!-- Replicate control 1 -->
             <div class="forminput row">
               <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidtho">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data. Seperate controls by commas.</span></label>
-              <input class="channelgroupwidtho col-sm-8 col-xs-8" name="channelgroupwidtho" id="replicate_controls1" placeholder="Seperate controls by commas. Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
+              <input class="channelgroupwidtho col-sm-8 col-xs-8 input_right" name="channelgroupwidtho" id="replicate_controls1" placeholder="Seperate controls by commas. Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth"/>
             </div>
   	  </fieldset>
   	</div>
@@ -5692,6 +5693,8 @@
   	   <button type="button" id="CloneForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple">Add another entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
        <button type="button" onclick="DeleteSection()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Delete last entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
+       <button type="button" id="addExistingData" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;" data-toggle="modal" data-target="#existingModal" onclick="update_existingAdd_options();">Add Existing Data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
        <button type="button" id="GenerateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Generate XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
@@ -5734,7 +5737,7 @@
 
   <!-- Excel modal -->
   <div id="excelModal" class="modal fade" role="dialog" aria-labelledby="myLargeModalLabel">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog modal-lg" style="width: 80%;">
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -5743,11 +5746,65 @@
                 <div class="table-responsive">
                   <p> Once you have filled the Excel template with the data you wish to upload, copy and paste all the content in your "Fill Data" Excel sheet into the box below. </p>
                   <p> Please note, if you fill cells outside of the designated areas on the Excel sheet, it may cause an error to occur when generating your data.</p>
-                  <input class="settingsElement" type="checkbox" name="" value="" id="headersProvidedCB" checked="" hidden>
+                  <input class="settingsElement input_right" type="checkbox" name="" value="" id="headersProvidedCB" checked="" hidden>
                   <div id='converter' style="width: 100%;">
                   </div>
                   <button type="button" id="convert_to_json" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="convert_to_json()" style="margin-top:1%; margin-bottom:1%;" data-dismiss="modal">Convert data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                   <p> The following Excel converted was created using <a href="https://github.com/shancarter/Mr-Data-Converter">Shan Carter's Mr-Data-Converted</a></p>
+                </div>
+              </div>
+              <div class="modal-footer" style="background-color: #eafaea;">
+                  <button type="button" class="btn btn-default" data-dismiss="modal" id="closemodal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Existing modal -->
+  <div id="existingModal" class="modal fade" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg" style="width: 80%;">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body" style="overflow-y:inherit !important;">
+                <div class="table-responsive">
+                  <p> Choose below which datasets you would like to add to your dataset from either the "Araport 11 RNA-Seq data" or the "Developmental transcriptome - Klepikova et al" dataset</p>
+                  <p> Please select which data you would like from each dataset based on its SRR/SRA number: </p>
+                  <!-- Inspired by w3schools Tab tutorial scripts -->
+                  <div id="exstingDatasets">
+                    <div class="btn-group btn-group-justified tab" role="group" aria-label="...">
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default tablinks word_overflow" onclick="openDataset(event, 'Araport 11'); display_add_button(true); display_or = true;">Araport 11 RNA-Seq data</button>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default tablinks word_overflow" onclick="openDataset(event, 'Klepikova'); display_add_button(true); display_or = true;">Developmental transcriptome - Klepikova et al</button>
+                      </div>
+                      <div class="btn-group" role="group" id="account_dataDisplay" style="display:none;">
+                        <button type="button" class="btn btn-default dropdown-toggle tablinks word_overflow" id="account_dataTabs" data-toggle="dropdown">Private <span class="caret"></span></button>
+                        <ul class="dropdown-menu" id="existingDropdown_menu">
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div id="publicDatasets">
+                      <div id="Araport 11" class="tabcontent">
+                        <h3>Araport 11 RNA-Seq data</h3>
+                        <div id="araport11XML">
+                        </div>
+                      </div>
+
+                      <div id="Klepikova" class="tabcontent">
+                        <h3>Developmental transcriptome - Klepikova et al</h3>
+                        <div id="klepikovaXML">
+                        </div>
+                      </div>
+                    </div>
+                    <div id="privateDatasets">
+                    </div>
+                  </div>
+                  <br>
+                  <button type="button" id="addToData" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="display:none;" data-dismiss="modal" onclick="addPublic_toExisting();">Add<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                 </div>
               </div>
               <div class="modal-footer" style="background-color: #eafaea;">
