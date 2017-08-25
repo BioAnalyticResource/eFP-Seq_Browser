@@ -497,88 +497,88 @@ function clickclick(clickid) {
 };
 
 function determine_svgname(from_svg) {
-  if (from_svg == "10_Day_old_Seedling" || from_svg == "10_Day_old_Seedling_roots" || from_svg == "10_Day_old_Seedling_shoots") {
+  if (from_svg == "10_Day_old_Seedling" || from_svg == "10_Day_old_Seedling_roots" || from_svg == "10_Day_old_Seedling_shoots" || from_svg == "ath-10dayOldSeedling.svg") {
     return "ath-10dayOldSeedling.svg";
   }
-  else if (from_svg == "15_Day_old_Seedling" || from_svg == "15_Day_old_Seedling_roots" || from_svg == "15_Day_old_Seedling_shoots") {
+  else if (from_svg == "15_Day_old_Seedling" || from_svg == "15_Day_old_Seedling_roots" || from_svg == "15_Day_old_Seedling_shoots" || from_svg == "ath-15dayOldSeedling.svg") {
     return "ath-15dayOldSeedling.svg";
   }
-  else if (from_svg == "Etiolated_seedling") {
+  else if (from_svg == "Etiolated_seedling" || from_svg == "ath-etiolatedSeedling.svg") {
     return "ath-etiolatedSeedling.svg";
   }
-  else if (from_svg == "Flower" || from_svg == "Flower_receptacle") {
+  else if (from_svg == "Flower" || from_svg == "Flower_receptacle" || from_svg == "ath-Flower.svg") {
     return "ath-Flower.svg";
   }
-  else if (from_svg == "Carpel_petals_stamen_and_sepals" || from_svg == "Flowers_petals" || from_svg == "Flowres_stamen" || from_svg == "Flowers_sepals" || from_svg == "Flowers_carpel") {
+  else if (from_svg == "Carpel_petals_stamen_and_sepals" || from_svg == "Flowers_petals" || from_svg == "Flowres_stamen" || from_svg == "Flowers_sepals" || from_svg == "Flowers_carpel" || from_svg == "ath-FlowerParts.svg") {
     return "ath-FlowerParts.svg";
   }
-  else if (from_svg == "Germinating_seed") {
+  else if (from_svg == "Germinating_seed" || from_svg == "ath-GerminatingSeed.svg") {
     return "ath-GerminatingSeed.svg";
   }
-  else if (from_svg == "Internode") {
+  else if (from_svg == "Internode" || from_svg == "ath-Internode.svg") {
     return "ath-Internode.svg";
   }
-  else if (from_svg == "leaf") {
+  else if (from_svg == "leaf" || from_svg == "ath-leaf.svg") {
     return "ath-leaf.svg";
   }
-  else if (from_svg == "Full_leaf" || from_svg == "Leaf_lamina" || from_svg == "Leaf_veins" || from_svg == "Leaf_petiole") {
+  else if (from_svg == "Full_leaf" || from_svg == "Leaf_lamina" || from_svg == "Leaf_veins" || from_svg == "Leaf_petiole" || from_svg == "ath-LeafParts.svg") {
     return "ath-LeafParts.svg";
   }
-  else if (from_svg == "Pollen") {
+  else if (from_svg == "Pollen" || from_svg == "ath-Pollen.svg") {
     return "ath-Pollen.svg";
   }
-  else if (from_svg == "Roots_tip") {
+  else if (from_svg == "Roots_tip" || from_svg == "ath-RootTip.svg") {
     return "ath-RootTip.svg";
   }
-  else if (from_svg == "Rosette_shoot" || from_svg == "Rosette_Plus_Root" || from_svg == "Rosette_root") {
+  else if (from_svg == "Rosette_shoot" || from_svg == "Rosette_Plus_Root" || from_svg == "Rosette_root" || from_svg == "ath-rosettePlusRoot.svg") {
     return "ath-rosettePlusRoot.svg";
   }
-  else if (from_svg == "Seed_stage_1-4") {
+  else if (from_svg == "Seed_stage_1-4" || from_svg == "ath-SeedStage1-4.svg" ) {
     return "ath-SeedStage1-4.svg";
   }
-  else if (from_svg == "Seed_stage_5-7") {
+  else if (from_svg == "Seed_stage_5-7" || from_svg == "ath-SeedStage5-7.svg") {
     return "ath-SeedStage5-7.svg";
   }
-  else if (from_svg == "Seed_Stage_8+") {
+  else if (from_svg == "Seed_Stage_8+" || from_svg == "ath-SeedStage8+.svg") {
     return "ath-SeedStage8+.svg";
   }
-  else if (from_svg == "Senescent_Leaf") {
+  else if (from_svg == "Senescent_Leaf" || from_svg == "ath-SenescentLeaf.svg") {
     return "ath-SenescentLeaf.svg";
   }
-  else if (from_svg == "Shoot_Apex_Inflorescense") {
+  else if (from_svg == "Shoot_Apex_Inflorescense" || from_svg == "ath-ShootApexInflorescense.svg") {
     return "ath-ShootApexInflorescense.svg";
   }
-  else if (from_svg == "Shoot_Apex_Vegetative-Transition") {
+  else if (from_svg == "Shoot_Apex_Vegetative-Transition" || from_svg == "ath-ShootApexVegetative-Transition.svg") {
     return "ath-ShootApexVegetative-Transition.svg";
   }
-  else if (from_svg == "Silique_Stage_1-5") {
+  else if (from_svg == "Silique_Stage_1-5" || from_svg == "ath-SiliqueStage1-5.svg") {
     return "ath-SiliqueStage1-5.svg";
   }
-  else if (from_svg == "Silique_Stage_6-10") {
+  else if (from_svg == "Silique_Stage_6-10" || from_svg == "ath-SiliqueStage6-10.svg") {
     return "ath-SiliqueStage6-10.svg";
   }
-  else if (from_svg == "Stage_1-4_Leaf") {
+  else if (from_svg == "Stage_1-4_Leaf" || from_svg == "ath-Stage1-4Leaf.svg") {
     return "ath-Stage1-4Leaf.svg";
   }
-  else if (from_svg == "Stage_1_Flowers" || from_svg == "Stage_1_Flowers_shoot" || from_svg == "Stage_1_Flowers_buds") {
+  else if (from_svg == "Stage_1_Flowers" || from_svg == "Stage_1_Flowers_shoot" || from_svg == "Stage_1_Flowers_buds" || from_svg == "ath-Stage1Flowers.svg") {
     return "ath-Stage1Flowers.svg";
   }
-  else if (from_svg == "Stage_12_Bud") {
+  else if (from_svg == "Stage_12_Bud" || from_svg == "ath-Stage12Bud.svg") {
     return "ath-Stage12Bud.svg";
   }
-  else if (from_svg == "Stamen" || from_svg == "Stamen_anthers" || from_svg == "Stamen_filament") {
+  else if (from_svg == "Stamen" || from_svg == "Stamen_anthers" || from_svg == "Stamen_filament" || from_svg == "ath-Stamen.svg") {
     return "ath-Stamen.svg";
   }
-  else if (from_svg == "Stigma_and_Ovaries" || from_svg == "Stigma" || from_svg == "Ovaries") {
+  else if (from_svg == "Stigma_and_Ovaries" || from_svg == "Stigma" || from_svg == "Ovaries" || from_svg == "ath-StigmaAndOvaries.svg") {
     return "ath-StigmaAndOvaries.svg";
   }
-  else if (from_svg == "Whole_Silique" || from_svg == "Whole_Silique_silique" || from_svg == "Whole_Silique_seed") {
+  else if (from_svg == "Whole_Silique" || from_svg == "Whole_Silique_silique" || from_svg == "Whole_Silique_seed" || from_svg == "ath-WholeSilique.svg") {
     return "ath-WholeSilique.svg";
   }
-  else if (from_svg == "young_Seedling" || from_svg == "young_Seedling_root" || from_svg == "young_Seedling_hypocotyl" || from_svg == "young_Seedling_cotyledon") {
+  else if (from_svg == "young_Seedling" || from_svg == "young_Seedling_root" || from_svg == "young_Seedling_hypocotyl" || from_svg == "young_Seedling_cotyledon" || from_svg == "ath-youngSeedling.svg") {
     return "ath-youngSeedling.svg";
   }
-  else if (from_svg == "Other") {
+  else if (from_svg == "Other" || from_svg == "ath-Other.svg" ) {
     return "ath-Other.svg";
   }
 };

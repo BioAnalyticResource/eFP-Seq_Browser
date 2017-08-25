@@ -1,0 +1,24 @@
+{
+  "name": "tabletoCSV",
+  "main": "jquery.tabletoCSV.js",
+  "version": "0.1.0",
+  "homepage": "https://github.com/cyriac/jquery.tabletoCSV",
+  "authors": [
+    "Cyriac Thomas <me@cyriacthomas.com>"
+  ],
+  "description": "Converts html to csv file and downloads it.",
+  "keywords": [
+    "tabletocsv",
+    "csv",
+    "htmlcsv"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": { "jquery": "latest" }
+}

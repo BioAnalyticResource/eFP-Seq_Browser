@@ -8,14 +8,15 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>eFP-Seq Browser</title>
     <meta name="author" content="Priyank Purohit, Alexander Sullivan">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css">
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> <!-- Bootstrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="cgi-bin/core/tablesorter.js"></script>
     <script src="cgi-bin/core/tablefilter/tablefilter.js"></script>
@@ -26,6 +27,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.9.0/math.min.js"></script> <!-- For TMM normalization -->
     <link rel="stylesheet" href="cgi-bin/core/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- tabletoCSV tool to create an option to download XML as CSV -->
+    <script src="cgi-bin/core/tabletoCSV/jquery.tabletoCSV.js"></script>
     <!-- http://stackoverflow.com/questions/1802936/stop-all-active-ajax-requests-in-jquery -->
     <script type="text/javascript">
     $(function() {
@@ -223,7 +226,7 @@
 
                     <div class="drop_selecttext_ac" id="upload_button_text_account" style="visibility:hidden; text-align: left;" tabindex="-1">
                       <li id="upload_button" onclick="signOut(); change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 6); show_dropSelect_account = change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 6);"><a> Sign Out </a></li>
-                      <li data-toggle="modal" data-target="#logoutModal" data-upgraded=",MaterialButton,MaterialRipple" id="manageXMLs" onclick="change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 4); show_dropSelect_account = change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 4); delete_fill();"><a> Manage XMLs </a></li>
+                      <li data-toggle="modal" data-target="#logoutModal" data-upgraded=",MaterialButton,MaterialRipple" id="manageXMLs" onclick="change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 4); show_dropSelect_account = change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 4); delete_fill(); fill_tableCSV();"><a> Manage data </a></li>
                       <li style="text-align:right; list-style-type: none;" onclick="change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 6); show_dropSelect_account = change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 6);" ><a> Close </a></li>
                     </div>
 
@@ -624,22 +627,47 @@
             </div>
 
             <div id="logoutModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg" style="width: 400px;">
+                <div class="modal-dialog modal-lg" style="width: 600px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body" >
                           <div class="table-responsive efp_modal_table">
-                              <p> Which dataset would you like to delete? </p>
+                              <p> Select private dataset you wish to manage: </p>
                               <div style="padding-bottom: 3px;" id="delete_fill">
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:3%">No<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                              </div>
-                              <div style="padding-bottom: 3px;" id="submmit_delete_selectedXML">
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect modal-close" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" onclick="delete_selectedXML(); delete_fill();">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                               </div>
                               <br>
+                              <p>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="#" data-upgraded=",MaterialButton,MaterialRipple" onclick="manage_DownloadXML();">Downlaod as XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                                <a class="downloadfile" href="#" id="downloadXML"><button id="downloadXML_button" download hidden>Download file</button></a>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" onclick="download_tableCSV();">Downlaod as CSV<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"  data-upgraded=",MaterialButton,MaterialRipple" onclick="showWarning_index()">Delete XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                                <div class="warning_nope_index" id="warning_index">
+                                  <strong>Warning!</strong> Are you sure you wish to delete the selected data from your private account?
+                                  <span class="warning_button_index" onclick="hideWarning_index()" style="margin-top:3px;"> No </span>
+                                  <span class="warning_button_index modal-close" onclick="delete_selectedXML(); delete_fill();" data-dismiss="modal" style="margin-top:3px;"> Yes </span>
+                                </div>
+                              </p>
+                              <p> The following XML to CSV conversion was created using <a href="https://github.com/cyriac/jquery.tabletoCSV">Cryiac Thomas' tabletoCSV function</a></p>
+                          </div>
+                        </div>
+                        <div class="modal-footer modal-footer-colour">
+                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="hiddenModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" style="width: 600px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body" >
+                          <div id="XMLtoCSVtable">
                           </div>
                         </div>
                         <div class="modal-footer modal-footer-colour">

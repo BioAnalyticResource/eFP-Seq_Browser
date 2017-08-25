@@ -1711,6 +1711,112 @@ function delete_selectedXML() {
   }
 }
 
+var warningActive_index = "nope";
+function showWarning_index() {
+  if (warningActive_index == "nope") {
+    document.getElementById("warning_index").className = "warning_index";
+    warningActive_index = "yes";
+  }
+  else if (warningActive_index == "yes") {
+    hideWarning_index();
+  }
+}
+
+function hideWarning_index() {
+  document.getElementById("warning_index").className = "warning_nope_index";
+  warningActive_index = "nope";
+}
+
+function manage_DownloadXML() {
+  for (i = 0; i < title_list.length; i++) {
+    var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
+    if (document.getElementById(downloadBox_id).checked == true) {
+      $('#downloadXML')
+        .attr('href', dataset_dictionary[document.getElementById(downloadBox_id).value])
+        .attr('download', document.getElementById(downloadBox_id).value + '.xml');
+      document.getElementById("downloadXML_button").click();
+    }
+  }
+}
+
+var table_base = "\t\t<tr>\n\t\t\t<th>Title*</th>\n\t\t\t<th>Description*</th>\n\t\t\t<th>Record Number *</th>\n\t\t\t<th>RNA-Seq Data/BAM file repository link*</th>\n\t\t\t<th>Repository type*</th>\n\t\t\t<th>Publication Link</th>\n\t\t\t<th>SRA/NCBI Link</th>\n\t\t\t<th>Total Reads Mapped*</th>\n\t\t\t<th>Species*</th>\n\t\t\t<th>Tissue*</th>\n\t\t\t<th>Tissue subunit*</th>\n\t\t</tr>\n";
+
+function fill_tableCSV() {
+  $("#XMLtoCSVtable").empty();
+  for (i = 0; i < title_list.length; i++) {
+    var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
+    $.ajax({
+        url: dataset_dictionary[document.getElementById(downloadBox_id).value],
+        dataType: 'xml',
+        failure: function(xml_data) {
+          console.log("Failed at opening XML for conversion into a CSV file. Please contact an admin");
+        },
+        success: function(xml_data) {
+          var $xmltitle = $(xml_data).find("rnaseq_experiments");
+          $xmltitle.each(function() {
+            fileTitle = $(this).attr('xmltitle');
+            if (fileTitle == "" || fileTitle == "Uploaded dataset") {
+              fileTitle = "Uploaded dataset";
+            }
+            fileTitle = fileTitle.split(' ').join('_')
+          });
+          var $title = $(xml_data).find("bam_file");
+          var table_add = "";
+          table_add += "<table id='" + fileTitle + "'>\n\t<tbody>\n";
+          console.log(table_add);
+          table_add += "\t\t<caption>" + fileTitle + "</caption>\n";
+          console.log(table_add);
+          table_add += table_base;
+          console.log(table_add);
+          $title.each(function() {
+              table_add += "\t\t<tr>\n"
+              var title = $(this).attr('title');
+              table_add += "\t\t\t<td>" + title + "</td>\n";
+              var desc = $(this).attr('desc');
+              table_add += "\t\t\t<td>" + desc + "</td>\n";
+              var record_number = $(this).attr('record_number');
+              table_add += "\t\t\t<td>" + record_number + "</td>\n";
+              var bam_link = $(this).attr('bam_link');
+              table_add += "\t\t\t<td>" + bam_link + "</td>\n";
+              var bam_type = $(this).attr('bam_type');
+              table_add += "\t\t\t<td>" + bam_type + "</td>\n";
+              var publication_link = $(this).attr('publication_link');
+              table_add += "\t\t\t<td>" + publication_link + "</td>\n";
+              var publication_url = $(this).attr('publication_url');
+              table_add += "\t\t\t<td>" + publication_url + "</td>\n";
+              var total_reads_mapped = $(this).attr('total_reads_mapped');
+              if (total_reads_mapped == null || total_reads_mapped == "") {
+                total_reads_mapped = "1";
+              }
+              table_add += "\t\t\t<td>" + total_reads_mapped + "</td>\n";
+              var species = $(this).attr('species');
+              table_add += "\t\t\t<td>" + species + "</td>\n";
+              var svgname = $(this).attr('svgname');
+              table_add += "\t\t\t<td>" + svgname + "</td>\n";
+              var svg_subunit = $(this).attr('svg_subunit');
+              table_add += "\t\t\t<td>" + svg_subunit + "</td>\n";
+              table_add += "\t\t</tr>\n"
+          })
+          table_add += "\t</tbody>\n</table>";
+          console.log(table_add);
+          document.getElementById("XMLtoCSVtable").innerHTML += table_add;
+        }
+      })
+  }
+}
+function download_tableCSV() {
+  console.log("Running manage_DownloadCSV()");
+  for (i = 0; i < title_list.length; i++) {
+    var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
+    console.log("Checking " + downloadBox_id);
+    if (document.getElementById(downloadBox_id).checked == true) {
+      var tableTitle = document.getElementById(downloadBox_id).value.split(' ').join('_');
+      console.log("2: Launching conversion on " + tableTitle);
+      $("#" + tableTitle).tableToCSV();
+    }
+  }
+}
+
 $(document).ready(function() {
     // On load, validate input
     locus_validation();

@@ -219,3 +219,45 @@ button:hover {
     border-color: transparent transparent #64cc65 transparent;
     opacity: 0.8;
 }
+
+.warning_index {
+    padding: 20px;
+    background-color: #d62a1d;
+    color: white;
+    opacity: 100%;
+    transition: 1s ease-in-out;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-right: 2%;
+}
+
+.warning_nope_index {
+    opacity: 0;
+    height: 0px;
+    transition: 1s ease;
+}
+
+.warning_button_index {
+  float:right;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  cursor: pointer;
+  padding: 5px 13px;
+  overflow: auto;
+  border: 1px solid #018dc4;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  color: rgba(0,0,0,0.9);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: #CBE8BA;
+  -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
+  box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
+  text-shadow: 0 0 0 rgba(15,73,168,0.66) ;
+  margin-right:5px; margin-top: -5px;
+}
+
+.warning_button_index:hover {
+  background: #9ecaed;
+}
