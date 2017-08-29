@@ -50,7 +50,7 @@ var base = [
 ].join('\r\n');
 
 var template = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\">',
+  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
@@ -62,7 +62,7 @@ var template = [
 ].join('\r\n');
 
 var topXML = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\">',
+  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\">',
   '\t\t\t<controls>\n',
 ].join('\r\n');
 
@@ -129,6 +129,7 @@ function update(formatXML,v) {
     'channelbamtype': $(v).find('.channelbamtype').val(),
     'channelbamlink': $(v).find('.channelbamlink').val(),
     'channeltotalreadsmapped': $(v).find('.channeltotalreadsmapped').val(),
+    'channelreadmapmethod': $(v).find('.channelreadmapmethod').val(),
     'channelpublicationlink': $(v).find('.channelpublicationlink').val(),
     'channeltissue': $(v).find('.channeltissue').val(),
     'channelsvgname': $(v).find('.channelsvgname').val(),
@@ -202,6 +203,7 @@ function resetLastEntryValues() {
   $("input[id=publink]").last().val("");
   $("input[id=sralink]").last().val("");
   $("input[id=reqread]").last().val("");
+  $("input[id=readmapmethod]").last().val("");
   $("button[id=" + new_tissue + "]").html("Tissue select");
   $("input[id=" + new_tissue_subunit +"]").last().val("");
   $("input[id=controls]").last().val("");
@@ -600,6 +602,7 @@ function convert_to_json() {
     $("input[id=publink]").last().val(json_convert_output[i]["publication link"]);
     $("input[id=sralink]").last().val(json_convert_output[i]["sra/ncbi link"]);
     $("input[id=reqread]").last().val(json_convert_output[i]["total reads mapped*"]);
+    $("input[id=readmapmethod]").last().val(json_convert_output[i]["read map method"]);
     $("select[id=reqspecies]").last().val(json_convert_output[i]["species*"]);
     var json_svg = "svg" + (i + 1);
     $("input[id=" + json_svg + "]").last().val(determine_svgname(json_convert_output[i]["tissue*"]));

@@ -1739,7 +1739,7 @@ function manage_DownloadXML() {
   }
 }
 
-var table_base = "\t\t<tr>\n\t\t\t<th>Title*</th>\n\t\t\t<th>Description*</th>\n\t\t\t<th>Record Number *</th>\n\t\t\t<th>RNA-Seq Data/BAM file repository link*</th>\n\t\t\t<th>Repository type*</th>\n\t\t\t<th>Publication Link</th>\n\t\t\t<th>SRA/NCBI Link</th>\n\t\t\t<th>Total Reads Mapped*</th>\n\t\t\t<th>Species*</th>\n\t\t\t<th>Tissue*</th>\n\t\t\t<th>Tissue subunit*</th>\n\t\t</tr>\n";
+var table_base = "\t\t<tr>\n\t\t\t<th>Title*</th>\n\t\t\t<th>Description*</th>\n\t\t\t<th>Record Number *</th>\n\t\t\t<th>RNA-Seq Data/BAM file repository link*</th>\n\t\t\t<th>Repository type*</th>\n\t\t\t<th>Publication Link</th>\n\t\t\t<th>SRA/NCBI Link</th>\n\t\t\t<th>Total Reads Mapped*</th>\n\t\t\t<th>Read Map Method</th>\n\t\t\t<th>Species*</th>\n\t\t\t<th>Tissue*</th>\n\t\t\t<th>Tissue subunit*</th>\n\t\t</tr>\n";
 
 function fill_tableCSV() {
   $("#XMLtoCSVtable").empty();
@@ -1789,6 +1789,8 @@ function fill_tableCSV() {
                 total_reads_mapped = "1";
               }
               table_add += "\t\t\t<td>" + total_reads_mapped + "</td>\n";
+              var read_map_method = $(this).attr('read_map_method');
+              table_add += "\t\t\t<td>" + read_map_method + "</td>\n";
               var species = $(this).attr('species');
               table_add += "\t\t\t<td>" + species + "</td>\n";
               var svgname = $(this).attr('svgname');
