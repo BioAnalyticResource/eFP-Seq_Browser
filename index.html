@@ -588,6 +588,24 @@
                 </div>
             </div>
 
+            <div id="hiddenDownloadModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" style="width: 940px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body" >
+                          <div class="table-responsive efp_modal_table">
+                              <table id="hiddenDownloadModal_table" class="table"></table>
+                          </div>
+                        </div>
+                        <div class="modal-footer modal-footer-colour">
+                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div id="SubmissionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                 <div class="modal-dialog modal-lg" style="width: 940px;">
                     <div class="modal-content" style="margin-left:1%;">
@@ -640,9 +658,9 @@
                               </div>
                               <br>
                               <p>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="#" data-upgraded=",MaterialButton,MaterialRipple" onclick="manage_DownloadXML();">Downlaod as XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="#" data-upgraded=",MaterialButton,MaterialRipple" onclick="manage_DownloadXML();">Download as XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                                 <a class="downloadfile" href="#" id="downloadXML"><button id="downloadXML_button" download hidden>Download file</button></a>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" onclick="download_tableCSV();">Downlaod as CSV<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" onclick="download_XMLtableCSV();">Download as CSV<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"  data-upgraded=",MaterialButton,MaterialRipple" onclick="showWarning_index()">Delete XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                                 <div class="warning_nope_index" id="warning_index">
                                   <strong>Warning!</strong> Are you sure you wish to delete the selected data from your private account?
@@ -3200,6 +3218,7 @@
               </svg>
             </div>
 </body>
+<a id="download_button" style="cursor: pointer;"><i class="material-icons"style="position: fixed; bottom: 15px; right: 60px; border-radius:50%; background-color: #7FFF00; font-size:27px;" height="40" id="download_icon">file_download</i></a>
 <a data-toggle="modal" data-target="#myModal" id="help_button" style="cursor: help;"><img src="cgi-bin/Submission_page/Images/help2.png" id="help_icon" style="position: fixed; bottom: 10px; right: 10px;" height="40"></a>
 <!--
 <a data-toggle="modal" data-target="#eFPModal" id="eFP_button" onclick="populate_efp_modal(1)"><i class="material-icons" style="position: fixed; bottom: 15px; right: 56px;">compare</i></a>

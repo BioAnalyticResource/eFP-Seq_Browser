@@ -996,8 +996,10 @@ var efp_table_column;
 var efp_rep_2d_title = [];
 var repo_list = [];
 var efp_rpkm_names = [];
+var efp_pcc_names = [];
 var xmlTitleName = "";
 var tissue_list = [];
+var svg_pat = [];
 
 function populate_table(status) {
     // Reset values
@@ -1018,6 +1020,7 @@ function populate_table(status) {
     efp_rep_2d = [];
     efp_rep_2d_title = [];
     efp_rpkm_names = [];
+    efp_pcc_names = [];
     sra_list = [];
     repo_list = [];
     tissue_list = [];
@@ -1062,6 +1065,7 @@ function populate_table(status) {
                 efp_rep_2d.push(experimentno + "_svg");
                 efp_rep_2d_title.push(title);
                 efp_rpkm_names.push(experimentno + "_rpkm");
+                efp_pcc_names.push(experimentno + "_pcc");
                 var url = $(this).attr('publication_url');
                 var publicationid = $(this).attr('publication_link');
                 var numberofreads = $(this).attr('total_reads_mapped');
@@ -1104,6 +1108,9 @@ function populate_table(status) {
 
                 // Construct a table row <tr> element
                 var append_str = '<tr>';
+                // table_dl_str is used for downloading the table as CSV
+                var table_dl_str = "<table id='table_dl'>\n\t<tbody>\n";
+                table_dl_str += "\t\t<caption>" + document.getElementById("xmldatabase").value + "</caption>\n";
                 // Append title <td>
                 append_str += '<td style="width: 250px; font-size: 12px;" id="' + experimentno + '_title">' + title + '</td>\n';
                 // Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
@@ -1111,7 +1118,7 @@ function populate_table(status) {
                 // Append the PCC <td>
                 append_str += '<td id="' + experimentno + '_pcc' + '" class="pcc_value" style="font-size: 10px; width: 50px; ">' + -9999 + '</td>';
                 // Append the approparite SVG with place holder sorting number in front of it .. all in one <td>
-                append_str += '<td style="width:  75px;">' + '<div id="' + experimentno + '_svg' + '" width="75" height="75" style="width: 75px; height: 75px; max-width: 75px; max-height: 75px;">' + document.getElementById(svg.substring(4).replace(".svg", "_svg")).innerHTML + '</div>' + '<div class="mdl-tooltip" for="' + experimentno + '_svg' + '">' + svg.substring(4).replace(".svg", "") + '</div></td>\n';
+                append_str += '<td tag="svg_name" style="width:  75px;">' + '<div id="' + experimentno + '_svg" name="' + svg.substring(0, svg.length - 4).slice(4) + '_tissue" tag=' + svg_part + '_subtissue" width="75" height="75" style="width: 75px; height: 75px; max-width: 75px; max-height: 75px;">' + document.getElementById(svg.substring(4).replace(".svg", "_svg")).innerHTML + '</div>' + '<div class="mdl-tooltip" for="' + experimentno + '_svg' + '">' + svg.substring(4).replace(".svg", "") + '</div></td>\n';
                 // Append abs/rel RPKM
                 append_str += '<td id="' + experimentno + '_rpkm' + '" style="font-size: 10px; width: 50px; ">-9999</td>';
                 // Append the details <td>
@@ -1243,12 +1250,26 @@ var efp_length = 0;
 var efp_RPKM_values = [];
 var filtered_2d_title = [];
 var filtered_2d = [];
+var filtered_2d_id = [];
+var filtered_2d_tissue = [];
+var filtered_2d_subtissue = [];
+var filtered_2d_totalReads = [];
+var filtered_2d_PCC = [];
+var filtered_2d_rpkmNames = [];
 var tr_of_table;
 var to_be_removed_efp =[];
+var keep_loop_var = [];
+var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>ID number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t</tr>\n";
 function populate_efp_modal(status) {
   $("#eFPtable").empty();
+  $("#hiddenDownloadModal_table").empty();
   efp_table_column = '';
   efp_column_count = 0;
+  keep_loop_var = [];
+  var downlodaIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
+  downlodaIndexTable_str += "\t\t<caption>" + document.getElementById("xmldatabase").value + "</caption>\n";
+  downlodaIndexTable_str += downloadIndexTable_base;
+  downlodaIndexTable_str += "\t\t<tr>\n"
 
   // Creating new options for Filtering
   var all_of_table = document.getElementById("data_table_body").innerHTML;
@@ -1280,15 +1301,15 @@ function populate_efp_modal(status) {
   // Create arrays of SVG names and titles
   filtered_2d = [];
   filtered_2d_title = [];
+  filtered_2d_id = [];
+  filtered_2d_tissue = [];
+  filtered_2d_subtissue = [];
+  filtered_2d_totalReads = [];
+  filtered_2d_PCC = [];
+  filtered_2d_rpkmNames = [];
   for (i = 0; i < tr_of_table.length; i++) {
     var single_trs = tr_of_table[i].split('"'); // Split items so increased of having a long string, have large array
-    for (u = 0; u < single_trs.length; u++) {
-      var single_var = single_trs[u]; // Testing purposes for debugging
-      if ((single_trs[u].length > 4) && (single_trs[u].substr(single_trs[u].length - 4) == "_svg")) {
-        filtered_2d.push(single_trs[u]);
-        break;
-      }
-    }
+    // Title
     for (u = 0; u < single_trs.length; u++) {
       var single_var = single_trs[u]; // Testing purposes for debugging
       if ((single_trs[u].length > 6) && (single_trs[u].substr(single_trs[u].length - 6) == "_title")) {
@@ -1303,6 +1324,55 @@ function populate_efp_modal(status) {
         break;
       }
     }
+    // SRR/SRA number or ID number
+    for (u = 0; u < single_trs.length; u++) {
+      var single_var = single_trs[u]; // Testing purposes for debugging
+      if ((single_trs[u].length > 4) && (single_trs[u].substr(single_trs[u].length - 4) == "_svg")) {
+        filtered_2d.push(single_trs[u]);
+        filtered_2d_id.push(single_trs[u].substring(0, single_trs[u].length - 4));
+        break;
+      }
+    }
+    // Tissue
+    for (u = 0; u < single_trs.length; u++) {
+      var single_var = single_trs[u]; // Testing purposes for debugging
+      if ((single_trs[u].length > 7) && (single_trs[u].substr(single_trs[u].length - 7) == "_tissue")) {
+        filtered_2d_tissue.push(single_trs[u].substring(0, single_trs[u].length - 7));
+        break;
+      }
+    }
+    // Subtissue
+    for (u = 0; u < single_trs.length; u++) {
+      var single_var = single_trs[u]; // Testing purposes for debugging
+      if ((single_trs[u].length > 16) && (single_trs[u].substr(single_trs[u].length - 16) == "_subtissue&quot;")) {
+        filtered_2d_subtissue.push(single_trs[u].substring(0, single_trs[u].length - 16));
+        break;
+      }
+    }
+    // Total reads mapped number
+    for (u = 0; u < single_trs.length; u++) {
+      var single_var = single_trs[u]; // Testing purposes for debugging
+      if ((single_trs[u].length > 23) && (single_trs[u].substr(single_trs[u].length - 23) == ".<br>Controls: <a href=") && (single_trs[u].substr(0, 15) == ">Total reads = ")) {
+        filtered_2d_totalReads.push(single_trs[u].substr(0, single_trs[u].length - 23).substr(15));
+        break;
+      }
+    }
+    // PCC
+    for (u = 0; u < single_trs.length; u++) {
+      var single_var = single_trs[u]; // Testing purposes for debugging
+      if ((single_trs[u].length > 13) && (single_trs[u].substr(single_trs[u].length - 13) == "</td><td tag=")) {
+        filtered_2d_PCC.push(single_trs[u].substr(0, single_trs[u].length - 13).substr(1));
+        break;
+      }
+    }
+    // Filtered RPKM names
+    for (u = 0; u < single_trs.length; u++) {
+      var single_var = single_trs[u]; // Testing purposes for debugging
+      if ((single_trs[u].length > 5) && (single_trs[u].substr(single_trs[u].length - 5) == "_rpkm")) {
+        filtered_2d_rpkmNames.push(single_trs[u]);
+        break;
+      }
+    }
   }
 
   // remainder_efp = efp_rep_2d.length % 11; // Old without filter option
@@ -1311,9 +1381,9 @@ function populate_efp_modal(status) {
   efp_length = tr_of_table.length;
   efp_RPKM_values = [];
 
-  for (i = 0; i < efp_rpkm_names.length; i++) {
-    if (isNaN(parseFloat(document.getElementById(efp_rpkm_names[i]).textContent)) == false) {
-      efp_RPKM_values.push(parseFloat(document.getElementById(efp_rpkm_names[i]).textContent));
+  for (i = 0; i < filtered_2d_rpkmNames.length; i++) {
+    if (isNaN(parseFloat(document.getElementById(filtered_2d_rpkmNames[i]).textContent)) == false) {
+      efp_RPKM_values.push(parseFloat(document.getElementById(filtered_2d_rpkmNames[i]).textContent));
     }
   }
 
@@ -1763,11 +1833,11 @@ function fill_tableCSV() {
           var $title = $(xml_data).find("bam_file");
           var table_add = "";
           table_add += "<table id='" + fileTitle + "'>\n\t<tbody>\n";
-          console.log(table_add);
+          //console.log(table_add);
           table_add += "\t\t<caption>" + fileTitle + "</caption>\n";
-          console.log(table_add);
+          //console.log(table_add);
           table_add += table_base;
-          console.log(table_add);
+          //console.log(table_add);
           $title.each(function() {
               table_add += "\t\t<tr>\n"
               var title = $(this).attr('title');
@@ -1800,20 +1870,18 @@ function fill_tableCSV() {
               table_add += "\t\t</tr>\n"
           })
           table_add += "\t</tbody>\n</table>";
-          console.log(table_add);
+          //console.log(table_add);
           document.getElementById("XMLtoCSVtable").innerHTML += table_add;
         }
       })
   }
 }
-function download_tableCSV() {
-  console.log("Running manage_DownloadCSV()");
+
+function download_XMLtableCSV() {
   for (i = 0; i < title_list.length; i++) {
     var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
-    console.log("Checking " + downloadBox_id);
     if (document.getElementById(downloadBox_id).checked == true) {
       var tableTitle = document.getElementById(downloadBox_id).value.split(' ').join('_');
-      console.log("2: Launching conversion on " + tableTitle);
       $("#" + tableTitle).tableToCSV();
     }
   }
