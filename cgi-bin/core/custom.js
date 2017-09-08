@@ -1259,17 +1259,11 @@ var filtered_2d_rpkmNames = [];
 var tr_of_table;
 var to_be_removed_efp =[];
 var keep_loop_var = [];
-var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>ID number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t</tr>\n";
 function populate_efp_modal(status) {
   $("#eFPtable").empty();
-  $("#hiddenDownloadModal_table").empty();
   efp_table_column = '';
   efp_column_count = 0;
   keep_loop_var = [];
-  var downlodaIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
-  downlodaIndexTable_str += "\t\t<caption>" + document.getElementById("xmldatabase").value + "</caption>\n";
-  downlodaIndexTable_str += downloadIndexTable_base;
-  downlodaIndexTable_str += "\t\t<tr>\n"
 
   // Creating new options for Filtering
   var all_of_table = document.getElementById("data_table_body").innerHTML;
@@ -1885,6 +1879,29 @@ function download_XMLtableCSV() {
       $("#" + tableTitle).tableToCSV();
     }
   }
+}
+
+var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>ID number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t</tr>\n";
+function download_mainTableCSV() {
+  populate_efp_modal(1);
+  $("#hiddenDownloadModal_table").empty();
+  var downlodaIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
+  downlodaIndexTable_str += "\t\t<caption>" + document.getElementById("xmldatabase").value + "</caption>\n";
+  downlodaIndexTable_str += downloadIndexTable_base;
+  for (i = 0; i < filtered_2d_title.length; i++) {
+    downlodaIndexTable_str += "\t\t<tr>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_title[i] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_id[i] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_tissue[i] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_subtissue[i] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_totalReads[i] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_PCC[i] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(efp_RPKM_values[i]) + "</td>\n";
+    downlodaIndexTable_str += "\t\t</tr>\n";
+  }
+  downlodaIndexTable_str += "\t</tbody>\n</table>";
+  document.getElementById("hiddenDownloadModal_table").innerHTML += downlodaIndexTable_str;
+  $("#hiddenDownloadModal_table").tableToCSV();
 }
 
 $(document).ready(function() {
