@@ -599,6 +599,8 @@ var check_sra;
 var sra_array;
 var delay = 1000;
 var bp_length_dic = {};
+var bp_start_dic = {};
+var bp_end_dic = {};
 var mapped_reads_dic = {};
 var locus_dic = {};
 function rnaseq_images(status) {
@@ -650,6 +652,8 @@ function rnaseq_images(status) {
                       //console.log(response_rnaseq['record']);
                       sra_list_check.push(response_rnaseq['record']);
                       bp_length_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['end']) - parseFloat(response_rnaseq['start']));
+                      bp_start_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['start']));
+                      bp_end_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['end']));
                       mapped_reads_dic[response_rnaseq['record']] = response_rnaseq['reads_mapped_to_locus'];
                       locus_dic[response_rnaseq['record']] = response_rnaseq['locus'];
                       if (locus != response_rnaseq['locus']) {
@@ -1267,6 +1271,8 @@ var filtered_2d_PCC = [];
 var filtered_2d_rpkmNames = [];
 var filtered_2d_mappedReads = [];
 var filtered_2d_bpLength = [];
+var filtered_2d_bpStart = [];
+var filtered_2d_bpEnd = [];
 var filtered_2d_locus = [];
 var tr_of_table;
 var to_be_removed_efp =[];
@@ -1316,6 +1322,8 @@ function populate_efp_modal(status) {
   filtered_2d_mappedReads = [];
   filtered_2d_bpLength = [];
   filtered_2d_locus = [];
+  filtered_2d_bpStart = [];
+  filtered_2d_bpEnd = [];
   for (i = 0; i < tr_of_table.length; i++) {
     var single_trs = tr_of_table[i].split('"'); // Split items so increased of having a long string, have large array
     // Title
@@ -1342,6 +1350,8 @@ function populate_efp_modal(status) {
         filtered_2d_bpLength.push(bp_length_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
         filtered_2d_mappedReads.push(mapped_reads_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
         filtered_2d_locus.push(locus_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
+        filtered_2d_bpStart.push(bp_start_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
+        filtered_2d_bpEnd.push(bp_end_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
         break;
       }
     }
@@ -1899,7 +1909,7 @@ function download_XMLtableCSV() {
   }
 }
 
-var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>ID number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t</tr>\n";
+var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>ID number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>bp Start site</th>\n\t\t\t<th>bp End site</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t</tr>\n";
 function download_mainTableCSV() {
   populate_efp_modal(1);
   $("#hiddenDownloadModal_table").empty();
@@ -1914,6 +1924,8 @@ function download_mainTableCSV() {
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_subtissue[i] + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_locus[i] + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_bpLength[i]) + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_bpStart[i]) + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_bpEnd[i]) + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_totalReads[i] + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_mappedReads[i]) + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_PCC[i] + "</td>\n";
