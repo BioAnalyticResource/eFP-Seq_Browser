@@ -598,7 +598,13 @@ var rnaseq_change = 1;
 var check_sra;
 var sra_array;
 var delay = 1000;
+var bp_length_dic = {};
+var mapped_reads_dic = {};
+var locus_dic = {};
 function rnaseq_images(status) {
+    bp_length_dic = {};
+    mapped_reads_dic = {};
+    locus_dic = {};
     rnaseq_success = 1;
     //date_obj2 = new Date();
     //rnaseq_success_start_time = date_obj2.getTime(); // Keep track of start time
@@ -643,6 +649,9 @@ function rnaseq_images(status) {
                   success: function(response_rnaseq) {
                       //console.log(response_rnaseq['record']);
                       sra_list_check.push(response_rnaseq['record']);
+                      bp_length_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['end']) - parseFloat(response_rnaseq['start']));
+                      mapped_reads_dic[response_rnaseq['record']] = response_rnaseq['reads_mapped_to_locus'];
+                      locus_dic[response_rnaseq['record']] = response_rnaseq['locus'];
                       if (locus != response_rnaseq['locus']) {
                           console.log("ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.");
                       }
@@ -1256,6 +1265,9 @@ var filtered_2d_subtissue = [];
 var filtered_2d_totalReads = [];
 var filtered_2d_PCC = [];
 var filtered_2d_rpkmNames = [];
+var filtered_2d_mappedReads = [];
+var filtered_2d_bpLength = [];
+var filtered_2d_locus = [];
 var tr_of_table;
 var to_be_removed_efp =[];
 var keep_loop_var = [];
@@ -1301,6 +1313,9 @@ function populate_efp_modal(status) {
   filtered_2d_totalReads = [];
   filtered_2d_PCC = [];
   filtered_2d_rpkmNames = [];
+  filtered_2d_mappedReads = [];
+  filtered_2d_bpLength = [];
+  filtered_2d_locus = [];
   for (i = 0; i < tr_of_table.length; i++) {
     var single_trs = tr_of_table[i].split('"'); // Split items so increased of having a long string, have large array
     // Title
@@ -1324,6 +1339,9 @@ function populate_efp_modal(status) {
       if ((single_trs[u].length > 4) && (single_trs[u].substr(single_trs[u].length - 4) == "_svg")) {
         filtered_2d.push(single_trs[u]);
         filtered_2d_id.push(single_trs[u].substring(0, single_trs[u].length - 4));
+        filtered_2d_bpLength.push(bp_length_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
+        filtered_2d_mappedReads.push(mapped_reads_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
+        filtered_2d_locus.push(locus_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
         break;
       }
     }
@@ -1722,7 +1740,7 @@ function add_user_xml_by_upload() {
       }
     }
     get_user_XML_display(); // Update data again
-  }, 4000);
+  }, 10000);
 }
 
 var show_dropSelect_upload = false;
@@ -1881,7 +1899,7 @@ function download_XMLtableCSV() {
   }
 }
 
-var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>ID number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t</tr>\n";
+var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>ID number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t</tr>\n";
 function download_mainTableCSV() {
   populate_efp_modal(1);
   $("#hiddenDownloadModal_table").empty();
@@ -1894,7 +1912,10 @@ function download_mainTableCSV() {
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_id[i] + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_tissue[i] + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_subtissue[i] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_locus[i] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_bpLength[i]) + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_totalReads[i] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_mappedReads[i]) + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_PCC[i] + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + String(efp_RPKM_values[i]) + "</td>\n";
     downlodaIndexTable_str += "\t\t</tr>\n";
