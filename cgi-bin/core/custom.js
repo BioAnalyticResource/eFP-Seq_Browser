@@ -1753,6 +1753,7 @@ function add_user_xml_by_upload() {
   }, 10000);
 }
 
+// Though change_dropSelect_width() is not needed anymore, keeping code just incase ever used again
 var show_dropSelect_upload = false;
 var show_dropSelect_account = false;
 function change_dropSelect_width(id_bot, id_top, dropSelect_variable, size) {

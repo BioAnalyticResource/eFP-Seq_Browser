@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> <!-- Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> <!-- Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script> <!-- Bootstrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="cgi-bin/core/tablesorter.js"></script>
     <script src="cgi-bin/core/tablefilter/tablefilter.js"></script>
@@ -122,23 +123,18 @@
                 <!-- Options for uploading and generating data -->
                 <hr style="border: 1px solid gray; margin: 5px; " id="topbarborder"/>
                 <div class="row middle_buttons" id="middle_buttons">
-                  <div class="col-md-2 col-xs-2 drop_select" style="padding-left: 2%;" id="uploaddata">
-                    <!-- Old version
-                    <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();" style="margin-top:3%;" id="upload_button">Upload Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                    -->
-                    <!-- New version -->
-                    <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin dropSelect_area" data-upgraded=",MaterialButton,MaterialRipple" onclick="change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5); show_dropSelect_upload = change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5);" style="margin-top:3%;" id="custom_view">Custom Data
+                  <div class="col-md-2 col-xs-2 dropdown" style="padding-left: 2%;" id="uploaddata">
+                    <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%;" id="custom_view">Custom Data
                       <span class="mdl-button__ripple-container">
                         <span class="mdl-ripple"></span>
                       </span>
                     </button>
-                    <span class="drop_selecttext_up" id="upload_button_text" style="visibility:hidden;" tabindex="-1">
-                      <li id="upload_button" onclick="which_upload_option()"><a> Upload XML </a></li>
-                      <button id="upload_modal" data-toggle="modal" data-target="#uploadModal" hidden></button>
-                      <button id="upload_logX" onclick="document.getElementById('fileID').click(); change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5); show_dropSelect_upload = change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5);" hidden></button>
-                      <li data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple" id="generatedata" onclick="change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5); show_dropSelect_upload = change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5); get_user_XML_display();"><a> Generate XML </a></li>
-                      <li style="text-align:right; list-style-type: none;" onclick="change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5); show_dropSelect_upload = change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5);" ><a> Close </a></li>
-                    </span>
+                    <div class="dropdown-menu" style="left:auto;" aria-labelledby="custom_view">
+                      <a class="dropdown-item" style="font-size: 14px;" id="upload_button" onclick="which_upload_option()">Upload XML</a>
+                      <a class="dropdown-item" style="font-size: 14px;" data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple" id="generatedata" onclick="get_user_XML_display();">Generate XML</a>
+                    </div>
+                    <button id="upload_modal" data-toggle="modal" data-target="#uploadModal" hidden></button>
+                    <button id="upload_logX" onclick="document.getElementById('fileID').click();" hidden></button>
                     <div class="mdl-tooltip" for="generatedata">Visualize your BAM files in the eFP-Seq Browser</div>
                     <div class="mdl-tooltip" for="upload_button">Upload your XML data to be visualized in eFP-Seq Browser</div>
                     <input type="file" id="fileID" hidden accept="text/xml"/>
@@ -204,33 +200,33 @@
                     <div id="hold-xml"></div>
                   </div>
 
+                  <div class="col-md-7 col-xs-4 dropdown" style="padding-top: 0.5%; text-align: center;" id="publicdatabase">
+                    <div class="public-rna" id="public_words">RNA-Seq Databases:
+                      <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" onclick="check_if_Google_login()"/>
+                        <option value="-- eFP-Seq Browser public database options --" disabled> -- eFP-Seq Browser Public Database Options -- </option>
+                        <option value="Araport 11 RNA-seq data">Araport 11 RNA-seq data</option>
+                        <option value="Developmental transcriptome - Klepikova et al">Developmental transcriptome - Klepikova et al</option>
+                        <option value="-- Uploaded dataset --" id="uploaded_dataset_header" disabled style="display:none;">-- Uploaded dataset --</option>
+                        <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;">Uploaded dataset</option>
+                        <option value="-- Private database options --" id="private_dataset_header" disabled style="display:none;">-- Private database options --</option>
+                      </select>
 
+                      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" onclick="change_dataset()"><i class="material-icons" id="send_database">input</i></button>
 
-                  <div class="col-md-7 col-xs-4 drop_select" style="padding-top: 0.5%; text-align: center;" id="publicdatabase">
-                    <p class="public-rna" id="public_words">RNA-Seq Databases:
-                    <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" onclick="check_if_Google_login()"/>
-                      <option value="-- eFP-Seq Browser public database options --" disabled> -- eFP-Seq Browser Public Database Options -- </option>
-                      <option value="Araport 11 RNA-seq data">Araport 11 RNA-seq data</option>
-                      <option value="Developmental transcriptome - Klepikova et al">Developmental transcriptome - Klepikova et al</option>
-                      <option value="-- Uploaded dataset --" id="uploaded_dataset_header" disabled style="display:none;">-- Uploaded dataset --</option>
-                      <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;">Uploaded dataset</option>
-                      <option value="-- Private database options --" id="private_dataset_header" disabled style="display:none;">-- Private database options --</option>
-                    </select>
+                      <button class="mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" id="google_iden_login_button"><div class="g-signin2" data-onsuccess="onSignIn" id="google_login"></div></button><!-- Google Identity login Button-->
 
-                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" onclick="change_dataset()"><i class="material-icons" id="send_database">input</i></button>
+                      <div class="dropdown" style="display:inline;">
+                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab signout-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px; display:none; opacity: 0%;" id="google_iden_logout_button">
+                        </button> <!-- Google logged in/signout button -->
 
-                    <button class="mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" id="google_iden_login_button"><div class="g-signin2" data-onsuccess="onSignIn" id="google_login"></div></button><!-- Google Identity login Button-->
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="google_iden_logout_button" id="upload_button_text_account" style="top:auto;">
+                          <a class="dropdown-item" style="font-size: 14px;" id="upload_button" onclick="signOut();">Sign Out</a>
+                          <a class="dropdown-item" style="font-size: 14px;" data-toggle="modal" data-target="#logoutModal" data-upgraded=",MaterialButton,MaterialRipple" id="manageXMLs" onclick="delete_fill(); fill_tableCSV();">Manage Data</a>
+                        </div>
+                      </div>
 
-                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab signout-button dropSelect_area" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px; display:none; opacity: 0%;" id="google_iden_logout_button" onclick="change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 4); show_dropSelect_account = change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 4);">
-                    </button> <!-- Google logged in/signout button -->
-
-                    <div class="drop_selecttext_ac" id="upload_button_text_account" style="visibility:hidden; text-align: left;" tabindex="-1">
-                      <li id="upload_button" onclick="signOut(); change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 6); show_dropSelect_account = change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 6);"><a> Sign Out </a></li>
-                      <li data-toggle="modal" data-target="#logoutModal" data-upgraded=",MaterialButton,MaterialRipple" id="manageXMLs" onclick="change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 4); show_dropSelect_account = change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 4); delete_fill(); fill_tableCSV();"><a> Manage data </a></li>
-                      <li style="text-align:right; list-style-type: none;" onclick="change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 6); show_dropSelect_account = change_dropSelect_width('upload_button_text_account', 'google_iden_logout_button', show_dropSelect_account, 6);" ><a> Close </a></li>
+                      <div class="mdl-tooltip" for="public_words">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases (to sign-out, simply click on your Google profile icon)</div>
                     </div>
-
-                    <div class="mdl-tooltip" for="public_words">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases (to sign-out, simply click on your Google profile icon)</div>
                   </div>
                   <script>
                   var account_inOut = 0;
@@ -632,8 +628,8 @@
                           <div class="table-responsive efp_modal_table">
                               <p style="text-align: center;"> Do you want this XML to be uploaded to your private Google account? </p>
                               <div style="text-align: center; padding-bottom: 3px;">
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click(); setTimeout(function() {add_user_xml_by_upload()}, 1000); change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5); show_dropSelect_upload = change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5);" data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:3%" onclick="document.getElementById('fileID').click(); change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5); show_dropSelect_upload = change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_upload, 1.5);">No<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click(); setTimeout(function() {add_user_xml_by_upload()}, 1000);" data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:3%" onclick="document.getElementById('fileID').click();">No<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                               </div>
                           </div>
                         </div>
