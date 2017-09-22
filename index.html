@@ -648,16 +648,20 @@
                         </div>
                         <div class="modal-body" >
                           <div class="table-responsive efp_modal_table">
-                              <p> Select private dataset you wish to manage: </p>
+                              <p style="font-size: 1.4em;"> Select public dataset you wish to download: </p>
+                              <div style="padding-bottom: 3px;" id="publicDatabaseDownload">
+                              </div>
+                              <br>
+                              <p style="font-size: 1.4em;"> Select private dataset you wish to manage or download: </p>
                               <div style="padding-bottom: 3px;" id="delete_fill">
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                               </div>
                               <br>
                               <p>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="#" data-upgraded=",MaterialButton,MaterialRipple" onclick="manage_DownloadXML();">Download as XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="#" data-upgraded=",MaterialButton,MaterialRipple" onclick="manage_DownloadXML();" id="downloadAsXML_button" style="margin-right: 1%;">Download as XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                                 <a class="downloadfile" href="#" id="downloadXML"><button id="downloadXML_button" download hidden>Download file</button></a>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" onclick="download_XMLtableCSV();">Download as CSV<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"  data-upgraded=",MaterialButton,MaterialRipple" onclick="showWarning_index()">Delete XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" onclick="download_XMLtableCSV();" id="downloadAsCSV_button">Download as CSV<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"  data-upgraded=",MaterialButton,MaterialRipple" onclick="showWarning_index()" id="deleteXML_button" style="margin-left:1%;">Delete XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                                 <div class="warning_nope_index" id="warning_index">
                                   <strong>Warning!</strong> Are you sure you wish to delete the selected data from your private account?
                                   <span class="warning_button_index" onclick="hideWarning_index()" style="margin-top:3px;"> No </span>

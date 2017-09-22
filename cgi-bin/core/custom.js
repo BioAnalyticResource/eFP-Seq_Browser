@@ -38,7 +38,6 @@ var base_src = 'cgi-bin/data/bamdata_amazon_links.xml';
 var upload_src = '';
 var dataset_dictionary = {
   "Araport 11 RNA-seq data":'cgi-bin/data/bamdata_amazon_links.xml',
-  "Developmental transcriptome - Plant J - Sample": 'cgi-bin/data/bamdata_Developmental-transcriptome-PlantJ.xml',
   "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
 };
 
@@ -1623,7 +1622,6 @@ function rpkm_validation() {
 
 var base_dataset_dictionary = {
   "Araport 11 RNA-seq data":'cgi-bin/data/bamdata_amazon_links.xml',
-  "Developmental transcriptome - Plant J - Sample": 'cgi-bin/data/bamdata_Developmental-transcriptome-PlantJ.xml',
   "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
 };
 
@@ -1784,13 +1782,48 @@ function if_user_in_dropSelect() {
   }
 }
 
+var public_dataset_dictionary = {
+  "Araport 11 RNA-seq data":'cgi-bin/data/bamdata_amazon_links.xml',
+  "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
+};
+
+var public_title_list = [];
+var total_amount_of_datasets = 0;
 function delete_fill() {
   // Fills the manage XML modal with all available XMLs to delete from an account
   $("#delete_fill").empty(); // Empties the manage XML modal every time it is loaded
+  $("#publicDatabaseDownload").empty();
+  public_title_list = [];
+  for (var public_title in public_dataset_dictionary) {
+    if (public_dataset_dictionary.hasOwnProperty(public_title)) {
+      public_title_list.push(public_title);
+    }
+  }
+  var deleteBoxNum = 0;
+  total_amount_of_datasets = public_title_list.length + title_list.length;
+  for (i = 0; i < public_title_list.length; i++) {
+    // Fills the manage XML modal with available XMLs on the account
+    $("#publicDatabaseDownload").append('<input type="checkbox" tag="publicDataCheckbox" onchange="disableDeletePublic()" id="deleteBox_' + deleteBoxNum + '" value="' + public_title_list[i] + '"> ' + public_title_list[i] + '</input><br>');
+    deleteBoxNum += 1;
+  }
   for (i = 0; i < title_list.length; i++) {
     // Fills the manage XML modal with available XMLs on the account
-    $("#delete_fill").append('<input type="checkbox" id="deleteBox_' + i + '" value="' + title_list[i] + '"> ' + title_list[i] + '</input><br>');
+    $("#delete_fill").append('<input type="checkbox" id="deleteBox_' + deleteBoxNum + '" value="' + title_list[i] + '"> ' + title_list[i] + '</input><br>');
+    deleteBoxNum += 1;
   }
+}
+
+function disableDeletePublic() {
+    for (i = 0; i < public_title_list.length; i++) {
+      if (document.getElementById("deleteBox_" + i).checked == true) {
+        document.getElementById("deleteXML_button").disabled = true;
+        break
+      }
+      else {
+        document.getElementById("deleteXML_button").disabled = false;
+      }
+    }
+
 }
 
 function delete_selectedXML() {
@@ -1836,8 +1869,9 @@ var table_base = "\t\t<tr>\n\t\t\t<th>Title*</th>\n\t\t\t<th>Description*</th>\n
 
 function fill_tableCSV() {
   $("#XMLtoCSVtable").empty();
-  for (i = 0; i < title_list.length; i++) {
+  for (i = 0; i < total_amount_of_datasets; i++) {
     var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
+    //console.log("Initilizing fill_tableCSV() on " + downloadBox_id);
     $.ajax({
         url: dataset_dictionary[document.getElementById(downloadBox_id).value],
         dataType: 'xml',
@@ -1901,7 +1935,7 @@ function fill_tableCSV() {
 }
 
 function download_XMLtableCSV() {
-  for (i = 0; i < title_list.length; i++) {
+  for (i = 0; i < total_amount_of_datasets; i++) {
     var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
     if (document.getElementById(downloadBox_id).checked == true) {
       var tableTitle = document.getElementById(downloadBox_id).value.split(' ').join('_');

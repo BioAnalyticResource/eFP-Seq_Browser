@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">
-	<rnaseq_experiments xmltitle="Developmental transcriptome" author="Anna V. Klepikova, Artem S. Kasianov, Evgeny S. Gerasimov, Maria D. Logacheva, Aleksey A. Penin" contact="">
+	<rnaseq_experiments xmltitle="Developmental transcriptome - Klepikova et al" author="Anna V. Klepikova, Artem S. Kasianov, Evgeny S. Gerasimov, Maria D. Logacheva, Aleksey A. Penin" contact="">
 
 		<bam_file desc="IN.sn, First elongated internode (from last rosette leaf to first cauline leaf). Sample was collected when first silique was yellow and ready to open." record_number="SRR3581899" hex_colour="" bam_type="Amazon AWS" bam_link="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581899/accepted_hits.bam" total_reads_mapped="33897511" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Internode.svg" title="Arabidopsis thaliana Senescent internode" publication_url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581899" species="Arabidopsis thaliana">
 			<controls>
