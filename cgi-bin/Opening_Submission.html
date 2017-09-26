@@ -7,7 +7,7 @@
 <meta name="keyboard" content="eFP, RNA-Seq" />
 <meta name="author" content="Alexander Sullivan" />
 <link rel="stylesheet" type="text/css" href="Submission_page/style.css" />
-<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css"/>
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css" />
 <script src="Submission_page/processing-api.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="Submission_page/XMLgenerator-v2.js"></script>
@@ -22,61 +22,61 @@
   <p style="text-align: center;"> Here you are provided two options for having your RNA-Seq data interpreted by the eFP-Seq Browser:</p>
   <div class="container">
     <div class="row">
-        <div class="option_create col-sm-5">
-          <p style="text-align:center;"><a href="Submission_page.html"><button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple"> Generate Readable Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a></p>
-          <p style="text-align:center;">If you have not created a readable dataset yet or wish to create a new readable dataset, fill in the following form with your RNA-Seq information here</p>
-        </div>
-        <div class="option_create col-sm-5">
-          <p style="text-align:center; height:36px;">
-            <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();"> Upload Readable Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-            <input type="file" id="fileID" style="visibility: hidden;" accept="text/xml"/>
-          </p>
-          <p style="text-align:center;">If you have already created a readable dataset, then you can upload it here to have your data visualized and interpreted by the eFP-Seq Browser</p>
+      <div class="option_create col-sm-5">
+        <p style="text-align:center;"><a href="Submission_page.html"><button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple"> Generate Readable Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a></p>
+        <p style="text-align:center;">If you have not created a readable dataset yet or wish to create a new readable dataset, fill in the following form with your RNA-Seq information here</p>
+      </div>
+      <div class="option_create col-sm-5">
+        <p style="text-align:center; height:36px;">
+          <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click();"> Upload Readable Data <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+          <input type="file" id="fileID" style="visibility: hidden;" accept="text/xml" />
+        </p>
+        <p style="text-align:center;">If you have already created a readable dataset, then you can upload it here to have your data visualized and interpreted by the eFP-Seq Browser</p>
 
-          <!-- Script for changing base_src and uploading XML, clienside -->
-          <script>
+        <!-- Script for changing base_src and uploading XML, clienside -->
+        <script>
           $(function() {
-                  $("#fileID").on('change', function() {
-                    //Get count of selected files
-                    var countFiles = $(this)[0].files.length;
-                    var imgPath = $(this)[0].value;
-                    var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
-                    var hold_xml = $("#hold-xml");
-                    hold_xml.empty();
-                    if (extn == "xml") {
-                      if (typeof(FileReader) != "undefined") {
-                        //loop for each file selected for uploaded.
-                        for (var i = 0; i < countFiles; i++) {
-                          var reader = new FileReader();
+            $("#fileID").on('change', function() {
+              //Get count of selected files
+              var countFiles = $(this)[0].files.length;
+              var imgPath = $(this)[0].value;
+              var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+              var hold_xml = $("#hold-xml");
+              hold_xml.empty();
+              if (extn == "xml") {
+                if (typeof(FileReader) != "undefined") {
+                  //loop for each file selected for uploaded.
+                  for (var i = 0; i < countFiles; i++) {
+                    var reader = new FileReader();
 
-                          reader.onload = function(e) {
-                            //var data = e.target.result;
-                            //window.alert(data);
-                            $("<div />", {
-                              "src": e.target.result,
-                              "id": "test_link"
-                            }).appendTo(hold_xml);
+                    reader.onload = function(e) {
+                      //var data = e.target.result;
+                      //window.alert(data);
+                      $("<div />", {
+                        "src": e.target.result,
+                        "id": "test_link"
+                      }).appendTo(hold_xml);
 
-                            base_src = document.getElementById("test_link").getAttribute("src");
-                            //window.open(base_src);
-                          }
-                          hold_xml.show();
-                          reader.readAsDataURL($(this)[0].files[i]);
-                        }
-                      } else {
-                        alert("This browser does not support FileReader. Please use an updated version of Internet Explorer, Google Chrome, Mozilla Firefox, that Apple one and the other one");
-                      }
-                    } else {
-                      alert("Insert valid XML only");
+                      base_src = document.getElementById("test_link").getAttribute("src");
+                      //window.open(base_src);
                     }
-                  });
-                });
-          </script>
+                    hold_xml.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                  }
+                } else {
+                  alert("This browser does not support FileReader. Please use an updated version of Internet Explorer, Google Chrome, Mozilla Firefox, that Apple one and the other one");
+                }
+              } else {
+                alert("Insert valid XML only");
+              }
+            });
+          });
+        </script>
 
-          <div id="hold-xml"></div>
-        </div>
+        <div id="hold-xml"></div>
+      </div>
     </div>
-</div>
+  </div>
 
 </body>
 

@@ -1,11 +1,11 @@
 .scale {
-    height: 2em;
-    width: auto;
+  height: 2em;
+  width: auto;
 }
 
 .scalearrow {
-    height: 1em;
-    width: auto;
+  height: 1em;
+  width: auto;
 }
 
 .formtextarea {
@@ -123,88 +123,89 @@ label {
 
 .reqasterisk {
   color: #CBE8BA;
-  font-weight:bold;
+  font-weight: bold;
 }
 
 input {
-    border:2px solid #dadada;
-    border-radius:7px;
-    padding:5px;
-    margin-top:-10px;
+  border: 2px solid #dadada;
+  border-radius: 7px;
+  padding: 5px;
+  margin-top: -10px;
 }
 
 input .input_right {
-    float:right;
+  float: right;
 }
 
 input:focus {
-    outline:none;
-    border-color:#9ecaed;
-    box-shadow:0 0 10px #9ecaed;
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
 }
 
 input .xmlSRR_select {
-    float:left !important;
+  float: left !important;
 }
 
 select {
-    float:right;
-    border:2px solid #dadada;
-    border-radius:7px;
-    padding:5px;
-    margin-top:-10px;
+  float: right;
+  border: 2px solid #dadada;
+  border-radius: 7px;
+  padding: 5px;
+  margin-top: -10px;
 }
 
 select:focus {
-    outline:none;
-    border-color:#9ecaed;
-    box-shadow:0 0 10px #9ecaed;
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
 }
 
 textarea {
-    float:right;
-    border:2px solid #dadada;
-    border-radius:7px;
-    padding:5px;
-    margin-top:-10px;
+  float: right;
+  border: 2px solid #dadada;
+  border-radius: 7px;
+  padding: 5px;
+  margin-top: -10px;
 }
 
 textarea:focus {
-    outline:none;
-    border-color:#9ecaed;
-    box-shadow:0 0 10px #9ecaed;
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
 }
 
 .dropdown {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
+  display: none;
+  position: absolute;
+  ;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
+  display: block;
 }
 
 .tissue_table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 .tissue_box {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-    transition: all 0.5s ease;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  transition: all 0.5s ease;
 }
 
 .tissue_box:hover {
@@ -223,16 +224,16 @@ textarea:focus {
 }
 
 .scrollable-menu {
-    height: auto;
-    max-height: 400px;
-    overflow-x: hidden;
+  height: auto;
+  max-height: 400px;
+  overflow-x: hidden;
 }
 
 .mdl-tooltip.is-active {
-    animation: none;
-    transform: scale(1);
-    opacity: 1;
-    visibility: visible;
+  animation: none;
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
 }
 
 .sub_tooltip {
@@ -242,7 +243,7 @@ textarea:focus {
 .sub_tooltip .sub_tooltip_text {
   visibility: hidden;
   width: 120px;
-  background-color: rgba(97,97,97,.9);
+  background-color: rgba(97, 97, 97, .9);
   color: #fff;
   text-align: center;
   border-radius: 2px;
@@ -250,7 +251,7 @@ textarea:focus {
   padding: 2px;
   position: absolute;
   z-index: 1155;
-  top:80%;
+  top: 80%;
   margin-left: -60px;
   max-width: 120px;
 }
@@ -263,32 +264,32 @@ textarea:focus {
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent rgba(97,97,97,.9) transparent;
+  border-color: transparent transparent rgba(97, 97, 97, .9) transparent;
 }
 
 .sub_tooltip:hover .sub_tooltip_text {
-    visibility: visible;
+  visibility: visible;
 }
 
 .warning {
-    padding: 20px;
-    background-color: #d62a1d;
-    color: white;
-    opacity: 100%;
-    transition: 1s ease-in-out;
-    margin-bottom: 15px;
-    margin-top: 10px;
-    margin-right: 2%;
+  padding: 20px;
+  background-color: #d62a1d;
+  color: white;
+  opacity: 100%;
+  transition: 1s ease-in-out;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-right: 2%;
 }
 
 .warning_nope {
-    opacity: 0;
-    height: 0px;
-    transition: 1s ease;
+  opacity: 0;
+  height: 0px;
+  transition: 1s ease;
 }
 
 .warning_button {
-  float:right;
+  float: right;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -298,14 +299,15 @@ textarea:focus {
   border: 1px solid #018dc4;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  color: rgba(0,0,0,0.9);
+  color: rgba(0, 0, 0, 0.9);
   -o-text-overflow: clip;
   text-overflow: clip;
   background: #CBE8BA;
-  -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
-  box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
-  text-shadow: 0 0 0 rgba(15,73,168,0.66) ;
-  margin-right:5px; margin-top: -5px;
+  -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 0 rgba(15, 73, 168, 0.66);
+  margin-right: 5px;
+  margin-top: -5px;
 }
 
 .warning_button:hover {
@@ -319,21 +321,31 @@ textarea:focus {
 }
 
 /* w3schools Tab tutorial scripts */
+
 .tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-    -webkit-animation: fadeEffect 1s;
-    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  -webkit-animation: fadeEffect 1s;
+  animation: fadeEffect 1s;
+  /* Fading effect takes 1 second */
 }
 
 @-webkit-keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

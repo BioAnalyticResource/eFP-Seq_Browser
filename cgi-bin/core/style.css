@@ -1,31 +1,36 @@
 .vcenter {
-display: inline-block;
-vertical-align: middle;
-float: none;
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
 }
+
 th.sortable {
-cursor: pointer;
+  cursor: pointer;
 }
+
 .arrows {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC45bDN+TgAAAK9JREFUKFOdkt0JhTAMRuMe7QCiA7VzqBvoJE7Sh3YA3cEHUegGuXwBL+LN/fPhJKT0UJqEcs4MlmVh773k4+wdIu37zsMwMBFx3/dSXy+eESmlxHVdi4QcY1QvH9C6rtx1HRdFIRIy6m3bVAFQCIGttSIcoJ7nWRUANU3DZVm+MI6jKoBn9/7h3kvan4wxPE2TKgC1e23bfu4ewnlOVVV9nxPCrY0A2Dnn3A+7l/kBTysUq9Bl38cAAAAASUVORK5CYII=) no-repeat 100%;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC45bDN+TgAAAK9JREFUKFOdkt0JhTAMRuMe7QCiA7VzqBvoJE7Sh3YA3cEHUegGuXwBL+LN/fPhJKT0UJqEcs4MlmVh773k4+wdIu37zsMwMBFx3/dSXy+eESmlxHVdi4QcY1QvH9C6rtx1HRdFIRIy6m3bVAFQCIGttSIcoJ7nWRUANU3DZVm+MI6jKoBn9/7h3kvan4wxPE2TKgC1e23bfu4ewnlOVVV9nxPCrY0A2Dnn3A+7l/kBTysUq9Bl38cAAAAASUVORK5CYII=) no-repeat 100%;
 }
+
 thead, tbody, td, th {
-border: 1px solid #D3D3D3;
+  border: 1px solid #D3D3D3;
 }
+
 .hidden {
-display: none;
+  display: none;
 }
+
 .locus_button_style {
-	margin-left: 20px;
+  margin-left: 20px;
 }
 
 .mdl-tooltip.is-active {
-    animation: none;
-    transform: scale(1);
-    opacity: 1;
-    visibility: visible;
-    z-index: 1151;
-    transition-delay: 0.6s;
+  animation: none;
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+  z-index: 1151;
+  transition-delay: 0.6s;
 }
 
 .loading {
@@ -40,7 +45,7 @@ display: none;
   animation: spin 2s linear infinite;
   opacity: 100%;
   transition: opacity 1s ease-in-out;
-  z-index:1000;
+  z-index: 1000;
 }
 
 .done_loading {
@@ -56,20 +61,24 @@ display: none;
   filter: none;
 }
 
-.signout-button{
+.signout-button {
   transition: opacity 1s;
   -webkit-transition: opacity 1s;
 }
 
 button:hover {
-  outline:none;
-  border-color:#19af06;
-  box-shadow:0 0 10px #19af06;
+  outline: none;
+  border-color: #19af06;
+  box-shadow: 0 0 10px #19af06;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .efp_table_tooltip {
@@ -91,7 +100,7 @@ button:hover {
 .efp_table_tooltip .efp_table_tooltip_text {
   visibility: hidden;
   width: 120px;
-  background-color: rgba(97,97,97,.9);
+  background-color: rgba(97, 97, 97, .9);
   color: #fff;
   text-align: center;
   border-radius: 2px;
@@ -112,11 +121,11 @@ button:hover {
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent rgba(97,97,97,.9) transparent;
+  border-color: transparent transparent rgba(97, 97, 97, .9) transparent;
 }
 
 .efp_table_tooltip:hover .efp_table_tooltip_text {
-    visibility: visible;
+  visibility: visible;
 }
 
 .efp_modal_table {
@@ -129,40 +138,40 @@ button:hover {
 }
 
 .warning_core {
-    padding: 20px;
-    background-color: #d62a1d;
-    color: white;
-    opacity: 100%;
-    transition: 1s ease-in-out;
-    margin-bottom: 15px;
-    margin-top: 10px;
-    margin-right: 2%;
+  padding: 20px;
+  background-color: #d62a1d;
+  color: white;
+  opacity: 100%;
+  transition: 1s ease-in-out;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-right: 2%;
 }
 
 .warning_core_nope {
-    opacity: 0;
-    height: 0px;
-    transition: 1s ease;
+  opacity: 0;
+  height: 0px;
+  transition: 1s ease;
 }
 
 .drop_select {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .drop_select .drop_selecttext_up {
-    width: 120px;
-    background-color: #64cc65;
-    color: #fff;
-    border-radius: 6px;
-    padding: 0 16px;
-    padding-top: 5px;
-    position: absolute;
-    z-index: 1;
-    top: 125%;
-    left: 10%;
-    opacity: 0.975;
-    box-shadow: 5px 5px 5px #888888;
+  width: 120px;
+  background-color: #64cc65;
+  color: #fff;
+  border-radius: 6px;
+  padding: 0 16px;
+  padding-top: 5px;
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 10%;
+  opacity: 0.975;
+  box-shadow: 5px 5px 5px #888888;
 }
 
 .drop_select .drop_selecttext_up li {
@@ -170,34 +179,34 @@ button:hover {
 }
 
 .drop_select .drop_selecttext_up a {
-    color: black;
-    cursor: pointer;
+  color: black;
+  cursor: pointer;
 }
 
 .drop_select .drop_selecttext_up::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 20%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #64cc65 transparent;
-    opacity: 0.8;
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 20%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #64cc65 transparent;
+  opacity: 0.8;
 }
 
 .drop_select .drop_selecttext_ac {
-    width: 120px;
-    background-color: #64cc65;
-    color: #fff;
-    border-radius: 6px;
-    padding: 0 16px;
-    padding-top: 5px;
-    position: absolute;
-    z-index: 1;
-    right: 15%;
-    opacity: 0.975;
-    box-shadow: 5px 5px 5px #888888;
+  width: 120px;
+  background-color: #64cc65;
+  color: #fff;
+  border-radius: 6px;
+  padding: 0 16px;
+  padding-top: 5px;
+  position: absolute;
+  z-index: 1;
+  right: 15%;
+  opacity: 0.975;
+  box-shadow: 5px 5px 5px #888888;
 }
 
 .drop_select .drop_selecttext_ac li {
@@ -205,41 +214,41 @@ button:hover {
 }
 
 .drop_select .drop_selecttext_ac a {
-    color: black;
-    cursor: pointer;
+  color: black;
+  cursor: pointer;
 }
 
 .drop_select .drop_selecttext_ac::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    right: 5%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #64cc65 transparent;
-    opacity: 0.8;
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  right: 5%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #64cc65 transparent;
+  opacity: 0.8;
 }
 
 .warning_index {
-    padding: 20px;
-    background-color: #d62a1d;
-    color: white;
-    opacity: 100%;
-    transition: 1s ease-in-out;
-    margin-bottom: 15px;
-    margin-top: 10px;
-    margin-right: 2%;
+  padding: 20px;
+  background-color: #d62a1d;
+  color: white;
+  opacity: 100%;
+  transition: 1s ease-in-out;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-right: 2%;
 }
 
 .warning_nope_index {
-    opacity: 0;
-    height: 0px;
-    transition: 1s ease;
+  opacity: 0;
+  height: 0px;
+  transition: 1s ease;
 }
 
 .warning_button_index {
-  float:right;
+  float: right;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -249,14 +258,15 @@ button:hover {
   border: 1px solid #018dc4;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  color: rgba(0,0,0,0.9);
+  color: rgba(0, 0, 0, 0.9);
   -o-text-overflow: clip;
   text-overflow: clip;
   background: #CBE8BA;
-  -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
-  box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
-  text-shadow: 0 0 0 rgba(15,73,168,0.66) ;
-  margin-right:5px; margin-top: -5px;
+  -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 0 rgba(15, 73, 168, 0.66);
+  margin-right: 5px;
+  margin-top: -5px;
 }
 
 .warning_button_index:hover {
@@ -276,6 +286,7 @@ in an effort to add it into our system without the need of upgrading Bootstrap f
 Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/people
 
 */
+
 .dropdown {
   position: relative;
 }
@@ -317,7 +328,7 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   list-style: none;
   background-color: #fff;
   -webkit-background-clip: padding-box;
-          background-clip: padding-box;
+  background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
 }
@@ -360,11 +371,11 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   background-color: transparent;
 }
 
-.show > .dropdown-menu {
+.show>.dropdown-menu {
   display: block;
 }
 
-.show > a {
+.show>a {
   outline: 0;
 }
 

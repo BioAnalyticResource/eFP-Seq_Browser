@@ -2,23 +2,22 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <title>SVG Colouring demo</title>
-    <meta name="author" content="Priyank Purohit">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <title>SVG Colouring demo</title>
+  <meta name="author" content="Priyank Purohit">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-    <!-- Copy paste the SVG in this <div> -->
-    <div class="container" id="the_svg">
-        <!-- root, shoot, all -->
-<!-- Need to check if the root and shoot IDs are correctly set or not -->
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     width="300px" height="300px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+  <!-- Copy paste the SVG in this <div> -->
+  <div class="container" id="the_svg">
+    <!-- root, shoot, all -->
+    <!-- Need to check if the root and shoot IDs are correctly set or not -->
+    <?xml version="1.0" encoding="utf-8"?>
+    <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="300px" height="300px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
 <g id="shapes">
     <path id="root" fill="none" d="M150.667,103.667l-7.159,2.423l0.824,1.211
         c-0.067,0.551-1.106,1.747-1.157,2.289c-1.839,19.363,5.866,32.137,8.499,36.667c0.359,0.617,1.695,1.104,1.803,1.361
@@ -139,17 +138,17 @@
 </svg>
 
 
-    </div>
-    <script type="text/javascript">
-        var paths = document.getElementById('root')/*.getElementsByTagName("path").getElementById('shoot')*/;
-        var r = 0;
-        var g = 255;
-        var b = 255;
-        /*for (i = 0; i < paths.length; i++) {
-            paths[i].style.fill = 'rgb(' + r + ', ' + g + ', ' + b + ')';
-        }*/
-        paths.style.fill = '#00FFFF';
-    </script>
+  </div>
+  <script type="text/javascript">
+    var paths = document.getElementById('root') /*.getElementsByTagName("path").getElementById('shoot')*/ ;
+    var r = 0;
+    var g = 255;
+    var b = 255;
+    /*for (i = 0; i < paths.length; i++) {
+        paths[i].style.fill = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    }*/
+    paths.style.fill = '#00FFFF';
+  </script>
 </body>
 
 </html>

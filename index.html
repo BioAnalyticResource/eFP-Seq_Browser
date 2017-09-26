@@ -4,726 +4,755 @@
 <div id="testing_code" hidden>test</div>
 <div id="testing_mobile" hidden>mobile</div>
 <div id="testing_progress" hidden>testing percent</div>
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <title>eFP-Seq Browser</title>
-    <meta name="author" content="Priyank Purohit, Alexander Sullivan">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> <!-- Bootstrap -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> <!-- Bootstrap -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script> <!-- Bootstrap -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="cgi-bin/core/tablesorter.js"></script>
-    <script src="cgi-bin/core/tablefilter/tablefilter.js"></script>
-    <script src="cgi-bin/Submission_page/XMLgenerator-v2.js"></script>
-    <script src="cgi-bin/core/tmm_normalization.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- Google Identity login -->
-    <meta name="google-signin-client_id" content="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com"> <!-- Google Identity login -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.9.0/math.min.js"></script> <!-- For TMM normalization -->
-    <link rel="stylesheet" href="cgi-bin/core/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- tabletoCSV tool to create an option to download XML as CSV -->
-    <script src="cgi-bin/core/tabletoCSV/jquery.tabletoCSV.js"></script>
-    <!-- http://stackoverflow.com/questions/1802936/stop-all-active-ajax-requests-in-jquery -->
-    <script type="text/javascript">
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <title>eFP-Seq Browser</title>
+  <meta name="author" content="Priyank Purohit, Alexander Sullivan">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- Bootstrap -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <!-- Bootstrap -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="cgi-bin/core/tablesorter.js"></script>
+  <script src="cgi-bin/core/tablefilter/tablefilter.js"></script>
+  <script src="cgi-bin/Submission_page/XMLgenerator-v2.js"></script>
+  <script src="cgi-bin/core/tmm_normalization.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <!-- Google Identity login -->
+  <meta name="google-signin-client_id" content="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com">
+  <!-- Google Identity login -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.9.0/math.min.js"></script>
+  <!-- For TMM normalization -->
+  <link rel="stylesheet" href="cgi-bin/core/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- tabletoCSV tool to create an option to download XML as CSV -->
+  <script src="cgi-bin/core/tabletoCSV/jquery.tabletoCSV.js"></script>
+  <!-- http://stackoverflow.com/questions/1802936/stop-all-active-ajax-requests-in-jquery -->
+  <script type="text/javascript">
     $(function() {
-        $.xhrPool = [];
-        $.xhrPool.abortAll = function() {
-            $(this).each(function(i, jqXHR) { //  cycle through list of recorded connection
-                jqXHR.abort(); //  aborts connection
-                $.xhrPool.splice(i, 1); //  removes from list by index
-            });
-        }
-        $.ajaxSetup({
-            beforeSend: function(jqXHR) {
-                $.xhrPool.push(jqXHR);
-            }, //  annd connection to list
-            complete: function(jqXHR) {
-                var i = $.xhrPool.indexOf(jqXHR); //  get index for current connection completed
-                if (i > -1) $.xhrPool.splice(i, 1); //  removes from list by index
-            }
+      $.xhrPool = [];
+      $.xhrPool.abortAll = function() {
+        $(this).each(function(i, jqXHR) { //  cycle through list of recorded connection
+          jqXHR.abort(); //  aborts connection
+          $.xhrPool.splice(i, 1); //  removes from list by index
         });
+      }
+      $.ajaxSetup({
+        beforeSend: function(jqXHR) {
+          $.xhrPool.push(jqXHR);
+        }, //  annd connection to list
+        complete: function(jqXHR) {
+          var i = $.xhrPool.indexOf(jqXHR); //  get index for current connection completed
+          if (i > -1) $.xhrPool.splice(i, 1); //  removes from list by index
+        }
+      });
     })
 
     function closeGenerate() {
       //document.getElementById("closemodal").click();
       $('.modal-close').click();
     };
-    </script>
-    <!-- Google Analytics ID -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  </script>
+  <!-- Google Analytics ID -->
+  <script>
+    (function(i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function() {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-      ga('create', 'UA-38961857-5', 'auto');
-      ga('send', 'pageview');
-
-    </script>
+    ga('create', 'UA-38961857-5', 'auto');
+    ga('send', 'pageview');
+  </script>
 </head>
 
 <!-- mobile nav bar -->
 <nav class="navbar navbar-default navbar-top" id="mobilenavbar" style="display:none;">
   <div class="nav">
-      <div class="col-xs-6" style="padding-left:0%; padding-right:0%;"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " style="width:100%"  onclick="document.getElementById('fileID').click();" style="margin-top:3%;"><i class="material-icons">file_upload</i></button></div>
-      <div class="col-xs-6" style="padding-left:0%; padding-right:0%;"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " style="width:100%" data-toggle="modal" data-target="#SubmissionModal"><i class="material-icons">create</i></button></div>
+    <div class="col-xs-6" style="padding-left:0%; padding-right:0%;"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " style="width:100%" onclick="document.getElementById('fileID').click();" style="margin-top:3%;"><i class="material-icons">file_upload</i></button></div>
+    <div class="col-xs-6" style="padding-left:0%; padding-right:0%;"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " style="width:100%" data-toggle="modal" data-target="#SubmissionModal"><i class="material-icons">create</i></button></div>
   </div>
 </nav>
 
-<div><div class="done_loading" id="loading_screen"></div></div>
+<div>
+  <div class="done_loading" id="loading_screen"></div>
+</div>
 
 <body>
-    <div class="progress" style="width: 100%; height: 5px; position: fixed; margin-top: 0px; top: 0px; z-index: 100;">
-        <div id="progress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="113" style="width:1%;"></div>
-    </div>
-    <div id="failure" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
-        <button type="button" class="close" style="margin-top: -5px;" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Data Request Failure!</strong> At least one data request failed, trying again typically fixes these issues. Contact us with specific details if the problem persists.
-    </div>
-    <div id="progress_tooltip" class="mdl-tooltip" for="title_bar">Typical load time < 10 mins.</div>
-    <div id="body_of" class="body_of_loading_done">
-            <div class="container">
-                <!-- Title + Help + Cite -->
-                <div id="title_bar" class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top:1%;">
-                        <p style="font-size: 35px; margin: 5px; text-align: center;"><i>A. thaliana</i> eFP-Seq Browser</p>
-                        <p style="font-size: 15px; margin: 5px; text-align: center;">Priyank Purohit, Alexander Sullivan, Gini Chin, Alison Wu, Richard Song, Michelle Chen, Dr. Nicholas Provart. University of Toronto.</p>
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-xs-offset-9 col-sm-offset-9 col-md-offset-9" style="margin-top: -50px; padding-left:3%;">
-                            <!--
+  <div class="progress" style="width: 100%; height: 5px; position: fixed; margin-top: 0px; top: 0px; z-index: 100;">
+    <div id="progress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="113" style="width:1%;"></div>
+  </div>
+  <div id="failure" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
+    <button type="button" class="close" style="margin-top: -5px;" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Data Request Failure!</strong> At least one data request failed, trying again typically fixes these issues. Contact us with specific details if the problem persists.
+  </div>
+  <div id="progress_tooltip" class="mdl-tooltip" for="title_bar">Typical load time
+    < 10 mins.</div>
+      <div id="body_of" class="body_of_loading_done">
+        <div class="container">
+          <!-- Title + Help + Cite -->
+          <div id="title_bar" class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top:1%;">
+              <p style="font-size: 35px; margin: 5px; text-align: center;"><i>A. thaliana</i> eFP-Seq Browser</p>
+              <p style="font-size: 15px; margin: 5px; text-align: center;">Priyank Purohit, Alexander Sullivan, Gini Chin, Alison Wu, Richard Song, Michelle Chen, Dr. Nicholas Provart. University of Toronto.</p>
+              <div class="col-xs-3 col-sm-3 col-md-3 col-xs-offset-9 col-sm-offset-9 col-md-offset-9" style="margin-top: -50px; padding-left:3%;">
+                <!--
                             <div class="col-sm-6" id="feedback_div">
                                 <button id="feedback_button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#feedbackModal">Feedback</button>
                             </div>
                             -->
-                            <!--
+                <!--
                             <div class="col-xs-6" id="cite_button_div">
                                 <button id="cite_button" disabled="" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect ">Cite</button>
                             </div>
                             -->
-                            <!--
+                <!--
                             <div class="col-sm-6">
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#myModal" id="help_button">Help</button>
                             </div>
                             -->
-                            <!--
+                <!--
                             <div class="col-sm-4">
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                             </div>
                           -->
-                        </div>
-                    </div>
-                </div>
+              </div>
+            </div>
+          </div>
 
-                <!-- Options for uploading and generating data -->
-                <hr style="border: 1px solid gray; margin: 5px; " id="topbarborder"/>
-                <div class="row middle_buttons" id="middle_buttons">
-                  <div class="col-md-2 col-xs-2 dropdown" style="padding-left: 2%;" id="uploaddata">
-                    <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%;" id="custom_view">Custom Data
+          <!-- Options for uploading and generating data -->
+          <hr style="border: 1px solid gray; margin: 5px; " id="topbarborder" />
+          <div class="row middle_buttons" id="middle_buttons">
+            <div class="col-md-2 col-xs-2 dropdown" style="padding-left: 2%;" id="uploaddata">
+              <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%;"
+                id="custom_view">Custom Data
                       <span class="mdl-button__ripple-container">
                         <span class="mdl-ripple"></span>
                       </span>
                     </button>
-                    <div class="dropdown-menu" style="left:auto;" aria-labelledby="custom_view">
-                      <a class="dropdown-item" style="font-size: 14px;" id="upload_button" onclick="which_upload_option()">Upload XML</a>
-                      <a class="dropdown-item" style="font-size: 14px;" data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple" id="generatedata" onclick="get_user_XML_display();">Generate XML</a>
-                    </div>
-                    <button id="upload_modal" data-toggle="modal" data-target="#uploadModal" hidden></button>
-                    <button id="upload_logX" onclick="document.getElementById('fileID').click();" hidden></button>
-                    <div class="mdl-tooltip" for="generatedata">Visualize your BAM files in the eFP-Seq Browser</div>
-                    <div class="mdl-tooltip" for="upload_button">Upload your XML data to be visualized in eFP-Seq Browser</div>
-                    <input type="file" id="fileID" hidden accept="text/xml"/>
+              <div class="dropdown-menu" style="left:auto;" aria-labelledby="custom_view">
+                <a class="dropdown-item" style="font-size: 14px;" id="upload_button" onclick="which_upload_option()">Upload XML</a>
+                <a class="dropdown-item" style="font-size: 14px;" data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple" id="generatedata" onclick="get_user_XML_display();">Generate XML</a>
+              </div>
+              <button id="upload_modal" data-toggle="modal" data-target="#uploadModal" hidden></button>
+              <button id="upload_logX" onclick="document.getElementById('fileID').click();" hidden></button>
+              <div class="mdl-tooltip" for="generatedata">Visualize your BAM files in the eFP-Seq Browser</div>
+              <div class="mdl-tooltip" for="upload_button">Upload your XML data to be visualized in eFP-Seq Browser</div>
+              <input type="file" id="fileID" hidden accept="text/xml" />
 
-                    <!-- Script for changing base_src and uploading XML, clienside -->
-                    <script>
-                    $(function() {
-                            $("#fileID").on('change', function() {
-                              //Get count of selected files
-                              var countFiles = $(this)[0].files.length;
-                              var imgPath = $(this)[0].value;
-                              var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
-                              var hold_xml = $("#hold-xml");
-                              hold_xml.empty();
-                              if (extn == "xml") {
-                                if (typeof(FileReader) != "undefined") {
-                                  //loop for each file selected for uploaded.
-                                  for (var i = 0; i < countFiles; i++) {
-                                    var reader = new FileReader();
+              <!-- Script for changing base_src and uploading XML, clienside -->
+              <script>
+                $(function() {
+                  $("#fileID").on('change', function() {
+                    //Get count of selected files
+                    var countFiles = $(this)[0].files.length;
+                    var imgPath = $(this)[0].value;
+                    var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+                    var hold_xml = $("#hold-xml");
+                    hold_xml.empty();
+                    if (extn == "xml") {
+                      if (typeof(FileReader) != "undefined") {
+                        //loop for each file selected for uploaded.
+                        for (var i = 0; i < countFiles; i++) {
+                          var reader = new FileReader();
 
-                                    reader.onload = function(e) {
-                                      //var data = e.target.result;
-                                      //window.alert(data);
-                                      $("<div />", {
-                                        "src": e.target.result,
-                                        "id": "newsrc"
-                                      }).appendTo(hold_xml);
+                          reader.onload = function(e) {
+                            //var data = e.target.result;
+                            //window.alert(data);
+                            $("<div />", {
+                              "src": e.target.result,
+                              "id": "newsrc"
+                            }).appendTo(hold_xml);
 
-                                      base_src = document.getElementById("newsrc").getAttribute("src");
-                                      upload_src = document.getElementById("newsrc").getAttribute("src");
-                                      document.getElementById("uplodaed_dataset").style.display = 'block';
-                                      document.getElementById("uploaded_dataset_header").style.display = 'block';
-                                      document.getElementById("xmldatabase").value = "Uploaded dataset";
-                                      dataset_dictionary["Uploaded dataset"] = upload_src;
-                                      //window.open(base_src);
-                                    }
-                                    hold_xml.show();
-                                    reader.readAsDataURL($(this)[0].files[i]);
-                                    progress_percent = 0;
-                                    generate_loading_screen();
-                                    count_bam_num();
-                                  }
-                                } else {
-                                  alert("This browser does not support FileReader. Please use an updated version of Internet Explorer, Google Chrome, Mozilla Firefox, that Apple one and the other one");
-                                }
-                              } else {
-                                alert("Insert valid XML only");
-                              }
-                              //count_bam_num();
-                              update_all_images(0);
-                              //setTimeout(function(){ populate_table(0); }, 3000);
-                            });
-                          });
-
-                    window.setInterval(function(){
-                      if (base_src != 'cgi-bin/data/bamdata_amazon_links.xml') {
-                        send_null_count = 0;
-                        count_bam_num();
+                            base_src = document.getElementById("newsrc").getAttribute("src");
+                            upload_src = document.getElementById("newsrc").getAttribute("src");
+                            document.getElementById("uplodaed_dataset").style.display = 'block';
+                            document.getElementById("uploaded_dataset_header").style.display = 'block';
+                            document.getElementById("xmldatabase").value = "Uploaded dataset";
+                            dataset_dictionary["Uploaded dataset"] = upload_src;
+                            //window.open(base_src);
+                          }
+                          hold_xml.show();
+                          reader.readAsDataURL($(this)[0].files[i]);
+                          progress_percent = 0;
+                          generate_loading_screen();
+                          count_bam_num();
+                        }
+                      } else {
+                        alert("This browser does not support FileReader. Please use an updated version of Internet Explorer, Google Chrome, Mozilla Firefox, that Apple one and the other one");
                       }
-                    }, 500); // Need to find alternative to calling every 0.5 seconds
-                    </script>
-
-                    <div id="hold-xml"></div>
-                  </div>
-
-                  <div class="col-md-7 col-xs-4 dropdown" style="padding-top: 0.5%; text-align: center;" id="publicdatabase">
-                    <div class="public-rna" id="public_words">RNA-Seq Databases:
-                      <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" onclick="check_if_Google_login()"/>
-                        <option value="-- eFP-Seq Browser public database options --" disabled> -- eFP-Seq Browser Public Database Options -- </option>
-                        <option value="Araport 11 RNA-seq data">Araport 11 RNA-seq data</option>
-                        <option value="Developmental transcriptome - Klepikova et al">Developmental transcriptome - Klepikova et al</option>
-                        <option value="-- Uploaded dataset --" id="uploaded_dataset_header" disabled style="display:none;">-- Uploaded dataset --</option>
-                        <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;">Uploaded dataset</option>
-                        <option value="-- Private database options --" id="private_dataset_header" disabled style="display:none;">-- Private database options --</option>
-                      </select>
-
-                      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" onclick="change_dataset()"><i class="material-icons" id="send_database">input</i></button>
-
-                      <button class="mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" id="google_iden_login_button"><div class="g-signin2" data-onsuccess="onSignIn" id="google_login"></div></button><!-- Google Identity login Button-->
-
-                      <div class="dropdown" style="display:inline;">
-                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab signout-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px; display:none; opacity: 0%;" id="google_iden_logout_button">
-                        </button> <!-- Google logged in/signout button -->
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="google_iden_logout_button" id="upload_button_text_account" style="top:auto;">
-                          <a class="dropdown-item" style="font-size: 14px;" id="upload_button" onclick="signOut();">Sign Out</a>
-                          <a class="dropdown-item" style="font-size: 14px;" data-toggle="modal" data-target="#logoutModal" data-upgraded=",MaterialButton,MaterialRipple" id="manageXMLs" onclick="delete_fill(); fill_tableCSV();">Manage Data</a>
-                        </div>
-                      </div>
-
-                      <div class="mdl-tooltip" for="public_words">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases (to sign-out, simply click on your Google profile icon)</div>
-                    </div>
-                  </div>
-                  <script>
-                  var account_inOut = 0;
-
-                  function change_dataset() {
-                    progress_percent = 0;
-                    /*
-                    if (document.getElementById("xmldatabase").value == "Default data") {
-                      base_src = 'cgi-bin/data/bamdata_amazon_links.xml';
+                    } else {
+                      alert("Insert valid XML only");
                     }
-                    else if (document.getElementById("xmldatabase").value == "Developmental transcriptome - Plant J - Sample") {
-                      base_src = 'cgi-bin/data/bamdata_Developmental-transcriptome-PlantJ.xml';
-                    }
-                    else if (document.getElementById("xmldatabase").value == "Uploaded dataset") {
-                      base_src = upload_src;
-                    }
-                    */
-                    base_src = dataset_dictionary[document.getElementById("xmldatabase").value];
-                    generate_loading_screen();
-                    count_bam_num();
+                    //count_bam_num();
                     update_all_images(0);
                     //setTimeout(function(){ populate_table(0); }, 3000);
-                  };
+                  });
+                });
 
-                  function signOut() {
-                    var auth2 = gapi.auth2.getAuthInstance();
-                    auth2.signOut().then(function () {
-                      console.log('User signed out.');
-                      users_email = "";
-                      remove_private_database()
-                      document.getElementById("google_iden_login_button").style.display = '';
-                      document.getElementById("google_iden_logout_button").style.display = 'none';
-                    });
-                    account_inOut = 0;
+                window.setInterval(function() {
+                  if (base_src != 'cgi-bin/data/bamdata_amazon_links.xml') {
+                    send_null_count = 0;
+                    count_bam_num();
                   }
+                }, 500); // Need to find alternative to calling every 0.5 seconds
+              </script>
 
-                  var profile_image = "";
-                  var users_email = "";
-                  function onSignIn(googleUser) {
-                    var profile = googleUser.getBasicProfile();
-                    //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                    //console.log('Name: ' + profile.getName());
-                    //console.log('Image URL: ' + profile.getImageUrl());
-                    profile_image = profile.getImageUrl();
-                    // var append_google_str = '<img src=\"' + profile_image + '\">"';
-                    document.getElementById("google_iden_logout_button").innerHTML = '<img class="mdl-js-button mdl-button--fab mdl-button--mini-fab" src=\"' + profile_image + '\">"';
-                    //console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-                    users_email = profile.getEmail();
-                    check_if_Google_login();
-                    document.getElementById("google_iden_login_button").style.display = 'none';
-                    document.getElementById("google_iden_logout_button").style.display = '';
-                    account_inOut = 1;
-                  };
+              <div id="hold-xml"></div>
+            </div>
 
-                  function check_if_Google_login() {
-                    if (users_email != "") {
-                      document.getElementById("private_dataset_header").style.display = 'block';
-                      get_user_XML_display();
-                    }
-                    else {
-                      remove_private_database();
-                    }
-                  }
+            <div class="col-md-7 col-xs-4 dropdown" style="padding-top: 0.5%; text-align: center;" id="publicdatabase">
+              <div class="public-rna" id="public_words">RNA-Seq Databases:
+                <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" onclick="check_if_Google_login()" />
+                <option value="-- eFP-Seq Browser public database options --" disabled> -- eFP-Seq Browser Public Database Options -- </option>
+                <option value="Araport 11 RNA-seq data">Araport 11 RNA-seq data</option>
+                <option value="Developmental transcriptome - Klepikova et al">Developmental transcriptome - Klepikova et al</option>
+                <option value="-- Uploaded dataset --" id="uploaded_dataset_header" disabled style="display:none;">-- Uploaded dataset --</option>
+                <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;">Uploaded dataset</option>
+                <option value="-- Private database options --" id="private_dataset_header" disabled style="display:none;">-- Private database options --</option>
+                </select>
 
-                  function remove_private_database() {
-                    document.getElementById("private_dataset_header").style.display = 'none';
-                  }
-                  </script>
-                  <style>
-                    select {
-                        border:2px solid #dadada;
-                        border-radius:7px;
-                        padding:5px;
-                        height: 40px;
-                    }
+                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" onclick="change_dataset()"><i class="material-icons" id="send_database">input</i></button>
 
-                    select:focus {
-                        outline:none;
-                        border-color:#9ecaed;
-                        box-shadow:0 0 10px #9ecaed;
-                    }
+                <button class="mdl-js-button mdl-button--fab mdl-button--mini-fab" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px;" id="google_iden_login_button"><div class="g-signin2" data-onsuccess="onSignIn" id="google_login"></div></button>
+                <!-- Google Identity login Button-->
 
-                    .public-rna {
-                      font-size: 14px;
-                      font-weight: 500;
-                      font-family: "Roboto","Helvetica","Arial",sans-serif;
-                    }
-                  </style>
-                  <div class="col-md-3 col-xs-3" id="eFP_button" style="padding-left:6.5%;">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#eFPModal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%; float:right;" onclick="populate_efp_modal(1)">eFP Overview<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                    <div class="mdl-tooltip" for="eFP_button">See all the eFP tissue localization in one table</div>
+                <div class="dropdown" style="display:inline;">
+                  <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab signout-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:5px; display:none; opacity: 0%;"
+                    id="google_iden_logout_button">
+                        </button>
+                  <!-- Google logged in/signout button -->
+
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="google_iden_logout_button" id="upload_button_text_account" style="top:auto;">
+                    <a class="dropdown-item" style="font-size: 14px;" id="upload_button" onclick="signOut();">Sign Out</a>
+                    <a class="dropdown-item" style="font-size: 14px;" data-toggle="modal" data-target="#logoutModal" data-upgraded=",MaterialButton,MaterialRipple" id="manageXMLs" onclick="delete_fill(); fill_tableCSV();">Manage Data</a>
                   </div>
                 </div>
 
+                <div class="mdl-tooltip" for="public_words">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases (to sign-out, simply click on your Google profile icon)</div>
+              </div>
+            </div>
+            <script>
+              var account_inOut = 0;
+
+              function change_dataset() {
+                progress_percent = 0;
+                /*
+                if (document.getElementById("xmldatabase").value == "Default data") {
+                  base_src = 'cgi-bin/data/bamdata_amazon_links.xml';
+                }
+                else if (document.getElementById("xmldatabase").value == "Developmental transcriptome - Plant J - Sample") {
+                  base_src = 'cgi-bin/data/bamdata_Developmental-transcriptome-PlantJ.xml';
+                }
+                else if (document.getElementById("xmldatabase").value == "Uploaded dataset") {
+                  base_src = upload_src;
+                }
+                */
+                base_src = dataset_dictionary[document.getElementById("xmldatabase").value];
+                generate_loading_screen();
+                count_bam_num();
+                update_all_images(0);
+                //setTimeout(function(){ populate_table(0); }, 3000);
+              };
+
+              function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function() {
+                  console.log('User signed out.');
+                  users_email = "";
+                  remove_private_database()
+                  document.getElementById("google_iden_login_button").style.display = '';
+                  document.getElementById("google_iden_logout_button").style.display = 'none';
+                });
+                account_inOut = 0;
+              }
+
+              var profile_image = "";
+              var users_email = "";
+
+              function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+                //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                //console.log('Name: ' + profile.getName());
+                //console.log('Image URL: ' + profile.getImageUrl());
+                profile_image = profile.getImageUrl();
+                // var append_google_str = '<img src=\"' + profile_image + '\">"';
+                document.getElementById("google_iden_logout_button").innerHTML = '<img class="mdl-js-button mdl-button--fab mdl-button--mini-fab" src=\"' + profile_image + '\">"';
+                //console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+                users_email = profile.getEmail();
+                check_if_Google_login();
+                document.getElementById("google_iden_login_button").style.display = 'none';
+                document.getElementById("google_iden_logout_button").style.display = '';
+                account_inOut = 1;
+              };
+
+              function check_if_Google_login() {
+                if (users_email != "") {
+                  document.getElementById("private_dataset_header").style.display = 'block';
+                  get_user_XML_display();
+                } else {
+                  remove_private_database();
+                }
+              }
+
+              function remove_private_database() {
+                document.getElementById("private_dataset_header").style.display = 'none';
+              }
+            </script>
+            <style>
+              select {
+                border: 2px solid #dadada;
+                border-radius: 7px;
+                padding: 5px;
+                height: 40px;
+              }
+
+              select:focus {
+                outline: none;
+                border-color: #9ecaed;
+                box-shadow: 0 0 10px #9ecaed;
+              }
+
+              .public-rna {
+                font-size: 14px;
+                font-weight: 500;
+                font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+              }
+            </style>
+            <div class="col-md-3 col-xs-3" id="eFP_button" style="padding-left:6.5%;">
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " data-toggle="modal" data-target="#eFPModal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%; float:right;" onclick="populate_efp_modal(1)">eFP Overview<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+              <div class="mdl-tooltip" for="eFP_button">See all the eFP tissue localization in one table</div>
+            </div>
+          </div>
 
 
-                <hr style="border: 1px solid gray; margin: 5px; " id="butbarborder"/>
-                <!-- Options and Variants selection. -->
-                <div class="row" id="options_and_variants">
-                    <!-- Variants selection -->
-                    <div class="col-xs-12 col-sm-12 col-md-6 table-responsive" id="variants_portion" style="padding-left:2.5%;">
-                      <i style="font-size:1.2em;">Splicing variants:</i>
-                        <div id="variants_div">
-                            <!-- Prepopulated with AT2G24270 data. -->
-                            <div class="radio">
-                                <label>
+
+          <hr style="border: 1px solid gray; margin: 5px; " id="butbarborder" />
+          <!-- Options and Variants selection. -->
+          <div class="row" id="options_and_variants">
+            <!-- Variants selection -->
+            <div class="col-xs-12 col-sm-12 col-md-6 table-responsive" id="variants_portion" style="padding-left:2.5%;">
+              <i style="font-size:1.2em;">Splicing variants:</i>
+              <div id="variants_div">
+                <!-- Prepopulated with AT2G24270 data. -->
+                <div class="radio">
+                  <label>
                                     <input type="radio" name="radio_group" value="0" checked="checked"><img id="variant_0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAS0lEQVQ4jWMIxQfSoCCBAQRgvDRUHhYAVsCGWyABhZuATRZFO8wEOEBIpuL1 ABAwhAYOex8KDncfBg57HwoOdzAC4nD458NhX5YCAOtozsHok4ONAAAAAElFTkSuQmCC " class="">
                                 </label>
-                            </div>
-                            <div class="radio">
-                                <label>
+                </div>
+                <div class="radio">
+                  <label>
                                     <input type="radio" name="radio_group" value="1"><img id="variant_1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAT0lEQVQ4jWNgDcUD0qAggQEEYLw0VB4WAFbAhlsgAYWbgE0WRTvMBDhAlkxA EUpF8UAAUII1cNj7UHC4+5Bx2PtQcLiDERCHwz8fDvuyFACDg7uy8+q5lAAAAABJRU5ErkJggg== " class="">
                                 </label>
-                            </div>
-                            <div class="radio">
-                                <label>
+                </div>
+                <div class="radio">
+                  <label>
                                     <input type="radio" name="radio_group" value="2"><img id="variant_2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggIJQbCANChLASmC8NFQeFgBWwIZbIAGFm4BNFkU7zAQ4QEim BkCFWNHcHgBXzDjsfSg43H3IOOx9KDjcwQiIw+GfD4d9WQoAgkyakcEOyvoAAAAASUVORK5CYII=" class="">
                                 </label>
-                            </div>
-                            <div class="radio">
-                                <label>
+                </div>
+                <div class="radio">
+                  <label>
                                     <input type="radio" name="radio_group" value="3"><img id="variant_3" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggIJQEAhLS2NABmxpEJAA5qXBACoPC0DRjEUgAYWbgE0WRXsa mruQJFNDAxgIAMZh70PB4e5DxmHvQ8HhDkZAHA7/fDjsy1IA2bJX0qO2690AAAAASUVORK5CYII=" class="">
                                 </label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Options -->
-                    <div class="col-xs-12 col-sm-12 col-md-6" id="options_portion">
-                        <div class="row">
-                            <div class="col-xs-1" id="correctspacing">
-                                <!-- For correct spacing. -->
-                            </div>
-                            <!-- Locus input -->
-                            <div class="col-xs-4" id="locusbrowser">
-                                <p>
-                                    <input type="text" class="form-control" name="Locus" id="locus" value="AT2G24270" style="width: 175px; height: 35px; border: 1.5px solid rgb(76,175,80);" autofocus/><i>Locus</i>
-                                </p>
-                            </div>
-                            <div class="mdl-tooltip" for="locus">e.g. AT2G24270</div>
-                            <!-- Y axis scaling -->
-                            <div class="col-xs-4" id="tt4">
-                                <p>
-                                    <input type="text" class="form-control" name="yscale_inp" id="yscale_input" value="Auto" style="width: 175px; height: 35px;" /><i>RNA-Seq Y-axis Scale</i>
-                                </p>
-                            </div>
-                            <div class="mdl-tooltip" for="yscale_input">'Auto' or >= 1 </div>
+                </div>
+              </div>
+            </div>
+            <!-- Options -->
+            <div class="col-xs-12 col-sm-12 col-md-6" id="options_portion">
+              <div class="row">
+                <div class="col-xs-1" id="correctspacing">
+                  <!-- For correct spacing. -->
+                </div>
+                <!-- Locus input -->
+                <div class="col-xs-4" id="locusbrowser">
+                  <p>
+                    <input type="text" class="form-control" name="Locus" id="locus" value="AT2G24270" style="width: 175px; height: 35px; border: 1.5px solid rgb(76,175,80);" autofocus/><i>Locus</i>
+                  </p>
+                </div>
+                <div class="mdl-tooltip" for="locus">e.g. AT2G24270</div>
+                <!-- Y axis scaling -->
+                <div class="col-xs-4" id="tt4">
+                  <p>
+                    <input type="text" class="form-control" name="yscale_inp" id="yscale_input" value="Auto" style="width: 175px; height: 35px;" /><i>RNA-Seq Y-axis Scale</i>
+                  </p>
+                </div>
+                <div class="mdl-tooltip" for="yscale_input">'Auto' or >= 1 </div>
 
-                            <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style locus_button_visual">
+                <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style locus_button_visual">
                                 <i class="material-icons">trending_flat</i>
                             </button>
-                            <div class="mdl-tooltip" for="locus_button">Load new settings</div>
+                <div class="mdl-tooltip" for="locus_button">Load new settings</div>
 
-                            <div id="locusbuttonmobile" style="display:none;">
-                                <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style" style="margin:auto; display:block;">
+                <div id="locusbuttonmobile" style="display:none;">
+                  <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style" style="margin:auto; display:block;">
                                     <i class="material-icons">trending_flat</i>
                                 </button>
-                            </div>
-                            <!--
+                </div>
+                <!--
                     <div class="col-xs-1">
                         <input id="locus_button" type="button" class="btn btn-success" onclick="update_all_images(0)" value="Go" style="height: 35px;" />
                     </div> -->
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-1">
-                                <!-- For correct spacing. -->
-                            </div>
-                            <!-- SVG colouring mode: abs or rel -->
-                            <br id="mobilebrspacing" style="display:none;">
-                            <div class="col-xs-4" id="default_radio">
-                                <p>
-                                    <div class="radio">
-                                        <label id="abs_radio">
+              </div>
+              <div class="row">
+                <div class="col-xs-1">
+                  <!-- For correct spacing. -->
+                </div>
+                <!-- SVG colouring mode: abs or rel -->
+                <br id="mobilebrspacing" style="display:none;">
+                <div class="col-xs-4" id="default_radio">
+                  <p>
+                    <div class="radio">
+                      <label id="abs_radio">
                                             <input type="radio" name="svg_colour_radio_group" value="abs" checked="checked">Absolute
                                         </label>
-                                        <label id="rel_radio" style="margin-left: 10px;">
+                      <label id="rel_radio" style="margin-left: 10px;">
                                             <input type="radio" name="svg_colour_radio_group" value="rel">Relative
                                         </label>
-                                    </div>
-                                    <div class="mdl-tooltip" for="abs_radio">Based on RPKM values</div>
-                                    <div class="mdl-tooltip" for="rel_radio">Log2 of RPKM to average
-                                        <br/>controls RPKM ratio</div>
-                                    <i>SVG Colouring Mode</i>
-                                </p>
-                            </div>
-                            <div class="col-xs-1 hidden">
-                                <input id="svg_colour_button" type="button" class="btn" onclick="colour_svgs_now()" value="Go" style="height: 35px;" />
-                            </div>
-                            <!-- Absolute SVG scaling -->
-                            <div class="col-xs-4" id="absolutedefault">
-                                <p>
-                                    <input type="text" class="form-control" name="rpkm_inp" id="rpkm_scale_input" value="1000" style="width: 175px; height: 35px;" /><i>eFP Absolute Max Value</i>
-                                </p>
-                            </div>
-                            <div class="mdl-tooltip" for="rpkm_scale_input">Automatically set to
-                                <br/>highest value</div>
-                            <!--<div class="col-xs-1">
+                    </div>
+                    <div class="mdl-tooltip" for="abs_radio">Based on RPKM values</div>
+                    <div class="mdl-tooltip" for="rel_radio">Log2 of RPKM to average
+                      <br/>controls RPKM ratio</div>
+                    <i>SVG Colouring Mode</i>
+                  </p>
+                </div>
+                <div class="col-xs-1 hidden">
+                  <input id="svg_colour_button" type="button" class="btn" onclick="colour_svgs_now()" value="Go" style="height: 35px;" />
+                </div>
+                <!-- Absolute SVG scaling -->
+                <div class="col-xs-4" id="absolutedefault">
+                  <p>
+                    <input type="text" class="form-control" name="rpkm_inp" id="rpkm_scale_input" value="1000" style="width: 175px; height: 35px;" /><i>eFP Absolute Max Value</i>
+                  </p>
+                </div>
+                <div class="mdl-tooltip" for="rpkm_scale_input">Automatically set to
+                  <br/>highest value</div>
+                <!--<div class="col-xs-1">
                         <input id="abs_scale_button" type="button" class="btn" onclick="colour_svgs_now()" value="Go" style="height: 35px;" />
                     </div>-->
-                            <button id="abs_scale_button" onclick="colour_svgs_now()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab locus_button_style">
+                <button id="abs_scale_button" onclick="colour_svgs_now()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab locus_button_style">
                                 <i class="material-icons">cached</i>
                             </button>
-                            <div class="mdl-tooltip" for="abs_scale_button">Recolour</div>
-                        </div>
-                    </div>
-                </div>
-                <hr style="border: 1px solid gray; margin: 5px; " />
-                <!-- RNA-Seq table. -->
-                <div class="col-xs-12 table-responsive">
-                    <table id="thetable" class="table" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);"></table>
-                    <div class="mdl-tooltip" for="eFP_th">Sorts by plant part.</div>
-                    <div class="mdl-tooltip" for="flt0_thetable">See Help for advanced options.</div>
-                    <div class="mdl-tooltip" for="flt2_thetable">See Help for advanced options.</div>
-                    <div class="mdl-tooltip" for="flt4_thetable">See Help for advanced options.</div>
-                    <div class="mdl-tooltip" for="flt5_thetable">See Help for advanced options.</div>
-                </div>
+                <div class="mdl-tooltip" for="abs_scale_button">Recolour</div>
+              </div>
             </div>
-            <script>
-                var filter1 = "flt2_thetable"
-                var filter2 = "flt4_thetable"
-                function checkNum(n) {
-                  var test = parseFloat(document.getElementById(n).value);
-                	if (isNaN(test)) { return false}
-                  else {return true}
-                }
-                function filter_num(filter_id1, filter_id2) {
-                	if ((
-                        ((document.getElementById(filter_id1).value.includes("<=")) == false) &&
-                        ((document.getElementById(filter_id1).value.includes(">")) == false) &&
-                        ((document.getElementById(filter_id1).value.includes("<")) == false) &&
-                        ((document.getElementById(filter_id1).value.includes(">=")) == false)
-                      )
-                      &&
-                      (
-                        ((document.getElementById(filter_id1).value == "") == false)
-                      )
-                      &&
-                      (
-                        (checkNum(filter_id1) == true)
-                      )
-                    )
-                    {
-                		    document.getElementById(filter_id1).value = (">=" + document.getElementById(filter_id1).value);
-                    }
-                  if ((
-                        ((document.getElementById(filter_id2).value.includes("<=")) == false) &&
-                        ((document.getElementById(filter_id2).value.includes(">")) == false) &&
-                        ((document.getElementById(filter_id2).value.includes("<")) == false) &&
-                        ((document.getElementById(filter_id2).value.includes(">=")) == false)
-                      )
-                      &&
-                      (
-                        ((document.getElementById(filter_id2).value == "") == false)
-                      )
-                      &&
-                      (
-                        (checkNum(filter_id2) == true)
-                      )
-                    )
-                    {
-                		    document.getElementById(filter_id2).value = (">=" + document.getElementById(filter_id2).value);
-                    }
-                };
-            </script>
-            <div id="toast" class="mdl-js-snackbar mdl-snackbar">
-                <div class="mdl-snackbar__text"></div>
-                <button class="mdl-snackbar__action" type="button"></button>
-            </div>
-            <!-- Feedback Modal -->
-            <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="Feedback button" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal" aria-hidden="true">x</button>
-                          <h2 class="modal-title" id="myModalLabel">Feedback</h2>
-                        </div>
-                        <div class="modal-body">
-                            <!-- WUFOO form -->
-                            <div id="wufoo-shvmgyz181mhf1">
-                            Fill out my <a href="https://jamiewaese.wufoo.com/forms/shvmgyz181mhf1">online form</a>.
-                            </div>
-                            <div id="wuf-adv" style="font-family:inherit;font-size: small;color:#a7a7a7;text-align:center;display:block;">form powered by <a href="http://www.wufoo.com">Wufoo</a>.</div>
-                              <script type="text/javascript">
-                                var shvmgyz181mhf1;(function(d, t) {
-                                var s = d.createElement(t), options = {
-                                'userName':'jamiewaese',
-                                'formHash':'shvmgyz181mhf1',
-                                'autoResize':true,
-                                'height':'734',
-                                'async':true,
-                                'host':'wufoo.com',
-                                'header':'show',
-                                'ssl':true};
-                                s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
-                                s.onload = s.onreadystatechange = function() {
-                                var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
-                                try { shvmgyz181mhf1 = new WufooForm();shvmgyz181mhf1.initialize(options);shvmgyz181mhf1.display(); } catch (e) {}};
-                                var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
-                                })(document, 'script');
-                              </script>
-                            <!-- end of WUFOO form -->
+          </div>
+          <hr style="border: 1px solid gray; margin: 5px; " />
+          <!-- RNA-Seq table. -->
+          <div class="col-xs-12 table-responsive">
+            <table id="thetable" class="table" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);"></table>
+            <div class="mdl-tooltip" for="eFP_th">Sorts by plant part.</div>
+            <div class="mdl-tooltip" for="flt0_thetable">See Help for advanced options.</div>
+            <div class="mdl-tooltip" for="flt2_thetable">See Help for advanced options.</div>
+            <div class="mdl-tooltip" for="flt4_thetable">See Help for advanced options.</div>
+            <div class="mdl-tooltip" for="flt5_thetable">See Help for advanced options.</div>
+          </div>
+        </div>
+        <script>
+          var filter1 = "flt2_thetable"
+          var filter2 = "flt4_thetable"
 
+          function checkNum(n) {
+            var test = parseFloat(document.getElementById(n).value);
+            if (isNaN(test)) {
+              return false
+            } else {
+              return true
+            }
+          }
 
-                        </div>
-                    </div>
+          function filter_num(filter_id1, filter_id2) {
+            if ((
+                ((document.getElementById(filter_id1).value.includes("<=")) == false) &&
+                ((document.getElementById(filter_id1).value.includes(">")) == false) &&
+                ((document.getElementById(filter_id1).value.includes("<")) == false) &&
+                ((document.getElementById(filter_id1).value.includes(">=")) == false)
+              ) &&
+              (
+                ((document.getElementById(filter_id1).value == "") == false)
+              ) &&
+              (
+                (checkNum(filter_id1) == true)
+              )
+            ) {
+              document.getElementById(filter_id1).value = (">=" + document.getElementById(filter_id1).value);
+            }
+            if ((
+                ((document.getElementById(filter_id2).value.includes("<=")) == false) &&
+                ((document.getElementById(filter_id2).value.includes(">")) == false) &&
+                ((document.getElementById(filter_id2).value.includes("<")) == false) &&
+                ((document.getElementById(filter_id2).value.includes(">=")) == false)
+              ) &&
+              (
+                ((document.getElementById(filter_id2).value == "") == false)
+              ) &&
+              (
+                (checkNum(filter_id2) == true)
+              )
+            ) {
+              document.getElementById(filter_id2).value = (">=" + document.getElementById(filter_id2).value);
+            }
+          };
+        </script>
+        <div id="toast" class="mdl-js-snackbar mdl-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button class="mdl-snackbar__action" type="button"></button>
+        </div>
+        <!-- Feedback Modal -->
+        <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="Feedback button" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal" aria-hidden="true">x</button>
+                <h2 class="modal-title" id="myModalLabel">Feedback</h2>
+              </div>
+              <div class="modal-body">
+                <!-- WUFOO form -->
+                <div id="wufoo-shvmgyz181mhf1">
+                  Fill out my <a href="https://jamiewaese.wufoo.com/forms/shvmgyz181mhf1">online form</a>.
                 </div>
-            </div>
-
-
-            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg" style="width: 940px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                          <p>
-                          Enter your AGI ID of interest and click the Arrow button to search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, <a href="http://biorxiv.org/content/early/2016/04/05/047308">http://biorxiv.org/content/early/2016/04/05/047308</a>). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns. <br><br>
-
-                          * If you sort based on the PCC column you can see the readmap profiles that best or least match a given gene model, based on the Pearson correlation coefficient (we generate a "all or nothing" vector for exons/introns for a given gene model and compare that to the readmap vector) <br>
-                          * If you sort based on the eFP (RPKM) you will sort the rows by the plant part used for RNA-seq sampling <br>
-                          * If you sort based on RPKM the rows will be sorted by RPKM expression level <br>
-                          * Linkouts are provided to the SRA at NCBI and to associated publications <br>
-                          * You may filter the data in the columns, and you can combine multiple filter criteria. For example, try '&gt; 100 &amp;&amp; &lt; 110' filter in the RPKM column.<br><br>
-
-                          You can also set the mode to be "Relative" in which case the RPKM values of the appropriate control experiment or experiments (if no control is apparent, we used all samples in an experiment) are used to compute the fold-change in expression (increase or decrease) of the gene in question in that sample (row) relative to the control. You can then sort on this fold-change. <br><br>
-
-                          You can ajdust the RNA-seq readmap scale or the RPKM colour scale from their default settings of "auto" (readmap y-axes are autoscaled on a per sample basis) and whatever the maximum RPKM value is (any sample which has this score would have a red-coloured pictograph, while samples where expression is lower would have pictographs tending towards yellow in colour.) <br><br>
-
-                          We welcome feedback to nicholas.provart@utoronto.ca.<br>
-
-                          </p>
-                        </div>
-                        <div class="modal-footer modal-footer-colour">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="eFPModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg" style="width: 940px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body" >
-                          <div class="table-responsive efp_modal_table">
-                              <table id="eFPtable" class="table"></table>
-                          </div>
-                        </div>
-                        <div class="modal-footer modal-footer-colour">
-                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="hiddenDownloadModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg" style="width: 940px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body" >
-                          <div class="table-responsive efp_modal_table">
-                              <table id="hiddenDownloadModal_table" class="table"></table>
-                          </div>
-                        </div>
-                        <div class="modal-footer modal-footer-colour">
-                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="SubmissionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg" style="width: 940px;">
-                    <div class="modal-content" style="margin-left:1%;">
-                        <div class="modal-header" style="padding-bottom:3%;">
-                            <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">×</button>
-                        </div>
-                        <div class="modal-body">
-                          <iframe src="cgi-bin\Submission_page.html" height="600px"></iframe>
-                        </div>
-                        <div class="modal-footer modal-footer-colour">
-                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="uploadModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg" style="width: 400px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body" >
-                          <div class="table-responsive efp_modal_table">
-                              <p style="text-align: center;"> Do you want this XML to be uploaded to your private Google account? </p>
-                              <div style="text-align: center; padding-bottom: 3px;">
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click(); setTimeout(function() {add_user_xml_by_upload()}, 1000);" data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:3%" onclick="document.getElementById('fileID').click();">No<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                              </div>
-                          </div>
-                        </div>
-                        <div class="modal-footer modal-footer-colour">
-                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="logoutModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg" style="width: 600px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body" >
-                          <div class="table-responsive efp_modal_table">
-                              <p style="font-size: 1.4em;"> Select public dataset you wish to download: </p>
-                              <div style="padding-bottom: 3px;" id="publicDatabaseDownload">
-                              </div>
-                              <br>
-                              <p style="font-size: 1.4em;"> Select private dataset you wish to manage or download: </p>
-                              <div style="padding-bottom: 3px;" id="delete_fill">
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                              </div>
-                              <br>
-                              <p>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="#" data-upgraded=",MaterialButton,MaterialRipple" onclick="manage_DownloadXML();" id="downloadAsXML_button" style="margin-right: 1%;">Download as XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                                <a class="downloadfile" href="#" id="downloadXML"><button id="downloadXML_button" download hidden>Download file</button></a>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" onclick="download_XMLtableCSV();" id="downloadAsCSV_button">Download as CSV<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"  data-upgraded=",MaterialButton,MaterialRipple" onclick="showWarning_index()" id="deleteXML_button" style="margin-left:1%;">Delete XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                                <div class="warning_nope_index" id="warning_index">
-                                  <strong>Warning!</strong> Are you sure you wish to delete the selected data from your private account?
-                                  <span class="warning_button_index" onclick="hideWarning_index()" style="margin-top:3px;"> No </span>
-                                  <span class="warning_button_index modal-close" onclick="delete_selectedXML(); delete_fill();" data-dismiss="modal" style="margin-top:3px;"> Yes </span>
-                                </div>
-                              </p>
-                              <p> The following XML to CSV conversion was created using <a href="https://github.com/cyriac/jquery.tabletoCSV">Cryiac Thomas' tabletoCSV function</a></p>
-                          </div>
-                        </div>
-                        <div class="modal-footer modal-footer-colour">
-                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="hiddenModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg" style="width: 600px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body" >
-                          <div id="XMLtoCSVtable">
-                          </div>
-                        </div>
-                        <div class="modal-footer modal-footer-colour">
-                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-            (function() {
-                'use strict';
-                var snackbarContainer = document.querySelector('#toast');
-                var showToastButton = document.querySelector('#locus_button');
-                var showToastButton2 = document.querySelector('#abs_scale_button');
-                showToastButton.addEventListener('click', function() {
-                    'use strict';
-                    var data = {
-                        message: 'Getting gene structure and RNA-Seq data ...'
+                <div id="wuf-adv" style="font-family:inherit;font-size: small;color:#a7a7a7;text-align:center;display:block;">form powered by <a href="http://www.wufoo.com">Wufoo</a>.</div>
+                <script type="text/javascript">
+                  var shvmgyz181mhf1;
+                  (function(d, t) {
+                    var s = d.createElement(t),
+                      options = {
+                        'userName': 'jamiewaese',
+                        'formHash': 'shvmgyz181mhf1',
+                        'autoResize': true,
+                        'height': '734',
+                        'async': true,
+                        'host': 'wufoo.com',
+                        'header': 'show',
+                        'ssl': true
+                      };
+                    s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+                    s.onload = s.onreadystatechange = function() {
+                      var rs = this.readyState;
+                      if (rs)
+                        if (rs != 'complete')
+                          if (rs != 'loaded') return;
+                      try {
+                        shvmgyz181mhf1 = new WufooForm();
+                        shvmgyz181mhf1.initialize(options);
+                        shvmgyz181mhf1.display();
+                      } catch (e) {}
                     };
-                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                });
-                showToastButton2.addEventListener('click', function() {
-                    'use strict';
-                    var data = {
-                        message: 'SVG colouring finished.'
-                    };
-                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                });
-            }());
-            </script>
-            <script src="cgi-bin/core/custom.js"></script>
-            <div id="10dayOldSeedling_svg" style="display: none;">
-              <!-- all -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+                    var scr = d.getElementsByTagName(t)[0],
+                      par = scr.parentNode;
+                    par.insertBefore(s, scr);
+                  })(document, 'script');
+                </script>
+                <!-- end of WUFOO form -->
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg" style="width: 940px;">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  Enter your AGI ID of interest and click the Arrow button to search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, <a href="http://biorxiv.org/content/early/2016/04/05/047308">http://biorxiv.org/content/early/2016/04/05/047308</a>).
+                  The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns. <br><br> * If you sort based on the PCC column you can see the readmap profiles
+                  that best or least match a given gene model, based on the Pearson correlation coefficient (we generate a "all or nothing" vector for exons/introns for a given gene model and compare that to the readmap vector) <br> * If you sort based
+                  on the eFP (RPKM) you will sort the rows by the plant part used for RNA-seq sampling <br> * If you sort based on RPKM the rows will be sorted by RPKM expression level <br> * Linkouts are provided to the SRA at NCBI and to associated
+                  publications <br> * You may filter the data in the columns, and you can combine multiple filter criteria. For example, try '&gt; 100 &amp;&amp; &lt; 110' filter in the RPKM column.<br><br> You can also set the mode to be "Relative" in
+                  which case the RPKM values of the appropriate control experiment or experiments (if no control is apparent, we used all samples in an experiment) are used to compute the fold-change in expression (increase or decrease) of the gene in
+                  question in that sample (row) relative to the control. You can then sort on this fold-change. <br><br> You can ajdust the RNA-seq readmap scale or the RPKM colour scale from their default settings of "auto" (readmap y-axes are autoscaled
+                  on a per sample basis) and whatever the maximum RPKM value is (any sample which has this score would have a red-coloured pictograph, while samples where expression is lower would have pictographs tending towards yellow in colour.) <br><br>                  We welcome feedback to nicholas.provart@utoronto.ca.<br>
+
+                </p>
+              </div>
+              <div class="modal-footer modal-footer-colour">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="eFPModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg" style="width: 940px;">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive efp_modal_table">
+                  <table id="eFPtable" class="table"></table>
+                </div>
+              </div>
+              <div class="modal-footer modal-footer-colour">
+                <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="hiddenDownloadModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg" style="width: 940px;">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive efp_modal_table">
+                  <table id="hiddenDownloadModal_table" class="table"></table>
+                </div>
+              </div>
+              <div class="modal-footer modal-footer-colour">
+                <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="SubmissionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg" style="width: 940px;">
+            <div class="modal-content" style="margin-left:1%;">
+              <div class="modal-header" style="padding-bottom:3%;">
+                <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">×</button>
+              </div>
+              <div class="modal-body">
+                <iframe src="cgi-bin\Submission_page.html" height="600px"></iframe>
+              </div>
+              <div class="modal-footer modal-footer-colour">
+                <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="uploadModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg" style="width: 400px;">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive efp_modal_table">
+                  <p style="text-align: center;"> Do you want this XML to be uploaded to your private Google account? </p>
+                  <div style="text-align: center; padding-bottom: 3px;">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click(); setTimeout(function() {add_user_xml_by_upload()}, 1000);"
+                      data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:3%" onclick="document.getElementById('fileID').click();">No<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer modal-footer-colour">
+                <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="logoutModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg" style="width: 600px;">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive efp_modal_table">
+                  <p style="font-size: 1.4em;"> Select public dataset you wish to download: </p>
+                  <div style="padding-bottom: 3px;" id="publicDatabaseDownload">
+                  </div>
+                  <br>
+                  <p style="font-size: 1.4em;"> Select private dataset you wish to manage or download: </p>
+                  <div style="padding-bottom: 3px;" id="delete_fill">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                  </div>
+                  <br>
+                  <p>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="#" data-upgraded=",MaterialButton,MaterialRipple" onclick="manage_DownloadXML();" id="downloadAsXML_button" style="margin-right: 1%;">Download as XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                    <a class="downloadfile" href="#" id="downloadXML"><button id="downloadXML_button" download hidden>Download file</button></a>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" onclick="download_XMLtableCSV();" id="downloadAsCSV_button">Download as CSV<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" onclick="showWarning_index()" id="deleteXML_button" style="margin-left:1%;">Delete XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                    <div class="warning_nope_index" id="warning_index">
+                      <strong>Warning!</strong> Are you sure you wish to delete the selected data from your private account?
+                      <span class="warning_button_index" onclick="hideWarning_index()" style="margin-top:3px;"> No </span>
+                      <span class="warning_button_index modal-close" onclick="delete_selectedXML(); delete_fill();" data-dismiss="modal" style="margin-top:3px;"> Yes </span>
+                    </div>
+                  </p>
+                  <p> The following XML to CSV conversion was created using <a href="https://github.com/cyriac/jquery.tabletoCSV">Cryiac Thomas' tabletoCSV function</a></p>
+                </div>
+              </div>
+              <div class="modal-footer modal-footer-colour">
+                <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="hiddenModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg" style="width: 600px;">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div id="XMLtoCSVtable">
+                </div>
+              </div>
+              <div class="modal-footer modal-footer-colour">
+                <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          (function() {
+            'use strict';
+            var snackbarContainer = document.querySelector('#toast');
+            var showToastButton = document.querySelector('#locus_button');
+            var showToastButton2 = document.querySelector('#abs_scale_button');
+            showToastButton.addEventListener('click', function() {
+              'use strict';
+              var data = {
+                message: 'Getting gene structure and RNA-Seq data ...'
+              };
+              snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            });
+            showToastButton2.addEventListener('click', function() {
+              'use strict';
+              var data = {
+                message: 'SVG colouring finished.'
+              };
+              snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            });
+          }());
+        </script>
+        <script src="cgi-bin/core/custom.js"></script>
+        <div id="10dayOldSeedling_svg" style="display: none;">
+          <!-- all -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
 
                 <g id="shapes">
                     <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M137.356,255.895c0,0,5.252-2.844,7.002-7.877
@@ -768,13 +797,13 @@
                 </g>
               </svg>
 
-            </div>
-            <div id="Flower_svg" style="display: none;">
-              <!-- Receptacle -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+        </div>
+        <div id="Flower_svg" style="display: none;">
+          <!-- Receptacle -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
                    <g id="shapes">
                    	<g id="receptacle">
                    		<path fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M120.738,212.084c0,0-0.874,15.441,0.292,20.686
@@ -918,13 +947,13 @@
                    </g>
               </svg>
 
-            </div>
-            <div id="rosettePlusRoot_svg" style="display: none;">
-              <!-- Shoot -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+        </div>
+        <div id="rosettePlusRoot_svg" style="display: none;">
+          <!-- Shoot -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
                     <g id="shapes">
                    		<g id="shoot">
                    			<path fill="none" d="M32.312,82.743c0,0-0.297-9.479,28.738-33.182c7.999-5.036,23.405-13.035,34.662-5.036
@@ -1013,13 +1042,13 @@
                    	</g>
               </svg>
 
-            </div>
-            <div id="15dayOldSeedling_svg" style="display: none;">
-              <!-- all -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+        </div>
+        <div id="15dayOldSeedling_svg" style="display: none;">
+          <!-- all -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
                 <g id="shapes">
                 	<path id="root" fill="none" d="M150.667,103.667l-7.159,2.423l0.824,1.211
                 		c-0.067,0.551-1.106,1.747-1.157,2.289c-1.839,19.363,5.866,32.137,8.499,36.667c0.359,0.617,1.695,1.104,1.803,1.361
@@ -1139,13 +1168,13 @@
                 </g>
               </svg>
 
-            </div>
-            <div id="leaf_svg" style="display: none;">
-              <!-- Leaf -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+        </div>
+        <div id="leaf_svg" style="display: none;">
+          <!-- Leaf -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
                    <g id="shapes">
                    	<path id="leaf" fill="none" d="M141.412,71.191c0,0,3.755-8.878,10.584-0.171c2.219,2.902,16.219,15.194,21.512,38.583
                    		c1.536,11.445,3.414,22.868,0.511,39.266c-2.048,6.658-2.56,10.414-12.975,31.754c-1.194,2.562-2.561,6.317-2.39,10.415
@@ -1167,13 +1196,13 @@
                    	<path fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M148.246,141.184"/>
                    </g>
               </svg>
-            </div>
-            <div id="ShootApexInflorescense_svg" style="display: none;">
-              <!-- ShootApexInFlorescence, all -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+        </div>
+        <div id="ShootApexInflorescense_svg" style="display: none;">
+          <!-- ShootApexInFlorescence, all -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
                    <g id="shapes">
                    	<path id="shootapexinflorescence" fill="none" d="M92.144,218.664c-1.811,0-10.205-106.433-10.205-106.433
                    		c-3.483-1.229-24.383-6.967-17.622-21.925c5.328-6.762,15.368-18.646,24.384-11.679c2.458,2.254,3.278,3.482,3.278,3.482
@@ -1194,14 +1223,13 @@
                    </g>
               </svg>
 
-            </div>
-            <div id="etiolatedSeedling_svg" style="display: none;">
-              <!-- etiolatedSeedling -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px"
-                   height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+        </div>
+        <div id="etiolatedSeedling_svg" style="display: none;">
+          <!-- etiolatedSeedling -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
                    <g id="shapes">
                    		<g id="etiolatedseedling">
                    			<path fill="none" d="M119.25,55c-7.553-7.931,13.703-26.924,20-28.25c21.202-4.464,20.564,11.889,20.476,29.194
@@ -1228,14 +1256,13 @@
                    	</g>
               </svg>
 
-            </div>
-            <div id="Pollen_svg" style="display: none;">
-              <!-- all -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px"
-                   height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+        </div>
+        <div id="Pollen_svg" style="display: none;">
+          <!-- all -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
                    <g id="shapes">
                    	<path id="pollin" fill="none" d="M93.86,101.869c0,0,9.337-40.261,33.259-43.762c19.256-2.335,40.843-12.254,64.184,45.512
                    		c9.922,19.837,23.346,78.185-4.082,103.861c-16.339,11.671-79.36,39.679-93.945-23.338C90.944,161.967,85.107,108.29,93.86,101.869
@@ -1498,13 +1525,13 @@
                    		c0.605-5.002,1.384-9.676,2.291-13.892c0.239-1.148,0.417-2.325,0.584-3.498c0.191-1.357,0.362-2.643,0.673-3.85l0.249-0.93"/>
                    </g>
               </svg>
-            </div>
-            <div id="Stage12Bud_svg" style="display: none;">
-              <!-- Stage12Bud -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+        </div>
+        <div id="Stage12Bud_svg" style="display: none;">
+          <!-- Stage12Bud -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
                  <g id="shapes">
                  	<path id="stage12bud" fill="none" d="M100.985,56.913c0,0,3.122-10.751,15.262-15.955c9.018-3.817,13.182-6.938,16.997-2.776
                  		c3.815-5.896,13.527-16.649,27.748-1.041c9.019-0.693,29.832,3.472,38.851,26.71c3.122,9.019,12.484,41.972,6.936,65.558
@@ -1524,13 +1551,13 @@
                  		c7.79,0,15.127-1.327,19.497-5.243"/>
                  </g>
               </svg>
-            </div>
-            <div id="FlowerParts_svg" style="display: none;">
-              <!-- carpels -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+        </div>
+        <div id="FlowerParts_svg" style="display: none;">
+          <!-- carpels -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
                    <g id="shapes">
                    	<g id="petals">
                    		<path fill="none" stroke="#000000" stroke-width="1" stroke-miterlimit="10" d="M95.705,131.386c0,0-5.321-12.884,7.562-29.13
@@ -1674,14 +1701,13 @@
                    		c0.219,0,0.527,0.044,0.971,0.454C140.831,189.007,141.919,194.821,140.532,197.477z"/>
                    </g>
               </svg>
-            </div>
-            <div id="RootTip_svg" style="display: none;">
-              <!-- all -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px"
-                   height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+        </div>
+        <div id="RootTip_svg" style="display: none;">
+          <!-- all -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
                    <g id="shapes">
                    	<g id="roottip">
                    		<path fill="none" d="M98.178,143.456l112.03-0.079l-5.458,56.235c0,0-1.472,7.203-2.704,7.552s1.086,1.377,1.086,1.377
@@ -2059,14 +2085,13 @@
                    		c-0.062,0.156-0.013,0.358-0.013,0.541"/>
                    </g>
               </svg>
-            </div>
-            <div id="youngSeedling_svg" style="display: none;">
-              <!-- not used at all.... -->
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                   width="75px" height="75px" viewBox="50 0 200 250" enable-background="new 50 0 200 250" xml:space="preserve">
+        </div>
+        <div id="youngSeedling_svg" style="display: none;">
+          <!-- not used at all.... -->
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="50 0 200 250" enable-background="new 50 0 200 250" xml:space="preserve">
                    <g id="root">
                    	<path fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M156,138.667
                    		c-0.597,10.588-2.333,13.333-9.162,19.945c-7.159,9.806-18.494,23.53-20.582,27.06c-2.685,7.061-10.739,32.943-11.335,38.041
@@ -2095,12 +2120,12 @@
                    <path fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" d="M128.048,47.628
                    	c-4.536-0.035-9.813,0.32-14.396,2.841c-3.608,1.979-9.646,5.296-11.46,9.958"/>
               </svg>
-            </div>
-            <div id="LeafParts_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
+        </div>
+        <div id="LeafParts_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
                    <path id="lamina" fill="none" stroke="#020202" stroke-width="3.5" stroke-miterlimit="10" d="M263.491,225.699
                    	c-24.515-65.498-65.992-98.764-66.421-99.102c-1.882-1.392-3.985-2.098-6.25-2.098c-10.142,0-23.752,13.875-40.453,41.239
                    	c-12.382,20.29-21.953,40.845-22.012,40.986C93.667,259.534,89.52,308.235,92.15,339.791c2.85,34.204,14.066,56.219,14.179,56.438
@@ -2125,12 +2150,12 @@
                    	c2.908,0.512,19.096,3.109,29.083-0.828c-1.186-5.442-12.986-62.227,1.02-100.153C224.122,461.184,242.936,404.881,251.407,387.818z
                    	"/>
               </svg>
-            </div>
-            <div id="Stamen_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
+        </div>
+        <div id="Stamen_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
                    <g id="outline">
                    	<g>
                    		<g>
@@ -2235,12 +2260,12 @@
                    		C347.276,481.199,318.964,481.079,292.062,453.448z"/>
                    </g>
               </svg>
-            </div>
-            <div id="Stage1Flowers_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
+        </div>
+        <div id="Stage1Flowers_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
                  <g id="shoot">
                  	<g>
                  		<path id="BOTTOM_1_" fill="none" stroke="#000000" stroke-miterlimit="10" d="M400.662,373.553
@@ -2556,12 +2581,12 @@
                  	</g>
                  </g>
               </svg>
-            </div>
-            <div id="Internode_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
+        </div>
+        <div id="Internode_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
                    <g id="BG">
                    	<path fill="none" d="M213,69c0,0,84,46,158-9c0,0-35.91,554.08,9.087,647.075c0,0-119.995-19.498-154.493,6
                    		C225.594,713.075,275.402,119.391,213,69z"/>
@@ -2571,13 +2596,12 @@
                    		c0,0-35.91,554.08,9.087,647.075c0,0-119.995-19.498-154.493,6C225.594,713.075,275.402,119.391,213,69z"/>
                    </g>
               </svg>
-            </div>
-            <div id="GerminatingSeed_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px"
-                   height="75px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
+        </div>
+        <div id="GerminatingSeed_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
                    <g id="background">
                    	<g>
                    		<path fill="none" d="M360.431,35.913c-41.979,6.97-81.557,21.896-117.638,44.361l-2.026,1.261l-2.409-22.16
@@ -2717,11 +2741,11 @@
                    	</g>
                    </g>
               </svg>
-            </div>
-            <div id="WholeSilique_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="10px" y="0px" viewBox="300 320 30 150" xml:space="preserve" width="75px" height="75px" enable-background="new 0 0 612 792">
+        </div>
+        <div id="WholeSilique_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="10px" y="0px" viewBox="300 320 30 150" xml:space="preserve" width="75px" height="75px" enable-background="new 0 0 612 792">
                    <style type="text/css">
                    	.st0{;stroke:#010101;stroke-width:0.5;stroke-miterlimit:10;}
                    </style>
@@ -2742,12 +2766,12 @@
                    		C344.7,409.8,346.2,408.3,344.9,409.7z"/>
                    </g>
               </svg>
-            </div>
-            <div id="StigmaAndOvaries_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" viewBox="250 50 430 500" enable-background="new 230 0 450 500" xml:space="preserve" class="st0">
+        </div>
+        <div id="StigmaAndOvaries_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" viewBox="250 50 430 500" enable-background="new 230 0 450 500" xml:space="preserve" class="st0">
                 <g id="samples">
                   <g id="Stigma_tissue" fill="none" >
                     <path d="M547.319,90.517c-0.771-0.45-1.562-0.112-2.054,0.539c0.062-0.102,0.033-0.083-0.088,0.055
@@ -3071,12 +3095,11 @@
                    </g>
                 </g>
               </svg>
-            </div>
-            <div id="Stage1-4Leaf_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                   viewBox="0 0 40 40" style="enable-background:new 0 0 24.4 42.1;" xml:space="preserve">
+        </div>
+        <div id="Stage1-4Leaf_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 24.4 42.1;" xml:space="preserve">
                    <style type="text/css">
                    	.st0{fill:none;stroke:#010101;stroke-width:0.5;stroke-miterlimit:10;}
                    </style>
@@ -3086,11 +3109,11 @@
                    </g>
                    <path class="st0" d="M11.8,24.4c-0.8-3.8-2-9.8-2-9.8"/>
               </svg>
-            </div>
-            <div id="SiliqueStage6-10_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24.7 118.8" style="enable-background:new 0 0 24.7 118.8;" xml:space="preserve" width="75px" height="75px">
+        </div>
+        <div id="SiliqueStage6-10_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24.7 118.8" style="enable-background:new 0 0 24.7 118.8;" xml:space="preserve" width="75px" height="75px">
                    <style type="text/css">
                    	.st0{fill:none;stroke:#010101;stroke-width:0.5;stroke-miterlimit:10;}
                    </style>
@@ -3104,11 +3127,11 @@
                    	 M15.4,98c3.3,2.7,3.3-1,3.5-1.5"/>
 
               </svg>
-            </div>
-            <div id="SiliqueStage1-5_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 10.1 64.8" style="enable-background:new 0 0 10.1 64.8;" xml:space="preserve" width="75px" height="75px">
+        </div>
+        <div id="SiliqueStage1-5_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 10.1 64.8" style="enable-background:new 0 0 10.1 64.8;" xml:space="preserve" width="75px" height="75px">
                    <style type="text/css">
                    	.st0{fill:none;stroke:#010101;stroke-width:0.5;stroke-miterlimit:10;}
                    </style>
@@ -3119,12 +3142,11 @@
                    	c0.2,0.8-0.4,2.4-0.5,3.3c-0.2,1.1-0.1,2.2-0.2,3.3c-0.1,1.2-0.4,2.3-0.7,3.4c-0.3,1.1-1.2,2-1.4,3.2 M3.2,5.2c0.9,0.1,1.9,0,2.8,0"
                    	/>
               </svg>
-            </div>
-            <div id="ShootApexVegetative-Transition_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                   viewBox="0 0 104.4 78.2" style="enable-background:new 0 0 104.4 78.2;" xml:space="preserve">
+        </div>
+        <div id="ShootApexVegetative-Transition_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 104.4 78.2" style="enable-background:new 0 0 104.4 78.2;" xml:space="preserve">
                    <style type="text/css">
                    	.st0{fill:none;stroke:#010101;stroke-width:0.5;stroke-miterlimit:10;}
                    </style>
@@ -3134,11 +3156,11 @@
                    		c0.2,3.5,0.7,19.4,0.7,19.4C85.2,74.4,8,77.9,8,77.9L7.4,51.9z"/>
                    </g>
               </svg>
-            </div>
-            <div id="SenescentLeaf_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 27.6 74.8" style="enable-background:new 0 0 27.6 74.8;" xml:space="preserve" width="75px" height="75px">
+        </div>
+        <div id="SenescentLeaf_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 27.6 74.8" style="enable-background:new 0 0 27.6 74.8;" xml:space="preserve" width="75px" height="75px">
                    <style type="text/css">
                    	.st0{fill:none;stroke:#010101;stroke-width:0.5;stroke-miterlimit:10;}
                    </style>
@@ -3152,11 +3174,11 @@
                    <path class="st0" d="M13.5,16.8l0,0.7c0,1.3,0,2.6-0.3,3.9c-0.3,1.2-0.7,2.4-0.8,3.6c-0.1,2.7,1.7,4.1,3,6.2
                    	c1.4,2.3,1.8,4.9,1.8,7.6c0,2.8,0,5.4-0.7,8.1l-0.1,0.2c-0.3,1.4-0.5,3-0.5,4.9c0,0,0-1.8,0,0"/>
               </svg>
-            </div>
-            <div id="SeedStage8+_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 38.3 57.8" style="enable-background:new 0 0 38.3 57.8;" xml:space="preserve" width="75px" height="75px">
+        </div>
+        <div id="SeedStage8+_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 38.3 57.8" style="enable-background:new 0 0 38.3 57.8;" xml:space="preserve" width="75px" height="75px">
                    <style type="text/css">
                    		.st0{fill:none;stroke:#010101;stroke-width:0.5;stroke-miterlimit:10;}
                    	</style>
@@ -3172,11 +3194,11 @@
                    		c0.3-1.3,0.8-2.6,1.3-3.9c0.2-0.6,0.4-1.3,0.7-1.8c0.3-0.5,0.8-1,0.8-1.7 M21.6,24.1c0,0.9-0.1,1.7-0.1,2.6c0,1.2,0.2,2.5,0.4,3.7
                    		c0.2,1.4,0.4,5.9,0.4,7.3"/>
               </svg>
-            </div>
-            <div id="SeedStage5-7_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32.5 48.9" style="enable-background:new 0 0 32.5 48.9;" xml:space="preserve" width="75px" height="75px">
+        </div>
+        <div id="SeedStage5-7_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32.5 48.9" style="enable-background:new 0 0 32.5 48.9;" xml:space="preserve" width="75px" height="75px">
                 <style type="text/css">
                     .st0{fill:none;stroke:#010101;stroke-width:0.5;stroke-miterlimit:10;}
                 </style>
@@ -3191,11 +3213,11 @@
                     l0,0c0,0,0,0-0.1,0c-0.9-0.6-1.9-1.3-2.4-2.3c-0.4-0.9-0.3-2,0.7-2.5c2.3-1.1,4.9,0.4,6.9,1.5c2,1,3.5,2.5,4.7,4.4
                     C27.9,19.3,28.1,21.7,27.8,24.3C27.7,25.1,27.9,23.2,27.8,24.3z"/>
               </svg>
-            </div>
-            <div id="SeedStage1-4_svg" style="display: none;">
-              <?xml version="1.0" encoding="utf-8"?>
-              <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32.6 45.8" style="enable-background:new 0 0 32.6 45.8;" xml:space="preserve" width="75px" height="75px">
+        </div>
+        <div id="SeedStage1-4_svg" style="display: none;">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32.6 45.8" style="enable-background:new 0 0 32.6 45.8;" xml:space="preserve" width="75px" height="75px">
                 <style type="text/css">
                     .st0{fill:none;stroke:#010101;stroke-width:0.5;stroke-miterlimit:10;}
                 </style>
@@ -3207,20 +3229,21 @@
                     c0.6,0,1.3,1.1,1.6,1.5l1.2,1.3l-0.3-1.8c-0.1-0.8,0.7-0.9,1.3-0.7C28.6,24.6,28.3,25.6,27.9,26.4C27.8,26.7,28.1,25.9,27.9,26.4z"
                     />
               </svg>
-            </div>
-            <div id="Other_svg" style="display: none;">
-              <!-- Take from https://material.io/icons/#ic_help -->
-              <!-- Original file name: google_material_help-ic_help_black_24px.svg -->
-              <svg fill="#000000" height="75px" viewBox="0 0 24 24" width="75px" xmlns="http://www.w3.org/2000/svg">
+        </div>
+        <div id="Other_svg" style="display: none;">
+          <!-- Take from https://material.io/icons/#ic_help -->
+          <!-- Original file name: google_material_help-ic_help_black_24px.svg -->
+          <svg fill="#000000" height="75px" viewBox="0 0 24 24" width="75px" xmlns="http://www.w3.org/2000/svg">
                 <g id="outlines">
                   <path id="all" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
                 </g>
               </svg>
-            </div>
+        </div>
 </body>
 <a id="download_button" style="cursor: pointer;" onclick="download_mainTableCSV()"><i class="material-icons"style="position: fixed; bottom: 15px; right: 60px; border-radius:50%; background-color: #7FFF00; font-size:27px;" height="40" id="download_icon">file_download</i></a>
 <a data-toggle="modal" data-target="#myModal" id="help_button" style="cursor: help;"><img src="cgi-bin/Submission_page/Images/help2.png" id="help_icon" style="position: fixed; bottom: 10px; right: 10px;" height="40"></a>
 <!--
 <a data-toggle="modal" data-target="#eFPModal" id="eFP_button" onclick="populate_efp_modal(1)"><i class="material-icons" style="position: fixed; bottom: 15px; right: 56px;">compare</i></a>
 -->
+
 </html>
