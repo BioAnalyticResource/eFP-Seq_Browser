@@ -202,7 +202,7 @@
                       alert("Insert valid XML only");
                     }
                     //count_bam_num();
-                    update_all_images(0);
+                    checkPreload();
                     //setTimeout(function(){ populate_table(0); }, 3000);
                   });
                 });
@@ -395,13 +395,13 @@
                 </div>
                 <div class="mdl-tooltip" for="yscale_input">'Auto' or >= 1 </div>
 
-                <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style locus_button_visual">
+                <button id="locus_button" onclick="generate_loading_screen();update_all_images(0);" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style locus_button_visual">
                                 <i class="material-icons">trending_flat</i>
                             </button>
                 <div class="mdl-tooltip" for="locus_button">Load new settings</div>
 
                 <div id="locusbuttonmobile" style="display:none;">
-                  <button id="locus_button" onclick="update_all_images(0)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style" style="margin:auto; display:block;">
+                  <button id="locus_button" onclick="generate_loading_screen();update_all_images(0);" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored locus_button_style" style="margin:auto; display:block;">
                                     <i class="material-icons">trending_flat</i>
                                 </button>
                 </div>

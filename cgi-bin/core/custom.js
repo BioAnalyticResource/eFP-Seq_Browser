@@ -1915,6 +1915,17 @@ function download_mainTableCSV() {
   $("#hiddenDownloadModal_table").tableToCSV();
 }
 
+function checkPreload() {
+  if (document.getElementById("xmldatabase").value == "Araport 11 RNA-seq data") {
+    console.log("For the title: " + document.getElementById("xmldatabase").value + ", checkPreload = Yes");
+    populate_table(1);
+  }
+  else {
+    console.log("For the title: " + document.getElementById("xmldatabase").value + ", checkPreload = No");
+    update_all_images(0);
+  }
+}
+
 $(document).ready(function() {
   // On load, validate input
   locus_validation();
