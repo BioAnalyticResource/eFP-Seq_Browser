@@ -602,6 +602,8 @@ var bp_start_dic = {};
 var bp_end_dic = {};
 var mapped_reads_dic = {};
 var locus_dic = {};
+//var dumpCode = [];
+//var dumpStr = "";
 
 function rnaseq_images(status) {
   bp_length_dic = {};
@@ -613,6 +615,7 @@ function rnaseq_images(status) {
   get_input_values();
   //count_bam_num();
   if (rnaseq_calls.length == count_bam_entries_in_xml) {
+    //dumpCode = [];
     sra_list_check = [];
     rnaseq_change = 1;
     for (var i = 0; i < count_bam_entries_in_xml; i++) {
@@ -630,11 +633,7 @@ function rnaseq_images(status) {
       } else {
         // New rnaseq_image_url with BAM file name
         //var amazon_filename = repo_list[i].split("/");
-        //rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&amazonfile=" + amazon_filename[amazon_filename.length - 1] + "&tissue=";
         rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&tissue=";
-        // New rnaseq_image_url with numberofreads
-        //rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&tissue=" + tissue_list[i] + "&record=" + sra_list[i];
-
         // Original rnaseq_image_url
         // rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
       }
@@ -647,6 +646,8 @@ function rnaseq_images(status) {
           //console.log(response_rnaseq['record']);
         },
         success: function(response_rnaseq) {
+          //dumpStr = 'dumpJSON(' + String(response_rnaseq["status"]) + ', "' + String(response_rnaseq["locus"]) + '", ' + String(response_rnaseq["variant"]) + ', ' + String(response_rnaseq["chromosome"]) + ', ' + String(response_rnaseq["start"]) + ', ' + String(response_rnaseq["end"]) + ', "' + String(response_rnaseq["record"]) + '", "' + String(response_rnaseq["tissue"]) +'", "' + String(response_rnaseq["rnaseqbase64"]) + '", ' + String(response_rnaseq["reads_mapped_to_locus"]) + ', ' + String(response_rnaseq["absolute-fpkm"]) + ', ' + String(response_rnaseq["r"]) + '])';
+          //dumpCode.push(dumpStr); Uncomment out dumpStr and dumpCode if you want to add a new set of pre-cached data into webservice.cgi, this variable list makes it easier
           //console.log(response_rnaseq['record']);
           sra_list_check.push(response_rnaseq['record']);
           bp_length_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['end']) - parseFloat(response_rnaseq['start']));
@@ -1633,7 +1634,7 @@ function get_user_XML_display() {
                 // Add data to list of accessible datasets
                 dataset_dictionary[title_list[i]] = data_list[i];
                 // Create option to select data from user
-                document.getElementById("xmldatabase").innerHTML += '<option class="userAdded" value="' + title_list[i] + '" id="' + title_list[i] + '">' + title_list[i] + '</option>';
+                document.getElementById("xmldatabase").innerHTML += '<option class="userAdded" tag="private" value="' + title_list[i] + '" id="' + title_list[i] + '">' + title_list[i] + '</option>';
               }
             };
             list_modified = true;
@@ -1915,13 +1916,24 @@ function download_mainTableCSV() {
   $("#hiddenDownloadModal_table").tableToCSV();
 }
 
+var publicData = false;
+function changePublicData(insert_bool) {
+  if ((document.getElementById("xmldatabase").selectedIndex == 1) || (document.getElementById("xmldatabase").selectedIndex == 2)) {
+    publicData = true;
+  }
+  else {
+    publicData = false;
+  }
+}
+
 function checkPreload() {
-  if (document.getElementById("xmldatabase").value == "Araport 11 RNA-seq data") {
-    console.log("For the title: " + document.getElementById("xmldatabase").value + ", checkPreload = Yes");
+  get_input_values();
+  if ((publicData == true) && (locus == "AT2G24270")) {
+    //console.log("For the title: " + document.getElementById("xmldatabase").value + ", checkPreload = Yes, locus = " + locus);
     populate_table(1);
   }
   else {
-    console.log("For the title: " + document.getElementById("xmldatabase").value + ", checkPreload = No");
+    //console.log("For the title: " + document.getElementById("xmldatabase").value + ", checkPreload = no, locus = " + locus);
     update_all_images(0);
   }
 }

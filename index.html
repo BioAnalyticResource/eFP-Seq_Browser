@@ -202,7 +202,7 @@
                       alert("Insert valid XML only");
                     }
                     //count_bam_num();
-                    checkPreload();
+                    update_all_images(0);
                     //setTimeout(function(){ populate_table(0); }, 3000);
                   });
                 });
@@ -220,12 +220,12 @@
 
             <div class="col-md-7 col-xs-4 dropdown" style="padding-top: 0.5%; text-align: center;" id="publicdatabase">
               <div class="public-rna" id="public_words">RNA-Seq Databases:
-                <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" onclick="check_if_Google_login()" />
+                <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" onclick="check_if_Google_login()" onchange="changePublicData()"/>
                 <option value="-- eFP-Seq Browser public database options --" disabled> -- eFP-Seq Browser Public Database Options -- </option>
-                <option value="Araport 11 RNA-seq data">Araport 11 RNA-seq data</option>
-                <option value="Developmental transcriptome - Klepikova et al">Developmental transcriptome - Klepikova et al</option>
+                <option value="Araport 11 RNA-seq data" tag="preload">Araport 11 RNA-seq data</option>
+                <option value="Developmental transcriptome - Klepikova et al" tag="preload">Developmental transcriptome - Klepikova et al</option>
                 <option value="-- Uploaded dataset --" id="uploaded_dataset_header" disabled style="display:none;">-- Uploaded dataset --</option>
-                <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;">Uploaded dataset</option>
+                <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;" tag="private">Uploaded dataset</option>
                 <option value="-- Private database options --" id="private_dataset_header" disabled style="display:none;">-- Private database options --</option>
                 </select>
 
@@ -268,7 +268,7 @@
                 base_src = dataset_dictionary[document.getElementById("xmldatabase").value];
                 generate_loading_screen();
                 count_bam_num();
-                update_all_images(0);
+                checkPreload();
                 //setTimeout(function(){ populate_table(0); }, 3000);
               };
 
