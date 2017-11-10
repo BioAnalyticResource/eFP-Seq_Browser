@@ -5,6 +5,8 @@ var locus; // Which locus does the user want?
 if (document.getElementById("locus") != null) {
   locus = document.getElementById("locus").value;
 };
+var old_locus = locus;
+var new_locus;
 
 var yscale_input; // What Y-Scale does the user want?
 if (document.getElementById("yscale_input") != null) {
@@ -493,12 +495,26 @@ function get_input_values() {
 
 /* When user clicks GO button, this function is called to update gene structure AND RNA-Seq images*/
 function update_all_images(status) {
-  $.xhrPool.abortAll();
-  variants_radio_options(status);
-  send_null_count = 0;
-  //count_bam_num();
-  //setTimeout(function(){ populate_table(0); }, 3500); //Currently existing a bug that prevents this from being called
-  // later on in the code. This forces the populate_table(status) call after 3.5 seconds. Temporary placement
+  if (document.getElementById("locus") != null) {
+    new_locus = document.getElementById("locus").value;
+    if (new_locus == old_locus) {
+      $.xhrPool.abortAll();
+      variants_radio_options(status);
+      send_null_count = 0;
+      //count_bam_num();
+      //setTimeout(function(){ populate_table(0); }, 3500); //Currently existing a bug that prevents this from being called
+      // later on in the code. This forces the populate_table(status) call after 3.5 seconds. Temporary placement
+    }
+    else if (new_locus != old_locus) {
+      getGFF(new_locus);
+      old_locus = new_locus;
+      setTimeout(function() {
+        $.xhrPool.abortAll();
+        variants_radio_options(status);
+        send_null_count = 0;
+      }, 1650);
+    }
+  };
 }
 
 /* Updates the radio button <DIV> with new variants images. */
@@ -526,7 +542,7 @@ function variants_radio_options(status) {
         if (i == 0) { // The first gene structure should be selected by default
           append_str += "checked=\"checked\"";
         }
-        append_str += " name=\"radio_group\"><img id=\"variant_" + i + "\" src=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + "\" ></label></div>";
+        append_str += " name=\"radio_group\"><img data-toggle=\"tooltip\" title=\"" + GFF_List[i] + "\" id=\"variant_" + i + "\" src=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + "\" ></label></div>";
         // Append the element to the div
         $("#variants_div").append(append_str);
       }
@@ -1077,7 +1093,7 @@ function populate_table(status) {
         // Append abs/rel RPKM
         append_str += '<td id="' + experimentno + '_rpkm' + '" style="font-size: 10px; width: 50px; ">-9999</td>';
         // Append the details <td>
-        append_str += '<td style="width: 200px; font-size: 12px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA' + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '<br/><a href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()"></a><div id="' + url.substring(44) + '" >Total reads = ' + numberofreads + '.<br/>Controls: ' + links + '.<br/>Species: ' + species + '</div></td>\n';
+        append_str += '<td style="width: 200px; font-size: 12px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA for ' + experimentno + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '<br/><a href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()"></a><div id="' + url.substring(44) + '" >Total reads = ' + numberofreads + '.<br/>Controls: ' + links + '.<br/>Species: ' + species + '</div></td>\n';
         append_str += '</tr>';
 
         // Append the <tr> to the table
@@ -1938,6 +1954,27 @@ function checkPreload() {
   }
 }
 
+var GFF_List = [];
+var parse_output;
+function getGFF(locusID){
+  GFF_List = [];
+  $.ajax({
+    url: 'http://bar.utoronto.ca/webservices/araport/api/bar_araport11_gene_structure_by_locus.php?locus=' + locusID,
+    dataType: 'json',
+    success: function(gene_res) {
+      parse_output = gene_res['features'][0]['subfeatures'];
+      for (i=0; i < parse_output.length; i++) {
+        if (parse_output[i]["uniqueID"] != null) {
+          GFF_List.push(parse_output[i]["uniqueID"]);
+        }
+        else {
+          GFF_List.push("Error retrieving unique ID/GFF");
+        }
+      }
+    }
+  });
+}
+
 $(document).ready(function() {
   // On load, validate input
   locus_validation();
@@ -1960,6 +1997,7 @@ $(document).ready(function() {
   $('#rpkm_scale_input').keyup(function() {
     rpkm_validation();
   });
+  getGFF(locus);
   populate_table(1); // status 1 forces rna-seq api to return cached data for fast initial load
   // populate_efp_modal(1); // Shouldn't be called here, only when the button is pressed
 
