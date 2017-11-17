@@ -1093,7 +1093,7 @@ function populate_table(status) {
         // Append abs/rel RPKM
         append_str += '<td id="' + experimentno + '_rpkm' + '" style="font-size: 10px; width: 50px; ">-9999</td>';
         // Append the details <td>
-        append_str += '<td style="width: 200px; font-size: 12px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA for ' + experimentno + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '<br/><a href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()"></a><div id="' + url.substring(44) + '" >Total reads = ' + numberofreads + '.<br/>Controls: ' + links + '.<br/>Species: ' + species + '</div></td>\n';
+        append_str += '<td style="width: 200px; font-size: 12px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA for ' + experimentno + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '.<br/>' + 'Total reads = ' + numberofreads + '<br/><a href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()">Click for More Details</a><div id="' + url.substring(44) + '" style="display:none">Controls: ' + links + '.<br/>Species: ' + species + '</div></td>\n';
         append_str += '</tr>';
 
         // Append the <tr> to the table
