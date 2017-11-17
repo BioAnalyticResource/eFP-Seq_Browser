@@ -1606,6 +1606,9 @@ function get_user_XML_display() {
         match_title = {};
         title_list = [];
         data_list = [];
+        // unnamed dataset name number:
+        var unnamed_title_num = 1;
+        var private_version_num = 1;
         // Check if the output is working and store as variable
         get_xml_list_output = get_xml_list_return
         if (get_xml_list_output["status"] == "fail") {
@@ -1620,6 +1623,8 @@ function get_user_XML_display() {
           }
           check_for_change = get_xml_list_output["files"].length;
           // Check each file in output
+          var old_data_input = "empty";
+          var new_data_input = "empty";
           if (get_xml_list_output["files"].length > 0) {
             for (i = 0; i < get_xml_list_output["files"].length; i++) {
               var xml_file;
@@ -1627,21 +1632,25 @@ function get_user_XML_display() {
               xml_title = get_xml_list_output["files"][i][1];
               // Make sure there is a title or if not, make one
               if (xml_title == "" || xml_title == "Uploaded dataset" || xml_title == undefined || xml_title == null) {
-                xml_title = "Uploaded dataset - Unnamed dataset";
+                xml_title = "Uploaded dataset - Unnamed dataset #" + unnamed_title_num;
+                unnamed_title_num += 1;
+              }
+              else if (xml_title == "Araport 11 RNA-seq data") {
+                xml_title = "Ararport 11 RNA-seq data - Private version #" + private_version_num;
+                private_version_num += 1;
+              }
+              else if (xml_title == "Developmental transcriptome - Klepikova et al") {
+                xml_title = "Developmental transcriptome - Klepikova et al - Private version #" + private_version_num;
+                private_version_num += 1;
               }
               title_list.push(xml_title);
               xml_fle_name = get_xml_list_output["files"][i][0]
               // This needed for later on
               match_title[xml_title] = xml_fle_name;
-              // Obtain data locatio for each individual XML
-              $.ajax({
-                url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml.php?file=" + xml_fle_name,
-                dataType: 'json',
-                success: function(get_xml_return) {
-                  xml_file = get_xml_return;
-                  data_list.push(xml_file["data"]);
-                }
-              })
+              // Obtain data location for each individual XML
+              if (i == (get_xml_list_output["files"].length - 1)) {
+                create_data_list(get_xml_list_output["files"].length)
+              }
             }
           }
           setTimeout(function() {
@@ -1656,6 +1665,19 @@ function get_user_XML_display() {
             list_modified = true;
           }, 1000)
         }
+      }
+    })
+  }
+}
+
+function create_data_list(size) {
+  for (i = 0; i < size; i++) {
+    $.ajax({
+      url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml.php?file=" + match_title[title_list[i]],
+      dataType: 'json',
+      success: function(get_xml_return) {
+        xml_file = get_xml_return;
+        data_list.push(xml_file["data"]);
       }
     })
   }
