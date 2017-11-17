@@ -78,39 +78,54 @@ function count_bam_num() {
   document.getElementById("testing_count").innerHTML = count_bam_entries_in_xml;
 };
 
-function testmobile() {
-  if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
-    return true;
-  } else {
-    return false;
+function checkmobile() {
+  if (($(window).width()<598) || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    //Creating mobile UI:
+    document.getElementById("correctspacing").style.display = "none";
+    document.getElementById("butbarborder").style.display = "none";
+    document.getElementById("uploaddata").style.display = "none";
+    document.getElementById("google_iden_login_button").style.display = "none";
+    document.getElementById("google_iden_logout_button").style.display = "none";
+    document.getElementById("generatedata").style.display = "none";
+    $("#publicdatabase").removeClass("col-md-6");
+    $("#publicdatabase").removeClass("col-xs-3");
+    document.getElementById("eFP_button").style.display = "none";
+    document.getElementById("locusbrowser").className = "col-xs-6";
+    document.getElementById("locus").style.width = "100%";
+    document.getElementById("yscale_input").style.width = "100%";
+    document.getElementById("mobilebrspacing").style.display = "inline";
+    document.getElementById("default_radio").className = "col-xs-6";
+    document.getElementById("rpkm_scale_input").style.width = "100%";
+    document.getElementById("mobilenavbar").style.display = "block";
+  }
+  else {
+    document.getElementById("correctspacing").style.display = "block";
+    document.getElementById("butbarborder").style.display = "block";
+    document.getElementById("uploaddata").style.display = "block";
+    if (users_email != "") {
+      document.getElementById("google_iden_login_button").style.display = 'none';
+      document.getElementById("google_iden_logout_button").style.display = '';
+    }
+    else if (users_email == "") {
+      document.getElementById("google_iden_login_button").style.display = '';
+      document.getElementById("google_iden_logout_button").style.display = 'none';
+    }
+    document.getElementById("generatedata").style.display = "block";
+    document.getElementById("publicdatabase").className = "col-md-6 col-xs-3 dropdown";
+    document.getElementById("eFP_button").style.display = "block";
+    document.getElementById("locusbrowser").className = "col-xs-4";
+    document.getElementById("locus").style.width = "175px";
+    document.getElementById("yscale_input").style.width = "175px";
+    document.getElementById("mobilebrspacing").style.display = "none";
+    document.getElementById("default_radio").className = "col-xs-4";
+    document.getElementById("rpkm_scale_input").style.width = "175px";
+    document.getElementById("mobilenavbar").style.display = "none";
   }
 };
-//document.getElementById("testing_mobile").innerHTML = testmobile();
 
-if (testmobile() == true) {
-  document.getElementById("correctspacing").style.display = "none";
-  //document.getElementById("feedback_button").style.display="none";
-  //document.getElementById("help_icon").style.display="none";
-  document.getElementById("butbarborder").style.display = "none";
-  //document.getElementById("middle_buttons").style.display="none";
-  document.getElementById("uploaddata").style.display = "none";
-  document.getElementById("google_iden_login_button").style.display = "none";
-  document.getElementById("generatedata").style.display = "none";
-  document.getElementById("publicdatabase").className = document.getElementById("publicdatabase").className.replace("col-xs-4", "")
-  document.getElementById("eFP_button").style.display = "none";
-  document.getElementById("locusbrowser").className = "col-xs-6";
-  document.getElementById("locus").style.width = "100%";
-  //$(".locus_button_visual").hide();
-  //document.getElementById("tt4").className="col-xs-6";
-  document.getElementById("yscale_input").style.width = "100%";
-  //document.getElementById("locusbuttonmobile").style.display="inline";
-  document.getElementById("mobilebrspacing").style.display = "inline";
-  document.getElementById("default_radio").className = "col-xs-6";
-  //document.getElementById("absolutedefault").className="col-xs-6";
-  document.getElementById("rpkm_scale_input").style.width = "100%";
-  //document.getElementById("variants_div").style.width="475px";
-  document.getElementById("mobilenavbar").style.display = "block";
-};
+$(window).resize(function(){
+  checkmobile();
+});
 
 // Code edited by StackOverFlow user Matthew "Treeless" Rowlandson http://stackoverflow.com/questions/42166138/css-transition-triggered-by-javascript?noredirect=1#comment71503764_42166138
 function generate_loading_screen() {
@@ -1983,11 +1998,15 @@ function getGFF(locusID){
   $.ajax({
     url: 'http://bar.utoronto.ca/webservices/araport/api/bar_araport11_gene_structure_by_locus.php?locus=' + locusID,
     dataType: 'json',
+    failure: function(gene_res) {
+      console.log("Getting GFFs (getGFF) information failed to retrieve locus information from Araport11");
+    },
     success: function(gene_res) {
-      parse_output = gene_res['features'][0]['subfeatures'];
-      for (i=0; i < parse_output.length; i++) {
-        if (parse_output[i]["uniqueID"] != null) {
-          GFF_List.push(parse_output[i]["uniqueID"]);
+      parse_output = gene_res;
+      var parsed_features = parse_output['features'][0]['subfeatures'];
+      for (i=0; i < parsed_features.length; i++) {
+        if (parsed_features[i]["uniqueID"] != null) {
+          GFF_List.push(parsed_features[i]["uniqueID"]);
         }
         else {
           GFF_List.push("Error retrieving unique ID/GFF");
@@ -2002,6 +2021,9 @@ $(document).ready(function() {
   locus_validation();
   yscale_validation();
   rpkm_validation();
+
+  // Check if mobile
+  checkmobile();
 
   // Bind event listeners...
   $('input[type=radio][name=radio_group]').change(function() {
