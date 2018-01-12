@@ -1,3 +1,9 @@
+//=============================================================================
+//
+// Purpose: General functions for the eFP-Seq Browser
+//
+//=============================================================================
+
 // Get initial values
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
@@ -5,6 +11,7 @@ var locus; // Which locus does the user want?
 if (document.getElementById("locus") != null) {
   locus = document.getElementById("locus").value;
 };
+// Used for comparing loci when changes
 var old_locus = locus;
 var new_locus;
 
@@ -22,11 +29,10 @@ var locus_start = 10326918; // Gets updated when user changes gene
 var locus_end = 10330048; // Gets updated when user changes gene
 var splice_variants = '';
 var rnaseq_calls = []; // Make a list of records and tissues we need to query....
-var exp_info = []; // Keep track of the FPKM related information // TODO : rename all exp_info to fpkm_info
+var exp_info = []; // Keep track of the FPKM related information  TODO : rename all exp_info to fpkm_info
 var rnaseq_success = 0; // Make a list of records and tissues we need to query....
 var date_obj = new Date();
 var rnaseq_success_start_time = date_obj.getTime(); // Keep track of start time
-//console.log(rnaseq_success_start_time);
 var rnaseq_success_current_time;
 var rnaseq_success_end_time;
 var max_absolute_fpkm = -1;
@@ -35,7 +41,6 @@ var svg_colouring_element = null; // the element for inserting the SVG colouring
 var gene_structure_colouring_element = null; // the element for inserting the gene structure scale legend
 
 //Used to create location for uploaded XML, clientside
-var default_url = 'data/bamdata_amazon_links.xml';
 var base_src = 'cgi-bin/data/bamdata_amazon_links.xml';
 var upload_src = '';
 var dataset_dictionary = {
@@ -51,23 +56,24 @@ xhr.open('GET', base_src, true);
 xhr.onreadystatechange = function(e) {
   if (xhr.readyState == 4 && xhr.status == 200)
     count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("bam_file").length;
-  //document.getElementById("testing_code").innerHTML = count_bam_entries_in_xml;
-};
+  };
 xhr.send(null);
-
 var send_null_count = 0;
 
+/**
+* Count the amount of entries in a BAM file
+* @return {int} count_bam_entries_in_xml - number of bam entries pushed to index.html (document)
+*/
 function count_bam_num() {
   send_null_count = 0;
   var xhr = new XMLHttpRequest();
-  var old_count = count_bam_entries_in_xml
-  //send_null_count = 0;
+  var old_count = count_bam_entries_in_xml;
   xhr.open('GET', base_src, true);
   xhr.onreadystatechange = function(e) {
     if (xhr.readyState == 4 && xhr.status == 200)
       count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("bam_file").length;
-    //document.getElementById("testing_code").innerHTML = count_bam_entries_in_xml;
-  };
+    };
+  // This if condition is to make sure the xhr request is not too many times
   if (progress_percent < 10) {
     var max_null_calls = (count_bam_entries_in_xml * 1.5);
     if (send_null_count < max_null_calls) {
@@ -78,8 +84,11 @@ function count_bam_num() {
   document.getElementById("testing_count").innerHTML = count_bam_entries_in_xml;
 };
 
+/**
+* Changes UI of index.html (document) based on width of navigator.userAgent
+*/
 function checkmobile() {
-  if (($(window).width()<598) || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  if (($(window).width() < 598) || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     //Creating mobile UI:
     document.getElementById("correctspacing").style.display = "none";
     document.getElementById("butbarborder").style.display = "none";
@@ -99,6 +108,7 @@ function checkmobile() {
     document.getElementById("mobilenavbar").style.display = "block";
   }
   else {
+    // Restoring default UI:
     document.getElementById("correctspacing").style.display = "block";
     document.getElementById("butbarborder").style.display = "block";
     document.getElementById("uploaddata").style.display = "block";
@@ -123,11 +133,15 @@ function checkmobile() {
   }
 };
 
-$(window).resize(function(){
+// Whenever browser resized, calls checkmobile function
+$(window).resize(function() {
   checkmobile();
 });
 
 // Code edited by StackOverFlow user Matthew "Treeless" Rowlandson http://stackoverflow.com/questions/42166138/css-transition-triggered-by-javascript?noredirect=1#comment71503764_42166138
+/**
+* Start loading screen for index.html (document)
+*/
 function generate_loading_screen() {
   window.setInterval(function() {
     if (progress_percent < 96) {
@@ -144,9 +158,11 @@ function generate_loading_screen() {
     }
   }, 50);
   stop_generating_loading();
-  // populate_efp_modal(1); // Not needed to be called during loading
 };
 
+/**
+* Stop loading screen for index.html (document)
+*/
 function stop_generating_loading() {
   clearInterval(generate_loading_screen);
 };
@@ -154,14 +170,14 @@ function stop_generating_loading() {
 // Base 64 images
 var img_loading_base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyCAYAAADP/dvoAAAABmJLR0QAwADAAMAanQdUAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAB3RJTUUH4AoRDzYeAMpyUgAABGJJREFUeNrt3TFoE3scwPGvjxtOzKAQMEOECBkyROhQsWOEChURBFtssdJFB9Gl4OJkwaEtRRAUdLAUqYJgwamIEFAwUoS43RCw0AwpOjhkuCHDQd5Qes9q+7A+7cP2+1na5K53cH/Kl19yIfu63W4XSZL2qL+8BJIkQyhJ0h4VfPvExMSEV0WStGt92zknQkmSE+GPFFOSpN00CToRSpJkCCVJhlCSJEMoSZIhlCTJEEqSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKe8HDhw/5/Pnzbzn2/v3709/Hx8d/23kkGULpp01PT9NoNH7LsTudDgBJktBut0mSxAsu/Q8CL4G0fUmSEEURcRxTLpc5ePBguu3Lly9EUUQ2m6VcLm/4u0ajQRzH9PT0/PNPGARcu3aNXC6X7lMqlVheXv5u3/Xt69NjJpOht7fXBZEMobRz2u02Z8+eJY5jCoUCtVqN58+fU6lUePLkCXfu3KGnp4d6vU5vby9zc3PA2peCzs7OUiqVvjvm8ePHWVlZoVAocPr0aQYHB6nX6zSbTSqVSnqMkZGRdHp88+YNw8PDzM/PuyiSIZR2zv3798lms7x9+xZYex/x5s2bLC0tce7cOYaHhwmCgHa7zaFDh5ibm6PZbDI9Pc3Hjx/J5/MsLCxQrVa3PMfhw4d5/fo1rVaLI0eOMDk5CUC1WuXTp08EQcCxY8e4cOGCCyIZQmlnffjwgfPnz6ePBwYGuHr1KrD2UmW1WqVWq7G6upru02w2yeVy5PN5AAYHB//1HOvb1/fvdDpkMhniOGZ5eZlCoUCSJOnLqZIMobRjkiRJb3RZF4YhAFNTUywuLnLr1i2KxSKPHj36df+sQUChUODSpUt0Oh0uXrzo+4PSL+Bdo9I2nThxgsePH6d3eS4sLDAwMADA+/fvOXPmDP39/RtiWSqVaLVaRFEEwN27d7d93iiKCIKA27dv8+DBAy5fvpxuazQa1Ov1dHp89uxZuq1ardJqtVw4yYlQ2r4wDDl58mT6eGZmhuvXr/Pu3TuOHj1KJpMhDENevHgBwNjYGFeuXOHVq1eEYUg2mwUgl8sxMzPDqVOnyOfz9PX1pS97/sgkCFAul2m32zx9+pQkSajVaoyOjjI5Ocns7CxRFPHy5UuiKGJkZIT+/n6y2Szj4+OMjY1x48YNF1TaxL5ut9v9+omJiYkNPyVtLo5jkiTZ8NEJWPv4BJBG8GudTockSchkMts+39TUFKurq9y7dw+Aer3O0NAQKysrLob0A7bqmxOh9JO2itlmAfx6wvxZfX19DA0NEYYhBw4cYHFxkdHRURdC+o8MofSHqFQqLC0tUavVAJifn9/0M4mSDKG0axWLRYrFohdC+oW8a1SSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKkmQIJUkyhJIkGUJJkgyhJEmGUJKkP9mWX8PkN9RLkpwIJUna5fZ1u92ul0GS5EQoSdIe9DfEVWhcl8IjHgAAAABJRU5ErkJggg==";
 
-//var img_loading_base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyCAYAAADP/dvoAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAB3RJTUUH4AoRDzghKC9y4QAABG1JREFUeNrt3TFoE2sAwPG/jxtOzKAQMEOECBkyROhQsWOEChURBFtssdJFC6JLwcVJwaEtRRAUlGIpUgXBglMRIaBgpAhxuyFgoRlSdHDIcEOGg7xBek+fVqxP+7D9/6Ymd72D7yP8+S53ZFe32+0iSdIO9ZdDIEkyhJIk7VDBv9+YnZ11VCRJ29b4+LgrQkmSNlwRblRMSZL+ZBtd8XRFKEna0QyhJMkQSpJkCCVJMoSSJBlCSZIMoSRJhlCSJEMoSZIhlCTJEEqSZAglSTKEkiQZQmnbu3fvHh8+fPgtx969e3f698TExG87jyRDKP206elpGo3Gbzl2p9MBIEkS2u02SZI44NL/IHAIpM1LkoQoiojjmHK5zN69e9NtHz9+JIoistks5XL5i/9rNBrEcUxPT88/H8Ig4NKlS+RyuXSfUqnEysrKV/uub19fPWYyGXp7e50QyRBKW6fdbnPy5EniOKZQKFCr1Xjy5AmVSoWHDx9y8+ZNenp6qNfr9Pb2Mj8/D8D169eZm5ujVCp9dczDhw+zurpKoVDg+PHjDA4OUq/XaTabVCqV9BgjIyPp6vHly5cMDw+zsLDgpEiGUNo6d+7cIZvN8urVK+DT94hXr15leXmZU6dOMTw8TBAEtNtt9u3bx/z8PM1mk+npad69e0c+n2dxcZFqtbrhOfbv38+LFy9otVocOHCAyclJAKrVKu/fvycIAg4dOsSZM2ecEMkQSlvr7du3nD59On09MDDAxYsXgU+XKqvVKrVajbW1tXSfZrNJLpcjn88DMDg4+N1zrG9f37/T6ZDJZIjjmJWVFQqFAkmSpJdTJRlCacskSZLe6LIuDEMApqamWFpa4tq1axSLRe7fv//rPqxBQKFQ4Ny5c3Q6Hc6ePev3g9Iv4F2j0iYdOXKEBw8epHd5Li4uMjAwAMCbN284ceIE/f39X8SyVCrRarWIogiAW7dubfq8URQRBAE3btzg7t27nD9/Pt3WaDSo1+vp6vHx48fptmq1SqvVcuIkV4TS5oVhyNGjR9PXMzMzXL58mdevX3Pw4EEymQxhGPL06VMAxsbGuHDhAs+fPycMQ7LZLAC5XI6ZmRmOHTtGPp+nr68vvez5IytBgHK5TLvd5tGjRyRJQq1WY3R0lMnJSebm5oiiiGfPnhFFESMjI/T395PNZpmYmGBsbIwrV644odI37Op2u93P35idnQVgfHzc0ZG+I45jkiT54tEJ+PT4BJBG8HOdTockSchkMps+39TUFGtra9y+fRuAer3O0NAQq6urTob0AzbqmytC6SdtFLNvBfDzFebP6uvrY2hoiDAM2bNnD0tLS4yOjjoR0n9kCKU/RKVSYXl5mVqtBsDCwsI3n0mUZAilbatYLFIsFh0I6RfyrlFJkiGUJMkQSpJkCCVJMoSSJBlCSZIMoSRJhlCSJEMoSZIhlCTJEEqSZAglSTKEkiQZQkmS/mQb/gzT+i/5SpLkilCSpG1qV7fb7ToMkiRXhJIk7UB/A1moaKrp8fOjAAAAAElFTkSuQmCC";
-//var img_loading_base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyCAYAAADP/dvoAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC45bDN+TgAAA7NJREFUeF7t26FTFk8cB2ADgT+AQDAYCQQDgWAgGAwEI4FgIBIMBoMzBAKBQCQYCASDgUAgEAhEAoFAIBgMBIPBYCDcj8/+3sV3Xk/kdTTAPs/Md969vb27dPOZ3dv3UQcADROEADRNEALQtJ+D8NF1l1JKKfVQa0RPz8gFSiml1EOqET09/QMB4F4ThAA0TRAC0DRBCEDTBCEATROEADRNEALQNEEIQNMEIQBNE4QANE0QAtA0QQhA0wQhAE0ThAA0TRDC+La3t7vLy8vB0d81OTk5aHXd69ev/9lzgAFBCON78uRJd3R0NDj6ux4N3rOrq6vu1atX3efPn8sx8I8IQhjfr4Iw4XV6etodHx93X79+HfT+78uXL+Was7OzQc8P5+fn3cnJSbm+BmHUvsiYuLi4KM8YlfO5fyrXAXckCGF8fUGY4Hv27Fn39OnT7uXLl93U1NTNmN3d3dKfGd7s7Gz5rdbW1rrHjx93z58/LzUchGl/+vSptPPMN2/edAsLC6U9fI+lpaXuxYsX5fqJiYlueXl5cAb4rV/kW09P/0BoUV8Qrq+vlwCs8h1xfn6+tL99+3Yzs0tg1rBLyOWbYF3+/Pjx4825GA3Czc3N0s74nMv3w1RCt94/Qbu/v1/awB3knRt676qenv6B0KK+IEwIZuZXJcCGQ+3w8LDM/lZWVm76c4/ca9htQVjbUc9lyTVhmqXR79+/dzMzM5ZGYRx554beu6qnp38gtKgvCBcXF7v3798Pjn7M9mJjY6MsmyYMhwPybwRhZpgJv7m5uTIbzMwUGEPeuaH3rurp6R8ILeoLwgRQwq4uUWYZsy6V5jdhGJm51bDLsma+6dUNNFtbWzfn4i5BmI05CcCDg4PSHv67Rd2EE5ktfvjwobQjoWxHKlzLOzf03lU9Pf0DoUWZgSWIaiX0MjPLhpVsfMn5bI6pwbW3t1e+42WjS8akXSX8pqeny4xudXW1XF/dFoQJ0BznubkmG2SyaSbtt2/fljHZXJPnRQIx98tSaiQ86zdHaNr1e1FqhCCEP5SNMQmnUQmgGkKjMlvLdX8iM80EaJXAG11uBW4hCOF+yxJtZpiZ/WUzTmaW7969G5wFfksQwv2XP9nv7OyUqn+8B+5IEALQNEEIQNMEIQBNE4QANE0QAtA0QQhA0wQhAE0ThAA0TRAC0DRBCEDTBCEATROEADRNEALQNEEIQNMEIQBNGzsIlVJKqYdYI3p6Ri5QSimlHlKN+LkHABoiCAFoWNf9Bx2Q2ZDpi98WAAAAAElFTkSuQmCC";
 var img_gene_struct_1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAS0lEQVQ4jWMIxQfSoCCBAQRgvDRUHhYAVsCGWyABhZuATRZFO8wEOEBIpuL1 ABAwhAYOex8KDncfBg57HwoOdzAC4nD458NhX5YCAOtozsHok4ONAAAAAElFTkSuQmCC ";
 var absolute_rpkm_scale = "iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII= ";
 var relative_rpkm_scale = "iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==";
 var exon_intron_scale = "iVBORw0KGgoAAAANSUhEUgAAALQAAAAPBAMAAAC/7vi3AAAAGFBMVEX///9QUFAAAADcFDz/jAAA AP+m3KYAfQCnICW7AAAArklEQVQ4jd3UMQ+CQAwF4OaG66ourpcO/DCGm7v17/vKBUU8SozBGBvy xo9HD6DzB3OicK4WTa7RfIGWgiiH0In6tBK/iMpKhsvyWAfB7NGlJEHQFA+6U5ZVjf2OTtfBI6YF OgIpadkaklGjZtrepIsXL63+U2s8vzHpila+0zsLEQe9ty+kQ7OuFgJ+pseY3nr5cIxtIQt6OkY/ 3lxReHMhF4nm1z+Zv6KP+/PdANuwQcLhhEyQAAAAAElFTkSuQmCC";
 
-/* Produces an intermediate HEX colour. */
+/**
+* Produces an intermediate HEX colour.
+*/
 function generate_colour(start_color, end_color, percent) {
   // strip the leading # if it's there
   start_color = start_color.replace(/^\s*#|\s*$/g, '');
@@ -198,141 +214,23 @@ function generate_colour(start_color, end_color, percent) {
   return '#' + diff_red + diff_green + diff_blue;
 };
 
-/* Round the float X to DIGIT number of decimal places. */
+/**
+* Round the float X to DIGIT number of decimal places.
+*/
 function round(x, digits) {
   return parseFloat(x.toFixed(digits))
 }
 
 var colouring_part;
-var colouring_count = 1;
-/* Find and colour a particular SVG in the DOM. */
+
+/**
+* Find and colour a particular SVG in the DOM.
+*/
 function colour_part_by_id(id, part, fpkm, mode) {
   var exp_to_colouring_part = [
-    ["ERR274310", "shoot"],
-    ["SRR547531", "shoot"],
-    ["SRR548277", "shoot"],
-    ["SRR847503", "shoot"],
-    ["SRR847504", "shoot"],
-    ["SRR847505", "shoot"],
-    ["SRR847506", "shoot"],
-    ["SRR1207194", "carpels"],
-    ["SRR1207195", "carpels"],
-    ["SRR1019436", "etiolatedseedling"],
-    ["SRR1019437", "etiolatedseedling"],
-    ["SRR1049784", "shoot"],
-    ["SRR477075", "etiolatedseedling"],
-    ["SRR477076", "etiolatedseedling"],
-    ["SRR493237", "etiolatedseedling"],
-    ["SRR493238", "etiolatedseedling"],
-    ["SRR314815", "stage12bud"],
-    ["SRR800753", "stage12bud"],
-    ["SRR800754", "stage12bud"],
-    ["SRR1105822", "leaf"],
-    ["SRR1105823", "leaf"],
-    ["SRR1159821", "leaf"],
-    ["SRR1159827", "leaf"],
-    ["SRR1159837", "leaf"],
-    ["SRR314813", "leaf"],
-    ["SRR446027", "leaf"],
-    ["SRR446028", "leaf"],
-    ["SRR446033", "leaf"],
-    ["SRR446034", "leaf"],
-    ["SRR446039", "leaf"],
-    ["SRR446040", "leaf"],
-    ["SRR446484", "leaf"],
-    ["SRR446485", "shootapexinflorescence"],
-    ["SRR446486", "leaf"],
-    ["SRR446487", "shootapexinflorescence"],
-    ["SRR493036", "leaf"],
-    ["SRR493097", "leaf"],
-    ["SRR493098", "leaf"],
-    ["SRR493101", "leaf"],
-    ["SRR764885", "leaf"],
-    ["SRR924656", "leaf"],
-    ["SRR934391", "leaf"],
-    ["SRR942022", "leaf"],
-    ["SRR070570", "etiolatedseedling"],
-    ["SRR070571", "etiolatedseedling"],
-    ["SRR1001909", "all"],
-    ["SRR1001910", "all"],
-    ["SRR1019221", "all"],
-    ["SRR345561", "all"],
-    ["SRR345562", "all"],
-    ["SRR346552", "all"],
-    ["SRR346553", "all"],
-    ["SRR394082", "all"],
-    ["SRR504179", "all"],
-    ["SRR504180", "all"],
-    ["SRR504181", "all"],
-    ["SRR515073", "all"],
-    ["SRR515074", "all"],
-    ["SRR527164", "all"],
-    ["SRR527165", "all"],
-    ["SRR584115", "all"],
-    ["SRR584121", "all"],
-    ["SRR584129", "all"],
-    ["SRR584134", "all"],
-    ["SRR653555", "all"],
-    ["SRR653556", "all"],
-    ["SRR653557", "all"],
-    ["SRR653561", "all"],
-    ["SRR653562", "all"],
-    ["SRR653563", "all"],
-    ["SRR653564", "all"],
-    ["SRR653565", "all"],
-    ["SRR653566", "all"],
-    ["SRR653567", "all"],
-    ["SRR653568", "all"],
-    ["SRR653569", "all"],
-    ["SRR653570", "all"],
-    ["SRR653571", "all"],
-    ["SRR653572", "all"],
-    ["SRR653573", "all"],
-    ["SRR653574", "all"],
-    ["SRR653575", "all"],
-    ["SRR653576", "all"],
-    ["SRR653577", "all"],
-    ["SRR653578", "all"],
-    ["SRR797194", "all"],
-    ["SRR797230", "all"],
-    ["SRR833246", "all"],
-    ["SRR847501", "all"],
-    ["SRR847502", "all"],
-    ["SRR1260032", "all"],
-    ["SRR1260033", "all"],
-    ["SRR1261509", "all"],
-    ["SRR401413", "receptacle"],
-    ["SRR401414", "receptacle"],
-    ["SRR401415", "receptacle"],
-    ["SRR401416", "receptacle"],
-    ["SRR401417", "receptacle"],
-    ["SRR401418", "receptacle"],
-    ["SRR401419", "receptacle"],
-    ["SRR401420", "receptacle"],
-    ["SRR401421", "receptacle"],
-    ["ERR274309", "root"],
-    ["SRR1046909", "root"],
-    ["SRR1046910", "root"],
-    ["SRR1524935", "root"],
-    ["SRR1524938", "root"],
-    ["SRR1524940", "root"],
-    ["SRR314814", "root"],
-    ["SRR949956", "all"],
-    ["SRR949965", "all"],
-    ["SRR949988", "all"],
-    ["SRR949989", "all"]
+    ["ERR274310", "shoot"], ["SRR547531", "shoot"], ["SRR548277", "shoot" ], ["SRR847503", "shoot"], ["SRR847504", "shoot"], ["SRR847505", "shoot"], ["SRR847506", "shoot"], ["SRR1207194", "carpels"], ["SRR1207195", "carpels"], ["SRR1019436", "etiolatedseedling"], ["SRR1019437", "etiolatedseedling"], ["SRR1049784", "shoot"], ["SRR477075", "etiolatedseedling"], ["SRR477076", "etiolatedseedling"], ["SRR493237", "etiolatedseedling"], ["SRR493238", "etiolatedseedling"], ["SRR314815", "stage12bud"], ["SRR800753", "stage12bud"], ["SRR800754", "stage12bud"], ["SRR1105822", "leaf"], ["SRR1105823", "leaf"], ["SRR1159821", "leaf"], ["SRR1159827", "leaf"], ["SRR1159837", "leaf"], ["SRR314813", "leaf"], ["SRR446027", "leaf"], ["SRR446028", "leaf"], ["SRR446033", "leaf"], ["SRR446034", "leaf"], ["SRR446039", "leaf"], ["SRR446040", "leaf"], ["SRR446484", "leaf"], ["SRR446485", "shootapexinflorescence"], ["SRR446486", "leaf"], ["SRR446487", "shootapexinflorescence"], ["SRR493036", "leaf"], ["SRR493097", "leaf"], ["SRR493098", "leaf"], ["SRR493101", "leaf"], ["SRR764885", "leaf"], ["SRR924656", "leaf"], ["SRR934391", "leaf"], ["SRR942022", "leaf"], ["SRR070570", "etiolatedseedling"], ["SRR070571", "etiolatedseedling"], ["SRR1001909", "all"], ["SRR1001910", "all"], ["SRR1019221", "all"], ["SRR345561", "all"], ["SRR345562", "all"], ["SRR346552", "all"], ["SRR346553", "all"], ["SRR394082", "all"], ["SRR504179", "all"], ["SRR504180", "all"], ["SRR504181", "all"], ["SRR515073", "all"], ["SRR515074", "all"], ["SRR527164", "all"], ["SRR527165", "all"], ["SRR584115", "all"], ["SRR584121", "all"], ["SRR584129", "all"], ["SRR584134", "all"], ["SRR653555", "all"], ["SRR653556", "all"], ["SRR653557", "all"], ["SRR653561", "all"], ["SRR653562", "all"], ["SRR653563", "all"], ["SRR653564", "all"], ["SRR653565", "all"], ["SRR653566", "all"], ["SRR653567", "all"], ["SRR653568", "all"], ["SRR653569", "all"], ["SRR653570", "all"], ["SRR653571", "all"], ["SRR653572", "all"], ["SRR653573", "all"], ["SRR653574", "all"], ["SRR653575", "all"], ["SRR653576", "all"], ["SRR653577", "all"], ["SRR653578", "all"], ["SRR797194", "all"], ["SRR797230", "all"], ["SRR833246", "all"], ["SRR847501", "all"], ["SRR847502", "all"], ["SRR1260032", "all"], ["SRR1260033", "all"], ["SRR1261509", "all"], ["SRR401413", "receptacle"], ["SRR401414", "receptacle"], ["SRR401415", "receptacle"], ["SRR401416", "receptacle"], ["SRR401417", "receptacle"], ["SRR401418", "receptacle"], ["SRR401419", "receptacle"], ["SRR401420", "receptacle"], ["SRR401421", "receptacle"], ["ERR274309", "root"], ["SRR1046909", "root"], ["SRR1046910", "root"], ["SRR1524935", "root"], ["SRR1524938", "root"], ["SRR1524940", "root"], ["SRR314814", "root"], ["SRR949956", "all"], ["SRR949965", "all"], ["SRR949988", "all"], ["SRR949989", "all"]
   ];
-
   colouring_part = "all";
-
-  /*
-  for (var i = 0; i < exp_to_colouring_part.length; i++) {
-      if (id.replace("_svg", "") == exp_to_colouring_part[i][0]) {
-          colouring_part = exp_to_colouring_part[i][1];
-      }
-  }
-  */
-
   for (var i = 0; i < svg_part_list.length; i++) {
     if (id.replace("_svg", "") == svg_part_list[i][0]) {
       colouring_part = svg_part_list[i][1];
@@ -360,7 +258,8 @@ function colour_part_by_id(id, part, fpkm, mode) {
         for (i = 0; i < paths.length; i++) {
           paths[i].style.fill = 'rgb(' + r + ', ' + g + ', ' + b + ')';
         }
-      } else {
+      }
+      else {
         //console.log("\n\n ********** id = " + id + " and svg_part = " + colouring_part);
         for (i = 0; i < paths.length; i++) {
           //console.log("Checking if " + paths[i].id + " == " + colouring_part + " and it is " + (paths[i].id == colouring_part));
@@ -371,13 +270,15 @@ function colour_part_by_id(id, part, fpkm, mode) {
               for (ii = 0; ii < child_paths.length; ii++) {
                 child_paths[ii].style.fill = 'rgb(' + r + ', ' + g + ', ' + b + ')';
               }
-            } else {
+            }
+            else {
               paths[i].style.fill = 'rgb(' + r + ', ' + g + ', ' + b + ')';
             }
           }
         }
       }
-    } else if (mode == "rel") { // For relative FPKM colouring
+    }
+    else if (mode == "rel") { // For relative FPKM colouring
       var hex = "";
       // Make the log FPKM a number between 0 and 1 to denote the 0 to +-3 scale.
       var log_scale_max = 3;
@@ -390,11 +291,14 @@ function colour_part_by_id(id, part, fpkm, mode) {
 
       if (fpkm == "Missing controls data") {
         hex = "#D9D9D9"
-      } else if (fpkm > 0) { // yellow-red
+      }
+      else if (fpkm > 0) { // yellow-red
         hex = generate_colour("FFFF00", "FF0000", log_scaling);
-      } else if (fpkm == 0) { // yellow
+      }
+      else if (fpkm == 0) { // yellow
         hex = "FFFF00";
-      } else if (fpkm < 0) { // yellow-blue
+      }
+      else if (fpkm < 0) { // yellow-blue
         hex = generate_colour("FFFF00", "0000FF", log_scaling);
       }
       //console.log('fpkm = ' + fpkm + ' -> hex = ' + hex);
@@ -402,7 +306,8 @@ function colour_part_by_id(id, part, fpkm, mode) {
         for (i = 0; i < paths.length; i++) {
           paths[i].style.fill = hex;
         }
-      } else {
+      }
+      else {
         //console.log("\n\n ********** id = " + id + " and svg_part = " + colouring_part);
         for (i = 0; i < paths.length; i++) {
           //console.log("Checking if " + paths[i].id + " == " + colouring_part + " and it is " + (paths[i].id == colouring_part));
@@ -413,7 +318,8 @@ function colour_part_by_id(id, part, fpkm, mode) {
               for (ii = 0; ii < child_paths.length; ii++) {
                 child_paths[ii].style.fill = hex;
               }
-            } else {
+            }
+            else {
               paths[i].style.fill = hex;
             }
           }
@@ -422,7 +328,8 @@ function colour_part_by_id(id, part, fpkm, mode) {
     }
     if (fpkm == "Missing controls data") {
       document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = fpkm;
-    } else {
+    }
+    else {
       document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = round(fpkm, 5);
       //console.log("id = " + id + "sort! " + fpkm + " rounded = " + round(fpkm, 5));
     }
@@ -431,9 +338,10 @@ function colour_part_by_id(id, part, fpkm, mode) {
   }
 }
 
-/* Find and update each SVG in the DOM. */
 var current_radio = "abs";
-
+/**
+* Find and update each SVG in the DOM.
+*/
 function colour_svgs_now(mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val()) {
   //console.log("colour_svgs_now function is called with mode = " + mode);
   current_radio = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
@@ -459,10 +367,12 @@ function colour_svgs_now(mode = $('input[type="radio"][name="svg_colour_radio_gr
       if (exp_info[i][3] == 0 && ctrl_avg_fpkm == 0) {
         // Define log2(0/0) = 0 as opposed to undefined
         exp_info[i].splice(4, 1, 0);
-      } else {
+      }
+      else {
         exp_info[i].splice(4, 1, Math.log2(exp_info[i][3] / ctrl_avg_fpkm));
       }
-    } else {
+    }
+    else {
       exp_info[i].splice(4, 1, "Missing controls data");
     }
     exp_info[i].splice(6, 1, ctrl_avg_fpkm);
@@ -478,7 +388,8 @@ function colour_svgs_now(mode = $('input[type="radio"][name="svg_colour_radio_gr
       if (!exp_info[i][4] && exp_info[i][4] != 0)
         exp_info[i][4] = -999999;
       colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][4], mode); // index 5 = relative fpkm
-    } else {
+    }
+    else {
       if (!exp_info[i][3] && exp_info[i][3] != 0)
         exp_info[i][3] = -999999;
       colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][3], mode); // index 3 = absolute fpkm
@@ -494,7 +405,9 @@ function colour_svgs_now(mode = $('input[type="radio"][name="svg_colour_radio_gr
   change_rpkm_colour_scale(colouring_mode);
 }
 
-/* Re-read the value from the input box*/
+/**
+* Re-read the value from the input box
+*/
 function get_input_values() {
   colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   locus = document.getElementById("locus").value;
@@ -502,13 +415,13 @@ function get_input_values() {
   if (yscale_input == "Auto" || parseInt(yscale_input) < 1) {
     yscale_input = parseInt(-1);
     //console.log("yscale_input value set to -1.");
-  } else {
-    //console.log("yscale_input value set to " + yscale_input + ".");
   }
   max_abs_scale = document.getElementById("rpkm_scale_input").value;
 }
 
-/* When user clicks GO button, this function is called to update gene structure AND RNA-Seq images*/
+/**
+* When user clicks GO button, this function is called to update gene structure AND RNA-Seq images
+*/
 function update_all_images(status) {
   if (document.getElementById("locus") != null) {
     new_locus = document.getElementById("locus").value;
@@ -516,9 +429,6 @@ function update_all_images(status) {
       $.xhrPool.abortAll();
       variants_radio_options(status);
       send_null_count = 0;
-      //count_bam_num();
-      //setTimeout(function(){ populate_table(0); }, 3500); //Currently existing a bug that prevents this from being called
-      // later on in the code. This forces the populate_table(status) call after 3.5 seconds. Temporary placement
     }
     else if (new_locus != old_locus) {
       getGFF(new_locus);
@@ -532,7 +442,9 @@ function update_all_images(status) {
   };
 }
 
-/* Updates the radio button <DIV> with new variants images. */
+/**
+* Updates the radio button <DIV> with new variants images.
+*/
 function variants_radio_options(status) {
   get_input_values();
   $.ajax({
@@ -553,7 +465,7 @@ function variants_radio_options(status) {
       }
       for (var i = 0; i < parseInt(gene_res['variant_count']); i++) {
         // retrieve the base64 and create the element to insert
-        var append_str = "<div class=\"radio\"><label><input type=\"radio\" value=\"" + i + "\"";
+        var append_str = "<div class=\"radio\"><label><input width=\"100%\" type=\"radio\" value=\"" + i + "\"";
         if (i == 0) { // The first gene structure should be selected by default
           append_str += "checked=\"checked\"";
         }
@@ -586,7 +498,9 @@ function variants_radio_options(status) {
   });
 }
 
-/* When radio button changes, update the gene structure throughout the document and update the PCC values */
+/**
+* When radio button changes, update the gene structure throughout the document and update the PCC values
+*/
 function gene_structure_radio_on_change() {
   // Find out which variant is currently selected
   var variant_selected = $('input[type="radio"][name="radio_group"]:checked').val();
@@ -608,7 +522,9 @@ function gene_structure_radio_on_change() {
   $("#thetable").trigger("update");
 }
 
-/* Converts numbers stored as str to int. */
+/**
+* Converts numbers stored as str to int.
+*/
 function parseIntArray(arr) {
   for (var i = 0, len = arr.length; i < len; i++) {
     arr[i] = parseInt(arr[i], 10);
@@ -616,52 +532,39 @@ function parseIntArray(arr) {
   return arr;
 }
 
-/* Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function */
 var rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
 var match_drive = "";
-//var testing_rnaseq_image = 0;
 var progress_percent = 0;
-var recordReg = /&record(.+&l)/g;
-var regRecord;
 var sra_list_check = [];
 var rnaseq_change = 1;
-var check_sra;
-var sra_array;
-var delay = 1000;
 var bp_length_dic = {};
 var bp_start_dic = {};
 var bp_end_dic = {};
 var mapped_reads_dic = {};
 var locus_dic = {};
-//var dumpCode = [];
-//var dumpStr = "";
-
+/**
+* Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function
+*/
 function rnaseq_images(status) {
   bp_length_dic = {};
   mapped_reads_dic = {};
   locus_dic = {};
   rnaseq_success = 1;
-  //date_obj2 = new Date();
-  //rnaseq_success_start_time = date_obj2.getTime(); // Keep track of start time
   get_input_values();
-  //count_bam_num();
   if (rnaseq_calls.length == count_bam_entries_in_xml) {
-    //dumpCode = [];
     sra_list_check = [];
     rnaseq_change = 1;
     for (var i = 0; i < count_bam_entries_in_xml; i++) {
-      // delay = i;
       if (bam_type_list[i] == "Google Drive") {
         var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
         var linkString = drive_link_list[i];
         match_drive = myRegexp.exec(linkString);
-        // rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice_gdrive.cgi?numberofreads=" + numberofreads_list[i] + "&gdrive=" + match_drive[1] + "&tissue=" + tissue_list[i] + "&record=" + sra_list[i];
         rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice_gdrive.cgi?numberofreads=" + numberofreads_list[i] + "&gdrive=" + match_drive[1] + "&tissue=";
-        //testing_rnaseq_image += 1;
         if (splice_variants == '') {
           splice_variants = "[{\"exon_coordinates\":[{\"exon_start\":10326918,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10330048},{\"exon_start\":10329457,\"exon_end\":10329601}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAARklEQVQ4jWNIIwYkMIAAnIvKwwLACthwCySgcBOwyaJoh5kABwjJ1FACgCEt cdj7UHC4+zBx2PtQcLiDERCHwz8fDvuyFACN3Nv0vy8+hAAAAABJRU5ErkJggg== \"},{\"exon_coordinates\":[{\"exon_start\":10326925,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329722,\"exon_end\":10330008},{\"exon_start\":10329722,\"exon_end\":10329824}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAS0lEQVQ4jWNgSyMCJDCAAJyLysMCwArYcAskoHATsMmiaIeZAAfIkgkoQqmh yCAAJJE47H0oONx9yDjsfSg43MEIiMPhnw+HfVkKAGJJyHVybZqTAAAAAElFTkSuQmCC \"},{\"exon_coordinates\":[{\"exon_start\":10327035,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329607},{\"exon_start\":10329457,\"exon_end\":10329601},{\"exon_start\":10329722,\"exon_end\":10329941}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAASklEQVQ4jWNggII0fCABVQlBDWAFbLgFElC4CdhkUbTDTIADhGRqAFSINRQV BMAVMw57HwoOdx8yDnsfCg53MALicPjnw2FflgIAMFykVMBo2gsAAAAASUVORK5CYII= \"},{\"exon_coordinates\":[{\"exon_start\":10327035,\"exon_end\":10327134},{\"exon_start\":10327109,\"exon_end\":10327134},{\"exon_start\":10327330,\"exon_end\":10327438},{\"exon_start\":10327330,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329457,\"exon_end\":10329601},{\"exon_start\":10329722,\"exon_end\":10329941}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggII0KGBABmxQwQQUJWmoPCwARTMWgQQUbgI2WRTt6O5CkkwN DYAIsYaiggC4YsZh70PB4e5DxmHvQ8HhDkZAHA7/fDjsy1IAaSZ/xYh30LgAAAAASUVORK5CYII=\"}]";
         }
-      } else {
+      }
+      else {
         // New rnaseq_image_url with BAM file name
         //var amazon_filename = repo_list[i].split("/");
         rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&tissue=";
@@ -677,8 +580,6 @@ function rnaseq_images(status) {
           //console.log(response_rnaseq['record']);
         },
         success: function(response_rnaseq) {
-          //dumpStr = 'dumpJSON(' + String(response_rnaseq["status"]) + ', "' + String(response_rnaseq["locus"]) + '", ' + String(response_rnaseq["variant"]) + ', ' + String(response_rnaseq["chromosome"]) + ', ' + String(response_rnaseq["start"]) + ', ' + String(response_rnaseq["end"]) + ', "' + String(response_rnaseq["record"]) + '", "' + String(response_rnaseq["tissue"]) +'", "' + String(response_rnaseq["rnaseqbase64"]) + '", ' + String(response_rnaseq["reads_mapped_to_locus"]) + ', ' + String(response_rnaseq["absolute-fpkm"]) + ', ' + String(response_rnaseq["r"]) + '])';
-          //dumpCode.push(dumpStr); Uncomment out dumpStr and dumpCode if you want to add a new set of pre-cached data into webservice.cgi, this variable list makes it easier
           //console.log(response_rnaseq['record']);
           sra_list_check.push(response_rnaseq['record']);
           bp_length_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['end']) - parseFloat(response_rnaseq['start']));
@@ -699,7 +600,8 @@ function rnaseq_images(status) {
             $('div#progress').width(progress_percent + '%');
             document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time <= " + String(round(parseInt(rnaseq_success_current_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
             //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
-          } else {
+          }
+          else {
             $('#failure').show();
             console.log("ERROR CODE = " + response_rnaseq['status'] + " returned for " + locus + " RNA-Seq data on " + response_rnaseq['record'] + ".");
           }
@@ -722,7 +624,8 @@ function rnaseq_images(status) {
               sp.splice(i, 0, sum_xy[i] - ((sum_x[i] * sum_y) / n));
               r.splice(i, 0, sp[i] / (Math.sqrt(ssx[i] * ssy)));
             }
-          } else {
+          }
+          else {
             //r.push(parseIntArray(String(response_rnaseq['r']).replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(',')));
             r = response_rnaseq['r'];
             //console.log(r);
@@ -785,194 +688,244 @@ function rnaseq_images(status) {
           $("#thetable").trigger("update");
         }
       });
-
-      // setTimeout(function() { call_ajax(i) }, (i * 10))
-      // call_ajax(i);
     }
-  } // this one
+  }
 }
-/*
-window.setInterval(function(){
-  document.getElementById("testing_progress").innerHTML = progress_percent
-}, 50);
+
+/**
+* Checking to make sure the subunit matches tissue
+* @param {String} svg - SVG name starting with ath- and ending with .svg
+* @param {String} subunit - SVG's subunit
+* @return {String} subunit - The SVG tissue corrected subunit if an error occured, input if not
 */
-
-
-/* Checking subunit matches tissue */
 function checkSubunit(svg, subunit) {
   if (svg == "ath-10dayOldSeedling.svg") {
     if (subunit != "all" && subunit != "root" && subunit != "shoot") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-15dayOldSeedling.svg") {
+  }
+  else if (svg == "ath-15dayOldSeedling.svg") {
     if (subunit != "all" && subunit != "root" && subunit != "shoot") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-etiolatedSeedling.svg") {
+  }
+  else if (svg == "ath-etiolatedSeedling.svg") {
     if (subunit != "etiolatedseedling") {
       return "etiolatedseedling";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-Flower.svg") {
+  }
+  else if (svg == "ath-Flower.svg") {
     if (subunit != "flower" && subunit != "receptacle") {
       return "flower";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-FlowerParts.svg") {
+  }
+  else if (svg == "ath-FlowerParts.svg") {
     if (subunit != "all" && subunit != "petals" && subunit != "stamen" && subunit != "sepals" && subunit != "carpels") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-GerminatingSeed.svg") {
+  }
+  else if (svg == "ath-GerminatingSeed.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-Internode.svg") {
+  }
+  else if (svg == "ath-Internode.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-leaf.svg") {
+  }
+  else if (svg == "ath-leaf.svg") {
     if (subunit != "leaf") {
       return "leaf";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-LeafParts.svg") {
+  }
+  else if (svg == "ath-LeafParts.svg") {
     if (subunit != "all" && subunit != "lamina" && subunit != "petiole" && subunit != "veins") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-Pollen.svg") {
+  }
+  else if (svg == "ath-Pollen.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-RootTip.svg") {
+  }
+  else if (svg == "ath-RootTip.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-rosettePlusRoot.svg") {
+  }
+  else if (svg == "ath-rosettePlusRoot.svg") {
     if (subunit != "all" && subunit != "shoot" && subunit != "root") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-SeedStage1-4.svg") {
+  }
+  else if (svg == "ath-SeedStage1-4.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-SeedStage5-7.svg") {
+  }
+  else if (svg == "ath-SeedStage5-7.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-SeedStage8+.svg") {
+  }
+  else if (svg == "ath-SeedStage8+.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-SenescentLeaf.svg") {
+  }
+  else if (svg == "ath-SenescentLeaf.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-ShootApexInflorescense.svg") {
+  }
+  else if (svg == "ath-ShootApexInflorescense.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-ShootApexVegetative-Transition.svg") {
+  }
+  else if (svg == "ath-ShootApexVegetative-Transition.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-SiliqueStage1-5.svg") {
+  }
+  else if (svg == "ath-SiliqueStage1-5.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-SiliqueStage6-10.svg") {
+  }
+  else if (svg == "ath-SiliqueStage6-10.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-Stage1-4Leaf.svg") {
+  }
+  else if (svg == "ath-Stage1-4Leaf.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-Stage1Flowers.svg") {
+  }
+  else if (svg == "ath-Stage1Flowers.svg") {
     if (subunit != "all" && subunit != "shoot" && subunit != "buds") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-Stage12Bud.svg") {
+  }
+  else if (svg == "ath-Stage12Bud.svg") {
     if (subunit != "stage12bud") {
       return "stage12bud";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-Stamen.svg") {
+  }
+  else if (svg == "ath-Stamen.svg") {
     if (subunit != "all" && subunit != "anthers" && subunit != "filament") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-StigmaAndOvaries.svg") {
+  }
+  else if (svg == "ath-StigmaAndOvaries.svg") {
     if (subunit != "all" && subunit != "Stigma_tissue" && subunit != "Ovary_tissue") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-WholeSilique.svg") {
+  }
+  else if (svg == "ath-WholeSilique.svg") {
     if (subunit != "all" && subunit != "silique" && subunit != "seed") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-youngSeedling.svg") {
+  }
+  else if (svg == "ath-youngSeedling.svg") {
     if (subunit != "all" && subunit != "root" && subunit != "hypocotyl" && subunit != "cotyledon") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
-  } else if (svg == "ath-Other.svg") {
+  }
+  else if (svg == "ath-Other.svg") {
     if (subunit != "all") {
       return "all";
-    } else {
+    }
+    else {
       return subunit
     }
   }
 
 }
 
-/* Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make. */
 var bam_type_list = [];
 var sra_list = [];
 var drive_link_list = [];
@@ -988,7 +941,9 @@ var efp_pcc_names = [];
 var xmlTitleName = "";
 var tissue_list = [];
 var svg_pat = [];
-
+/**
+* Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make.
+*/
 function populate_table(status) {
   // Reset values
   $("#thetable").empty();
@@ -1014,15 +969,7 @@ function populate_table(status) {
   tissue_list = [];
 
   // Insert table headers
-  $("#thetable").append('<thead><tr>' +
-    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;">Title<div class="arrowdown arrowup"></div></th>' +
-    '<th class="" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 460px;">RNA-Seq Coverage</th>' +
-    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">PCC</th>' +
-    '<th id="eFP_th" class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">RPKM</th>' +
-    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;">Details</th>' +
-    '</tr></thead>' +
-    '<tbody id="data_table_body"></tbody>');
+  $("#thetable").append('<thead><tr>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;">Title<div class="arrowdown arrowup"></div></th>' + '<th class="" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 460px;">RNA-Seq Coverage</th>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">PCC</th>' + '<th id="eFP_th" class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">RPKM</th>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;">Details</th>' + '</tr></thead>' + '<tbody id="data_table_body"></tbody>');
 
   $.ajax({
     url: base_src,
@@ -1115,13 +1062,6 @@ function populate_table(status) {
         $("#thetable").append(append_str);
 
         exp_info.push([experimentno + '_svg', svg_part, controls, 0, 0, 0, 0]);
-
-        /* Checking to see if this causes the error in loading uploaded files
-        if (rnaseq_calls.length == count_bam_entries_in_xml) {
-            rnaseq_images(status);
-        }
-        */
-        //count_bam_num();
         rnaseq_images(status);
       });
       // add parser through the tablesorter addParser method
@@ -1136,13 +1076,17 @@ function populate_table(status) {
           // format your data for normalization
           if (s == NaN) {
             return -99999;
-          } else if (s == undefined) {
+          }
+          else if (s == undefined) {
             return -999999;
-          } else if (s == Infinity) {
+          }
+          else if (s == Infinity) {
             return 99999;
-          } else if (s == -Infinity) {
+          }
+          else if (s == -Infinity) {
             return -99999;
-          } else {
+          }
+          else {
             return parseFloat(s);
           }
         },
@@ -1160,15 +1104,20 @@ function populate_table(status) {
           // format your data for normalization
           if (s == NaN) {
             return -99999;
-          } else if (s == undefined) {
+          }
+          else if (s == undefined) {
             return -999999;
-          } else if (s == Infinity) {
+          }
+          else if (s == Infinity) {
             return 99999;
-          } else if (s == -Infinity) {
+          }
+          else if (s == -Infinity) {
             return -99999;
-          } else if (s == "Missing controls data") {
+          }
+          else if (s == "Missing controls data") {
             return -9999999;
-          } else {
+          }
+          else {
             return parseFloat(s);
           }
         },
@@ -1185,13 +1134,13 @@ function populate_table(status) {
             sorter: 'pcc_sorter'
           },
           3: {
-            //sorter: false // disable sorting on this column
+            //sorter: false  disable sorting on this column
           },
           4: {
             sorter: 'rpkm_sorter'
           },
           5: {
-            //sorter: false // disable sorting on this column
+            //sorter: false  disable sorting on this column
           }
         }
       });
@@ -1208,7 +1157,7 @@ function populate_table(status) {
     auto_filter: true,
     auto_filter_delay: 500, //milliseconds
     col_1: 'none', // no filter option
-    //col_3: 'none', // no filter option
+    //col_3: 'none',  no filter option
     popup_filters: false,
     filters_row_index: 1,
     alternate_rows: false,
@@ -1250,7 +1199,10 @@ var filtered_2d_locus = [];
 var tr_of_table;
 var to_be_removed_efp = [];
 var keep_loop_var = [];
-
+/**
+* Creates a table of the coloured SVGs and their corresponding RPKM values
+* @param {String | Number} status - Index call version
+*/
 function populate_efp_modal(status) {
   $("#eFPtable").empty();
   efp_table_column = '';
@@ -1310,7 +1262,8 @@ function populate_efp_modal(status) {
         var trs_title_right = trs_title_left[1].split("<");
         if (trs_title_right[0] == "") {
           filtered_2d_title.push(trs_title_right[1]);
-        } else {
+        }
+        else {
           filtered_2d_title.push(trs_title_right[0]);
         }
         break;
@@ -1372,8 +1325,8 @@ function populate_efp_modal(status) {
     }
   }
 
-  // remainder_efp = efp_rep_2d.length % 11; // Old without filter option
-  // efp_length = efp_rep_2d.length; // Old without filter option
+  // remainder_efp = efp_rep_2d.length % 11;  Old without filter option
+  // efp_length = efp_rep_2d.length;  Old without filter option
   remainder_efp = tr_of_table.length % 11;
   efp_length = tr_of_table.length;
   efp_RPKM_values = [];
@@ -1395,7 +1348,7 @@ function populate_efp_modal(status) {
   }
 
   // Creating eFP representative table
-  for (i = 0; i < (~~(filtered_2d.length / 11) * 11); i += 11) {
+  for (i = 0; i < (~~ (filtered_2d.length / 11) * 11); i += 11) {
     if (document.getElementById(filtered_2d[i + 10]).outerHTML != 'null') {
       efp_table_column = '<tr>';
       efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i] + '_rep">' + document.getElementById(filtered_2d[i]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i] + '</span></div></td>';
@@ -1419,20 +1372,23 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
-  } else if (remainder_efp == 2) {
+  }
+  else if (remainder_efp == 2) {
     efp_table_column = '<tr>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 2] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
-  } else if (remainder_efp == 3) {
+  }
+  else if (remainder_efp == 3) {
     efp_table_column = '<tr>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 3] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 2] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
-  } else if (remainder_efp == 4) {
+  }
+  else if (remainder_efp == 4) {
     efp_table_column = '<tr>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 4] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 3] + '</span></div></td>';
@@ -1440,7 +1396,8 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
-  } else if (remainder_efp == 5) {
+  }
+  else if (remainder_efp == 5) {
     efp_table_column = '<tr>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 5] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 4] + '</span></div></td>';
@@ -1449,7 +1406,8 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
-  } else if (remainder_efp == 6) {
+  }
+  else if (remainder_efp == 6) {
     efp_table_column = '<tr>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 6] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 5] + '</span></div></td>';
@@ -1459,7 +1417,8 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
-  } else if (remainder_efp == 7) {
+  }
+  else if (remainder_efp == 7) {
     efp_table_column = '<tr>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 7] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 6] + '</span></div></td>';
@@ -1470,7 +1429,8 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
-  } else if (remainder_efp == 8) {
+  }
+  else if (remainder_efp == 8) {
     efp_table_column = '<tr>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 8] + '_rep">' + document.getElementById(filtered_2d[efp_length - 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 8] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 7] + '</span></div></td>';
@@ -1482,7 +1442,8 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
-  } else if (remainder_efp == 9) {
+  }
+  else if (remainder_efp == 9) {
     efp_table_column = '<tr>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 9] + '_rep">' + document.getElementById(filtered_2d[efp_length - 9]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 9] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 8] + '_rep">' + document.getElementById(filtered_2d[efp_length - 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 8] + '</span></div></td>';
@@ -1495,7 +1456,8 @@ function populate_efp_modal(status) {
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
-  } else if (remainder_efp == 10) {
+  }
+  else if (remainder_efp == 10) {
     efp_table_column = '<tr>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 10] + '_rep">' + document.getElementById(filtered_2d[efp_length - 10]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 10] + '</span></div></td>';
     efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 9] + '_rep">' + document.getElementById(filtered_2d[efp_length - 9]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 9] + '</span></div></td>';
@@ -1513,7 +1475,9 @@ function populate_efp_modal(status) {
 
 }
 
-/* Changes the legend for scales. */
+/**
+* Changes the legend for scales.
+*/
 function change_rpkm_colour_scale(colouring_mode) {
   if (svg_colouring_element == null) {
     svg_colouring_element = document.getElementById("flt3_thetable").parentElement;
@@ -1524,7 +1488,8 @@ function change_rpkm_colour_scale(colouring_mode) {
     img_created.src = 'data:image/png;base64,' + relative_rpkm_scale;
     img_created.style = 'margin-top: 10px;';
     svg_colouring_element.appendChild(img_created);
-  } else {
+  }
+  else {
     var img_created = document.createElement('img');
     img_created.src = 'data:image/png;base64,' + absolute_rpkm_scale;
     img_created.style = 'margin-top: 10px;';
@@ -1542,25 +1507,18 @@ $("input[name=svg_colour_radio_group]:radio").change(function() {
   colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   if (colouring_mode == "abs") {
     $("#rpkm_scale_input").removeAttr('disabled');
-  } else {
+  }
+  else {
     $("#rpkm_scale_input").prop("disabled", true);
   }
 });
 
 function locus_validation() {
   var loc = document.getElementById("locus").value;
-  if (loc.length == 9 &&
-    (loc[0] == 'A' || loc[0] == 'a') &&
-    (loc[1] == 'T' || loc[1] == 't') &&
-    ((loc[2] >= 1 && loc[2] <= 5) || loc[2] == 'C' || loc[2] == 'M' || loc[2] == 'c' || loc[2] == 'm') &&
-    (loc[3] == 'G' || loc[3] == 'g') &&
-    (loc[4] >= 0 && loc[4] <= 9) &&
-    (loc[5] >= 0 && loc[5] <= 9) &&
-    (loc[6] >= 0 && loc[6] <= 9) &&
-    (loc[7] >= 0 && loc[7] <= 9) &&
-    (loc[8] >= 0 && loc[8] <= 9)) {
+  if (loc.length == 9 && (loc[0] == 'A' || loc[0] == 'a') && (loc[1] == 'T' || loc[1] == 't') && ((loc[2] >= 1 && loc[2] <= 5) || loc[2] == 'C' || loc[2] == 'M' || loc[2] == 'c' || loc[2] == 'm') && (loc[3] == 'G' || loc[3] == 'g') && (loc[4] >= 0 && loc[4] <= 9) && (loc[5] >= 0 && loc[5] <= 9) && (loc[6] >= 0 && loc[6] <= 9) && (loc[7] >= 0 && loc[7] <= 9) && (loc[8] >= 0 && loc[8] <= 9)) {
     $("#locus_button").removeAttr('disabled');
-  } else {
+  }
+  else {
     $("#locus_button").prop("disabled", true);
   }
 }
@@ -1570,7 +1528,8 @@ function yscale_validation() {
   if (parseInt(yscale) > 0 || yscale == "Auto" || yscale == "") {
     //$("#yscale_button").removeAttr('disabled');
     $("#locus_button").removeAttr('disabled');
-  } else {
+  }
+  else {
     //$("#yscale_button").prop("disabled", true);
     $("#locus_button").prop("disabled", true);
   }
@@ -1580,19 +1539,23 @@ function rpkm_validation() {
   var rpkmscale = parseInt(document.getElementById("rpkm_scale_input").value);
   if (rpkmscale > 0) {
     $("#abs_scale_button").removeAttr('disabled');
-  } else {
+  }
+  else {
     $("#abs_scale_button").prop("disabled", true);
   }
 }
 
+/* Used for resetting dataset_dictionary */
 var base_dataset_dictionary = {
   "Araport 11 RNA-seq data": 'cgi-bin/data/bamdata_amazon_links.xml',
   "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
 };
-
+/**
+* Resets the dataset_dictionary and removes users added tags from index.html (document)
+*/
 function reset_database_options() {
   $('.userAdded').remove();
-  dataset_dictionary = base_dataset_dictionary;
+  dataset_dictionary = base_dataset_dictionary; // Resets dictionary
   list_modified = false;
 }
 
@@ -1604,7 +1567,9 @@ var xml_title;
 var match_title = {};
 var title_list = [];
 var data_list = [];
-
+/**
+* Gets list of users private XMLs
+*/
 function get_user_XML_display() {
   // First check to make sure there is is a user logged in or else this script will not run
   if (users_email != "" || users_email != undefined || users_email != null) {
@@ -1612,16 +1577,15 @@ function get_user_XML_display() {
       url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml_list.php?user=" + users_email,
       dataType: 'json',
       failure: function(get_xml_list_return) {
-        //get_xml_list_output = get_xml_list_return
         console.log("ERROR! Something went wrong");
       },
       success: function(get_xml_list_return) {
-        // reset all variables
+        // Reset all variables
         xml_title;
         match_title = {};
         title_list = [];
         data_list = [];
-        // unnamed dataset name number:
+        // Unnamed dataset name number:
         var unnamed_title_num = 1;
         var private_version_num = 1;
         // Check if the output is working and store as variable
@@ -1629,7 +1593,8 @@ function get_user_XML_display() {
         if (get_xml_list_output["status"] == "fail") {
           console.log("Error code: " + get_xml_list_output["error"]);
           user_exist = false;
-        } else if (get_xml_list_output["status"] == "success") {
+        }
+        else if (get_xml_list_output["status"] == "success") {
           user_exist = true;
           // Check for change in output from last time ran function
           if (check_for_change != get_xml_list_output["files"].length) {
@@ -1685,6 +1650,11 @@ function get_user_XML_display() {
   }
 }
 
+/**
+* Creates a list of base64 strings that contains XML of user's private datasets
+* @param {Number} size - How many private datasets the user has
+* @return {List} data_list - List of base64 strings
+*/
 function create_data_list(size) {
   for (i = 0; i < size; i++) {
     $.ajax({
@@ -1698,6 +1668,9 @@ function create_data_list(size) {
   }
 }
 
+/**
+* If user does not exist, adds user to our database and upload file; if does, upload file
+*/
 function add_user_xml_by_upload() {
   get_user_XML_display(); // Updates data and determines if user_exists or now
   // setTimeout is necessary due to xmlTitleName taking a while to be generated. Though only requires 3 seconds to obtain, setTimeout set to 4 just in case
@@ -1713,7 +1686,8 @@ function add_user_xml_by_upload() {
           title: xmlTitleName
         }
       })
-    } else if (user_exist == true) {
+    }
+    else if (user_exist == true) {
       if (dataset_dictionary[xmlTitleName] == undefined) {
         // If the file does not already exist in the account, add it
         $.ajax({
@@ -1725,7 +1699,8 @@ function add_user_xml_by_upload() {
             title: xmlTitleName
           }
         })
-      } else if (dataset_dictionary[xmlTitleName] != undefined) {
+      }
+      else if (dataset_dictionary[xmlTitleName] != undefined) {
         // reset variables for get_user_XML_display
         list_modified = false;
         check_for_change = 0;
@@ -1748,21 +1723,9 @@ function add_user_xml_by_upload() {
   }, 10000);
 }
 
-// Though change_dropSelect_width() is not needed anymore, keeping code just incase ever used again
-var show_dropSelect_upload = false;
-var show_dropSelect_account = false;
-
-function change_dropSelect_width(id_bot, id_top, dropSelect_variable, size) {
-  if (dropSelect_variable == false) {
-    document.getElementById(id_bot).style.visibility = "visible";
-    document.getElementById(id_bot).style.width = (document.getElementById(id_top).clientWidth * size) + "px";
-    return dropSelect_variable = true;
-  } else if (dropSelect_variable == true) {
-    document.getElementById(id_bot).style.visibility = "hidden";
-    return dropSelect_variable = false;
-  }
-}
-
+/**
+* UI function: If logged in, upload to account vs not
+*/
 function which_upload_option() {
   if (users_email != "") {
     document.getElementById("upload_modal").click();
@@ -1771,13 +1734,7 @@ function which_upload_option() {
   }
 }
 
-function if_user_in_dropSelect() {
-  if (users_email != "") {
-    change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_account, 1.5);
-    show_dropSelect_upload = change_dropSelect_width('upload_button_text', 'custom_view', show_dropSelect_account, 1.5);
-  }
-}
-
+/* User's private dataset_dictionary */
 var public_dataset_dictionary = {
   "Araport 11 RNA-seq data": 'cgi-bin/data/bamdata_amazon_links.xml',
   "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
@@ -1785,9 +1742,10 @@ var public_dataset_dictionary = {
 
 var public_title_list = [];
 var total_amount_of_datasets = 0;
-
+/**
+* Fills the manage XML modal with all available XMLs to delete from an account
+*/
 function delete_fill() {
-  // Fills the manage XML modal with all available XMLs to delete from an account
   $("#delete_fill").empty(); // Empties the manage XML modal every time it is loaded
   $("#publicDatabaseDownload").empty();
   public_title_list = [];
@@ -1810,18 +1768,25 @@ function delete_fill() {
   }
 }
 
+/**
+* Prevents users from deleting public databases visually... even without this they cannot actually do it
+*/
 function disableDeletePublic() {
   for (i = 0; i < public_title_list.length; i++) {
     if (document.getElementById("deleteBox_" + i).checked == true) {
       document.getElementById("deleteXML_button").disabled = true;
       break
-    } else {
+    }
+    else {
       document.getElementById("deleteXML_button").disabled = false;
     }
   }
 
 }
 
+/**
+* Delete selected XMLs from their private account
+*/
 function delete_selectedXML() {
   for (i = 0; i < title_list.length; i++) {
     var deleteBox_id = "deleteBox_" + i; // Find id of what is being called
@@ -1834,7 +1799,9 @@ function delete_selectedXML() {
 }
 
 var warningActive_index = "nope";
-
+/**
+* Show warning before making permanent decision
+*/
 function showWarning_index() {
   if (warningActive_index == "nope") {
     document.getElementById("warning_index").className = "warning_index";
@@ -1844,25 +1811,32 @@ function showWarning_index() {
   }
 }
 
+/**
+* Hide warning of permanent decision
+*/
 function hideWarning_index() {
   document.getElementById("warning_index").className = "warning_nope_index";
   warningActive_index = "nope";
 }
 
+/**
+* Download selected file (in document's/index.html "Manage data") as an XML
+* @return {File} XML - Download selected file as an XML
+*/
 function manage_DownloadXML() {
   for (i = 0; i < title_list.length; i++) {
     var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
     if (document.getElementById(downloadBox_id).checked == true) {
-      $('#downloadXML')
-        .attr('href', dataset_dictionary[document.getElementById(downloadBox_id).value])
-        .attr('download', document.getElementById(downloadBox_id).value + '.xml');
+      $('#downloadXML').attr('href', dataset_dictionary[document.getElementById(downloadBox_id).value]).attr('download', document.getElementById(downloadBox_id).value + '.xml');
       document.getElementById("downloadXML_button").click();
     }
   }
 }
 
 var table_base = "\t\t<tr>\n\t\t\t<th>Title*</th>\n\t\t\t<th>Description*</th>\n\t\t\t<th>Record Number *</th>\n\t\t\t<th>RNA-Seq Data/BAM file repository link*</th>\n\t\t\t<th>Repository type*</th>\n\t\t\t<th>Publication Link</th>\n\t\t\t<th>SRA/NCBI Link</th>\n\t\t\t<th>Total Reads Mapped*</th>\n\t\t\t<th>Read Map Method</th>\n\t\t\t<th>Species*</th>\n\t\t\t<th>Tissue*</th>\n\t\t\t<th>Tissue subunit*</th>\n\t\t</tr>\n";
-
+/**
+* Initilizes and fills a hidden table (#XMLtoCSVtable) to be filled with potentially downloadable CSV files
+*/
 function fill_tableCSV() {
   $("#XMLtoCSVtable").empty();
   for (i = 0; i < total_amount_of_datasets; i++) {
@@ -1930,6 +1904,10 @@ function fill_tableCSV() {
   }
 }
 
+/**
+* Download selected file (in document's/index.html "Manage data") as an CSV
+* @return {File} CSV - Download selected file as an CSV
+*/
 function download_XMLtableCSV() {
   for (i = 0; i < total_amount_of_datasets; i++) {
     var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
@@ -1941,13 +1919,17 @@ function download_XMLtableCSV() {
 }
 
 var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>ID number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>bp Start site</th>\n\t\t\t<th>bp End site</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t</tr>\n";
-
+/**
+* Converts and downloads index's (document) main table as an CSV
+* @return {File} CSV
+*/
 function download_mainTableCSV() {
-  populate_efp_modal(1);
-  $("#hiddenDownloadModal_table").empty();
+  populate_efp_modal(1); // Needed for the filtered_2d_x variables
+  $("#hiddenDownloadModal_table").empty(); // reset
   var downlodaIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
   downlodaIndexTable_str += "\t\t<caption>" + document.getElementById("xmldatabase").value + "</caption>\n";
   downlodaIndexTable_str += downloadIndexTable_base;
+  // Looping through each row of the table
   for (i = 0; i < filtered_2d_title.length; i++) {
     downlodaIndexTable_str += "\t\t<tr>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_title[i] + "</td>\n";
@@ -1964,13 +1946,17 @@ function download_mainTableCSV() {
     downlodaIndexTable_str += "\t\t\t<td>" + String(efp_RPKM_values[i]) + "</td>\n";
     downlodaIndexTable_str += "\t\t</tr>\n";
   }
-  downlodaIndexTable_str += "\t</tbody>\n</table>";
+  downlodaIndexTable_str += "\t</tbody>\n</table>"; // Closing
   document.getElementById("hiddenDownloadModal_table").innerHTML += downlodaIndexTable_str;
   $("#hiddenDownloadModal_table").tableToCSV();
 }
 
 var publicData = false;
-function changePublicData(insert_bool) {
+/**
+* Checks of index.html (document) "RNA-Seq Database" is currently selected on a public or private database
+* @return {bool} publicData - Whether a public database is or is not selected
+*/
+function changePublicData() {
   if ((document.getElementById("xmldatabase").selectedIndex == 1) || (document.getElementById("xmldatabase").selectedIndex == 2)) {
     publicData = true;
   }
@@ -1979,21 +1965,27 @@ function changePublicData(insert_bool) {
   }
 }
 
+/**
+* Determines if dataset should load a precached data or new set of information
+*/
 function checkPreload() {
   get_input_values();
   if ((publicData == true) && (locus == "AT2G24270")) {
-    //console.log("For the title: " + document.getElementById("xmldatabase").value + ", checkPreload = Yes, locus = " + locus);
     populate_table(1);
   }
   else {
-    //console.log("For the title: " + document.getElementById("xmldatabase").value + ", checkPreload = no, locus = " + locus);
     update_all_images(0);
   }
 }
 
 var GFF_List = [];
 var parse_output;
-function getGFF(locusID){
+/**
+* Gets the variant ID for the splice variants and adds as a title/tooltip to each splice variant image
+* @param {String} locusID - The locus ID
+* @return {List} GFF_list - A list of variant IDs which are used to adds as a title/tooltip to each splice variant image
+*/
+function getGFF(locusID) {
   GFF_List = [];
   $.ajax({
     url: 'http://bar.utoronto.ca/webservices/araport/api/bar_araport11_gene_structure_by_locus.php?locus=' + locusID,
@@ -2003,18 +1995,26 @@ function getGFF(locusID){
     },
     success: function(gene_res) {
       parse_output = gene_res;
-      var parsed_features = parse_output['features'][0]['subfeatures'];
-      for (i=0; i < parsed_features.length; i++) {
-        if (parsed_features[i]["uniqueID"] != null) {
-          GFF_List.push(parsed_features[i]["uniqueID"]);
+      if (parse_output["status"] != "fail") {
+        var parsed_features = parse_output['features'][0]['subfeatures'];
+        for (i = 0; i < parsed_features.length; i++) {
+          if (parsed_features[i]["uniqueID"] != null) {
+            GFF_List.push(parsed_features[i]["uniqueID"]);
+          }
+          else {
+            GFF_List.push("Error retrieving unique ID/GFF");
+          }
         }
-        else {
-          GFF_List.push("Error retrieving unique ID/GFF");
-        }
+      }
+      else if (parse_output["status"] == "fail") {
+        console.log("Error: Cannot find GFF ID's with parse output. Please contact admin");
       }
     }
   });
 }
+
+// By default, legacy should be set to false unless else stated in document
+var legacy = false;
 
 $(document).ready(function() {
   // On load, validate input
@@ -2023,7 +2023,9 @@ $(document).ready(function() {
   rpkm_validation();
 
   // Check if mobile
-  checkmobile();
+  if (legacy == true) {
+    checkmobile();
+  }
 
   // Bind event listeners...
   $('input[type=radio][name=radio_group]').change(function() {
@@ -2043,7 +2045,7 @@ $(document).ready(function() {
   });
   getGFF(locus);
   populate_table(1); // status 1 forces rna-seq api to return cached data for fast initial load
-  // populate_efp_modal(1); // Shouldn't be called here, only when the button is pressed
+  // populate_efp_modal(1);  Shouldn't be called here, only when the button is pressed
 
   if (gene_structure_colouring_element == null) {
     gene_structure_colouring_element = document.getElementById("flt1_thetable").parentElement;

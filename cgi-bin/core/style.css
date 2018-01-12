@@ -412,3 +412,45 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   bottom: 100%;
   margin-bottom: 0.125rem;
 }
+
+.navbar_menu {
+  background-color: #4a4a4a;
+  height: 100vh;
+}
+
+.navbar_menu_title {
+  font-size: 3em;
+  color: white;
+  padding-left:2.5%;
+}
+
+.navbar_menu_general_font {
+  color:white;
+  line-height:100%;
+  text-align: justify;
+  font-family: Arial;
+  font-size: 2em;
+}
+
+.navbar_menu_small_font {
+  color: #bfbfbf;
+  line-height:100%;
+  font-size: 1em;
+  text-align: justify;
+  font-family: Arial;
+  padding-top: 1%;
+  padding-bottom: 0.5%;
+}
+
+.navbar_menu_clickable {
+  border: 1.5px solid rgb(76,175,80);
+  font-size:1.5em;
+}
+
+.navbar_menu_footer {
+  color:white;
+  line-height:100%;
+  text-align: justify;
+  font-family: Arial;
+  font-size: 2em;
+}

@@ -6,7 +6,7 @@ print "Content-Type: text/html\n\n"
 ################################################################################
 # This program return the base64 of the RNA-Seq mapping coverage image.
 #
-# Authors: Asher and Priyank
+# Authors: Asher, Alexander and Priyank
 # Date: January 2016
 ################################################################################
 

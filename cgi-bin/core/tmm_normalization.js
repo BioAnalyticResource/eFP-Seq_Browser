@@ -1,62 +1,101 @@
+//=============================================================================
+//
+// Purpose: Calculate and performance TMM normalization
+//
+//=============================================================================
 // This script is based off of Bioconductor's edgeR script: calcNormFactors.R
 // https://github.com/Bioconductor-mirror/edgeR/blob/master/R/calcNormFactors.R
 
+// WARNING: THIS SCRIPT IS INCOMPLETE AND NOT RECOMMENDED TO BE USED
+// If redone, would just have used Math matrices for most the beginning of the code
+
 var matrix_template;
+/**
+* Make a matrix based on input data
+* @param {Any} data - Any dataset, recommend empty
+* @param {Number} num_of_columns - Number of columns
+* @param {Number} num_of_rows - Number of rows
+* @return {Array} data - Matrix
+*/
 function make_matrix(data, num_of_columns, num_of_rows) {
   // code taken form: https://stackoverflow.com/questions/8301400/how-do-you-easily-create-empty-matrices-javascript
   data = [];
   var count = 1;
-  for(var i=0; i<num_of_columns; i++) {
-      data[i] = [];
-      for(var j=0; j<num_of_rows; j++) {
-          data[i][j] = count;
-          count += 1
-      }
+  for (var i = 0; i < num_of_columns; i++) {
+    data[i] = [];
+    for (var j = 0; j < num_of_rows; j++) {
+      data[i][j] = count;
+      count += 1
+    }
   }
   return data;
 }
 
 var transpoing;
+/**
+* Transpose a matrix
+* @param {Array} data - Matrix
+* @return {Array} transpoing - Transposed matrix
+*/
 function transpose_matrix(data) {
   var og_num_cols = data.length;
   var og_num_rows = data[0].length;
   transpoing = [];
-  for(var i=0; i<og_num_rows; i++) {
-      transpoing[i] = [];
-      for(var j=0; j<og_num_cols; j++) {
-          transpoing[i][j] = data[j][i];
-      }
+  for (var i = 0; i < og_num_rows; i++) {
+    transpoing[i] = [];
+    for (var j = 0; j < og_num_cols; j++) {
+      transpoing[i][j] = data[j][i];
+    }
   }
   return transpoing;
 }
 
 var divdedM;
+/**
+* Divide a matrix by a number
+* @param {Number[]} data - Matrix
+* @param {Number} divide_num - Number matrix divided by
+* @return {Array} divdedM - Divided matrix
+*/
 function divide_matrix(data, divide_num) {
   var num_cols = data.length;
   var num_rows = data[0].length;
   divdedM = [];
-  for(var i=0; i<num_cols; i++) {
-      divdedM[i] = [];
-      for(var j=0; j<num_rows; j++) {
-          divdedM[i][j] = (parseFloat(data[i][j]) / parseFloat(divide_num));
-      }
+  for (var i = 0; i < num_cols; i++) {
+    divdedM[i] = [];
+    for (var j = 0; j < num_rows; j++) {
+      divdedM[i][j] = (parseFloat(data[i][j]) / parseFloat(divide_num));
+    }
   }
   return divdedM;
 }
 
+/**
+* Function to calculate library size if needed
+* @param {Number[]} data - Matrix
+* @param {Any} libsize - Library
+* @return {List} calculating_libsize - List of what is included in the library
+*/
 function calcLibsize(data, libsize) {
   var calculating_libsize = [];
   var og_num_rows = data[0].length;
-  for(var i=0; i<data.length; i++) {
-      var colSum = 0;
-      for(var j=0; j<og_num_rows; j++) {
-          colSum += data[i][j];
-      }
-      calculating_libsize.push(colSum);
+  for (var i = 0; i < data.length; i++) {
+    var colSum = 0;
+    for (var j = 0; j < og_num_rows; j++) {
+      colSum += data[i][j];
+    }
+    calculating_libsize.push(colSum);
   }
   return calculating_libsize
 }
 
+/**
+* Detemine factor quantile, mimicked from calcNormFactors.R's .calcFactorQuantile
+* @param {Number[]} data - Matrix
+* @param {Number} libsize - Library size
+* @param {Number} p - Percentage value
+* @return {Number[]} quantileMatrix - Quantile matrix
+*/
 function calcFactorQuantile(data, libsize, p) {
   var first_y = transpose_matrix(data);
   var second_y = divide_matrix(first_y, libsize);
@@ -64,25 +103,31 @@ function calcFactorQuantile(data, libsize, p) {
 
   var num_cols = data.length;
   var quantileMatrix = make_matrix(quantileMatrix, num_cols, 1);
-  for(var i=0; i<num_cols; i++) {
-      for(var j=0; j<1; j++) {
-          quantileMatrix[i][j] = math.quantileSeq(third_y[i], p);
-      }
+  for (var i = 0; i < num_cols; i++) {
+    for (var j = 0; j < 1; j++) {
+      quantileMatrix[i][j] = math.quantileSeq(third_y[i], p);
+    }
   }
   return quantileMatrix;
 }
 
+/**
+* Creates a reference column which is required for factored weighting
+* @param {Number[]} data - Matrix
+* @param {Number} refColumn - Reference column length
+* @return {Number[]} ref_matrix - Reference column matrix
+*/
 function switch_refColumn(data, refColumn) {
   var ref_output;
-  if(refColumn==null) {
+  if (refColumn == null) {
     refArray = [];
-    for(var i=0; i<data.length; i++) {
-        for(var j=0; j<1; j++) {
-            refArray.push(data[i][j]);
-        }
+    for (var i = 0; i < data.length; i++) {
+      for (var j = 0; j < 1; j++) {
+        refArray.push(data[i][j]);
+      }
     }
     refMean = math.mean(refArray);
-    for(var i=0; i<refArray.length; i++) {
+    for (var i = 0; i < refArray.length; i++) {
       refArray[i] = Math.abs((refArray[i] - refMean));
     }
     refMin = math.min(refArray);
@@ -94,42 +139,50 @@ function switch_refColumn(data, refColumn) {
     ref_output = refColumn;
   }
   var ref_matrix;
-  ref_matrix = make_matrix(ref_matrix,1,1);
+  ref_matrix = make_matrix(ref_matrix, 1, 1);
   ref_matrix[0][0] = ref_output;
   return ref_matrix;
 }
 
+/**
+* Creates an empty matrix based on the data matrix which is required for factored weighting
+* @param {Number[]} data - Matrix
+* @return {Number[]} naArray - na matrix
+*/
 function switch_naArray(data) {
   var naArray = [];
-  for(var i=0; i<data.length; i++) {
-      naArray.push("NA");
+  for (var i = 0; i < data.length; i++) {
+    naArray.push("NA");
   }
   return naArray
 }
 
+/**
+* Factored weighting to determine the TMM normalization, mimicked from calcNormFactors.R's .calcFactorQuantile, currently incomplete and not working
+*/
 function calcFactoredWeighted(obs, ref, libsize_obs, libsize_ref, logratioTrim, sumTrim, doWeighting, Acutoff) {
-  if(logratioTrim==null) {
+  if (logratioTrim == null) {
     logratioTrim = 0.3;
   }
-  else if(logratioTrim!=null) {
+  else if (logratioTrim != null) {
     logratioTrim = parseFloat(logratioTrim);
   }
-  if(sumTrim==null) {
+  if (sumTrim == null) {
     sumTrim = 0.05;
   }
-  else if(sumTrim!=null) {
+  else if (sumTrim != null) {
     sumTrim = parseFloat(sumTrim);
   }
-  if(doWeighting == "false") {
+  if (doWeighting == "false") {
     doWeighting = false;
   }
-  else if(doWeighting==null || doWeighting == "true" || typeof(doWeighting) != "boolean") {
+  else if (doWeighting == null || doWeighting == "true" || typeof(doWeighting) != "boolean") {
     doWeighting = true;
   }
-  if(Acutoff==null) {
+  if (Acutoff == null) {
     Acutoff = parseFloat("-1e10");
   }
-  else if(Acutoff!=null) {
+  else if (Acutoff != null) {
     Acutoff = parseFloat(Acutoff);
   }
 
@@ -188,7 +241,7 @@ function calcFactoredWeighted(obs, ref, libsize_obs, libsize_ref, logratioTrim, 
   //	keep <- (rank(logR) %in% loL:hiL) & (rank(absE) %in% loS:hiS)
   //	a fix from leonardo ivan almonacid cardenas, since rank() can return
   //	non-integer values when there are a lot of ties
-  // // The following script is in R. Due to not knowing what rank does, cannot rewrite into JavaScript
+  //  The following script is in R. Due to not knowing what rank does, cannot rewrite into JavaScript
 
   // keep <- (rank(logR)>=loL & rank(logR)<=hiL) & (rank(absE)>=loS & rank(absE)<=hiS)
   var f;
@@ -210,39 +263,41 @@ function calcFactoredWeighted(obs, ref, libsize_obs, libsize_ref, logratioTrim, 
   }
 }
 
-function convert_array(array){
-  for (i=0; i<array.length; i++) {
+// All functions were created to test and debug calcFactoredWeighted(), documentation will be added after it is completed
+
+function convert_array(array) {
+  for (i = 0; i < array.length; i++) {
     array[i] = parseFloat(array[i])
   }
 }
 
 function divide_arrays(numer, denom) {
   var results = [];
-  for (i=0; i<numer.length; i++) {
-    results[i] = numer[i]/denom[i];
+  for (i = 0; i < numer.length; i++) {
+    results[i] = numer[i] / denom[i];
   }
   return results;
 }
 
 function divide_array_by_num(numer, num) {
   var results = [];
-  for (i=0; i<numer.length; i++) {
-    results[i] = numer[i]/num;
+  for (i = 0; i < numer.length; i++) {
+    results[i] = numer[i] / num;
   }
   return results;
 }
 
 function divide_num_by_array(num, denom) {
   var results = [];
-  for (i=0; i<denom.length; i++) {
-    results[i] = num/denom[i];
+  for (i = 0; i < denom.length; i++) {
+    results[i] = num / denom[i];
   }
   return results;
 }
 
 function log2_arrays(array) {
   var results = [];
-  for (i=0; i<array.length; i++) {
+  for (i = 0; i < array.length; i++) {
     results[i] = Math.log2(array[i]);
   }
   return results;
@@ -250,7 +305,7 @@ function log2_arrays(array) {
 
 function addition_array(array1, array2) {
   var results = [];
-  for (i=0; i<array1.length; i++) {
+  for (i = 0; i < array1.length; i++) {
     results[i] = array1[i] + array2[i];
   }
   return results;
@@ -258,7 +313,7 @@ function addition_array(array1, array2) {
 
 function addition_array_by_num(array1, num) {
   var results = [];
-  for (i=0; i<array1.length; i++) {
+  for (i = 0; i < array1.length; i++) {
     results[i] = array1[i] + num;
   }
   return results;
@@ -266,7 +321,7 @@ function addition_array_by_num(array1, num) {
 
 function substraction_array(array1, array2) {
   var results = [];
-  for (i=0; i<array1.length; i++) {
+  for (i = 0; i < array1.length; i++) {
     results[i] = array1[i] + array2[i];
   }
   return results;
@@ -274,7 +329,7 @@ function substraction_array(array1, array2) {
 
 function isFinite_array(array) {
   var results = [];
-  for (i=0; i<array.length; i++) {
+  for (i = 0; i < array.length; i++) {
     results[i] = isFinite(array[i]);
   }
   return results;
@@ -282,7 +337,7 @@ function isFinite_array(array) {
 
 function isFinite_removal(num_array, finite_array) {
   var results = [];
-  for (i=0; i<num_array.length; i++) {
+  for (i = 0; i < num_array.length; i++) {
     if (finite_array[i] == false) {
       num_array[i] = "false"
     }

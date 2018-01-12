@@ -1,4 +1,8 @@
-// Code was edited and modified by StackOverFlow user: madalin ivascu, who made the XML generator work for multiple entries. With greatest thanks <3
+//=============================================================================
+//
+// Purpose: Code required for generating new XMLs based on the data submission form
+//
+//=============================================================================
 var count_clicks = 1;
 
 $(function() {
@@ -17,12 +21,11 @@ $(function() {
       $(".Entries").each(function(i, v) {
         formatXML += update(formatXML, v)
         $('#ResultXml').val(filledbase + formatXML + existingXML + end);
-        $('#DownloadLink')
-          .attr('href', 'data:text/xml;base64,' + btoa(filledbase + formatXML + existingXML + end))
-          .attr('download', file_name + '.xml');
+        $('#DownloadLink').attr('href', 'data:text/xml;base64,' + btoa(filledbase + formatXML + existingXML + end)).attr('download', file_name + '.xml');
         $('#generated').show();
       });
-    } else {
+    }
+    else {
       if (check_req(".reqfield") == false) {
         outline_req(".reqfield");
       }
@@ -38,16 +41,9 @@ $(function() {
   });
 });
 
-var end = [
-  '\t</rnaseq_experiments>'
-].join('\r\n');
+var end = ['\t</rnaseq_experiments>'].join('\r\n');
 
-var base = [
-  '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
-  '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">',
-  '\t<rnaseq_experiments xmltitle=\"<?channelxmltitle?>\" author=\"<?channelauthor?>\" contact=\"<?channelcontact?>\">',
-  '\n'
-].join('\r\n');
+var base = ['<?xml version="1.0" encoding="UTF-8" standalone="no"?>', '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">', '\t<rnaseq_experiments xmltitle=\"<?channelxmltitle?>\" author=\"<?channelauthor?>\" contact=\"<?channelcontact?>\">', '\n'].join('\r\n');
 
 var template = [
   '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\">',
@@ -61,62 +57,36 @@ var template = [
   '\n'
 ].join('\r\n');
 
-var topXML = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\">',
-  '\t\t\t<controls>\n',
-].join('\r\n');
+var topXML = ['\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\">', '\t\t\t<controls>\n'].join('\r\n');
 
 var controlsXML = [].join('\r\n');
 
-var replicatesXML = [
-  '\t\t\t</controls>',
-  '\t\t\t<groupwith>\n',
-].join('\r\n');
+var replicatesXML = ['\t\t\t</controls>', '\t\t\t<groupwith>\n'].join('\r\n');
 
-var endingXML = [
-  '\t\t\t</groupwith>',
-  '\t\t</bam_file>',
-  '\n'
-].join('\r\n');
+var endingXML = ['\t\t\t</groupwith>', '\t\t</bam_file>', '\n'].join('\r\n');
 
 var existingXML = [].join('\r\n');
 
 var all_controls = "";
 var all_replicates = "";
 
+/**
+* Update potentially generated XML will form filled strings
+* @param {String} formatXML - The bam_file/XML body portion of the XML that will be filled
+* @param {Any} v - Document's (Submission_page.html) filled form area
+* @return {String} fillXML - The filled XML
+*/
 function update(formatXML, v) {
   controlsXML = [].join('\r\n');
   all_controls = $(v).find('.channelcontrols').val().split(',');
   for (i = 0; i < all_controls.length; i++) {
-    /*
-    if (all_controls[i][0] == " ") {
-      all_controls[i] = all_controls[i].substr(1);
-    }
-    */
     all_controls[i] = all_controls[i].trim()
-    /*
-    var allcontrolslength = all_controls[i].length - 1;
-    while (all_controls[i][allcontrolslength] == " ") {
-      all_controls[i] = all_controls[i].slice(0, -1);
-      allcontrolslength -= 1;
-    }
-    */
     controlsXML += "\t\t\t\t<bam_exp>" + all_controls[i] + "</bam_exp>\n";
   };
 
-  replicatesXML = ['\t\t\t</controls>', '\t\t\t<groupwith>\n', ].join('\r\n');
+  replicatesXML = ['\t\t\t</controls>', '\t\t\t<groupwith>\n'].join('\r\n');
   all_replicates = $(v).find('.channelgroupwidtho').val().split(',');
   for (i = 0; i < all_replicates.length; i++) {
-    /*
-    if (all_replicates[i][0] == " ") {
-      all_replicates[i] = all_replicates[i].substr(1);
-    }
-    var all_replicateslength = all_replicates[i].length - 1;
-    while (all_replicates[i][all_replicateslength] == " ") {
-      all_replicates[i] = all_replicates[i].slice(0, -1);
-      all_replicateslength -= 1;
-    }
-    */
     all_replicates[i] = all_replicates[i].trim()
     replicatesXML += "\t\t\t\t<bam_exp>" + all_replicates[i] + "</bam_exp>\n";
   };
@@ -139,20 +109,23 @@ function update(formatXML, v) {
     'channelgroupwidtho': $(v).find('.channelgroupwidtho').val()
   };
 
-  var fillXML = topXML.replace(/<\?(\w+)\?>/g,
-    function(match, name) {
-      return variables[name];
-    });
+  var fillXML = topXML.replace(/<\?(\w+)\?>/g, function(match, name) {
+    return variables[name];
+  });
 
   fillXML += controlsXML;
   fillXML += replicatesXML;
   fillXML += endingXML;
 
-
   return fillXML;
 
 }
 
+/**
+* An updated top portion of the XML
+* @param {Any} filledbase - The variable that will be replaced with the filled top XML
+* @return {String} fillbase - The filled top portion of the XML
+*/
 function updatebase(filledbase) {
   var variables = {
     'channelxmltitle': document.getElementById("reqxml").value,
@@ -160,15 +133,15 @@ function updatebase(filledbase) {
     'channelcontact': document.getElementById("contectinfo").value
   };
 
-  var fillbase = base.replace(/<\?(\w+)\?>/g,
-    function(match, name) {
-      return variables[name];
-    });
+  var fillbase = base.replace(/<\?(\w+)\?>/g, function(match, name) {
+    return variables[name];
+  });
 
   return fillbase;
 
 }
 
+// Whenever #CloneForm button is clicked, a cloned (and emptied) section will be created
 $(function() {
   $("#CloneForm").click(CloneSection);
 });
@@ -177,7 +150,9 @@ var tissue_sub_name = "";
 var new_tissue = "";
 var new_tissue_subunit = "";
 var new_svg = "";
-
+/**
+* Creates an empty clone of the submission form
+*/
 function CloneSection() {
   $(".SubmissionArea").append($(".Entries:first").clone(true));
   count_clicks += 1;
@@ -191,10 +166,13 @@ function CloneSection() {
   $(".change_id_tissue_subunit").last().attr("id", new_tissue_subunit);
   $(".change_id_tissue").last().attr("id", new_tissue);
   $(".change_svg").last().attr("id", new_svg);
-  // resetting form values
+  // resetting form values and emptying new form
   resetLastEntryValues();
 };
 
+/**
+* Resets the values of the last form entry
+*/
 function resetLastEntryValues() {
   $("input[id=reqtitle]").last().val("");
   $("textarea[id=reqdesc]").last().val("");
@@ -211,6 +189,9 @@ function resetLastEntryValues() {
   $("input[id=" + new_svg + "]").last().html("");
 }
 
+/**
+* Deletes the last entry in the form
+*/
 function DeleteSection() {
   if ($("div[id=entries]").length > 1) {
     $("div[id=entries]").last().remove();
@@ -218,6 +199,9 @@ function DeleteSection() {
   }
 }
 
+/**
+* Resets the entire form
+*/
 function resetForm() {
   count_clicks = 0;
   CloneSection();
@@ -233,6 +217,10 @@ function resetForm() {
   display_add_button(false);
 }
 
+/**
+* Parses through links and corrects weblink formatting to match what we require
+* @param {String} class_name - The HTML <class=""> that is being parsed through
+*/
 function correct_links(class_name) {
   var x = document.getElementById("Entries_all").querySelectorAll(class_name);
   var i;
@@ -253,7 +241,10 @@ function correct_links(class_name) {
 }
 
 var read_num = "";
-
+/**
+* Parses through links and corrects number formatting to match what we require
+* @param {String} class_name - The HTML <class=""> that is being parsed through
+*/
 function correct_ReadMapCount(class_name) {
   var x = document.getElementById("Entries_all").querySelectorAll(class_name);
   var i;
@@ -266,6 +257,11 @@ function correct_ReadMapCount(class_name) {
   }
 }
 
+/**
+* Makes sure a number is an integer
+* @param {Number} input_string - Float
+* @return {Number} input_string - Integer
+*/
 function only_ReadNum(input_string) {
   var u;
   read_num = "";
@@ -279,6 +275,12 @@ function only_ReadNum(input_string) {
   return input_string;
 }
 
+/**
+* Make sure links are only either Amazon AWS or Google Drive
+* @param {String} bam_name - BAM file type HTML <class=""> location
+* @param {String} repo_name - The repo's link HTML <class=""> location
+* @return {bool} bool - Valid link or not
+*/
 function check_links(bam_name, repo_name) {
   var repo_match = document.getElementById("Entries_all").querySelectorAll(repo_name).length;
   var x = document.getElementById("Entries_all").querySelectorAll(repo_name);
@@ -290,37 +292,41 @@ function check_links(bam_name, repo_name) {
         if (bam_x[i].value == "Google Drive") {
           if ((x[i].value.includes("drive.google.com/drive/folders/")) == true) {
             return true;
-          } else if ((x[i].value.includes("drive.google.com/drive/folders/")) == false) {
-            return false;
-          } else {
+          }
+          else if ((x[i].value.includes("drive.google.com/drive/folders/")) == false) {
             return false;
           }
-        } else if (bam_x[i].value == "Amazon AWS") {
+          else {
+            return false;
+          }
+        }
+        else if (bam_x[i].value == "Amazon AWS") {
           if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == true) {
             return true;
-          } else if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == false) {
-            return false;
-          } else {
+          }
+          else if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == false) {
             return false;
           }
-        } else {
+          else {
+            return false;
+          }
+        }
+        else {
           return false;
         }
-
-        /*
-        if ((x[i].value.includes("amazonaws.com/") || x[i].value.includes("drive.google.com/drive/folders/")) == true) {
-          return true;
-        } else if ((x[i].value.includes("amazonaws.com/") || x[i].value.includes("drive.google.com/drive/folders/")) == false) {
-          return false;
-        }
-        */
-      } else {
+      }
+      else {
         return false;
       }
     }
   }
 }
 
+/**
+* Check if tagged entries meet the desired requirements or not
+* @param {String} class_name - Entries' HTML <class="">
+* @return {bool} bool - Meet requirements or not
+*/
 function check_req(class_name) {
   var filled = 0;
   var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
@@ -334,11 +340,17 @@ function check_req(class_name) {
   }
   if (filled == match) {
     return true
-  } else {
+  }
+  else {
     return false
   }
 };
 
+/**
+* Check if tagged tissue entries meet the desired requirements or not
+* @param {String} class_name - Entries' HTML <class="">
+* @return {bool} bool - Meet requirements or not
+*/
 function check_req_tissue(class_name) {
   var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
   var x = document.getElementById("Entries_all").querySelectorAll(class_name);
@@ -352,11 +364,16 @@ function check_req_tissue(class_name) {
   }
   if (sub_filled == count_clicks) {
     return true
-  } else {
+  }
+  else {
     return false
   }
 };
 
+/**
+* Outline all unfilled required fields
+* @param {String} class_name - Entries' HTML <class="">
+*/
 function outline_req(class_name) {
   var filled = 0;
   var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
@@ -370,12 +387,17 @@ function outline_req(class_name) {
   }
 };
 
+/**
+* Outline all unfilled required tissue fields
+* @param {String} class_name - Entries' HTML <class="">
+*/
 function outline_req_tissue(class_name) {
   var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
   var x = document.getElementById("Entries_all").querySelectorAll(class_name);
   var i;
   for (i = 0; i < x.length; i++) {
-    var tissue_sub_parse = "tissue" + (i + 1) + "_subunit";
+    var tissue_sub_parse = "tissue" + (
+    i + 1) + "_subunit";
     if (document.getElementById(tissue_sub_parse).value.length <= 0) {
       x[i].style.borderColor = "#ff2626";
       x[i].style.boxShadow = "0 0 10px #ff2626";
@@ -383,6 +405,10 @@ function outline_req_tissue(class_name) {
   }
 };
 
+/**
+* Outline all unfilled required link fields
+* @param {String} class_name - Entries' HTML <class="">
+*/
 function outline_links(bam_name, repo_name) {
   var repo_match = document.getElementById("Entries_all").querySelectorAll(repo_name).length;
   var x = document.getElementById("Entries_all").querySelectorAll(repo_name);
@@ -395,29 +421,36 @@ function outline_links(bam_name, repo_name) {
           if ((x[i].value.includes("drive.google.com/drive/folders/")) == true) {
             x[i].style.borderColor = null;
             x[i].style.boxShadow = null;
-          } else if ((x[i].value.includes("drive.google.com/drive/folders/")) == false) {
-            x[i].style.borderColor = "#ff2626";
-            x[i].style.boxShadow = "0 0 10px #ff2626";
-          } else {
+          }
+          else if ((x[i].value.includes("drive.google.com/drive/folders/")) == false) {
             x[i].style.borderColor = "#ff2626";
             x[i].style.boxShadow = "0 0 10px #ff2626";
           }
-        } else if (bam_x[i].value == "Amazon AWS") {
+          else {
+            x[i].style.borderColor = "#ff2626";
+            x[i].style.boxShadow = "0 0 10px #ff2626";
+          }
+        }
+        else if (bam_x[i].value == "Amazon AWS") {
           if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == true) {
             x[i].style.borderColor = null;
             x[i].style.boxShadow = null;
-          } else if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == false) {
-            x[i].style.borderColor = "#ff2626";
-            x[i].style.boxShadow = "0 0 10px #ff2626";
-          } else {
+          }
+          else if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == false) {
             x[i].style.borderColor = "#ff2626";
             x[i].style.boxShadow = "0 0 10px #ff2626";
           }
-        } else {
+          else {
+            x[i].style.borderColor = "#ff2626";
+            x[i].style.boxShadow = "0 0 10px #ff2626";
+          }
+        }
+        else {
           x[i].style.borderColor = "#ff2626";
           x[i].style.boxShadow = "0 0 10px #ff2626";
         }
-      } else {
+      }
+      else {
         x[i].style.borderColor = "#ff2626";
         x[i].style.boxShadow = "0 0 10px #ff2626";
       }
@@ -425,6 +458,11 @@ function outline_links(bam_name, repo_name) {
   }
 }
 
+/**
+* Check Amazon repository links if they end with .bam or not
+* @param {String} class_name - Entries' HTML <class="">
+* @return {bool} bool - Meet requirements or not
+*/
 function check_amazon_for_bam(input) {
   var checking = ".bam"
   if (input.slice(-4) == checking) {
@@ -434,6 +472,10 @@ function check_amazon_for_bam(input) {
   }
 }
 
+/**
+* Removes the outline of class_name tagged entries
+* @param {String} class_name - Entries' HTML <class="">
+*/
 function remove_outline(class_name) {
   document.getElementById("not_filled").innerHTML = "";
   var x = document.getElementById("Entries_all").querySelectorAll(class_name);
@@ -448,14 +490,19 @@ function remove_outline(class_name) {
 
 var tissue_doc;
 var tissue_sub_parse_remove;
-
+/**
+* Removes the outline of class_name tagged entries' tissues
+* @param {String} class_name - Entries' HTML <class="">
+*/
 function remove_outline_tissue(class_name) {
   document.getElementById("not_filled").innerHTML = "";
   var x = document.getElementById("Entries_all").querySelectorAll(class_name);
   var i;
   for (i = 0; i < x.length; i++) {
-    tissue_doc = "tissue" + (i + 1);
-    tissue_sub_parse_remove = "tissue" + (i + 1) + "_subunit";
+    tissue_doc = "tissue" + (
+    i + 1);
+    tissue_sub_parse_remove = "tissue" + (
+    i + 1) + "_subunit";
     if (document.getElementById(tissue_sub_parse_remove).value.length > 0) {
       document.getElementById(tissue_doc).style.borderColor = null;
       document.getElementById(tissue_doc).style.boxShadow = null;
@@ -463,6 +510,9 @@ function remove_outline_tissue(class_name) {
   }
 };
 
+/**
+* If the user enters no contact information, changes a null entry into a single space character entry
+*/
 function no_null_contact() {
   if (document.getElementById("contectinfo") == null) {
     document.getElementById("contectinfo").innerHTML = " ";
@@ -564,13 +614,16 @@ function convert_to_json() {
     $("input[id=reqread]").last().val(json_convert_output[i]["total reads mapped*"]);
     $("input[id=readmapmethod]").last().val(json_convert_output[i]["read map method"]);
     $("select[id=reqspecies]").last().val(json_convert_output[i]["species*"]);
-    var json_svg = "svg" + (i + 1);
+    var json_svg = "svg" + (
+    i + 1);
     $("input[id=" + json_svg + "]").last().val(determine_svgname(json_convert_output[i]["tissue*"]));
-    var json_subunit = "tissue" + (i + 1) + "_subunit";
+    var json_subunit = "tissue" + (
+    i + 1) + "_subunit";
     $("input[id=" + json_subunit + "]").last().val(json_convert_output[i]["tissue subunit*"]);
     $("input[id=controls]").last().val(json_convert_output[i]["controls"]);
     $("input[id=replicate_controls1]").last().val(json_convert_output[i]["replicate controls"]);
-    var json_tissue = "tissue" + (i + 1)
+    var json_tissue = "tissue" + (
+    i + 1)
     $("button[id=" + json_tissue + "]").last().html(determine_svgname(json_convert_output[i]["tissue*"]));
   }
 }
@@ -592,7 +645,8 @@ function hideWarning() {
 }
 
 function retriveSRR_existing(xml, id_name) {
-  var x, xmlDoc;
+  var x,
+    xmlDoc;
   xmlDoc = xml.responseXML;
   x = xmlDoc.getElementsByTagName('bam_file');
   var i;
@@ -667,7 +721,8 @@ var testing;
 
 function retriveCONTENT_existing(xml, SRR_num) {
   console.log("Being called?");
-  var x, xmlDoc;
+  var x,
+    xmlDoc;
   xmlDoc = xml.responseXML;
   x = xmlDoc.getElementsByTagName('bam_file');
   var i;
@@ -719,7 +774,9 @@ function addPublic_toExisting() {
 
 // Taken from w3schools Tab tutorial scripts
 function openDataset(evt, datasetName) {
-  var i, tabcontent, tablinks;
+  var i,
+    tabcontent,
+    tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
