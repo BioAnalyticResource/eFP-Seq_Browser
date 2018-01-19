@@ -3,6 +3,8 @@
 // Purpose: General functions for the eFP-Seq Browser
 //
 //=============================================================================
+// By default, legacy should be set to false unless else stated in document
+var legacy = false;
 
 // Get initial values
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
@@ -88,48 +90,50 @@ function count_bam_num() {
 * Changes UI of index.html (document) based on width of navigator.userAgent
 */
 function checkmobile() {
-  if (($(window).width() < 598) || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    //Creating mobile UI:
-    document.getElementById("correctspacing").style.display = "none";
-    document.getElementById("butbarborder").style.display = "none";
-    document.getElementById("uploaddata").style.display = "none";
-    document.getElementById("google_iden_login_button").style.display = "none";
-    document.getElementById("google_iden_logout_button").style.display = "none";
-    document.getElementById("generatedata").style.display = "none";
-    $("#publicdatabase").removeClass("col-md-6");
-    $("#publicdatabase").removeClass("col-xs-3");
-    document.getElementById("eFP_button").style.display = "none";
-    document.getElementById("locusbrowser").className = "col-xs-6";
-    document.getElementById("locus").style.width = "100%";
-    document.getElementById("yscale_input").style.width = "100%";
-    document.getElementById("mobilebrspacing").style.display = "inline";
-    document.getElementById("default_radio").className = "col-xs-6";
-    document.getElementById("rpkm_scale_input").style.width = "100%";
-    document.getElementById("mobilenavbar").style.display = "block";
-  }
-  else {
-    // Restoring default UI:
-    document.getElementById("correctspacing").style.display = "block";
-    document.getElementById("butbarborder").style.display = "block";
-    document.getElementById("uploaddata").style.display = "block";
-    if (users_email != "") {
-      document.getElementById("google_iden_login_button").style.display = 'none';
-      document.getElementById("google_iden_logout_button").style.display = '';
+  if (legacy == true) {
+    if (($(window).width() < 598) || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      //Creating mobile UI:
+      document.getElementById("correctspacing").style.display = "none";
+      document.getElementById("butbarborder").style.display = "none";
+      document.getElementById("uploaddata").style.display = "none";
+      document.getElementById("google_iden_login_button").style.display = "none";
+      document.getElementById("google_iden_logout_button").style.display = "none";
+      document.getElementById("generatedata").style.display = "none";
+      $("#publicdatabase").removeClass("col-md-6");
+      $("#publicdatabase").removeClass("col-xs-3");
+      document.getElementById("eFP_button").style.display = "none";
+      document.getElementById("locusbrowser").className = "col-xs-6";
+      document.getElementById("locus").style.width = "100%";
+      document.getElementById("yscale_input").style.width = "100%";
+      document.getElementById("mobilebrspacing").style.display = "inline";
+      document.getElementById("default_radio").className = "col-xs-6";
+      document.getElementById("rpkm_scale_input").style.width = "100%";
+      document.getElementById("mobilenavbar").style.display = "block";
     }
-    else if (users_email == "") {
-      document.getElementById("google_iden_login_button").style.display = '';
-      document.getElementById("google_iden_logout_button").style.display = 'none';
+    else {
+      // Restoring default UI:
+      document.getElementById("correctspacing").style.display = "block";
+      document.getElementById("butbarborder").style.display = "block";
+      document.getElementById("uploaddata").style.display = "block";
+      if (users_email != "") {
+        document.getElementById("google_iden_login_button").style.display = 'none';
+        document.getElementById("google_iden_logout_button").style.display = '';
+      }
+      else if (users_email == "") {
+        document.getElementById("google_iden_login_button").style.display = '';
+        document.getElementById("google_iden_logout_button").style.display = 'none';
+      }
+      document.getElementById("generatedata").style.display = "block";
+      document.getElementById("publicdatabase").className = "col-md-6 col-xs-3 dropdown";
+      document.getElementById("eFP_button").style.display = "block";
+      document.getElementById("locusbrowser").className = "col-xs-4";
+      document.getElementById("locus").style.width = "175px";
+      document.getElementById("yscale_input").style.width = "175px";
+      document.getElementById("mobilebrspacing").style.display = "none";
+      document.getElementById("default_radio").className = "col-xs-4";
+      document.getElementById("rpkm_scale_input").style.width = "175px";
+      document.getElementById("mobilenavbar").style.display = "none";
     }
-    document.getElementById("generatedata").style.display = "block";
-    document.getElementById("publicdatabase").className = "col-md-6 col-xs-3 dropdown";
-    document.getElementById("eFP_button").style.display = "block";
-    document.getElementById("locusbrowser").className = "col-xs-4";
-    document.getElementById("locus").style.width = "175px";
-    document.getElementById("yscale_input").style.width = "175px";
-    document.getElementById("mobilebrspacing").style.display = "none";
-    document.getElementById("default_radio").className = "col-xs-4";
-    document.getElementById("rpkm_scale_input").style.width = "175px";
-    document.getElementById("mobilenavbar").style.display = "none";
   }
 };
 
@@ -1951,7 +1955,7 @@ function download_mainTableCSV() {
   $("#hiddenDownloadModal_table").tableToCSV();
 }
 
-var publicData = false;
+var publicData = true;
 /**
 * Checks of index.html (document) "RNA-Seq Database" is currently selected on a public or private database
 * @return {bool} publicData - Whether a public database is or is not selected
@@ -2013,9 +2017,6 @@ function getGFF(locusID) {
   });
 }
 
-// By default, legacy should be set to false unless else stated in document
-var legacy = false;
-
 $(document).ready(function() {
   // On load, validate input
   locus_validation();
@@ -2025,6 +2026,7 @@ $(document).ready(function() {
   // Check if mobile
   if (legacy == true) {
     checkmobile();
+    publicData = false;
   }
 
   // Bind event listeners...

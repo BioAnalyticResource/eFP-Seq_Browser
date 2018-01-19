@@ -454,3 +454,15 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   font-family: Arial;
   font-size: 2em;
 }
+
+.navbar_log_button {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  color:white;
+  line-height:100%;
+  text-align: justify;
+  font-family: Arial;
+  font-size: 2em;
+  cursor:pointer;
+}
