@@ -290,7 +290,7 @@
           <p class="navbar_menu_general_font" style="padding-top:3%; text-align:center;">*Addition Features*</p>
           <div id="eFP_button">
             <button id="eFPOverview_open" type="button" class="btn btn-info btn-block navbar_menu_clickable" data-toggle="modal" data-target="#eFPModal" onclick="populate_efp_modal(1)" disabled>eFP Overview</button>
-            <small id="eFP_buttonHelp" class="form-text navbar_menu_small_font">See all the eFP tissue localization in one table</small>
+            <small id="eFP_buttonHelp" class="form-text navbar_menu_small_font">See all the eFP tissue levels in one table</small>
           </div>
           <div id="download_button">
             <button id="download_icon" type="button" class="btn btn-info btn-block navbar_menu_clickable" onclick="download_mainTableCSV()" disabled>Download table as CSV</button>
@@ -298,13 +298,13 @@
           </div>
           <div id="generate_button">
             <button id="generatedata" type="button" class="btn btn-info btn-block navbar_menu_clickable" onclick="get_user_XML_display()" data-toggle="modal" data-target="#SubmissionModal">Generate Data</button>
-            <small id="generatedataHelp" class="form-text navbar_menu_small_font">Visualize your BAM files in the eFP-Seq Browser</small>
+            <small id="generatedataHelp" class="form-text navbar_menu_small_font">Generate an XML config file to view your own BAM files</small>
           </div>
           <div id="uploadData_button">
             <button id="upload_button" type="button" class="btn btn-info btn-block navbar_menu_clickable" onclick="which_upload_option()">Upload Data</button>
             <small id="upload_buttonHelp" class="form-text navbar_menu_small_font">Upload your generated data (as XML format) to be visualized in the eFP-Seq Browser</small>
             <button id="upload_modal" data-toggle="modal" data-target="#uploadModal" hidden></button>
-            <button id="upload_logX" onclick="document.getElementById('fileID').click();" hidden></button>
+            <button id="upload_logX" onclick="document.getElementById('fileID').click(); emptyLanding();" hidden></button>
             <input type="file" id="fileID" hidden accept="text/xml" />
           </div>
         </div>
@@ -353,14 +353,11 @@
       <div class="col-sm-9" style="overflow-y: auto; height:100vh" id="main_content">
         <!-- Landing screen -->
         <div id="landing">
-          <h1 style="text-align: center; padding-top:3%;">Landing page title stuff for eFP-Seq Browser... >,> words go here yes</h1>
+          <h1 style="text-align: center; padding-top:3%;">Welcome to the eFP-Seq Browser</h1>
           <p style="text-align: justify; font-family: Arial;">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed volutpat, justo vel dictum efficitur, ipsum purus sagittis enim, ut pharetra leo dolor ut mauris. Mauris commodo blandit nibh sed venenatis. Phasellus gravida ex ut auctor scelerisque. In in
-            velit eget est pharetra porttitor in ut ligula. Suspendisse viverra magna enim, eget elementum nibh interdum ac. Aliquam egestas purus in enim scelerisque consequat. Donec est metus, sagittis sed iaculis vitae, rhoncus at felis. Suspendisse
-            vel lectus arcu. Mauris risus magna, laoreet eu leo sit amet, mollis scelerisque erat. Maecenas sed volutpat sem. Nam dictum hendrerit magna, sed luctus turpis. Suspendisse placerat rhoncus libero, et euismod mauris laoreet vitae. Ut venenatis
-            felis velit, a interdum lacus faucibus nec. Donec consequat nisl et lectus rhoncus euismod. Quisque mollis, ante sit amet sollicitudin maximus, elit quam congue dui, et egestas massa urna in odio.
+          The eFP-Seq Browser allows you to explore RNA-seq-based gene expression levels for your gene of interest in different expression datasets. Simply enter your gene identifier in the first box on the left, select a dataset, adjust the options if desired, and click Load Data. The output is a table depicting your gene’s expression details (readmap coverage, RPKM expression levels) across all the samples in the database. Try it for the default settings here!
           </p>
-          <img src="cgi-bin/img/temp_image.png" style="max-width: 100%; height: auto;" />
+          <img src="cgi-bin/img/landing_page_callouts.png" style="max-width: 100%; height: auto;" />
         </div>
         <!-- RNA-Seq table. -->
         <div class="col-xs-12 table-responsive body_of_loading_done" id="body_of" hidden>
@@ -371,22 +368,22 @@
                   <!-- Prepopulated with AT2G24270 data. -->
                   <div class="radio">
                     <label>
-                      <input width="100%" type="radio" name="radio_group" value="0" checked="checked"><img id="variant_0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAS0lEQVQ4jWMIxQfSoCCBAQRgvDRUHhYAVsCGWyABhZuATRZFO8wEOEBIpuL1 ABAwhAYOex8KDncfBg57HwoOdzAC4nD458NhX5YCAOtozsHok4ONAAAAAElFTkSuQmCC " class="">
+                      <input width="100%" type="radio" name="radio_group" value="0" checked="checked"><img id="variant_0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4jWNIIwYkMIAAnIvKwwLACthw CySgcBOwyaJoh5kABwjJ1FACgCEtcdj7UHC4+zBx2PtQcLiDERCHwz8fDvuyFACN3Nv0vy8+hAAA AABJRU5ErkJggg==" class="">
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                        <input width="100%" type="radio" name="radio_group" value="1"><img id="variant_1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAT0lEQVQ4jWNgDcUD0qAggQEEYLw0VB4WAFbAhlsgAYWbgE0WRTvMBDhAlkxA EUpF8UAAUII1cNj7UHC4+5Bx2PtQcLiDERCHwz8fDvuyFACDg7uy8+q5lAAAAABJRU5ErkJggg== " class="">
+                        <input width="100%" type="radio" name="radio_group" value="1"><img id="variant_1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAS0lEQVQ4jWNgSyMCJDCAAJyLysMCwArY cAskoHATsMmiaIeZAAfIkgkoQqmhyCAAJJE47H0oONx9yDjsfSg43MEIiMPhnw+HfVkKAGJJyHVy bZqTAAAAAElFTkSuQmCC" class="">
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                        <input width="100%" type="radio" name="radio_group" value="2"><img id="variant_2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggIJQbCANChLASmC8NFQeFgBWwIZbIAGFm4BNFkU7zAQ4QEim BkCFWNHcHgBXzDjsfSg43H3IOOx9KDjcwQiIw+GfD4d9WQoAgkyakcEOyvoAAAAASUVORK5CYII=" class="">
+                        <input width="100%" type="radio" name="radio_group" value="2"><img id="variant_2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASklEQVQ4jWNggII0fCABVQlBDWAFbLgF ElC4CdhkUbTDTIADhGRqAFSINRQVBMAVMw57HwoOdx8yDnsfCg53MALicPjnw2FflgIAMFykVMBo 2gsAAAAASUVORK5CYII=" class="">
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                        <input width="100%" type="radio" name="radio_group" value="3"><img id="variant_3" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggIJQEAhLS2NABmxpEJAA5qXBACoPC0DRjEUgAYWbgE0WRXsa mruQJFNDAxgIAMZh70PB4e5DxmHvQ8HhDkZAHA7/fDjsy1IA2bJX0qO2690AAAAASUVORK5CYII=" class="">
+                        <input width="100%" type="radio" name="radio_group" value="3"><img id="variant_3" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAUElEQVQ4jWNggII0KGBABmxQwQQUJWmo PCwARTMWgQQUbgI2WRTt6O5CkkwNDYAIsYaiggC4YsZh70PB4e5DxmHvQ8HhDkZAHA7/fDjsy1IA aSZ/xYh30LgAAAAASUVORK5CYII=" class="">
                     </label>
                   </div>
                 </div>

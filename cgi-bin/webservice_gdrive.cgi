@@ -105,7 +105,7 @@ def hex_to_rgb(val):
 
 
 ''' Once we have chromosome, start, end and filename, we can make the image.'''
-def makeImage(filename, chromosome, start, end, record, yscale):
+def makeImage(filename, chromosome, start, end, record, yscale, hexcodecolour):
 	max_mapped_reads_count = 0 # For setting the appropriate Y scale
 
 	x_bp_vals = [] # Holds nucleotide positions...
@@ -168,7 +168,7 @@ def makeImage(filename, chromosome, start, end, record, yscale):
 	# These are the colours each experiment's RNA-Seq image coverage should be in... taken from the BAM Locator XML file.
 	colours_dict = {'ERR274310' : '0x64cc65', 'SRR547531' : '0x64cc65', 'SRR548277' : '0x64cc65', 'SRR847503' : '0x64cc65', 'SRR847504' : '0x64cc65', 'SRR847505' : '0x64cc65', 'SRR847506' : '0x64cc65', 'SRR1207194' : '0xFFFF00', 'SRR1207195' : '0xFFFF00', 'SRR1019436' : '0xCCCC97', 'SRR1019437' : '0xCCCC97', 'SRR1049784' : '0x989800', 'SRR477075' : '0xCCCC97', 'SRR477076' : '0xCCCC97', 'SRR493237' : '0xCCCC97', 'SRR493238' : '0xCCCC97', 'SRR314815' : '0xFFFF65', 'SRR800753' : '0xFFFF65', 'SRR800754' : '0xFFFF65', 'SRR1105822' : '0x64CC65', 'SRR1105823' : '0x64CC65', 'SRR1159821' : '0x64CC65', 'SRR1159827' : '0x64CC65', 'SRR1159837' : '0x64CC65', 'SRR314813' : '0x64CC65', 'SRR446027' : '0x64CC65', 'SRR446028' : '0x64CC65', 'SRR446033' : '0x64CC65', 'SRR446034' : '0x64CC65', 'SRR446039' : '0x64CC65', 'SRR446040' : '0x64CC65', 'SRR446484' : '0x64CC65', 'SRR446485' : '0x999999', 'SRR446486' : '0x64CC65', 'SRR446487' : '0x999999', 'SRR493036' : '0x64CC65', 'SRR493097' : '0x64CC65', 'SRR493098' : '0x64CC65', 'SRR493101' : '0x64CC65', 'SRR764885' : '0x64CC65', 'SRR924656' : '0x64CC65', 'SRR934391' : '0x64CC65', 'SRR942022' : '0x64CC65', 'SRR070570' : '0xCCCC97', 'SRR070571' : '0xCCCC97', 'SRR1001909' : '0x98FF00', 'SRR1001910' : '0x98FF00', 'SRR1019221' : '0x98FF00', 'SRR345561' : '0x98FF00', 'SRR345562' : '0x98FF00', 'SRR346552' : '0x98FF00', 'SRR346553' : '0x98FF00', 'SRR394082' : '0x98FF00', 'SRR504179' : '0x98FF00', 'SRR504180' : '0x98FF00', 'SRR504181' : '0x98FF00', 'SRR515073' : '0x98FF00', 'SRR515074' : '0x98FF00', 'SRR527164' : '0x98FF00', 'SRR527165' : '0x98FF00', 'SRR584115' : '0x98FF00', 'SRR584121' : '0x98FF00', 'SRR584129' : '0x98FF00', 'SRR584134' : '0x98FF00', 'SRR653555' : '0x98FF00', 'SRR653556' : '0x98FF00', 'SRR653557' : '0x98FF00', 'SRR653561' : '0x98FF00', 'SRR653562' : '0x98FF00', 'SRR653563' : '0x98FF00', 'SRR653564' : '0x98FF00', 'SRR653565' : '0x98FF00', 'SRR653566' : '0x98FF00', 'SRR653567' : '0x98FF00', 'SRR653568' : '0x98FF00', 'SRR653569' : '0x98FF00', 'SRR653570' : '0x98FF00', 'SRR653571' : '0x98FF00', 'SRR653572' : '0x98FF00', 'SRR653573' : '0x98FF00', 'SRR653574' : '0x98FF00', 'SRR653575' : '0x98FF00', 'SRR653576' : '0x98FF00', 'SRR653577' : '0x98FF00', 'SRR653578' : '0x98FF00', 'SRR797194' : '0x98FF00', 'SRR797230' : '0x98FF00', 'SRR833246' : '0x98FF00', 'SRR847501' : '0xFF0000', 'SRR847502' : '0xFF0000', 'SRR1260032' : '0xBD7740', 'SRR1260033' : '0xBD7740', 'SRR1261509' : '0xBD7740', 'SRR401413' : '0xCCFF00', 'SRR401414' : '0xCCFF00', 'SRR401415' : '0xCCFF00', 'SRR401416' : '0xCCFF00', 'SRR401417' : '0xCCFF00', 'SRR401418' : '0xCCFF00', 'SRR401419' : '0xCCFF00', 'SRR401420' : '0xCCFF00', 'SRR401421' : '0xCCFF00', 'ERR274309' : '0xCCCC97', 'SRR1046909' : '0xCCCC97', 'SRR1046910' : '0xCCCC97', 'SRR1524935' : '0xCCCC97', 'SRR1524938' : '0xCCCC97', 'SRR1524940' : '0xCCCC97', 'SRR314814' : '0xCCCC97', 'SRR949956' : '0x999999', 'SRR949965' : '0x999999', 'SRR949988' : '0x999999', 'SRR949989' : '0x999999', 'other': '0x64cc65'}
 	try:
-		rnaseq_img_colour_hex = hex_to_rgb(colours_dict[record])
+		rnaseq_img_colour_hex = hex_to_rgb(hexcodecolour)
 	except:
 		# If you see this error, you need to add the record and preferred colour in the dictionary above
 		rnaseq_img_colour_hex = hex_to_rgb(colours_dict['other'])
@@ -221,6 +221,7 @@ def main():
 	record = form.getvalue('record')
 	variant = form.getvalue('variant')
 	googleDrive = form.getvalue('gdrive')
+	hexcode = form.getvalue('hexcodecolour')
 	totalReadsMapped = form.getvalue('numberofreads')
 
 	if totalReadsMapped is None:
@@ -294,14 +295,14 @@ def main():
 
 
 		# Now make a image using samtools
-		base64img = makeImage(bam_file, "Chr" + chromosome, start, end, record, yscale)
+		base64img = makeImage(bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode)
 
 		if base64img == "FAILED":
-			base64img = makeImage(bam_file, "chr" + chromosome, start, end, record, yscale)
+			base64img = makeImage(bam_file, "chr" + chromosome, start, end, record, yscale, hexcode)
 			region = "chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
 
 		if base64img == "FAILED":
-			base64img = makeImage(bam_file, chromosome, start, end, record, yscale)
+			base64img = makeImage(bam_file, chromosome, start, end, record, yscale, hexcode)
 
 		if base64img == "FAILED":
 			subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + googleDrive + "_" + uniqId])
