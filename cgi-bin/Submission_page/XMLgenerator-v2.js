@@ -150,6 +150,7 @@ var tissue_sub_name = "";
 var new_tissue = "";
 var new_tissue_subunit = "";
 var new_svg = "";
+var new_hexID = "";
 /**
 * Creates an empty clone of the submission form
 */
@@ -159,6 +160,7 @@ function CloneSection() {
   new_tissue = "tissue" + count_clicks;
   new_tissue_subunit = "tissue" + count_clicks + "_subunit";
   new_svg = "svg" + count_clicks;
+  new_hexID = "hexID_num" + count_clicks;
   $("legend:last").text("Entry " + count_clicks);
   $(".change_div_id").last().attr("name", new_tissue);
   $(".change_button_id").last().attr("id", new_tissue);
@@ -166,6 +168,7 @@ function CloneSection() {
   $(".change_id_tissue_subunit").last().attr("id", new_tissue_subunit);
   $(".change_id_tissue").last().attr("id", new_tissue);
   $(".change_svg").last().attr("id", new_svg);
+  $(".change_hexcolor").last().attr("id", new_hexID);
   // resetting form values and emptying new form
   resetLastEntryValues();
 };
@@ -184,6 +187,7 @@ function resetLastEntryValues() {
   $("input[id=readmapmethod]").last().val("");
   $("button[id=" + new_tissue + "]").html("Tissue select");
   $("input[id=" + new_tissue_subunit + "]").last().val("");
+  $("input[id=" + new_hexID + "]").last().val("");
   $("input[id=controls]").last().val("");
   $("input[id=replicate_controls1]").last().val("");
   $("input[id=" + new_svg + "]").last().html("");
@@ -523,6 +527,10 @@ var which_svg = "";
 var tissue_subunit = "";
 var clicked_id = "";
 
+/**
+* Determine which SVG was clicked
+* @param {String} clickid - The SVG's id in the HTML's document
+*/
 function clickclick(clickid) {
   document.getElementById(tissue_click).innerHTML = clickid.replace(/_/g, " ");
   tissue_subunit = tissue_click + "_subunit";
@@ -531,9 +539,16 @@ function clickclick(clickid) {
   document.getElementById(tissue_subunit).value = tissue_sub_name;
   var count_which_click = tissue_click.match(/\d/g).join("");
   which_svg = "svg" + count_which_click;
+  which_hex = "hexID_num" + count_which_click;
   document.getElementById(which_svg).value = determine_svgname(clickid);
+  document.getElementById(which_hex).value = determine_hexcode(determine_svgname(clickid), clickid);
 };
 
+/**
+* Determine what the svgname is from the svg_subunit
+* @param {String} from_svg - svg_subunit
+* @return {String} - svg_subunit
+*/
 function determine_svgname(from_svg) {
   if (from_svg == "10_Day_old_Seedling" || from_svg == "10_Day_old_Seedling_roots" || from_svg == "10_Day_old_Seedling_shoots" || from_svg == "ath-10dayOldSeedling.svg") {
     return "ath-10dayOldSeedling.svg";
@@ -594,8 +609,80 @@ function determine_svgname(from_svg) {
   }
 };
 
-var json_convert_output;
+/**
+* Determine hexcode based on svgname and its subunit
+* @param {String} which_svg - svgname
+* @param {String} which_svg - svg_subunit
+* @return {String} - svg_subunit
+*/
+function determine_hexcode(which_svg, svg_subunit) {
+  if (which_svg == "ath-10dayOldSeedling.svg" && svg_subunit == "10_Day_old_Seedling_shoots") {
+    return "0x989800";
+  } else if (which_svg == "ath-10dayOldSeedling.svg" && svg_subunit == "10_Day_old_Seedling") {
+    return "0x98FF00";
+  } else if (which_svg == "ath-10dayOldSeedling.svg" && svg_subunit == "10_Day_old_Seedling_roots") {
+    return "0xCCCC97";
+  } else if (which_svg == "ath-15dayOldSeedling.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-etiolatedSeedling.svg") {
+    return "0xCCCC97";
+  } else if (which_svg == "ath-Flower.svg") {
+    return "0xCCFF00";
+  } else if (which_svg == "ath-FlowerParts.svg") {
+    return "0xFFFF00";
+  } else if (which_svg == "ath-GerminatingSeed.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-Internode.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-leaf.svg") {
+    return "0x64CC65";
+  } else if (which_svg == "ath-LeafParts.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-Pollen.svg") {
+    return "0xFF0000";
+  } else if (which_svg == "ath-RootTip.svg") {
+    return "0xBD7740";
+  } else if (which_svg == "ath-rosettePlusRoot.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-SeedStage1-4.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-SeedStage5-7.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-SeedStage8+.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-SenescentLeaf.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-ShootApexInflorescense.svg") {
+    return "0x999999";
+  } else if (which_svg == "ath-ShootApexVegetative-Transition.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-SiliqueStage1-5.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-SiliqueStage6-10.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-Stage1-4Leaf.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-Stage1Flowers.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-Stage12Bud.svg") {
+    return "0xFFFF65";
+  } else if (which_svg == "ath-Stamen.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-StigmaAndOvaries.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-WholeSilique.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-youngSeedling.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  } else if (which_svg == "ath-Other.svg") { // TODO: Add hex_color
+    return "0x64cc65";
+  }
+};
 
+var json_convert_output;
+/**
+* Covert the entire form into a JSON format
+*/
 function convert_to_json() {
   json_convert_output = JSON.parse(document.getElementById("dataOutput").value)
   var json_length = json_convert_output.length
@@ -629,7 +716,9 @@ function convert_to_json() {
 }
 
 var warningActive = "nope";
-
+/**
+* Show a warning sign before an action
+*/
 function showWarning() {
   if (warningActive == "nope") {
     document.getElementById("warning").className = "warning";
@@ -639,6 +728,9 @@ function showWarning() {
   }
 }
 
+/**
+* Hide warning sign from showWarning()
+*/
 function hideWarning() {
   document.getElementById("warning").className = "warning_nope";
   warningActive = "nope";

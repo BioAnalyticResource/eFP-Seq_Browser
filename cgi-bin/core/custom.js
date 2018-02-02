@@ -946,6 +946,7 @@ var efp_pcc_names = [];
 var xmlTitleName = "";
 var tissue_list = [];
 var svg_pat = [];
+var svg_name_list = [];
 /**
 * Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make.
 */
@@ -973,6 +974,7 @@ function populate_table(status) {
   sra_list = [];
   repo_list = [];
   tissue_list = [];
+  svg_name_list = [];
 
   // Insert table headers
   $("#thetable").append('<thead><tr>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;">Title<div class="arrowdown arrowup"></div></th>' + '<th class="" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 460px;">RNA-Seq Coverage</th>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">PCC</th>' + '<th id="eFP_th" class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">RPKM</th>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;">Details</th>' + '</tr></thead>' + '<tbody id="data_table_body"></tbody>');
@@ -996,6 +998,7 @@ function populate_table(status) {
         var title = $(this).attr('title');
         var description = $(this).attr('desc');
         var svg = $(this).attr('svgname');
+        svg_name_list.push(svg);
         var svg_part = $(this).attr('svg_subunit');
         svg_part = checkSubunit(svg, svg_part);
         tissue_list.push(svg_part);
@@ -1999,14 +2002,14 @@ var parse_output;
 function getGFF(locusID) {
   GFF_List = [];
   $.ajax({
-    url: 'http://bar.utoronto.ca/webservices/araport/api/bar_araport11_gene_structure_by_locus.php?locus=' + locusID,
+    url: 'http://bar.utoronto.ca/webservices/bar_araport/gene_structure_by_locus.php?locus=' + locusID,
     dataType: 'json',
     failure: function(gene_res) {
       console.log("Getting GFFs (getGFF) information failed to retrieve locus information from Araport11");
     },
     success: function(gene_res) {
       parse_output = gene_res;
-      if (parse_output["status"] != "fail") {
+      if (parse_output["wasSuccessful"] != false) {
         var parsed_features = parse_output['features'][0]['subfeatures'];
         for (i = 0; i < parsed_features.length; i++) {
           if (parsed_features[i]["uniqueID"] != null) {
@@ -2019,6 +2022,14 @@ function getGFF(locusID) {
       }
       else if (parse_output["status"] == "fail") {
         console.log("Error: Cannot find GFF ID's with parse output. Please contact admin");
+      }
+      else if (parse_output["wasSuccessful"] == "false") {
+        if (parse_output["error"] != null) {
+          console.log("Error: Cannot find GFF ID's due to following error: " + parse_output["error"] + ". Please contact admin");
+        }
+        else {
+          console.log("Error: Cannot find GFF ID's with parse output. Please contact admin");
+        }
       }
     }
   });
