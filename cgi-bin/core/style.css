@@ -131,6 +131,7 @@ button:hover {
 .efp_modal_table {
   padding-left: 24px;
   padding-right: 10px;
+  font-size: 1.4em;
 }
 
 .modal-footer-colour {
@@ -429,7 +430,7 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   line-height:100%;
   text-align: justify;
   font-family: Arial;
-  font-size: 2em;
+  font-size: 1.9em;
 }
 
 .navbar_menu_small_font {

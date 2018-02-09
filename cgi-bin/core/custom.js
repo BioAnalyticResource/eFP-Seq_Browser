@@ -452,7 +452,7 @@ function update_all_images(status) {
 function variants_radio_options(status) {
   get_input_values();
   $.ajax({
-    url: 'http://bar.utoronto.ca/~dev/eFP-Seq_Browser/cgi-bin/get_gene_structures.cgi?locus=' + locus,
+    url: 'http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/get_gene_structures.cgi?locus=' + locus,
     dataType: 'json',
     success: function(gene_res) {
       // Update locus_start and locus_end
@@ -2035,6 +2035,28 @@ function getGFF(locusID) {
   });
 }
 
+/**
+* Modifies and adds a id attribute to the hidden g-signin2 on the index page
+*/
+function hiddenGoogleSignin() {
+  var signInButtonList = document.getElementsByClassName("abcRioButtonLightBlue");
+  for (i = 0; i < signInButtonList.length; i++) {
+    signInButtonList[i].setAttribute("id", "loginClick" + i);
+  }
+}
+
+/**
+* Makes all privates databases none-visible anymore
+*/
+function remove_private_database() {
+  document.getElementById("private_dataset_header").style.display = 'none';
+  var privateList = document.getElementsByClassName("userAdded");
+  for (i = 0; i < privateList.length; i++) {
+    $("#xmldatabase option:last").remove();
+  }
+  check_for_change = 0;
+}
+
 $(document).ready(function() {
   // On load, validate input
   locus_validation();
@@ -2076,3 +2098,10 @@ $(document).ready(function() {
   img_created.style = 'margin-top: 10px; float: right; margin-right: 10px;';
   gene_structure_colouring_element.appendChild(img_created);
 });
+
+$(window).load(function() {
+  // Having the Google sign-in button working
+  if (signInButton = document.getElementsByClassName("abcRioButtonLightBlue").length > 0) {
+    hiddenGoogleSignin();
+  }
+})

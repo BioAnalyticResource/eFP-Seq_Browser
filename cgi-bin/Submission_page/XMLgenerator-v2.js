@@ -613,7 +613,7 @@ function determine_svgname(from_svg) {
 * Determine hexcode based on svgname and its subunit
 * @param {String} which_svg - svgname
 * @param {String} which_svg - svg_subunit
-* @return {String} - svg_subunit
+* @return {String} - hexcode
 */
 function determine_hexcode(which_svg, svg_subunit) {
   if (which_svg == "ath-10dayOldSeedling.svg" && svg_subunit == "10_Day_old_Seedling_shoots") {
