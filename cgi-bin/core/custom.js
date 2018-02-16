@@ -467,15 +467,12 @@ function variants_radio_options(status) {
       while (variants_div.firstChild) {
         variants_div.removeChild(variants_div.firstChild);
       }
+      var append_str = '<select id="variant_select">';
       for (var i = 0; i < parseInt(gene_res['variant_count']); i++) {
         // retrieve the base64 and create the element to insert
-        var append_str = "<div class=\"radio\"><label><input width=\"100%\" type=\"radio\" value=\"" + i + "\"";
-        if (i == 0) { // The first gene structure should be selected by default
-          append_str += "checked=\"checked\"";
-        }
-        append_str += " name=\"radio_group\"><img data-toggle=\"tooltip\" title=\"" + GFF_List[i] + "\" id=\"variant_" + i + "\" src=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + "\" ></label></div>";
+        append_str += '<option value="' + i + "\"";
+        append_str += " data-imagesrc=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + 'style="max-width:none;"></option>';
         // Append the element to the div
-        $("#variants_div").append(append_str);
       }
       img_gene_struct_1 = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
       var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
@@ -485,7 +482,8 @@ function variants_radio_options(status) {
       $('input[type=radio][name=radio_group]').change(function() { // Bind an event listener..
         gene_structure_radio_on_change();
       });
-
+      append_str += '</select></div>';
+      $("#variants_div").append(append_str);
       $("#thetable").trigger("update");
     },
     error: function() {
@@ -504,17 +502,15 @@ function variants_radio_options(status) {
 
 /**
 * When radio button changes, update the gene structure throughout the document and update the PCC values
+* @param {Num} variant_selected - Index of which variant is selected
+* @param {Num} variant_img - Image of the variant
 */
-function gene_structure_radio_on_change() {
-  // Find out which variant is currently selected
-  var variant_selected = $('input[type="radio"][name="radio_group"]:checked').val();
-  // Get the variant's img src
-  var base64 = document.getElementById('variant_' + variant_selected).src;
+function gene_structure_radio_on_change(variant_selected, variant_img) {
   // Find all img tags that should be updated (all the <img> with class gene_structure)
   var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
   // Change their src to the newly selected variant's src
   for (var i = 0; i < all_gene_structure_imgs.length; i++) {
-    all_gene_structure_imgs[i].src = base64;
+    all_gene_structure_imgs[i].src = variant_img;
   }
   // update all pcc pcc_value
   // Go through the exp_info array and make changes
@@ -947,6 +943,8 @@ var xmlTitleName = "";
 var tissue_list = [];
 var svg_pat = [];
 var svg_name_list = [];
+var variantdiv_str;
+var variantdiv_call = 0;
 /**
 * Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make.
 */
@@ -976,8 +974,21 @@ function populate_table(status) {
   tissue_list = [];
   svg_name_list = [];
 
+  // Creating exon intron scale image
+  var img_created = '<img src="' + 'data:image/png;base64,' + exon_intron_scale + '" style="float: right; margin-right: 10px;">';
   // Insert table headers
-  $("#thetable").append('<thead><tr>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;">Title<div class="arrowdown arrowup"></div></th>' + '<th class="" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 460px;">RNA-Seq Coverage</th>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">PCC</th>' + '<th id="eFP_th" class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">RPKM</th>' + '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;">Details</th>' + '</tr></thead>' + '<tbody id="data_table_body"></tbody>');
+  $("#thetable").append(
+    '<thead><tr>' +
+    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;">Title<div class="arrowdown arrowup"></div></th>' +
+    '<th class="" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 460px;">RNA-Seq Coverage' +
+    img_created +
+    '</th>' +
+    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">PCC</th>' +
+    '<th id="eFP_th" class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
+    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">RPKM</th>' +
+    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;">Details</th>' +
+    '</tr></thead>' +
+    '<tbody id="data_table_body"></tbody>');
 
   $.ajax({
     url: base_src,
@@ -1188,10 +1199,37 @@ function populate_table(status) {
     gene_structure_colouring_element = document.getElementById("flt1_thetable").parentElement;
   }
   gene_structure_colouring_element.innerHTML = "";
-  var img_created = document.createElement('img');
-  img_created.src = 'data:image/png;base64,' + exon_intron_scale;
-  img_created.style = 'margin-top: 10px; float: right; margin-right: 10px;';
-  gene_structure_colouring_element.appendChild(img_created);
+  document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = "";
+  if (isPrecache == true) {
+    $('#variant_select').ddslick('destroy');
+    document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = "";
+    variantdiv_str = '<div id="variants_div">';
+    variantdiv_str += '<select id="variant_select">';
+    variantdiv_str += '<option value="0" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAS0lEQVQ4jWMIxQfSoCCBAQRgvDRUHhYAVsCGWyABhZuATRZFO8wEOEBIpuL1 ABAwhAYOex8KDncfBg57HwoOdzAC4nD458NhX5YCAOtozsHok4ONAAAAAElFTkSuQmCC" style="max-width:none;"></option>';
+    variantdiv_str += '<option value="1" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAT0lEQVQ4jWNgDcUD0qAggQEEYLw0VB4WAFbAhlsgAYWbgE0WRTvMBDhAlkxA EUpF8UAAUII1cNj7UHC4+5Bx2PtQcLiDERCHwz8fDvuyFACDg7uy8+q5lAAAAABJRU5ErkJggg==" style="max-width:none;" ></option>';
+    variantdiv_str += '<option value="2" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggIJQbCANChLASmC8NFQeFgBWwIZbIAGFm4BNFkU7zAQ4QEim BkCFWNHcHgBXzDjsfSg43H3IOOx9KDjcwQiIw+GfD4d9WQoAgkyakcEOyvoAAAAASUVORK5CYII=" style="max-width:none;" ></option>';
+    variantdiv_str += '<option value="3" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggIJQEAhLS2NABmxpEJAA5qXBACoPC0DRjEUgAYWbgE0WRXsa mruQJFNDAxgIAMZh70PB4e5DxmHvQ8HhDkZAHA7/fDjsy1IA2bJX0qO2690AAAAASUVORK5CYII=" style="max-width:none;" ></option>';
+    variantdiv_str += '</select>';
+    variantdiv_str += '</div>';
+    document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = variantdiv_str;
+    variantdiv_call = 1
+  }
+  else if (isPrecache == false) {
+    $('#variant_select').ddslick('destroy');
+    document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = "";
+    variantdiv_str = '<div id="variants_div">';
+    variantdiv_str += '</div>';
+    document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = variantdiv_str;
+    variantdiv_call = 1
+  }
+
+  $('#variant_select').ddslick({
+    width: "100%",
+    onSelected: function(selectedData){
+      setData = selectedData;
+      callVariantChange(selectedData);
+    }
+  });
 }
 
 var remainder_efp = 0;
@@ -1979,6 +2017,7 @@ function changePublicData() {
   }
 }
 
+var isPrecache = true;
 /**
 * Determines if dataset should load a precached data or new set of information
 */
@@ -1986,9 +2025,11 @@ function checkPreload() {
   get_input_values();
   if ((publicData == true) && (locus == "AT2G24270")) {
     populate_table(1);
+    isPrecache = true;
   }
   else {
     update_all_images(0);
+    isPrecache = false;
   }
 }
 
@@ -2045,6 +2086,10 @@ function hiddenGoogleSignin() {
   }
 }
 
+function callVariantChange(inputData) {
+  gene_structure_radio_on_change(inputData["selectedData"]["value"], inputData["selectedData"]["imageSrc"]);
+}
+
 /**
 * Makes all privates databases none-visible anymore
 */
@@ -2093,10 +2138,6 @@ $(document).ready(function() {
     gene_structure_colouring_element = document.getElementById("flt1_thetable").parentElement;
   }
   gene_structure_colouring_element.innerHTML = "";
-  var img_created = document.createElement('img');
-  img_created.src = 'data:image/png;base64,' + exon_intron_scale;
-  img_created.style = 'margin-top: 10px; float: right; margin-right: 10px;';
-  gene_structure_colouring_element.appendChild(img_created);
 });
 
 $(window).load(function() {

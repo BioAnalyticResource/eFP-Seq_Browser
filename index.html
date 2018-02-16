@@ -13,12 +13,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <!-- jQuery using Google Hosted Library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <!-- jQuery's slim build -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <!-- tablesort -->
+  <script src="cgi-bin/core/tablesorter.js"></script>
+  <script src="cgi-bin/core/tablefilter/tablefilter.js"></script>
   <!-- Google Identity login -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id" content="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com">
@@ -29,12 +32,12 @@
   <script src="cgi-bin/core/tabletoCSV/jquery.tabletoCSV.js"></script>
   <!-- Other -->
   <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-  <script src="cgi-bin/core/tablesorter.js"></script>
-  <script src="cgi-bin/core/tablefilter/tablefilter.js"></script>
   <script src="cgi-bin/core/custom.js"></script>
   <script src="cgi-bin/Submission_page/XMLgenerator-v2.js"></script>
   <script src="cgi-bin/core/tmm_normalization.js"></script>
   <link rel="stylesheet" href="cgi-bin/core/style.css">
+  <!-- ddSlick for image dropdown --->
+  <script type="text/javascript" src="cgi-bin\core\ddslick\jquery.ddslick.min.js" ></script>
   <!-- http://stackoverflow.com/questions/1802936/stop-all-active-ajax-requests-in-jquery -->
   <script type="text/javascript">
     legacy = false;
@@ -83,6 +86,7 @@
     function emptyLanding() {
       $("#landing").empty();
       document.getElementById("body_of").removeAttribute("hidden");
+      document.getElementById("thetable").removeAttribute("hidden");
       document.getElementById("download_icon").removeAttribute("disabled");
       document.getElementById("eFPOverview_open").removeAttribute("disabled");
 
@@ -326,41 +330,7 @@
         </div>
         <!-- RNA-Seq table. -->
         <div class="col-xs-12 table-responsive body_of_loading_done" id="body_of" hidden>
-          <div>
-            <div id="variants_portion">
-              <div class="col-sm-8">
-                <div id="variants_div">
-                  <!-- Prepopulated with AT2G24270 data. -->
-                  <div class="radio">
-                    <label>
-                      <input width="100%" type="radio" name="radio_group" value="0" checked="checked"><img id="variant_0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4jWNIIwYkMIAAnIvKwwLACthw CySgcBOwyaJoh5kABwjJ1FACgCEtcdj7UHC4+zBx2PtQcLiDERCHwz8fDvuyFACN3Nv0vy8+hAAA AABJRU5ErkJggg==" class="">
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                        <input width="100%" type="radio" name="radio_group" value="1"><img id="variant_1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAS0lEQVQ4jWNgSyMCJDCAAJyLysMCwArY cAskoHATsMmiaIeZAAfIkgkoQqmhyCAAJJE47H0oONx9yDjsfSg43MEIiMPhnw+HfVkKAGJJyHVy bZqTAAAAAElFTkSuQmCC" class="">
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                        <input width="100%" type="radio" name="radio_group" value="2"><img id="variant_2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASklEQVQ4jWNggII0fCABVQlBDWAFbLgF ElC4CdhkUbTDTIADhGRqAFSINRQVBMAVMw57HwoOdx8yDnsfCg53MALicPjnw2FflgIAMFykVMBo 2gsAAAAASUVORK5CYII=" class="">
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                        <input width="100%" type="radio" name="radio_group" value="3"><img id="variant_3" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAUElEQVQ4jWNggII0KGBABmxQwQQUJWmo PCwARTMWgQQUbgI2WRTt6O5CkkwNDYAIsYaiggC4YsZh70PB4e5DxmHvQ8HhDkZAHA7/fDjsy1IA aSZ/xYh30LgAAAAASUVORK5CYII=" class="">
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h3 style="padding-top:2%;">
-                  blah blah blah information about splicing variants blah blah blah
-                </h3>
-              </div>
-            </div>
-          </div>
-          <table id="thetable" class="table" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);"></table>
+          <table id="thetable" class="table" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);" hidden></table>
           <div class="mdl-tooltip" for="eFP_th">Sorts by plant part.</div>
           <div class="mdl-tooltip" for="flt0_thetable">See Help for advanced options.</div>
           <div class="mdl-tooltip" for="flt2_thetable">See Help for advanced options.</div>
