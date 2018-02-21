@@ -31,6 +31,7 @@ thead, tbody, td, th {
   visibility: visible;
   z-index: 1151;
   transition-delay: 0.6s;
+  font-family: Arial;
 }
 
 .loading {
@@ -444,8 +445,8 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
 }
 
 .navbar_menu_clickable {
-  border: 1.5px solid rgb(76,175,80);
   font-size:1.5em;
+  margin-bottom: 10px;
 }
 
 .navbar_menu_footer {
