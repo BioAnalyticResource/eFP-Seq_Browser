@@ -463,18 +463,23 @@ function variants_radio_options(status) {
       populate_efp_modal(status);
 
       // Remove existing variant images.
+      variantList = [];
+      testList = [];
       var variants_div = document.getElementById("variants_div");
       while (variants_div.firstChild) {
         variants_div.removeChild(variants_div.firstChild);
       }
+      $('#variant_select').ddslick('destroy');
       var append_str = '<select id="variant_select">';
       for (var i = 0; i < parseInt(gene_res['variant_count']); i++) {
         // retrieve the base64 and create the element to insert
         append_str += '<option value="' + i + "\"";
-        append_str += " data-imagesrc=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + 'style="max-width:none;"></option>';
+        append_str += " data-imagesrc=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + '" style="max-width:none;"></option>';
+        variantList.push("data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure']);
         // Append the element to the div
       }
       img_gene_struct_1 = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
+      testList.push("data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure']);
       var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
       for (var i = 0; i < all_gene_structure_imgs.length; i++) {
         all_gene_structure_imgs[i].src = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
@@ -484,6 +489,13 @@ function variants_radio_options(status) {
       });
       append_str += '</select></div>';
       $("#variants_div").append(append_str);
+      $('#variant_select').ddslick({
+        width: "100%",
+        onSelected: function(selectedData){
+          setData = selectedData;
+          callVariantChange(selectedData);
+        }
+      });
       $("#thetable").trigger("update");
     },
     error: function() {
@@ -497,7 +509,7 @@ function variants_radio_options(status) {
       $('#locus_button').prop('disabled', true);
       $('#abs_scale_button').prop('disabled', true);
     }
-  });
+  })
 }
 
 /**
@@ -566,10 +578,7 @@ function rnaseq_images(status) {
       }
       else {
         // New rnaseq_image_url with BAM file name
-        //var amazon_filename = repo_list[i].split("/");
         rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&hexcodecolour=" + hexcode_list[i] + "&tissue=";
-        // Original rnaseq_image_url
-        // rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
       }
 
       $.ajax({
