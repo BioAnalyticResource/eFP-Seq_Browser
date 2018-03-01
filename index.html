@@ -118,7 +118,7 @@
         <div id="nm_title" style="margin-bottom: 5%">
           <div class="row">
             <div class="col-sm-2" id="nm_title_img">
-              <img src="cgi-bin/img/BAR.png" style="height: 5em;" />
+              <a href="http://bar.utoronto.ca/"><img src="cgi-bin/img/BAR.png" style="height: 5em;" /></a>
             </div>
             <div class="col-sm-10" id="nm_title_words" style="margin: auto; display: inline-block; vertical-align: middle;">
               <p class="navbar_menu_title">eFP-Seq Browser</p>
@@ -276,7 +276,7 @@
           <div id="locusButton">
             <p class="navbar_menu_general_font">4) Load your dataset</p>
             <small id="locus_buttonHelp" class="form-text navbar_menu_small_font">Load new settings.</small>
-            <button id="locus_button" onclick="change_dataset(); emptyLanding();" class="btn btn-success btn-block navbar_menu_clickable" style="text-align:center; background-color:#9c0; color:black; font-weight: 600;">LOAD DATA</button>
+            <button id="locus_button" onclick="change_dataset(); emptyLanding();" class="btn navbar_menu_loadData btn-block navbar_menu_clickable">LOAD DATA</button>
           </div>
         </div>
         <div id="nm_Additional">
@@ -334,7 +334,6 @@
           <p style="text-align: justify; font-family: Arial;">
           Designed by Alexander Sullivan, Priyank Purohit, Gini Chin, Alison Wu, Asher Pasha, Richard Song, Michelle Chen, Jamie Waese and Dr. Nicholas Provart at the University of Toronto.
           </p>
-          </div>
         </div>
         <!-- RNA-Seq table. -->
         <div class="col-xs-12 table-responsive body_of_loading_done" id="body_of" hidden>

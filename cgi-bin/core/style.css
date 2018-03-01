@@ -68,12 +68,6 @@ thead, tbody, td, th {
   -webkit-transition: opacity 1s;
 }
 
-button:hover {
-  outline: none;
-  border-color: #19af06;
-  box-shadow: 0 0 10px #19af06;
-}
-
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -453,11 +447,31 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   margin-bottom: 3%;
 }
 
+.navbar_menu_loadData {
+  text-align:center;
+  background-color:#9c0;
+  border-color: #9c0;
+  color:black;
+  font-weight: 600;
+}
+
+.navbar_menu_loadData:hover {
+  color:white;
+  background-color:#588e02;
+  border-color: #3d6302;
+}
+
 .navbar_menu_buttons {
   color: black;
   font-weight: 600;
   background-color: #b7b7b7;
   border-color: #b7b7b7;
+}
+
+.navbar_menu_buttons:hover {
+  color: #fff;
+  background-color: #727b84;
+  border-color: #6c757d;
 }
 
 .navbar_menu_footer {
