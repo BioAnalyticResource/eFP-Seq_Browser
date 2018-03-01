@@ -1825,7 +1825,7 @@ function delete_fill() {
 */
 function disableDeletePublic() {
   for (i = 0; i < public_title_list.length; i++) {
-    if (document.getElementById("deleteBox_" + i).checked == true) {
+    if (document.getElementById("deleteBox_" + (i + 2)).checked == true) {
       document.getElementById("deleteXML_button").disabled = true;
       break
     }
@@ -1841,7 +1841,7 @@ function disableDeletePublic() {
 */
 function delete_selectedXML() {
   for (i = 0; i < title_list.length; i++) {
-    var deleteBox_id = "deleteBox_" + i; // Find id of what is being called
+    var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
     if (document.getElementById(deleteBox_id).checked == true) {
       $.ajax({
         url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
@@ -2134,15 +2134,14 @@ $(document).ready(function() {
   populate_table(1); // status 1 forces rna-seq api to return cached data for fast initial load
   // populate_efp_modal(1);  Shouldn't be called here, only when the button is pressed
 
+  setTimeout(function() {
+    if (signInButton = document.getElementsByClassName("abcRioButtonLightBlue").length > 0) {
+      hiddenGoogleSignin();
+    }
+  }, 1500);
+
   if (gene_structure_colouring_element == null) {
     gene_structure_colouring_element = document.getElementById("flt1_thetable").parentElement;
   }
   gene_structure_colouring_element.innerHTML = "";
 });
-
-$(window).load(function() {
-  // Having the Google sign-in button working
-  if (signInButton = document.getElementsByClassName("abcRioButtonLightBlue").length > 0) {
-    hiddenGoogleSignin();
-  }
-})

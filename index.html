@@ -189,6 +189,7 @@
                 }
               }
 
+              var add_usersFileID = false
               $(function() {
                 $("#fileID").on('change', function() {
                   //Get count of selected files
@@ -234,6 +235,12 @@
                   //count_bam_num();
                   update_all_images(0);
                   //setTimeout(function(){ populate_table(0); }, 3000);
+                  if (add_usersFileID == true) {
+                    setTimeout(function() {
+                      add_user_xml_by_upload()
+                    }, 1000);
+                    add_usersFileID = false;
+                  }
                 });
               });
 
@@ -492,9 +499,9 @@
           <div class="table-responsive efp_modal_table">
             <p style="text-align: center;"> Do you want this XML to be uploaded to your private Google account? </p>
             <div style="text-align: center; padding-bottom: 3px;">
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click(); setTimeout(function() {add_user_xml_by_upload()}, 1000);"
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" onclick="document.getElementById('fileID').click(); add_usersFileID = true; emptyLanding();"
                 data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:3%" onclick="document.getElementById('fileID').click();">No<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dismiss="modal" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:3%" onclick="document.getElementById('fileID').click(); emptyLanding();">No<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
             </div>
           </div>
         </div>
