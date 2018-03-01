@@ -114,7 +114,7 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-3 navbar_menu" id="navbar_menu" style="padding-top:1%; overflow-y: auto; ">
+      <div class="col-sm-4 col-lg-3 navbar_menu" id="navbar_menu" style="padding-top:1%; overflow-y: auto; ">
         <div id="nm_title" style="margin-bottom: 5%">
           <div class="row">
             <div class="col-sm-2" id="nm_title_img">
@@ -262,14 +262,14 @@
             </div>
 
             <!-- Scale and value -->
-            <div class="col-sm-6" id="tt4" style="margin-left:-15px;">
+            <div class="col-xs-6" id="tt4" style="margin-left:-15px;">
               <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em">Y-axis scale</p>
               <small id="yscale_inputHelp" class="form-text navbar_menu_small_font">RNA-Seq Y-axis Scale. 'Auto' or >= 1 </small>
               <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" name="yscale_inp" id="yscale_input" value="Auto" />
             </div>
-            <div class="col-sm-6" id="absolutedefault" style="margin-left:15px;">
+            <div class="col-xs-6" id="absolutedefault" style="margin-left:15px;">
               <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em;">eFP Absolute Max</p>
-              <small id="rpkm_scale_inputHelp" class="form-text navbar_menu_small_font">eFP Absolute Max Value. Automatically set to the highest value </small>
+              <small id="rpkm_scale_inputHelp" class="form-text navbar_menu_small_font">Automatically set to the highest value </small>
               <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" ame="rpkm_inp" id="rpkm_scale_input" value="1000" />
             </div>
           </div>
@@ -323,7 +323,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-9" style="overflow-y: auto; height:100vh" id="main_content">
+      <div class="col-sm-8 col-lg-9" style="overflow-y: auto; height:100vh" id="main_content">
         <!-- Landing screen -->
         <div id="landing">
           <div id="landing_body" style="padding: 3%;">
