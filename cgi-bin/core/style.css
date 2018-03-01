@@ -32,6 +32,7 @@ thead, tbody, td, th {
   z-index: 1151;
   transition-delay: 0.6s;
   font-family: Arial;
+  font-size: 1.2em;
 }
 
 .loading {
@@ -424,6 +425,8 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   font-size: 3em;
   color: white;
   padding-left:2.5%;
+  margin: auto;
+  text-align:center;
 }
 
 .navbar_menu_general_font {
@@ -432,6 +435,7 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   text-align: justify;
   font-family: Arial;
   font-size: 1.9em;
+  margin-bottom: 2%;
 }
 
 .navbar_menu_small_font {
@@ -441,12 +445,19 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   text-align: justify;
   font-family: Arial;
   padding-top: 1%;
-  padding-bottom: 0.5%;
+  padding-bottom: 3%;
 }
 
 .navbar_menu_clickable {
   font-size:1.5em;
-  margin-bottom: 10px;
+  margin-bottom: 3%;
+}
+
+.navbar_menu_buttons {
+  color: black;
+  font-weight: 600;
+  background-color: #b7b7b7;
+  border-color: #b7b7b7;
 }
 
 .navbar_menu_footer {
@@ -455,6 +466,10 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   text-align: justify;
   font-family: Arial;
   font-size: 2em;
+}
+
+.navbar_menu_input {
+  font-weight: 600;
 }
 
 .navbar_log_button {

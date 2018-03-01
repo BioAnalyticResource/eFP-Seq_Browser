@@ -115,30 +115,26 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-3 navbar_menu" id="navbar_menu" style="padding-top:1%; overflow-y: auto; ">
-        <div id="nm_title">
+        <div id="nm_title" style="margin-bottom: 5%">
           <div class="row">
             <div class="col-sm-2" id="nm_title_img">
               <img src="cgi-bin/img/BAR.png" style="height: 5em;" />
             </div>
-            <div class="col-sm-10" id="nm_title_words">
-              <p class="navbar_menu_title"><i>A. thaliana</i><br /> eFP-Seq Browser</p>
+            <div class="col-sm-10" id="nm_title_words" style="margin: auto; display: inline-block; vertical-align: middle;">
+              <p class="navbar_menu_title">eFP-Seq Browser</p>
             </div>
           </div>
         </div>
-        <div id="nm_authors">
-          <p class="navbar_menu_small_font" style="padding-top:3%;">
-            Designed by Alexander Sullivan, Priyank Purohit, Gini Chin, Alison Wu, Asher Pasha, Richard Song, Michelle Chen, Jamie Waese and Dr. Nicholas Provart at the University of Toronto.
-          </p>
-        </div>
-        <div id="nm_selection">
+        <div id="nm_selection" >
           <div id="locusbrowser" class="form-group">
             <p class="navbar_menu_general_font">1) Enter a gene name or AGI ID</p>
-            <input type="text" class="form-control navbar_menu_clickable" name="Locus" id="locus" value="AT2G24270" autofocus/>
             <small id="locusHelp" class="form-text navbar_menu_small_font">Locus example: AT2G24270</small>
+            <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" name="Locus" id="locus" value="AT2G24270" autofocus/>
           </div>
           <div id="publicdatabase" class="form-group">
             <p class="navbar_menu_general_font">2) Select a dataset</p>
-            <select class="xmldatabase form-control navbar_menu_clickable" id="xmldatabase" name="xmldatabase" style="height:34px;" type="text" data-help-text="xmldatabase" onclick="check_if_Google_login()" onchange="changePublicData()">
+            <small id="xmldatabaseHelp" class="form-text navbar_menu_small_font">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases.</small>
+            <select class="xmldatabase form-control navbar_menu_clickable navbar_menu_input" id="xmldatabase" name="xmldatabase" style="height:34px;" type="text" data-help-text="xmldatabase" onclick="check_if_Google_login()" onchange="changePublicData()">
               <option value="-- eFP-Seq Browser public database options --" disabled> -- eFP-Seq Browser Public Database Options -- </option>
               <option value="Araport 11 RNA-seq data" tag="preload">Araport 11 RNA-seq data</option>
               <option value="Developmental transcriptome - Klepikova et al" tag="preload">Developmental transcriptome - Klepikova et al</option>
@@ -146,7 +142,6 @@
               <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;" tag="private">Uploaded dataset</option>
               <option value="-- Private database options --" id="private_dataset_header" disabled style="display:none;">-- Private database options --</option>
             </select>
-            <small id="xmldatabaseHelp" class="form-text navbar_menu_small_font">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases.</small>
             <script>
               function change_dataset() {
                 progress_percent = 0;
@@ -255,55 +250,55 @@
           </div>
           <div id="options_portion">
             <p class="navbar_menu_general_font">3) Select options</p>
+            <small id="xmldatabaseHelp" class="form-text navbar_menu_small_font" style="padding-bottom:4%;">This controls the SVG colouring mode. Absolute is based on the RPKM values while relative is based on the Log2 of the RPKM to average.</small>
             <!-- Radio -->
-            <div id="default_radio" class="btn-group-justified" data-toggle="buttons">
-              <label id="abs_radio" class="btn btn-primary active" style="font-size:1.5em;">
+            <div id="default_radio" class="btn-group-justified" data-toggle="buttons" style="padding-bottom: 5%;">
+              <label id="abs_radio" class="btn navbar_menu_buttons btn-secondary active" style="font-size:1.5em;">
                   <input type="radio" name="svg_colour_radio_group" value="abs" checked>Absolute
               </label>
-              <label id="rel_radio" class="btn btn-primary" style="font-size:1.5em;">
+              <label id="rel_radio" class="btn navbar_menu_buttons btn-secondary" style="font-size:1.5em;">
                   <input type="radio" name="svg_colour_radio_group" value="rel">Relative
               </label>
             </div>
-            <small id="xmldatabaseHelp" class="form-text navbar_menu_small_font" style="padding-bottom:4%;">This controls the SVG colouring mode. Absolute is based on the RPKM values while relative is based on the Log2 of the RPKM to average.</small>
 
             <!-- Scale and value -->
             <div class="col-sm-6" id="tt4" style="margin-left:-15px;">
               <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em">Y-axis scale</p>
-              <input type="text" class="form-control navbar_menu_clickable" name="yscale_inp" id="yscale_input" value="Auto" />
               <small id="yscale_inputHelp" class="form-text navbar_menu_small_font">RNA-Seq Y-axis Scale. 'Auto' or >= 1 </small>
+              <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" name="yscale_inp" id="yscale_input" value="Auto" />
             </div>
             <div class="col-sm-6" id="absolutedefault" style="margin-left:15px;">
               <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em;">eFP Absolute Max</p>
-              <input type="text" class="form-control navbar_menu_clickable" ame="rpkm_inp" id="rpkm_scale_input" value="1000" />
               <small id="rpkm_scale_inputHelp" class="form-text navbar_menu_small_font">eFP Absolute Max Value. Automatically set to the highest value </small>
+              <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" ame="rpkm_inp" id="rpkm_scale_input" value="1000" />
             </div>
           </div>
           <div id="locusButton">
             <p class="navbar_menu_general_font">4) Load your dataset</p>
-            <button id="locus_button" onclick="change_dataset(); emptyLanding();" class="btn btn-success btn-block navbar_menu_clickable" style="text-align:center; background-color:#9c0; color:black;">Load Data</button>
             <small id="locus_buttonHelp" class="form-text navbar_menu_small_font">Load new settings.</small>
+            <button id="locus_button" onclick="change_dataset(); emptyLanding();" class="btn btn-success btn-block navbar_menu_clickable" style="text-align:center; background-color:#9c0; color:black; font-weight: 600;">LOAD DATA</button>
           </div>
         </div>
         <div id="nm_Additional">
           <p class="navbar_menu_general_font" style="padding-top:3%;">Additional Features</p>
 
           <div id="eFP_button">
-            <button id="eFPOverview_open" type="button" class="btn btn-info btn-block navbar_menu_clickable" data-toggle="modal" data-target="#eFPModal" onclick="populate_efp_modal(1)" disabled>eFP Overview</button>
+            <button id="eFPOverview_open" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" data-toggle="modal" data-target="#eFPModal" onclick="populate_efp_modal(1)" disabled>eFP Overview</button>
           </div>
           <div class="mdl-tooltip" for="eFPOverview_open">See all the eFP tissue levels in one table</div>
 
           <div id="download_button">
-            <button id="download_icon" type="button" class="btn btn-info btn-block navbar_menu_clickable" onclick="download_mainTableCSV()" disabled>Download table as CSV</button>
+            <button id="download_icon" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" onclick="download_mainTableCSV()" disabled>Download table as CSV</button>
           </div>
           <div class="mdl-tooltip" for="download_icon">Download the currently displayed dataset as a CSV (Excel) file</div>
 
           <div id="generate_button">
-            <button id="generatedata" type="button" class="btn btn-info btn-block navbar_menu_clickable" onclick="get_user_XML_display()" data-toggle="modal" data-target="#SubmissionModal">Generate Data</button>
+            <button id="generatedata" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" onclick="get_user_XML_display()" data-toggle="modal" data-target="#SubmissionModal">Generate Data</button>
           </div>
           <div class="mdl-tooltip" for="generatedata">Generate an XML config file to view your own BAM files</div>
 
           <div id="uploadData_button">
-            <button id="upload_button" type="button" class="btn btn-info btn-block navbar_menu_clickable" onclick="which_upload_option()">Upload Data</button>
+            <button id="upload_button" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" onclick="which_upload_option()">Upload Data</button>
             <button id="upload_modal" data-toggle="modal" data-target="#uploadModal" hidden></button>
             <button id="upload_logX" onclick="document.getElementById('fileID').click(); emptyLanding();" hidden></button>
             <input type="file" id="fileID" hidden accept="text/xml" />
@@ -311,7 +306,7 @@
           <div class="mdl-tooltip" for="upload_button">Upload your generated data (as XML format) to be visualized in the eFP-Seq Browser</div>
 
           <div id="manageAccount_button" style="display:none;">
-            <button id="manageXMLs" type="button" class="btn btn-info btn-block navbar_menu_clickable" onclick="delete_fill(); fill_tableCSV();" data-toggle="modal" data-target="#logoutModal">Manage Account</button>
+            <button id="manageXMLs" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" onclick="delete_fill(); fill_tableCSV();" data-toggle="modal" data-target="#logoutModal">Manage Account</button>
           </div>
           <div class="mdl-tooltip" for="manageXMLs">Manage files and data associated with your account</div>
         </div>
@@ -330,12 +325,16 @@
       </div>
       <div class="col-sm-9" style="overflow-y: auto; height:100vh" id="main_content">
         <!-- Landing screen -->
-        <div id="landing">
-          <h1 style="text-align: center; padding-top:3%;">Welcome to the eFP-Seq Browser</h1>
+        <div id="landing" style="padding: 3%;">
+          <h1 style="text-align: center; padding-top:3%;">Welcome to the <i>Arabidopsis thaliana</i> eFP-Seq Browser</h1>
           <p style="text-align: justify; font-family: Arial;">
           The eFP-Seq Browser allows you to explore RNA-seq-based gene expression levels for your gene of interest in different expression datasets. Simply enter your gene identifier in the first box on the left, select a dataset, adjust the options if desired, and click Load Data. The output is a table depicting your gene’s expression details (readmap coverage, RPKM expression levels) across all the samples in the database. Try it for the default settings here!
           </p>
-          <img src="cgi-bin/img/landing_page_callouts.png" style="max-width: 80%; height: auto; display: block; margin: auto;" />
+          <img src="cgi-bin/img/landing_page_callouts.png" style="max-width: 90%; height: auto; display: block; margin: auto;" />
+          <p style="text-align: justify; font-family: Arial;">
+          Designed by Alexander Sullivan, Priyank Purohit, Gini Chin, Alison Wu, Asher Pasha, Richard Song, Michelle Chen, Jamie Waese and Dr. Nicholas Provart at the University of Toronto.
+          </p>
+          </div>
         </div>
         <!-- RNA-Seq table. -->
         <div class="col-xs-12 table-responsive body_of_loading_done" id="body_of" hidden>
