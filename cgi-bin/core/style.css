@@ -418,9 +418,8 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
 .navbar_menu_title {
   font-size: 3em;
   color: white;
-  padding-left:2.5%;
+  padding-left: 8%;
   margin: auto;
-  text-align:center;
 }
 
 .navbar_menu_general_font {
@@ -496,4 +495,9 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   font-family: Arial;
   font-size: 2em;
   cursor:pointer;
+}
+
+.navbar_menu_center {
+  float: none;
+  margin: 0 auto;
 }

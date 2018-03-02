@@ -400,8 +400,7 @@ function outline_req_tissue(class_name) {
   var x = document.getElementById("Entries_all").querySelectorAll(class_name);
   var i;
   for (i = 0; i < x.length; i++) {
-    var tissue_sub_parse = "tissue" + (
-    i + 1) + "_subunit";
+    var tissue_sub_parse = "tissue" + (i + 1) + "_subunit";
     if (document.getElementById(tissue_sub_parse).value.length <= 0) {
       x[i].style.borderColor = "#ff2626";
       x[i].style.boxShadow = "0 0 10px #ff2626";
@@ -701,16 +700,13 @@ function convert_to_json() {
     $("input[id=reqread]").last().val(json_convert_output[i]["total reads mapped*"]);
     $("input[id=readmapmethod]").last().val(json_convert_output[i]["read map method"]);
     $("select[id=reqspecies]").last().val(json_convert_output[i]["species*"]);
-    var json_svg = "svg" + (
-    i + 1);
+    var json_svg = "svg" + (i + 1);
     $("input[id=" + json_svg + "]").last().val(determine_svgname(json_convert_output[i]["tissue*"]));
-    var json_subunit = "tissue" + (
-    i + 1) + "_subunit";
+    var json_subunit = "tissue" + (i + 1) + "_subunit";
     $("input[id=" + json_subunit + "]").last().val(json_convert_output[i]["tissue subunit*"]);
     $("input[id=controls]").last().val(json_convert_output[i]["controls"]);
     $("input[id=replicate_controls1]").last().val(json_convert_output[i]["replicate controls"]);
-    var json_tissue = "tissue" + (
-    i + 1)
+    var json_tissue = "tissue" + (i + 1)
     $("button[id=" + json_tissue + "]").last().html(determine_svgname(json_convert_output[i]["tissue*"]));
   }
 }
