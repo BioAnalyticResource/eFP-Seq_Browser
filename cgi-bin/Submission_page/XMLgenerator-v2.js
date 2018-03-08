@@ -35,35 +35,35 @@ $(function() {
       document.getElementById("not_filled").innerHTML += "Please fill in all red highlighted fields. ";
       if (check_links(".channelbamtype", ".bam_link") == false) {
         outline_links(".channelbamtype", ".bam_link");
-        document.getElementById("not_filled").innerHTML += "Please only use proper and valid links only. BAM Repository Links can only contain Google Drive URLs and/or Amazon AWS URLs. ";
+        document.getElementById("not_filled").innerHTML += "<br> Please only use proper and valid links only. BAM Repository Links can only contain Google Drive URLs and/or Amazon AWS URLs. ";
       }
     }
   });
 });
 
-var end = ['\t</rnaseq_experiments>'].join('\r\n');
+var end = ['\t</files>'].join('\r\n');
 
-var base = ['<?xml version="1.0" encoding="UTF-8" standalone="no"?>', '<!DOCTYPE rnaseq_experiments SYSTEM "bamdata.dtd">', '\t<rnaseq_experiments xmltitle=\"<?channelxmltitle?>\" author=\"<?channelauthor?>\" contact=\"<?channelcontact?>\">', '\n'].join('\r\n');
+var base = ['<?xml version="1.0" encoding="UTF-8"?>', '\t<files xmltitle=\"<?channelxmltitle?>\" author=\"<?channelauthor?>\" contact=\"<?channelcontact?>\">', '\n'].join('\r\n');
 
 var template = [
-  '\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\">',
+  '\t\t<file info=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\"  foreground=\"<?channelforeground?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" name=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" description=\"<?channeltitle?>\" url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\" title=\"<?channeligbtitle?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
   '\t\t\t<groupwith>',
   '\t\t\t\t<bam_exp><?channelgroupwidtho?></bam_exp>',
   '\t\t\t</groupwith>',
-  '\t\t</bam_file>',
+  '\t\t</file>',
   '\n'
 ].join('\r\n');
 
-var topXML = ['\t\t<bam_file desc=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" bam_link=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" title=\"<?channeltitle?>\" publication_url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\">', '\t\t\t<controls>\n'].join('\r\n');
+var topXML = ['\t\t<file info=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" foreground=\"<?channelforeground?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" name=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" description=\"<?channeltitle?>\" url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\" title=\"<?channeligbtitle?>\">', '\t\t\t<controls>\n'].join('\r\n');
 
 var controlsXML = [].join('\r\n');
 
 var replicatesXML = ['\t\t\t</controls>', '\t\t\t<groupwith>\n'].join('\r\n');
 
-var endingXML = ['\t\t\t</groupwith>', '\t\t</bam_file>', '\n'].join('\r\n');
+var endingXML = ['\t\t\t</groupwith>', '\t\t</file>', '\n'].join('\r\n');
 
 var existingXML = [].join('\r\n');
 
@@ -72,7 +72,7 @@ var all_replicates = "";
 
 /**
 * Update potentially generated XML will form filled strings
-* @param {String} formatXML - The bam_file/XML body portion of the XML that will be filled
+* @param {String} formatXML - The file/XML body portion of the XML that will be filled
 * @param {Any} v - Document's (Submission_page.html) filled form area
 * @return {String} fillXML - The filled XML
 */
@@ -106,7 +106,9 @@ function update(formatXML, v) {
     'channelpublicationurl': $(v).find('.channelpublicationurl').val(),
     'channelspecies': $(v).find('.channelspecies').val(),
     'channelcontrols': $(v).find('.channelcontrols').val(),
-    'channelgroupwidtho': $(v).find('.channelgroupwidtho').val()
+    'channelgroupwidtho': $(v).find('.channelgroupwidtho').val(),
+    'channelforeground': $(v).find('.channelforeground').val(),
+    'channeligbtitle': document.getElementById("reqxml").value + "/" + $(v).find('.channelrecordnumber').val()
   };
 
   var fillXML = topXML.replace(/<\?(\w+)\?>/g, function(match, name) {
@@ -161,6 +163,8 @@ function CloneSection() {
   new_tissue_subunit = "tissue" + count_clicks + "_subunit";
   new_svg = "svg" + count_clicks;
   new_hexID = "hexID_num" + count_clicks;
+  new_foregroundID = "foregroundID_num" + count_clicks;
+  new_foregroundID = "igbtitle_num" + count_clicks;
   $("legend:last").text("Entry " + count_clicks);
   $(".change_div_id").last().attr("name", new_tissue);
   $(".change_button_id").last().attr("id", new_tissue);
@@ -539,8 +543,11 @@ function clickclick(clickid) {
   var count_which_click = tissue_click.match(/\d/g).join("");
   which_svg = "svg" + count_which_click;
   which_hex = "hexID_num" + count_which_click;
+  which_forground = "foregroundID_num" + count_which_click;
+  which_forground = "igbtitle_num" + count_which_click;
   document.getElementById(which_svg).value = determine_svgname(clickid);
   document.getElementById(which_hex).value = determine_hexcode(determine_svgname(clickid), clickid);
+  document.getElementById(which_forground).value = determine_foreground(determine_hexcode(determine_svgname(clickid), clickid));
 };
 
 /**
@@ -678,6 +685,20 @@ function determine_hexcode(which_svg, svg_subunit) {
   }
 };
 
+/**
+* Determines foreground colour for the IGB viewer based on the hexcode
+* @param {String} hexcode_colour - hexcode
+* @return {String} - foreground hexcode
+*/
+function determine_foreground(hexcode_colour) {
+  if (hexcode_colour.length > 2 && hexcode_colour.length < 9) {
+    return hexcode_colour.substring(2).toUpperCase();
+  }
+  else {
+    console.log("Error retrieving foreground hexcode on the following hexcode: " + hexcode_colour);
+  }
+}
+
 var json_convert_output;
 /**
 * Covert the entire form into a JSON format
@@ -736,7 +757,7 @@ function retriveSRR_existing(xml, id_name) {
   var x,
     xmlDoc;
   xmlDoc = xml.responseXML;
-  x = xmlDoc.getElementsByTagName('bam_file');
+  x = xmlDoc.getElementsByTagName('file');
   var i;
   for (i = 0; i < x.length; i++) {
     $("#" + id_name).append('<input type="checkbox" class="xmlSRR_select" id="addBox' + i + '" value="' + x[i].getAttribute('record_number') + '"> ' + x[i].getAttribute('record_number') + '</input><br>');
@@ -812,7 +833,7 @@ function retriveCONTENT_existing(xml, SRR_num) {
   var x,
     xmlDoc;
   xmlDoc = xml.responseXML;
-  x = xmlDoc.getElementsByTagName('bam_file');
+  x = xmlDoc.getElementsByTagName('file');
   var i;
   for (i = 0; i < x.length; i++) {
     if (x[i].getAttribute('record_number') == SRR_num) {

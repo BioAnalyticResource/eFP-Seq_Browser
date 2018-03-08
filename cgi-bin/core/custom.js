@@ -57,7 +57,7 @@ var xhr = new XMLHttpRequest();
 xhr.open('GET', base_src, true);
 xhr.onreadystatechange = function(e) {
   if (xhr.readyState == 4 && xhr.status == 200)
-    count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("bam_file").length;
+    count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("file").length;
   };
 xhr.send(null);
 var send_null_count = 0;
@@ -73,7 +73,7 @@ function count_bam_num() {
   xhr.open('GET', base_src, true);
   xhr.onreadystatechange = function(e) {
     if (xhr.readyState == 4 && xhr.status == 200)
-      count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("bam_file").length;
+      count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("file").length;
     };
   // This if condition is to make sure the xhr request is not too many times
   if (progress_percent < 10) {
@@ -1003,7 +1003,7 @@ function populate_table(status) {
     url: base_src,
     dataType: 'xml',
     success: function(xml_res) {
-      var $xmltitle = $(xml_res).find("rnaseq_experiments");
+      var $xmltitle = $(xml_res).find("files");
       $xmltitle.each(function() {
         xmlTitleName = $(this).attr('xmltitle');
         if (xmlTitleName != "" || xmlTitleName != "Uploaded dataset") {
@@ -1012,11 +1012,11 @@ function populate_table(status) {
           document.getElementById("uplodaed_dataset").innerHTML = "Uploaded dataset";
         }
       });
-      var $title = $(xml_res).find("bam_file");
+      var $title = $(xml_res).find("file");
       $title.each(function() { // Iterate over each subtag inside the <file> tag.
         // Extract information
-        var title = $(this).attr('title');
-        var description = $(this).attr('desc');
+        var title = $(this).attr('description');
+        var description = $(this).attr('info');
         var svg = $(this).attr('svgname');
         svg_name_list.push(svg);
         var svg_part = $(this).attr('svg_subunit');
@@ -1029,7 +1029,7 @@ function populate_table(status) {
         efp_rep_2d_title.push(title);
         efp_rpkm_names.push(experimentno + "_rpkm");
         efp_pcc_names.push(experimentno + "_pcc");
-        var url = $(this).attr('publication_url');
+        var url = $(this).attr('url');
         var publicationid = $(this).attr('publication_link');
         var numberofreads = $(this).attr('total_reads_mapped');
         if (numberofreads == null || numberofreads == "") {
@@ -1052,19 +1052,14 @@ function populate_table(status) {
             links += controls[i];
           }
         }
-        var name = $(this).attr('bam_link').split("/");
-        repo_list.push($(this).attr('bam_link'));
+        var name = $(this).attr('name').split("/");
+        repo_list.push($(this).attr('name'));
         if ($(this).attr('bam_type') == "Amazon AWS") {
-          var tissue = $(this).attr('bam_link').split("/")[8];
-          /*
-          if ($(this).attr('bam_link').split("/")[8] != "aerial") {
-            tissue = undefined;
-          }
-          */
+          var tissue = $(this).attr('name').split("/")[8];
         };
         var bam_type = $(this).attr('bam_type');
         bam_type_list.push(bam_type);
-        var drive_link = $(this).attr('bam_link');
+        var drive_link = $(this).attr('name');
         drive_link_list.push(drive_link);
 
         //console.log(experimentno + ", " + svg_part);
@@ -1910,7 +1905,7 @@ function fill_tableCSV() {
         console.log("Failed at opening XML for conversion into a CSV file. Please contact an admin");
       },
       success: function(xml_data) {
-        var $xmltitle = $(xml_data).find("rnaseq_experiments");
+        var $xmltitle = $(xml_data).find("files");
         $xmltitle.each(function() {
           fileTitle = $(this).attr('xmltitle');
           if (fileTitle == "" || fileTitle == "Uploaded dataset") {
@@ -1918,7 +1913,7 @@ function fill_tableCSV() {
           }
           fileTitle = fileTitle.split(' ').join('_')
         });
-        var $title = $(xml_data).find("bam_file");
+        var $title = $(xml_data).find("file");
         var table_add = "";
         table_add += "<table id='" + fileTitle + "'>\n\t<tbody>\n";
         //console.log(table_add);
@@ -1928,19 +1923,19 @@ function fill_tableCSV() {
         //console.log(table_add);
         $title.each(function() {
           table_add += "\t\t<tr>\n"
-          var title = $(this).attr('title');
+          var title = $(this).attr('description');
           table_add += "\t\t\t<td>" + title + "</td>\n";
-          var desc = $(this).attr('desc');
+          var desc = $(this).attr('info');
           table_add += "\t\t\t<td>" + desc + "</td>\n";
           var record_number = $(this).attr('record_number');
           table_add += "\t\t\t<td>" + record_number + "</td>\n";
-          var bam_link = $(this).attr('bam_link');
+          var bam_link = $(this).attr('name');
           table_add += "\t\t\t<td>" + bam_link + "</td>\n";
           var bam_type = $(this).attr('bam_type');
           table_add += "\t\t\t<td>" + bam_type + "</td>\n";
           var publication_link = $(this).attr('publication_link');
           table_add += "\t\t\t<td>" + publication_link + "</td>\n";
-          var publication_url = $(this).attr('publication_url');
+          var publication_url = $(this).attr('url');
           table_add += "\t\t\t<td>" + publication_url + "</td>\n";
           var total_reads_mapped = $(this).attr('total_reads_mapped');
           if (total_reads_mapped == null || total_reads_mapped == "") {
