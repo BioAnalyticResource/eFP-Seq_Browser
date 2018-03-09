@@ -954,6 +954,7 @@ var svg_pat = [];
 var svg_name_list = [];
 var variantdiv_str;
 var variantdiv_call = 0;
+var iteration_num = 1;
 /**
 * Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make.
 */
@@ -1012,6 +1013,7 @@ function populate_table(status) {
           document.getElementById("uplodaed_dataset").innerHTML = "Uploaded dataset";
         }
       });
+      iteration_num = 1;
       var $title = $(xml_res).find("file");
       $title.each(function() { // Iterate over each subtag inside the <file> tag.
         // Extract information
@@ -1068,6 +1070,13 @@ function populate_table(status) {
         // Need: tissue, experimentno in rnaseq_calls ... (also need start, end, and locus)
         rnaseq_calls.push([tissue, experimentno]);
 
+        var igbView_link = 'http://bioviz.org/igb/galaxy.html?version=Arabidopsis_thaliana_TAIR10&';
+        igbView_link += 'feature_url_0=' + drive_link + "&";
+        igbView_link += 'sym_name_0=accepted_hits&';
+        igbView_link += 'sym_method_0=' + drive_link + "&";
+        igbView_link += 'query_url=' + drive_link + "&";
+        igbView_link += 'server_url=bar';
+
         // Construct a table row <tr> element
         var append_str = '<tr>';
         // table_dl_str is used for downloading the table as CSV
@@ -1084,8 +1093,11 @@ function populate_table(status) {
         // Append abs/rel RPKM
         append_str += '<td id="' + experimentno + '_rpkm' + '" style="font-size: 10px; width: 50px; ">-9999</td>';
         // Append the details <td>
-        append_str += '<td style="width: 200px; font-size: 12px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA for ' + experimentno + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '.<br/>' + 'Total reads = ' + numberofreads + '<br/><a href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()">Click for More Details</a><div id="' + url.substring(44) + '" style="display:none">Controls: ' + links + '.<br/>Species: ' + species + '</div></td>\n';
+        append_str += '<td style="width: 200px; font-size: 12px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA for ' + experimentno + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '.<br/>' + 'Total reads = ' + numberofreads + '<br/><a id="clickForMoreDetails_' + iteration_num + '" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()">Click for More Details</a>';
+        append_str += '<div id="' + url.substring(44) + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br> <a href="' + igbView_link + '">Display in IBG View</a>.</div></td>\n';
         append_str += '</tr>';
+
+        iteration_num++;
 
         // Append the <tr> to the table
         $("#thetable").append(append_str);
@@ -1234,6 +1246,21 @@ function populate_table(status) {
       callVariantChange(selectedData);
     }
   });
+}
+
+/**
+* Change the text within "Click for More Details"
+* @param {String} details_id - The ID tag for the <a> for details
+*/
+function clickDetailsTextChange(details_id) {
+  if (document.getElementById(details_id) != null) {
+    if (document.getElementById(details_id).innerHTML == "Click for More Details") {
+      document.getElementById(details_id).innerHTML = "Click for Less Details";
+    }
+    else if (document.getElementById(details_id).innerHTML == "Click for Less Details") {
+      document.getElementById(details_id).innerHTML = "Click for More Details";
+    }
+  }
 }
 
 var remainder_efp = 0;
