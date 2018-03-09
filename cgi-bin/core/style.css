@@ -63,6 +63,10 @@ thead, tbody, td, th {
   filter: none;
 }
 
+a {
+  color: #0673e8;
+}
+
 .signout-button {
   transition: opacity 1s;
   -webkit-transition: opacity 1s;
@@ -432,7 +436,7 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
 }
 
 .navbar_menu_small_font {
-  color: #bfbfbf;
+  color: #e4e4e4;
   line-height:100%;
   font-size: 1em;
   text-align: justify;
