@@ -477,12 +477,32 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   border-color: #6c757d;
 }
 
-.navbar_menu_footer {
+.navbar_menu_footer_help {
   color:white;
   line-height:100%;
   text-align: justify;
   font-family: Arial;
   font-size: 2em;
+}
+
+.navbar_menu_footer {
+  z-index: 100;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  padding-top: 14px;
+  background: #3d3d3d;
+  margin-left: -16px;
+}
+
+.navbar_menu_footer_overflow {
+  z-index: 100;
+  position: sticky;
+  bottom: 0px;
+  width: -webkit-fill-available;
+  padding-top: 14px;
+  padding-bottom: 30px;
+  background: #3d3d3d;
 }
 
 .navbar_menu_input {
@@ -504,4 +524,8 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
 .navbar_menu_center {
   float: none;
   margin: 0 auto;
+}
+
+.navbar_menu_form_group {
+  margin-bottom: 6.5%;
 }

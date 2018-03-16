@@ -96,9 +96,7 @@
 
 <body>
   <div id="testing_count" hidden=hidden>count</div>
-  <div id="testing_code" hidden=hidden>test</div>
-  <div id="testing_mobile" hidden=hidden>mobile</div>
-  <div id="testing_progress" hidden=hidden>testing percent</div>
+  <div id="testing_progress" hidden=hidden>percent</div>
   <!-- Pre-body requirements -->
   <div id="loading_requirement">
       <div class="done_loading" id="loading_screen"></div>
@@ -126,14 +124,14 @@
           </div>
         </div>
         <div id="nm_selection">
-          <div id="locusbrowser" class="form-group">
+          <div id="locusbrowser" class="form-group navbar_menu_form_group">
             <p class="navbar_menu_general_font">1) Enter a gene name or AGI ID</p>
-            <small id="locusHelp" class="form-text navbar_menu_small_font">Locus example: AT2G24270</small>
             <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" name="Locus" id="locus" value="AT2G24270" autofocus/>
           </div>
-          <div id="publicdatabase" class="form-group">
+          <div class="mdl-tooltip" for="locusbrowser">Locus example: AT2G24270</div>
+
+          <div id="publicdatabase" class="form-group navbar_menu_form_group">
             <p class="navbar_menu_general_font">2) Select a dataset</p>
-            <small id="xmldatabaseHelp" class="form-text navbar_menu_small_font">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases.</small>
             <select class="xmldatabase form-control navbar_menu_clickable navbar_menu_input" id="xmldatabase" name="xmldatabase" style="height:34px;" type="text" data-help-text="xmldatabase" onclick="check_if_Google_login()" onchange="changePublicData()">
               <option value="-- eFP-Seq Browser public database options --" disabled> -- eFP-Seq Browser Public Database Options -- </option>
               <option value="Araport 11 RNA-seq data" tag="preload">Araport 11 RNA-seq data</option>
@@ -248,9 +246,10 @@
             </script>
             <div id="hold-xml"></div>
           </div>
-          <div id="options_portion">
+          <div class="mdl-tooltip" for="publicdatabase">Load publicly available datasets/XMLs that can be visualized by the eFP-Seq Browser. Login with Google to access your previously submitted databases.</div>
+
+          <div id="options_portion" class="navbar_menu_form_group">
             <p class="navbar_menu_general_font">3) Select options</p>
-            <small id="xmldatabaseHelp" class="form-text navbar_menu_small_font" style="padding-bottom:4%;">This controls the SVG colouring mode. Absolute is based on the RPKM values while relative is based on the Log2 of the RPKM to average.</small>
             <!-- Radio -->
             <div id="default_radio" class="btn-group-justified" data-toggle="buttons" style="padding-bottom: 5%;">
               <label id="abs_radio" class="btn navbar_menu_buttons btn-secondary active" style="font-size:1.5em;">
@@ -260,30 +259,36 @@
                   <input type="radio" name="svg_colour_radio_group" value="rel">Relative
               </label>
             </div>
+            <div class="mdl-tooltip" for="default_radio">This controls the SVG colouring mode. Absolute is based on the RPKM values while relative is based on the Log2 of the RPKM to average.</div>
 
             <!-- Scale and value -->
             <div id="scale_and_value" style="margin-bottom: 2%;">
               <div class="row">
                 <div class="col-xs-5 navbar_menu_center" id="tt4">
-                  <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em">Y-axis scale</p>
-                  <small id="yscale_inputHelp" class="form-text navbar_menu_small_font">RNA-Seq Y-axis Scale. 'Auto' or >= 1 </small>
+                  <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em">Y-axis Scale</p>
                   <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" name="yscale_inp" id="yscale_input" value="Auto" />
                 </div>
+                <div class="mdl-tooltip" for="tt4">RNA-Seq Y-axis Scale. 'Auto' or >= 1</div>
+
                 <div class="col-xs-5 navbar_menu_center" id="absolutedefault">
-                  <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em;">eFP Absolute Max</p>
-                  <small id="rpkm_scale_inputHelp" class="form-text navbar_menu_small_font">Automatically set to the highest value </small>
+                  <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em;">Absolute Max</p>
                   <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" ame="rpkm_inp" id="rpkm_scale_input" value="1000" />
                 </div>
+                <div class="mdl-tooltip" for="absolutedefault">Automatically set to the highest value</div>
+
               </div>
             </div>
 
           </div>
-          <div id="locusButton">
+
+
+          <div id="locusButton" class="navbar_menu_form_group">
             <p class="navbar_menu_general_font">4) Load your dataset</p>
-            <small id="locus_buttonHelp" class="form-text navbar_menu_small_font">Load new settings.</small>
             <button id="locus_button" onclick="change_dataset(); emptyLanding();" class="btn navbar_menu_loadData btn-block navbar_menu_clickable">LOAD DATA</button>
           </div>
         </div>
+        <div class="mdl-tooltip" for="locusButton">Load new settings.</div>
+
         <div id="nm_Additional">
           <p class="navbar_menu_general_font" style="padding-top:3%;">Additional Features</p>
 
@@ -315,12 +320,12 @@
           </div>
           <div class="mdl-tooltip" for="manageXMLs">Manage files and data associated with your account</div>
         </div>
-        <div id="nm_footer" style="padding-top:8%; bottom:0px; padding-bottom:1%; z-index:100;">
+        <div id="nm_footer" class="navbar_menu_footer">
           <div class="col-sm-6" id="help">
-            <p class="navbar_menu_footer" style="text-align:center;"><a data-toggle="modal" data-target="#myModal" id="help_button" style="cursor: help;">Help</a></p>
+            <p class="navbar_menu_footer_help" style="text-align:center;"><a data-toggle="modal" data-target="#myModal" id="help_button" style="cursor: help;">Help</a></p>
           </div>
           <div class="col-sm-6">
-            <div class="container-fluid" style="padding-left:0px; margin-top:-5px;">
+            <div class="container-fluid" style="padding-left:0px; margin-left: -5px; margin-top:-5px;">
               <a id="google_iden_login_button" href="#" class="btn btn-lg btn-primary signin" onclick="document.getElementById('loginClick0').click();"><span class="glyphicon glyphicon-user"></span> Sign In</a>
               <div class="g-signin2" data-onsuccess="onSignIn" id="google_login" hidden></div>
               <a id="google_iden_logout_button" href="#" class="btn btn-lg btn-primary signout" style="display:none;" onclick="signOut();"><span class="glyphicon glyphicon-user"></span> Sign Out</a>

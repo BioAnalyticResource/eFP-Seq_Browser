@@ -137,11 +137,6 @@ function checkmobile() {
   }
 };
 
-// Whenever browser resized, calls checkmobile function
-$(window).resize(function() {
-  checkmobile();
-});
-
 // Code edited by StackOverFlow user Matthew "Treeless" Rowlandson http://stackoverflow.com/questions/42166138/css-transition-triggered-by-javascript?noredirect=1#comment71503764_42166138
 /**
 * Start loading screen for index.html (document)
@@ -1047,11 +1042,13 @@ function populate_table(status) {
         var species = $(this).attr('species');
         var controls = $(this).find("controls")[0].innerHTML.replace(/<bam_exp>/g, "").replace(/<\/bam_exp>/g, ",").replace(/\n/g, " ").replace(/ /g, "").split(",");
         var links = "";
-        for (var i = controls.length; i--;) {
-          if (controls[i] != "MEDIAN") {
-            links += '<a href="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=' + controls[i] + '" target="blank">' + controls[i] + '</a> ';
-          } else {
-            links += controls[i];
+        if (controls.length > 0) {
+          for (var i = controls.length; i--;) {
+            if (controls[i] != "MEDIAN") {
+              links += '<a href="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=' + controls[i] + '" target="blank">' + controls[i] + '</a> ';
+            } else {
+              links += controls[i];
+            }
           }
         }
         var name = $(this).attr('name').split("/");
@@ -1093,8 +1090,8 @@ function populate_table(status) {
         // Append abs/rel RPKM
         append_str += '<td id="' + experimentno + '_rpkm' + '" style="font-size: 10px; width: 50px; ">-9999</td>';
         // Append the details <td>
-        append_str += '<td style="width: 200px; font-size: 12px;">' + description + '<br/>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA for ' + experimentno + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '.<br/>' + 'Total reads = ' + numberofreads + '<br/><a id="clickForMoreDetails_' + iteration_num + '" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + url.substring(44) + '\').toggle();})()">Click for More Details</a>';
-        append_str += '<div id="' + url.substring(44) + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br> <a href="' + igbView_link + '">Display in IBG View</a>.</div></td>\n';
+        append_str += '<td style="width: 200px; font-size: 12px;"><div id="' + experimentno + '_description" name="' + description + '">' + truncateDescription(description) + '</div>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA for ' + experimentno + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '.<br/>' + 'Total reads = ' + numberofreads + '<br/><a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">Click for More Details</a>';
+        append_str += '<div id="' + experimentno + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br> <a href="' + igbView_link + '" target="_blank">Display in IBG View</a>.</div></td>\n';
         append_str += '</tr>';
 
         iteration_num++;
@@ -1256,9 +1253,30 @@ function clickDetailsTextChange(details_id) {
   if (document.getElementById(details_id) != null) {
     if (document.getElementById(details_id).innerHTML == "Click for More Details") {
       document.getElementById(details_id).innerHTML = "Click for Less Details";
+      var innerDescription = document.getElementById(document.getElementById(details_id).name);
+      innerDescription.innerHTML = innerDescription.getAttribute("name");
     }
     else if (document.getElementById(details_id).innerHTML == "Click for Less Details") {
       document.getElementById(details_id).innerHTML = "Click for More Details";
+      var innerDescription = document.getElementById(document.getElementById(details_id).name);
+      innerDescription.innerHTML = truncateDescription(innerDescription.getAttribute("name"));
+    }
+  }
+}
+
+/**
+* Determines the length of a string and if it is too long, truncate it
+* @param {String} stringInput - The string to check
+* @return {String}
+*/
+function truncateDescription(stringInput) {
+  if (stringInput != undefined || stringInput != null) {
+    if (stringInput.length > 30) {
+      var newString = stringInput.substring(0, 30) + "...";
+      return newString;
+    }
+    else {
+      return stringInput;
     }
   }
 }
@@ -2133,6 +2151,23 @@ function remove_private_database() {
   check_for_change = 0;
 }
 
+// Whenever browser resized, checks to see if footer class needs to be changed
+$(window).resize(function() {
+  var navbar = document.getElementById("navbar_menu");
+  if (navbar.scrollHeight > navbar.offsetHeight) {
+    if (document.getElementById("nm_footer").classList.contains('navbar_menu_footer_overflow') == false) {
+      document.getElementById("nm_footer").classList.remove('navbar_menu_footer');
+      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow');
+    }
+  }
+  else if (navbar.scrollHeight <= navbar.offsetHeight) {
+    if (document.getElementById("nm_footer").classList.contains('navbar_menu_footer') == false) {
+      document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow');
+      document.getElementById("nm_footer").classList.add('navbar_menu_footer');
+    }
+  }
+})
+
 $(document).ready(function() {
   // On load, validate input
   locus_validation();
@@ -2175,4 +2210,12 @@ $(document).ready(function() {
     gene_structure_colouring_element = document.getElementById("flt1_thetable").parentElement;
   }
   gene_structure_colouring_element.innerHTML = "";
+
+  var navbar = document.getElementById("navbar_menu");
+  if (navbar.scrollHeight > navbar.offsetHeight) {
+    if (document.getElementById("nm_footer").classList.contains('navbar_menu_footer_overflow') == false) {
+      document.getElementById("nm_footer").classList.remove('navbar_menu_footer');
+      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow');
+    }
+  }
 });
