@@ -1067,7 +1067,7 @@ function populate_table(status) {
         // Need: tissue, experimentno in rnaseq_calls ... (also need start, end, and locus)
         rnaseq_calls.push([tissue, experimentno]);
 
-        var igbView_link = 'http://bioviz.org/igb/galaxy.html?version=Arabidopsis_thaliana_TAIR10&';
+        var igbView_link = 'http://bioviz.org/igb/bar.html?version=Arabidopsis_thaliana_TAIR10&';
         igbView_link += 'feature_url_0=' + drive_link + "&";
         igbView_link += 'sym_name_0=accepted_hits&';
         igbView_link += 'sym_method_0=' + drive_link + "&";
