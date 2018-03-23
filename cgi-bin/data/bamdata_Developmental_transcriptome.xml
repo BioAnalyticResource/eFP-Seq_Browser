@@ -100,7 +100,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y5, Seeds from silique 5. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581888" foreground="" hex_colour="" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581888/accepted_hits.bam" total_reads_mapped="29762134" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-youngSeedling.svg" description="Arabidopsis thaliana Young seeds 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581888" species="Arabidopsis thaliana">
+		<file info="SD.y5, Seeds from silique 5. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581888" foreground="" hex_colour="" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581888/accepted_hits.bam" total_reads_mapped="29762134" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage8+.svg" description="Arabidopsis thaliana Young seeds 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581888" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -109,7 +109,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y4, Seeds from silique 4. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581887" foreground="" hex_colour="" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581887/accepted_hits.bam" total_reads_mapped="33129392" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-youngSeedling.svg" description="Arabidopsis thaliana Young seeds 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581887" species="Arabidopsis thaliana">
+		<file info="SD.y4, Seeds from silique 4. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581887" foreground="" hex_colour="" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581887/accepted_hits.bam" total_reads_mapped="33129392" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Young seeds 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581887" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -118,7 +118,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y3, Seeds from silique 3. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581886" foreground="" hex_colour="" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581886/accepted_hits.bam" total_reads_mapped="30341679" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-youngSeedling.svg" description="Arabidopsis thaliana Young seeds 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581886" species="Arabidopsis thaliana">
+		<file info="SD.y3, Seeds from silique 3. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581886" foreground="" hex_colour="" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581886/accepted_hits.bam" total_reads_mapped="30341679" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Young seeds 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581886" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -127,7 +127,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y2, Seeds from silique 2. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581885" foreground="" hex_colour="" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581885/accepted_hits.bam" total_reads_mapped="26955427" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-youngSeedling.svg" description="Arabidopsis thaliana Young seeds 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581885" species="Arabidopsis thaliana">
+		<file info="SD.y2, Seeds from silique 2. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581885" foreground="" hex_colour="" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581885/accepted_hits.bam" total_reads_mapped="26955427" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage1-4.svg" description="Arabidopsis thaliana Young seeds 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581885" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -136,7 +136,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y1, Seeds from silique 1. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581884" foreground="" hex_colour="" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581884/accepted_hits.bam" total_reads_mapped="30225753" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-youngSeedling.svg" description="Arabidopsis thaliana Young seeds 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581884" species="Arabidopsis thaliana">
+		<file info="SD.y1, Seeds from silique 1. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581884" foreground="" hex_colour="" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581884/accepted_hits.bam" total_reads_mapped="30225753" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage1-4.svg" description="Arabidopsis thaliana Young seeds 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581884" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>

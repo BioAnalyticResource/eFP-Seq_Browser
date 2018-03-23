@@ -329,8 +329,7 @@ function colour_part_by_id(id, part, fpkm, mode) {
       document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = fpkm;
     }
     else {
-      document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = round(fpkm, 5);
-      //console.log("id = " + id + "sort! " + fpkm + " rounded = " + round(fpkm, 5));
+      document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = round(fpkm, 2);
     }
   } else {
     console.log("Paths is null for id = " + id);
@@ -650,7 +649,7 @@ function rnaseq_images(status) {
           */
           document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
           rnaseq_change += 1;
-          document.getElementById(response_rnaseq['record'] + '_pcc').innerHTML = r[0];
+          document.getElementById(response_rnaseq['record'] + '_pcc').innerHTML = r[0].toFixed(2);
           document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
 
           // Save the abs-fpkm, and the stats numbers
@@ -1305,7 +1304,7 @@ var keep_loop_var = [];
 * @param {String | Number} status - Index call version
 */
 function populate_efp_modal(status) {
-  $("#eFPtable").empty();
+  $("#efpModalTable").empty();
   efp_table_column = '';
   efp_column_count = 0;
   keep_loop_var = [];
@@ -1439,14 +1438,17 @@ function populate_efp_modal(status) {
   }
 
   // Insert eFP Table header
-  $("#eFPtable").append('<p class="eFP_thead"> AGI-ID: <a href="https://www.arabidopsis.org/servlets/TairObject?type=locus&name=' + locus + '" target="_blank">' + locus + '</a></p>');
+  $("#efpModalTable").append('<p class="eFP_thead"> AGI-ID: <a href="https://www.arabidopsis.org/servlets/TairObject?type=locus&name=' + locus + '" target="_blank">' + locus + '</a></p>');
 
   // Check radio
   if (current_radio == "abs") {
-    $("#eFPtable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII="> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM, Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM</p>' + '<br><table><tbody class="eFP_tbody"></tbody>');
+    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII="> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM, Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM</p>' + '<br><table><tbody class="eFP_tbody"></tbody>');
   } else if (current_radio == "rel") {
-    $("#eFPtable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg=="> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ', Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + '</p>' + '<br><table><tbody></tbody>');
+    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg=="> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ', Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + '</p>' + '<br><table><tbody></tbody>');
   }
+
+  // Insert eFP Table
+  $("#efpModalTable").append('<table id="eFPtable" class="table"></table>');
 
   // Creating eFP representative table
   for (i = 0; i < (~~ (filtered_2d.length / 11) * 11); i += 11) {

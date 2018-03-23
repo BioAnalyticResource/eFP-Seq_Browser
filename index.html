@@ -115,10 +115,10 @@
       <div class="col-sm-4 col-lg-3 navbar_menu" id="navbar_menu" style="padding-top:1%; overflow-y: auto; ">
         <div id="nm_title" style="margin-bottom: 5%">
           <div class="row">
-            <div class="col-sm-2" id="nm_title_img">
+            <div class="col-xs-2" id="nm_title_img">
               <a href="http://bar.utoronto.ca/"><img src="cgi-bin/img/BAR.png" style="height: 5em;" /></a>
             </div>
-            <div class="col-sm-10" id="nm_title_words" style="margin: auto; display: inline-block; vertical-align: middle;">
+            <div class="col-xs-10" id="nm_title_words" style="margin: auto; display: inline-block; vertical-align: middle;">
               <p class="navbar_menu_title">eFP-Seq Browser</p>
             </div>
           </div>
@@ -315,16 +315,16 @@
           </div>
           <div class="mdl-tooltip" for="upload_button">Upload your generated data (as XML format) to be visualized in the eFP-Seq Browser</div>
 
-          <div id="manageAccount_button" style="display:none;">
+          <div id="manageAccount_button" style="margin-bottom:60px; display:none;">
             <button id="manageXMLs" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" onclick="delete_fill(); fill_tableCSV();" data-toggle="modal" data-target="#logoutModal">Manage Account</button>
           </div>
           <div class="mdl-tooltip" for="manageXMLs">Manage files and data associated with your account</div>
         </div>
         <div id="nm_footer" class="navbar_menu_footer">
-          <div class="col-sm-6" id="help">
+          <div class="col-xs-6" id="help">
             <p class="navbar_menu_footer_help" style="text-align:center;"><a data-toggle="modal" data-target="#myModal" id="help_button" style="cursor: help;">Help</a></p>
           </div>
-          <div class="col-sm-6">
+          <div class="col-xs-6">
             <div class="container-fluid" style="padding-left:0px; margin-left: -5px; margin-top:-5px;">
               <a id="google_iden_login_button" href="#" class="btn btn-lg btn-primary signin" onclick="document.getElementById('loginClick0').click();"><span class="glyphicon glyphicon-user"></span> Sign In</a>
               <div class="g-signin2" data-onsuccess="onSignIn" id="google_login" hidden></div>
@@ -333,7 +333,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-8 col-lg-9" style="overflow-y: auto; height:100vh" id="main_content">
+      <div class="col-sm-8 col-lg-9" style="overflow-y: auto; height:100vh; padding: 0px !important;" id="main_content">
         <!-- Landing screen -->
         <div id="landing">
           <div id="landing_body" style="padding: 3%;">
@@ -445,14 +445,13 @@
 
   <!-- eFP Overview modal -->
   <div id="eFPModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" style="width: 940px;">
+    <div class="modal-dialog modal-lg" style="max-width: 90%;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <div class="table-responsive efp_modal_table">
-            <table id="eFPtable" class="table"></table>
+          <div class="table-responsive efp_modal_table" id="efpModalTable">
           </div>
         </div>
         <div class="modal-footer modal-footer-colour">
