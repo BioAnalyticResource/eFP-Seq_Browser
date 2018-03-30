@@ -2153,6 +2153,17 @@ function remove_private_database() {
   check_for_change = 0;
 }
 
+/**
+* After autocomplete, correct AGI (locusbrowser) input value
+*/
+function correctAGIIDInput() {
+  if (document.getElementById("locus").value != "" || document.getElementById("locus").value != " " || document.getElementById("locus").value != undefined || document.getElementById("locus").value != null) {
+    var locusID = document.getElementById("locus").value.split("/");
+    document.getElementById("locus").value = locusID[0];
+    locus_validation();
+  }
+}
+
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
   var navbar = document.getElementById("navbar_menu");
@@ -2220,4 +2231,20 @@ $(document).ready(function() {
       document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow');
     }
   }
+
+  $("#locus").autocomplete({
+    source: function(request, response) {
+  		var last = request.term.split(/,\s*/).pop();
+  		$.ajax({
+  			type: "GET",
+  			url: "cgi-bin/idautocomplete.cgi?species=Arabidopsis_thaliana&term=" + last,
+  			dataType: "json"
+  			}).done(function(data) {
+  			response(data);
+  		});
+  	},
+    close: function (e, ui) {
+      correctAGIIDInput();
+    }
+  });
 });
