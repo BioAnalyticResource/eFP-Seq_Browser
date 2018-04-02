@@ -1090,7 +1090,7 @@ function populate_table(status) {
         append_str += '<td id="' + experimentno + '_rpkm' + '" style="font-size: 10px; width: 50px; ">-9999</td>';
         // Append the details <td>
         append_str += '<td style="width: 200px; font-size: 12px;"><div id="' + experimentno + '_description" name="' + description + '">' + truncateDescription(description) + '</div>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA for ' + experimentno + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '.<br/>' + 'Total reads = ' + numberofreads + '<br/><a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">Click for More Details</a>';
-        append_str += '<div id="' + experimentno + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br> <a href="' + igbView_link + '" target="_blank">Display in IBG View</a>.</div></td>\n';
+        append_str += '<div id="' + experimentno + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br> <a href="' + igbView_link + '" target="_blank">Display in IGB View</a>.</div></td>\n';
         append_str += '</tr>';
 
         iteration_num++;
@@ -2159,7 +2159,7 @@ function remove_private_database() {
 function correctAGIIDInput() {
   if (document.getElementById("locus").value != "" || document.getElementById("locus").value != " " || document.getElementById("locus").value != undefined || document.getElementById("locus").value != null) {
     var locusID = document.getElementById("locus").value.split("/");
-    document.getElementById("locus").value = locusID[0];
+    document.getElementById("locus").value = locusID[0].toUpperCase();
     locus_validation();
   }
 }

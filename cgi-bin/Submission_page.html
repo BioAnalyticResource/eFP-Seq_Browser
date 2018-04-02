@@ -83,15 +83,6 @@
   <header>
     <div class="leftmargin">
       <h1 style="font-weight:bold;">eFP-Seq Browser User Data Submission</h1>
-      <!-- old buttons
-      <div>
-        <p class="leftmargin">
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-          Or, upload XMl file:
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-toggle="modal" data-target="#myModal" data-upgraded=",MaterialButton,MaterialRipple">Choose file<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-        </p>
-      </div>
-      -->
       <p> To visualize and interpret your own RNA-seq data with the eFP-Seq Browser, please fill out the form below with the information for your data. All fields with an <span style="font-weight:bold;">*</span> are required fields. </p>
       <p> When you have finished filling in the forms, please click the "Generate XML" button at the bottom of the page. It will give you an option to download an XML file of readable data; it is highly recommended that you download that XML file so you may simply submit that XML file next time instead of needing to fill out the form again. You can also choose to make the XML file publicly accessible</p>
       <!-- <p> If you have any questions or need help, a tutorial is available by clicking on the floating "?" at the bottom right of the page. </p> -->
@@ -5742,6 +5733,7 @@
               generatesrc = $('.downloadfile').attr('href');
               parent.base_src = generatesrc;
               parent.progress_percent = 0;
+              parent.emptyLanding();
               parent.generate_loading_screen();
               parent.update_all_images(0);
               parent.closeGenerate();
