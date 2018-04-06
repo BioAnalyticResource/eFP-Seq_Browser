@@ -2164,6 +2164,14 @@ function correctAGIIDInput() {
   }
 }
 
+/**
+* Return back to top of page
+*/
+function returnBackToTop() {
+  mainBody = document.getElementById("main_content");
+  mainBody.scrollTop = 0;
+}
+
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
   var navbar = document.getElementById("navbar_menu");

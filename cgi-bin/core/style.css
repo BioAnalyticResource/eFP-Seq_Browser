@@ -534,3 +534,10 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
 .navbar_menu_form_group {
   margin-bottom: 6.5%;
 }
+
+.backToTop {
+  right: 2%;
+  bottom: 1%;
+  position: fixed;
+  cursor: pointer;
+}

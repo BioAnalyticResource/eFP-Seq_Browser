@@ -92,7 +92,7 @@
       document.getElementById("thetable").removeAttribute("hidden");
       document.getElementById("download_icon").removeAttribute("disabled");
       document.getElementById("eFPOverview_open").removeAttribute("disabled");
-
+      document.getElementById("backToTop").style.display = "block";
     }
   </script>
 </head>
@@ -359,6 +359,8 @@
           <div class="mdl-tooltip" for="flt4_thetable">See Help for advanced options.</div>
           <div class="mdl-tooltip" for="flt5_thetable">See Help for advanced options.</div>
         </div>
+        <!-- Back to top -->
+        <a class="backToTop" onclick="returnBackToTop()" id="backToTop" title="Return To Top" style="display: none;"><i class="material-icons" style="-webkit-transform: scaleY(-1);transform:scaleY(-1);">arrow_drop_down_circle</i></a>
         <script>
           var filter1 = "flt2_thetable"
           var filter2 = "flt4_thetable"
