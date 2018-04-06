@@ -39,11 +39,11 @@
       document.getElementById("dataInput").style.width = "100%";
     }
 
-    function myFunction() {
+    function updateTable(tableIndicator) {
       var input, filter, table, tr, td, i;
-      input = document.getElementById("myInput");
+      input = document.getElementById(tableIndicator);
       filter = input.value.toUpperCase();
-      table = document.getElementById("tissueTable");
+      table = document.getElementById("tissueTable_" + tableIndicator);
       th = table.getElementsByTagName("th");
       for (i = 0; i < th.length; i++) {
         td = th[i];
@@ -274,8 +274,8 @@
                   <ul class="dropdown-menu scrollable-menu col-sm-12 col-xs-12" role="menu">
                     <li>
                       <p style="margin-left:2px;"> Please click on your tissue: </p>
-                      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for tissue.." title="Tissue search" name="channeltissue" placeholder="Etiolated seedling" data-help-text="tissue" class="input_right">
-                      <table id="tissueTable" class="tissue_table" style="margin-left:2px; margin-right:4px;">
+                      <input type="text" class="input_right tissueInput" id="tissueInput1" onkeyup="updateTable(this.id)" placeholder="Search for tissue.." title="Tissue search" name="channeltissue" placeholder="Etiolated seedling" data-help-text="tissue" >
+                      <table id="tissueTable_tissueInput1" class="tissue_table" style="margin-left:2px; margin-right:4px;">
                         <tr>
                           <th onclick="clickclick(this.id)" id="10_Day_old_Seedling" class="tissue_box all">10 Day Old Seedling: <br>
                             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">

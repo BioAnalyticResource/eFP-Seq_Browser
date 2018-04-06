@@ -212,7 +212,7 @@ textarea:focus {
   background-color: #FFFBCC;
 }
 
-#myInput {
+.tissueInput {
   background-image: url('http://www.w3schools.com/css/searchicon.png');
   background-position: 10px 10px;
   background-repeat: no-repeat;

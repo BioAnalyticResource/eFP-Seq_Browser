@@ -157,7 +157,11 @@ var new_hexID = "";
 * Creates an empty clone of the submission form
 */
 function CloneSection() {
+  var cacheQuery = document.getElementsByClassName("tissueInput")[document.getElementsByClassName("tissueInput").length - 1].value;
+  document.getElementsByClassName("tissueInput")[document.getElementsByClassName("tissueInput").length - 1].value = "";
+  updateTable(document.getElementsByClassName("tissueInput")[document.getElementsByClassName("tissueInput").length - 1].id);
   $(".SubmissionArea").append($(".Entries:first").clone(true));
+  document.getElementsByClassName("tissueInput")[document.getElementsByClassName("tissueInput").length - 2].value = cacheQuery;
   count_clicks += 1;
   new_tissue = "tissue" + count_clicks;
   new_tissue_subunit = "tissue" + count_clicks + "_subunit";
@@ -165,6 +169,7 @@ function CloneSection() {
   new_hexID = "hexID_num" + count_clicks;
   new_foregroundID = "foregroundID_num" + count_clicks;
   new_foregroundID = "igbtitle_num" + count_clicks;
+  tissueInput = "tissueInput" + count_clicks;
   $("legend:last").text("Entry " + count_clicks);
   $(".change_div_id").last().attr("name", new_tissue);
   $(".change_button_id").last().attr("id", new_tissue);
@@ -173,6 +178,8 @@ function CloneSection() {
   $(".change_id_tissue").last().attr("id", new_tissue);
   $(".change_svg").last().attr("id", new_svg);
   $(".change_hexcolor").last().attr("id", new_hexID);
+  $(".tissueInput").last().attr("id", tissueInput);
+  $(".tissue_table").last().attr("id", "tissueTable_" + tissueInput);
   // resetting form values and emptying new form
   resetLastEntryValues();
 };
