@@ -541,3 +541,12 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   position: fixed;
   cursor: pointer;
 }
+
+.openMenu {
+  position: fixed;
+  cursor: pointer;
+  top: 1.6%;
+  left: 0.4%;
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}

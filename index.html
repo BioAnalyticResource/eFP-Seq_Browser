@@ -118,10 +118,13 @@
       <div class="col-sm-4 col-lg-3 navbar_menu" id="navbar_menu" style="padding-top:1%; overflow-y: auto; ">
         <div id="nm_title" style="margin-bottom: 5%">
           <div class="row">
+            <div class="col-xs-1" id="nm_menu_icon">
+              <i class="material-icons" style="color:white; cursor: pointer;" onclick="displayNavBAR();">menu</i>
+            </div>
             <div class="col-xs-2" id="nm_title_img">
               <a href="http://bar.utoronto.ca/"><img src="cgi-bin/img/BAR.png" style="height: 5em;" /></a>
             </div>
-            <div class="col-xs-10" id="nm_title_words" style="margin: auto; display: inline-block; vertical-align: middle;">
+            <div class="col-xs-8" id="nm_title_words" style="margin: auto; display: inline-block; vertical-align: middle;">
               <p class="navbar_menu_title">eFP-Seq Browser</p>
             </div>
           </div>
@@ -582,6 +585,10 @@
       </div>
     </div>
   </div>
+
+  <!-- Open menu -->
+  <a class="openMenu" id="openMenu" onclick="displayNavBAR();" title="Open navigation menu" style="display:none;"><img src="cgi-bin\SVGs\OpenMenu.svg" width="40px"></a>
+
   <!-- SVGs -->
   <div id="10dayOldSeedling_svg" style="display: none;">
     <!-- all -->

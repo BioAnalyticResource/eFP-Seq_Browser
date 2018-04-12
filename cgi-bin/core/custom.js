@@ -2172,6 +2172,22 @@ function returnBackToTop() {
   mainBody.scrollTop = 0;
 }
 
+/**
+* On click, hide the nav bar from main screen
+*/;
+function displayNavBAR() {
+  if ($("#navbar_menu").is(":visible") == true) {
+    document.getElementById("navbar_menu").style.display = "none";
+    document.getElementById("main_content").className = "col-sm-12";
+    document.getElementById("openMenu").style.display = "block";
+  }
+  else if ($("#navbar_menu").is(":visible") == false) {
+    document.getElementById("navbar_menu").style.display = "block";
+    document.getElementById("main_content").className = "col-sm-8 col-lg-9";
+    document.getElementById("openMenu").style.display = "none";
+  }
+}
+
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
   var navbar = document.getElementById("navbar_menu");
