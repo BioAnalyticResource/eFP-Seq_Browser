@@ -340,8 +340,9 @@ var current_radio = "abs";
 /**
 * Find and update each SVG in the DOM.
 */
-function colour_svgs_now(mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val()) {
+function colour_svgs_now(mode) {
   //console.log("colour_svgs_now function is called with mode = " + mode);
+  mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   current_radio = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   for (var i = 0; i < count_bam_entries_in_xml; i++) {
     // For every exp, figure out the fpkm average of the controls
@@ -1039,7 +1040,15 @@ function populate_table(status) {
           hexcode_list.push($(this).attr('hex_colour'))
         }
         var species = $(this).attr('species');
-        var controls = $(this).find("controls")[0].innerHTML.replace(/<bam_exp>/g, "").replace(/<\/bam_exp>/g, ",").replace(/\n/g, " ").replace(/ /g, "").split(",");
+        var controls = [];
+        if ($(this).find("controls")[0].innerHTML == undefined) {
+          for (i = 1; i < $(this).find("controls")[0].childNodes.length; i+2) {
+            controls.push($(this).find("controls")[0].childNodes[i].firstChild.textContent);
+          }
+        }
+        else if ($(this).find("controls")[0].innerHTML != undefined) {
+          controls = $(this).find("controls")[0].innerHTML.replace(/<bam_exp>/g, "").replace(/<\/bam_exp>/g, ",").replace(/\n/g, " ").replace(/ /g, "").split(",");
+        }
         var links = "";
         if (controls.length > 0) {
           for (var i = controls.length; i--;) {
@@ -1669,7 +1678,6 @@ var check_for_change = 0;
 var xml_title;
 var match_title = {};
 var title_list = [];
-var data_list = [];
 /**
 * Gets list of users private XMLs
 */
@@ -1687,7 +1695,7 @@ function get_user_XML_display() {
         xml_title;
         match_title = {};
         title_list = [];
-        data_list = [];
+        dataLoopInt = 0;
         // Unnamed dataset name number:
         var unnamed_title_num = 1;
         var private_version_num = 1;
@@ -1740,13 +1748,13 @@ function get_user_XML_display() {
             if (list_modified == false) {
               for (i = 0; i < get_xml_list_output["files"].length; i++) {
                 // Add data to list of accessible datasets
-                dataset_dictionary[title_list[i]] = data_list[i];
+                dataset_dictionary[title_list[i]] = datalist_Title[title_list[i]];
                 // Create option to select data from user
                 document.getElementById("xmldatabase").innerHTML += '<option class="userAdded" tag="private" value="' + title_list[i] + '" id="' + title_list[i] + '">' + title_list[i] + '</option>';
               }
             };
             list_modified = true;
-          }, 1000)
+          }, 700)
         }
       }
     })
@@ -1756,8 +1764,10 @@ function get_user_XML_display() {
 /**
 * Creates a list of base64 strings that contains XML of user's private datasets
 * @param {Number} size - How many private datasets the user has
-* @return {List} data_list - List of base64 strings
+* @return {List} datalist_Title - Dictionary of base64 strings
 */
+var datalist_Title = {}
+var dataLoopInt = 0;
 function create_data_list(size) {
   for (i = 0; i < size; i++) {
     $.ajax({
@@ -1765,7 +1775,8 @@ function create_data_list(size) {
       dataType: 'json',
       success: function(get_xml_return) {
         xml_file = get_xml_return;
-        data_list.push(xml_file["data"]);
+        datalist_Title[title_list[dataLoopInt]] = xml_file["data"];
+        dataLoopInt++;
       }
     })
   }
@@ -2237,7 +2248,6 @@ $(document).ready(function() {
   });
   getGFF(locus);
   populate_table(1); // status 1 forces rna-seq api to return cached data for fast initial load
-  // populate_efp_modal(1);  Shouldn't be called here, only when the button is pressed
 
   setTimeout(function() {
     if (signInButton = document.getElementsByClassName("abcRioButtonLightBlue").length > 0) {

@@ -168,7 +168,6 @@ function CloneSection() {
   new_svg = "svg" + count_clicks;
   new_hexID = "hexID_num" + count_clicks;
   new_foregroundID = "foregroundID_num" + count_clicks;
-  new_foregroundID = "igbtitle_num" + count_clicks;
   tissueInput = "tissueInput" + count_clicks;
   $("legend:last").text("Entry " + count_clicks);
   $(".change_div_id").last().attr("name", new_tissue);
@@ -551,7 +550,6 @@ function clickclick(clickid) {
   which_svg = "svg" + count_which_click;
   which_hex = "hexID_num" + count_which_click;
   which_forground = "foregroundID_num" + count_which_click;
-  which_forground = "igbtitle_num" + count_which_click;
   document.getElementById(which_svg).value = determine_svgname(clickid);
   document.getElementById(which_hex).value = determine_hexcode(determine_svgname(clickid), clickid);
   document.getElementById(which_forground).value = determine_foreground(determine_hexcode(determine_svgname(clickid), clickid));
