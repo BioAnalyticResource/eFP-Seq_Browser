@@ -2180,11 +2180,13 @@ function displayNavBAR() {
     document.getElementById("navbar_menu").style.display = "none";
     document.getElementById("main_content").className = "col-sm-12";
     document.getElementById("openMenu").style.display = "block";
+    document.getElementById("thetable").classList.add("RNATable");
   }
   else if ($("#navbar_menu").is(":visible") == false) {
     document.getElementById("navbar_menu").style.display = "block";
     document.getElementById("main_content").className = "col-sm-8 col-lg-9";
     document.getElementById("openMenu").style.display = "none";
+    document.getElementById("thetable").classList.remove("RNATable");
   }
 }
 

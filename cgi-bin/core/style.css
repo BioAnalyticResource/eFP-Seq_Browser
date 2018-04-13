@@ -550,3 +550,8 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
+
+.RNATable {
+  max-width: 1400px;
+  margin: 0 auto;
+}
