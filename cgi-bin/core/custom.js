@@ -1411,8 +1411,8 @@ function populate_efp_modal(status) {
     // Total reads mapped number
     for (u = 0; u < single_trs.length; u++) {
       var single_var = single_trs[u]; // Testing purposes for debugging
-      if ((single_trs[u].length > 23) && (single_trs[u].substr(single_trs[u].length - 23) == ".<br>Controls: <a href=") && (single_trs[u].substr(0, 15) == ">Total reads = ")) {
-        filtered_2d_totalReads.push(single_trs[u].substr(0, single_trs[u].length - 23).substr(15));
+      if (single_trs[u].includes(">PubLink</a>.<br>Total reads = ")) {
+        filtered_2d_totalReads.push(single_trs[u].split("<br>")[1].split(" ")[3]);
         break;
       }
     }
