@@ -555,3 +555,35 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   max-width: 1400px;
   margin: 0 auto;
 }
+
+.account_manage_button {
+  color: #fff;
+  font-weight: 600;
+  background-color: #28a745;
+  border-color: #28a745;
+  font-size: 1.1em;
+}
+
+.account_manage_button:hover {
+  color: #fff;
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.account_manage_button_delete {
+  color: #fff;
+  font-weight: 600;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  font-size: 1.1em;
+}
+
+.account_manage_button_delete:hover {
+  color: #fff;
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.mainContainer {
+  background-color: #eaebee;
+}

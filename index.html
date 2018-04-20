@@ -37,7 +37,6 @@
   <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
   <script src="cgi-bin/core/custom.js"></script>
   <script src="cgi-bin/Submission_page/XMLgenerator-v2.js"></script>
-  <script src="cgi-bin/core/tmm_normalization.js"></script>
   <link rel="stylesheet" href="cgi-bin/core/style.css">
   <!-- ddSlick for image dropdown --->
   <script type="text/javascript" src="cgi-bin\core\ddslick\jquery.ddslick.min.js" ></script>
@@ -93,6 +92,8 @@
       document.getElementById("download_icon").removeAttribute("disabled");
       document.getElementById("eFPOverview_open").removeAttribute("disabled");
       document.getElementById("backToTop").style.display = "block";
+      document.getElementById("mainContainer").classList.add("mainContainer");
+      addGFF();
     }
   </script>
 </head>
@@ -113,7 +114,7 @@
   </div>
   <div id="progress_tooltip" class="mdl-tooltip" for="title_bar">Typical load time less than 10 mins.</div>
 
-  <div class="container-fluid">
+  <div id="mainContainer" class="container-fluid">
     <div class="row">
       <div class="col-sm-4 col-lg-3 navbar_menu" id="navbar_menu" style="padding-top:1%; overflow-y: auto; ">
         <div id="nm_title" style="margin-bottom: 5%">
@@ -243,12 +244,19 @@
                 });
               });
 
-              window.setInterval(function() {
-                if (base_src != 'cgi-bin/data/bamdata_amazon_links.xml') {
-                  send_null_count = 0;
-                  count_bam_num();
-                }
-              }, 500); // Need to find alternative to calling every 0.5 seconds
+              function loadNewData() {
+                var repeat = window.setInterval(function() {
+                  if (base_src != 'cgi-bin/data/bamdata_amazon_links.xml') {
+                    send_null_count = 0;
+                    count_bam_num();
+                  }
+                }, 500);
+
+                setTimeout( function() {
+                  window.clearInterval(repeat);
+                }, 2500)
+              }
+
             </script>
             <div id="hold-xml"></div>
           </div>
@@ -290,7 +298,7 @@
 
           <div id="locusButton" class="navbar_menu_form_group">
             <p class="navbar_menu_general_font">4) Load your dataset</p>
-            <button id="locus_button" onclick="change_dataset(); emptyLanding();" class="btn navbar_menu_loadData btn-block navbar_menu_clickable">LOAD DATA</button>
+            <button id="locus_button" onclick="change_dataset(); loadNewData(); emptyLanding();" class="btn navbar_menu_loadData btn-block navbar_menu_clickable">LOAD DATA</button>
           </div>
         </div>
         <div class="mdl-tooltip" for="locusButton">Load new settings.</div>
@@ -341,7 +349,7 @@
       </div>
       <div class="col-sm-8 col-lg-9" style="overflow-y: auto; height:100vh; padding: 0px !important;" id="main_content">
         <!-- Landing screen -->
-        <div id="landing">
+        <div id="landing" style="background-color: white;">
           <div id="landing_body" style="padding: 3%;">
             <h1 style="text-align: center; padding-top:3%;">Welcome to the <i>Arabidopsis thaliana</i> eFP-Seq Browser</h1>
             <p style="text-align: justify; font-family: Arial;">
@@ -355,7 +363,7 @@
         </div>
         <!-- RNA-Seq table. -->
         <div class="col-xs-12 table-responsive body_of_loading_done" id="body_of" hidden>
-          <table id="thetable" class="table" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);" hidden></table>
+          <table id="thetable" class="table" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);" style="background-color: white;" hidden></table>
           <div class="mdl-tooltip" for="eFP_th">Sorts by plant part.</div>
           <div class="mdl-tooltip" for="flt0_thetable">See Help for advanced options.</div>
           <div class="mdl-tooltip" for="flt2_thetable">See Help for advanced options.</div>
@@ -547,18 +555,16 @@
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
             </div>
             <br>
-            <p>
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="#" data-upgraded=",MaterialButton,MaterialRipple" onclick="manage_DownloadXML();" id="downloadAsXML_button" style="margin-right: 1%;">Download as XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-              <a class="downloadfile" href="#" id="downloadXML"><button id="downloadXML_button" download hidden>Download file</button></a>
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" onclick="download_XMLtableCSV();" id="downloadAsCSV_button">Download as CSV<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" onclick="showWarning_index()" id="deleteXML_button" style="margin-left:1%;">Delete XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-              <div class="warning_nope_index" id="warning_index">
-                <strong>Warning!</strong> Are you sure you wish to delete the selected data from your private account?
-                <span class="warning_button_index" onclick="hideWarning_index()" style="margin-top:3px;"> No </span>
-                <span class="warning_button_index modal-close" onclick="delete_selectedXML(); delete_fill();" data-dismiss="modal" style="margin-top:3px;"> Yes </span>
-              </div>
-            </p>
-            <p> The following XML to CSV conversion was created using <a href="https://github.com/cyriac/jquery.tabletoCSV">Cryiac Thomas' tabletoCSV function</a></p>
+            <button class="btn account_manage_button" href="#" onclick="manage_DownloadXML();" id="downloadAsXML_button" style="margin-right: 1%;">Download as XML</button>
+            <a class="downloadfile" href="#" id="downloadXML"><button id="downloadXML_button" download hidden>Download file</button></a>
+            <button class="btn account_manage_button" onclick="download_XMLtableCSV();" id="downloadAsCSV_button">Download as CSV</button>
+            <button class="btn account_manage_button_delete" onclick="showWarning_index()" id="deleteXML_button" style="margin-left:1%;">Delete dataset</button>
+            <div class="warning_nope_index" id="warning_index">
+              <strong>Warning!</strong> Are you sure you wish to delete the selected data from your private account?
+              <span class="warning_button_index" onclick="hideWarning_index()" style="margin-top:3px;"> No </span>
+              <span class="warning_button_index modal-close" onclick="delete_selectedXML(); delete_fill();" data-dismiss="modal" style="margin-top:3px;"> Yes </span>
+            </div>
+            <p style="font-size: 0.7em;"> The following XML to CSV conversion was created using <a href="https://github.com/cyriac/jquery.tabletoCSV">Cryiac Thomas' tabletoCSV function</a></p>
           </div>
         </div>
         <div class="modal-footer modal-footer-colour">
