@@ -1873,27 +1873,34 @@ function delete_fill() {
   total_amount_of_datasets = public_title_list.length + title_list.length;
   for (i = 0; i < public_title_list.length; i++) {
     // Fills the manage XML modal with available XMLs on the account
-    $("#publicDatabaseDownload").append('<input type="checkbox" tag="publicDataCheckbox" onchange="disableDeletePublic()" id="deleteBox_' + deleteBoxNum + '" value="' + public_title_list[i] + '"> ' + public_title_list[i] + '</input><br>');
+    $("#publicDatabaseDownload").append('<input type="checkbox" tag="publicDataCheckbox" class="publicDataCheckbox" onchange="disableDeletePublic()" id="deleteBox_' + deleteBoxNum + '" value="' + public_title_list[i] + '"> ' + public_title_list[i] + '</input><br>');
     deleteBoxNum += 1;
   }
   for (i = 0; i < title_list.length; i++) {
     // Fills the manage XML modal with available XMLs on the account
-    $("#delete_fill").append('<input type="checkbox" id="deleteBox_' + deleteBoxNum + '" value="' + title_list[i] + '"> ' + title_list[i] + '</input><br>');
+    $("#delete_fill").append('<input type="checkbox" tag="privateDataCheckbox" class="privateDataCheckbox" onchange="disableDeletePublic()" id="deleteBox_' + deleteBoxNum + '" value="' + title_list[i] + '"> ' + title_list[i] + '</input><br>');
     deleteBoxNum += 1;
   }
 }
 
+var isDeletePublicDisabled = false;
 /**
 * Prevents users from deleting public databases visually... even without this they cannot actually do it
 */
 function disableDeletePublic() {
   for (i = 0; i < public_title_list.length; i++) {
-    if (document.getElementById("deleteBox_" + (i + 2)).checked == true) {
-      document.getElementById("deleteXML_button").disabled = true;
+    if (document.getElementById("deleteBox_" + i).checked == true && document.getElementById("deleteBox_" + i).className == "publicDataCheckbox") {
+      if (isDeletePublicDisabled == false) {
+        document.getElementById("deleteXML_button").classList.add('disabled');
+        isDeletePublicDisabled = true;
+      }
       break
     }
     else {
-      document.getElementById("deleteXML_button").disabled = false;
+      if (isDeletePublicDisabled == true) {
+        document.getElementById("deleteXML_button").classList.remove('disabled');
+        isDeletePublicDisabled = false;
+      }
     }
   }
 
@@ -1918,12 +1925,14 @@ var warningActive_index = "nope";
 * Show warning before making permanent decision
 */
 function showWarning_index() {
-  if (warningActive_index == "nope") {
-    document.getElementById("warning_index").className = "warning_index";
-    warningActive_index = "yes";
-  } else if (warningActive_index == "yes") {
-    hideWarning_index();
-  }
+  if (isDeletePublicDisabled == false) {
+    if (warningActive_index == "nope") {
+      document.getElementById("warning_index").className = "warning_index";
+      warningActive_index = "yes";
+    } else if (warningActive_index == "yes") {
+      hideWarning_index();
+    }
+  }  
 }
 
 /**
