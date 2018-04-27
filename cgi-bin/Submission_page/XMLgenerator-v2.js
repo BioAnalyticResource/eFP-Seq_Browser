@@ -705,35 +705,49 @@ function determine_foreground(hexcode_colour) {
 }
 
 var json_convert_output;
+var useableJSON = [];
 /**
-* Covert the entire form into a JSON format
+* Covert the entire convert Excel form into a JSON format
 */
 function convert_to_json() {
-  json_convert_output = JSON.parse(document.getElementById("dataOutput").value)
-  var json_length = json_convert_output.length
+  json_convert_output = JSON.parse(document.getElementById("dataOutput").value);
+  var maxLength = json_convert_output.length;
+  useableJSON = [];
+  for (x = 0; x < maxLength; x++) {
+    if (json_convert_output[x]["entry number*"] != null) {
+      useableJSON.push(json_convert_output[x]);
+    }
+    else if (json_convert_output[x]["entry number*"] === null) {
+      break;
+    }
+  }
   resetForm();
-  for (i = 0; i < json_length; i++) {
+  maxLength = useableJSON.length;
+  for (i = 0; i < maxLength; i++) {
     if (i != 0) {
+      if (useableJSON[i]["entry number*"] === null) {
+        break;
+      }
       CloneSection()
     }
-    $("select[id=bamtype]").last().val(json_convert_output[i]["repository type*"]);
-    $("input[id=reqtitle]").last().val(json_convert_output[i]["title*"]);
-    $("textarea[id=reqdesc]").last().val(json_convert_output[i]["description*"]);
-    $("input[id=rec]").last().val(json_convert_output[i]["record number *"]);
-    $("input[id=bam_input]").last().val(json_convert_output[i]["rna-seq data/bam file repository link*"]);
-    $("input[id=publink]").last().val(json_convert_output[i]["publication link"]);
-    $("input[id=sralink]").last().val(json_convert_output[i]["sra/ncbi link"]);
-    $("input[id=reqread]").last().val(json_convert_output[i]["total reads mapped*"]);
-    $("input[id=readmapmethod]").last().val(json_convert_output[i]["read map method"]);
-    $("select[id=reqspecies]").last().val(json_convert_output[i]["species*"]);
+    $("select[id=bamtype]").last().val(useableJSON[i]["repository type*"]);
+    $("input[id=reqtitle]").last().val(useableJSON[i]["title*"]);
+    $("textarea[id=reqdesc]").last().val(useableJSON[i]["description*"]);
+    $("input[id=rec]").last().val(useableJSON[i]["record number *"]);
+    $("input[id=bam_input]").last().val(useableJSON[i]["rna-seq data/bam file repository link*"]);
+    $("input[id=publink]").last().val(useableJSON[i]["publication link"]);
+    $("input[id=sralink]").last().val(useableJSON[i]["sra/ncbi link"]);
+    $("input[id=reqread]").last().val(useableJSON[i]["total reads mapped*"]);
+    $("input[id=readmapmethod]").last().val(useableJSON[i]["read map method"]);
+    $("select[id=reqspecies]").last().val(useableJSON[i]["species*"]);
     var json_svg = "svg" + (i + 1);
-    $("input[id=" + json_svg + "]").last().val(determine_svgname(json_convert_output[i]["tissue*"]));
+    $("input[id=" + json_svg + "]").last().val(determine_svgname(useableJSON[i]["tissue*"]));
     var json_subunit = "tissue" + (i + 1) + "_subunit";
-    $("input[id=" + json_subunit + "]").last().val(json_convert_output[i]["tissue subunit*"]);
-    $("input[id=controls]").last().val(json_convert_output[i]["controls"]);
-    $("input[id=replicate_controls1]").last().val(json_convert_output[i]["replicate controls"]);
+    $("input[id=" + json_subunit + "]").last().val(useableJSON[i]["tissue subunit*"]);
+    $("input[id=controls]").last().val(useableJSON[i]["controls"]);
+    $("input[id=replicate_controls1]").last().val(useableJSON[i]["replicate controls"]);
     var json_tissue = "tissue" + (i + 1)
-    $("button[id=" + json_tissue + "]").last().html(determine_svgname(json_convert_output[i]["tissue*"]));
+    $("button[id=" + json_tissue + "]").last().html(determine_svgname(useableJSON[i]["tissue*"]));
   }
 }
 

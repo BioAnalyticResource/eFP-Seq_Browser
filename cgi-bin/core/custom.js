@@ -1379,7 +1379,7 @@ function populate_efp_modal(status) {
         break;
       }
     }
-    // SRR/SRA number or ID number
+    // SRR/SRA number or Record Number
     for (u = 0; u < single_trs.length; u++) {
       var single_var = single_trs[u]; // Testing purposes for debugging
       if ((single_trs[u].length > 4) && (single_trs[u].substr(single_trs[u].length - 4) == "_svg")) {
@@ -1755,7 +1755,7 @@ function get_user_XML_display() {
               }
             };
             list_modified = true;
-          }, 700)
+          }, 1000)
         }
       }
     })
@@ -1932,7 +1932,7 @@ function showWarning_index() {
     } else if (warningActive_index == "yes") {
       hideWarning_index();
     }
-  }  
+  }
 }
 
 /**
@@ -2042,7 +2042,7 @@ function download_XMLtableCSV() {
   }
 }
 
-var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>ID number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>bp Start site</th>\n\t\t\t<th>bp End site</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t</tr>\n";
+var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Record Number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>bp Start site</th>\n\t\t\t<th>bp End site</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t</tr>\n";
 /**
 * Converts and downloads index's (document) main table as an CSV
 * @return {File} CSV

@@ -94,7 +94,7 @@ a {
   background-color: #CBE8BA;
   z-index: 1150;
   transition: all 400ms ease-in;
-  transform: scale(1.5);
+  transform: scale(1.4);
 }
 
 .efp_table_tooltip .efp_table_tooltip_text {
@@ -586,4 +586,31 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
 
 .mainContainer {
   background-color: #eaebee;
+}
+
+.cardTitle {
+  font-size: 1.3em;
+}
+
+.helpCardImages {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.HelpNoteDiv {
+  background-color: #ace2fa;
+}
+
+.HelpNoteTop{
+  font-size: 1.2em;
+  background-color: #02a8f3;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.HelpNoteBottom{
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 1%;
 }

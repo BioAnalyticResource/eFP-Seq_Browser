@@ -286,7 +286,7 @@
 
                 <div class="col-xs-5 navbar_menu_center" id="absolutedefault">
                   <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em;">Absolute Max</p>
-                  <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" ame="rpkm_inp" id="rpkm_scale_input" value="1000" />
+                  <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" onkeyup="colour_svgs_now();" name="rpkm_inp" id="rpkm_scale_input" value="1000" />
                 </div>
                 <div class="mdl-tooltip" for="absolutedefault">Automatically set to the highest value</div>
 
@@ -353,7 +353,7 @@
           <div id="landing_body" style="padding: 3%;">
             <h1 style="text-align: center; padding-top:3%;">Welcome to the <i>Arabidopsis thaliana</i> eFP-Seq Browser</h1>
             <p style="text-align: justify; font-family: Arial;">
-            The eFP-Seq Browser allows you to explore RNA-seq-based gene expression levels for your gene of interest in different expression datasets. Simply enter your gene identifier in the first box on the left, select a dataset, adjust the options if desired, and click Load Data. The output is a table depicting your gene’s expression details (readmap coverage, RPKM expression levels) across all the samples in the database. Try it for the default settings here!
+            The eFP-Seq Browser allows you to explore RNA-seq-based gene expression levels for your gene of interest in different expression datasets. Simply enter your gene identifier in the first box on the left, select a dataset, adjust the options if desired, and click Load Data. The output is a table depicting your gene’s expression details (readmap coverage, RPKM expression levels) across all the samples in the database. Try it with the default settings!
             </p>
             <img src="cgi-bin/img/landing_page_callouts.png" style="max-width: 90%; height: auto; display: block; margin: auto;" />
             <p style="text-align: justify; font-family: Arial;">
@@ -424,33 +424,463 @@
 
   <!-- Modals -->
   <!-- Help modal -->
-  <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="z-index: 5000;">
     <div class="modal-dialog modal-lg" style="width: 940px;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <p>
-            Enter your AGI ID of interest and click the Load Data button to examine expression levels and readmap profiles in <a href="http://dx.doi.org/10.1111/tpj.13312">Klepikova et al.’s Development Map (http://dx.doi.org/10.1111/tpj.13312)</a> or the 113 RNA-seq data sets used by Cheng et al. to reannotate the Arabidopsis genome for the <a href="http://dx.doi.org/10.1111/tpj.13415">Araport 11 build (http://dx.doi.org/10.1111/tpj.13415)</a>. The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. It will also calculate the RPKM expression level value and display that level according to a yellow-to-red scale in a pictograph representing the sample. You can sort or filter the columns.
-            <br><br>
-            * If you sort based on the PCC column you can see the readmap profiles that best or least match a given gene model, based on the Pearson correlation coefficient (we generate a "all or nothing" vector for exons/introns for a given gene model and compare that to the readmap vector)
-            <br>
-            * If you sort based on the eFP (RPKM) column you will sort the rows by the plant part used for RNA-seq sampling
-            <br>
-            * If you sort based on RPKM value column the rows will be sorted by RPKM expression level
-            <br>
-            * Linkouts are provided to the SRA at NCBI and to associated publications
-            <br>
-            * You may filter the data in the columns, and you can combine multiple filter criteria. For example, try '&gt; 100 &amp;&amp; &lt; 110' filter in the RPKM column.
-            <br><br>
-            You can also set the mode to be "Relative" in which case the RPKM values of the appropriate control experiment or experiments are used to compute the fold-change in expression (increase or decrease) of the gene in question in that sample (row) relative to the control (if no control is apparent, we use the average expression level for that gene across all samples in an experiment). You can then sort on this fold-change.
-            <br><br>
-            You can ajdust the RNA-seq readmap scale or the RPKM colour scale from their default settings of "auto" (readmap y-axes are autoscaled on a per sample basis) and whatever the maximum RPKM value is (any sample which has this score would have a red-coloured pictograph, while samples where expression is lower would have pictographs tending towards yellow in colour.)
-            <br><br>
-            We welcome feedback to <a href="mailto:nicholas.provart@utoronto.ca">nicholas.provart@utoronto.ca</a>.
-            <br>
-          </p>
+          <div id="accordion" style="font-size: 1.4em;">
+            Welcome to the eFP-Seq Browser! Click on any of the following collapsing cards to learn more about how the eFP-Seq Browser works and how you can use it.
+            <div class="card about">
+              <div class="card-header" id="about">
+                <p class="mb-0">
+                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#aboutCard" aria-expanded="true" aria-controls="aboutCard">
+                    About the eFP-Seq Browser ▼
+                  </button>
+                </p>
+              </div>
+              <div id="aboutCard" class="collapse" aria-labelledby="about" data-parent="#accordion">
+                <div class="card-body">
+                  The eFP-Seq Browser allows you to explore RNA-seq-based gene expression levels for your gene of interest in different expression datasets. Simply enter your gene identifier in the first box on the left, select a dataset, adjust the options if desired, and click Load Data. The output is a table depicting your gene’s expression details (readmap coverage, RPKM expression levels) across all the samples in the database. Try it with the default settings!
+                </div>
+              </div>
+            </div>
+
+            <div class="card navigationBar">
+              <div class="card-header" id="navigationBar">
+                <p class="mb-0">
+                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#navigationBarCard" aria-expanded="true" aria-controls="navigationBarCard">
+                    Navigation bar and it's options ▼
+                  </button>
+                </p>
+              </div>
+              <div id="navigationBarCard" class="collapse" aria-labelledby="navigationBar" data-parent="#accordion">
+                <div class="card-body">
+                  The navigation bar has multiple options which allows you to control and manipulate the information that will be visualized in the eFP-Seq Browser.
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Gene name/AGI ID</span>
+                  <br><br>
+                  The first option is choosing your locus/gene by inserting its related AGI ID. Our autofill option can sometime match protein names with certain genes so if you do not know your desired AGI ID (example AT2G24270), you can search by protein name.
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0001_geneLocusAutofill.png" style="max-width: 100%;">
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Dataset</span>
+                  <br><br>
+                  By default, two public datasets will be available which will be the 113 RNA-seq data sets used by Cheng et al. to reannotate the Arabidopsis genome for the <a href="http://dx.doi.org/10.1111/tpj.13415">Araport 11 build (http://dx.doi.org/10.1111/tpj.13415)</a>, labelled "Araport 11 RNA-seq data" and <a href="http://dx.doi.org/10.1111/tpj.13312">Klepikova et al.’s Development Map (http://dx.doi.org/10.1111/tpj.13312)</a>, labelled "Developmental transcriptome - Klepikova et al".
+                  <br><br>
+                  Once a dataset has been uploaded, a new option will be present called "Uploaded dataset" which will hold the last uploaded dataset to the eFP-Seq Browser. To see how to upload your own files, check out the <a href="#" data-toggle="collapse" data-target="#generateOwnDataCard" aria-expanded="true" aria-controls="generateOwnDataCard" id="visualizeOpen">"Visualize your own data"</a> help card or <a href="#" data-toggle="collapse" data-target="#xmlParametersCard" aria-expanded="true" aria-controls="xmlParametersCard">"XML Parameters"</a> help card.
+                  <br><br>
+                  There will also be the option store your uploaded datasets onto your account which utilizes Google. Just click the login button on the bottom left to login and whenever you upload a dataset and select it to be uploaded to your private account, it will now be stored to your account. If you wish to delete any XMLs, you can just click the "Manage Account" button. You can learn more on the <a href="#" data-toggle="collapse" data-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">"Manage Person Account"</a> help card.
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0002_selectDataset.png" style="max-width: 100%;">
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">RPKM mode</span>
+                  <br><br>
+                  RPKM (Reads Per Kilobase per Million reads mapped) mode has two options to chose from:
+                  <br><br>
+                  Absolute:
+                  <p style="margin-left: 2%;">Absolute displays the calculated RPKM values for all visualized mapped RNA-Seq datasets. RPKM is calculated and used to normalize the effects of the length of a gene and the size of the cDNA library. By computing these values, the number of reads mapped are normalized to the length of the gene in kilobases and to the number of reads mapped in the entire experiment in mega bases.</p>
+                  Relative:
+                  <p style="margin-left: 2%;">Relative displays the log2 of the RPKM compared against its average. In relative mode, the RPKM values of the appropriate control experiment or experiments are used to compute the fold-change in expression (increase or decrease) of the gene in question in that sample (row) relative to the control (if no control is apparent, we use the average expression level for that gene across all samples in an experiment). Relative attempts to display all RPKM values between a scale of -5.0 to +5.0.</p>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0003_selectOptions.png" style="max-width: 100%;">
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Y-axis scale</span>
+                  <br><br>
+                  The "Y-axis Scale" input option changes maximum displayed y-axis for the mapped RNA-Seq information. Default is set to auto which will have each individually mapped image have their own y-axis set to its own maximum while if a manually input value is inserted, then all images will have that maximum input.
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0004_yAxisScale.png" style="max-width: 100%;">
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Absolute max</span>
+                  <br><br>
+                  The absolute max value represents what the possible maximum RPKM can be visually represented as within the eFP images.
+                  <br><br>
+                  <div id="loadDataTip" class="HelpNoteDiv">
+                    <p class="HelpNoteTop"> <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
+                    <p class="HelpNoteBottom"> This value automatically changes whenever you click "Load Data". To update this value, simply start typing into the input box AFTER the data has been loaded. </p>
+                  </div>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0005_absoluteMax.png" style="max-width: 100%;">
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Load data</span>
+                  <br><br>
+                  Once all settings have been determined (you can leave some or all to default), you can click "Load Data" to begin to visualize your data on the eFP-Seq Browser.
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0006_loadData.png" style="max-width: 100%;">
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Hide/Open navigation bar</span>
+                  <br><br>
+                  It may be helpful to note that you can hide (and open) the navigation bar by clicking on the menu icon on the top left of the screen.
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0007_hideNav.png" style="max-width: 100%;">
+                </div>
+              </div>
+            </div>
+
+            <div class="card additionalFeatures">
+              <div class="card-header" id="additionalFeatures">
+                <p class="mb-0">
+                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#additionalFeaturesCard" aria-expanded="true" aria-controls="additionalFeaturesCard">
+                    Additional features ▼
+                  </button>
+                </p>
+              </div>
+              <div id="additionalFeaturesCard" class="collapse" aria-labelledby="additionalFeatures" data-parent="#accordion">
+                <div class="card-body">
+                  The eFP-Seq Browser consists of multiple additional features that you may use to enhance your experience. This help card will go over the "eFP Overview" and "Download table as CSV". If you wish to learn more about Account management, see the <a href="#" data-toggle="collapse" data-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">"Manage Person Account"</a> help card or if you wish learn more about visualizing your own data ("Generate Data" and "Upload Data"), please check out the <a href="#" data-toggle="collapse" data-target="#generateOwnDataCard" aria-expanded="true" aria-controls="generateOwnDataCard">"Visualize your own data"</a> help card.
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">eFP Overview</span>
+                  <br><br>
+                  The eFP Overview is a feature that allows you to see a visual table of all the coloured eFP images for the visualized data. This information will be responsive to any filtered changes made to the RNA-Seq table.
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0008_eFPOverviewGeneral.png" style="max-width: 100%;">
+                  <br><br>
+                  At the top of each eFP Overview modal displays the following information:
+                  <br><br>
+                  <table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3;">
+                    <tr>
+                      <td> AGI-ID Link </td>
+                      <td> This links to a Arabidopsis.org page for more information about the locus that has been queried for </td>
+                    </tr>
+                    <tr>
+                      <td> eFP Colour Scale </td>
+                      <td> Show what the colours of each image represent </td>
+                    </tr>
+                    <tr>
+                      <td> Min and Max RPKM </td>
+                      <td> Minimum and maximum possible RPKM for the chosen <a href="#" data-toggle="collapse" data-target="#navigationBarCard" aria-expanded="true" aria-controls="navigationBarCard">RPKM mode</a> </td>
+                    </tr>
+                  </table>
+                  <br>
+                  Hovering over each individual eFP image also gives the title for the relevant eFP.
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0009_eFPOverviewHover.png" style="max-width: 100%;">
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Download table as CSV</span>
+                  <br><br>
+                  This feature allows you to download the current RNA-Seq table as a CSV file which can be opened with Microsoft Excel and Google Sheets. The CSV consists of the following columns:
+                  <br><br>
+                  <table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3;">
+                    <tr>
+                      <th> Column name </th>
+                      <th> Column description </th>
+                    </tr>
+                    <tr>
+                      <td> Title </td>
+                      <td> The given title for each individual BAM entry/file </td>
+                    </tr>
+                    <tr>
+                      <td> Record Number </td>
+                      <td> The SRA/SRR record number/identifier for the individual BAM entry/file </td>
+                    </tr>
+                    <tr>
+                      <td> Tissue </td>
+                      <td> The tissue the data in the BAM entry/file corresponds to (for a list of readable names in the eFP-Seq Browser, please see the <a href="#" data-toggle="collapse" data-target="#xmlParametersCard" aria-expanded="true" aria-controls="xmlParametersCard">"XML Parameters"</a> help card) </td>
+                    </tr>
+                    <tr>
+                      <td> Tissue subunit </td>
+                      <td> The subunit of the selected tissue the data in the BAM entry/file corresponds to (for a list of readable names in the eFP-Seq Browser, please see the <a href="#" data-toggle="collapse" data-target="#xmlParametersCard" aria-expanded="true" aria-controls="xmlParametersCard">"XML Parameters"</a> help card) </td>
+                    </tr>
+                    <tr>
+                      <td> Locus </td>
+                      <td> The gene region that is being queried </td>
+                    </tr>
+                    <tr>
+                      <td> bp Length </td>
+                      <td> The basepair length of the queried locus in the BAM entry/file </td>
+                    </tr>
+                    <tr>
+                      <td> bp Start site </td>
+                      <td> The basepair start location of the queried locus in the BAM entry/file </td>
+                    </tr>
+                    <tr>
+                      <td> bp End site </td>
+                      <td> The basepair end location of the queried locus in the BAM entry/file </td>
+                    </tr>
+                    <tr>
+                      <td> Total number of reads </td>
+                      <td> The total number of reads in the BAM entry/file. A read refers to a sequence of base pair(s) corresponding to all or part of a nucleotide fragment </td>
+                    </tr>
+                    <tr>
+                      <td> Reads mapped to locus </td>
+                      <td> The reads mapped to the locus for the BAM entry/file. A read refers to a sequence of base pair(s) corresponding to all or part of a nucleotide fragment </td>
+                    </tr>
+                    <tr>
+                      <td> PCC </td>
+                      <td> The Pearson Correlation Coefficient value. This value is used to determine similarity of the splice variant selected where the closer the value is to 1 shows similarity and 0 shows no similarity </td>
+                    </tr>
+                    <tr>
+                      <td> RPKM </td>
+                      <td> The RPKM value for the chosen <a href="#" data-toggle="collapse" data-target="#navigationBarCard" aria-expanded="true" aria-controls="navigationBarCard">RPKM mode</a> </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="card generateOwnData">
+              <div class="card-header" id="generateOwnData">
+                <p class="mb-0">
+                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#generateOwnDataCard" aria-expanded="true" aria-controls="generateOwnDataCard">
+                    Visualize your own data ▼
+                  </button>
+                </p>
+              </div>
+              <div id="generateOwnDataCard" class="collapse" aria-labelledby="generateOwnData" data-parent="#accordion">
+                <div class="card-body">
+                  To visualize your own data, there is two options to do this. If you have a BAM file but have not yet generated an readable XML file, select the "Generate Data" option. If you have already generated a readable XML file, you can directly upload these XML files by selecting the "Upload Data" option. You can enchance these options storing your visualized data onto your private account (see more in the <a href="#" data-toggle="collapse" data-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">"Manage Person Account"</a> help card)
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Generate Data</span>
+                  <br><br>
+                  This opens a form to fill which generates a XML which is readable by the eFP-Seq Browser to visualize your data. Any field with an asterisk at the end of it are mandatory to be field to visualize your data (without it, the eFP-Seq Browser cannot visualize your data).
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0010_GenerateData.png" style="max-width: 100%;">
+                  <br><br>
+                  The following table describes what each field requires:
+                  <table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3;">
+                    <tr>
+                      <th> Form Label </th>
+                      <th> Form Input Description </th>
+                    </tr>
+                    <tr>
+                      <td> Dataset Title </td>
+                      <td> REQUIRED* The title of your entire dataset. This will be displayed on the navigation bar in the dataset dropdown option if you chose to store this dataset to your private account </td>
+                    </tr>
+                    <tr>
+                      <td> Author(s) </td>
+                      <td> REQUIRED* You and/or any other authors that contributed to the dataset </td>
+                    </tr>
+                    <tr>
+                      <td> Contact info </td>
+                      <td> The contact information of the authors </td>
+                    </tr>
+                    <tr>
+                      <td> Title </td>
+                      <td> REQUIRED* The given title for each individual BAM entry/file. It is recommended that this entry is kept short </td>
+                    </tr>
+                    <tr>
+                      <td> Description </td>
+                      <td> REQUIRED* A written description of each individual BAM entry/file </td>
+                    </tr>
+                    <tr>
+                      <td> Record Number </td>
+                      <td> REQUIRED* The SRA/SRR record number/identifier for the individual BAM entry/file </td>
+                    </tr>
+                    <tr>
+                      <td> RNA-Seq Data/BAM file Repository Link </td>
+                      <td> REQUIRED* A link to your individual RNA-Seq Data/BAM entry/file repository. The eFP-Seq Browser can read BAM files stored on either <a href="https://www.google.com/drive/" target="_blank">Google Drive</a> or <a href="https://aws.amazon.com/s3/" target="_blank">Amazon AWS</a>. Each BAM file must be in its own folder with its BAM index file </td>
+                    </tr>
+                    <tr>
+                      <td> Publicaiton Link </td>
+                      <td> A link to the published research </td>
+                    </tr>
+                    <tr>
+                      <td> Sequence Reach Archive/NCBI Link </td>
+                      <td> If the record number has a website describing it in more detail, that link can be posted here </td>
+                    </tr>
+                    <tr>
+                      <td> Total Reads Mapped </td>
+                      <td> REQUIRED* The total number of reads in the BAM entry/file. A read refers to a sequence of base pair(s) corresponding to all or part of a nucleotide fragment </td>
+                    </tr>
+                    <tr>
+                      <td> Read map method </td>
+                      <td> A description of the method that was used to map the read alignments </td>
+                    </tr>
+                    <tr>
+                      <td> Species </td>
+                      <td> REQUIRED* The organism that your RNA-Seq data is mapped for. Currently, the eFP-Seq Browser only supports <i>Arabidopsis thaliana</i> </td>
+                    </tr>
+                    <tr>
+                      <td> Tissue </td>
+                      <td> REQUIRED* The tissue part that your individual BAM entry/file RNA-Seq data is mapped to. If you do not know what tissue it is mapped to or your species is not <i>Arabidopsis thaliana</i>, it is recommended you select the "Other" option
+                      <br><img class="helpCardImages" src="cgi-bin\img\helpModal\0012_TissueSelect.png" style="max-width: 80%; margin-left: 10%; margin-bottom: 2%;">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td> Controls </td>
+                      <td> The BAM record/experiment number of the controls in your RNA-Seq data. Seperate controls by commas </td>
+                    </tr>
+                    <tr>
+                      <td> Replicate Controls </td>
+                      <td> The BAM record/experiment number of the replicate controls in your RNA-Seq data. Seperate controls by commas </td>
+                    </tr>
+                  </table>
+                  <br>
+                  If you wish to reset the form and return it the default empty form with one entry, you can click on the "Reset Form" button to do that.
+                  <br><br>
+                  If it is easier for you to fill a Excel (XLSX) template (which you can save and continue at any time), you can <a href="http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/Submission_page/bulk_template.xlsx" download>download our Excel template</a> to generate the readable XML and then click the "Upload Excel" button to fill the form out.
+                  <br><br>
+                  For the most part, the Excel template follows the same format as the form with the exception of the hidden field "Tissue subunit*" which in the Excel template, you are going to have to fill manually.
+                  <br><br>
+                  For the column "Tissue subunit*", there is a dropdown of options that correspond with the tissue that you select. Please fill it appropriately with the correct option name from the dropdown. If you do not fill this correctly, this will be defaulted to either "all" or a respective correct tissue subunit.
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0013_bulkTemplate.png" style="max-width: 100%;">
+                  <br><br>
+                  <div id="loadDataTip" class="HelpNoteDiv">
+                    <p class="HelpNoteTop"> <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
+                    <p class="HelpNoteBottom"> For the Excel template, it is recommended for the following columns you do not manually type in your options but rather use the Dropdown option as it will prevent any errors from arising:
+                      <ul>
+                        <li>Repository type*</li>
+                        <li>Species*</li>
+                        <li>Tissue*</li>
+                        <li>Tissue subunit*</li>
+                      </ul>
+
+                    </p>
+                  </div>
+                  To convert the Excel data, copy and paste your fill Excel template into the "Upload Excel" form (in Excel, Select all and then in the eFP-Seq Browser's Upload Excel, Paste), click the "Convert Data" button and let it load. If your Excel data has more than 50 datasets, it may take >5 to convert the data and the eFP-Seq Browser will be unresponsive during this time.
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0011_UploadExcel.png" style="max-width: 100%;">
+                  <br><br>
+                  <div id="loadDataTip" class="HelpNoteDiv">
+                    <p class="HelpNoteTop"> <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
+                    <p class="HelpNoteBottom"> For the Excel converter to work correctly ("Upload Excel"), you need to also insert row 1 of the of the Excel template: <br>
+                      "Title*	Description*	Record Number *	RNA-Seq Data/BAM file repository link*	Repository type*	Publication Link	SRA/NCBI Link	Total Reads Mapped*	Read Map Method	Species*	Tissue*	Tissue subunit*	Controls	Replicate Controls"
+                    </p>
+                  </div>
+                  <br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Upload Data</span>
+                  <br><br>
+                  Once you have an XML generated for your data, you can directly upload it to the eFP-Seq Browser at any time. To do so, click on the "Upload Data" button in the navigation menu on the left side of the eFP-Seq Browser.
+                  <br><br>
+                  If you are logged into your private account, you will be promopted with the option if you want to upload the XML to your private account. If selected "YES", then this XML will be accessiable at anytime you are logged in without the need to upload again.
+                  <br><br>
+                  If you wish to learn more about the XML file and its attributes, you can check out the  <a href="#" data-toggle="collapse" data-target="#xmlParametersCard" aria-expanded="true" aria-controls="xmlParametersCard">"XML Parameters"</a> help card or if you wish to learn more about your private account and how to manage it, you can check the  <a href="#" data-toggle="collapse" data-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">"Manage Personal Account"</a> help card.
+                </div>
+              </div>
+            </div>
+
+            <div class="card xmlParameters">
+              <div class="card-header" id="xmlParameters">
+                <p class="mb-0">
+                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#xmlParametersCard" aria-expanded="true" aria-controls="xmlParametersCard">
+                    XML Parameters ▼
+                  </button>
+                </p>
+              </div>
+              <div id="xmlParametersCard" class="collapse" aria-labelledby="xmlParameters" data-parent="#accordion">
+                <div class="card-body">
+                  The first XML element is the "files" element which consist of the following attributes:
+                  <table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3;">
+                    <tr>
+                      <th> Attribute name </th>
+                      <th> Attribute description </th>
+                    </tr>
+                    <tr>
+                      <td> xmltitle </td>
+                      <td> The title of the entire dataset. This will be displayed on the navigation bar in the dataset dropdown option if uploaded </td>
+                    </tr>
+                    <tr>
+                      <td> author </td>
+                      <td> The author(s) that contributed or created the dataset </td>
+                    </tr>
+                    <tr>
+                      <td> contact </td>
+                      <td> The contact information of the authors </td>
+                    </tr>
+                  </table>
+                  <br>
+                  Following the "files" element, each individual BAM entry/file will consist of its own subelement to "files" called "file". The "file" subelement consists of the following attributes:
+                  <table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3;">
+                    <tr>
+                      <th> Attribute name </th>
+                      <th> Attribute description </th>
+                    </tr>
+                    <tr>
+                      <td> info </td>
+                      <td> A written description of each individual BAM entry/file </td>
+                    </tr>
+                    <tr>
+                      <td> record_number </td>
+                      <td> The SRA/SRR record number/identifier for the individual BAM entry/file </td>
+                    </tr>
+                    <tr>
+                      <td> foreground </td>
+                      <td> Used in opening the visualized data in the IGB viewer. Use this field to define annotation or graph colors in the IGB viewer </td>
+                    </tr>
+                    <tr>
+                      <td> hex_colour </td>
+                      <td> Used to define annotation or mapping colors of the visualized RNA-Seq images </td>
+                    </tr>
+                    <tr>
+                      <td> bam_type </td>
+                      <td> Where the BAM repository is stored. Currently, the only options that exist is "Amazon AWS" and "Google Drive" </td>
+                    </tr>
+                    <tr>
+                      <td> name </td>
+                      <td> A link to each individual RNA-Seq Data/BAM entry/file repository. The eFP-Seq Browser can read BAM files stored on either Google Drive or Amazon AWS. Each BAM file must be in its own folder with its BAM index file </td>
+                    </tr>
+                    <tr>
+                      <td> total_reads_mapped </td>
+                      <td> The total number of reads in the BAM entry/file. A read refers to a sequence of base pair(s) corresponding to all or part of a nucleotide fragment </td>
+                    </tr>
+                    <tr>
+                      <td> read_map_method </td>
+                      <td> A description of the method that was used to map the read alignments </td>
+                    </tr>
+                    <tr>
+                      <td> publication_link </td>
+                      <td> A link to the published research </td>
+                    </tr>
+                    <tr>
+                      <td> svg_subunit </td>
+                      <td> The subunit/part of the tissue that the RNA-Seq mapped alignment correspond with. To find list of the all tissues subunits, please see the "Tissue Selection Options" sheet in our <a href="http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/Submission_page/bulk_template.xlsx" download>Excel template</a> </td>
+                    </tr>
+                    <tr>
+                      <td> svgname </td>
+                      <td> The tissue part that your individual BAM entry/file RNA-Seq data is mapped to. To find list of the all tissues, please see the "Tissue Selection Options" sheet in our <a href="http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/Submission_page/bulk_template.xlsx" download>Excel template</a> </td>
+                    </tr>
+                    <tr>
+                      <td> species </td>
+                      <td> The organism that the RNA-Seq data is mapped to. Currently, the eFP-Seq Browser only supports <i>Arabidopsis thaliana</i> </td>
+                    </tr>
+                    <tr>
+                      <td> description </td>
+                      <td> The given title for each individual BAM entry/file. It is recommended that this entry is kept short </td>
+                    </tr>
+                    <tr>
+                      <td> url </td>
+                      <td> If the record number has a website describing it in more detail, that link can be posted here </td>
+                    </tr>
+                    <tr>
+                      <td> controls & bam_exp </td>
+                      <td> The BAM record/experiment number of the controls in your RNA-Seq data. Seperate by individual <code> &lt;bam_exp&gt; </code></td>
+                    </tr>
+                    <tr>
+                      <td> groupwith & bam_exp </td>
+                      <td> The BAM record/experiment number of the replicate controls in your RNA-Seq data. Seperate by individual <code> &lt;bam_exp&gt; </code></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="card manageAccount">
+              <div class="card-header" id="manageAccount">
+                <p class="mb-0">
+                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">
+                    Manage Personal Account ▼
+                  </button>
+                </p>
+              </div>
+              <div id="manageAccountCard" class="collapse" aria-labelledby="manageAccount" data-parent="#accordion">
+                <div class="card-body">
+                  The private account feature utilizes your Google account. Simply click the blue login button on the button of the navigation bar to login into your eFP-Seq Browser private account.
+                  <br><br>
+                  After logging in, whenever you upload an XML you will be promopted with the option if you want to upload the XML to your private account. If selected "YES", then this XML will be accessiable at anytime you are logged in without the need to upload again.
+                  <br><br>
+                  To manage your account and what XML/datasets are uploaded to your account (or to redownload them), select the "Manage Account" option in the navigation bar. In this modal, you will have the option to download existing XML/datasets or to delete private datasets from your account.
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0014_manageAccount.png" style="max-width: 100%;">
+                  <br><br>
+                  <div id="loadDataTip" class="HelpNoteDiv">
+                    <p class="HelpNoteTop"> <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
+                    <p class="HelpNoteBottom"> If you select any of the public datasets in the "Manage account" option, the ability to delete datasets will be disabled. To delete datasets, make sure public datasets are unchecked.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer modal-footer-colour">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

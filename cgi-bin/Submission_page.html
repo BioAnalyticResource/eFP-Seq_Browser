@@ -97,6 +97,9 @@
         <span class="warning_button" onclick="resetForm()"> Yes </span>
       </div>
 
+      <p> If you need help with this form, you can see the help card for this form by clicking on the bottom below </p>
+      <button type="button" class="btn btn-info" onclick="parent.$('#help_button').click();parent.$('#generateOwnDataCard').collapse('show');">Open Help</button>
+
     </div>
   </header>
 
@@ -116,7 +119,7 @@
             <fieldset id="basic_info">
               <!-- Title of XML file -->
               <div class="forminput row">
-                <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-xml-title">Title <span style="font-weight:bold;">*</span>
+                <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-xml-title">Dataset Title <span style="font-weight:bold;">*</span>
               <span class="sub_tooltip_text">Name/title of your generated data. No special characters allowed except for '-' (dash)</span></label></th>
                 <input class="channelxmltitle col-sm-8 col-xs-8 reqfield input_right" id="reqxml" name="channelxmltitle" type="text" placeholder="Example: Analysis of 113 RNA-Seq Data collected from Experiment 3" data-help-text="xmltitle" />
                 <script>
@@ -5680,13 +5683,13 @@
 
               <!-- Control -->
               <div class="forminput row">
-                <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-controls">Controls<span class="sub_tooltip_text">The BAM exp number of the controls in your RNA-Seq data. Seperate controls by commas.</span></label>
+                <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-controls">Controls<span class="sub_tooltip_text">The BAM record/experiment number of the controls in your RNA-Seq data. Seperate controls by commas.</span></label>
                 <input class="channelcontrols col-sm-8 col-xs-8 input_right" name="channelcontrols" id="controls" placeholder="Seperate controls by commas. Example: ERR274310" type="text" data-help-text="total_controls" />
               </div>
 
               <!-- Replicate control 1 -->
               <div class="forminput row">
-                <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidtho">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1 <span class="sub_tooltip_text">The BAM exp number of the replicate controls in your RNA-Seq data. Seperate controls by commas.</span></label>
+                <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidtho">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1 <span class="sub_tooltip_text">The BAM record/experiment number of the replicate controls in your RNA-Seq data. Seperate controls by commas.</span></label>
                 <input class="channelgroupwidtho col-sm-8 col-xs-8 input_right" name="channelgroupwidtho" id="replicate_controls1" placeholder="Seperate controls by commas. Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth" />
               </div>
             </fieldset>
@@ -5756,7 +5759,7 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive">
-              <p> Once you have filled the Excel template with the data you wish to upload, copy and paste all the content in your "Fill Data" Excel sheet into the box below. </p>
+              <p> Once you have filled the Excel template with the data you wish to upload, copy and paste all the content in your "Fill Data" Excel sheet into the box below. If you have not yet downloaded the Excel template, you can download it by clicking <a href="http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/Submission_page/bulk_template.xlsx" download>here</a> </p>
               <p> Please note, if you fill cells outside of the designated areas on the Excel sheet, it may cause an error to occur when generating your data.</p>
               <input class="settingsElement input_right" type="checkbox" name="" value="" id="headersProvidedCB" checked="" hidden>
               <div id='converter' style="width: 100%;">
