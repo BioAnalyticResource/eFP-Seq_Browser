@@ -224,15 +224,18 @@
                         reader.readAsDataURL($(this)[0].files[i]);
                         progress_percent = 0;
                         generate_loading_screen();
-                        count_bam_num();
+                        setTimeout( function() {
+                          count_bam_num(); 
+                        }, 250)
                       }
-                    } else {
+                    } 
+                    else {
                       alert("This browser does not support FileReader. Please use an updated version of Internet Explorer, Google Chrome, Mozilla Firefox, that Apple one and the other one");
                     }
-                  } else {
+                  } 
+                  else {
                     alert("Insert valid XML only");
                   }
-                  //count_bam_num();
                   update_all_images(0);
                   //setTimeout(function(){ populate_table(0); }, 3000);
                   if (add_usersFileID == true) {

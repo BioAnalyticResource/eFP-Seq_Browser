@@ -176,6 +176,7 @@ function CloneSection() {
   $(".change_id_tissue_subunit").last().attr("id", new_tissue_subunit);
   $(".change_id_tissue").last().attr("id", new_tissue);
   $(".change_svg").last().attr("id", new_svg);
+  $(".change_forgroundcolor").last().attr("id", new_foregroundID);
   $(".change_hexcolor").last().attr("id", new_hexID);
   $(".tissueInput").last().attr("id", tissueInput);
   $(".tissue_table").last().attr("id", "tissueTable_" + tissueInput);
@@ -633,58 +634,94 @@ function determine_hexcode(which_svg, svg_subunit) {
     return "0x98FF00";
   } else if (which_svg == "ath-10dayOldSeedling.svg" && svg_subunit == "10_Day_old_Seedling_roots") {
     return "0xCCCC97";
-  } else if (which_svg == "ath-15dayOldSeedling.svg") { // TODO: Add hex_color
-    return "0x64cc65";
+  } else if (which_svg == "ath-15dayOldSeedling.svg" && svg_subunit == "15_Day_old_Seedling_roots") { 
+    return "0xbd7740";
+  } else if (which_svg == "ath-15dayOldSeedling.svg") { 
+    return "0xbd7740";
   } else if (which_svg == "ath-etiolatedSeedling.svg") {
+    return "0xCCCC97";
+  } else if (which_svg == "ath-Flower.svg" && svg_subunit == "Flower_receptacle") {
+    return "0xcaff00";
+  } else if (which_svg == "ath-Flower.svg" && svg_subunit == "Flower") {
     return "0xCCCC97";
   } else if (which_svg == "ath-Flower.svg") {
     return "0xCCFF00";
+  } else if (which_svg == "ath-FlowerParts.svg" && svg_subunit == "Flowers_carpel") {
+    return "0xe7ff65";
+  } else if (which_svg == "ath-FlowerParts.svg" && svg_subunit == "Flowers_petals") {
+    return "0xffff00";
+  } else if (which_svg == "ath-FlowerParts.svg" && svg_subunit == "Flowers_sepals") {
+    return "0xcaff00";
   } else if (which_svg == "ath-FlowerParts.svg") {
-    return "0xFFFF00";
+    return "0xffff00";
   } else if (which_svg == "ath-GerminatingSeed.svg") { // TODO: Add hex_color
-    return "0x64cc65";
-  } else if (which_svg == "ath-Internode.svg") { // TODO: Add hex_color
-    return "0x64cc65";
+    return "0xf77700";
+  } else if (which_svg == "ath-Internode.svg") {
+    return "0x99ccff";
   } else if (which_svg == "ath-leaf.svg") {
     return "0x64CC65";
-  } else if (which_svg == "ath-LeafParts.svg") { // TODO: Add hex_color
-    return "0x64cc65";
+  } else if (which_svg == "ath-LeafParts.svg" && svg_subunit == "Leaf_lamina") {
+    return "0x65cc66";
+  } else if (which_svg == "ath-LeafParts.svg" && svg_subunit == "Leaf_petiole") {
+    return "0x00cbff";
+  } else if (which_svg == "ath-LeafParts.svg" && svg_subunit == "Leaf_veins") {
+    return "0x007eff";
+  } else if (which_svg == "ath-LeafParts.svg") {
+    return "0x65cc66";
   } else if (which_svg == "ath-Pollen.svg") {
     return "0xFF0000";
   } else if (which_svg == "ath-RootTip.svg") {
     return "0xBD7740";
   } else if (which_svg == "ath-rosettePlusRoot.svg") { // TODO: Add hex_color
     return "0x64cc65";
-  } else if (which_svg == "ath-SeedStage1-4.svg") { // TODO: Add hex_color
-    return "0x64cc65";
-  } else if (which_svg == "ath-SeedStage5-7.svg") { // TODO: Add hex_color
-    return "0x64cc65";
-  } else if (which_svg == "ath-SeedStage8+.svg") { // TODO: Add hex_color
-    return "0x64cc65";
+  } else if (which_svg == "ath-SeedStage1-4.svg") {
+    return "0xfe9900";
+  } else if (which_svg == "ath-SeedStage5-7.svg") { 
+    return "0xfecc00";
+  } else if (which_svg == "ath-SeedStage8+.svg") {
+    return "0xf77700";
   } else if (which_svg == "ath-SenescentLeaf.svg") { // TODO: Add hex_color
     return "0x64cc65";
   } else if (which_svg == "ath-ShootApexInflorescense.svg") {
-    return "0x999999";
+    return "0x979999";
   } else if (which_svg == "ath-ShootApexVegetative-Transition.svg") { // TODO: Add hex_color
     return "0x64cc65";
-  } else if (which_svg == "ath-SiliqueStage1-5.svg") { // TODO: Add hex_color
-    return "0x64cc65";
-  } else if (which_svg == "ath-SiliqueStage6-10.svg") { // TODO: Add hex_color
-    return "0x64cc65";
+  } else if (which_svg == "ath-SiliqueStage1-5.svg") { 
+    return "0x937326";
+  } else if (which_svg == "ath-SiliqueStage6-10.svg") { 
+    return "0x818211";
   } else if (which_svg == "ath-Stage1-4Leaf.svg") { // TODO: Add hex_color
     return "0x64cc65";
-  } else if (which_svg == "ath-Stage1Flowers.svg") { // TODO: Add hex_color
-    return "0x64cc65";
+  } else if (which_svg == "ath-Stage1Flowers.svg") {
+    return "0xffffcc";
   } else if (which_svg == "ath-Stage12Bud.svg") {
     return "0xFFFF65";
-  } else if (which_svg == "ath-Stamen.svg") { // TODO: Add hex_color
-    return "0x64cc65";
+  } else if (which_svg == "ath-Stamen.svg" && svg_subunit == "Stamen_anthers") {
+    return "0xff5d5d";
+  } else if (which_svg == "ath-Stamen.svg" && svg_subunit == "Stamen_filament") {
+    return "0xcaff00";
+  } else if (which_svg == "ath-Stamen.svg") { 
+    return "0xff5d5d";
+  } else if (which_svg == "ath-StigmaAndOvaries.svg" && svg_subunit == "Ovaries") {
+    return "0xccff65";
+  } else if (which_svg == "ath-StigmaAndOvaries.svg" && svg_subunit == "Stigma") {
+    return "0xcaff00";
   } else if (which_svg == "ath-StigmaAndOvaries.svg") { // TODO: Add hex_color
-    return "0x64cc65";
-  } else if (which_svg == "ath-WholeSilique.svg") { // TODO: Add hex_color
-    return "0x64cc65";
-  } else if (which_svg == "ath-youngSeedling.svg") { // TODO: Add hex_color
-    return "0x64cc65";
+    return "0xccff65";
+  } else if (which_svg == "ath-WholeSilique.svg" && svg_subunit == "Whole_Silique_silique") { 
+    return "0xb2b42a";
+  } else if (which_svg == "ath-WholeSilique.svg" && svg_subunit == "Whole_Silique_seed") { 
+    return "0xf77700";
+  } else if (which_svg == "ath-WholeSilique.svg") { 
+    return "0x929326";
+  } else if (which_svg == "ath-youngSeedling.svg" && svg_subunit == "young_Seedling_cotyledon") { 
+    return "0x99ff00";
+  } else if (which_svg == "ath-youngSeedling.svg" && svg_subunit == "young_Seedling_hypocotyl") { 
+    return "0xcccc98";
+  } else if (which_svg == "ath-youngSeedling.svg" && svg_subunit == "young_Seedling_root") { 
+    return "0xc38c60";
+  } else if (which_svg == "ath-youngSeedling.svg") { 
+    return "0x99ff00";
   } else if (which_svg == "ath-Other.svg") { // TODO: Add hex_color
     return "0x64cc65";
   }
