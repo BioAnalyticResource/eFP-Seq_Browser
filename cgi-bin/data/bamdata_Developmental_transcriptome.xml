@@ -10,7 +10,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SL.sn2, Whole senescent silique 2. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581898" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581898/accepted_hits.bam" total_reads_mapped="29689795" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage1-5.svg" description="Arabidopsis thaliana Senescent silique 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581898" species="Arabidopsis thaliana">
+		<file info="SL.sn2, Whole senescent silique 2. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581898" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581898/accepted_hits.bam" total_reads_mapped="29689795" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Silique1-5.svg" description="Arabidopsis thaliana Senescent silique 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581898" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -64,7 +64,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.d, Dry seeds." record_number="SRR3581892" foreground="F77700" hex_colour="0xf77700" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581892/accepted_hits.bam" total_reads_mapped="29214380" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage8+.svg" description="Arabidopsis thaliana Dry Seeds" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581892" species="Arabidopsis thaliana">
+		<file info="SD.d, Dry seeds." record_number="SRR3581892" foreground="F77700" hex_colour="0xf77700" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581892/accepted_hits.bam" total_reads_mapped="29214380" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed8+.svg" description="Arabidopsis thaliana Dry Seeds" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581892" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -100,7 +100,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y5, Seeds from silique 5. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581888" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581888/accepted_hits.bam" total_reads_mapped="29762134" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage8+.svg" description="Arabidopsis thaliana Young seeds 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581888" species="Arabidopsis thaliana">
+		<file info="SD.y5, Seeds from silique 5. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581888" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581888/accepted_hits.bam" total_reads_mapped="29762134" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed1-4.svg" description="Arabidopsis thaliana Young seeds 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581888" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -109,7 +109,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y4, Seeds from silique 4. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581887" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581887/accepted_hits.bam" total_reads_mapped="33129392" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Young seeds 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581887" species="Arabidopsis thaliana">
+		<file info="SD.y4, Seeds from silique 4. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581887" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581887/accepted_hits.bam" total_reads_mapped="33129392" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed5-7.svg" description="Arabidopsis thaliana Young seeds 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581887" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -118,7 +118,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y3, Seeds from silique 3. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581886" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581886/accepted_hits.bam" total_reads_mapped="30341679" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Young seeds 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581886" species="Arabidopsis thaliana">
+		<file info="SD.y3, Seeds from silique 3. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581886" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581886/accepted_hits.bam" total_reads_mapped="30341679" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed5-7.svg" description="Arabidopsis thaliana Young seeds 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581886" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -127,7 +127,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y2, Seeds from silique 2. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581885" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581885/accepted_hits.bam" total_reads_mapped="26955427" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage1-4.svg" description="Arabidopsis thaliana Young seeds 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581885" species="Arabidopsis thaliana">
+		<file info="SD.y2, Seeds from silique 2. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581885" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581885/accepted_hits.bam" total_reads_mapped="26955427" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed8+.svg" description="Arabidopsis thaliana Young seeds 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581885" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -136,7 +136,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y1, Seeds from silique 1. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581884" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581884/accepted_hits.bam" total_reads_mapped="30225753" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage1-4.svg" description="Arabidopsis thaliana Young seeds 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581884" species="Arabidopsis thaliana">
+		<file info="SD.y1, Seeds from silique 1. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581884" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581884/accepted_hits.bam" total_reads_mapped="30225753" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed8+.svg" description="Arabidopsis thaliana Young seeds 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581884" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -145,7 +145,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SL8, Whole silique 8. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581883" foreground="818211" hex_colour="0x818211" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581883/accepted_hits.bam" total_reads_mapped="38698058" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage6-10.svg" description="Arabidopsis thaliana Silique 8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581883" species="Arabidopsis thaliana">
+		<file info="SL8, Whole silique 8. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581883" foreground="818211" hex_colour="0x818211" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581883/accepted_hits.bam" total_reads_mapped="38698058" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Silique6-10.svg" description="Arabidopsis thaliana Silique 8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581883" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -163,7 +163,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD7, Seeds from silique 7. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581881" foreground="FECC00" hex_colour="0xfecc00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581881/accepted_hits.bam" total_reads_mapped="38275954" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Seeds 7" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581881" species="Arabidopsis thaliana">
+		<file info="SD7, Seeds from silique 7. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581881" foreground="FECC00" hex_colour="0xfecc00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581881/accepted_hits.bam" total_reads_mapped="38275954" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed1-4.svg" description="Arabidopsis thaliana Seeds 7" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581881" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -172,7 +172,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SL6, Whole silique 6. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581880" foreground="818211" hex_colour="0x818211" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581880/accepted_hits.bam" total_reads_mapped="38010189" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage6-10.svg" description="Arabidopsis thaliana Silique 6" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581880" species="Arabidopsis thaliana">
+		<file info="SL6, Whole silique 6. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581880" foreground="818211" hex_colour="0x818211" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581880/accepted_hits.bam" total_reads_mapped="38010189" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Silique6-10.svg" description="Arabidopsis thaliana Silique 6" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581880" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -190,7 +190,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD5, Seeds from silique 5. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581878" foreground="FECC00" hex_colour="0xfecc00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581878/accepted_hits.bam" total_reads_mapped="38831601" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Seeds 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581878" species="Arabidopsis thaliana">
+		<file info="SD5, Seeds from silique 5. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581878" foreground="FECC00" hex_colour="0xfecc00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581878/accepted_hits.bam" total_reads_mapped="38831601" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed5-7.svg" description="Arabidopsis thaliana Seeds 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581878" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -199,7 +199,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SL4, Whole silique 4. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581877" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581877/accepted_hits.bam" total_reads_mapped="32824962" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage1-5.svg" description="Arabidopsis thaliana Silique 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581877" species="Arabidopsis thaliana">
+		<file info="SL4, Whole silique 4. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581877" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581877/accepted_hits.bam" total_reads_mapped="32824962" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Silique1-5.svg" description="Arabidopsis thaliana Silique 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581877" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -217,7 +217,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD3, Seeds from silique 3. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581875" foreground="FE9900" hex_colour="0xfe9900" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581875/accepted_hits.bam" total_reads_mapped="54542475" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Seeds 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581875" species="Arabidopsis thaliana">
+		<file info="SD3, Seeds from silique 3. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581875" foreground="FE9900" hex_colour="0xfe9900" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581875/accepted_hits.bam" total_reads_mapped="54542475" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed5-7.svg" description="Arabidopsis thaliana Seeds 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581875" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -226,7 +226,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SL2, Whole silique 2. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581874" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581874/accepted_hits.bam" total_reads_mapped="42435214" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage1-5.svg" description="Arabidopsis thaliana Silique 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581874" species="Arabidopsis thaliana">
+		<file info="SL2, Whole silique 2. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581874" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581874/accepted_hits.bam" total_reads_mapped="42435214" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Silique1-5.svg" description="Arabidopsis thaliana Silique 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581874" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -244,7 +244,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD1, Seeds from silique 1. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581872" foreground="FE9900" hex_colour="0xfe9900" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581872/accepted_hits.bam" total_reads_mapped="36399923" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage1-4.svg" description="Arabidopsis thaliana Seeds 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581872" species="Arabidopsis thaliana">
+		<file info="SD1, Seeds from silique 1. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581872" foreground="FE9900" hex_colour="0xfe9900" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581872/accepted_hits.bam" total_reads_mapped="36399923" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed8+.svg" description="Arabidopsis thaliana Seeds 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581872" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -280,7 +280,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F19+, Whole inflorescence apex from flower 19 to meristem. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581868" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581868/accepted_hits.bam" total_reads_mapped="26990722" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Stage1Flowers.svg" description="Arabidopsis thaliana Flowers 19 and following" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581868" species="Arabidopsis thaliana">
+		<file info="F19+, Whole inflorescence apex from flower 19 to meristem. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581868" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581868/accepted_hits.bam" total_reads_mapped="26990722" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart19" svgname="ath-FlowerDevelopment19.svg" description="Arabidopsis thaliana Flowers 19 and following" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581868" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -289,7 +289,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F15-18, Whole flowers 15, 16, 17 and 18 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581867" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581867/accepted_hits.bam" total_reads_mapped="23986695" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flowers 15-18" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581867" species="Arabidopsis thaliana">
+		<file info="F15-18, Whole flowers 15, 16, 17 and 18 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581867" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581867/accepted_hits.bam" total_reads_mapped="23986695" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart15" svgname="ath-FlowerDevelopment15-18.svg" description="Arabidopsis thaliana Flowers 15-18" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581867" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -298,7 +298,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F12-14, Whole flowers 12, 13 and 14 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581866" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581866/accepted_hits.bam" total_reads_mapped="26070400" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flowers 12-14" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581866" species="Arabidopsis thaliana">
+		<file info="F12-14, Whole flowers 12, 13 and 14 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581866" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581866/accepted_hits.bam" total_reads_mapped="26070400" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart12" svgname="ath-FlowerDevelopment12-14.svg" description="Arabidopsis thaliana Flowers 12-14" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581866" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -307,7 +307,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F9-11, Whole flowers 9, 10 and 11 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581865" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581865/accepted_hits.bam" total_reads_mapped="27971918" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flowers 9-11" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581865" species="Arabidopsis thaliana">
+		<file info="F9-11, Whole flowers 9, 10 and 11 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581865" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581865/accepted_hits.bam" total_reads_mapped="27971918" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart9" svgname="ath-FlowerDevelopment9-11.svg" description="Arabidopsis thaliana Flowers 9-11" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581865" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -316,7 +316,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F6-8, Whole flowers 6, 7 and 8 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581864" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581864/accepted_hits.bam" total_reads_mapped="23701792" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flowers 6-8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581864" species="Arabidopsis thaliana">
+		<file info="F6-8, Whole flowers 6, 7 and 8 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581864" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581864/accepted_hits.bam" total_reads_mapped="23701792" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart6" svgname="ath-FlowerDevelopment6-8.svg" description="Arabidopsis thaliana Flowers 6-8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581864" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -325,7 +325,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F5, Whole flower 5 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581863" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581863/accepted_hits.bam" total_reads_mapped="27900767" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581863" species="Arabidopsis thaliana">
+		<file info="F5, Whole flower 5 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581863" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581863/accepted_hits.bam" total_reads_mapped="27900767" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart5" svgname="ath-FlowerDevelopment5.svg" description="Arabidopsis thaliana Flower 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581863" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -334,7 +334,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F4, Whole flower 4 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581862" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581862/accepted_hits.bam" total_reads_mapped="25041336" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581862" species="Arabidopsis thaliana">
+		<file info="F4, Whole flower 4 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581862" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581862/accepted_hits.bam" total_reads_mapped="25041336" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart4" svgname="ath-FlowerDevelopment4.svg" description="Arabidopsis thaliana Flower 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581862" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -343,7 +343,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F3, Whole flower 3 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581861" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581861/accepted_hits.bam" total_reads_mapped="26399883" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581861" species="Arabidopsis thaliana">
+		<file info="F3, Whole flower 3 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581861" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581861/accepted_hits.bam" total_reads_mapped="26399883" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart3" svgname="ath-FlowerDevelopment3.svg" description="Arabidopsis thaliana Flower 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581861" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -496,7 +496,7 @@
 			</groupwith>
 		</file>
 
-		<file info="L.PET.lg, Petiole of the third leaf. Sample was collected at the moment of anthesis of the first flower. All leaf samples were taken from the third leaf, if other not indicated. Samples were collected at 5 stages: 7 days after germination (young, ~ 3mm in length), 9 days after germination (intermediate 1, ~ 5 mm in length), 12 days after germination (intermediate 2, ~ 10 mm in length), at the moment of anthesis of the first flower (mature leaf) and at the stage of maturation of seeds in first siliques (senescent leaf)." record_number="SRR3581844" foreground="00CBFF" hex_colour="0x00cbff" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581844/accepted_hits.bam" total_reads_mapped="28802252" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="petiole" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Leaf Petiole of the mature leaf" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581844" species="Arabidopsis thaliana">
+		<file info="L.PET.lg, Petiole of the third leaf. Sample was collected at the moment of anthesis of the first flower. All leaf samples were taken from the third leaf, if other not indicated. Samples were collected at 5 stages: 7 days after germination (young, ~ 3mm in length), 9 days after germination (intermediate 1, ~ 5 mm in length), 12 days after germination (intermediate 2, ~ 10 mm in length), at the moment of anthesis of the first flower (mature leaf) and at the stage of maturation of seeds in first siliques (senescent leaf)." record_number="SRR3581844" foreground="00CBFF" hex_colour="0x00cbff" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581844/accepted_hits.bam" total_reads_mapped="28802252" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="petiole" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Leaf Petiole of the mature leaf" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581844" species="Arabidopsis thaliana"> 
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -631,7 +631,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SL.sn2, Whole senescent silique 2. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581737" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581737/accepted_hits.bam" total_reads_mapped="28049466" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage1-5.svg" description="Arabidopsis thaliana Senescent silique 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581737" species="Arabidopsis thaliana">
+		<file info="SL.sn2, Whole senescent silique 2. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581737" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581737/accepted_hits.bam" total_reads_mapped="28049466" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Silique1-5.svg" description="Arabidopsis thaliana Senescent silique 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581737" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -685,7 +685,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.d, Dry seeds." record_number="SRR3581731" foreground="F77700" hex_colour="0xf77700" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581731/accepted_hits.bam" total_reads_mapped="27928371" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage8+.svg" description="Arabidopsis thaliana Dry Seeds" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581731" species="Arabidopsis thaliana">
+		<file info="SD.d, Dry seeds." record_number="SRR3581731" foreground="F77700" hex_colour="0xf77700" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581731/accepted_hits.bam" total_reads_mapped="27928371" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed8+.svg" description="Arabidopsis thaliana Dry Seeds" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581731" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -721,7 +721,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y5, Seeds from silique 5. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581726" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581726/accepted_hits.bam" total_reads_mapped="28747670" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage8+.svg" description="Arabidopsis thaliana Young seeds 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581726" species="Arabidopsis thaliana">
+		<file info="SD.y5, Seeds from silique 5. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581726" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581726/accepted_hits.bam" total_reads_mapped="28747670" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed1-4.svg" description="Arabidopsis thaliana Young seeds 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581726" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -730,7 +730,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y4, Seeds from silique 4. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581724" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581724/accepted_hits.bam" total_reads_mapped="29434863" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Young seeds 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581724" species="Arabidopsis thaliana">
+		<file info="SD.y4, Seeds from silique 4. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581724" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581724/accepted_hits.bam" total_reads_mapped="29434863" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed5-7.svg" description="Arabidopsis thaliana Young seeds 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581724" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -739,7 +739,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y3, Seeds from silique 3. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581721" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581721/accepted_hits.bam" total_reads_mapped="29406076" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Young seeds 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581721" species="Arabidopsis thaliana">
+		<file info="SD.y3, Seeds from silique 3. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581721" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581721/accepted_hits.bam" total_reads_mapped="29406076" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed5-7.svg" description="Arabidopsis thaliana Young seeds 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581721" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -748,7 +748,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y2, Seeds from silique 2. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581720" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581720/accepted_hits.bam" total_reads_mapped="26245834" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage1-4.svg" description="Arabidopsis thaliana Young seeds 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581720" species="Arabidopsis thaliana">
+		<file info="SD.y2, Seeds from silique 2. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581720" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581720/accepted_hits.bam" total_reads_mapped="26245834" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed8+.svg" description="Arabidopsis thaliana Young seeds 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581720" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -757,7 +757,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.y1, Seeds from silique 1. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581719" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581719/accepted_hits.bam" total_reads_mapped="28130134" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage1-4.svg" description="Arabidopsis thaliana Young seeds 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581719" species="Arabidopsis thaliana">
+		<file info="SD.y1, Seeds from silique 1. All samples of this series were taken at the moment of abscission of the first flower. Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581719" foreground="FFCC98" hex_colour="0xffcc98" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581719/accepted_hits.bam" total_reads_mapped="28130134" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed8+.svg" description="Arabidopsis thaliana Young seeds 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581719" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -766,7 +766,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SL8, Whole silique 8. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581717" foreground="818211" hex_colour="0x818211" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581717/accepted_hits.bam" total_reads_mapped="37123250" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage6-10.svg" description="Arabidopsis thaliana Silique 8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581717" species="Arabidopsis thaliana">
+		<file info="SL8, Whole silique 8. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581717" foreground="818211" hex_colour="0x818211" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581717/accepted_hits.bam" total_reads_mapped="37123250" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Silique6-10.svg" description="Arabidopsis thaliana Silique 8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581717" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -784,7 +784,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD7, Seeds from silique 7. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581715" foreground="FECC00" hex_colour="0xfecc00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581715/accepted_hits.bam" total_reads_mapped="41920138" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Seeds 7" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581715" species="Arabidopsis thaliana">
+		<file info="SD7, Seeds from silique 7. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581715" foreground="FECC00" hex_colour="0xfecc00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581715/accepted_hits.bam" total_reads_mapped="41920138" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed1-4.svg" description="Arabidopsis thaliana Seeds 7" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581715" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -793,7 +793,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SL6, Whole silique 6. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581714" foreground="818211" hex_colour="0x818211" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581714/accepted_hits.bam" total_reads_mapped="33662478" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage6-10.svg" description="Arabidopsis thaliana Silique 6" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581714" species="Arabidopsis thaliana">
+		<file info="SL6, Whole silique 6. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581714" foreground="818211" hex_colour="0x818211" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581714/accepted_hits.bam" total_reads_mapped="33662478" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Silique6-10.svg" description="Arabidopsis thaliana Silique 6" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581714" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -811,7 +811,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD5, Seeds from silique 5. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581712" foreground="FECC00" hex_colour="0xfecc00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581712/accepted_hits.bam" total_reads_mapped="38839939" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Seeds 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581712" species="Arabidopsis thaliana">
+		<file info="SD5, Seeds from silique 5. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581712" foreground="FECC00" hex_colour="0xfecc00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581712/accepted_hits.bam" total_reads_mapped="38839939" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed5-7.svg" description="Arabidopsis thaliana Seeds 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581712" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -820,7 +820,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SL4, Whole silique 4. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581711" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581711/accepted_hits.bam" total_reads_mapped="34617072" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage1-5.svg" description="Arabidopsis thaliana Silique 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581711" species="Arabidopsis thaliana">
+		<file info="SL4, Whole silique 4. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581711" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581711/accepted_hits.bam" total_reads_mapped="34617072" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Silique1-5.svg" description="Arabidopsis thaliana Silique 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581711" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -838,7 +838,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD3, Seeds from silique 3. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581709" foreground="FE9900" hex_colour="0xfe9900" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581709/accepted_hits.bam" total_reads_mapped="35695398" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage5-7.svg" description="Arabidopsis thaliana Seeds 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581709" species="Arabidopsis thaliana">
+		<file info="SD3, Seeds from silique 3. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581709" foreground="FE9900" hex_colour="0xfe9900" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581709/accepted_hits.bam" total_reads_mapped="35695398" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed5-7.svg" description="Arabidopsis thaliana Seeds 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581709" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -847,7 +847,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SL2, Whole silique 2. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581708" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581708/accepted_hits.bam" total_reads_mapped="34942213" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SiliqueStage1-5.svg" description="Arabidopsis thaliana Silique 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581708" species="Arabidopsis thaliana">
+		<file info="SL2, Whole silique 2. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581708" foreground="937326" hex_colour="0x937326" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581708/accepted_hits.bam" total_reads_mapped="34942213" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Silique1-5.svg" description="Arabidopsis thaliana Silique 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581708" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -865,7 +865,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD1, Seeds from silique 1. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581706" foreground="FE9900" hex_colour="0xfe9900" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581706/accepted_hits.bam" total_reads_mapped="39939490" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-SeedStage1-4.svg" description="Arabidopsis thaliana Seeds 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581706" species="Arabidopsis thaliana">
+		<file info="SD1, Seeds from silique 1. All samples of this series were taken at the moment when first silique is 1-1.5 cm long (corresponds to the moment of the abscission of the 8th flower). Before collection, siliques were washed in RNAlater solution in order to remove pollen." record_number="SRR3581706" foreground="FE9900" hex_colour="0xfe9900" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581706/accepted_hits.bam" total_reads_mapped="39939490" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Seed8+.svg" description="Arabidopsis thaliana Seeds 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581706" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -901,7 +901,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F19+, Whole inflorescence apex from flower 19 to meristem. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581702" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581702/accepted_hits.bam" total_reads_mapped="26371932" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-Stage1Flowers.svg" description="Arabidopsis thaliana Flowers 19 and following" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581702" species="Arabidopsis thaliana">
+		<file info="F19+, Whole inflorescence apex from flower 19 to meristem. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581702" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581702/accepted_hits.bam" total_reads_mapped="26371932" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart19" svgname="ath-FlowerDevelopment19.svg" description="Arabidopsis thaliana Flowers 19 and following" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581702" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -910,7 +910,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F15-18, Whole flowers 15, 16, 17 and 18 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581701" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581701/accepted_hits.bam" total_reads_mapped="34895677" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flowers 15-18" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581701" species="Arabidopsis thaliana">
+		<file info="F15-18, Whole flowers 15, 16, 17 and 18 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581701" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581701/accepted_hits.bam" total_reads_mapped="34895677" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart15" svgname="ath-FlowerDevelopment15-18.svg" description="Arabidopsis thaliana Flowers 15-18" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581701" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -919,7 +919,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F12-14, Whole flowers 12, 13 and 14 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581700" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581700/accepted_hits.bam" total_reads_mapped="28062509" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flowers 12-14" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581700" species="Arabidopsis thaliana">
+		<file info="F12-14, Whole flowers 12, 13 and 14 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581700" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581700/accepted_hits.bam" total_reads_mapped="28062509" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart12" svgname="ath-FlowerDevelopment12-14.svg" description="Arabidopsis thaliana Flowers 12-14" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581700" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -928,7 +928,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F9-11, Whole flowers 9, 10 and 11 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581699" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581699/accepted_hits.bam" total_reads_mapped="28100182" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flowers 9-11" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581699" species="Arabidopsis thaliana">
+		<file info="F9-11, Whole flowers 9, 10 and 11 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581699" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581699/accepted_hits.bam" total_reads_mapped="28100182" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart9" svgname="ath-FlowerDevelopment9-11.svg" description="Arabidopsis thaliana Flowers 9-11" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581699" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -937,7 +937,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F6-8, Whole flowers 6, 7 and 8 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581698" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581698/accepted_hits.bam" total_reads_mapped="25183376" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flowers 6-8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581698" species="Arabidopsis thaliana">
+		<file info="F6-8, Whole flowers 6, 7 and 8 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581698" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581698/accepted_hits.bam" total_reads_mapped="25183376" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart6" svgname="ath-FlowerDevelopment6-8.svg" description="Arabidopsis thaliana Flowers 6-8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581698" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -946,7 +946,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F5, Whole flower 5 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581697" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581697/accepted_hits.bam" total_reads_mapped="24981632" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581697" species="Arabidopsis thaliana">
+		<file info="F5, Whole flower 5 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581697" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581697/accepted_hits.bam" total_reads_mapped="24981632" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart5" svgname="ath-FlowerDevelopment5.svg" description="Arabidopsis thaliana Flower 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581697" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -955,7 +955,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F4, Whole flower 4 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581696" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581696/accepted_hits.bam" total_reads_mapped="23550388" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581696" species="Arabidopsis thaliana">
+		<file info="F4, Whole flower 4 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581696" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581696/accepted_hits.bam" total_reads_mapped="23550388" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart4" svgname="ath-FlowerDevelopment4.svg" description="Arabidopsis thaliana Flower 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581696" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -964,7 +964,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F3, Whole flower 3 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581695" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581695/accepted_hits.bam" total_reads_mapped="26802016" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581695" species="Arabidopsis thaliana">
+		<file info="F3, Whole flower 3 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581695" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581695/accepted_hits.bam" total_reads_mapped="26802016" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart3" svgname="ath-FlowerDevelopment3.svg" description="Arabidopsis thaliana Flower 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581695" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>

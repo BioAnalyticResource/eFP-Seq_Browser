@@ -253,7 +253,7 @@
                 <bam_exp>SRR493290</bam_exp>
             </groupwith>
         </file>
-        <file info="stage 12 floral bud, Col-0, GSM764079, SRA: SRS228279" record_number="SRR314815" foreground="FFFF65" hex_colour="0xFFFF65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/flower/SRR314815/accepted_hits.bam" total_reads_mapped="25509908" read_map_method="TopHat" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/21874022" svg_subunit="stage12bud" svgname="ath-Stage12Bud.svg" species="Arabidopsis thaliana" description="stage-12 floral buds from long-day grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR314815">
+        <file info="stage 12 floral bud, Col-0, GSM764079, SRA: SRS228279" record_number="SRR314815" foreground="FFFF65" hex_colour="0xFFFF65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/flower/SRR314815/accepted_hits.bam" total_reads_mapped="25509908" read_map_method="TopHat" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/21874022" svg_subunit="flowerBud" svgname="ath-FlowerBud.svg" species="Arabidopsis thaliana" description="stage-12 floral buds from long-day grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR314815">
             <controls>
                 <bam_exp>MEDIAN</bam_exp>
             </controls>
@@ -266,7 +266,7 @@
                 <bam_exp>SRR314818</bam_exp>
             </groupwith>
         </file>
-        <file info="flowers, GSM1111913, SRA: SRS405938" record_number="SRR800753" foreground="FFFF65" hex_colour="0xFFFF65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/flower/SRR800753/accepted_hits.bam" total_reads_mapped="7506384" read_map_method="TopHat" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/23749190" svg_subunit="stage12bud" svgname="ath-Stage12Bud.svg" species="Arabidopsis thaliana" description="stage-12 floral bud" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR800753">
+        <file info="flowers, GSM1111913, SRA: SRS405938" record_number="SRR800753" foreground="FFFF65" hex_colour="0xFFFF65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/flower/SRR800753/accepted_hits.bam" total_reads_mapped="7506384" read_map_method="TopHat" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/23749190" svg_subunit="flowerBud" svgname="ath-FlowerBud.svg" species="Arabidopsis thaliana" description="stage-12 floral bud" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR800753">
             <controls>
                 <bam_exp>SRR800753</bam_exp>
                 <bam_exp>SRR800754</bam_exp>
@@ -276,7 +276,7 @@
                 <bam_exp>SRR800754</bam_exp>
             </groupwith>
         </file>
-        <file info="flowers, GSM1111914, SRA: SRS405939" record_number="SRR800754" foreground="FFFF65" hex_colour="0xFFFF65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/flower/SRR800754/accepted_hits.bam" total_reads_mapped="7063908" read_map_method="TopHat" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/23749190" svg_subunit="stage12bud" svgname="ath-Stage12Bud.svg" species="Arabidopsis thaliana" description="stage-12 floral bud" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR800754">
+        <file info="flowers, GSM1111914, SRA: SRS405939" record_number="SRR800754" foreground="FFFF65" hex_colour="0xFFFF65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/flower/SRR800754/accepted_hits.bam" total_reads_mapped="7063908" read_map_method="TopHat" publication_link="http://www.ncbi.nlm.nih.gov/pubmed/23749190" svg_subunit="flowerBud" svgname="ath-FlowerBud.svg" species="Arabidopsis thaliana" description="stage-12 floral bud" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR800754">
             <controls>
                 <bam_exp>SRR800753</bam_exp>
                 <bam_exp>SRR800754</bam_exp>

@@ -228,7 +228,7 @@ var colouring_part;
 */
 function colour_part_by_id(id, part, fpkm, mode) {
   var exp_to_colouring_part = [
-    ["ERR274310", "shoot"], ["SRR547531", "shoot"], ["SRR548277", "shoot" ], ["SRR847503", "shoot"], ["SRR847504", "shoot"], ["SRR847505", "shoot"], ["SRR847506", "shoot"], ["SRR1207194", "carpels"], ["SRR1207195", "carpels"], ["SRR1019436", "etiolatedseedling"], ["SRR1019437", "etiolatedseedling"], ["SRR1049784", "shoot"], ["SRR477075", "etiolatedseedling"], ["SRR477076", "etiolatedseedling"], ["SRR493237", "etiolatedseedling"], ["SRR493238", "etiolatedseedling"], ["SRR314815", "stage12bud"], ["SRR800753", "stage12bud"], ["SRR800754", "stage12bud"], ["SRR1105822", "leaf"], ["SRR1105823", "leaf"], ["SRR1159821", "leaf"], ["SRR1159827", "leaf"], ["SRR1159837", "leaf"], ["SRR314813", "leaf"], ["SRR446027", "leaf"], ["SRR446028", "leaf"], ["SRR446033", "leaf"], ["SRR446034", "leaf"], ["SRR446039", "leaf"], ["SRR446040", "leaf"], ["SRR446484", "leaf"], ["SRR446485", "shootapexinflorescence"], ["SRR446486", "leaf"], ["SRR446487", "shootapexinflorescence"], ["SRR493036", "leaf"], ["SRR493097", "leaf"], ["SRR493098", "leaf"], ["SRR493101", "leaf"], ["SRR764885", "leaf"], ["SRR924656", "leaf"], ["SRR934391", "leaf"], ["SRR942022", "leaf"], ["SRR070570", "etiolatedseedling"], ["SRR070571", "etiolatedseedling"], ["SRR1001909", "all"], ["SRR1001910", "all"], ["SRR1019221", "all"], ["SRR345561", "all"], ["SRR345562", "all"], ["SRR346552", "all"], ["SRR346553", "all"], ["SRR394082", "all"], ["SRR504179", "all"], ["SRR504180", "all"], ["SRR504181", "all"], ["SRR515073", "all"], ["SRR515074", "all"], ["SRR527164", "all"], ["SRR527165", "all"], ["SRR584115", "all"], ["SRR584121", "all"], ["SRR584129", "all"], ["SRR584134", "all"], ["SRR653555", "all"], ["SRR653556", "all"], ["SRR653557", "all"], ["SRR653561", "all"], ["SRR653562", "all"], ["SRR653563", "all"], ["SRR653564", "all"], ["SRR653565", "all"], ["SRR653566", "all"], ["SRR653567", "all"], ["SRR653568", "all"], ["SRR653569", "all"], ["SRR653570", "all"], ["SRR653571", "all"], ["SRR653572", "all"], ["SRR653573", "all"], ["SRR653574", "all"], ["SRR653575", "all"], ["SRR653576", "all"], ["SRR653577", "all"], ["SRR653578", "all"], ["SRR797194", "all"], ["SRR797230", "all"], ["SRR833246", "all"], ["SRR847501", "all"], ["SRR847502", "all"], ["SRR1260032", "all"], ["SRR1260033", "all"], ["SRR1261509", "all"], ["SRR401413", "receptacle"], ["SRR401414", "receptacle"], ["SRR401415", "receptacle"], ["SRR401416", "receptacle"], ["SRR401417", "receptacle"], ["SRR401418", "receptacle"], ["SRR401419", "receptacle"], ["SRR401420", "receptacle"], ["SRR401421", "receptacle"], ["ERR274309", "root"], ["SRR1046909", "root"], ["SRR1046910", "root"], ["SRR1524935", "root"], ["SRR1524938", "root"], ["SRR1524940", "root"], ["SRR314814", "root"], ["SRR949956", "all"], ["SRR949965", "all"], ["SRR949988", "all"], ["SRR949989", "all"]
+    ["ERR274310", "shoot"], ["SRR547531", "shoot"], ["SRR548277", "shoot" ], ["SRR847503", "shoot"], ["SRR847504", "shoot"], ["SRR847505", "shoot"], ["SRR847506", "shoot"], ["SRR1207194", "carpels"], ["SRR1207195", "carpels"], ["SRR1019436", "etiolatedseedling"], ["SRR1019437", "etiolatedseedling"], ["SRR1049784", "shoot"], ["SRR477075", "etiolatedseedling"], ["SRR477076", "etiolatedseedling"], ["SRR493237", "etiolatedseedling"], ["SRR493238", "etiolatedseedling"], ["SRR314815", "flowerBud"], ["SRR800753", "flowerBud"], ["SRR800754", "flowerBud"], ["SRR1105822", "leaf"], ["SRR1105823", "leaf"], ["SRR1159821", "leaf"], ["SRR1159827", "leaf"], ["SRR1159837", "leaf"], ["SRR314813", "leaf"], ["SRR446027", "leaf"], ["SRR446028", "leaf"], ["SRR446033", "leaf"], ["SRR446034", "leaf"], ["SRR446039", "leaf"], ["SRR446040", "leaf"], ["SRR446484", "leaf"], ["SRR446485", "shootapexinflorescence"], ["SRR446486", "leaf"], ["SRR446487", "shootapexinflorescence"], ["SRR493036", "leaf"], ["SRR493097", "leaf"], ["SRR493098", "leaf"], ["SRR493101", "leaf"], ["SRR764885", "leaf"], ["SRR924656", "leaf"], ["SRR934391", "leaf"], ["SRR942022", "leaf"], ["SRR070570", "etiolatedseedling"], ["SRR070571", "etiolatedseedling"], ["SRR1001909", "all"], ["SRR1001910", "all"], ["SRR1019221", "all"], ["SRR345561", "all"], ["SRR345562", "all"], ["SRR346552", "all"], ["SRR346553", "all"], ["SRR394082", "all"], ["SRR504179", "all"], ["SRR504180", "all"], ["SRR504181", "all"], ["SRR515073", "all"], ["SRR515074", "all"], ["SRR527164", "all"], ["SRR527165", "all"], ["SRR584115", "all"], ["SRR584121", "all"], ["SRR584129", "all"], ["SRR584134", "all"], ["SRR653555", "all"], ["SRR653556", "all"], ["SRR653557", "all"], ["SRR653561", "all"], ["SRR653562", "all"], ["SRR653563", "all"], ["SRR653564", "all"], ["SRR653565", "all"], ["SRR653566", "all"], ["SRR653567", "all"], ["SRR653568", "all"], ["SRR653569", "all"], ["SRR653570", "all"], ["SRR653571", "all"], ["SRR653572", "all"], ["SRR653573", "all"], ["SRR653574", "all"], ["SRR653575", "all"], ["SRR653576", "all"], ["SRR653577", "all"], ["SRR653578", "all"], ["SRR797194", "all"], ["SRR797230", "all"], ["SRR833246", "all"], ["SRR847501", "all"], ["SRR847502", "all"], ["SRR1260032", "all"], ["SRR1260033", "all"], ["SRR1261509", "all"], ["SRR401413", "receptacle"], ["SRR401414", "receptacle"], ["SRR401415", "receptacle"], ["SRR401416", "receptacle"], ["SRR401417", "receptacle"], ["SRR401418", "receptacle"], ["SRR401419", "receptacle"], ["SRR401420", "receptacle"], ["SRR401421", "receptacle"], ["ERR274309", "root"], ["SRR1046909", "root"], ["SRR1046910", "root"], ["SRR1524935", "root"], ["SRR1524938", "root"], ["SRR1524940", "root"], ["SRR314814", "root"], ["SRR949956", "all"], ["SRR949965", "all"], ["SRR949988", "all"], ["SRR949989", "all"]
   ];
   colouring_part = "all";
   for (var i = 0; i < svg_part_list.length; i++) {
@@ -800,7 +800,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg == "ath-SeedStage1-4.svg") {
+  else if (svg == "ath-Seed1-4.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -808,7 +808,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg == "ath-SeedStage5-7.svg") {
+  else if (svg == "ath-Seed5-7.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -816,7 +816,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg == "ath-SeedStage8+.svg") {
+  else if (svg == "ath-Seed8+.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -848,7 +848,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg == "ath-SiliqueStage1-5.svg") {
+  else if (svg == "ath-Silique1-5.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -856,7 +856,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg == "ath-SiliqueStage6-10.svg") {
+  else if (svg == "ath-Silique6-10.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -864,7 +864,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg == "ath-Stage1-4Leaf.svg") {
+  else if (svg == "ath-YoungLeaf1-4.svg") {
     if (subunit != "all") {
       return "all";
     }
@@ -872,7 +872,7 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg == "ath-Stage1Flowers.svg") {
+  else if (svg == "ath-EarlyBuddingFlower.svg") {
     if (subunit != "all" && subunit != "shoot" && subunit != "buds") {
       return "all";
     }
@@ -880,9 +880,9 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-  else if (svg == "ath-Stage12Bud.svg") {
-    if (subunit != "stage12bud") {
-      return "stage12bud";
+  else if (svg == "ath-FlowerBud.svg") {
+    if (subunit != "flowerBud") {
+      return "flowerBud";
     }
     else {
       return subunit
@@ -906,7 +906,7 @@ function checkSubunit(svg, subunit) {
   }
   else if (svg == "ath-WholeSilique.svg") {
     if (subunit != "all" && subunit != "silique" && subunit != "seed") {
-      return "all";
+      return "silique";
     }
     else {
       return subunit
@@ -920,6 +920,86 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
+  else if (svg == "ath-FlowerDevelopment1.svg") {
+    if (subunit != "flowerDevelopmentPart1") {
+      return "flowerDevelopmentPart1";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg == "ath-FlowerDevelopment2.svg") {
+    if (subunit != "flowerDevelopmentPart2") {
+      return "flowerDevelopmentPart2";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg == "ath-FlowerDevelopment3.svg") {
+    if (subunit != "flowerDevelopmentPart3") {
+      return "flowerDevelopmentPart3";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg == "ath-FlowerDevelopment4.svg") {
+    if (subunit != "flowerDevelopmentPart4") {
+      return "flowerDevelopmentPart4";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg == "ath-FlowerDevelopment5.svg") {
+    if (subunit != "flowerDevelopmentPart5") {
+      return "flowerDevelopmentPart5";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg == "ath-FlowerDevelopment6-8.svg") {
+    if (subunit != "flowerDevelopmentPart6") {
+      return "flowerDevelopmentPart6";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg == "ath-FlowerDevelopment9-11.svg") {
+    if (subunit != "flowerDevelopmentPart9") {
+      return "flowerDevelopmentPart9";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg == "ath-FlowerDevelopment12-14.svg") {
+    if (subunit != "flowerDevelopmentPart12") {
+      return "flowerDevelopmentPart12";
+    }
+    else {
+      return subunit
+    }
+  }
+  else if (svg == "ath-FlowerDevelopment15-18.svg") {
+    if (subunit != "flowerDevelopmentPart15") {
+      return "flowerDevelopmentPart15";
+    }
+    else {
+      return subunit
+    }
+  }  
+  else if (svg == "ath-FlowerDevelopment19.svg") {
+    if (subunit != "flowerDevelopmentPart19") {
+      return "flowerDevelopmentPart19";
+    }
+    else {
+      return subunit
+    }
+  }  
   else if (svg == "ath-Other.svg") {
     if (subunit != "all") {
       return "all";
