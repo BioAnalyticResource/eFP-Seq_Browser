@@ -549,6 +549,7 @@ var bp_length_dic = {};
 var bp_start_dic = {};
 var bp_end_dic = {};
 var mapped_reads_dic = {};
+var totalreadsMapped_dic = {};
 var locus_dic = {};
 /**
 * Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function
@@ -591,6 +592,7 @@ function rnaseq_images(status) {
           bp_start_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['start']));
           bp_end_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['end']));
           mapped_reads_dic[response_rnaseq['record']] = response_rnaseq['reads_mapped_to_locus'];
+          totalreadsMapped_dic[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];
           locus_dic[response_rnaseq['record']] = response_rnaseq['locus'];
           if (locus != response_rnaseq['locus']) {
             console.log("ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.");
@@ -1110,10 +1112,11 @@ function populate_table(status) {
         var url = $(this).attr('url');
         var publicationid = $(this).attr('publication_link');
         var numberofreads = $(this).attr('total_reads_mapped');
-        if (numberofreads == null || numberofreads == "") {
-          numberofreads_list.push("1")
+        if (numberofreads == null || numberofreads == "" || numberofreads == "0") {
+          numberofreads = totalreadsMapped_dic[experimentno];
+          numberofreads_list.push(numberofreads);
         } else {
-          numberofreads_list.push(numberofreads)
+          numberofreads_list.push(numberofreads);
         }
         if ($(this).attr('hex_colour') == null || $(this).attr('hex_colour') == "") {
           hexcode_list.push('0x64cc65')

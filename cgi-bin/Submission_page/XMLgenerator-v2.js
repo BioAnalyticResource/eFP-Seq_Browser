@@ -670,7 +670,7 @@ function determine_hexcode(which_svg, svg_subunit) {
     return "0xcaff00";
   } else if (which_svg == "ath-FlowerParts.svg") {
     return "0xffff00";
-  } else if (which_svg == "ath-GerminatingSeed.svg") { // TODO: Add hex_color
+  } else if (which_svg == "ath-GerminatingSeed.svg") {
     return "0xf77700";
   } else if (which_svg == "ath-Internode.svg") {
     return "0x99ccff";
@@ -722,8 +722,6 @@ function determine_hexcode(which_svg, svg_subunit) {
     return "0xccff65";
   } else if (which_svg == "ath-StigmaAndOvaries.svg" && svg_subunit == "Stigma") {
     return "0xcaff00";
-  } else if (which_svg == "ath-StigmaAndOvaries.svg") { // TODO: Add hex_color
-    return "0xccff65";
   } else if (which_svg == "ath-WholeSilique.svg" && svg_subunit == "Whole_Silique_silique") { 
     return "0xb2b42a";
   } else if (which_svg == "ath-WholeSilique.svg") { 
