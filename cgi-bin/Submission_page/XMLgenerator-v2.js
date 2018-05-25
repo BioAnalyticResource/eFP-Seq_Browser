@@ -665,11 +665,11 @@ function determine_hexcode(which_svg, svg_subunit) {
   } else if (which_svg == "ath-FlowerParts.svg" && svg_subunit == "Flowers_carpel") {
     return "0xe7ff65";
   } else if (which_svg == "ath-FlowerParts.svg" && svg_subunit == "Flowers_petals") {
-    return "0xffff00";
+    return "0xcbcb32";
   } else if (which_svg == "ath-FlowerParts.svg" && svg_subunit == "Flowers_sepals") {
     return "0xcaff00";
   } else if (which_svg == "ath-FlowerParts.svg") {
-    return "0xffff00";
+    return "0xcbcb32";
   } else if (which_svg == "ath-GerminatingSeed.svg") {
     return "0xf77700";
   } else if (which_svg == "ath-Internode.svg") {
@@ -709,7 +709,7 @@ function determine_hexcode(which_svg, svg_subunit) {
   } else if (which_svg == "ath-YoungLeaf1-4.svg") { // TODO: Add hex_color
     return "0x64cc65";
   } else if (which_svg == "ath-EarlyBuddingFlower.svg") {
-    return "0xffffcc";
+    return "0xffff66";
   } else if (which_svg == "ath-FlowerBud.svg") {
     return "0xFFFF65";
   } else if (which_svg == "ath-Stamen.svg" && svg_subunit == "Stamen_anthers") {
@@ -735,25 +735,25 @@ function determine_hexcode(which_svg, svg_subunit) {
   } else if (which_svg == "ath-youngSeedling.svg") { 
     return "0x99ff00";
   } else if (which_svg == "ath-FlowerDevelopment1.svg") { 
-    return "0xffff99";
+    return "0xe8e846";
   } else if (which_svg == "ath-FlowerDevelopment2.svg") { 
-    return "0xffff99";
+    return "0xe8e846";
   } else if (which_svg == "ath-FlowerDevelopment3.svg") { 
-    return "0xffff66";
+    return "0xd3d332";
   } else if (which_svg == "ath-FlowerDevelopment4.svg") { 
-    return "0xffff66";
+    return "0xd3d332";
   } else if (which_svg == "ath-FlowerDevelopment5.svg") { 
-    return "0xffff99";
+    return "0xe8e846";
   } else if (which_svg == "ath-FlowerDevelopment6.svg") { 
-    return "0xffff99";
+    return "0xe8e846";
   } else if (which_svg == "ath-FlowerDevelopment9.svg") { 
-    return "0xffff99";
+    return "0xe8e846";
   } else if (which_svg == "ath-FlowerDevelopment12.svg") { 
-    return "0xffff99";
+    return "0xe8e846";
   } else if (which_svg == "ath-FlowerDevelopment15.svg") { 
-    return "0xffffcc";
+    return "0xffff66";
   } else if (which_svg == "ath-FlowerDevelopment19.svg") { 
-    return "0xffffcc";
+    return "0xffff66";
   } else if (which_svg == "ath-Other.svg") { // TODO: Add hex_color
     return "0x64cc65";
   }

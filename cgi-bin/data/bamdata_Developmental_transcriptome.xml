@@ -28,7 +28,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.sn1, Seeds from the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581896" foreground="F77700" hex_colour="0xf77700" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581896/accepted_hits.bam" total_reads_mapped="36195511" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="seed" svgname="ath-WholeSilique.svg" description="Arabidopsis thaliana Seeds from the senescent silique 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581896" species="Arabidopsis thaliana">
+		<file info="SD.sn1, Seeds from the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581896" foreground="F77700" hex_colour="0xf77700" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581896/accepted_hits.bam" total_reads_mapped="36195511" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="silique" svgname="ath-WholeSilique.svg" description="Arabidopsis thaliana Seeds from the senescent silique 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581896" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -280,7 +280,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F19+, Whole inflorescence apex from flower 19 to meristem. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581868" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581868/accepted_hits.bam" total_reads_mapped="26990722" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart19" svgname="ath-FlowerDevelopment19.svg" description="Arabidopsis thaliana Flowers 19 and following" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581868" species="Arabidopsis thaliana">
+		<file info="F19+, Whole inflorescence apex from flower 19 to meristem. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581868" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581868/accepted_hits.bam" total_reads_mapped="26990722" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart19" svgname="ath-FlowerDevelopment19.svg" description="Arabidopsis thaliana Flowers 19 and following" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581868" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -289,7 +289,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F15-18, Whole flowers 15, 16, 17 and 18 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581867" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581867/accepted_hits.bam" total_reads_mapped="23986695" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart15" svgname="ath-FlowerDevelopment15-18.svg" description="Arabidopsis thaliana Flowers 15-18" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581867" species="Arabidopsis thaliana">
+		<file info="F15-18, Whole flowers 15, 16, 17 and 18 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581867" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581867/accepted_hits.bam" total_reads_mapped="23986695" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart15" svgname="ath-FlowerDevelopment15-18.svg" description="Arabidopsis thaliana Flowers 15-18" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581867" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -298,7 +298,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F12-14, Whole flowers 12, 13 and 14 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581866" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581866/accepted_hits.bam" total_reads_mapped="26070400" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart12" svgname="ath-FlowerDevelopment12-14.svg" description="Arabidopsis thaliana Flowers 12-14" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581866" species="Arabidopsis thaliana">
+		<file info="F12-14, Whole flowers 12, 13 and 14 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581866" foreground="E8E846" hex_colour="0xe8e846" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581866/accepted_hits.bam" total_reads_mapped="26070400" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart12" svgname="ath-FlowerDevelopment12-14.svg" description="Arabidopsis thaliana Flowers 12-14" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581866" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -307,7 +307,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F9-11, Whole flowers 9, 10 and 11 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581865" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581865/accepted_hits.bam" total_reads_mapped="27971918" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart9" svgname="ath-FlowerDevelopment9-11.svg" description="Arabidopsis thaliana Flowers 9-11" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581865" species="Arabidopsis thaliana">
+		<file info="F9-11, Whole flowers 9, 10 and 11 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581865" foreground="E8E846" hex_colour="0xe8e846" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581865/accepted_hits.bam" total_reads_mapped="27971918" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart9" svgname="ath-FlowerDevelopment9-11.svg" description="Arabidopsis thaliana Flowers 9-11" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581865" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -316,7 +316,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F6-8, Whole flowers 6, 7 and 8 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581864" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581864/accepted_hits.bam" total_reads_mapped="23701792" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart6" svgname="ath-FlowerDevelopment6-8.svg" description="Arabidopsis thaliana Flowers 6-8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581864" species="Arabidopsis thaliana">
+		<file info="F6-8, Whole flowers 6, 7 and 8 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581864" foreground="E8E846" hex_colour="0xe8e846" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581864/accepted_hits.bam" total_reads_mapped="23701792" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart6" svgname="ath-FlowerDevelopment6-8.svg" description="Arabidopsis thaliana Flowers 6-8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581864" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -325,7 +325,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F5, Whole flower 5 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581863" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581863/accepted_hits.bam" total_reads_mapped="27900767" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart5" svgname="ath-FlowerDevelopment5.svg" description="Arabidopsis thaliana Flower 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581863" species="Arabidopsis thaliana">
+		<file info="F5, Whole flower 5 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581863" foreground="E8E846" hex_colour="0xe8e846" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581863/accepted_hits.bam" total_reads_mapped="27900767" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart5" svgname="ath-FlowerDevelopment5.svg" description="Arabidopsis thaliana Flower 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581863" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -334,7 +334,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F4, Whole flower 4 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581862" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581862/accepted_hits.bam" total_reads_mapped="25041336" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart4" svgname="ath-FlowerDevelopment4.svg" description="Arabidopsis thaliana Flower 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581862" species="Arabidopsis thaliana">
+		<file info="F4, Whole flower 4 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581862" foreground="D3D332" hex_colour="0xd3d332" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581862/accepted_hits.bam" total_reads_mapped="25041336" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart4" svgname="ath-FlowerDevelopment4.svg" description="Arabidopsis thaliana Flower 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581862" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -343,7 +343,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F3, Whole flower 3 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581861" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581861/accepted_hits.bam" total_reads_mapped="26399883" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart3" svgname="ath-FlowerDevelopment3.svg" description="Arabidopsis thaliana Flower 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581861" species="Arabidopsis thaliana">
+		<file info="F3, Whole flower 3 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581861" foreground="D3D332" hex_colour="0xd3d332" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581861/accepted_hits.bam" total_reads_mapped="26399883" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart3" svgname="ath-FlowerDevelopment3.svg" description="Arabidopsis thaliana Flower 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581861" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -352,7 +352,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F2, Whole flower 2 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581860" foreground="FFFF00" hex_colour="0xffff00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581860/accepted_hits.bam" total_reads_mapped="24581720" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581860" species="Arabidopsis thaliana">
+		<file info="F2, Whole flower 2 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581860" foreground="CBCB32" hex_colour="0xcbcb32" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581860/accepted_hits.bam" total_reads_mapped="24581720" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581860" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -361,7 +361,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F1, Whole flower 1 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581859" foreground="FFFF00" hex_colour="0xffff00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581859/accepted_hits.bam" total_reads_mapped="21392327" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581859" species="Arabidopsis thaliana">
+		<file info="F1, Whole flower 1 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581859" foreground="CBCB32" hex_colour="0xcbcb32" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581859/accepted_hits.bam" total_reads_mapped="21392327" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581859" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -406,7 +406,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F.PT.ad, Petals of the third flower; sample collected at the moment of the anthesis of the first flower. All leaf samples were taken from the third leaf, if other not indicated. Samples were collected at 5 stages: 7 days after germination (young, ~ 3mm in length), 9 days after germination (intermediate 1, ~ 5 mm in length), 12 days after germination (intermediate 2, ~ 10 mm in length), at the moment of anthesis of the first flower (mature leaf) and at the stage of maturation of seeds in first siliques (senescent leaf)." record_number="SRR3581854" foreground="FFFF00" hex_colour="0xffff00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581854/accepted_hits.bam" total_reads_mapped="26393575" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="petals" svgname="ath-FlowerParts.svg" description="Arabidopsis thaliana Petals of the mature flower" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581854" species="Arabidopsis thaliana">
+		<file info="F.PT.ad, Petals of the third flower; sample collected at the moment of the anthesis of the first flower. All leaf samples were taken from the third leaf, if other not indicated. Samples were collected at 5 stages: 7 days after germination (young, ~ 3mm in length), 9 days after germination (intermediate 1, ~ 5 mm in length), 12 days after germination (intermediate 2, ~ 10 mm in length), at the moment of anthesis of the first flower (mature leaf) and at the stage of maturation of seeds in first siliques (senescent leaf)." record_number="SRR3581854" foreground="CBCB32" hex_colour="0xcbcb32" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581854/accepted_hits.bam" total_reads_mapped="26393575" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="petals" svgname="ath-FlowerParts.svg" description="Arabidopsis thaliana Petals of the mature flower" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581854" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -649,7 +649,7 @@
 			</groupwith>
 		</file>
 
-		<file info="SD.sn1, Seeds from the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581735" foreground="F77700" hex_colour="0xf77700" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581735/accepted_hits.bam" total_reads_mapped="65011968" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="seed" svgname="ath-WholeSilique.svg" description="Arabidopsis thaliana Seeds from the senescent silique 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581735" species="Arabidopsis thaliana">
+		<file info="SD.sn1, Seeds from the senescent silique 1. Sample was collected when first silique was yellow and ready to open." record_number="SRR3581735" foreground="F77700" hex_colour="0xf77700" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581735/accepted_hits.bam" total_reads_mapped="65011968" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="silique" svgname="ath-WholeSilique.svg" description="Arabidopsis thaliana Seeds from the senescent silique 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581735" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -901,7 +901,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F19+, Whole inflorescence apex from flower 19 to meristem. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581702" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581702/accepted_hits.bam" total_reads_mapped="26371932" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart19" svgname="ath-FlowerDevelopment19.svg" description="Arabidopsis thaliana Flowers 19 and following" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581702" species="Arabidopsis thaliana">
+		<file info="F19+, Whole inflorescence apex from flower 19 to meristem. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581702" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581702/accepted_hits.bam" total_reads_mapped="26371932" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart19" svgname="ath-FlowerDevelopment19.svg" description="Arabidopsis thaliana Flowers 19 and following" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581702" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -910,7 +910,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F15-18, Whole flowers 15, 16, 17 and 18 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581701" foreground="FFFFCC" hex_colour="0xffffcc" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581701/accepted_hits.bam" total_reads_mapped="34895677" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart15" svgname="ath-FlowerDevelopment15-18.svg" description="Arabidopsis thaliana Flowers 15-18" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581701" species="Arabidopsis thaliana">
+		<file info="F15-18, Whole flowers 15, 16, 17 and 18 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581701" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581701/accepted_hits.bam" total_reads_mapped="34895677" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart15" svgname="ath-FlowerDevelopment15-18.svg" description="Arabidopsis thaliana Flowers 15-18" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581701" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -919,7 +919,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F12-14, Whole flowers 12, 13 and 14 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581700" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581700/accepted_hits.bam" total_reads_mapped="28062509" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart12" svgname="ath-FlowerDevelopment12-14.svg" description="Arabidopsis thaliana Flowers 12-14" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581700" species="Arabidopsis thaliana">
+		<file info="F12-14, Whole flowers 12, 13 and 14 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581700" foreground="E8E846" hex_colour="0xe8e846" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581700/accepted_hits.bam" total_reads_mapped="28062509" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart12" svgname="ath-FlowerDevelopment12-14.svg" description="Arabidopsis thaliana Flowers 12-14" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581700" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -928,7 +928,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F9-11, Whole flowers 9, 10 and 11 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581699" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581699/accepted_hits.bam" total_reads_mapped="28100182" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart9" svgname="ath-FlowerDevelopment9-11.svg" description="Arabidopsis thaliana Flowers 9-11" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581699" species="Arabidopsis thaliana">
+		<file info="F9-11, Whole flowers 9, 10 and 11 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581699" foreground="E8E846" hex_colour="0xe8e846" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581699/accepted_hits.bam" total_reads_mapped="28100182" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart9" svgname="ath-FlowerDevelopment9-11.svg" description="Arabidopsis thaliana Flowers 9-11" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581699" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -937,7 +937,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F6-8, Whole flowers 6, 7 and 8 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581698" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581698/accepted_hits.bam" total_reads_mapped="25183376" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart6" svgname="ath-FlowerDevelopment6-8.svg" description="Arabidopsis thaliana Flowers 6-8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581698" species="Arabidopsis thaliana">
+		<file info="F6-8, Whole flowers 6, 7 and 8 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581698" foreground="E8E846" hex_colour="0xe8e846" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581698/accepted_hits.bam" total_reads_mapped="25183376" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart6" svgname="ath-FlowerDevelopment6-8.svg" description="Arabidopsis thaliana Flowers 6-8" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581698" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -946,7 +946,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F5, Whole flower 5 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581697" foreground="FFFF99" hex_colour="0xffff99" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581697/accepted_hits.bam" total_reads_mapped="24981632" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart5" svgname="ath-FlowerDevelopment5.svg" description="Arabidopsis thaliana Flower 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581697" species="Arabidopsis thaliana">
+		<file info="F5, Whole flower 5 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581697" foreground="E8E846" hex_colour="0xe8e846" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581697/accepted_hits.bam" total_reads_mapped="24981632" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart5" svgname="ath-FlowerDevelopment5.svg" description="Arabidopsis thaliana Flower 5" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581697" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -955,7 +955,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F4, Whole flower 4 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581696" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581696/accepted_hits.bam" total_reads_mapped="23550388" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart4" svgname="ath-FlowerDevelopment4.svg" description="Arabidopsis thaliana Flower 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581696" species="Arabidopsis thaliana">
+		<file info="F4, Whole flower 4 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581696" foreground="D3D332" hex_colour="0xd3d332" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581696/accepted_hits.bam" total_reads_mapped="23550388" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart4" svgname="ath-FlowerDevelopment4.svg" description="Arabidopsis thaliana Flower 4" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581696" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -964,7 +964,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F3, Whole flower 3 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581695" foreground="FFFF66" hex_colour="0xffff66" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581695/accepted_hits.bam" total_reads_mapped="26802016" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart3" svgname="ath-FlowerDevelopment3.svg" description="Arabidopsis thaliana Flower 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581695" species="Arabidopsis thaliana">
+		<file info="F3, Whole flower 3 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581695" foreground="D3D332" hex_colour="0xd3d332" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581695/accepted_hits.bam" total_reads_mapped="26802016" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flowerDevelopmentPart3" svgname="ath-FlowerDevelopment3.svg" description="Arabidopsis thaliana Flower 3" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581695" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -973,7 +973,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F2, Whole flower 2 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581694" foreground="FFFF00" hex_colour="0xffff00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581694/accepted_hits.bam" total_reads_mapped="22985879" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581694" species="Arabidopsis thaliana">
+		<file info="F2, Whole flower 2 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581694" foreground="CBCB32" hex_colour="0xcbcb32" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581694/accepted_hits.bam" total_reads_mapped="22985879" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581694" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -982,7 +982,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F1, Whole flower 1 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581693" foreground="FFFF00" hex_colour="0xffff00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581693/accepted_hits.bam" total_reads_mapped="28770706" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581693" species="Arabidopsis thaliana">
+		<file info="F1, Whole flower 1 without pedicel. All samples of this series were collected at moment of the anthesis of the first flower." record_number="SRR3581693" foreground="CBCB32" hex_colour="0xcbcb32" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581693/accepted_hits.bam" total_reads_mapped="28770706" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="flower" svgname="ath-Flower.svg" description="Arabidopsis thaliana Flower 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581693" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1027,7 +1027,7 @@
 			</groupwith>
 		</file>
 
-		<file info="F.PT.ad, Petals of the third flower; sample collected at the moment of the anthesis of the first flower. All leaf samples were taken from the third leaf, if other not indicated. Samples were collected at 5 stages: 7 days after germination (young, ~ 3mm in length), 9 days after germination (intermediate 1, ~ 5 mm in length), 12 days after germination (intermediate 2, ~ 10 mm in length), at the moment of anthesis of the first flower (mature leaf) and at the stage of maturation of seeds in first siliques (senescent leaf)." record_number="SRR3581688" foreground="FFFF00" hex_colour="0xffff00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581688/accepted_hits.bam" total_reads_mapped="24360946" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="petals" svgname="ath-FlowerParts.svg" description="Arabidopsis thaliana Petals of the mature flower" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581688" species="Arabidopsis thaliana">
+		<file info="F.PT.ad, Petals of the third flower; sample collected at the moment of the anthesis of the first flower. All leaf samples were taken from the third leaf, if other not indicated. Samples were collected at 5 stages: 7 days after germination (young, ~ 3mm in length), 9 days after germination (intermediate 1, ~ 5 mm in length), 12 days after germination (intermediate 2, ~ 10 mm in length), at the moment of anthesis of the first flower (mature leaf) and at the stage of maturation of seeds in first siliques (senescent leaf)." record_number="SRR3581688" foreground="CBCB32" hex_colour="0xcbcb32" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova/SRR3581688/accepted_hits.bam" total_reads_mapped="24360946" read_map_method="The an online tool by UseGalaxy called TopHat/TopHat2 (Kim et al 2013)" publication_link="http://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="petals" svgname="ath-FlowerParts.svg" description="Arabidopsis thaliana Petals of the mature flower" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3581688" species="Arabidopsis thaliana">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
