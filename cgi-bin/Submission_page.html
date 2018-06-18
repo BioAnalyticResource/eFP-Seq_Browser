@@ -42,13 +42,13 @@
     function updateTable(tableIndicator) {
       var input, filter, table, tr, td, i;
       input = document.getElementById(tableIndicator);
-      filter = input.value.toUpperCase();
+      filter = input.value.toLowerCase();
       table = document.getElementById("tissueTable_" + tableIndicator);
-      th = table.getElementsByTagName("th");
+      th = table.getElementsByTagName("td");
       for (i = 0; i < th.length; i++) {
         td = th[i];
         if (td) {
-          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          if (td.innerHTML.toLowerCase().indexOf(filter) > -1) {
             th[i].style.display = "";
           }
           else {
@@ -121,7 +121,7 @@
               <div class="forminput row">
                 <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-xml-title">Dataset Title <span style="font-weight:bold;">*</span>
               <span class="sub_tooltip_text">Name/title of your generated data. No special characters allowed except for '-' (dash)</span></label></th>
-                <input class="channelxmltitle col-sm-8 col-xs-8 reqfield input_right" id="reqxml" name="channelxmltitle" type="text" placeholder="Example: Analysis of 113 RNA-Seq Data collected from Experiment 3" data-help-text="xmltitle" />
+                <input class="channelxmltitle col-sm-8 col-xs-8 reqfield input_right inputXMLForm" id="reqxml" name="channelxmltitle" type="text" placeholder="Example: Analysis of 113 RNA-Seq Data collected from Experiment 3" data-help-text="xmltitle" />
                 <script>
                   // Code taken from http://stackoverflow.com/questions/7144167/only-allow-english-characters-and-numbers-for-text-input
                   $("#reqxml").keypress(function(event) {
@@ -146,13 +146,13 @@
               <!-- Author -->
               <div class="forminput row">
                 <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-author">Author(s) <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The author(s) of the generated data. Optional if you are keeping this data private.</span></label></th>
-                <input class="channelauthor col-sm-8 col-xs-8 reqfield input_right" id="reqauthor" name="channelauthor" type="text" placeholder="My name, my lab, paper's authors, etc..." data-help-text="author" />
+                <input class="channelauthor col-sm-8 col-xs-8 reqfield input_right inputXMLForm" id="reqauthor" name="channelauthor" type="text" placeholder="My name, my lab, paper's authors, etc..." data-help-text="author" />
               </div>
 
               <!-- Contact info -->
               <div class="forminput row">
                 <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-contact">Contact info <span class="sub_tooltip_text">Optional: Your contact information regarding your data.</span></label></th>
-                <input class="channelcontact col-sm-8 col-xs-8 input_right" name="channelcontact" id="contectinfo" type="text" placeholder="An email or some form of contact." data-help-text="contact" />
+                <input class="channelcontact col-sm-8 col-xs-8 input_right inputXMLForm" name="channelcontact" id="contectinfo" type="text" placeholder="An email or some form of contact." data-help-text="contact" />
               </div>
               </table>
             </fieldset>
@@ -167,31 +167,31 @@
               <!-- Title -->
               <div class="forminput row">
                 <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-title">Title <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">Title for the RNA-Seq coverage.</span></label></th>
-                <input class="channeltitle col-sm-8 col-xs-8 reqfield input_right" id="reqtitle" name="channeltitle" type="text" placeholder="Example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment" data-help-text="title" />
+                <input class="channeltitle col-sm-8 col-xs-8 reqfield input_right inputXMLForm" id="reqtitle" name="channeltitle" type="text" placeholder="Example: Aerial part of long-day-grown 4-leaf-stage seedling with mock (NaCl) treatment" data-help-text="title" />
               </div>
 
               <!-- Description -->
               <div class="forminput row">
                 <label for="channel-description" class="formtextarea col-sm-3 col-xs-3 sub_tooltip">Description <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">Description of your RNA-Seq submission data.</span></label>
-                <textarea class="channeldescription col-sm-8 col-xs-8 reqfield" id="reqdesc" name="channeldescription" type="text" placeholder="Example: E-MTAB-1668 24hCS-RNA or GSM798296 mRNASeq_WT_rep2" data-help-text="description"></textarea>
+                <textarea class="channeldescription col-sm-8 col-xs-8 reqfield inputXMLForm" id="reqdesc" name="channeldescription" type="text" placeholder="Example: E-MTAB-1668 24hCS-RNA or GSM798296 mRNASeq_WT_rep2" data-help-text="description"></textarea>
               </div>
 
               <!-- Record number -->
               <div class="forminput row">
                 <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-record_number">Record number <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">A SRA's record or run number.</span></label>
-                <input class="channelrecordnumber col-sm-8 col-xs-8 reqfield input_right" id="rec" name="channelrecordnumber" placeholder="Example: ERR274310 or SRR547531" type="text" data-help-text="record_number" />
+                <input class="channelrecordnumber col-sm-8 col-xs-8 reqfield input_right inputXMLForm" id="rec" name="channelrecordnumber" placeholder="Example: ERR274310 or SRR547531" type="text" data-help-text="record_number" />
               </div>
 
               <!-- Hex color -->
               <div class="forminput row" hidden>
                 <label class="col-sm-3 col-xs-3" for="channel-hex_color" title="Admin use, this temp">Hex color <span style="font-weight:bold;">*</span></label>
-                <input class="channelhexcolor col-sm-8 col-xs-8 input_right change_hexcolor" id="hexID_num1" name="channelhexcolor" placeholder="Hidden input for generating XML" type="text" data-help-text="hex_color" />
+                <input class="channelhexcolor col-sm-8 col-xs-8 input_right change_hexcolor inputXMLForm" id="hexID_num1" name="channelhexcolor" placeholder="Hidden input for generating XML" type="text" data-help-text="hex_color" />
               </div>
 
               <!-- IGB's Foreground color -->
               <div class="forminput row" hidden>
                 <label class="col-sm-3 col-xs-3" for="channel-foreground" title="Admin use, this temp">Hex color <span style="font-weight:bold;">*</span></label>
-                <input class="channelforeground col-sm-8 col-xs-8 input_right change_forgroundcolor" id="foregroundID_num1" name="channelforeground" placeholder="Hidden input for generating XML" type="text" data-help-text="foreground" />
+                <input class="channelforeground col-sm-8 col-xs-8 input_right change_forgroundcolor inputXMLForm" id="foregroundID_num1" name="channelforeground" placeholder="Hidden input for generating XML" type="text" data-help-text="foreground" />
               </div>
 
               <!-- BAM Repository link -->
@@ -212,24 +212,30 @@
                     }
                   }
                 </script>
+							</div>
+							
+							<!-- Filename -->
+              <div class="forminput row">
+                <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-filename">BAM Filename <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">Filename of your BAM file (ex. accepted_hits.bam)</span></label>
+                <input class="channelfilename col-sm-8 col-xs-8 reqfield input_right inputXMLForm" name="channelfilename" id="filename" placeholder="Example: accepted_hits.bam" type="text" data-help-text="filename" />
               </div>
 
               <!-- Publication link -->
               <div class="forminput row">
                 <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-publication_link">Publicaiton Link <span class="sub_tooltip_text">If your research has been published or referencing a research, it may be useful to link to the publication.</span></label>
-                <input class="channelpublicationlink col-sm-8 col-xs-8 sub_link input_right" name="channelpublicationlink" id="publink" placeholder="Example: http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link" />
+                <input class="channelpublicationlink col-sm-8 col-xs-8 sub_link input_right inputXMLForm" name="channelpublicationlink" id="publink" placeholder="Example: http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link" />
               </div>
 
               <!-- SRA Link -->
               <div class="forminput row">
                 <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-publication_url">Sequence Reach Archive/NCBI Link<span class="sub_tooltip_text">A link to your experiment run on the NCBI's Sequence Read Archive (SRA).</span></label>
-                <input class="channelpublicationurl col-sm-8 col-xs-8 sub_link input_right" name="channelpublicationurl" id="sralink" placeholder="Example: http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url" />
+                <input class="channelpublicationurl col-sm-8 col-xs-8 sub_link input_right inputXMLForm" name="channelpublicationurl" id="sralink" placeholder="Example: http://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url" />
               </div>
 
               <!-- Total reads mapped -->
               <div class="forminput row">
                 <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-total_reads_mapped">Total Reads Mapped <span style="font-weight:bold;">*</span><span class="sub_tooltip_text">The total amount of reads mapped in your RNA-Seq data without commas. If you do not know how many total reads mapped there are, just insert 0 (NOTE: Inputting 0 will significantly increase load time)</span></label>
-                <input class="channeltotalreadsmapped col-sm-8 col-xs-8 reqfield readNumberClass input_right" id="reqread" name="channeltotalreadsmapped" placeholder="Example: 29098868" type="text" data-help-text="total_reads_mapped" />
+                <input class="channeltotalreadsmapped col-sm-8 col-xs-8 reqfield readNumberClass input_right inputXMLForm" id="reqread" name="channeltotalreadsmapped" placeholder="Example: 29098868" type="text" data-help-text="total_reads_mapped" />
                 <script>
                   // Code taken from http://stackoverflow.com/questions/7144167/only-allow-english-characters-and-numbers-for-text-input
                   $("#reqread").keypress(function(event) {
@@ -250,13 +256,13 @@
               <!-- Read map method -->
               <div class="forminput row">
                 <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-read_map_method">Read map method<span class="sub_tooltip_text">The method you used to map your reads alignment</span></label>
-                <input class="channelreadmapmethod col-sm-8 col-xs-8 input_right" name="channelreadmapmethod" id="readmapmethod" placeholder="Example: TopHat alignment" type="text" data-help-text="read_map_method" />
+                <input class="channelreadmapmethod col-sm-8 col-xs-8 input_right inputXMLForm" name="channelreadmapmethod" id="readmapmethod" placeholder="Example: TopHat alignment" type="text" data-help-text="read_map_method" />
               </div>
 
               <!-- SVG Name -->
               <div class="forminput row" hidden>
                 <label class="col-sm-3 col-xs-3 " for="channel-svgname" title="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg">SVG Name <span style="font-weight:bold;">*</span></label>
-                <input class="channelsvgname col-sm-8 col-xs-8 reqfield change_svg input_right" id="svg1" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="sngname" />
+                <input class="channelsvgname col-sm-8 col-xs-8 reqfield change_svg input_right inputXMLForm" id="svg1" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="sngname" />
               </div>
 
               <!-- Spcies -->
@@ -7063,13 +7069,13 @@
               <!-- Control -->
               <div class="forminput row">
                 <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-controls">Controls<span class="sub_tooltip_text">The BAM record/experiment number of the controls in your RNA-Seq data. Seperate controls by commas.</span></label>
-                <input class="channelcontrols col-sm-8 col-xs-8 input_right" name="channelcontrols" id="controls" placeholder="Seperate controls by commas. Example: ERR274310" type="text" data-help-text="total_controls" />
+                <input class="channelcontrols col-sm-8 col-xs-8 input_right inputXMLForm" name="channelcontrols" id="controls" placeholder="Seperate controls by commas. Example: ERR274310" type="text" data-help-text="total_controls" />
               </div>
 
               <!-- Replicate control 1 -->
               <div class="forminput row">
                 <label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidtho">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/arrow_taken-from-google.png"> Replicate Controls 1 <span class="sub_tooltip_text">The BAM record/experiment number of the replicate controls in your RNA-Seq data. Seperate controls by commas.</span></label>
-                <input class="channelgroupwidtho col-sm-8 col-xs-8 input_right" name="channelgroupwidtho" id="replicate_controls1" placeholder="Seperate controls by commas. Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth" />
+                <input class="channelgroupwidtho col-sm-8 col-xs-8 input_right inputXMLForm" name="channelgroupwidtho" id="replicate_controls1" placeholder="Seperate controls by commas. Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth" />
               </div>
             </fieldset>
           </div>

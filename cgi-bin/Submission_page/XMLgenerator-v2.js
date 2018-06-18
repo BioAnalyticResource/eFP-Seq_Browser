@@ -17,6 +17,8 @@ $(function() {
     remove_outline(".bam_link");
     remove_outline_tissue(".reqtissue");
     no_null_contact();
+    check_filename("channelfilename");
+    check_inputs("inputXMLForm");
     if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield") && check_req_tissue(".reqtissuebutton") && check_links(".channelbamtype", ".bam_link")) {
       $(".Entries").each(function(i, v) {
         formatXML += update(formatXML, v)
@@ -46,7 +48,7 @@ var end = ['\t</files>'].join('\r\n');
 var base = ['<?xml version="1.0" encoding="UTF-8"?>', '\t<files xmltitle=\"<?channelxmltitle?>\" author=\"<?channelauthor?>\" contact=\"<?channelcontact?>\">', '\n'].join('\r\n');
 
 var template = [
-  '\t\t<file info=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\"  foreground=\"<?channelforeground?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" name=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" description=\"<?channeltitle?>\" url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\" title=\"<?channeligbtitle?>\">',
+  '\t\t<file info=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\"  foreground=\"<?channelforeground?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" name=\"<?channelbamlink?>\" filename=\"<?channelfilename?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" description=\"<?channeltitle?>\" url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\" title=\"<?channeligbtitle?>\">',
   '\t\t\t<controls>',
   '\t\t\t\t<bam_exp><?channelcontrols?></bam_exp>',
   '\t\t\t</controls>',
@@ -57,7 +59,7 @@ var template = [
   '\n'
 ].join('\r\n');
 
-var topXML = ['\t\t<file info=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" foreground=\"<?channelforeground?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" name=\"<?channelbamlink?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" description=\"<?channeltitle?>\" url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\" title=\"<?channeligbtitle?>\">', '\t\t\t<controls>\n'].join('\r\n');
+var topXML = ['\t\t<file info=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" foreground=\"<?channelforeground?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" name=\"<?channelbamlink?>\" filename=\"<?channelfilename?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" description=\"<?channeltitle?>\" url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\" title=\"<?channeligbtitle?>\">', '\t\t\t<controls>\n'].join('\r\n');
 
 var controlsXML = [].join('\r\n');
 
@@ -108,6 +110,7 @@ function update(formatXML, v) {
     'channelcontrols': $(v).find('.channelcontrols').val(),
     'channelgroupwidtho': $(v).find('.channelgroupwidtho').val(),
     'channelforeground': $(v).find('.channelforeground').val(),
+    'channelfilename': $(v).find('.channelfilename').val(),
     'channeligbtitle': document.getElementById("reqxml").value + "/" + $(v).find('.channelrecordnumber').val()
   };
 
@@ -201,7 +204,8 @@ function resetLastEntryValues() {
   $("input[id=" + new_hexID + "]").last().val("");
   $("input[id=controls]").last().val("");
   $("input[id=replicate_controls1]").last().val("");
-  $("input[id=" + new_svg + "]").last().html("");
+  $("input[id=" + new_svg + "]").last().html("");  
+  $("input[id=filename]").last().val("");
 }
 
 /**
@@ -338,6 +342,30 @@ function check_links(bam_name, repo_name) {
 }
 
 /**
+* Checks if the filename ends with .bam or not
+* @param {String} classname - Filename HTML <class=""> location
+*/
+function check_filename(classname) {
+  var filenameDoc = document.getElementsByClassName(classname);
+  for (i=0; i<filenameDoc.length;i++) {
+    // If ends in period, remove that:
+    var filenameDocLength = filenameDoc[i].value.trim().length;
+    if (filenameDoc[i].value[filenameDocLength -1] == ".") {
+      filenameDoc[i].value = filenameDoc[i].value.substring(0, filenameDocLength -1);
+    };
+    // Check if ends in .bam or not and then add that 
+    if (filenameDoc[i].value.trim().endsWith(".bam") == false) {
+      cacheValue = filenameDoc[i].value.trim();
+      cacheValue += ".bam";
+      filenameDoc[i].value = cacheValue;
+    }
+    else if (filenameDoc[i].value.trim().endsWith(".bam")== true){
+      filenameDoc[i].value = filenameDoc[i].value.trim();
+    };
+  }
+}
+
+/**
 * Check if tagged entries meet the desired requirements or not
 * @param {String} class_name - Entries' HTML <class="">
 * @return {bool} bool - Meet requirements or not
@@ -359,6 +387,25 @@ function check_req(class_name) {
   else {
     return false
   }
+};
+
+
+/**
+* Check if tagged entries meet the desired requirements or not
+* @param {String} class_name - Entries' HTML <class="">
+*/
+function check_inputs(class_name) {
+  var inputDoc = document.getElementsByClassName(class_name);
+  for (i=0; i<inputDoc.length;i++) {
+    // If has an " in it, get rid of it
+    if (inputDoc[i].value.length > 0) {
+      inputDoc[i].value = inputDoc[i].value.trim();
+      if (inputDoc[i].value.includes('"') == true) {
+        var temp = inputDoc[i].value.replace(/["]/g, "'");
+        inputDoc[i].value = temp;
+      };
+    };
+  };
 };
 
 /**

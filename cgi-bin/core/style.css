@@ -422,6 +422,9 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   .navbar_menu {
     height: 100vh;
   }
+  .spacerBottom {
+    margin-bottom: 7% !important;
+  }
 }
 
 .navbar_menu_title {
@@ -542,6 +545,13 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   cursor: pointer;
 }
 
+.downloadDiv {
+  right: 4%;
+  top: 6%;
+  position: fixed;
+  cursor: pointer;
+}
+
 .openMenu {
   position: fixed;
   cursor: pointer;
@@ -600,7 +610,7 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   background-color: #ace2fa;
 }
 
-.HelpNoteTop{
+.HelpNoteTop {
   font-size: 1.2em;
   background-color: #02a8f3;
   padding-top: 1%;
@@ -609,8 +619,12 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   padding-right: 2%;
 }
 
-.HelpNoteBottom{
+.HelpNoteBottom {
   padding-left: 2%;
   padding-right: 2%;
   padding-bottom: 1%;
+}
+
+.spacerBottom {
+  margin-bottom: 15% !important;
 }

@@ -76,12 +76,10 @@ function count_bam_num() {
       count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("file").length;
     };
   // This if condition is to make sure the xhr request is not too many times
-  if (progress_percent < 10) {
-    var max_null_calls = (count_bam_entries_in_xml * 1.5);
-    if (send_null_count < max_null_calls) {
-      xhr.send(null);
-      send_null_count += 1;
-    }
+  var max_null_calls = (count_bam_entries_in_xml * 1.5);
+  if (send_null_count < max_null_calls) {
+    xhr.send(null);
+    send_null_count += 1;
   }
   document.getElementById("testing_count").innerHTML = count_bam_entries_in_xml;
 };
@@ -568,14 +566,14 @@ function rnaseq_images(status) {
         var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
         var linkString = drive_link_list[i];
         match_drive = myRegexp.exec(linkString);
-        rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice_gdrive.cgi?numberofreads=" + numberofreads_list[i] + "&hexcodecolour=" + hexcode_list[i] + "&gdrive=" + match_drive[1] + "&tissue=";
+        rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice_gdrive.cgi?numberofreads=" + numberofreads_list[i] + "&hexcodecolour=" + hexcode_list[i] + "&gdrive=" + match_drive[1] + "&filename=" + filename[i] + "&tissue=";
         if (splice_variants == '') {
           splice_variants = "[{\"exon_coordinates\":[{\"exon_start\":10326918,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10330048},{\"exon_start\":10329457,\"exon_end\":10329601}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAARklEQVQ4jWNIIwYkMIAAnIvKwwLACthwCySgcBOwyaJoh5kABwjJ1FACgCEt cdj7UHC4+zBx2PtQcLiDERCHwz8fDvuyFACN3Nv0vy8+hAAAAABJRU5ErkJggg== \"},{\"exon_coordinates\":[{\"exon_start\":10326925,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329722,\"exon_end\":10330008},{\"exon_start\":10329722,\"exon_end\":10329824}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAS0lEQVQ4jWNgSyMCJDCAAJyLysMCwArYcAskoHATsMmiaIeZAAfIkgkoQqmh yCAAJJE47H0oONx9yDjsfSg43MEIiMPhnw+HfVkKAGJJyHVybZqTAAAAAElFTkSuQmCC \"},{\"exon_coordinates\":[{\"exon_start\":10327035,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329607},{\"exon_start\":10329457,\"exon_end\":10329601},{\"exon_start\":10329722,\"exon_end\":10329941}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAASklEQVQ4jWNggII0fCABVQlBDWAFbLgFElC4CdhkUbTDTIADhGRqAFSINRQV BMAVMw57HwoOdx8yDnsfCg53MALicPjnw2FflgIAMFykVMBo2gsAAAAASUVORK5CYII= \"},{\"exon_coordinates\":[{\"exon_start\":10327035,\"exon_end\":10327134},{\"exon_start\":10327109,\"exon_end\":10327134},{\"exon_start\":10327330,\"exon_end\":10327438},{\"exon_start\":10327330,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329457,\"exon_end\":10329601},{\"exon_start\":10329722,\"exon_end\":10329941}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggII0KGBABmxQwQQUJWmoPCwARTMWgQQUbgI2WRTt6O5CkkwN DYAIsYaiggC4YsZh70PB4e5DxmHvQ8HhDkZAHA7/fDjsy1IAaSZ/xYh30LgAAAAASUVORK5CYII=\"}]";
         }
       }
       else {
         // New rnaseq_image_url with BAM file name
-        rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&hexcodecolour=" + hexcode_list[i] + "&tissue=";
+        rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&hexcodecolour=" + hexcode_list[i] + "&filename=" + filename[i] + "&tissue=";
       }
 
       $.ajax({
@@ -1018,6 +1016,7 @@ var sra_list = [];
 var drive_link_list = [];
 var numberofreads_list = [];
 var hexcode_list = [];
+var filename = [];
 var svg_part_list = [];
 var efp_rep_2d = [];
 var efp_column_count = 0;
@@ -1052,6 +1051,7 @@ function populate_table(status) {
   drive_link_list = [];
   numberofreads_list = [];
   hexcode_list = [];
+  filename = [];
   svg_part_list = [];
   efp_rep_2d = [];
   efp_rep_2d_title = [];
@@ -1112,8 +1112,8 @@ function populate_table(status) {
         var url = $(this).attr('url');
         var publicationid = $(this).attr('publication_link');
         var numberofreads = $(this).attr('total_reads_mapped');
-        if (numberofreads == null || numberofreads == "" || numberofreads == "0") {
-          numberofreads = totalreadsMapped_dic[experimentno];
+        if (numberofreads == null || numberofreads == "") {
+          numberofreads = "0";
           numberofreads_list.push(numberofreads);
         } else {
           numberofreads_list.push(numberofreads);
@@ -1123,6 +1123,11 @@ function populate_table(status) {
         } else {
           hexcode_list.push($(this).attr('hex_colour'))
         }
+        var filenameIn =  ($(this).attr('filename'));
+        if (filenameIn == null || filenameIn == "" || filenameIn == undefined) {
+          filenameIn = "accepted_hits.bam"
+        }
+        filename.push(filenameIn)
         var species = $(this).attr('species');
         var controls = [];
         if ($(this).find("controls")[0].innerHTML == undefined) {
@@ -1159,9 +1164,9 @@ function populate_table(status) {
         // Need: tissue, experimentno in rnaseq_calls ... (also need start, end, and locus)
         rnaseq_calls.push([tissue, experimentno]);
 
-        var igbView_link = 'http://bioviz.org/igb/bar.html?version=Arabidopsis_thaliana_TAIR10&';
+        var igbView_link = 'http://bioviz.org/bar.html?version=Arabidopsis_thaliana_TAIR10&';
         igbView_link += 'feature_url_0=' + drive_link + "&";
-        igbView_link += 'sym_name_0=accepted_hits&';
+        igbView_link += 'sym_name_0=' + filenameIn + '&';
         igbView_link += 'sym_method_0=' + drive_link + "&";
         igbView_link += 'query_url=' + drive_link + "&";
         igbView_link += 'server_url=bar';
@@ -2281,6 +2286,35 @@ function correctAGIIDInput() {
 function returnBackToTop() {
   mainBody = document.getElementById("main_content");
   mainBody.scrollTop = 0;
+}
+
+var downloadDivNum = 1;
+/**
+ * Download the DIV as a image
+ * @param {String} id - The string of the body's ID
+ */
+function downloadDiv(id) {
+  html2canvas(document.getElementById(id)).then(canvas => {
+    $("#appendCanvas").empty(); // reset
+      canvas.id = "downloadDivNum_" + downloadDivNum;
+      document.getElementById("appendCanvas").appendChild(canvas);
+      document.getElementById("downloadDivNum_" + downloadDivNum).style.width = '100%';
+      document.getElementById("downloadImage_button").click();
+      downloadDivNum++;
+  })
+
+  /*
+  html2canvas(document.getElementById(id), {
+    onrendered: function (canvas) {
+      $("#appendCanvas").empty(); // reset
+      canvas.id = "downloadDivNum_" + downloadDivNum;
+      document.getElementById("appendCanvas").appendChild(canvas);
+      document.getElementById("downloadDivNum_" + downloadDivNum).style.width = '100%';
+      document.getElementById("downloadImage_button").click();
+      downloadDivNum++;
+    },
+  });
+  */
 }
 
 /**
