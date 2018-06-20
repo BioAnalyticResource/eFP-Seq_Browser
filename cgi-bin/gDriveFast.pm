@@ -92,7 +92,7 @@ sub getFileSize {
 # Get Partial File Data
 sub getPartialFileData {
 	my ($fileId, $offset, $buffer) = @_;
-	my $response_body;
+	my $response_body = "";
 	my $response_code;
 	my $retcode;
 	my $curl = WWW::Curl::Easy->new;
@@ -115,6 +115,9 @@ sub getPartialFileData {
 		$response_code = $curl->getinfo(CURLINFO_HTTP_CODE);
 		if ($response_code == 200 || $response_code == 206) {
 			# Either full or partial data has been recieved.
+			if ($response_body eq "") {
+				systemExit("Error: No data from file.");
+			}
 			return $response_body;
 		} else {
 			systemExit("Error: Google drive folder response is not 200. It is: $response_code\n");
@@ -126,7 +129,7 @@ sub getPartialFileData {
 
 # Build the file system
 sub buildFileSystem {
-	my ($files, $folderId) = @_;
+	my ($files, $folderId, $bamName) = @_;
 	my $folderListURL;
 	my $response_body;
 	my $response_code;
@@ -160,8 +163,8 @@ sub buildFileSystem {
 					# It is a file, Add it
 					$fileName = $jsonData->{"files"}[$i]{"name"};
 
-					# Mounting only accepted accepted_hits.bam and accepted_hits.bam.bai
-					next unless ($fileName eq "accepted_hits.bam" || $fileName eq "accepted_hits.bam.bai");
+					# Mounting accepts any filename with the same string as bamName
+					next unless ($fileName eq $bamName || $fileName eq ($bamName . ".bai"));
 					$fileSize = getFileSize($jsonData->{"files"}[$i]{"id"});
 
 					# Adding

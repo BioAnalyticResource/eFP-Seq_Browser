@@ -263,7 +263,7 @@ def main():
 	record = form.getvalue('record')
 	variant = form.getvalue('variant')
 	hexcode = form.getvalue('hexcodecolour')
-
+	bamfilename = form.getvalue('filename')
 	totalReadsMapped = form.getvalue('numberofreads')
 
 	status = 1
@@ -313,7 +313,7 @@ def main():
 					expected_expr_in_variant[variants_count].append(1)
 
 		# Make S3FS filename here
-		bam_file = "s3://iplant-cdn/iplant/home/araport/rnaseq_bam/" + tissue + "/" + record + "/accepted_hits.bam"
+		bam_file = "s3://iplant-cdn/iplant/home/araport/rnaseq_bam/" + tissue + "/" + record + "/" + bamfilename
 		bam_dir = tissue + "/" + record
 
 		# Correct total reads mapped:

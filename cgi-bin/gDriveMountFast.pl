@@ -87,7 +87,7 @@ sub e_read {
 	# return an error numeric, or binary/text string.  (note: 0 means EOF, "0" will
 	# give a byte (ascii "0") to the reading program)
 	my ($file) = filename_fixup(shift);
-    my ($buf, $off, $fh) = @_;
+	my ($buf, $off, $fh) = @_;
 	return -ENOENT() unless exists($files{$file});
 	
 	# Read from Gooogle Drive file
@@ -112,20 +112,23 @@ sub main {
 	my $fileListURL = "";
 	my $directory = "";
 	my $timestamp = "";
+	my $bamName = "";
 
 	# Get folder ID from command line
 	if (@ARGV) {
 		$folderId	= shift(@ARGV);
 		$timestamp	= shift(@ARGV);
+		$bamName	= shift(@ARGV);
 
 		# verify folder ID format
 		systemExit("No folder ID provided\n") unless ($folderId);
 		systemExit("No timestamp or random number provided\n") unless ($timestamp);		
+		systemExit("No BAM filename was provided\n") unless ($bamName);
 		systemExit("Error folder ID may not be in the correct format.\n") unless ($folderId =~ /^[a-zA-Z0-9_-]+$/);
 		systemExit("Timestap or random number is not in correct format.\n") unless ($timestamp =~ /^\d+$/);
 
 	} else {
-		systemExit("Usage: perl gDriveMountFast.pl <gdrive folder ID> <timestamp or random number>\n");
+		systemExit("Usage: perl gDriveMountFast.pl <gdrive folder ID> <timestamp or random number> <bam filename>\n");
 	}
 		
 	# check if folder exists and readible
@@ -138,8 +141,9 @@ sub main {
 	chdir "/mnt/";	# Must get out of gDrive directory to make sure umounts are clean (Just a double check)
 	$directory = "/mnt/gDrive/" . $directory;
 	# Now build 
-	buildFileSystem(\%files, $folderId);
+	buildFileSystem(\%files, $folderId, $bamName);
 
+	fork and exit;
 	
 	# Now mount with noexec, nodev, nosuid, etc.
 	Fuse::main(
@@ -153,7 +157,6 @@ sub main {
 		threaded	=> 0
 	);
 
-	return 0;
 }
 
 # Call main

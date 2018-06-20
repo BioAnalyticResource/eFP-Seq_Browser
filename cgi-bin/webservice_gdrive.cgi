@@ -260,6 +260,7 @@ def main():
 	googleDrive = form.getvalue('gdrive')
 	hexcode = form.getvalue('hexcodecolour')
 	totalReadsMapped = form.getvalue('numberofreads')
+	bamfilename = form.getvalue('filename')
 
 	status = 1
 	if (form.getvalue('status') and int(form.getvalue('status')) >= 0):
@@ -310,12 +311,12 @@ def main():
 		# Create a Google Drive mount point and muont the bam file.
 		uniqId = str(random.randint(1,1000000))
 		try:
-			pid = subprocess.Popen(["perl", "gDriveMountFast.pl", googleDrive, uniqId])
+			pid = subprocess.Popen(["perl", "gDriveMountFast.pl", googleDrive, uniqId, bamfilename])
 		except:
 			sys.exit(1)
 
 		# Make S3FS filename here
-		bam_file = "/mnt/gDrive/" + googleDrive + "_" + uniqId + "/accepted_hits.bam"
+		bam_file = "/mnt/gDrive/" + googleDrive + "_" + uniqId + "/" + bamfilename
 
 		# Correct total reads mapped:
 		if (totalReadsMapped is None or totalReadsMapped == "0"):
@@ -419,8 +420,16 @@ def main():
 				r_val = float(sp / (math.sqrt(ss_x[i] * ss_y)))
 				r.append(round(r_val, PRECISION))
 
+		try:
 		subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + googleDrive + "_" + uniqId])
+		except:
+			sys.stderr.write("Failed to unmount FUSE file system.")
+
+		try:
 		subprocess.call(["rm", "-rf", "/mnt/gDrive/" + googleDrive + "_" + uniqId])
+		except:
+			sys.stderr.write("Failed to delete FUSE mount point.")
+
 		# Output the newly generated data
 		dumpJSON(200, locus, int(variant), chromosome, start, end, record, tissue, base64img.replace('\n',''), mapped_reads, abs_fpkm, r, totalReadsMapped)
 	else:
