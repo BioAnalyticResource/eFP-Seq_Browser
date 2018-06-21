@@ -493,16 +493,6 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   font-size: 2em;
 }
 
-.navbar_menu_footer {
-  z-index: 100;
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-  padding-top: 14px;
-  background: #3d3d3d;
-  margin-left: -16px;
-}
-
 .navbar_menu_footer_overflow {
   z-index: 100;
   position: sticky;
@@ -511,6 +501,7 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   padding-top: 14px;
   padding-bottom: 40px;
   background: #3d3d3d;
+  margin-left: -10%;
 }
 
 .navbar_menu_input {

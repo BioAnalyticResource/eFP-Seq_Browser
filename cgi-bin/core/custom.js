@@ -2337,21 +2337,17 @@ function displayNavBAR() {
   }
 }
 
+/**
+ * Adjust the size of the navbar menu footer to fit the size of the navbar itself
+ */
+function adjustFooterSize() {
+  var navbar = document.getElementById("navbar_menu");
+  document.getElementById("nm_footer").style.width = (navbar.offsetWidth * 1.1) + "px";
+}
+
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
-  var navbar = document.getElementById("navbar_menu");
-  if (navbar.scrollHeight > navbar.offsetHeight) {
-    if (document.getElementById("nm_footer").classList.contains('navbar_menu_footer_overflow') == false) {
-      document.getElementById("nm_footer").classList.remove('navbar_menu_footer');
-      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow');
-    }
-  }
-  else if (navbar.scrollHeight <= navbar.offsetHeight) {
-    if (document.getElementById("nm_footer").classList.contains('navbar_menu_footer') == false) {
-      document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow');
-      document.getElementById("nm_footer").classList.add('navbar_menu_footer');
-    }
-  }
+  adjustFooterSize();
 })
 
 $(document).ready(function() {
@@ -2397,13 +2393,7 @@ $(document).ready(function() {
   }
   gene_structure_colouring_element.innerHTML = "";
 
-  var navbar = document.getElementById("navbar_menu");
-  if (navbar.scrollHeight > navbar.offsetHeight) {
-    if (document.getElementById("nm_footer").classList.contains('navbar_menu_footer_overflow') == false) {
-      document.getElementById("nm_footer").classList.remove('navbar_menu_footer');
-      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow');
-    }
-  }
+  adjustFooterSize();
 
   $("#locus").autocomplete({
     source: function(request, response) {
