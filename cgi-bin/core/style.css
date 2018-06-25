@@ -477,6 +477,7 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
   font-weight: 600;
   background-color: #b7b7b7;
   border-color: #b7b7b7;
+  white-space: normal;
 }
 
 .navbar_menu_buttons:hover {
@@ -495,11 +496,10 @@ Credits and loves goes out to the Bootstrap team: https://github.com/orgs/twbs/p
 
 .navbar_menu_footer_overflow {
   z-index: 100;
-  position: sticky;
-  bottom: 0px;
+  position: absolute; 
+  bottom: 0;
   width: -webkit-fill-available;
   padding-top: 14px;
-  padding-bottom: 40px;
   background: #3d3d3d;
   margin-left: -10%;
 }

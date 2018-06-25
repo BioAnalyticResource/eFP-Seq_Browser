@@ -2304,19 +2304,6 @@ function downloadDiv(id) {
       document.getElementById("downloadImage_button").click();
       downloadDivNum++;
   })
-
-  /*
-  html2canvas(document.getElementById(id), {
-    onrendered: function (canvas) {
-      $("#appendCanvas").empty(); // reset
-      canvas.id = "downloadDivNum_" + downloadDivNum;
-      document.getElementById("appendCanvas").appendChild(canvas);
-      document.getElementById("downloadDivNum_" + downloadDivNum).style.width = '100%';
-      document.getElementById("downloadImage_button").click();
-      downloadDivNum++;
-    },
-  });
-  */
 }
 
 /**
