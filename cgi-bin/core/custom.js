@@ -1119,11 +1119,13 @@ function populate_table(status) {
         } else {
           numberofreads_list.push(numberofreads);
         }
+        var hexColourCode;
         if ($(this).attr('hex_colour') == null || $(this).attr('hex_colour') == "") {
-          hexcode_list.push('0x64cc65')
+          hexColourCode = '0x64cc65';
         } else {
-          hexcode_list.push($(this).attr('hex_colour'))
+          hexColourCode = $(this).attr('hex_colour');
         }
+        hexcode_list.push(hexColourCode);
         var filenameIn =  ($(this).attr('filename'));
         if (filenameIn == null || filenameIn == "" || filenameIn == undefined) {
           filenameIn = "accepted_hits.bam"
@@ -1166,9 +1168,17 @@ function populate_table(status) {
         rnaseq_calls.push([tissue, experimentno]);
 
         var igbView_link = 'http://bioviz.org/bar.html?version=Arabidopsis_thaliana_TAIR10&';
-        igbView_link += 'feature_url_0=' + drive_link + "&";
-        igbView_link += 'sym_name_0=' + filenameIn + '&';
-        igbView_link += 'sym_method_0=' + drive_link + "&";
+        // Setup IGB
+        igbView_link += 'loadresidues=true&';
+        // Load custom data      
+        igbView_link += 'feature_url_1=' + drive_link + "&";
+        igbView_link += 'sym_method_1=' + drive_link + "&";
+        igbView_link += 'sym_ypos_1=0&';
+        igbView_link += 'sym_yheight_1=50&';
+        igbView_link += 'sym_col_1=' + hexColourCode + '&';
+        igbView_link += 'sym_bg_1=0xFFFFFF&';
+        igbView_link += 'sym_name_0=' + title + "_" + experimentno + '&';
+        // Closing
         igbView_link += 'query_url=' + drive_link + "&";
         igbView_link += 'server_url=bar';
 
@@ -2308,7 +2318,7 @@ function downloadDiv(id) {
 
 /**
 * On click, hide the nav bar from main screen
-*/;
+*/
 function displayNavBAR() {
   if ($("#navbar_menu").is(":visible") == true) {
     document.getElementById("navbar_menu").style.display = "none";
@@ -2330,6 +2340,17 @@ function displayNavBAR() {
 function adjustFooterSize() {
   var navbar = document.getElementById("navbar_menu");
   document.getElementById("nm_footer").style.width = (navbar.offsetWidth * 1.1) + "px";
+
+  if (navbar.scrollHeight > navbar.offsetHeight) {
+    if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_sticky") == false) {
+      document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_abs');
+      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_sticky');
+    }
+    else if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_abs") == false) {
+      document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_sticky');
+      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_abs');
+    }
+  }
 }
 
 // Whenever browser resized, checks to see if footer class needs to be changed
