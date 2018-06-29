@@ -1330,10 +1330,10 @@ function populate_table(status) {
     document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = "";
     variantdiv_str = '<div id="variants_div">';
     variantdiv_str += '<select id="variant_select">';
-    variantdiv_str += '<option value="0" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAS0lEQVQ4jWMIxQfSoCCBAQRgvDRUHhYAVsCGWyABhZuATRZFO8wEOEBIpuL1 ABAwhAYOex8KDncfBg57HwoOdzAC4nD458NhX5YCAOtozsHok4ONAAAAAElFTkSuQmCC" style="max-width:none;" title="AT2G24270.1"></option>';
-    variantdiv_str += '<option value="1" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAT0lEQVQ4jWNgDcUD0qAggQEEYLw0VB4WAFbAhlsgAYWbgE0WRTvMBDhAlkxA EUpF8UAAUII1cNj7UHC4+5Bx2PtQcLiDERCHwz8fDvuyFACDg7uy8+q5lAAAAABJRU5ErkJggg==" style="max-width:none;" title="AT2G24270.2"></option>';
-    variantdiv_str += '<option value="2" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggIJQbCANChLASmC8NFQeFgBWwIZbIAGFm4BNFkU7zAQ4QEim BkCFWNHcHgBXzDjsfSg43H3IOOx9KDjcwQiIw+GfD4d9WQoAgkyakcEOyvoAAAAASUVORK5CYII=" style="max-width:none;" title="AT2G24270.3"></option>';
-    variantdiv_str += '<option value="3" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggIJQEAhLS2NABmxpEJAA5qXBACoPC0DRjEUgAYWbgE0WRXsa mruQJFNDAxgIAMZh70PB4e5DxmHvQ8HhDkZAHA7/fDjsy1IA2bJX0qO2690AAAAASUVORK5CYII=" style="max-width:none;" title="AT2G24270.4"></option>';
+    variantdiv_str += '<option value="0" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWNgYGAIxQnC0iAggQEE0mAA lYcFgBWw4RZIQOEmYJNF0Q4zAQ4Qkqm4XQ8EASDFjMPeh4LD3YeMw96HgsMdjIA4HP75cNiXpQDz LMP3r8Y/VgAAAABJRU5ErkJggg==" style="max-width:none;" title="AT2G24270.1"></option>';
+    variantdiv_str += '<option value="1" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAUUlEQVQ4jWNgYGAIxQnC0iAggQEE0mAA lYcFgBWw4RZIQOEmYJNF0Q4zAQ6QJRNQhFJRPBAAkmEc9j4UHO4+ZBz2PhQc7mAExOHwz4fDviwF AHwvt+HVrHUkAAAAAElFTkSuQmCC" style="max-width:none;" title="AT2G24270.2"></option>';
+    variantdiv_str += '<option value="2" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAUUlEQVQ4jWNggIJQbCAsDQISwErSYACV hwWAFbDhFkhA4SZgk0XRDjMBDhCSqQFQIVY0twfAFTMOex8KDncfMg57HwoOdzAC4nD458NhX5YC AMtOmiH6inyxAAAAAElFTkSuQmCC" style="max-width:none;" title="AT2G24270.3"></option>';
+    variantdiv_str += '<option value="3" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAVUlEQVQ4jWNggIJQMEhLY0AGbGkQkADm pcEAKg8LQNGMRSABhZuATRZFexqau5AkU0MDIEKsoaggAK6Ycdj7UHC4+5Bx2PtQcLiDERCHwz8f DvuyFABHFHz72l50RQAAAABJRU5ErkJggg==" style="max-width:none;" title="AT2G24270.4"></option>';
     variantdiv_str += '</select>';
     variantdiv_str += '</div>';
     document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = variantdiv_str;
@@ -2391,19 +2391,20 @@ $(document).ready(function() {
   $('#rpkm_scale_input').keyup(function() {
     rpkm_validation();
   });
-  populate_table(1); // status 1 forces rna-seq api to return cached data for fast initial load
 
   setTimeout(function() {
     if (signInButton = document.getElementsByClassName("abcRioButtonLightBlue").length > 0) {
       hiddenGoogleSignin();
     }
     getGFF(locus);
-  }, 1200);
+  }, 700);
 
+  /*
   if (gene_structure_colouring_element == null) {
     gene_structure_colouring_element = document.getElementById("flt1_thetable").parentElement;
   }
   gene_structure_colouring_element.innerHTML = "";
+  */
 
   adjustFooterSize();
 
