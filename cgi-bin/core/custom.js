@@ -460,9 +460,11 @@ function variants_radio_options(status) {
       variantList = [];
       testList = [];
       var variants_div = document.getElementById("variants_div");
-      while (variants_div.firstChild) {
-        variants_div.removeChild(variants_div.firstChild);
-      }
+      if (variants_div.firstChild != null || variants_div.firstChild != undefined || variants_div != null) {
+        while (variants_div.firstChild) {
+          variants_div.removeChild(variants_div.firstChild);
+        }
+      }      
       $('#variant_select').ddslick('destroy');
       var append_str = '<select id="variant_select">';
       for (var i = 0; i < parseInt(gene_res['variant_count']); i++) {
@@ -495,9 +497,11 @@ function variants_radio_options(status) {
     error: function() {
       $("tbody").empty();
       var variants_div = document.getElementById("variants_div");
-      while (variants_div.firstChild) {
-        variants_div.removeChild(variants_div.firstChild);
-      }
+      if (variants_div.firstChild != null || variants_div.firstChild != undefined || variants_div != null) {
+        while (variants_div.firstChild) {
+          variants_div.removeChild(variants_div.firstChild);
+        }
+      }  
       var append_str = "<p class=\"warning_core\" style=\"text-align:center;\"> ERROR IN get_gene_structures ! PLEASE REFRESH PAGE AND UPLOAD DATA AGAIN OR CONTACT AN ADMIN </p>"
       $("#variants_div").append(append_str);
       $('#locus_button').prop('disabled', true);

@@ -110,6 +110,11 @@ for subfeature in map_info[u'features'][0][u'subfeatures']:
 		elif region[u'type'] == u'three_prime_UTR':
 			exongraph.filledRectangle((int(float(region[u'start'] - start) /(end-start) * EXON_IMG_WIDTH), EXON_IMG_HEIGHT), (int(float(region[u'end'] - start)/(end-start) * EXON_IMG_WIDTH), 0), green)
 
+	# Nucleotide padding
+	nucleotidePadding = 85
+	exongraph.filledRectangle((0, EXON_IMG_HEIGHT), ((EXON_IMG_WIDTH / nucleotidePadding), 0), white)
+	exongraph.filledRectangle(((EXON_IMG_WIDTH - (EXON_IMG_WIDTH / nucleotidePadding)), EXON_IMG_HEIGHT), ((EXON_IMG_WIDTH), 0), white)
+
 	# Line in the middle
 	exongraph.filledRectangle((0, EXON_IMG_HEIGHT/2), (EXON_IMG_WIDTH, EXON_IMG_HEIGHT/2), black)
 
