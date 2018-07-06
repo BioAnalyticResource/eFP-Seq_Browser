@@ -3,21 +3,42 @@
 // Purpose: General functions for the eFP-Seq Browser
 //
 //=============================================================================
-// By default, legacy should be set to false unless else stated in document
+/**
+ * Boolean to determine if eFP-Seq Browser is legacy version or not
+ * @var {bool} legacy
+ */
 var legacy = false;
 
-// Get initial values
+/**
+ * Get initial values for colouring the RNA Table
+ * @var {String} colouring_mode
+ */
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
-var locus; // Which locus does the user want?
+/**
+ * Determines which locus the user wants
+ * @var {String} locus
+ */
+var locus; 
 if (document.getElementById("locus") != null) {
   locus = document.getElementById("locus").value;
 };
-// Used for comparing loci when changes
+/**
+ * Used for caching the locus
+ * @var {String} old_locus
+ */
 var old_locus = locus;
+/**
+ * Used for caching new locus
+ * @var {String} new_locus
+ */
 var new_locus;
 
-var yscale_input; // What Y-Scale does the user want?
+/**
+ * Determines what Y-Scale the user wants
+ * @var {String} yscale_input
+ */
+var yscale_input;
 if (document.getElementById("yscale_input") != null) {
   yscale_input = document.getElementById("yscale_input").value;
 };
@@ -174,8 +195,12 @@ var relative_rpkm_scale = "iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMV
 var exon_intron_scale = "iVBORw0KGgoAAAANSUhEUgAAALQAAAAPBAMAAAC/7vi3AAAAGFBMVEX///9QUFAAAADcFDz/jAAA AP+m3KYAfQCnICW7AAAArklEQVQ4jd3UMQ+CQAwF4OaG66ourpcO/DCGm7v17/vKBUU8SozBGBvy xo9HD6DzB3OicK4WTa7RfIGWgiiH0In6tBK/iMpKhsvyWAfB7NGlJEHQFA+6U5ZVjf2OTtfBI6YF OgIpadkaklGjZtrepIsXL63+U2s8vzHpila+0zsLEQe9ty+kQ7OuFgJ+pseY3nr5cIxtIQt6OkY/ 3lxReHMhF4nm1z+Zv6KP+/PdANuwQcLhhEyQAAAAAElFTkSuQmCC";
 
 /**
-* Produces an intermediate HEX colour.
-*/
+ * Produces an intermediate HEX colour
+ * @param {*} start_color
+ * @param {*} end_color
+ * @param {*} percent
+ * @returns
+ */
 function generate_colour(start_color, end_color, percent) {
   // strip the leading # if it's there
   start_color = start_color.replace(/^\s*#|\s*$/g, '');
@@ -560,6 +585,7 @@ function rnaseq_images(status) {
   bp_length_dic = {};
   mapped_reads_dic = {};
   locus_dic = {};
+  filtered_2d_totalReads = {};
   rnaseq_success = 1;
   get_input_values();
   if (rnaseq_calls.length == count_bam_entries_in_xml) {
@@ -635,29 +661,14 @@ function rnaseq_images(status) {
             }
           }
           else {
-            //r.push(parseIntArray(String(response_rnaseq['r']).replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(',')));
             r = response_rnaseq['r'];
-            //console.log(r);
           }
-          //console.log("ss_y = ", ss_y, ", sum_y = ", sum_y, ", sum_xy = ", sum_xy, ", sum_x = ", sum_x, ", sum_xx = ", sum_xx, ", ss_x = ", ss_x, ", ssx = ", ssx, ", ssy = ", ssy, ", n = ", n, ", sp = ", sp, ", ssx = ", ssx, ", ssy = ", ssy, ", r = ", r);
-
-          // FOR CACHE PURPOSES, swap the 2nd and 3rd statements
-          //console.log("if (record == \"" + response_rnaseq['record'] + "\"):");
-          //console.log("\tdumpJSON(" + response_rnaseq['status'] + ", \"" + response_rnaseq['locus'] + "\", " + response_rnaseq['variant'] + ", " + response_rnaseq['chromosome'] + ", " + response_rnaseq['start'] + ", " + response_rnaseq['end'] + ", \"" + response_rnaseq['record'] + "\", \"" + response_rnaseq['tissue'] + "\", \"" + response_rnaseq['rnaseqbase64'] + "\", " + response_rnaseq['reads_mapped_to_locus'] + ", " + response_rnaseq['absolute-fpkm'] + ", " + response_rnaseq['ss_y'] + ", " + response_rnaseq['sum_y'] + ", \"" + response_rnaseq['sum_xy'] + "\", \"" + response_rnaseq['sum_x'] + "\", \"" + response_rnaseq['sum_xx'] + "\", \"" + response_rnaseq['ss_x'] + "\")");
-          //console.log("\tdumpJSON(" + response_rnaseq['status'] + ", \"" + response_rnaseq['locus'] + "\", " + response_rnaseq['variant'] + ", " + response_rnaseq['chromosome'] + ", " + response_rnaseq['start'] + ", " + response_rnaseq['end'] + ", \"" + response_rnaseq['record'] + "\", \"" + response_rnaseq['tissue'] + "\", \"" + response_rnaseq['rnaseqbase64'] + "\", " + response_rnaseq['reads_mapped_to_locus'] + ", " + response_rnaseq['absolute-fpkm'] + ", \"" + response_rnaseq['r'] + "\")");
-
-          // find the correct row and update coverage image, and stats info
-          /*
-          if (response_rnaseq['record'] == null || response_rnaseq['record'] == undefined) {
-            document.getElementById(currentSRA + '_rnaseq_img').src = 'cgi-bin/img/error.png';
-            console.log("Error in generating image for: " + currentSRA);
-          }
-          */
           document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
           rnaseq_change += 1;
           document.getElementById(response_rnaseq['record'] + '_pcc').innerHTML = r[0].toFixed(2);
           document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
-          document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];        
+          document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
+          filtered_2d_totalReads[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];
 
           // Save the abs-fpkm, and the stats numbers
           for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
@@ -1413,7 +1424,7 @@ var filtered_2d = [];
 var filtered_2d_id = [];
 var filtered_2d_tissue = [];
 var filtered_2d_subtissue = [];
-var filtered_2d_totalReads = [];
+var filtered_2d_totalReads = {};
 var filtered_2d_PCC = [];
 var filtered_2d_rpkmNames = [];
 var filtered_2d_mappedReads = [];
@@ -1427,7 +1438,7 @@ var to_be_removed_efp = [];
 var keep_loop_var = [];
 /**
 * Creates a table of the coloured SVGs and their corresponding RPKM values
-* @param {String | Number} status - Index call version
+* @param {String | Number} status Index call version
 */
 function populate_efp_modal(status) {
   $("#efpModalTable").empty();
@@ -1470,7 +1481,6 @@ function populate_efp_modal(status) {
   filtered_2d_id = [];
   filtered_2d_tissue = [];
   filtered_2d_subtissue = [];
-  filtered_2d_totalReads = [];
   filtered_2d_PCC = [];
   filtered_2d_rpkmNames = [];
   filtered_2d_mappedReads = [];
@@ -1522,14 +1532,6 @@ function populate_efp_modal(status) {
       var single_var = single_trs[u]; // Testing purposes for debugging
       if ((single_trs[u].length > 16) && (single_trs[u].substr(single_trs[u].length - 16) == "_subtissue&quot;")) {
         filtered_2d_subtissue.push(single_trs[u].substring(0, single_trs[u].length - 16));
-        break;
-      }
-    }
-    // Total reads mapped number
-    for (u = 0; u < single_trs.length; u++) {
-      var single_var = single_trs[u]; // Testing purposes for debugging
-      if (single_trs[u].includes(">PubLink</a>.<br>Total reads = ")) {
-        filtered_2d_totalReads.push(single_trs[u].split("<br>")[1].split(" ")[3]);
         break;
       }
     }
@@ -2222,7 +2224,7 @@ function download_mainTableCSV() {
     downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_bpLength[i]) + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_bpStart[i]) + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_bpEnd[i]) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_totalReads[i] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_totalReads[filtered_2d_id[i]] + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_mappedReads[i]) + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_PCC[i] + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + String(efp_RPKM_values[i]) + "</td>\n";
