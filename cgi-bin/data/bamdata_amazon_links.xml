@@ -86,7 +86,7 @@
                 <bam_exp>SRR847506</bam_exp>
             </groupwith>
         </file>
-        <file info="carpel, GSM1359146, SRA: SRS583574" record_number="SRR1207194" foreground="FFFF00" hex_colour="0xFFFF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/carpel/SRR1207194/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="41295666" svg_subunit="carpels" svgname="ath-FlowerParts.svg" species="Arabidopsis thaliana" description="Carpels collected manually from stage 8-13 flowers" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1207194">
+        <file info="carpel, GSM1359146, SRA: SRS583574" record_number="SRR1207194" foreground="FFFF00" hex_colour="0xFFFF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/carpel/SRR1207194/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="41295666" read_map_method="TopHat" publication_link="" svg_subunit="carpels" svgname="ath-FlowerParts.svg" species="Arabidopsis thaliana" description="Carpels collected manually from stage 8-13 flowers" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1207194">
             <controls>
                 <bam_exp>SRR1207194</bam_exp>
                 <bam_exp>SRR1207195</bam_exp>
@@ -102,7 +102,7 @@
                 <bam_exp>SRR1207201</bam_exp>
             </groupwith>
         </file>
-        <file info="carpel, GSM1359146, SRA: SRS583574" record_number="SRR1207195" foreground="FFFF00" hex_colour="0xFFFF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/carpel/SRR1207195/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="39074103" svg_subunit="carpels" svgname="ath-FlowerParts.svg" species="Arabidopsis thaliana" description="Carpels collected manually from stage 8-13 flowers" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1207195">
+        <file info="carpel, GSM1359146, SRA: SRS583574" record_number="SRR1207195" foreground="FFFF00" hex_colour="0xFFFF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/carpel/SRR1207195/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="39074103" read_map_method="TopHat" publication_link="" svg_subunit="carpels" svgname="ath-FlowerParts.svg" species="Arabidopsis thaliana" description="Carpels collected manually from stage 8-13 flowers" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1207195">
             <controls>
                 <bam_exp>SRR1207194</bam_exp>
                 <bam_exp>SRR1207195</bam_exp>
@@ -154,7 +154,7 @@
                 <bam_exp>SRR1019443</bam_exp>
             </groupwith>
         </file>
-        <file info="7d Seedling, GSM1289365, SRA: SRS515184" record_number="SRR1049784" foreground="989800" hex_colour="0x989800" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/dark/SRR1049784/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="51665293" svg_subunit="shoot" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="7do dark-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1049784">
+        <file info="7d Seedling, GSM1289365, SRA: SRS515184" record_number="SRR1049784" foreground="989800" hex_colour="0x989800" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/dark/SRR1049784/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="51665293" read_map_method="TopHat" publication_link="" svg_subunit="shoot" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="7do dark-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1049784">
             <controls>
                 <bam_exp>SRR1049777</bam_exp>
                 <bam_exp>SRR1049778</bam_exp>
@@ -185,7 +185,7 @@
                 <bam_exp>SRR1049788</bam_exp>
             </groupwith>
         </file>
-        <file info="Col-0 RNA-Seq, GSM912634, SRA: SRS308731" record_number="SRR477075" foreground="CCCC97" hex_colour="0xCCCC97" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/dark/SRR477075/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="33569708" svg_subunit="etiolatedseedling" svgname="ath-etiolatedSeedling.svg" species="Arabidopsis thaliana" description="5do dark-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR477075">
+        <file info="Col-0 RNA-Seq, GSM912634, SRA: SRS308731" record_number="SRR477075" foreground="CCCC97" hex_colour="0xCCCC97" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/dark/SRR477075/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="33569708" read_map_method="TopHat" publication_link="" svg_subunit="etiolatedseedling" svgname="ath-etiolatedSeedling.svg" species="Arabidopsis thaliana" description="5do dark-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR477075">
             <controls>
                 <bam_exp>SRR477075</bam_exp>
                 <bam_exp>SRR477076</bam_exp>
@@ -201,7 +201,7 @@
                 <bam_exp>SRR477082</bam_exp>
             </groupwith>
         </file>
-        <file info="Col-0 RNA-Seq, GSM912635, SRA: SRS308732" record_number="SRR477076" foreground="CCCC97" hex_colour="0xCCCC97" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/dark/SRR477076/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="20201654" svg_subunit="etiolatedseedling" svgname="ath-etiolatedSeedling.svg" species="Arabidopsis thaliana" description="5do dark-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR477076">
+        <file info="Col-0 RNA-Seq, GSM912635, SRA: SRS308732" record_number="SRR477076" foreground="CCCC97" hex_colour="0xCCCC97" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/dark/SRR477076/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="20201654" read_map_method="TopHat" publication_link="" svg_subunit="etiolatedseedling" svgname="ath-etiolatedSeedling.svg" species="Arabidopsis thaliana" description="5do dark-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR477076">
             <controls>
                 <bam_exp>SRR477075</bam_exp>
                 <bam_exp>SRR477076</bam_exp>
@@ -446,7 +446,7 @@
                 <bam_exp>SRR314818</bam_exp>
             </groupwith>
         </file>
-        <file info="Leaves of six week-old Arabidopsis Columbia (Col-0) wild type, SRA: SRS292180" record_number="SRR446027" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR446027/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="31481295" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 6-week-old short-day-grown plant infiltrated with mock (virulent bacterium) and harvested 1h post-infiltration" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR446027">
+        <file info="Leaves of six week-old Arabidopsis Columbia (Col-0) wild type, SRA: SRS292180" record_number="SRR446027" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR446027/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="31481295" read_map_method="TopHat" publication_link="" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 6-week-old short-day-grown plant infiltrated with mock (virulent bacterium) and harvested 1h post-infiltration" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR446027">
             <controls>
                 <bam_exp>SRR446027</bam_exp>
                 <bam_exp>SRR446028</bam_exp>
@@ -476,7 +476,7 @@
                 <bam_exp>SRR446044</bam_exp>
             </groupwith>
         </file>
-        <file info="Leaves of six week-old Arabidopsis Columbia (Col-0) wild type, SRA: SRS292181" record_number="SRR446028" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR446028/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="42228711" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 6-week-old short-day-grown plant infiltrated with mock (virulent bacterium) and harvested 1h post-infiltration" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR446028">
+        <file info="Leaves of six week-old Arabidopsis Columbia (Col-0) wild type, SRA: SRS292181" record_number="SRR446028" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR446028/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="42228711" read_map_method="TopHat" publication_link="" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 6-week-old short-day-grown plant infiltrated with mock (virulent bacterium) and harvested 1h post-infiltration" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR446028">
             <controls>
                 <bam_exp>SRR446027</bam_exp>
                 <bam_exp>SRR446028</bam_exp>
@@ -506,7 +506,7 @@
                 <bam_exp>SRR446044</bam_exp>
             </groupwith>
         </file>
-        <file info="Leaves of six week-old Arabidopsis Columbia (Col-0) wild type, SRA: SRS293915" record_number="SRR446033" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR446033/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="61481964" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 6-week-old short-day-grown plant infiltrated with mock (virulent bacterium) and harvested 6h post-infiltration" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR446033">
+        <file info="Leaves of six week-old Arabidopsis Columbia (Col-0) wild type, SRA: SRS293915" record_number="SRR446033" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR446033/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="61481964" read_map_method="TopHat" publication_link="" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 6-week-old short-day-grown plant infiltrated with mock (virulent bacterium) and harvested 6h post-infiltration" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR446033">
             <controls>
                 <bam_exp>SRR446027</bam_exp>
                 <bam_exp>SRR446028</bam_exp>
@@ -536,7 +536,7 @@
                 <bam_exp>SRR446044</bam_exp>
             </groupwith>
         </file>
-        <file info="Leaves of six week-old Arabidopsis Columbia (Col-0) wild type, SRA: SRS293916" record_number="SRR446034" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR446034/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="63386459" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 6-week-old short-day-grown plant infiltrated with mock (virulent bacterium) and harvested 6h post-infiltration" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR446034">
+        <file info="Leaves of six week-old Arabidopsis Columbia (Col-0) wild type, SRA: SRS293916" record_number="SRR446034" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR446034/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="63386459" read_map_method="TopHat" publication_link="" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 6-week-old short-day-grown plant infiltrated with mock (virulent bacterium) and harvested 6h post-infiltration" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR446034">
             <controls>
                 <bam_exp>SRR446027</bam_exp>
                 <bam_exp>SRR446028</bam_exp>
@@ -711,7 +711,7 @@
                 <bam_exp>SRR681004</bam_exp>
             </groupwith>
         </file>
-        <file info="Col-0 Untreated Adult Plants, SRA: SRS311683" record_number="SRR493097" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR493097/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="31976667" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 5-week-old short-day-grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR493097">
+        <file info="Col-0 Untreated Adult Plants, SRA: SRS311683" record_number="SRR493097" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR493097/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="31976667" read_map_method="TopHat" publication_link="" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 5-week-old short-day-grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR493097">
             <controls>
                 <bam_exp>SRR492930</bam_exp>
                 <bam_exp>SRR492931</bam_exp>
@@ -780,7 +780,7 @@
                 <bam_exp>SRR513743</bam_exp>
             </groupwith>
         </file>
-        <file info="Col-0 Untreated Adult Plants, SRA: SRS311683" record_number="SRR493098" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR493098/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="13408363" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 5-week-old short-day-grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR493098">
+        <file info="Col-0 Untreated Adult Plants, SRA: SRS311683" record_number="SRR493098" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR493098/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="13408363" read_map_method="TopHat" publication_link="" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 5-week-old short-day-grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR493098">
             <controls>
                 <bam_exp>SRR492930</bam_exp>
                 <bam_exp>SRR492931</bam_exp>
@@ -849,7 +849,7 @@
                 <bam_exp>SRR513743</bam_exp>
             </groupwith>
         </file>
-        <file info="Col-0 Untreated Adult Plants, SRA: SRS311683" record_number="SRR493101" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR493101/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="7679343" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 5-week-old short-day-grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR493101">
+        <file info="Col-0 Untreated Adult Plants, SRA: SRS311683" record_number="SRR493101" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR493101/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="7679343" read_map_method="TopHat" publication_link="" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 5-week-old short-day-grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR493101">
             <controls>
                 <bam_exp>SRR492930</bam_exp>
                 <bam_exp>SRR492931</bam_exp>
@@ -917,7 +917,7 @@
                 <bam_exp>SRR513743</bam_exp>
             </groupwith>
         </file>
-        <file info="WT 4wks leaves RNA-seq, GSM1088166, SRA: SRS398009" record_number="SRR764885" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR764885/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="50380962" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 4-week-old long-day-grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR764885">
+        <file info="WT 4wks leaves RNA-seq, GSM1088166, SRA: SRS398009" record_number="SRR764885" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR764885/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="50380962" read_map_method="TopHat" publication_link="" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 4-week-old long-day-grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR764885">
             <controls>
                 <bam_exp>SRR764885</bam_exp>
             </controls>
@@ -951,7 +951,7 @@
                 <bam_exp>SRR925864</bam_exp>
             </groupwith>
         </file>
-        <file info="leaves of wild type Arabidopsis, GSM1185649, SRA: SRS457504" record_number="SRR934391" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR934391/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="36196662" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 2-week-old long-day-grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR934391">
+        <file info="leaves of wild type Arabidopsis, GSM1185649, SRA: SRS457504" record_number="SRR934391" foreground="64CC65" hex_colour="0x64CC65" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/leaf/SRR934391/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="36196662" read_map_method="TopHat" publication_link="" svg_subunit="leaf" svgname="ath-leaf.svg" species="Arabidopsis thaliana" description="Leaf of 2-week-old long-day-grown plant" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR934391">
             <controls>
                 <bam_exp>SRR934391</bam_exp>
             </controls>
@@ -1202,7 +1202,7 @@
                 <bam_exp>SRR576329</bam_exp>
             </groupwith>
         </file>
-        <file info="Arabidopsis thaliana seedlings, SRA: SRS346091" record_number="SRR515073" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR515073/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="5196385" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="7-day-old plate-grown, long-day-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR515073">
+        <file info="Arabidopsis thaliana seedlings, SRA: SRS346091" record_number="SRR515073" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR515073/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="5196385" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="7-day-old plate-grown, long-day-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR515073">
             <controls>
                 <bam_exp>SRR515071</bam_exp>
                 <bam_exp>SRR515072</bam_exp>
@@ -1215,7 +1215,7 @@
                 <bam_exp>SRR515074</bam_exp>
             </groupwith>
         </file>
-        <file info="Arabidopsis thaliana seedlings, SRA: SRS346091" record_number="SRR515074" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR515074/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="4527721" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="7-day-old plate-grown, long-day-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR515074">
+        <file info="Arabidopsis thaliana seedlings, SRA: SRS346091" record_number="SRR515074" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR515074/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="4527721" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="7-day-old plate-grown, long-day-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR515074">
             <controls>
                 <bam_exp>SRR515071</bam_exp>
                 <bam_exp>SRR515072</bam_exp>
@@ -1228,7 +1228,7 @@
                 <bam_exp>SRR515074</bam_exp>
             </groupwith>
         </file>
-        <file info="Col-0 repl1, SRA: SRS351292" record_number="SRR527164" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR527164/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="19992786" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="7-day-old, plate-grown, long-day-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR527164">
+        <file info="Col-0 repl1, SRA: SRS351292" record_number="SRR527164" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR527164/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="19992786" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="7-day-old, plate-grown, long-day-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR527164">
             <controls>
                 <bam_exp>SRR527164</bam_exp>
                 <bam_exp>SRR527165</bam_exp>
@@ -1243,7 +1243,7 @@
                 <bam_exp>SRR527175</bam_exp>
             </groupwith>
         </file>
-        <file info=" Col-0 repl2, SRA: SRS351293" record_number="SRR527165" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR527165/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="19917758" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="7-day-old, plate-grown, long-day-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR527165">
+        <file info=" Col-0 repl2, SRA: SRS351293" record_number="SRR527165" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR527165/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="19917758" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="7-day-old, plate-grown, long-day-grown seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR527165">
             <controls>
                 <bam_exp>SRR527164</bam_exp>
                 <bam_exp>SRR527165</bam_exp>
@@ -2793,7 +2793,7 @@
                 <bam_exp>SRR653596</bam_exp>
             </groupwith>
         </file>
-        <file info="10 day old seedings treated with DMSO for 120 minutes, SRA: SRS404292" record_number="SRR797194" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR797194/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="54048815" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="10-day-old plate-grown 24-light-grown seedling with mock (cytokinin) treatment" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR797194">
+        <file info="10 day old seedings treated with DMSO for 120 minutes, SRA: SRS404292" record_number="SRR797194" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR797194/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="54048815" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="10-day-old plate-grown 24-light-grown seedling with mock (cytokinin) treatment" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR797194">
             <controls>
                 <bam_exp>SRR797194</bam_exp>
                 <bam_exp>SRR797230</bam_exp>
@@ -2808,7 +2808,7 @@
                 <bam_exp>SRR833246</bam_exp>
             </groupwith>
         </file>
-        <file info="10 day old seedings treated with DMSO for 120 minutes, SRA: SRS404291" record_number="SRR797230" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR797230/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="51421658" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="10-day-old plate-grown 24-light-grown seedling with mock (cytokinin) treatment" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR797230">
+        <file info="10 day old seedings treated with DMSO for 120 minutes, SRA: SRS404291" record_number="SRR797230" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR797230/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="51421658" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="10-day-old plate-grown 24-light-grown seedling with mock (cytokinin) treatment" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR797230">
             <controls>
                 <bam_exp>SRR797194</bam_exp>
                 <bam_exp>SRR797230</bam_exp>
@@ -2823,7 +2823,7 @@
                 <bam_exp>SRR833246</bam_exp>
             </groupwith>
         </file>
-        <file info="10 day old seedings treated with DMSO for 120 minutes, SRA: SRS404294" record_number="SRR833246" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR833246/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="57084121" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="10-day-olde plate-grown 24-light-grown seedling with mock (cytokinin) treatment" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR833246">
+        <file info="10 day old seedings treated with DMSO for 120 minutes, SRA: SRS404294" record_number="SRR833246" foreground="98FF00" hex_colour="0x98FF00" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/light/SRR833246/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="57084121" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="10-day-olde plate-grown 24-light-grown seedling with mock (cytokinin) treatment" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR833246">
             <controls>
                 <bam_exp>SRR797194</bam_exp>
                 <bam_exp>SRR797230</bam_exp>
@@ -2906,7 +2906,7 @@
                 <bam_exp>SRR1286088</bam_exp>
             </groupwith>
         </file>
-        <file info="primary root tip, SRA: SRS597256" record_number="SRR1261509" foreground="BD7740" hex_colour="0xBD7740" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/RAM/SRR1261509/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="46745857" svg_subunit="all" svgname="ath-RootTip.svg" species="Arabidopsis thaliana" description="Root tip (about 4 mm) from 4-day-old seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1261509">
+        <file info="primary root tip, SRA: SRS597256" record_number="SRR1261509" foreground="BD7740" hex_colour="0xBD7740" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/RAM/SRR1261509/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="46745857" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-RootTip.svg" species="Arabidopsis thaliana" description="Root tip (about 4 mm) from 4-day-old seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1261509">
             <controls>
                 <bam_exp>SRR1261509</bam_exp>
             </controls>
@@ -3223,7 +3223,7 @@
                 <bam_exp>ERR274311</bam_exp>
             </groupwith>
         </file>
-        <file info="10 day old root, Col-0, GSM1287167, SRA: SRS513532" record_number="SRR1046909" foreground="CCCC97" hex_colour="0xCCCC97" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/root/SRR1046909/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="5254981" svg_subunit="root" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="Root from 10-day-old seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1046909">
+        <file info="10 day old root, Col-0, GSM1287167, SRA: SRS513532" record_number="SRR1046909" foreground="CCCC97" hex_colour="0xCCCC97" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/root/SRR1046909/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="5254981" read_map_method="TopHat" publication_link="" svg_subunit="root" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="Root from 10-day-old seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1046909">
             <controls>
                 <bam_exp>SRR1046909</bam_exp>
                 <bam_exp>SRR1046910</bam_exp>
@@ -3269,7 +3269,7 @@
                 <bam_exp>SRR1046942</bam_exp>
             </groupwith>
         </file>
-        <file info="10 day old root, Col-0, GSM1287168, SRA: SRS513533" record_number="SRR1046910" foreground="CCCC97" hex_colour="0xCCCC97" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/root/SRR1046910/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="5367327" svg_subunit="root" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="Root from 10-day-old seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1046910">
+        <file info="10 day old root, Col-0, GSM1287168, SRA: SRS513533" record_number="SRR1046910" foreground="CCCC97" hex_colour="0xCCCC97" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/root/SRR1046910/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="5367327" read_map_method="TopHat" publication_link="" svg_subunit="root" svgname="ath-10dayOldSeedling.svg" species="Arabidopsis thaliana" description="Root from 10-day-old seedling" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1046910">
             <controls>
                 <bam_exp>SRR1046909</bam_exp>
                 <bam_exp>SRR1046910</bam_exp>
@@ -3373,7 +3373,7 @@
                 <bam_exp>SRR314818</bam_exp>
             </groupwith>
         </file>
-        <file info="Col sun 1, SRA: SRS468598" record_number="SRR949956" foreground="999999" hex_colour="0x999999" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/SAM/SRR949956/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="4537769" svg_subunit="all" svgname="ath-ShootApexInflorescense.svg" species="Arabidopsis thaliana" description="Shoot apical meristem/young leaf from 14-day-old plant grown in simulated sun condition" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR949956">
+        <file info="Col sun 1, SRA: SRS468598" record_number="SRR949956" foreground="999999" hex_colour="0x999999" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/SAM/SRR949956/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="4537769" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-ShootApexInflorescense.svg" species="Arabidopsis thaliana" description="Shoot apical meristem/young leaf from 14-day-old plant grown in simulated sun condition" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR949956">
             <controls>
                 <bam_exp>SRR949956</bam_exp>
                 <bam_exp>SRR949965</bam_exp>
@@ -3391,7 +3391,7 @@
                 <bam_exp>SRR949993</bam_exp>
             </groupwith>
         </file>
-        <file info="Col sun 1, GSM764079, SRA: SRS468598" record_number="SRR949965" foreground="999999" hex_colour="0x999999" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/SAM/SRR949965/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="3984129" svg_subunit="all" svgname="ath-ShootApexInflorescense.svg" species="Arabidopsis thaliana" description="Shoot apical meristem/young leaf from 14-day-old plant grown in simulated sun condition" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR949965">
+        <file info="Col sun 1, GSM764079, SRA: SRS468598" record_number="SRR949965" foreground="999999" hex_colour="0x999999" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/SAM/SRR949965/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="3984129" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-ShootApexInflorescense.svg" species="Arabidopsis thaliana" description="Shoot apical meristem/young leaf from 14-day-old plant grown in simulated sun condition" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR949965">
             <controls>
                 <bam_exp>SRR949956</bam_exp>
                 <bam_exp>SRR949965</bam_exp>
@@ -3409,7 +3409,7 @@
                 <bam_exp>SRR949993</bam_exp>
             </groupwith>
         </file>
-        <file info="Col sun 4, SRA: SRS468626" record_number="SRR949988" foreground="999999" hex_colour="0x999999" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/SAM/SRR949988/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="4955792" svg_subunit="all" svgname="ath-ShootApexInflorescense.svg" species="Arabidopsis thaliana" description="Shoot apical meristem/young leaf from 14-day-old plant grown in simulated sun condition" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR949988">
+        <file info="Col sun 4, SRA: SRS468626" record_number="SRR949988" foreground="999999" hex_colour="0x999999" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/SAM/SRR949988/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="4955792" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-ShootApexInflorescense.svg" species="Arabidopsis thaliana" description="Shoot apical meristem/young leaf from 14-day-old plant grown in simulated sun condition" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR949988">
             <controls>
                 <bam_exp>SRR949956</bam_exp>
                 <bam_exp>SRR949965</bam_exp>
@@ -3427,7 +3427,7 @@
                 <bam_exp>SRR949993</bam_exp>
             </groupwith>
         </file>
-        <file info="Col_sun_4, SRA: SRS468626" record_number="SRR949989" foreground="999999" hex_colour="0x999999" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/SAM/SRR949989/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="4717225" svg_subunit="all" svgname="ath-ShootApexInflorescense.svg" species="Arabidopsis thaliana" description="Shoot apical meristem/young leaf from 14-day-old plant grown in simulated sun condition" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR949989">
+        <file info="Col_sun_4, SRA: SRS468626" record_number="SRR949989" foreground="999999" hex_colour="0x999999" bam_type="Amazon AWS" name="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/SAM/SRR949989/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="4717225" read_map_method="TopHat" publication_link="" svg_subunit="all" svgname="ath-ShootApexInflorescense.svg" species="Arabidopsis thaliana" description="Shoot apical meristem/young leaf from 14-day-old plant grown in simulated sun condition" url="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR949989">
             <controls>
                 <bam_exp>SRR949956</bam_exp>
                 <bam_exp>SRR949965</bam_exp>

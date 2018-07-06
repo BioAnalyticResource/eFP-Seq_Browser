@@ -1066,6 +1066,7 @@ function populate_table(status) {
   repo_list = [];
   tissue_list = [];
   svg_name_list = [];
+  filtered_2d_controls = {};
 
   // Creating exon intron scale image
   var img_created = '<img src="' + 'data:image/png;base64,' + exon_intron_scale + '" style="float: right; margin-right: 10px;">';
@@ -1155,6 +1156,16 @@ function populate_table(status) {
             }
           }
         }
+        var controlsString = "";
+        if (controls.length > 0) {
+          for (var y = 0; y < controls.length; y++) {
+            controlsString += controls[y].toString();
+            if (y < (controls.length - 2)) {
+              controlsString += ", ";
+            }
+          }
+        }
+        filtered_2d_controls[experimentno] = controlsString;
         var name = $(this).attr('name').split("/");
         repo_list.push($(this).attr('name'));
         if ($(this).attr('bam_type') == "Amazon AWS") {
@@ -1410,6 +1421,7 @@ var filtered_2d_bpLength = [];
 var filtered_2d_bpStart = [];
 var filtered_2d_bpEnd = [];
 var filtered_2d_locus = [];
+var filtered_2d_controls = [];
 var tr_of_table;
 var to_be_removed_efp = [];
 var keep_loop_var = [];
@@ -2061,7 +2073,7 @@ function manage_DownloadXML() {
   }
 }
 
-var table_base = "\t\t<tr>\n\t\t\t<th>Title*</th>\n\t\t\t<th>Description*</th>\n\t\t\t<th>Record Number *</th>\n\t\t\t<th>RNA-Seq Data/BAM file repository link*</th>\n\t\t\t<th>Repository type*</th>\n\t\t\t<th>Publication Link</th>\n\t\t\t<th>SRA/NCBI Link</th>\n\t\t\t<th>Total Reads Mapped*</th>\n\t\t\t<th>Read Map Method</th>\n\t\t\t<th>Species*</th>\n\t\t\t<th>Tissue*</th>\n\t\t\t<th>Tissue subunit*</th>\n\t\t</tr>\n";
+var table_base = "\t\t<tr>\n\t\t\t<th>Title*</th>\n\t\t\t<th>Description*</th>\n\t\t\t<th>Record Number *</th>\n\t\t\t<th>RNA-Seq Data/BAM file repository link*</th>\n\t\t\t<th>Repository type*</th>\n\t\t\t<th>BAM Filename*</th>\n\t\t\t<th>Publication Link</th>\n\t\t\t<th>SRA/NCBI Link</th>\n\t\t\t<th>Total Reads Mapped*</th>\n\t\t\t<th>Read Map Method</th>\n\t\t\t<th>Species*</th>\n\t\t\t<th>Tissue*</th>\n\t\t\t<th>Tissue subunit*</th>\n\t\t\t<th>Controls</th>\n\t\t\t<th>Replicate Controls</th>\n\t\t</tr>\n";
 /**
 * Initilizes and fills a hidden table (#XMLtoCSVtable) to be filled with potentially downloadable CSV files
 */
@@ -2085,43 +2097,85 @@ function fill_tableCSV() {
           }
           fileTitle = fileTitle.split(' ').join('_')
         });
-        var $title = $(xml_data).find("file");
+        var $title = $(xml_data).find("file"); // XML title
         var table_add = "";
         table_add += "<table id='" + fileTitle + "'>\n\t<tbody>\n";
-        //console.log(table_add);
         table_add += "\t\t<caption>" + fileTitle + "</caption>\n";
-        //console.log(table_add);
-        table_add += table_base;
-        //console.log(table_add);
+        table_add += table_base; // CSV header
         $title.each(function() {
-          table_add += "\t\t<tr>\n"
-          var title = $(this).attr('description');
+          table_add += "\t\t<tr>\n";
+          // Title
+          var title = $(this).attr('description'); 
           table_add += "\t\t\t<td>" + title + "</td>\n";
-          var desc = $(this).attr('info');
+          // Description
+          var desc = $(this).attr('info'); 
           table_add += "\t\t\t<td>" + desc + "</td>\n";
+          // Record number
           var record_number = $(this).attr('record_number');
           table_add += "\t\t\t<td>" + record_number + "</td>\n";
+          // BAM/repository link
           var bam_link = $(this).attr('name');
           table_add += "\t\t\t<td>" + bam_link + "</td>\n";
+          // BAM/repo type
           var bam_type = $(this).attr('bam_type');
           table_add += "\t\t\t<td>" + bam_type + "</td>\n";
+          // BAM/repo type
+          var bam_filename = $(this).attr('filename');
+          table_add += "\t\t\t<td>" + bam_filename + "</td>\n";
+          // Publication link
           var publication_link = $(this).attr('publication_link');
           table_add += "\t\t\t<td>" + publication_link + "</td>\n";
+          // Publication URL
           var publication_url = $(this).attr('url');
           table_add += "\t\t\t<td>" + publication_url + "</td>\n";
+          // Total reads mapped
           var total_reads_mapped = $(this).attr('total_reads_mapped');
           if (total_reads_mapped == null || total_reads_mapped == "") {
-            total_reads_mapped = "1";
+            total_reads_mapped = "0";
           }
           table_add += "\t\t\t<td>" + total_reads_mapped + "</td>\n";
+          // Read mapped method
           var read_map_method = $(this).attr('read_map_method');
           table_add += "\t\t\t<td>" + read_map_method + "</td>\n";
+          // Species
           var species = $(this).attr('species');
+          if (species == null || species == "") {
+            species = "Arabidopsis thaliana";
+          }
           table_add += "\t\t\t<td>" + species + "</td>\n";
+          // Tissue
           var svgname = $(this).attr('svgname');
           table_add += "\t\t\t<td>" + svgname + "</td>\n";
+          // Tissue subunit
           var svg_subunit = $(this).attr('svg_subunit');
           table_add += "\t\t\t<td>" + svg_subunit + "</td>\n";
+          // Controls
+          var controlsXMLString = "";
+          if ($(this).find("controls")[0].innerHTML != undefined) {
+            for (i = 1; i < $(this).find("controls")[0].childNodes.length; i = i+2) {
+              if ($(this).find("controls")[0].childNodes[i].firstChild != undefined) {
+                controlsXMLString += ($(this).find("controls")[0].childNodes[i].firstChild.textContent);
+                if (i < ($(this).find("controls")[0].childNodes.length - 2)) {
+                  controlsXMLString += ", ";
+                }
+              }        
+            }
+          }
+          table_add += "\t\t\t<td>" + controlsXMLString + "</td>\n";
+          // Replicate Controls
+          var RcontrolsXMLString = "";
+          if ($(this).find("groupwith")[0].innerHTML != undefined) {
+            for (i = 1; i < $(this).find("groupwith")[0].childNodes.length; i = i+2) {
+              if ($(this).find("groupwith")[0].childNodes[i].firstChild != undefined) {
+                RcontrolsXMLString += ($(this).find("groupwith")[0].childNodes[i].firstChild.textContent);
+                if (i < ($(this).find("groupwith")[0].childNodes.length - 2)) {
+                  RcontrolsXMLString += ", ";
+                }
+              }
+            }
+          }
+          table_add += "\t\t\t<td>" + RcontrolsXMLString + "</td>\n";
+          // Closing
           table_add += "\t\t</tr>\n"
         })
         table_add += "\t</tbody>\n</table>";
@@ -2146,7 +2200,7 @@ function download_XMLtableCSV() {
   }
 }
 
-var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Record Number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>bp Start site</th>\n\t\t\t<th>bp End site</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t</tr>\n";
+var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Record Number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>bp Start site</th>\n\t\t\t<th>bp End site</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t\t<th>Controls</th>\n\t\t</tr>\n";
 /**
 * Converts and downloads index's (document) main table as an CSV
 * @return {File} CSV
@@ -2172,6 +2226,7 @@ function download_mainTableCSV() {
     downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_mappedReads[i]) + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_PCC[i] + "</td>\n";
     downlodaIndexTable_str += "\t\t\t<td>" + String(efp_RPKM_values[i]) + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_controls[filtered_2d_id[i]]) + "</td>\n";
     downlodaIndexTable_str += "\t\t</tr>\n";
   }
   downlodaIndexTable_str += "\t</tbody>\n</table>"; // Closing
@@ -2357,9 +2412,15 @@ function adjustFooterSize() {
   }
 }
 
+function adjustSubmissionIFrameSize() {
+  var iFrameSize = window.innerHeight * 0.7;
+  document.getElementById("submissioniframe").height = iFrameSize + "px";
+}
+
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
   adjustFooterSize();
+  adjustSubmissionIFrameSize();
 })
 
 $(document).ready(function() {
@@ -2407,6 +2468,7 @@ $(document).ready(function() {
   */
 
   adjustFooterSize();
+  adjustSubmissionIFrameSize();
 
   $("#locus").autocomplete({
     source: function(request, response) {

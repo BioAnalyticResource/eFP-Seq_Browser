@@ -830,10 +830,10 @@ function convert_to_json() {
   var maxLength = json_convert_output.length;
   useableJSON = [];
   for (x = 0; x < maxLength; x++) {
-    if (json_convert_output[x]["entry number*"] != null) {
+    if (json_convert_output[x]["title*"] != null) {
       useableJSON.push(json_convert_output[x]);
     }
-    else if (json_convert_output[x]["entry number*"] === null) {
+    else if (json_convert_output[x]["title*"] === null) {
       break;
     }
   }
@@ -841,7 +841,7 @@ function convert_to_json() {
   maxLength = useableJSON.length;
   for (i = 0; i < maxLength; i++) {
     if (i != 0) {
-      if (useableJSON[i]["entry number*"] === null) {
+      if (useableJSON[i]["title*"] === null) {
         break;
       }
       CloneSection()
@@ -851,6 +851,7 @@ function convert_to_json() {
     $("textarea[id=reqdesc]").last().val(useableJSON[i]["description*"]);
     $("input[id=rec]").last().val(useableJSON[i]["record number *"]);
     $("input[id=bam_input]").last().val(useableJSON[i]["rna-seq data/bam file repository link*"]);
+    $("input[id=filename]").last().val(useableJSON[i]["bam filename*"]);
     $("input[id=publink]").last().val(useableJSON[i]["publication link"]);
     $("input[id=sralink]").last().val(useableJSON[i]["sra/ncbi link"]);
     $("input[id=reqread]").last().val(useableJSON[i]["total reads mapped*"]);
@@ -860,6 +861,11 @@ function convert_to_json() {
     $("input[id=" + json_svg + "]").last().val(determine_svgname(useableJSON[i]["tissue*"]));
     var json_subunit = "tissue" + (i + 1) + "_subunit";
     $("input[id=" + json_subunit + "]").last().val(useableJSON[i]["tissue subunit*"]);
+    var hexColour = "hexID_num" + (i + 1);
+    var hexColourCode = determine_hexcode(determine_svgname(useableJSON[i]["tissue*"]), useableJSON[i]["tissue subunit*"]);
+    $("input[id=" + hexColour + "]").last().val(hexColourCode.toString());
+    var foregroundColour = "foregroundID_num" + (i + 1);
+    $("input[id=" + foregroundColour + "]").last().val(determine_foreground(hexColourCode));
     $("input[id=controls]").last().val(useableJSON[i]["controls"]);
     $("input[id=replicate_controls1]").last().val(useableJSON[i]["replicate controls"]);
     var json_tissue = "tissue" + (i + 1)

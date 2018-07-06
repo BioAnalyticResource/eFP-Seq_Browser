@@ -634,6 +634,10 @@
                       <td> RPKM </td>
                       <td> The RPKM value for the chosen <a href="#" data-toggle="collapse" data-target="#navigationBarCard" aria-expanded="true" aria-controls="navigationBarCard">RPKM mode</a> </td>
                     </tr>
+                    <tr>
+                      <td> Controls </td>
+                      <td> The BAM record/experiment number of the controls in your RNA-Seq data. Seperate controls by commas </td>
+                    </tr>
                   </table>
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Download table as an image</span>
@@ -703,6 +707,10 @@
                       <td> REQUIRED* A link to your individual RNA-Seq Data/BAM entry/file repository. The eFP-Seq Browser can read BAM files stored on either <a href="https://www.google.com/drive/" target="_blank">Google Drive</a> or <a href="https://aws.amazon.com/s3/" target="_blank">Amazon AWS</a>. Each BAM file must be in its own folder with its BAM index file </td>
                     </tr>
                     <tr>
+                      <td> BAM Filename </td>
+                      <td> The filename of the BAM filein the repository location (with the .bam file extension) </td>
+                    </tr>
+                    <tr>
                       <td> Publicaiton Link </td>
                       <td> A link to the published research </td>
                     </tr>
@@ -767,7 +775,7 @@
                   <div id="loadDataTip" class="HelpNoteDiv">
                     <p class="HelpNoteTop"> <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
                     <p class="HelpNoteBottom"> For the Excel converter to work correctly ("Upload Excel"), you need to also insert row 1 of the of the Excel template: <br>
-                      "Title*	Description*	Record Number *	RNA-Seq Data/BAM file repository link*	Repository type*	Publication Link	SRA/NCBI Link	Total Reads Mapped*	Read Map Method	Species*	Tissue*	Tissue subunit*	Controls	Replicate Controls"
+                      "Title*	Description*	Record Number *	RNA-Seq Data/BAM file repository link*	BAM Filename* Repository type*	Publication Link	SRA/NCBI Link	Total Reads Mapped*	Read Map Method	Species*	Tissue*	Tissue subunit*	Controls	Replicate Controls"
                     </p>
                   </div>
                   <br>
@@ -930,7 +938,7 @@
                 <div class="card-body">
                   We welcome feedback on the eFP-Seq Browser to <a href="mailto:nicholas.provart@utoronto.ca">nicholas.provart@utoronto.ca</a>. You can also reach us on Twitter at <a target="_blank" href="https://twitter.com/BAR_PlantBio">@BAR_PlantBio</a>
                   <br><br>
-                  Also, if found any bugs, would like any features added to accommodate your needs or we would simply like to tell us how much you enjoyed using the eFP-Seq Browser, feel free to email us.
+                  Also, if found any bugs, would like any features added to accommodate your needs or we would simply like to tell us how much you enjoyed using the eFP-Seq Browser, feel free to email or Tweet at us.
                 </div>
               </div>
             </div>
@@ -989,7 +997,7 @@
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">×</button>
         </div>
         <div class="modal-body">
-          <iframe src="cgi-bin\Submission_page.html" height="600px"></iframe>
+          <iframe src="cgi-bin\Submission_page.html" id="submissioniframe" height="600px"></iframe>
         </div>
         <div class="modal-footer modal-footer-colour">
           <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
@@ -1043,7 +1051,7 @@
 
   <!-- Logout modal -->
   <div id="logoutModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" style="width: 600px;">
+    <div class="modal-dialog modal-lg" style="max-width: 65%;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
