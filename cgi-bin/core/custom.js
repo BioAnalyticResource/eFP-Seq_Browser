@@ -3,41 +3,19 @@
 // Purpose: General functions for the eFP-Seq Browser
 //
 //=============================================================================
-/**
- * Boolean to determine if eFP-Seq Browser is legacy version or not
- * @var {bool} legacy
- */
 var legacy = false;
 
-/**
- * Get initial values for colouring the RNA Table
- * @var {String} colouring_mode
- */
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
-/**
- * Determines which locus the user wants
- * @var {String} locus
- */
+
 var locus; 
 if (document.getElementById("locus") != null) {
   locus = document.getElementById("locus").value;
 };
-/**
- * Used for caching the locus
- * @var {String} old_locus
- */
+
 var old_locus = locus;
-/**
- * Used for caching new locus
- * @var {String} new_locus
- */
 var new_locus;
 
-/**
- * Determines what Y-Scale the user wants
- * @var {String} yscale_input
- */
 var yscale_input;
 if (document.getElementById("yscale_input") != null) {
   yscale_input = document.getElementById("yscale_input").value;
@@ -156,7 +134,7 @@ function checkmobile() {
   }
 };
 
-// Code edited by StackOverFlow user Matthew "Treeless" Rowlandson http://stackoverflow.com/questions/42166138/css-transition-triggered-by-javascript?noredirect=1#comment71503764_42166138
+// Code edited by StackOverFlow user Matthew "Treeless" Rowlandson https://stackoverflow.com/questions/42166138/css-transition-triggered-by-javascript?noredirect=1#comment71503764_42166138
 /**
 * Start loading screen for index.html (document)
 */
@@ -205,7 +183,7 @@ function generate_colour(start_color, end_color, percent) {
   // strip the leading # if it's there
   start_color = start_color.replace(/^\s*#|\s*$/g, '');
   end_color = end_color.replace(/^\s*#|\s*$/g, '');
-  // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
+  // convert 3 char codes to 6, e.g. `E0F` to `EE00FF`
   if (start_color.length == 3) {
     start_color = start_color.replace(/(.)/g, '$1$1');
   }
@@ -276,7 +254,6 @@ function colour_part_by_id(id, part, fpkm, mode) {
       var r = 255;
       var g = 255 - parseInt(fpkm / max_abs_scale * 255);
       var b = 0;
-      //console.log('abs fpkm = ' + fpkm + ' -> rgb(' + r + ', ' + g + ', ' + b + ')');
       if (colouring_part == "all") {
         for (i = 0; i < paths.length; i++) {
           paths[i].style.fill = 'rgb(' + r + ', ' + g + ', ' + b + ')';
@@ -471,7 +448,7 @@ function update_all_images(status) {
 function variants_radio_options(status) {
   get_input_values();
   $.ajax({
-    url: 'http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/get_gene_structures.cgi?locus=' + locus,
+    url: 'https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/get_gene_structures.cgi?locus=' + locus,
     dataType: 'json',
     success: function(gene_res) {
       // Update locus_start and locus_end
@@ -567,7 +544,7 @@ function parseIntArray(arr) {
   return arr;
 }
 
-var rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
+var rnaseq_image_url = "https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
 var match_drive = "";
 var progress_percent = 0;
 var sra_list_check = [];
@@ -603,7 +580,7 @@ function rnaseq_images(status) {
       }
       else {
         // New rnaseq_image_url with BAM file name
-        rnaseq_image_url = "http://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&hexcodecolour=" + hexcode_list[i] + "&filename=" + filename[i] + "&tissue=";
+        rnaseq_image_url = "https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&hexcodecolour=" + hexcode_list[i] + "&filename=" + filename[i] + "&tissue=";
       }
 
       $.ajax({
@@ -1193,7 +1170,7 @@ function populate_table(status) {
         // Need: tissue, experimentno in rnaseq_calls ... (also need start, end, and locus)
         rnaseq_calls.push([tissue, experimentno]);
 
-        var igbView_link = 'http://bioviz.org/bar.html?version=Arabidopsis_thaliana_TAIR10&';
+        var igbView_link = 'https://bioviz.org/bar.html?version=Arabidopsis_thaliana_TAIR10&';
         // Setup IGB
         igbView_link += 'loadresidues=true&';
         // Load custom data      
@@ -1804,7 +1781,7 @@ function get_user_XML_display() {
   // First check to make sure there is is a user logged in or else this script will not run
   if (users_email != "" || users_email != undefined || users_email != null) {
     $.ajax({
-      url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml_list.php?user=" + users_email,
+      url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml_list.php?user=" + users_email,
       dataType: 'json',
       failure: function(get_xml_list_return) {
         console.log("ERROR! Something went wrong");
@@ -1890,7 +1867,7 @@ var dataLoopInt = 0;
 function create_data_list(size) {
   for (i = 0; i < size; i++) {
     $.ajax({
-      url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml.php?file=" + match_title[title_list[i]],
+      url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml.php?file=" + match_title[title_list[i]],
       dataType: 'json',
       success: function(get_xml_return) {
         xml_file = get_xml_return;
@@ -1912,7 +1889,7 @@ function add_user_xml_by_upload() {
       // Creates a new user if the user does not already exist
       $.ajax({
         method: "POST",
-        url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
+        url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
         data: {
           user: users_email,
           xml: upload_src,
@@ -1925,7 +1902,7 @@ function add_user_xml_by_upload() {
         // If the file does not already exist in the account, add it
         $.ajax({
           method: "POST",
-          url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
+          url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
           data: {
             user: users_email,
             xml: upload_src,
@@ -1939,11 +1916,11 @@ function add_user_xml_by_upload() {
         check_for_change = 0;
         // If the file does already exist in the account, delete old and add new
         $.ajax({
-          url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[xmlTitleName]
+          url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[xmlTitleName]
         })
         $.ajax({
           method: "POST",
-          url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
+          url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
           data: {
             user: users_email,
             xml: upload_src,
@@ -2032,7 +2009,7 @@ function delete_selectedXML() {
     var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
     if (document.getElementById(deleteBox_id).checked == true) {
       $.ajax({
-        url: "http://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
+        url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
       });
     }
   }
@@ -2276,7 +2253,7 @@ var parse_output;
 function getGFF(locusID) {
   GFF_List = [];
   $.ajax({
-    url: 'http://bar.utoronto.ca/webservices/bar_araport/gene_structure_by_locus.php?locus=' + locusID,
+    url: 'https://bar.utoronto.ca/webservices/bar_araport/gene_structure_by_locus.php?locus=' + locusID,
     dataType: 'json',
     failure: function(gene_res) {
       console.log("Getting GFFs (getGFF) information failed to retrieve locus information from Araport11");
@@ -2425,7 +2402,7 @@ $(window).resize(function() {
   adjustSubmissionIFrameSize();
 })
 
-$(document).ready(function() {
+function init() {
   // On load, validate input
   locus_validation();
   old_locus = locus;
@@ -2470,7 +2447,6 @@ $(document).ready(function() {
   */
 
   adjustFooterSize();
-  adjustSubmissionIFrameSize();
 
   $("#locus").autocomplete({
     source: function(request, response) {
@@ -2487,4 +2463,12 @@ $(document).ready(function() {
       correctAGIIDInput();
     }
   });
-});
+
+  var subiFrame = document.getElementById("submissioniframe");
+  if (subiFrame.getAttribute('data-src') != null) {
+    subiFrame.setAttribute('src', subiFrame.getAttribute('data-src'));
+  }
+  adjustSubmissionIFrameSize();
+}
+
+setTimeout(function(){init()}, 1000);

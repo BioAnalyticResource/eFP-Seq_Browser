@@ -6,21 +6,20 @@
   <meta name="description" content="Submiting your RNA-Seq data for eFP-Seq Browser" />
   <meta name="keyboard" content="eFP, RNA-Seq" />
   <meta name="author" content="Alexander Sullivan" />
-  <link rel="stylesheet" type="text/css" href="Submission_page/style.css" />
-  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-pink.min.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="Submission_page/XMLgenerator-v2.js"></script>
+	<link rel="stylesheet" type="text/css" href="Submission_page/submissionStyle.css" />
+	<link rel="stylesheet" href="core/APInLibraries/GoogleMaterial/material.green-pink.min.css" /> 
+  <script src="core/jquery-3.3.1/jquery.min.js"></script>
+  <script src="Submission_page/XMLgenerator-v2.min.js"></script>
   <script src="Submission_page/mrDataConverter/Controller.js"></script>
   <script src="Submission_page/mrDataConverter/converter.js"></script>
   <script src="Submission_page/mrDataConverter/CSVParser.js"></script>
   <script src="Submission_page/mrDataConverter/DataGridRenderer.js"></script>
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!--Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="core/bootstrap/bootstrap-theme-3-3-7.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="core/bootstrap/bootstrap3-3-7.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
   <!-- This script is to ask the user if they are sure if they want to close the submission system or not -->
   <script>
@@ -86,7 +85,7 @@
       <p> To visualize and interpret your own RNA-seq data with the eFP-Seq Browser, please fill out the form below with the information for your data. All fields with an <span style="font-weight:bold;">*</span> are required fields. </p>
       <p> When you have finished filling in the forms, please click the "Generate XML" button at the bottom of the page. It will give you an option to download an XML file of readable data; it is highly recommended that you download that XML file so you may simply submit that XML file next time instead of needing to fill out the form again. You can also choose to make the XML file publicly accessible</p>
       <!-- <p> If you have any questions or need help, a tutorial is available by clicking on the floating "?" at the bottom right of the page. </p> -->
-      <p> If you have a lot of RNA-Seq data files to input into the eFP-Seq Browser, it may be best to upload an Excel file with all the information filled in instead of typing it below. You can download the Excel template <a href="http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/Submission_page/bulk_template.xlsx" download>here</a></p>
+      <p> If you have a lot of RNA-Seq data files to input into the eFP-Seq Browser, it may be best to upload an Excel file with all the information filled in instead of typing it below. You can download the Excel template <a href="Submission_page/bulk_template.xlsx" download>here</a></p>
 
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-toggle="modal" data-target="#excelModal" data-upgraded=",MaterialButton,MaterialRipple">Upload Excel<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
@@ -7144,7 +7143,7 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive">
-              <p> Once you have filled the Excel template with the data you wish to upload, copy and paste all the content in your "Fill Data" Excel sheet into the box below. If you have not yet downloaded the Excel template, you can download it by clicking <a href="http://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/Submission_page/bulk_template.xlsx" download>here</a> </p>
+              <p> Once you have filled the Excel template with the data you wish to upload, copy and paste all the content in your "Fill Data" Excel sheet into the box below. If you have not yet downloaded the Excel template, you can download it by clicking <a href="Submission_page/bulk_template.xlsx" download>here</a> </p>
               <p> Please note, if you fill cells outside of the designated areas on the Excel sheet, it may cause an error to occur when generating your data.</p>
               <input class="settingsElement input_right" type="checkbox" name="" value="" id="headersProvidedCB" checked="" hidden>
               <div id='converter' style="width: 100%;">
