@@ -528,7 +528,7 @@ function gene_structure_radio_on_change(variant_selected, variant_img) {
   // Go through the exp_info array and make changes
   for (var i = 0; i < exp_info.length; i++) {
     //console.log("exp_info[i] = " + exp_info[i]);
-    document.getElementById(rnaseq_calls[i][1] + '_pcc').innerHTML = exp_info[i][5][variant_selected];
+    document.getElementById(rnaseq_calls[i][1] + '_pcc').innerHTML = exp_info[i][5][variant_selected].toFixed(2);
   }
 
   $("#thetable").trigger("update");
@@ -642,7 +642,7 @@ function rnaseq_images(status) {
           }
           document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
           rnaseq_change += 1;
-          document.getElementById(response_rnaseq['record'] + '_pcc').innerHTML = r[0].toFixed(2);
+          document.getElementById(response_rnaseq['record'] + '_pcc').innerHTML = parseFloat(r[0]).toFixed(2);
           document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
           document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
           filtered_2d_totalReads[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];

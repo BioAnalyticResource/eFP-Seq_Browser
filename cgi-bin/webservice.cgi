@@ -279,8 +279,8 @@ def main():
 		# Get info required for generating new data
 		variant_structure = json.loads(form.getvalue('struct')) # Exon-Intron
 		chromosome = validateChromosome(str(locus[2]))
-		start = validateStart(int(form.getvalue('start')), int(form.getvalue('end')))
-		end = validateEnd(int(form.getvalue('start')), int(form.getvalue('end')))
+		start = validateStart(int(form.getvalue('start')), int(form.getvalue('end'))) - 1
+ 		end = validateEnd(int(form.getvalue('start')), int(form.getvalue('end'))) + 1
 		yscale = -1 # RNA-Seq Mapping Coverage image y-axis max value
 		if (form.getvalue('yscale')):
 			yscale = int(form.getvalue('yscale'))
