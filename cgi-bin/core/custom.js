@@ -1001,7 +1001,6 @@ function checkSubunit(svg, subunit) {
       return subunit
     }
   }
-
 }
 
 var bam_type_list = [];
@@ -1025,6 +1024,8 @@ var svg_name_list = [];
 var variantdiv_str;
 var variantdiv_call = 0;
 var iteration_num = 1;
+var moreDetails = 'Show More Details <i class="material-icons detailsIcon">arrow_drop_down</i>';
+var lessDetails = 'Show Less Details <i class="material-icons detailsIcon">arrow_drop_up</i>';
 /**
 * Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make.
 */
@@ -1164,25 +1165,18 @@ function populate_table(status) {
         var drive_link = $(this).attr('name');
         drive_link_list.push(drive_link);
 
-        //console.log(experimentno + ", " + svg_part);
-
-        // Keep track of what experiments we want to query:
-        // Need: tissue, experimentno in rnaseq_calls ... (also need start, end, and locus)
         rnaseq_calls.push([tissue, experimentno]);
 
-        var igbView_link = 'https://bioviz.org/bar.html?version=Arabidopsis_thaliana_TAIR10&';
         // Setup IGB
-        igbView_link += 'loadresidues=true&';
-        // Load custom data      
-        igbView_link += 'feature_url_1=' + drive_link + "&";
-        igbView_link += 'sym_method_1=' + drive_link + "&";
-        igbView_link += 'sym_ypos_1=0&';
-        igbView_link += 'sym_yheight_1=50&';
-        igbView_link += 'sym_col_1=' + hexColourCode + '&';
-        igbView_link += 'sym_bg_1=0xFFFFFF&';
-        igbView_link += 'sym_name_0=' + title + "_" + experimentno + '&';
+        var igbView_link = 'https://bioviz.org/bar.html?';
+        igbView_link += 'version=A_thaliana_Jun_2009&';
+        // Load custom data
+        igbView_link += 'gene_id=' + locus + '&';
+        igbView_link += 'feature_url_0=' + drive_link + '&'
+        igbView_link += 'genome=A_thaliana_Jun_2009&';
+        igbView_link += 'annotation_set=Araport11&';
         // Closing
-        igbView_link += 'query_url=' + drive_link + "&";
+        igbView_link += 'query_url=' + drive_link + '&';
         igbView_link += 'server_url=bar';
 
         // Construct a table row <tr> element
@@ -1201,8 +1195,13 @@ function populate_table(status) {
         // Append abs/rel RPKM
         append_str += '<td id="' + experimentno + '_rpkm' + '" style="font-size: 10px; width: 50px; ">-9999</td>';
         // Append the details <td>
-        append_str += '<td style="width: 200px; font-size: 12px;"><div id="' + experimentno + '_description" name="' + description + '">' + truncateDescription(description) + '</div>' + '<a href="' + url + '" target="blank">' + 'NCBI SRA for ' + experimentno + '</a>; <a href="' + publicationid + '" target="blank">PubLink</a>' + '.<br/><div id="' + experimentno + '_totalReadsNum">' + 'Total reads = ' + numberofreads + '</div><a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">Click for More Details.</a>';
-        append_str += '<div id="' + experimentno + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br> <a href="' + igbView_link + '" target="_blank">Display in IGB View</a>.<br/><a id="clickForMoreDetails_' + iteration_num + '_less" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">Click for Less Details</a>.</div></td>\n';
+        append_str += '<td style="width: 200px; font-size: 12px;"><div id="' + experimentno + '_description" name="' + description + '">' + truncateDescription(description) + '</div>'; 
+        append_str += '<div id="igbLink_' + experimentno + '">Show: <a href="' + igbView_link + '" target="_blank">Alignments in IGB</a></div>';
+        append_str += '<div id="extraLinks_' + experimentno + '">Go to: <a href="' + url + '" target="blank">NCBI SRA</a> or <a href="' + publicationid + '" target="blank">PubMed</a></div>';
+        append_str += '<a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + moreDetails + '</a>';
+        append_str += '<div id="' + experimentno + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br>';        
+        append_str += '<div id="' + experimentno + '_totalReadsNum">' + 'Total reads = ' + numberofreads + '</div>';
+        append_str += '<a id="clickForMoreDetails_' + iteration_num + '_less" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + lessDetails + '</a></div></td>\n';
         append_str += '</tr>';
 
         iteration_num++;
@@ -1357,17 +1356,17 @@ function populate_table(status) {
 }
 
 /**
-* Change the text within "Click for More Details"
+* Change the text within moreDetails
 * @param {String} details_id - The ID tag for the <a> for details
 */
 function clickDetailsTextChange(details_id) {
   if (document.getElementById(details_id) != null) {
-    if (document.getElementById(details_id).innerHTML == "Click for More Details.") {
+    if (document.getElementById(details_id).innerHTML == moreDetails) {
       document.getElementById(details_id).setAttribute("hidden", true);
       var innerDescription = document.getElementById(document.getElementById(details_id).name);
       innerDescription.innerHTML = innerDescription.getAttribute("name");
     }
-    else if (document.getElementById(details_id).innerHTML == "Click for Less Details") {
+    else if (document.getElementById(details_id).innerHTML == lessDetails) {
       var ogID = details_id.substring(0, (details_id.length - 5));
       document.getElementById(ogID).removeAttribute("hidden");
       var innerDescription = document.getElementById(document.getElementById(details_id).name);

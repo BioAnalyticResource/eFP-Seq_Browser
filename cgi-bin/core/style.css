@@ -520,3 +520,10 @@ a {
 .spacerBottom {
     margin-bottom: 15% !important;
 }
+
+.detailsIcon {
+    font-size: 1.5em;
+    line-height: 0;
+    vertical-align: middle;
+    margin-bottom: 1%;
+}
