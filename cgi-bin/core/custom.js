@@ -656,15 +656,6 @@ function rnaseq_images(status) {
             }
           }
 
-          // TODO: Need a map of record to svg subunits
-
-          // Colour SVG by Absolute RPKM
-          /*
-          if (response_rnaseq['record'] == null || response_rnaseq['record'] == undefined) {
-            // document.getElementById(sraNum + '_rnaseq_img').src = 'cgi-bin/img/error.png';
-            console.log("Error in generating image for: " + currentSRA);
-          }
-          */
           colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'], 'abs');
 
           if (rnaseq_success == count_bam_entries_in_xml || rnaseq_success % 10 == 0) {
@@ -684,6 +675,8 @@ function rnaseq_images(status) {
           }
 
           $("#thetable").trigger("update");
+          reponsiveRNAWidthReize();
+          toggleResponsiveTable();
         }
       });
     }
@@ -1058,18 +1051,18 @@ function populate_table(status) {
   filtered_2d_controls = {};
 
   // Creating exon intron scale image
-  var img_created = '<img src="' + 'data:image/png;base64,' + exon_intron_scale + '" style="float: right; margin-right: 10px;">';
+  var img_created = '<img src="' + 'data:image/png;base64,' + exon_intron_scale + '" alt="RNA-Seq mapped image" style="float: right; margin-right: 10px;">';
   // Insert table headers
   $("#thetable").append(
     '<thead><tr>' +
-    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;">Title<div class="arrowdown arrowup"></div></th>' +
-    '<th class="" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 460px;">RNA-Seq Coverage' +
+    '<th class="sortable arrows colTitle" id="colTitle" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;">Title<div class="arrowdown arrowup"></div></th>' +
+    '<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
     img_created +
     '</th>' +
-    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">PCC</th>' +
-    '<th id="eFP_th" class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">RPKM</th>' +
-    '<th class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;">Details</th>' +
+    '<th class="sortable arrows colPCC" id="colPCC" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">PCC</th>' +
+    '<th class="coleFP" id="eFP_th" class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
+    '<th class="sortable arrows colRPKM" id="colRPKM" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">RPKM</th>' +
+    '<th class="sortable arrows colDetails" id="colDetails" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;">Details</th>' +
     '</tr></thead>' +
     '<tbody id="data_table_body"></tbody>');
 
@@ -1175,28 +1168,33 @@ function populate_table(status) {
         igbView_link += 'feature_url_0=' + drive_link + '&'
         igbView_link += 'genome=A_thaliana_Jun_2009&';
         igbView_link += 'annotation_set=Araport11&';
-        // Closing
         igbView_link += 'query_url=' + drive_link + '&';
-        igbView_link += 'server_url=bar';
-
+        // Closing
+        if (xmlTitleName == "Araport 11 RNA-seq data") {
+          igbView_link += 'server_url=http://lorainelab-quickload.scidas.org/bar';
+        }
+        else {
+          igbView_link += 'server_url=bar';
+        }
+        
         // Construct a table row <tr> element
         var append_str = '<tr>';
         // table_dl_str is used for downloading the table as CSV
         var table_dl_str = "<table id='table_dl'>\n\t<tbody>\n";
         table_dl_str += "\t\t<caption>" + document.getElementById("xmldatabase").value + "</caption>\n";
         // Append title <td>
-        append_str += '<td style="width: 250px; font-size: 12px;" id="' + experimentno + '_title">' + title + '</td>\n';
+        append_str += '<td class="colTitle" style="width: 250px; font-size: 12px;" id="' + experimentno + '_title">' + title + '</td>\n';
         // Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
-        append_str += '<td style="width: 460px;">' + '<img id="' + experimentno + '_rnaseq_img" width="450px" height="50px" class="rnaseq_img" src="' + img_loading_base64 + '" /><br/>' + '<img id="' + experimentno + '_gene_structure_img" width="450px" height="8px" class="gene_structure_img" src="' + img_gene_struct_1 + '" />' + '</td>\n';
+        append_str += '<td class="colRNA" style="max-width: 576px;">' + '<img id="' + experimentno + '_rnaseq_img" alt="RNA-Seq mapped image for:' + experimentno + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" class="rnaseq_img responsiveRNAWidth" src="' + img_loading_base64 + '" /><br/>' + '<img id="' + experimentno + '_gene_structure_img" style="max-width: 576px; width:95%; height: auto;" class="gene_structure_img" src="' + img_gene_struct_1 + '" alt="Gene variant image for:' + experimentno + '"/>' + '</td>\n';
         // Append the PCC <td>
-        append_str += '<td id="' + experimentno + '_pcc' + '" class="pcc_value" style="font-size: 10px; width: 50px; ">' + -9999 + '</td>';
+        append_str += '<td id="' + experimentno + '_pcc' + '" class="pcc_value colPCC" style="font-size: 12px; width: 50px; ">' + -9999 + '</td>';
         // Append the approparite SVG with place holder sorting number in front of it .. all in one <td>
-        append_str += '<td tag="svg_name" style="width:  75px;">' + '<div id="' + experimentno + '_svg" name="' + svg.substring(0, svg.length - 4).slice(4) + '_tissue" tag=' + svg_part + '_subtissue" width="75" height="75" style="width: 75px; height: 75px; max-width: 75px; max-height: 75px;">' + document.getElementById(svg.substring(4).replace(".svg", "_svg")).innerHTML + '</div>' + '<div class="mdl-tooltip" for="' + experimentno + '_svg' + '">' + svg.substring(4).replace(".svg", "") + '</div></td>\n';
+        append_str += '<td class="coleFP" tag="svg_name" style="width:  75px;">' + '<div id="' + experimentno + '_svg" name="' + svg.substring(0, svg.length - 4).slice(4) + '_tissue" tag=' + svg_part + '_subtissue" width="75" height="75" style="width: 75px; height: 75px; max-width: 75px; max-height: 75px;">' + document.getElementById(svg.substring(4).replace(".svg", "_svg")).innerHTML + '</div>' + '<div class="mdl-tooltip" for="' + experimentno + '_svg' + '">' + svg.substring(4).replace(".svg", "") + '</div></td>\n';
         // Append abs/rel RPKM
-        append_str += '<td id="' + experimentno + '_rpkm' + '" style="font-size: 10px; width: 50px; ">-9999</td>';
+        append_str += '<td class="colRPKM" id="' + experimentno + '_rpkm' + '" style="font-size: 12px; width: 50px; ">-9999</td>';
         // Append the details <td>
-        append_str += '<td style="width: 200px; font-size: 12px;"><div id="' + experimentno + '_description" name="' + description + '">' + truncateDescription(description) + '</div>'; 
-        append_str += '<div id="igbLink_' + experimentno + '">Show: <a href="' + igbView_link + '" target="_blank">Alignments in IGB</a></div>';
+        append_str += '<td class="colDetails" style="font-size: 12px;"><div id="' + experimentno + '_description" name="' + description + '">' + truncateDescription(description) + '</div>'; 
+        append_str += '<div id="igbLink_' + experimentno + '">Show: <a href="' + igbView_link + '" target="_blank" rel="noopener">Alignments in IGB</a></div>';
         append_str += '<div id="extraLinks_' + experimentno + '">Go to: <a href="' + url + '" target="blank">NCBI SRA</a> or <a href="' + publicationid + '" target="blank">PubMed</a></div>';
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + moreDetails + '</a>';
         append_str += '<div id="' + experimentno + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br>';        
@@ -1542,13 +1540,13 @@ function populate_efp_modal(status) {
   }
 
   // Insert eFP Table header
-  $("#efpModalTable").append('<p class="eFP_thead"> AGI-ID: <a href="https://www.arabidopsis.org/servlets/TairObject?type=locus&name=' + locus + '" target="_blank">' + locus + '</a></p>');
+  $("#efpModalTable").append('<p class="eFP_thead"> AGI-ID: <a href="https://www.arabidopsis.org/servlets/TairObject?type=locus&name=' + locus + '" target="_blank" rel="noopener">' + locus + '</a></p>');
 
   // Check radio
   if (current_radio == "abs") {
-    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII="> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM, Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM</p>' + '<br><table><tbody class="eFP_tbody"></tbody>');
+    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII=" alt="Absolute RPKM"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM, Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM</p>' + '<br><table><tbody class="eFP_tbody"></tbody>');
   } else if (current_radio == "rel") {
-    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg=="> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ', Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + '</p>' + '<br><table><tbody></tbody>');
+    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==" alt="Relative RPKM"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ', Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + '</p>' + '<br><table><tbody></tbody>');
   }
 
   // Insert eFP Table
@@ -1703,9 +1701,11 @@ function change_rpkm_colour_scale(colouring_mode) {
     svg_colouring_element.appendChild(img_created);
   }
   // Add border to fltrow class tr's child td elements
+  var columnList = ["colTitle", "colRNA", "colPCC", "coleFP", "colRPKM", "colDetails"]
   var tds = document.getElementsByClassName("fltrow")[0].getElementsByTagName("td");
   for (var i = 0; i < tds.length; i++) {
     tds[i].style = "border: 1px solid #D3D3D3";
+    tds[i].classList.add(columnList[i]);
   }
 }
 
@@ -2390,17 +2390,103 @@ function adjustFooterSize() {
   }
 }
 
+/**
+ * Adjust the submisison iFrame (generate data modal) based on window's height
+ */
 function adjustSubmissionIFrameSize() {
   var iFrameSize = window.innerHeight * 0.7;
   document.getElementById("submissioniframe").height = iFrameSize + "px";
+}
+
+var usedToggle = false;
+/**
+ * Toggles columns in the RNA-Seq table
+ * @param {String} colClass The class that is being toggled
+ * @param {Boolean} enable True = toggle on, False = toggle off
+ */
+function toggleTableCol(colClass, enable) {
+  var column = document.getElementsByClassName(colClass);
+  if (enable == true) {
+    for (i = 0; i < column.length; i++) {
+      column[i].removeAttribute("hidden");
+    }
+  }
+  else if (enable == false) {    
+    for (i = 0; i < column.length; i++) {
+      column[i].setAttribute("hidden", true);
+    }
+  }
+  usedToggle = true;
+}
+
+var responsiveRNAWidthAdjusted = false;
+/**
+ * Creates a responsive design for the RNA-Seq images
+ */
+function reponsiveRNAWidthReize() {
+  var responsive = document.getElementsByClassName("responsiveRNAWidth");
+  if (window.innerWidth <= 575) {    
+    for (i = 0; i < responsive.length; i++) {
+      responsive[i].style.minWidth = (window.innerWidth * 0.93) + "px";
+    }
+    responsiveRNAWidthAdjusted = true;
+  }
+  else if (window.innerWidth > 575 && responsiveRNAWidthAdjusted == true) {
+    for (i = 0; i < responsive.length; i++) {
+      responsive[i].style.minWidth = "420px";
+    }
+  }
+}
+
+/**
+ * Craetes a responsive mobile/small screen RNA-Table design
+ */
+function toggleResponsiveTable(goingUp = false) {
+  if (document.getElementById("tableToggle").style.display != 'none') {
+    if (window.innerWidth <= 575 && usedToggle == false && goingUp == false) {
+      toggleTableCol("colTitle", false);
+      document.getElementById("toggleTitle").checked = false;
+      toggleTableCol("colRNA", true);
+      document.getElementById("colRNA").checked = true;
+      toggleTableCol("colPCC", false);
+      document.getElementById("togglePCC").checked = false;
+      toggleTableCol("coleFP", false);
+      document.getElementById("toggleeFP").checked = false;
+      toggleTableCol("colRPKM", false);
+      document.getElementById("toggleRPKM").checked = false;
+      toggleTableCol("colDetails", false);
+      document.getElementById("toggleDetails").checked = false;
+      usedToggle = false;
+    }
+    else if ((window.innerWidth > 575 && usedToggle == false) || (window.innerWidth > 575 && usedToggle == false && goingUp == true)) {
+      toggleTableCol("colTitle", true);
+      document.getElementById("toggleTitle").checked = true;
+      toggleTableCol("colRNA", true);
+      document.getElementById("colRNA").checked = true;
+      toggleTableCol("colPCC", true);
+      document.getElementById("togglePCC").checked = true;
+      toggleTableCol("coleFP", true);
+      document.getElementById("toggleeFP").checked = true;
+      toggleTableCol("colRPKM", true);
+      document.getElementById("toggleRPKM").checked = true;
+      toggleTableCol("colDetails", true);
+      document.getElementById("toggleDetails").checked = true;
+      usedToggle = false;
+    }
+  }
 }
 
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
   adjustFooterSize();
   adjustSubmissionIFrameSize();
+  reponsiveRNAWidthReize();
+  toggleResponsiveTable(true)
 })
 
+/**
+ * Initialize the script for the eFP-Seq Browser
+ */
 function init() {
   // On load, validate input
   locus_validation();

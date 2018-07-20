@@ -330,7 +330,7 @@ a {
     height: inherit;
 }
 
-@media (min-width:576px) {
+@media screen and (min-width:576px) {
     .navbar_menu {
         height: 100vh;
     }
@@ -431,7 +431,14 @@ a {
 }
 
 .backToTop {
-    right: 2%;
+    right: 50px;
+    bottom: 1%;
+    position: fixed;
+    cursor: pointer;
+}
+
+.tableToggle {
+    right: 20px;
     bottom: 1%;
     position: fixed;
     cursor: pointer;
@@ -454,7 +461,7 @@ a {
 }
 
 .RNATable {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -526,4 +533,23 @@ a {
     line-height: 0;
     vertical-align: middle;
     margin-bottom: 1%;
+}
+
+.theTable { 
+    font-size: 12px;
+}
+
+.dd-option-image {
+    vertical-align: middle;
+    float: left;
+    margin-right: 5px;
+    max-width: 576px !important; 
+    width:95% !important; 
+    height: auto  !important;
+}
+
+.dd-selected-image {
+    max-width: 576px !important; 
+    width:95% !important; 
+    height: auto  !important;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <title>eFP-Seq Browser</title>
@@ -58,6 +58,7 @@
   <meta property="og:image" content="https://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/img/ogimagePreview.png" />
   <link rel="shortcut icon" href="https://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/img/BAR.png" type="image/x-icon" />
   <meta name="theme-color" content="#99cc00" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -78,13 +79,13 @@
   <div id="mainContainer" class="container-fluid">
     <div class="row" id="mainRow">
       <div class="col-sm-4 col-lg-3 navbar_menu" id="navbar_menu" style="padding-top:1%; overflow-y: auto; overflow-x: hidden;">
-        <div id="nm_title" style="margin-bottom: 5%">
+        <div id="nm_title" style="margin-bottom: 5%; margin-top: 2.5%;">
           <div class="row">
             <div class="col-xs-1" id="nm_menu_icon">
               <i class="material-icons" style="color:white; cursor: pointer;" onclick="displayNavBAR();">menu</i>
             </div>
             <div class="col-xs-2" id="nm_title_img">
-              <a href="http://bar.utoronto.ca/"><img src="cgi-bin/img/BAR.png" style="height: 5em;" /></a>
+              <a href="http://bar.utoronto.ca/"><img src="cgi-bin/img/BAR.png" style="height: 5em;" alt="BAR"/></a>
             </div>
             <div class="col-xs-8" id="nm_title_words" style="margin: auto; display: inline-block; vertical-align: middle;">
               <p class="navbar_menu_title">eFP-Seq Browser</p>
@@ -220,7 +221,7 @@
         </div>
         <!-- RNA-Seq table -->
         <div class="col-xs-12 table-responsive body_of_loading_done" id="body_of" hidden>
-          <table id="thetable" class="table" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);" style="background-color: white;" hidden></table>
+          <table id="thetable" class="table theTable" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);" style="background-color: white;" hidden></table>
           <div class="mdl-tooltip" for="eFP_th">Sorts by plant part.</div>
           <div class="mdl-tooltip" for="flt0_thetable">See Help for advanced options.</div>
           <div class="mdl-tooltip" for="flt2_thetable">See Help for advanced options.</div>
@@ -229,6 +230,17 @@
         </div>
         <!-- Back to top -->
         <a class="backToTop" onclick="returnBackToTop()" id="backToTop" title="Return To Top" style="display: none;"><i class="material-icons" style="-webkit-transform: scaleY(-1);transform:scaleY(-1);">arrow_drop_down_circle</i></a>
+        <div class="dropdown"></div>
+          <a class="tableToggle" data-toggle="dropdown" id="tableToggle" title="Toggle on/off columns in RNA-table" style="display: none;"><i class="material-icons" style="-webkit-transform: scaleY(-1);transform:scaleY(-1);">settings</i></a>
+          <ul class="dropdown-menu" style="font-size: 12px; width: 190px; transform: translate3d(1198px, 749px, 0px) !important;">
+              <li class="form-check"><input class="form-check-input" type="checkbox" id="toggleTitle" onclick="toggleTableCol('colTitle', document.getElementById('toggleTitle').checked)" style="margin: 6px 5px 0;" value="toggleTitle" checked><p class="form-check-label" for="toggleTitle" style="padding-left: 20px; font-weight: 10;">Toggle Title</p></li>
+              <li class="form-check"><input class="form-check-input" type="checkbox" id="toggleRNA" onclick="toggleTableCol('colRNA', document.getElementById('toggleRNA').checked)" style="margin: 6px 5px 0;" value="toggleRNA" checked><p class="form-check-label" for="toggleRNA" style="padding-left: 20px; font-weight: 10;">Toggle RNA-Seq Coverage</p></li>
+              <li class="form-check"><input class="form-check-input" type="checkbox" id="togglePCC" onclick="toggleTableCol('colPCC', document.getElementById('togglePCC').checked)" style="margin: 6px 5px 0;" value="togglePCC" checked><p class="form-check-label" for="togglePCC" style="padding-left: 20px; font-weight: 10;">Toggle PCC</p></li>
+              <li class="form-check"><input class="form-check-input" type="checkbox" id="toggleeFP" onclick="toggleTableCol('coleFP', document.getElementById('toggleeFP').checked)" style="margin: 6px 5px 0;" value="toggleeFP" checked><p class="form-check-label" for="toggleeFP" style="padding-left: 20px; font-weight: 10;">Toggle eFP</p></li>
+              <li class="form-check"><input class="form-check-input" type="checkbox" id="toggleRPKM" onclick="toggleTableCol('colRPKM', document.getElementById('toggleRPKM').checked)" style="margin: 6px 5px 0;" value="toggleRPKM" checked><p class="form-check-label" for="toggleRPKM" style="padding-left: 20px; font-weight: 10;">Toggle RPKM</p></li>
+              <li class="form-check"><input class="form-check-input" type="checkbox" id="toggleDetails" onclick="toggleTableCol('colDetails', document.getElementById('toggleDetails').checked)" style="margin: 6px 5px 0;" value="toggleDetails" checked><p class="form-check-label" for="toggleDetails" style="padding-left: 20px; font-weight: 10;">Toggle Details</p></li>
+          </ul>
+        </div>
         <script>
           var filter1 = "flt2_thetable"
           var filter2 = "flt4_thetable"
@@ -282,7 +294,7 @@
   <!-- Modals -->
   <!-- Help modal -->
   <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="z-index: 5000;">
-    <div class="modal-dialog modal-lg" style="width: 940px;">
+    <div class="modal-dialog modal-lg" style="width:940px; max-width: 90%; margin-left:auto; margin-right: auto;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
@@ -321,7 +333,7 @@
                   <br><br>
                   The first option is choosing your locus/gene by inserting its related AGI ID. Our autofill option can sometime match protein names with certain genes so if you do not know your desired AGI ID (example AT2G24270), you can search by protein name.
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0001_geneLocusAutofill.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0001_geneLocusAutofill.png" alt="Help image for locus autofill was not able to load"  style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Dataset</span>
                   <br><br>
@@ -331,7 +343,7 @@
                   <br><br>
                   There will also be the option store your uploaded datasets onto your account which utilizes Google. Just click the login button on the bottom left to login and whenever you upload a dataset and select it to be uploaded to your private account, it will now be stored to your account. If you wish to delete any XMLs, you can just click the "Manage Account" button. You can learn more on the <a href="#" data-toggle="collapse" data-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">"Manage Person Account"</a> help card.
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0002_selectDataset.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0002_selectDataset.png" alt="Help image for selecting datasets was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">RPKM mode</span>
                   <br><br>
@@ -341,34 +353,34 @@
                   <p style="margin-left: 2%;">Absolute displays the calculated RPKM values for all visualized mapped RNA-Seq datasets. RPKM is calculated and used to normalize the effects of the length of a gene and the size of the cDNA library. By computing these values, the number of reads mapped are normalized to the length of the gene in kilobases and to the number of reads mapped in the entire experiment in mega bases.</p>
                   Relative:
                   <p style="margin-left: 2%;">Relative displays the log2 of the RPKM compared against its average. In relative mode, the RPKM values of the appropriate control experiment or experiments are used to compute the fold-change in expression (increase or decrease) of the gene in question in that sample relative to the control (if no control is apparent, we use the average expression level for that gene across all samples in an experiment). Relative attempts to display all RPKM values between a scale of -5.0 to +5.0.</p>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0003_selectOptions.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0003_selectOptions.png" alt="Help image for selecting options was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Y-axis scale</span>
                   <br><br>
                   The "Y-axis Scale" input option changes maximum displayed y-axis for the mapped RNA-Seq information. Default is set to auto which will have each individually mapped image have their own y-axis set to its own maximum while if a manually input value is inserted, then all images will have that maximum input.
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0004_yAxisScale.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0004_yAxisScale.png" alt="Help image for difference in y-axis scale was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Absolute max</span>
                   <br><br>
                   The absolute max value represents what the possible maximum RPKM can be visually represented as within the eFP images.
                   <br><br>
-                  <div id="loadDataTip" class="HelpNoteDiv">
+                  <div id="loadDataTip_yAxis" class="HelpNoteDiv">
                     <p class="HelpNoteTop"> <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
                     <p class="HelpNoteBottom"> This value automatically changes whenever you click "Load Data". To update this value, simply start typing into the input box AFTER the data has been loaded. </p>
                   </div>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0005_absoluteMax.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0005_absoluteMax.png" alt="Help image for showing absolute max was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Load data</span>
                   <br><br>
                   Once all settings have been determined (you can leave some or all to default), you can click "Load Data" to begin to visualize your data on the eFP-Seq Browser.
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0006_loadData.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0006_loadData.png" alt="Help image for how to load data was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Hide/Open navigation bar</span>
                   <br><br>
                   It may be helpful to note that you can hide (and open) the navigation bar by clicking on the menu icon on the top left of the screen.
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0007_hideNav.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0007_hideNav.png" alt="Help image for hiding navigation bar was not able to load" style="max-width: 100%;">
                 </div>
               </div>
             </div>
@@ -389,7 +401,7 @@
                   <br><br>
                   The eFP Overview is a feature that allows you to see a visual table of all the coloured eFP images for the visualized data. This information will be responsive to any filtered changes made to the RNA-Seq table.
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0008_eFPOverviewGeneral.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0008_eFPOverviewGeneral.png" alt="Help image for the eFP Overview was not able to load" style="max-width: 100%;">
                   <br><br>
                   At the top of each eFP Overview modal displays the following information:
                   <br><br>
@@ -410,11 +422,11 @@
                   <br>
                   Hovering over each individual eFP image also gives the title for the relevant eFP.
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0009_eFPOverviewHover.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0009_eFPOverviewHover.png" alt="Help image for hover effects in the eFP Overview was not able to load" style="max-width: 100%;">
                   <br><br>
                   You can also click on the small camera icon in the top right hand corner of the module to download the eFP Overview as an an image. To see how the this work, scroll down to the section on "Download table as an image".
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0016_downloadeFPOverviewAsImage.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0016_downloadeFPOverviewAsImage.png"  alt="Help image for downloading the eFP Overview as an image was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Download table as CSV</span>
                   <br><br>
@@ -483,12 +495,19 @@
                   <br><br>
                   You can download the table as an image file by clicking on the "Download table as an image" once you have loaded a dataset onto the eFP-Seq Browser. This will open a module which you can right click and save the display image onto your local drive. 
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0015_downloadTableAsImage.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0015_downloadTableAsImage.png"  alt="Help image for downloading the RNA Table as an image was not able to load" style="max-width: 100%;">
                   <br><br>
-                  <div id="loadDataTip" class="HelpNoteDiv">
+                  <div id="loadDataTip_downloadTable" class="HelpNoteDiv">
                     <p class="HelpNoteTop"> <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
                     <p class="HelpNoteBottom"> If the image looks stretched in the "Download table as an image" module, do not worry, it is just being displayed like that because of the browser. It will not look like that when downloaded. </p>
                   </div>
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Toggle the RNA Table</span>
+                  <br><br>
+                  You can toggle which columns you would like to see in RNA table by clicking on the "gears"/settings icon on the bottom right of the screen once a dataset has been loaded. Just check any box off that you would not like to see and that image will be toggled off (or check a box that you do want to keep displayed and it will show). 
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0017_toggleTable.png"  alt="Help image for toggling the RNA Table as an image was not able to load" style="max-width: 100%;">
+                  <br><br>
                 </div>
               </div>
             </div>
@@ -509,7 +528,7 @@
                   <br><br>
                   This opens a form to fill which generates a XML which is readable by the eFP-Seq Browser to visualize your data. Any field with an asterisk at the end of it are mandatory to be field to visualize your data (without it, the eFP-Seq Browser cannot visualize your data).
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0010_GenerateData.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0010_GenerateData.png" alt="Help image for generating your own data was not able to load" style="max-width: 100%;">
                   <br><br>
                   The following table describes what each field requires:
                   <table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3;">
@@ -543,7 +562,7 @@
                     </tr>
                     <tr>
                       <td> RNA-Seq Data/BAM file Repository Link </td>
-                      <td> REQUIRED* A link to your individual RNA-Seq Data/BAM entry/file repository. The eFP-Seq Browser can read BAM files stored on either <a href="https://www.google.com/drive/" target="_blank">Google Drive</a> or <a href="https://aws.amazon.com/s3/" target="_blank">Amazon AWS</a>. Each BAM file must be in its own folder with its BAM index file </td>
+                      <td> REQUIRED* A link to your individual RNA-Seq Data/BAM entry/file repository. The eFP-Seq Browser can read BAM files stored on either <a href="https://www.google.com/drive/" target="_blank" rel="noopener">Google Drive</a> or <a href="https://aws.amazon.com/s3/" target="_blank" rel="noopener">Amazon AWS</a>. Each BAM file must be in its own folder with its BAM index file </td>
                     </tr>
                     <tr>
                       <td> BAM Filename </td>
@@ -572,7 +591,7 @@
                     <tr>
                       <td> Tissue </td>
                       <td> REQUIRED* The tissue part that your individual BAM entry/file RNA-Seq data is mapped to. If you do not know what tissue it is mapped to or your species is not <i>Arabidopsis thaliana</i>, it is recommended you select the "Other" option
-                      <br><img class="helpCardImages" src="cgi-bin\img\helpModal\0012_TissueSelect.png" style="max-width: 80%; margin-left: 10%; margin-bottom: 2%;">
+                      <br><img class="helpCardImages" src="cgi-bin\img\helpModal\0012_TissueSelect.png" alt="Help image for tissue selectiong was not able to load" style="max-width: 80%; margin-left: 10%; margin-bottom: 2%;">
                       </td>
                     </tr>
                     <tr>
@@ -593,9 +612,9 @@
                   <br><br>
                   For the column "Tissue subunit*", there is a dropdown of options that correspond with the tissue that you select. Please fill it appropriately with the correct option name from the dropdown. If you do not fill this correctly, this will be defaulted to either "all" or a respective correct tissue subunit.
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0013_bulkTemplate.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0013_bulkTemplate.png" alt="Help image for showing the CSV/Excel template was not able to load"  style="max-width: 100%;">
                   <br><br>
-                  <div id="loadDataTip" class="HelpNoteDiv">
+                  <div id="loadDataTip_ExcelTemplate" class="HelpNoteDiv">
                     <p class="HelpNoteTop"> <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
                     <p class="HelpNoteBottom"> For the Excel template, it is recommended for the following columns you do not manually type in your options but rather use the Dropdown option as it will prevent any errors from arising:
                       <ul>
@@ -609,9 +628,9 @@
                   </div>
                   To convert the Excel data, copy and paste your fill Excel template into the "Upload Excel" form (in Excel, Select all and then in the eFP-Seq Browser's Upload Excel, Paste), click the "Convert Data" button and let it load. If your Excel data has more than 50 datasets, it may take >5 to convert the data and the eFP-Seq Browser will be unresponsive during this time.
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0011_UploadExcel.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0011_UploadExcel.png" alt="Help image uploading your own filled CSV/Excel template was not able to load"  style="max-width: 100%;">
                   <br><br>
-                  <div id="loadDataTip" class="HelpNoteDiv">
+                  <div id="loadDataTip_UploadExcel" class="HelpNoteDiv">
                     <p class="HelpNoteTop"> <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
                     <p class="HelpNoteBottom"> For the Excel converter to work correctly ("Upload Excel"), you need to also insert row 1 of the of the Excel template: <br>
                       "Title*	Description*	Record Number *	RNA-Seq Data/BAM file repository link*	BAM Filename* Repository type*	Publication Link	SRA/NCBI Link	Total Reads Mapped*	Read Map Method	Species*	Tissue*	Tissue subunit*	Controls	Replicate Controls"
@@ -754,9 +773,9 @@
                   <br><br>
                   To manage your account and what XML/datasets are uploaded to your account (or to redownload them), select the "Manage Account" option in the navigation bar. In this modal, you will have the option to download existing XML/datasets or to delete private datasets from your account.
                   <br><br>
-                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0014_manageAccount.png" style="max-width: 100%;">
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0014_manageAccount.png" alt="Help image for managing your own account was not able to load" style="max-width: 100%;">
                   <br><br>
-                  <div id="loadDataTip" class="HelpNoteDiv">
+                  <div id="loadDataTip_ManageAccount" class="HelpNoteDiv">
                     <p class="HelpNoteTop"> <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
                     <p class="HelpNoteBottom"> If you select any of the public datasets in the "Manage account" option, the ability to delete datasets will be disabled. To delete datasets, make sure public datasets are unchecked.
                     </p>
@@ -766,7 +785,7 @@
             </div>
 
             <div class="card feedback">
-              <div class="card-header" id="about">
+              <div class="card-header" id="feedback">
                 <p class="mb-0">
                   <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#feedbackCard" aria-expanded="true" aria-controls="feedbackCard">
                     Feedback ▼
@@ -775,7 +794,7 @@
               </div>
               <div id="feedbackCard" class="collapse" aria-labelledby="feedback" data-parent="#accordion">
                 <div class="card-body">
-                  We welcome feedback on the eFP-Seq Browser to <a href="mailto:nicholas.provart@utoronto.ca">nicholas.provart@utoronto.ca</a>. You can also reach us on Twitter at <a target="_blank" href="https://twitter.com/BAR_PlantBio">@BAR_PlantBio</a>
+                  We welcome feedback on the eFP-Seq Browser to <a href="mailto:nicholas.provart@utoronto.ca">nicholas.provart@utoronto.ca</a>. You can also reach us on Twitter at <a target="_blank" rel="noopener" href="https://twitter.com/BAR_PlantBio">@BAR_PlantBio</a>
                   <br><br>
                   Also, if found any bugs, would like any features added to accommodate your needs or we would simply like to tell us how much you enjoyed using the eFP-Seq Browser, feel free to email or Tweet at us.
                 </div>
@@ -792,7 +811,7 @@
 
   <!-- eFP Overview modal -->
   <div id="eFPModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" style="max-width: 90%;">
+    <div class="modal-dialog modal-lg" style="max-width: 90%; margin-left:auto; margin-right: auto;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
@@ -803,7 +822,7 @@
           <a class="downloadDiv" onclick="downloadDiv('efpModalTable')" id="downloadDiv" title="Download as Image"><i class="material-icons">camera_alt</i></a>
         </div>
         <div class="modal-footer modal-footer-colour">
-          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal_efPOverview">Close</button>
         </div>
       </div>
     </div>
@@ -811,7 +830,7 @@
 
   <!-- Hidden download modal modal -->
   <div id="hiddenDownloadModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" style="width: 940px;">
+    <div class="modal-dialog modal-lg" style="width: 940px; margin-left:auto; margin-right: auto;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
@@ -822,7 +841,7 @@
           </div>
         </div>
         <div class="modal-footer modal-footer-colour">
-          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal_hidden">Close</button>
         </div>
       </div>
     </div>
@@ -830,7 +849,7 @@
 
   <!-- Generate custom data modal -->
   <div id="SubmissionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" style="max-width: 90%;">
+    <div class="modal-dialog modal-lg" style="max-width: 90%; margin-left:auto; margin-right: auto;">
       <div class="modal-content" style="margin-left:1%;">
         <div class="modal-header" style="padding-bottom:3%;">
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">×</button>
@@ -839,7 +858,7 @@
           <iframe src="" data-src="cgi-bin\Submission_page.html" id="submissioniframe" height="600px"></iframe>
         </div>
         <div class="modal-footer modal-footer-colour">
-          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal_GenerateData">Close</button>
         </div>
       </div>
     </div>
@@ -848,7 +867,7 @@
   <!-- Download image modal -->
   <button id="downloadImage_button" data-toggle="modal" data-target="#DownloadImageModal" hidden></button>
   <div id="DownloadImageModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" style="max-width: 93%;">
+    <div class="modal-dialog modal-lg" style="max-width: 93%; margin-left:auto; margin-right: auto;">
       <div class="modal-content">
         <div class="modal-header">
           <h3>Right click to download as image</h3>
@@ -858,7 +877,7 @@
           <div id="appendCanvas"></div>
         </div>
         <div class="modal-footer modal-footer-colour">
-          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal_DownloadImage">Close</button>
         </div>
       </div>
     </div>
@@ -866,7 +885,7 @@
 
   <!-- Upload XML/CSV modal -->  
   <div id="uploadModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" style="width: 400px;">
+    <div class="modal-dialog modal-lg" style="width: 400px; margin-left:auto; margin-right: auto;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
@@ -882,7 +901,7 @@
           </div>
         </div>
         <div class="modal-footer modal-footer-colour">
-          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal_Upload">Close</button>
         </div>
       </div>
     </div>
@@ -890,7 +909,7 @@
 
   <!-- Logout modal -->
   <div id="logoutModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" style="max-width: 65%;">
+    <div class="modal-dialog modal-lg" style="max-width: 65%; margin-left:auto; margin-right: auto;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
@@ -919,7 +938,7 @@
           </div>
         </div>
         <div class="modal-footer modal-footer-colour">
-          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal_Logout">Close</button>
         </div>
       </div>
     </div>
@@ -927,7 +946,7 @@
 
   <!-- XML-to-CSV conversion modal -->
   <div id="hiddenModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" style="width: 600px;">
+    <div class="modal-dialog modal-lg" style="width: 600px; margin-left:auto; margin-right: auto;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
@@ -937,7 +956,7 @@
           </div>
         </div>
         <div class="modal-footer modal-footer-colour">
-          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal">Close</button>
+          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal_Conversion">Close</button>
         </div>
       </div>
     </div>
@@ -980,6 +999,7 @@
       document.getElementById("eFPOverview_open").removeAttribute("disabled");      
       document.getElementById("download_tableDiv").removeAttribute("disabled");
       document.getElementById("backToTop").style.display = "block";
+      document.getElementById("tableToggle").style.display = "block";
       document.getElementById("mainContainer").classList.add("mainContainer");
       addGFF();
     }
@@ -1131,7 +1151,7 @@
   </script>
 
   <!-- Open menu -->
-  <a class="openMenu" id="openMenu" onclick="displayNavBAR();" title="Open navigation menu" style="display:none;"><img src="cgi-bin\SVGs\OpenMenu.svg" width="40px"></a>
+  <a class="openMenu" id="openMenu" onclick="displayNavBAR();" title="Open navigation menu" style="display:none;"><img src="cgi-bin\SVGs\OpenMenu.svg" alt="Other.svg" width="40px"></a>
 
   <!-- SVGs -->
   <div id="10dayOldSeedling_svg" style="display: none;">

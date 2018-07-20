@@ -54,7 +54,7 @@ a{color:#0673e8;}
 .dropdown-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:990;}
 .dropup .dropdown-menu{top:auto;bottom:100%;margin-bottom:0.125rem;}
 .navbar_menu{background-color:#4a4a4a;height:inherit;}
-@media (min-width:576px){.navbar_menu{height:100vh;}
+@media screen and (min-width:576px){.navbar_menu{height:100vh;}
 .spacerBottom{margin-bottom:7% !important;}
 }
 .navbar_menu_title{font-size:3em;color:white;padding-left:8%;margin:auto;}
@@ -72,10 +72,11 @@ a{color:#0673e8;}
 .navbar_log_button{background:none!important;border:none;padding:0!important;color:white;line-height:100%;text-align:justify;font-family:Arial;font-size:2em;cursor:pointer;}
 .navbar_menu_center{float:none;margin:0 auto;}
 .navbar_menu_form_group{margin-bottom:6.5%;}
-.backToTop{right:2%;bottom:1%;position:fixed;cursor:pointer;}
+.backToTop{right:50px;bottom:1%;position:fixed;cursor:pointer;}
+.tableToggle{right:20px;bottom:1%;position:fixed;cursor: pointer;}
 .downloadDiv{right:4%;top:6%;position:fixed;cursor:pointer;}
 .openMenu{position:fixed;cursor:pointer;top:1.6%;left:0.4%;font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}
-.RNATable{max-width:1400px;margin:0 auto;}
+.RNATable{max-width:1200px;margin:0 auto;}
 .account_manage_button{color:#fff;font-weight:600;background-color:#28a745;border-color:#28a745;font-size:1.1em;}
 .account_manage_button:hover{color:#fff;background-color:#218838;border-color:#1e7e34;}
 .account_manage_button_delete{color:#fff;font-weight:600;background-color:#dc3545;border-color:#dc3545;font-size:1.1em;}
@@ -87,4 +88,7 @@ a{color:#0673e8;}
 .HelpNoteTop{font-size:1.2em;background-color:#02a8f3;padding-top:1%;padding-bottom:1%;padding-left:2%;padding-right:2%;}
 .HelpNoteBottom{padding-left:2%;padding-right:2%;padding-bottom:1%;}
 .spacerBottom{margin-bottom:15% !important;}
-.detailsIcon {font-size: 1.5em;line-height: 0;vertical-align: middle;margin-bottom: 1%;}
+.detailsIcon{font-size:1.5em;line-height:0;vertical-align:middle;margin-bottom:1%;}
+.theTable{font-size: 12px;}
+.dd-option-image {vertical-align:middle;float:left;margin-right:5px;max-width:576px!important;width:95%!important;height:auto!important;}
+.dd-selected-image{max-width:576px!important;width:95%!important;height:auto!important;}
