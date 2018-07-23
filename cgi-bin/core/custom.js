@@ -2215,7 +2215,7 @@ function download_mainTableCSV() {
 var publicData = true;
 /**
 * Checks of index.html (document) "RNA-Seq Database" is currently selected on a public or private database
-* @return {bool} publicData - Whether a public database is or is not selected
+* @return {Boolean} publicData - Whether a public database is or is not selected
 */
 function changePublicData() {
   if ((document.getElementById("xmldatabase").selectedIndex == 1) || (document.getElementById("xmldatabase").selectedIndex == 2)) {
@@ -2285,6 +2285,9 @@ function getGFF(locusID) {
   });
 }
 
+/**
+ * Adds to the GFFs to the ddSlick dropdown
+ */
 function addGFF() {
   eachVariant = document.getElementsByClassName("dd-option");
   for (i = 0; i < GFF_List.length; i++) {
@@ -2524,13 +2527,6 @@ function init() {
     getGFF(locus);
   }, 700);
 
-  /*
-  if (gene_structure_colouring_element == null) {
-    gene_structure_colouring_element = document.getElementById("flt1_thetable").parentElement;
-  }
-  gene_structure_colouring_element.innerHTML = "";
-  */
-
   adjustFooterSize();
 
   $("#locus").autocomplete({
@@ -2549,8 +2545,9 @@ function init() {
     }
   });
 
+  // Delay and resize the iFrame for submission page
   var subiFrame = document.getElementById("submissioniframe");
-  if (subiFrame.getAttribute('data-src') != null) {
+  if (subiFrame.getAttribute('data-src')) {
     subiFrame.setAttribute('src', subiFrame.getAttribute('data-src'));
   }
   adjustSubmissionIFrameSize();

@@ -58,7 +58,7 @@
       });
 
       $.ajax({
-        url: 'http://bar.utoronto.ca/~ppurohit/RNA-Browser/cgi-bin/get_gene_structures.cgi?locus=' + locus,
+        url: 'https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/get_gene_structures.cgi?locus=' + locus,
         dataType: 'json',
         success: function(response) { // When the file is retrieved:
           console.log("BAR's web service (which calls Araport service) returned a total of " + response['variant_count'] + " splice variants for locus = " + locus);
