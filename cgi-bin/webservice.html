@@ -48,7 +48,7 @@
       console.log("Y-scale requested: " + yscale);
 
       $.ajax({
-        url: 'http://ec2-52-70-232-122.compute-1.amazonaws.com/~ppurohit/RNA-Browser/cgi-bin/webservice.cgi?tissue=' + tissue + '&record=' + record + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' +
+        url: 'https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=' + tissue + '&record=' + record + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' +
           yscale,
         dataType: 'json',
         success: function(response_rnaseq) {

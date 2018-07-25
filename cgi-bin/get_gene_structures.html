@@ -45,7 +45,7 @@
           }
 
           $.ajax({
-            url: 'http://ec2-52-70-232-122.compute-1.amazonaws.com/~ppurohit/RNA-Browser/cgi-bin/webservice.cgi?tissue=aerial&record=ERR274310&locus=' + locus + '&variant=1&start=' + response["locus_start"] + '&end=' + response["locus_end"],
+            url: 'https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=aerial&record=ERR274310&locus=' + locus + '&variant=1&start=' + response["locus_start"] + '&end=' + response["locus_end"],
             dataType: 'json',
             success: function(res) { // When the file is retrieved:
               console.log("RNA-Seq request successful for tissue = aerial, record = ERR274310, locus = " + locus + ', variant = 1, start = ' + response["locus_start"] + ', end = ' + response["locus_end"]);

@@ -1132,7 +1132,7 @@ function populate_table(status) {
         if (controls.length > 0) {
           for (var i = controls.length; i--;) {
             if (controls[i] != "MEDIAN") {
-              links += '<a href="http://www.ncbi.nlm.nih.gov/Traces/sra/?run=' + controls[i] + '" target="blank">' + controls[i] + '</a> ';
+              links += '<a href="https://www.ncbi.nlm.nih.gov/Traces/sra/?run=' + controls[i] + '"target="_blank" rel="noopener">' + controls[i] + '</a> ';
             } else {
               links += controls[i];
             }
@@ -1195,7 +1195,7 @@ function populate_table(status) {
         // Append the details <td>
         append_str += '<td class="colDetails" style="font-size: 12px;"><div id="' + experimentno + '_description" name="' + description + '">' + truncateDescription(description) + '</div>'; 
         append_str += '<div id="igbLink_' + experimentno + '">Show: <a href="' + igbView_link + '" target="_blank" rel="noopener">Alignments in IGB</a></div>';
-        append_str += '<div id="extraLinks_' + experimentno + '">Go to: <a href="' + url + '" target="blank">NCBI SRA</a> or <a href="' + publicationid + '" target="blank">PubMed</a></div>';
+        append_str += '<div id="extraLinks_' + experimentno + '">Go to: <a href="' + url + '" target="_blank" rel="noopener">NCBI SRA</a> or <a href="' + publicationid + '" target="_blank" rel="noopener">PubMed</a></div>';
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + moreDetails + '</a>';
         append_str += '<div id="' + experimentno + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br>';        
         append_str += '<div id="' + experimentno + '_totalReadsNum">' + 'Total reads = ' + numberofreads + '</div>';

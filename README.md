@@ -40,4 +40,4 @@ SVG images are [CC-BY SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 * Vivek Krishnakumar
 * Chris Town
 * Ann Loraine - [Website](http://lorainelab.org/)
-* Nicholas Provart - [Twitter](https://twitter.com/BAR_PlantBio), [Website](http://bar.utoronto.ca)
+* Nicholas Provart - [Twitter](https://twitter.com/BAR_PlantBio), [Website](https://bar.utoronto.ca)
