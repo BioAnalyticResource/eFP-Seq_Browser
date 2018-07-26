@@ -34,7 +34,7 @@
       console.log("Locus requested: " + locus);
 
       $.ajax({
-        url: 'https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/get_gene_structures.cgi?locus=' + locus,
+        url: 'cgi-bin/get_gene_structures.cgi?locus=' + locus,
         dataType: 'json',
         success: function(response) { // When the file is retrieved:
           console.log("BAR's web service (which calls Araport service) returned a total of " + response['variant_count'] + " splice variants for locus = " + locus);
@@ -45,7 +45,7 @@
           }
 
           $.ajax({
-            url: 'https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=aerial&record=ERR274310&locus=' + locus + '&variant=1&start=' + response["locus_start"] + '&end=' + response["locus_end"],
+            url: 'cgi-bin/webservice.cgi?tissue=aerial&record=ERR274310&locus=' + locus + '&variant=1&start=' + response["locus_start"] + '&end=' + response["locus_end"],
             dataType: 'json',
             success: function(res) { // When the file is retrieved:
               console.log("RNA-Seq request successful for tissue = aerial, record = ERR274310, locus = " + locus + ', variant = 1, start = ' + response["locus_start"] + ', end = ' + response["locus_end"]);

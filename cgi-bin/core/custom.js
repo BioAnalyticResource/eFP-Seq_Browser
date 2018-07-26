@@ -145,7 +145,8 @@ function generate_loading_screen() {
       document.getElementById("body_of").className = "body_of_loading";
       $(':button').prop('disabled', true);
       $('#help_button').prop('disabled', true);
-    } else if (progress_percent > 96) {
+    } 
+    else if (progress_percent > 96) {
       document.getElementById("loading_screen").className = "loading done_loading";
       document.getElementById("body_of").className = "body_of_loading body_of_loading_done";
       $(':button').prop('disabled', false);
@@ -448,7 +449,7 @@ function update_all_images(status) {
 function variants_radio_options(status) {
   get_input_values();
   $.ajax({
-    url: 'https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/get_gene_structures.cgi?locus=' + locus,
+    url: 'cgi-bin/get_gene_structures.cgi?locus=' + locus,
     dataType: 'json',
     success: function(gene_res) {
       // Update locus_start and locus_end
@@ -544,7 +545,7 @@ function parseIntArray(arr) {
   return arr;
 }
 
-var rnaseq_image_url = "https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=";
+var rnaseq_image_url = "cgi-bin/webservice.cgi?tissue=";
 var match_drive = "";
 var progress_percent = 0;
 var sra_list_check = [];
@@ -573,25 +574,24 @@ function rnaseq_images(status) {
         var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
         var linkString = drive_link_list[i];
         match_drive = myRegexp.exec(linkString);
-        rnaseq_image_url = "//bar.utoronto.ca/~asher/eFP-Seq_Browser/cgi-bin/webservice_gdrive.cgi?numberofreads=" + numberofreads_list[i] + "&hexcodecolour=" + hexcode_list[i] + "&gdrive=" + match_drive[1] + "&filename=" + filename[i] + "&tissue=";
+        rnaseq_image_url = "cgi-bin/webservice_gdrive.cgi?numberofreads=" + numberofreads_list[i] + "&hexcodecolour=" + hexcode_list[i] + "&gdrive=" + match_drive[1] + "&filename=" + filename[i] + "&tissue=";
         if (splice_variants == '') {
           splice_variants = "[{\"exon_coordinates\":[{\"exon_start\":10326918,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10330048},{\"exon_start\":10329457,\"exon_end\":10329601}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAARklEQVQ4jWNIIwYkMIAAnIvKwwLACthwCySgcBOwyaJoh5kABwjJ1FACgCEt cdj7UHC4+zBx2PtQcLiDERCHwz8fDvuyFACN3Nv0vy8+hAAAAABJRU5ErkJggg== \"},{\"exon_coordinates\":[{\"exon_start\":10326925,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329722,\"exon_end\":10330008},{\"exon_start\":10329722,\"exon_end\":10329824}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAS0lEQVQ4jWNgSyMCJDCAAJyLysMCwArYcAskoHATsMmiaIeZAAfIkgkoQqmh yCAAJJE47H0oONx9yDjsfSg43MEIiMPhnw+HfVkKAGJJyHVybZqTAAAAAElFTkSuQmCC \"},{\"exon_coordinates\":[{\"exon_start\":10327035,\"exon_end\":10327438},{\"exon_start\":10327325,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329607},{\"exon_start\":10329457,\"exon_end\":10329601},{\"exon_start\":10329722,\"exon_end\":10329941}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAASklEQVQ4jWNggII0fCABVQlBDWAFbLgFElC4CdhkUbTDTIADhGRqAFSINRQV BMAVMw57HwoOdx8yDnsfCg53MALicPjnw2FflgIAMFykVMBo2gsAAAAASUVORK5CYII= \"},{\"exon_coordinates\":[{\"exon_start\":10327035,\"exon_end\":10327134},{\"exon_start\":10327109,\"exon_end\":10327134},{\"exon_start\":10327330,\"exon_end\":10327438},{\"exon_start\":10327330,\"exon_end\":10327438},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327519,\"exon_end\":10327635},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10327716,\"exon_end\":10328094},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328181,\"exon_end\":10328336},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328414,\"exon_end\":10328550},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328624,\"exon_end\":10328743},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10328836,\"exon_end\":10328964},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329058,\"exon_end\":10329251},{\"exon_start\":10329457,\"exon_end\":10329618},{\"exon_start\":10329457,\"exon_end\":10329601},{\"exon_start\":10329722,\"exon_end\":10329941}],\"start\":10326918,\"end\":10330048,\"gene_structure\":\"iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAAUElEQVQ4jWNggII0KGBABmxQwQQUJWmoPCwARTMWgQQUbgI2WRTt6O5CkkwN DYAIsYaiggC4YsZh70PB4e5DxmHvQ8HhDkZAHA7/fDjsy1IAaSZ/xYh30LgAAAAASUVORK5CYII=\"}]";
         }
       }
       else {
         // New rnaseq_image_url with BAM file name
-        rnaseq_image_url = "https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&hexcodecolour=" + hexcode_list[i] + "&filename=" + filename[i] + "&tissue=";
+        rnaseq_image_url = "cgi-bin/webservice.cgi?numberofreads=" + numberofreads_list[i] + "&hexcodecolour=" + hexcode_list[i] + "&filename=" + filename[i] + "&tissue=";
       }
 
       $.ajax({
         url: rnaseq_image_url + rnaseq_calls[i][0] + '&record=' + rnaseq_calls[i][1] + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' + yscale_input + '&status=' + status + '&struct=' + splice_variants,
+        type: 'POST',
         dataType: 'json',
         failure: function(failure_response) {
           $('#failure').show();
-          //console.log(response_rnaseq['record']);
         },
         success: function(response_rnaseq) {
-          //console.log(response_rnaseq['record']);
           sra_list_check.push(response_rnaseq['record']);
           bp_length_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['end']) - parseFloat(response_rnaseq['start']));
           bp_start_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['start']));
@@ -2290,8 +2290,10 @@ function getGFF(locusID) {
  */
 function addGFF() {
   eachVariant = document.getElementsByClassName("dd-option");
+  if (eachVariant.length > 0) {
   for (i = 0; i < GFF_List.length; i++) {
-    document.getElementsByClassName("dd-option")[i].title = GFF_List[i];
+      document.getElementsByClassName("dd-option")[i].setAttribute("title", GFF_List[i]); 
+    }
   }
 }
 

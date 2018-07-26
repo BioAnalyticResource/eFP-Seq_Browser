@@ -150,7 +150,7 @@ def makeImage(filename, chromosome, start, end, record, yscale, hexcodecolour):
 
 	# Clear temporary files and name a new one
 	#os.system("find ../temp/* -mtime +1 -exec rm -f {} \\;")
-	tempfile = "../temp/RNASeqGraph_" + str(random.randint(1,1000000)) + ".png"
+	tempfile = "../temp/RNASeqGraph.png"
 
 	# Call samtools and get mpileup
 	region = chromosome + ":" + str(start) + "-" + str(end)
@@ -257,10 +257,10 @@ def main():
 	locus = form.getvalue('locus')
 	record = form.getvalue('record')
 	variant = form.getvalue('variant')
-	googleDrive = form.getvalue('gdrive')
 	hexcode = form.getvalue('hexcodecolour')
-	totalReadsMapped = form.getvalue('numberofreads')
 	bamfilename = form.getvalue('filename')
+	totalReadsMapped = form.getvalue('numberofreads')
+	googleDrive = form.getvalue('gdrive')
 
 	status = 1
 	if (form.getvalue('status') and int(form.getvalue('status')) >= 0):
@@ -421,12 +421,12 @@ def main():
 				r.append(round(r_val, PRECISION))
 
 		try:
-		subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + googleDrive + "_" + uniqId])
+			subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + googleDrive + "_" + uniqId])
 		except:
 			sys.stderr.write("Failed to unmount FUSE file system.")
 
 		try:
-		subprocess.call(["rm", "-rf", "/mnt/gDrive/" + googleDrive + "_" + uniqId])
+			subprocess.call(["rm", "-rf", "/mnt/gDrive/" + googleDrive + "_" + uniqId])
 		except:
 			sys.stderr.write("Failed to delete FUSE mount point.")
 

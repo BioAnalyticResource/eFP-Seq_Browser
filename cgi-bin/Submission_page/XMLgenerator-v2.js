@@ -993,7 +993,7 @@ function update_existingAdd_options() {
 
   // Add Araport 11 database:
   var araport11XML = new XMLHttpRequest();
-  araport11XML.open('GET', 'https://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/data/bamdata_amazon_links.xml', true);
+  araport11XML.open('GET', 'cgi-bin/data/bamdata_amazon_links.xml', true);
   araport11XML.responseType = 'document';
   araport11XML.send();
   setTimeout(function () {
@@ -1002,7 +1002,7 @@ function update_existingAdd_options() {
 
   // Add Klepikova database:
   var klepikovaXML = new XMLHttpRequest();
-  klepikovaXML.open('GET', 'https://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/data/bamdata_Developmental_transcriptome.xml', true);
+  klepikovaXML.open('GET', 'cgi-bin/data/bamdata_Developmental_transcriptome.xml', true);
   klepikovaXML.responseType = 'document';
   klepikovaXML.send();
   setTimeout(function () {
@@ -1057,7 +1057,7 @@ function addPublic_toExisting() {
     var addBox_id = "addBox" + i;
     if (document.getElementById(addBox_id).checked == true) {
       var araport11XML = new XMLHttpRequest();
-      araport11XML.open('GET', 'https://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/data/bamdata_amazon_links.xml', true);
+      araport11XML.open('GET', 'cgi-bin/data/bamdata_amazon_links.xml', true);
       araport11XML.responseType = 'document';
       araport11XML.send();
       setTimeout(function () {
@@ -1072,7 +1072,7 @@ function addPublic_toExisting() {
     var addBox_id = "addBox" + i;
     if (document.getElementById(addBox_id).checked == true) {
       var klepikovaXML = new XMLHttpRequest();
-      klepikovaXML.open('GET', 'https://bar.utoronto.ca/~asullivan/RNA-Browser/cgi-bin/data/bamdata_Developmental_transcriptome.xml', true);
+      klepikovaXML.open('GET', 'cgi-bin/data/bamdata_Developmental_transcriptome.xml', true);
       klepikovaXML.responseType = 'document';
       klepikovaXML.send();
       setTimeout(function () {

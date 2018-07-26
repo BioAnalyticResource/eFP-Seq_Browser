@@ -141,17 +141,12 @@ def determineReadMapNumber(filedir, filename, readMappedNumber):
 	elif readMappedNumber > 0:
 		return float(readMappedNumber)
 
-
 ''' Once we have chromosome, start, end and filename, we can make the image.'''
 def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcodecolour):
 	max_mapped_reads_count = 0 # For setting the appropriate Y scale
 
 	x_bp_vals = [] # Holds nucleotide positions...
 	y_reads_values = [] # Holds the valid mapped reads for the position...
-
-	# Clear temporary files and name a new one
-	os.system("find ../temp/* -mtime +1 -exec rm -f {} \\;")
-	tempfile = "../temp/RNASeqGraph_" + str(random.randint(1,1000000)) + ".png"
 
 	# Call samtools and get mpileup
 	region = chromosome + ":" + str(start) + "-" + str(end)
@@ -172,7 +167,6 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 
 	if mpileup == None:
 		return "FAILED"
-
 
 	# Read pileup output
 	for read in mpileup.splitlines():
@@ -222,6 +216,10 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 	for i in range(len(x_bp_vals)):
 		rnaseqgraph.rectangle((int(float(x_bp_vals[i] - start)/(end-start) * RNA_IMG_WIDTH), RNA_IMG_HEIGHT), (int(float(x_bp_vals[i] - start)/(end-start) * RNA_IMG_WIDTH), RNA_IMG_HEIGHT - y_reads_values[i]), rnaseq_img_colour)
 	rnaseqgraph.string(0, (420, 5), str(int(yscale)), black) # Y-axis scale label
+
+	# Clear temporary files and name a new one
+	os.system("find ../temp/* -mtime +1 -exec rm -f {} \\;")
+	tempfile = "../temp/RNASeqGraph.png"
 
 	# Output the GD image to temp PNG file
 	f = open(tempfile, "w+")

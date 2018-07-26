@@ -48,7 +48,7 @@
       console.log("Y-scale requested: " + yscale);
 
       $.ajax({
-        url: 'https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/webservice.cgi?tissue=' + tissue + '&record=' + record + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' +
+        url: 'cgi-bin/webservice.cgi?tissue=' + tissue + '&record=' + record + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' +
           yscale,
         dataType: 'json',
         success: function(response_rnaseq) {
@@ -58,7 +58,7 @@
       });
 
       $.ajax({
-        url: 'https://bar.utoronto.ca/~asullivan/eFP-Seq_Browser/cgi-bin/get_gene_structures.cgi?locus=' + locus,
+        url: 'cgi-bin/get_gene_structures.cgi?locus=' + locus,
         dataType: 'json',
         success: function(response) { // When the file is retrieved:
           console.log("BAR's web service (which calls Araport service) returned a total of " + response['variant_count'] + " splice variants for locus = " + locus);
