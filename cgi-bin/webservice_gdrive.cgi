@@ -47,7 +47,9 @@ exp_arr0 = []
 def validateTissue(tissue):
 	if tissue == "":
 		error("Tissue validation error: 1.")
-	elif re.search(r'^[a-zA-Z]{1,15}$', tissue): # Can only have upto 15 alpha numeric charactors
+	elif tissue == None:
+		tissue = "undefined"
+	if re.search(r'^[a-zA-Z]{1,15}$', tissue): # Can only have upto 15 alpha numeric charactors
 		return tissue
 	else:
 		error("Tissue validation error: 2.");
