@@ -1423,6 +1423,7 @@ var keep_loop_var = [];
 * @param {String | Number} status Index call version
 */
 function populate_efp_modal(status) {
+  toggleResponsiveTable(2);
   $("#efpModalTable").empty();
   efp_table_column = '';
   efp_column_count = 0;
@@ -1685,7 +1686,7 @@ function populate_efp_modal(status) {
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
-
+  toggleResponsiveTable();
 }
 
 /**
@@ -2429,7 +2430,6 @@ function toggleTableCol(colClass, enable) {
       column[i].setAttribute("hidden", true);
     }
   }
-  usedToggle = true;
 }
 
 var responsiveRNAWidthAdjusted = false;
@@ -2452,26 +2452,12 @@ function reponsiveRNAWidthReize() {
 }
 
 /**
- * Craetes a responsive mobile/small screen RNA-Table design
+ * Craetes a responsive mobile/small screen RNA-Table design *
+ * @param {number} [forceToggle=0] Forces a toggled responsive design. 0 = none, 1 = mobile, 2 = desktop
  */
-function toggleResponsiveTable(goingUp = false) {
+function toggleResponsiveTable(forceToggle = 0) {
   if (document.getElementById("tableToggle").style.display != 'none') {
-    if (window.innerWidth <= 575 && usedToggle == false && goingUp == false) {
-      toggleTableCol("colTitle", false);
-      document.getElementById("toggleTitle").checked = false;
-      toggleTableCol("colRNA", true);
-      document.getElementById("colRNA").checked = true;
-      toggleTableCol("colPCC", false);
-      document.getElementById("togglePCC").checked = false;
-      toggleTableCol("coleFP", false);
-      document.getElementById("toggleeFP").checked = false;
-      toggleTableCol("colRPKM", false);
-      document.getElementById("toggleRPKM").checked = false;
-      toggleTableCol("colDetails", false);
-      document.getElementById("toggleDetails").checked = false;
-      usedToggle = false;
-    }
-    else if ((window.innerWidth > 575 && usedToggle == false) || (window.innerWidth > 575 && usedToggle == false && goingUp == true)) {
+    if ((forceToggle == 2) || (window.innerWidth > 575 && usedToggle == false)) {
       toggleTableCol("colTitle", true);
       document.getElementById("toggleTitle").checked = true;
       toggleTableCol("colRNA", true);
@@ -2484,9 +2470,52 @@ function toggleResponsiveTable(goingUp = false) {
       document.getElementById("toggleRPKM").checked = true;
       toggleTableCol("colDetails", true);
       document.getElementById("toggleDetails").checked = true;
-      usedToggle = false;
+      RememberToggleOptions(true, true, true, true, true, true);
+    }
+    else if ((forceToggle == 1) || (window.innerWidth <= 575 && usedToggle == false)) {
+      toggleTableCol("colTitle", false);
+      document.getElementById("toggleTitle").checked = false;
+      toggleTableCol("colRNA", true);
+      document.getElementById("colRNA").checked = true;
+      toggleTableCol("colPCC", false);
+      document.getElementById("togglePCC").checked = false;
+      toggleTableCol("coleFP", false);
+      document.getElementById("toggleeFP").checked = false;
+      toggleTableCol("colRPKM", false);
+      document.getElementById("toggleRPKM").checked = false;
+      toggleTableCol("colDetails", false);
+      document.getElementById("toggleDetails").checked = false;
+      RememberToggleOptions(false, true, false, false, false, false);
+    }
+    if (usedToggle == true) {
+      toggleTableCol("colTitle", ToggledTable[0]);
+      document.getElementById("toggleTitle").checked = ToggledTable[0];
+      toggleTableCol("colRNA", ToggledTable[1]);
+      document.getElementById("colRNA").checked = ToggledTable[1];
+      toggleTableCol("colPCC", ToggledTable[2]);
+      document.getElementById("togglePCC").checked = ToggledTable[2];
+      toggleTableCol("coleFP", ToggledTable[3]);
+      document.getElementById("toggleeFP").checked = ToggledTable[3];
+      toggleTableCol("colRPKM", ToggledTable[4]);
+      document.getElementById("toggleRPKM").checked = ToggledTable[4];
+      toggleTableCol("colDetails", ToggledTable[5]);
+      document.getElementById("toggleDetails").checked = ToggledTable[5];
     }
   }
+}
+
+var ToggledTable = [true, true, true, true, true, true];
+/**
+ * Remember what toggle options were chosen in the RNA table
+ * @param {boolean} [title=true] Title
+ * @param {boolean} [rna=true] RNA-Seq Coverage
+ * @param {boolean} [pcc=true] PCC
+ * @param {boolean} [efp=true] eFP
+ * @param {boolean} [rpkm=true] RPKM
+ * @param {boolean} [details=true] Details
+ */
+function RememberToggleOptions(title = true, rna = true, pcc = true, efp = true, rpkm = true, details = true) {
+  ToggledTable = [title, rna, pcc, efp, rpkm, details];
 }
 
 // Whenever browser resized, checks to see if footer class needs to be changed
@@ -2494,7 +2523,7 @@ $(window).resize(function() {
   adjustFooterSize();
   adjustSubmissionIFrameSize();
   reponsiveRNAWidthReize();
-  toggleResponsiveTable(true)
+  toggleResponsiveTable()
 })
 
 /**
