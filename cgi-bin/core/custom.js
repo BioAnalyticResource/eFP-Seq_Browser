@@ -572,11 +572,11 @@ function rnaseq_images(status) {
     rnaseq_change = 1;
     for (var i = 0; i < count_bam_entries_in_xml; i++) {
       if (bam_type_list[i] == "Google Drive") {
-        var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
         var tissueWebservice = rnaseq_calls[i][0];
         if (rnaseq_calls[i][0] == undefined || rnaseq_calls[i][0] == "None" || rnaseq_calls[i][0] == null) {
           tissueWebservice = "undefined"
         }
+        var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
         var linkString = drive_link_list[i];
         match_drive = myRegexp.exec(linkString);
         rnaseq_image_url = "cgi-bin/webservice_gdrive.cgi";
@@ -588,7 +588,7 @@ function rnaseq_images(status) {
       else {
         // New rnaseq_image_url with BAM file name
         rnaseq_image_url = "cgi-bin/webservice.cgi";
-        data = {numberofreads: numberofreads_list[i], hexcodecolour: hexcode_list[i], filename: filename[i], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, status: status, struct: splice_variants};
+        data = {numberofreads: numberofreads_list[i], hexcodecolour: hexcode_list[i], filename: filename[i], tissue: rnaseq_calls[i][0], record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, status: status, struct: splice_variants};
       }
 
       $.ajax({
