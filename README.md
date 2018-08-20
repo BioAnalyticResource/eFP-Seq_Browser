@@ -20,15 +20,16 @@ Outside of that, there is nothing to install, just download all the files and op
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](/contributing.md) for more details.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 
 ## License
 
 SVG images are [CC-BY SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+For rest: [GPL-3.0](LICENSE.md)
 
 ## Authors
 
-* Alexander Sullivan - [GitHub](https://github.com/ASully), [Twitter](https://twitter.com/alexjsully)
+* Alexander Sullivan - [GitHub](https://github.com/ASully), [Twitter](https://twitter.com/alexjsully), [LinkedIn](https://www.linkedin.com/in/alexanderjsullivan/)
 * Priyank Purohit - [GitHub](https://github.com/priyank-purohit)
 * Asher Pasha 
 * Eddi Esteban

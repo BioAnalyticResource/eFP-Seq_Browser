@@ -1108,7 +1108,7 @@ function openDataset(evt, datasetName) {
  * Change the width of the converter on initialization
  */
 function changeWidthConverter() {
-  if (document.getElementById("converter")) {
+  if (document.getElementById("converter") && document.getElementById("dataInput")) {
     document.getElementById("converter").style.width = "100%";
     document.getElementById("dataInput").style.width = "100%";
   }  

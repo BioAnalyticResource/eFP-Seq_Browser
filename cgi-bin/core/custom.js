@@ -556,10 +556,12 @@ var bp_end_dic = {};
 var mapped_reads_dic = {};
 var totalreadsMapped_dic = {};
 var locus_dic = {};
+var dumpOutputs = "";
 /**
 * Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function
 */
 function rnaseq_images(status) {
+  dumpOutputs = "";
   bp_length_dic = {};
   mapped_reads_dic = {};
   locus_dic = {};
@@ -654,6 +656,9 @@ function rnaseq_images(status) {
           document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
           document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
           filtered_2d_totalReads[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];
+          //dumpOutputs += 'elif (record == "' + response_rnaseq["record"] + '"):\n';
+          //dumpOutputs += '\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["RNASeq_ReadsPerNucleotide"] + '])\n';
+
 
           // Save the abs-fpkm, and the stats numbers
           for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
@@ -1178,12 +1183,7 @@ function populate_table(status) {
         igbView_link += 'annotation_set=Araport11&';
         igbView_link += 'query_url=' + drive_link + '&';
         // Closing
-        if (xmlTitleName == "Araport 11 RNA-seq data") {
-          igbView_link += 'server_url=http://lorainelab-quickload.scidas.org/bar';
-        }
-        else {
-          igbView_link += 'server_url=bar';
-        }
+        igbView_link += 'server_url=bar';
         
         // Construct a table row <tr> element
         var append_str = '<tr>';
