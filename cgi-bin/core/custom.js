@@ -656,8 +656,17 @@ function rnaseq_images(status) {
           document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
           document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
           filtered_2d_totalReads[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];
-          //dumpOutputs += 'elif (record == "' + response_rnaseq["record"] + '"):\n';
-          //dumpOutputs += '\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["RNASeq_ReadsPerNucleotide"] + '])\n';
+
+          // // Generate precaching information
+          // dumpOutputs += '\t\telif (record == "' + response_rnaseq["record"] + '"):\n';
+          // dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["RNASeq_ReadsPerNucleotide"] + '], [';
+          // for (e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
+          //   dumpOutputs += '[' + response_rnaseq["expected_expr_in_variant"][e] + ']';
+          //   if (e != response_rnaseq["expected_expr_in_variant"].length - 1) {
+          //     dumpOutputs += ', ';
+          //   }
+          // }
+          // dumpOutputs += '])\n'
 
 
           // Save the abs-fpkm, and the stats numbers
@@ -2223,7 +2232,7 @@ function download_mainTableCSV() {
 
 var publicData = true;
 /**
-* Checks of index.html (document) "RNA-Seq Database" is currently selected on a public or private database
+* Checks if the index.html's (document) "RNA-Seq Database" is currently selected on a public or private database
 * @return {Boolean} publicData - Whether a public database is or is not selected
 */
 function changePublicData() {
