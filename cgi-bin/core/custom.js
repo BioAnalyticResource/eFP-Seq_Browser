@@ -168,7 +168,7 @@ function stop_generating_loading() {
 // Base 64 images
 var img_loading_base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyCAYAAADP/dvoAAAABmJLR0QAwADAAMAanQdUAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAB3RJTUUH4AoRDzYeAMpyUgAABGJJREFUeNrt3TFoE3scwPGvjxtOzKAQMEOECBkyROhQsWOEChURBFtssdJFB9Gl4OJkwaEtRRAUdLAUqYJgwamIEFAwUoS43RCw0AwpOjhkuCHDQd5Qes9q+7A+7cP2+1na5K53cH/Kl19yIfu63W4XSZL2qL+8BJIkQyhJ0h4VfPvExMSEV0WStGt92zknQkmSE+GPFFOSpN00CToRSpJkCCVJhlCSJEMoSZIhlCTJEEqSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKe8HDhw/5/Pnzbzn2/v3709/Hx8d/23kkGULpp01PT9NoNH7LsTudDgBJktBut0mSxAsu/Q8CL4G0fUmSEEURcRxTLpc5ePBguu3Lly9EUUQ2m6VcLm/4u0ajQRzH9PT0/PNPGARcu3aNXC6X7lMqlVheXv5u3/Xt69NjJpOht7fXBZEMobRz2u02Z8+eJY5jCoUCtVqN58+fU6lUePLkCXfu3KGnp4d6vU5vby9zc3PA2peCzs7OUiqVvjvm8ePHWVlZoVAocPr0aQYHB6nX6zSbTSqVSnqMkZGRdHp88+YNw8PDzM/PuyiSIZR2zv3798lms7x9+xZYex/x5s2bLC0tce7cOYaHhwmCgHa7zaFDh5ibm6PZbDI9Pc3Hjx/J5/MsLCxQrVa3PMfhw4d5/fo1rVaLI0eOMDk5CUC1WuXTp08EQcCxY8e4cOGCCyIZQmlnffjwgfPnz6ePBwYGuHr1KrD2UmW1WqVWq7G6upru02w2yeVy5PN5AAYHB//1HOvb1/fvdDpkMhniOGZ5eZlCoUCSJOnLqZIMobRjkiRJb3RZF4YhAFNTUywuLnLr1i2KxSKPHj36df+sQUChUODSpUt0Oh0uXrzo+4PSL+Bdo9I2nThxgsePH6d3eS4sLDAwMADA+/fvOXPmDP39/RtiWSqVaLVaRFEEwN27d7d93iiKCIKA27dv8+DBAy5fvpxuazQa1Ov1dHp89uxZuq1ardJqtVw4yYlQ2r4wDDl58mT6eGZmhuvXr/Pu3TuOHj1KJpMhDENevHgBwNjYGFeuXOHVq1eEYUg2mwUgl8sxMzPDqVOnyOfz9PX1pS97/sgkCFAul2m32zx9+pQkSajVaoyOjjI5Ocns7CxRFPHy5UuiKGJkZIT+/n6y2Szj4+OMjY1x48YNF1TaxL5ut9v9+omJiYkNPyVtLo5jkiTZ8NEJWPv4BJBG8GudTockSchkMts+39TUFKurq9y7dw+Aer3O0NAQKysrLob0A7bqmxOh9JO2itlmAfx6wvxZfX19DA0NEYYhBw4cYHFxkdHRURdC+o8MofSHqFQqLC0tUavVAJifn9/0M4mSDKG0axWLRYrFohdC+oW8a1SSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKkmQIJUkyhJIkGUJJkgyhJEmGUJKkP9mWX8PkN9RLkpwIJUna5fZ1u92ul0GS5EQoSdIe9DfEVWhcl8IjHgAAAABJRU5ErkJggg==";
 
-var img_gene_struct_1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWNgYGAIxQnC0iAggQEE0mAA lYcFgBWw4RZIQOEmYJNF0Q4zAQ4Qkqm4XQ8EASDFjMPeh4LD3YeMw96HgsMdjIA4HP75cNiXpQDz LMP3r8Y/VgAAAABJRU5ErkJggg==";
+var img_gene_struct_1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATklEQVQ4jWNgYGANxQnC0iAggQEE0mAA lYcFgBWw4RZIQOEmYJNF0Q4zAQ4Qkqm4XQ8CIMWMw96HgsPdh4zD3oeCwx2MgDgc/vlw2JelAO7V xD0GmsY3AAAAAElFTkSuQmCC ";
 var absolute_rpkm_scale = "iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII= ";
 var relative_rpkm_scale = "iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==";
 var exon_intron_scale = "iVBORw0KGgoAAAANSUhEUgAAALQAAAAPBAMAAAC/7vi3AAAAGFBMVEX///9QUFAAAADcFDz/jAAA AP+m3KYAfQCnICW7AAAArklEQVQ4jd3UMQ+CQAwF4OaG66ourpcO/DCGm7v17/vKBUU8SozBGBvy xo9HD6DzB3OicK4WTa7RfIGWgiiH0In6tBK/iMpKhsvyWAfB7NGlJEHQFA+6U5ZVjf2OTtfBI6YF OgIpadkaklGjZtrepIsXL63+U2s8vzHpila+0zsLEQe9ty+kQ7OuFgJ+pseY3nr5cIxtIQt6OkY/ 3lxReHMhF4nm1z+Zv6KP+/PdANuwQcLhhEyQAAAAAElFTkSuQmCC";
@@ -229,9 +229,6 @@ var colouring_part;
 * Find and colour a particular SVG in the DOM.
 */
 function colour_part_by_id(id, part, fpkm, mode) {
-  var exp_to_colouring_part = [
-    ["ERR274310", "shoot"], ["SRR547531", "shoot"], ["SRR548277", "shoot" ], ["SRR847503", "shoot"], ["SRR847504", "shoot"], ["SRR847505", "shoot"], ["SRR847506", "shoot"], ["SRR1207194", "carpels"], ["SRR1207195", "carpels"], ["SRR1019436", "etiolatedseedling"], ["SRR1019437", "etiolatedseedling"], ["SRR1049784", "shoot"], ["SRR477075", "etiolatedseedling"], ["SRR477076", "etiolatedseedling"], ["SRR493237", "etiolatedseedling"], ["SRR493238", "etiolatedseedling"], ["SRR314815", "flowerBud"], ["SRR800753", "flowerBud"], ["SRR800754", "flowerBud"], ["SRR1105822", "leaf"], ["SRR1105823", "leaf"], ["SRR1159821", "leaf"], ["SRR1159827", "leaf"], ["SRR1159837", "leaf"], ["SRR314813", "leaf"], ["SRR446027", "leaf"], ["SRR446028", "leaf"], ["SRR446033", "leaf"], ["SRR446034", "leaf"], ["SRR446039", "leaf"], ["SRR446040", "leaf"], ["SRR446484", "leaf"], ["SRR446485", "shootapexinflorescence"], ["SRR446486", "leaf"], ["SRR446487", "shootapexinflorescence"], ["SRR493036", "leaf"], ["SRR493097", "leaf"], ["SRR493098", "leaf"], ["SRR493101", "leaf"], ["SRR764885", "leaf"], ["SRR924656", "leaf"], ["SRR934391", "leaf"], ["SRR942022", "leaf"], ["SRR070570", "etiolatedseedling"], ["SRR070571", "etiolatedseedling"], ["SRR1001909", "all"], ["SRR1001910", "all"], ["SRR1019221", "all"], ["SRR345561", "all"], ["SRR345562", "all"], ["SRR346552", "all"], ["SRR346553", "all"], ["SRR394082", "all"], ["SRR504179", "all"], ["SRR504180", "all"], ["SRR504181", "all"], ["SRR515073", "all"], ["SRR515074", "all"], ["SRR527164", "all"], ["SRR527165", "all"], ["SRR584115", "all"], ["SRR584121", "all"], ["SRR584129", "all"], ["SRR584134", "all"], ["SRR653555", "all"], ["SRR653556", "all"], ["SRR653557", "all"], ["SRR653561", "all"], ["SRR653562", "all"], ["SRR653563", "all"], ["SRR653564", "all"], ["SRR653565", "all"], ["SRR653566", "all"], ["SRR653567", "all"], ["SRR653568", "all"], ["SRR653569", "all"], ["SRR653570", "all"], ["SRR653571", "all"], ["SRR653572", "all"], ["SRR653573", "all"], ["SRR653574", "all"], ["SRR653575", "all"], ["SRR653576", "all"], ["SRR653577", "all"], ["SRR653578", "all"], ["SRR797194", "all"], ["SRR797230", "all"], ["SRR833246", "all"], ["SRR847501", "all"], ["SRR847502", "all"], ["SRR1260032", "all"], ["SRR1260033", "all"], ["SRR1261509", "all"], ["SRR401413", "receptacle"], ["SRR401414", "receptacle"], ["SRR401415", "receptacle"], ["SRR401416", "receptacle"], ["SRR401417", "receptacle"], ["SRR401418", "receptacle"], ["SRR401419", "receptacle"], ["SRR401420", "receptacle"], ["SRR401421", "receptacle"], ["ERR274309", "root"], ["SRR1046909", "root"], ["SRR1046910", "root"], ["SRR1524935", "root"], ["SRR1524938", "root"], ["SRR1524940", "root"], ["SRR314814", "root"], ["SRR949956", "all"], ["SRR949965", "all"], ["SRR949988", "all"], ["SRR949989", "all"]
-  ];
   colouring_part = "all";
   for (var i = 0; i < svg_part_list.length; i++) {
     if (id.replace("_svg", "") == svg_part_list[i][0]) {
@@ -650,21 +647,21 @@ function rnaseq_images(status) {
           document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
           filtered_2d_totalReads[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];
 
-          // // Generate pre-caching information
-          // dumpOutputs += '\t\telif (record == "' + response_rnaseq["record"] + '"):\n';
-          // if (dumpMethod == "complex") {
-          //   dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["RNASeq_ReadsPerNucleotide"] + '], [';
-          //   for (e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
-          //     dumpOutputs += '[' + response_rnaseq["expected_expr_in_variant"][e] + ']';
-          //     if (e != response_rnaseq["expected_expr_in_variant"].length - 1) {
-          //       dumpOutputs += ', ';
-          //     }
-          //   }               
-          //   dumpOutputs += '])\n'
-          // }
-          // else {
-          //   dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ')\n';
-          // }
+          // Generate pre-caching information
+          dumpOutputs += '\t\telif (record == "' + response_rnaseq["record"] + '"):\n';
+          if (dumpMethod == "complex") {
+            dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["RNASeq_ReadsPerNucleotide"] + '], [';
+            for (e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
+              dumpOutputs += '[' + response_rnaseq["expected_expr_in_variant"][e] + ']';
+              if (e != response_rnaseq["expected_expr_in_variant"].length - 1) {
+                dumpOutputs += ', ';
+              }
+            }               
+            dumpOutputs += '])\n'
+          }
+          else {
+            dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ')\n';
+          }
 
           // Save the abs-fpkm, and the stats numbers
           for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
@@ -1199,7 +1196,7 @@ function populate_table(status) {
         // Append title <td>
         append_str += '<td class="colTitle" style="width: 250px; font-size: 12px;" id="' + experimentno + '_title">' + title + '</td>\n';
         // Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
-        append_str += '<td class="colRNA" style="max-width: 576px;">' + '<img id="' + experimentno + '_rnaseq_img" alt="RNA-Seq mapped image for:' + experimentno + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" class="rnaseq_img responsiveRNAWidth" src="' + img_loading_base64 + '" /><br/>' + '<img id="' + experimentno + '_gene_structure_img" style="max-width: 576px; width:95%; height: auto;" class="gene_structure_img" src="' + img_gene_struct_1 + '" alt="Gene variant image for:' + experimentno + '"/>' + '</td>\n';
+        append_str += '<td class="colRNA" style="max-width: 576px;">' + '<img id="' + experimentno + '_rnaseq_img" alt="RNA-Seq mapped image for:' + experimentno + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" class="rnaseq_img responsiveRNAWidth" src="' + img_loading_base64 + '" /><br/>' + '<img id="' + experimentno + '_gene_structure_img" style="max-width: 576px; width:100%; height: auto;" class="gene_structure_img" src="' + img_gene_struct_1 + '" alt="Gene variant image for:' + experimentno + '"/>' + '</td>\n';
         // Append the PCC <td>
         append_str += '<td id="' + experimentno + '_pcc' + '" class="pcc_value colPCC" style="font-size: 12px; width: 50px; ">' + -9999 + '</td>';
         // Append the approparite SVG with place holder sorting number in front of it .. all in one <td>
@@ -2460,8 +2457,9 @@ function reponsiveRNAWidthReize() {
 /**
  * Craetes a responsive mobile/small screen RNA-Table design *
  * @param {number} [forceToggle=0] Forces a toggled responsive design. 0 = none, 1 = mobile, 2 = desktop
+ * @param {bool} [buttonClick=false] If clicked from mobile/responsive page, hide nav bar
  */
-function toggleResponsiveTable(forceToggle = 0) {
+function toggleResponsiveTable(forceToggle = 0, buttonClick = false) {
   if (document.getElementById("tableToggle").style.display != 'none') {
     if ((forceToggle == 2) || (window.innerWidth > 575 && usedToggle == false)) {
       toggleTableCol("colTitle", true);
@@ -2492,6 +2490,9 @@ function toggleResponsiveTable(forceToggle = 0) {
       toggleTableCol("colDetails", false);
       document.getElementById("toggleDetails").checked = false;
       RememberToggleOptions(false, true, false, false, false, false);
+      if (buttonClick == true) {
+        displayNavBAR()
+      }
     }
     if (usedToggle == true) {
       toggleTableCol("colTitle", ToggledTable[0]);
@@ -2506,6 +2507,9 @@ function toggleResponsiveTable(forceToggle = 0) {
       document.getElementById("toggleRPKM").checked = ToggledTable[4];
       toggleTableCol("colDetails", ToggledTable[5]);
       document.getElementById("toggleDetails").checked = ToggledTable[5];
+      if (buttonClick == true) {
+        displayNavBAR()
+      }
     }
   }
 }

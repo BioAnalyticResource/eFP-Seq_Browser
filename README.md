@@ -16,7 +16,7 @@ Chrome | Firefox | IE | Edge | Safari | Opera
 
 If you wish to modify the code, all .CGI files uses [Python 2](https://www.python.org) as well as there are a few [Perl](https://www.perl.org/) scripts. If you are running webservice (or webservice_gdrive) locally, you will also need to install [SAMTools](https://github.com/samtools/samtools).
 
-Outside of that, there is nothing to install, just download all the files and open "index.html" (legacy.html is no longer supported).
+Outside of that, there is nothing to install, just download all the files and open "[index.html](index.html)" ([legacy.html](legacy.html) is no longer supported).
 
 ## Contributing
 
@@ -31,14 +31,17 @@ For rest: [GPL-3.0](LICENSE.md)
 
 * Alexander Sullivan - [GitHub](https://github.com/ASully), [Twitter](https://twitter.com/alexjsully), [LinkedIn](https://www.linkedin.com/in/alexanderjsullivan/)
 * Priyank Purohit - [GitHub](https://github.com/priyank-purohit)
-* Asher Pasha 
+* Asher Pasha - [Github](https://github.com/asherpasha)
 * Eddi Esteban
 * Jamie Waese - [GitHub](https://github.com/jamiewaese), [Website](http://www.waese.com/#)
 * Alison Wu
 * Michelle Chen
-* Gini Chin
+* Chih Ying Chin
+* Richard Song
+* Sneha Ramesh Watharkar
+* Nowlan Freese
 * Agnes Chan
 * Vivek Krishnakumar
 * Chris Town
-* Ann Loraine - [Website](http://lorainelab.org/)
-* Nicholas Provart - [Twitter](https://twitter.com/BAR_PlantBio), [Website](https://bar.utoronto.ca)
+* Ann E. Loraine - [Website](http://lorainelab.org/)
+* Nicholas J. Provart - [Github](https://github.com/BioAnalyticResource), [Twitter](https://twitter.com/BAR_PlantBio), [Website](http://bar.utoronto.ca)
