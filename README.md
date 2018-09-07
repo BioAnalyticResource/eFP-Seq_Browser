@@ -31,8 +31,8 @@ For rest: [GPL-3.0](LICENSE.md)
 
 * Alexander Sullivan - [GitHub](https://github.com/ASully), [Twitter](https://twitter.com/alexjsully), [LinkedIn](https://www.linkedin.com/in/alexanderjsullivan/)
 * Priyank Purohit - [GitHub](https://github.com/priyank-purohit)
-* Asher Pasha - [Github](https://github.com/asherpasha)
-* Eddi Esteban
+* Asher Pasha - [Github](https://github.com/asherpasha), [ORCiD](https://orcid.org/0000-0002-9315-0520)
+* Eddi Esteban - [ORCiD](https://orcid.org/0000-0001-9016-9202)
 * Jamie Waese - [GitHub](https://github.com/jamiewaese), [Website](http://www.waese.com/#)
 * Alison Wu
 * Michelle Chen
