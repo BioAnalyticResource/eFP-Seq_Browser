@@ -1,5 +1,8 @@
 # eFP-Seq-Browser
 
+[![TravisCI - Build Status](https://travis-ci.org/ASully/eFP-Seq-Browser.svg?branch=master)](https://travis-ci.org/ASully/eFP-Seq-Browser)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c87696819acab6a6c803/maintainability)](https://codeclimate.com/github/ASully/eFP-Seq-Browser/maintainability)
+
 The eFP-Seq Browser is a RNA-Seq data exploration tool that shows read map coverage of a gene of interest along with a "electronic fluorescent pictopgrahic" (eFP) image. This web-tool also allows generation of new datasets if provided with SAM/BAM (with their index files) to allow visualization of any RNA-Seq mapping coverage. Gene expression levels and similarity is also shown by calculating the Reads per Kilobase per Million reads mapped (RPKM) expression levels and Pearson Correlation Coefficient (PCC) scores amongst its different splice variants.
 
 ## Getting Started
@@ -17,6 +20,12 @@ Chrome | Firefox | IE | Edge | Safari | Opera
 If you wish to modify the code, all .CGI files uses [Python 2](https://www.python.org) as well as there are a few [Perl](https://www.perl.org/) scripts. If you are running webservice (or webservice_gdrive) locally, you will also need to install [SAMTools](https://github.com/samtools/samtools).
 
 Outside of that, there is nothing to install, just download all the files and open "[index.html](index.html)" ([legacy.html](legacy.html) is no longer supported).
+
+## Known issues
+
+We aim to make the eFP-Seq Browser as perfect as possible but unfortunately, there may be some unforseen bugs. If you manage to find one that is not here, feel free to create a [bug report](https://github.com/ASully/eFP-Seq-Browser/issues/new?template=bug_report.md) so we can fix it.
+* After generating a new dataset through the "Generate Data" option, the user cannot scroll up without first scrolling down
+* The IGB links do not work with Google Drive repositories 
 
 ## Contributing
 

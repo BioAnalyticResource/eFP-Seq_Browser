@@ -87,13 +87,8 @@ a {
 
 .efp_table_tooltip:hover {
     box-shadow: 0px 0px 10px #000000;
-    border-style: inherit;
     border-width: 2px;
-    border-color: #53f442;
-    background-color: #CBE8BA;
     z-index: 1150;
-    transition: all 400ms ease-in;
-    transform: scale(1.4);
 }
 
 .efp_table_tooltip .efp_table_tooltip_text {
@@ -129,6 +124,7 @@ a {
 
 .efp_modal_table {
     padding-right: 10px;
+    padding-left: 10px;
     font-size: 1.4em;
 }
 

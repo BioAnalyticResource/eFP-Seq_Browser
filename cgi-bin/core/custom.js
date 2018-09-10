@@ -1169,12 +1169,12 @@ function populate_table(status) {
         if ($(this).attr('bam_type') == "Amazon AWS") {
           var tissue = $(this).attr('name').split("/")[8];
         };
+        rnaseq_calls.push([tissue, experimentno]);
         var bam_type = $(this).attr('bam_type');
         bam_type_list.push(bam_type);
         var drive_link = $(this).attr('name');
         drive_link_list.push(drive_link);
-
-        rnaseq_calls.push([tissue, experimentno]);
+        var read_map_method = $(this).attr('read_map_method');
 
         // Setup IGB
         var igbView_link = 'https://bioviz.org/bar.html?';
@@ -1204,12 +1204,15 @@ function populate_table(status) {
         // Append abs/rel RPKM
         append_str += '<td class="colRPKM" id="' + experimentno + '_rpkm' + '" style="font-size: 12px; width: 50px; ">-9999</td>';
         // Append the details <td>
-        append_str += '<td class="colDetails" style="font-size: 12px;"><div id="' + experimentno + '_description" name="' + description + '">' + truncateDescription(description) + '</div>'; 
+        append_str += '<td class="colDetails" style="font-size: 12px;"><div id="' + experimentno + '_description" name="' + description.trim() + '">' + truncateDescription(description) + '</div>'; 
         append_str += '<div id="igbLink_' + experimentno + '">Show: <a href="' + igbView_link + '" target="_blank" rel="noopener">Alignments in IGB</a></div>';
         append_str += '<div id="extraLinks_' + experimentno + '">Go to: <a href="' + url + '" target="_blank" rel="noopener">NCBI SRA</a> or <a href="' + publicationid + '" target="_blank" rel="noopener">PubMed</a></div>';
-        append_str += '<a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + moreDetails + '</a>';
-        append_str += '<div id="' + experimentno + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br>';        
+        append_str += '<a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + moreDetails.trim() + '</a>';
+        append_str += '<div id="' + experimentno + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br>';
         append_str += '<div id="' + experimentno + '_totalReadsNum">' + 'Total reads = ' + numberofreads + '</div>';
+        if (read_map_method != undefined && read_map_method.length > 0) {
+          append_str += '<div id="' + experimentno + '_readMappedMethod">' + 'Read mapped method = ' + read_map_method.trim() + '</div>';
+        }
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '_less" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + lessDetails + '</a></div></td>\n';
         append_str += '</tr>';
 
@@ -1568,17 +1571,17 @@ function populate_efp_modal(status) {
   for (i = 0; i < (~~ (filtered_2d.length / 11) * 11); i += 11) {
     if (document.getElementById(filtered_2d[i + 10]).outerHTML != 'null') {
       efp_table_column = '<tr>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i] + '_rep">' + document.getElementById(filtered_2d[i]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 1] + '_rep">' + document.getElementById(filtered_2d[i + 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i + 1] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 2] + '_rep">' + document.getElementById(filtered_2d[i + 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i + 2] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 3] + '_rep">' + document.getElementById(filtered_2d[i + 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i + 3] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 4] + '_rep">' + document.getElementById(filtered_2d[i + 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i + 4] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 5] + '_rep">' + document.getElementById(filtered_2d[i + 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i + 5] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 6] + '_rep">' + document.getElementById(filtered_2d[i + 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i + 6] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 7] + '_rep">' + document.getElementById(filtered_2d[i + 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i + 7] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 8] + '_rep">' + document.getElementById(filtered_2d[i + 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i + 8] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 9] + '_rep">' + document.getElementById(filtered_2d[i + 9]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i + 9] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 10] + '_rep">' + document.getElementById(filtered_2d[i + 10]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[i + 10] + '</span></div></td>';
+      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i] + '_rep">' + document.getElementById(filtered_2d[i]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i] + '</span></div></td>';
+      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 1] + '_rep">' + document.getElementById(filtered_2d[i + 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 1] + '</span></div></td>';
+      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 2] + '_rep">' + document.getElementById(filtered_2d[i + 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 2] + '</span></div></td>';
+      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 3] + '_rep">' + document.getElementById(filtered_2d[i + 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 3] + '</span></div></td>';
+      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 4] + '_rep">' + document.getElementById(filtered_2d[i + 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 4] + '</span></div></td>';
+      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 5] + '_rep">' + document.getElementById(filtered_2d[i + 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 5] + '</span></div></td>';
+      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 6] + '_rep">' + document.getElementById(filtered_2d[i + 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 6] + '</span></div></td>';
+      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 7] + '_rep">' + document.getElementById(filtered_2d[i + 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 7] + '</span></div></td>';
+      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 8] + '_rep">' + document.getElementById(filtered_2d[i + 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 8] + '</span></div></td>';
+      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 9] + '_rep">' + document.getElementById(filtered_2d[i + 9]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 9] + '</span></div></td>';
+      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 10] + '_rep">' + document.getElementById(filtered_2d[i + 10]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 10] + '</span></div></td>';
       efp_table_column += '</tr>';
       $("#eFPtable").append(efp_table_column);
     }
@@ -1586,106 +1589,106 @@ function populate_efp_modal(status) {
 
   if (remainder_efp == 1) {
     efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 2) {
     efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 3) {
     efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 4) {
     efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 5) {
     efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 6) {
     efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 6] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 6] + " - " +  filtered_2d_title[efp_length - 6] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 7) {
     efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 7] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 6] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 7] + " - " +  filtered_2d_title[efp_length - 7] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 6] + " - " +  filtered_2d_title[efp_length - 6] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 8) {
     efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 8] + '_rep">' + document.getElementById(filtered_2d[efp_length - 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 8] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 7] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 6] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 8] + '_rep">' + document.getElementById(filtered_2d[efp_length - 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 8] + " - " +  filtered_2d_title[efp_length - 8] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 7] + " - " +  filtered_2d_title[efp_length - 7] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 6] + " - " +  filtered_2d_title[efp_length - 6] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 9) {
     efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 9] + '_rep">' + document.getElementById(filtered_2d[efp_length - 9]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 9] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 8] + '_rep">' + document.getElementById(filtered_2d[efp_length - 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 8] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 7] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 6] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 9] + '_rep">' + document.getElementById(filtered_2d[efp_length - 9]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 9] + " - " +  filtered_2d_title[efp_length - 9] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 8] + '_rep">' + document.getElementById(filtered_2d[efp_length - 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 8] + " - " +  filtered_2d_title[efp_length - 8] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 7] + " - " +  filtered_2d_title[efp_length - 7] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 6] + " - " +  filtered_2d_title[efp_length - 6] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
   else if (remainder_efp == 10) {
     efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 10] + '_rep">' + document.getElementById(filtered_2d[efp_length - 10]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 10] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 9] + '_rep">' + document.getElementById(filtered_2d[efp_length - 9]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 9] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 8] + '_rep">' + document.getElementById(filtered_2d[efp_length - 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 8] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 7] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 6] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_title[efp_length - 1] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 10] + '_rep">' + document.getElementById(filtered_2d[efp_length - 10]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 10] + " - " +  filtered_2d_title[efp_length - 10] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 9] + '_rep">' + document.getElementById(filtered_2d[efp_length - 9]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 9] + " - " +  filtered_2d_title[efp_length - 9] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 8] + '_rep">' + document.getElementById(filtered_2d[efp_length - 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 8] + " - " +  filtered_2d_title[efp_length - 8] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 7] + " - " +  filtered_2d_title[efp_length - 7] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 6] + " - " +  filtered_2d_title[efp_length - 6] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
+    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
     efp_table_column += '</tr>';
     $("#eFPtable").append(efp_table_column);
   }
