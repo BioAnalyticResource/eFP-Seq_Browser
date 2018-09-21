@@ -555,6 +555,7 @@ var totalreadsMapped_dic = {};
 var locus_dic = {};
 var dumpOutputs = "";
 var dumpMethod = "simple";
+var callDumpOutputs = false;
 /**
 * Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function
 */
@@ -647,21 +648,24 @@ function rnaseq_images(status) {
           document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
           filtered_2d_totalReads[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];
 
-          // // Generate pre-caching information
-          // dumpOutputs += '\t\telif (record == "' + response_rnaseq["record"] + '"):\n';
-          // if (dumpMethod == "complex") {
-          //   dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["RNASeq_ReadsPerNucleotide"] + '], [';
-          //   for (e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
-          //     dumpOutputs += '[' + response_rnaseq["expected_expr_in_variant"][e] + ']';
-          //     if (e != response_rnaseq["expected_expr_in_variant"].length - 1) {
-          //       dumpOutputs += ', ';
-          //     }
-          //   }               
-          //   dumpOutputs += '])\n'
-          // }
-          // else {
-          //   dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ')\n';
-          // }
+          // Generate pre-caching information
+          if (callDumpOutputs == true) {
+            dumpOutputs += '\t\telif (record == "' + response_rnaseq["record"] + '"):\n';
+            if (dumpMethod == "complex") {
+              dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["exp_arr"] + '], [' + response_rnaseq["ReadsMappedNucleotidePosition"] + '], {';
+              for (e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
+                dumpOutputs += '"' + GFF_List[e].replace(locus, '') + '": ';
+                dumpOutputs += '[' + response_rnaseq["expected_expr_in_variant"][e] + ']';
+                if (e != response_rnaseq["expected_expr_in_variant"].length - 1) {
+                  dumpOutputs += ', ';
+                }
+              }               
+              dumpOutputs += '})\n'
+            }
+            else {
+              dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ')\n';
+            }
+          }          
 
           // Save the abs-fpkm, and the stats numbers
           for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
@@ -2344,7 +2348,7 @@ function remove_private_database() {
 function correctAGIIDInput() {
   if (document.getElementById("locus").value != "" || document.getElementById("locus").value != " " || document.getElementById("locus").value != undefined || document.getElementById("locus").value != null) {
     var locusID = document.getElementById("locus").value.split("/");
-    document.getElementById("locus").value = locusID[0].toUpperCase();
+    document.getElementById("locus").value = locusID[0].toUpperCase().trim();
     locus_validation();
   }
 }
@@ -2468,7 +2472,7 @@ function toggleResponsiveTable(forceToggle = 0, buttonClick = false) {
       toggleTableCol("colTitle", true);
       document.getElementById("toggleTitle").checked = true;
       toggleTableCol("colRNA", true);
-      document.getElementById("colRNA").checked = true;
+      document.getElementById("toggleRNA").checked = true;
       toggleTableCol("colPCC", true);
       document.getElementById("togglePCC").checked = true;
       toggleTableCol("coleFP", true);
@@ -2483,7 +2487,7 @@ function toggleResponsiveTable(forceToggle = 0, buttonClick = false) {
       toggleTableCol("colTitle", false);
       document.getElementById("toggleTitle").checked = false;
       toggleTableCol("colRNA", true);
-      document.getElementById("colRNA").checked = true;
+      document.getElementById("toggleRNA").checked = true;
       toggleTableCol("colPCC", false);
       document.getElementById("togglePCC").checked = false;
       toggleTableCol("coleFP", false);
@@ -2501,7 +2505,7 @@ function toggleResponsiveTable(forceToggle = 0, buttonClick = false) {
       toggleTableCol("colTitle", ToggledTable[0]);
       document.getElementById("toggleTitle").checked = ToggledTable[0];
       toggleTableCol("colRNA", ToggledTable[1]);
-      document.getElementById("colRNA").checked = ToggledTable[1];
+      document.getElementById("toggleRNA").checked = ToggledTable[1];
       toggleTableCol("colPCC", ToggledTable[2]);
       document.getElementById("togglePCC").checked = ToggledTable[2];
       toggleTableCol("coleFP", ToggledTable[3]);

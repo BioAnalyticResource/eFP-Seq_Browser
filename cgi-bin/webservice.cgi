@@ -183,7 +183,8 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 	for read in mpileup.splitlines():
 		x_bp_vals.append(float(read.split('\t')[1])) # nucleotide position
 		# get the number of mapped reads and subtract the reference skips
-		mapped_reads_count = float(int(read.split('\t')[3]) - read.split('\t')[4].count('<') - read.split('\t')[4].count('>'))
+		mapped_reads_count = float(int(read.split('\t')[3]) - read.split('\t')[4].count('<') - read.split('\t')[4].count('>'))		
+		# List of mapped_read_counts=
 		exp_arr0.append((float(read.split('\t')[1]), mapped_reads_count))
 		y_reads_values.append(mapped_reads_count)
 		# Figure out the max number of reads mapped at any given locus
@@ -242,7 +243,7 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 	with open(tempfile, "rb") as fl:
 		base64 = format(fl.read().encode("base64"))
 
-	return [base64, y_reads_values]
+	return [base64, exp_arr0]
 
 ################################################################################
 # Ouput functions
@@ -258,8 +259,8 @@ def dumpJSON(status, locus, variant, chromosome, start, end, record, tissue, bas
 	print json.dumps({"status": status, "locus": locus, "variant": variant, "chromosome": chromosome, "start": start, "end": end, "record": record, "tissue": tissue, "rnaseqbase64": base64img, "reads_mapped_to_locus": reads_mapped_to_locus, "absolute-fpkm": round(abs_fpkm, PRECISION), "r" : r, "totalReadsMapped": totalReadsMapped}) # and svg stuff
 	sys.exit(0)
 
-def dumpJSON_full(status, locus, variant, chromosome, start, end, record, tissue, base64img, reads_mapped_to_locus, abs_fpkm, r, totalReadsMapped, RNASeq_ReadsPerNucleotide, expected_expr_in_variant):
-	print json.dumps({"status": status, "locus": locus, "variant": variant, "chromosome": chromosome, "start": start, "end": end, "record": record, "tissue": tissue, "rnaseqbase64": base64img, "reads_mapped_to_locus": reads_mapped_to_locus, "absolute-fpkm": round(abs_fpkm, PRECISION), "r" : r, "totalReadsMapped": totalReadsMapped, "RNASeq_ReadsPerNucleotide": RNASeq_ReadsPerNucleotide, "expected_expr_in_variant": expected_expr_in_variant}) # and svg stuff
+def dumpJSON_full(status, locus, variant, chromosome, start, end, record, tissue, base64img, reads_mapped_to_locus, abs_fpkm, r, totalReadsMapped, exp_arr0, exp_arr, expected_expr_in_variant):
+	print json.dumps({"status": status, "locus": locus, "variant": variant, "chromosome": chromosome, "start": start, "end": end, "record": record, "tissue": tissue, "rnaseqbase64": base64img, "reads_mapped_to_locus": reads_mapped_to_locus, "absolute-fpkm": round(abs_fpkm, PRECISION), "r" : r, "totalReadsMapped": totalReadsMapped, "ReadsMappedNucleotidePosition": exp_arr0, "exp_arr": exp_arr, "expected_expr_in_variant": expected_expr_in_variant}) # and svg stuff
 	sys.exit(0)
 
 ################################################################################
@@ -472,7 +473,7 @@ def main():
 
 		# Output the newly generated data
 		if dumpMethod == "complex": 
-			dumpJSON_full(200, locus, int(variant), chromosome, start, end, record, tissue, base64img[0].replace('\n',''), mapped_reads, abs_fpkm, r, totalReadsMapped, RNASeq_ReadsPerNucleotide, expected_expr_in_variant)
+			dumpJSON_full(200, locus, int(variant), chromosome, start, end, record, tissue, base64img[0].replace('\n',''), mapped_reads, abs_fpkm, r, totalReadsMapped, base64img[1], exp_arr, expected_expr_in_variant)
 		elif dumpMethod != "complex":
 			dumpJSON(200, locus, int(variant), chromosome, start, end, record, tissue, base64img[0].replace('\n',''), mapped_reads, abs_fpkm, r, totalReadsMapped)
 
