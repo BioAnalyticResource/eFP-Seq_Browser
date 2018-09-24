@@ -542,7 +542,7 @@ function parseIntArray(arr) {
   return arr;
 }
 
-var rnaseq_image_url = "cgi-bin/webservice.cgi";
+var rnaseq_image_url = "cgi-bin/rnaSeqMapCoverage.cgi";
 var match_drive = "";
 var progress_percent = 0;
 var sra_list_check = [];
@@ -652,7 +652,14 @@ function rnaseq_images(status) {
           if (callDumpOutputs == true) {
             dumpOutputs += '\t\telif (record == "' + response_rnaseq["record"] + '"):\n';
             if (dumpMethod == "complex") {
-              dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["exp_arr"] + '], [' + response_rnaseq["ReadsMappedNucleotidePosition"] + '], {';
+              dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["exp_arr"] + '], [';
+              for (r = 0; r < response_rnaseq["ReadsMappedNucleotidePosition"].length; r += 2) {
+                dumpOutputs += '[' + response_rnaseq["ReadsMappedNucleotidePosition"][r] + ']';
+                if (r != (response_rnaseq["ReadsMappedNucleotidePosition"].length - 2)) {
+                  dumpOutputs += ", "
+                };
+              }
+              dumpOutputs += '], {';
               for (e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
                 dumpOutputs += '"' + GFF_List[e].replace(locus, '') + '": ';
                 dumpOutputs += '[' + response_rnaseq["expected_expr_in_variant"][e] + ']';

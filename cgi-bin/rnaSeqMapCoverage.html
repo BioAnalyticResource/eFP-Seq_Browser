@@ -48,7 +48,7 @@
       console.log("Y-scale requested: " + yscale);
 
       $.ajax({
-        url: 'cgi-bin/webservice.cgi?tissue=' + tissue + '&record=' + record + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' +
+        url: 'cgi-bin/rnaSeqMapCoverage.cgi?tissue=' + tissue + '&record=' + record + '&locus=' + locus + '&variant=1&start=' + locus_start + '&end=' + locus_end + '&yscale=' +
           yscale,
         dataType: 'json',
         success: function(response_rnaseq) {

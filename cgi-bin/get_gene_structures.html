@@ -45,7 +45,7 @@
           }
 
           $.ajax({
-            url: 'cgi-bin/webservice.cgi?tissue=aerial&record=ERR274310&locus=' + locus + '&variant=1&start=' + response["locus_start"] + '&end=' + response["locus_end"],
+            url: 'cgi-bin/rnaSeqMapCoverage.cgi?tissue=aerial&record=ERR274310&locus=' + locus + '&variant=1&start=' + response["locus_start"] + '&end=' + response["locus_end"],
             dataType: 'json',
             success: function(res) { // When the file is retrieved:
               console.log("RNA-Seq request successful for tissue = aerial, record = ERR274310, locus = " + locus + ', variant = 1, start = ' + response["locus_start"] + ', end = ' + response["locus_end"]);

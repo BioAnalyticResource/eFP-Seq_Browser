@@ -1,8 +1,5 @@
 # eFP-Seq-Browser
 
-[![TravisCI - Build Status](https://travis-ci.org/ASully/eFP-Seq-Browser.svg?branch=master)](https://travis-ci.org/ASully/eFP-Seq-Browser)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c87696819acab6a6c803/maintainability)](https://codeclimate.com/github/ASully/eFP-Seq-Browser/maintainability)
-
 The eFP-Seq Browser is a RNA-Seq data exploration tool that shows read map coverage of a gene of interest along with a "electronic fluorescent pictopgrahic" (eFP) image. This web-tool also allows generation of new datasets if provided with SAM/BAM (with their index files) to allow visualization of any RNA-Seq mapping coverage. Gene expression levels and similarity is also shown by calculating the Reads per Kilobase per Million reads mapped (RPKM) expression levels and Pearson Correlation Coefficient (PCC) scores amongst its different splice variants.
 
 ## Getting Started
