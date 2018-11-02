@@ -1082,14 +1082,14 @@ function populate_table(status) {
   // Insert table headers
   $("#thetable").append(
     '<thead><tr>' +
-    '<th class="sortable arrows colTitle" id="colTitle" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;">Title<div class="arrowdown arrowup"></div></th>' +
+    '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-xs-10">Title</div><div class="col-xs-0.5"><img class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
     '<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
     img_created +
     '</th>' +
-    '<th class="sortable arrows colPCC" id="colPCC" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">PCC</th>' +
-    '<th class="coleFP" id="eFP_th" class="sortable arrows" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-    '<th class="sortable arrows colRPKM" id="colRPKM" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;">RPKM</th>' +
-    '<th class="sortable arrows colDetails" id="colDetails" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;">Details</th>' +
+    '<th class="sortable colPCC" id="colPCC" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colPCCRow"><div class="col-xs-6">PCC</div><div class="col-xs-1"><img class="sortingArrow" id="colPCCArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
+    '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
+    '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
+    '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
     '</tr></thead>' +
     '<tbody id="data_table_body"></tbody>');
 
@@ -2542,12 +2542,41 @@ function RememberToggleOptions(title = true, rna = true, pcc = true, efp = true,
   ToggledTable = [title, rna, pcc, efp, rpkm, details];
 }
 
+/**
+ * Resize the directional arrows to more accurately fix the column size
+ */
+function ResizeArrowRow() {
+  var colList = ["colTitleRow", "colPCCRow", "colRPKMRow", "colDetailsRow"];
+  for (i = 0; i < colList.length; i++) {
+    document.getElementById(colList[i]).style.width = (document.getElementById(colList[i]).parentNode.offsetWidth - 2) + "px";
+  }
+}
+
+/**
+ * Change the directional arrow of a table based on its sorting direction
+ * @param {String} tableArrowID The element ID for the table's icon that will change
+ */
+function ChangeColArrow(tableArrowID) {
+  var arrowDown = "./cgi-bin/SVGs/arrowSortDown.svg";
+  var arrowUp = "./cgi-bin/SVGs/arrowSortUp.svg";
+  setTimeout(function(){
+    var arrowColID = tableArrowID + "Arrow";
+    if (document.getElementById(tableArrowID).classList.contains("headerSortDown")) {
+      document.getElementById(arrowColID).src = arrowDown;
+    }
+    else if (document.getElementById(tableArrowID).classList.contains("headerSortUp")) {
+      document.getElementById(arrowColID).src = arrowUp;
+    }
+  }, 100)  
+}
+
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
   adjustFooterSize();
   adjustSubmissionIFrameSize();
   reponsiveRNAWidthReize();
   toggleResponsiveTable()
+  //ResizeArrowRow();
 })
 
 /**
