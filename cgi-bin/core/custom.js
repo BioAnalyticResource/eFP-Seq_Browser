@@ -1341,6 +1341,12 @@ function populate_table(status) {
   colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   change_rpkm_colour_scale(colouring_mode);
 
+  // Check if arrows are the right width or not
+  for (i = 0; i < colSortList.length; i++) {
+    var colArrow = colSortList[i] + "Arrow";
+    CheckElementWidth(colArrow, 8);
+  }
+
   if (gene_structure_colouring_element == null) {
     gene_structure_colouring_element = document.getElementById("flt1_thetable").parentElement;
   }
@@ -2542,13 +2548,27 @@ function RememberToggleOptions(title = true, rna = true, pcc = true, efp = true,
   ToggledTable = [title, rna, pcc, efp, rpkm, details];
 }
 
+var colSortList = ["colTitle", "colPCC", "colRPKM", "colDetails"];
 /**
  * Resize the directional arrows to more accurately fix the column size
  */
 function ResizeArrowRow() {
-  var colList = ["colTitleRow", "colPCCRow", "colRPKMRow", "colDetailsRow"];
-  for (i = 0; i < colList.length; i++) {
-    document.getElementById(colList[i]).style.width = (document.getElementById(colList[i]).parentNode.offsetWidth - 2) + "px";
+  for (i = 0; i < colSortList.length; i++) {
+    var colRow = colSortList[i] + "Row"
+    document.getElementById(colRow).style.width = (document.getElementById(colRow).parentNode.offsetWidth - 2) + "px";
+    var colArrow = colSortList[i] + "Arrow";
+    CheckElementWidth(colArrow, 8);
+  }
+}
+
+/** 
+ * Check if the directional arrows are visible or not
+ * @param {String} arrowID The element ID for the arrow being checked
+ * @param {Num} widthCheckFor The size of the element, in pixels, being checked for
+ */
+function CheckElementWidth(arrowID, widthCheckFor) {
+  if (document.getElementById(arrowID).offsetWidth < widthCheckFor) {
+      document.getElementById(arrowID).style.width = widthCheckFor + "px";
   }
 }
 
@@ -2566,6 +2586,10 @@ function ChangeColArrow(tableArrowID) {
     }
     else if (document.getElementById(tableArrowID).classList.contains("headerSortUp")) {
       document.getElementById(arrowColID).src = arrowUp;
+    }
+    for (i = 0; i < colSortList.length; i++) {
+      var colArrow = colSortList[i] + "Arrow";
+      CheckElementWidth(colArrow, 8);
     }
   }, 100)  
 }
