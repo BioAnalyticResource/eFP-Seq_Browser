@@ -2414,17 +2414,6 @@ function displayNavBAR() {
 function adjustFooterSize() {
   var navbar = document.getElementById("navbar_menu");
   document.getElementById("nm_footer").style.width = (navbar.offsetWidth * 1.1) + "px";
-
-  if (navbar.scrollHeight > navbar.offsetHeight) {
-    if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_sticky") == false) {
-      document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_abs');
-      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_sticky');
-    }
-    else if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_abs") == false) {
-      document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_sticky');
-      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_abs');
-    }
-  }
 }
 
 /**

@@ -388,23 +388,12 @@ a {
     font-size: 2em;
 }
 
-.navbar_menu_footer_overflow_abs {
-    z-index: 100;
-    position: absolute;
-    bottom: 0;
-    width: -webkit-fill-available;
-    padding-top: 14px;
-    background: #3d3d3d;
-    margin-left: -10%;
-}
-
 .navbar_menu_footer_overflow_sticky {
     z-index: 100;
     position: sticky;
     bottom: 0;
-    width: -webkit-fill-available;
     padding-top: 14px;
-    padding-bottom: 10%;
+    padding-bottom: 34px;
     background: #3d3d3d;
     margin-left: -10%;
 }
