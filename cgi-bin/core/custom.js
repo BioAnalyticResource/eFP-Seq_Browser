@@ -48,6 +48,7 @@ var dataset_dictionary = {
   "Araport 11 RNA-seq data": 'cgi-bin/data/bamdata_amazon_links.xml',
   "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
 };
+let loadNewDataset = false;
 
 //Following lines are used to count and determine how many BAM entries are in the XML file
 var count_bam_entries_in_xml = 0;
@@ -569,10 +570,10 @@ function rnaseq_images(status) {
   rnaseq_success = 1;
   match_drive = ["NotGoogleDrive", "NotGoogleDrive"];
   get_input_values();
-  if (rnaseq_calls.length == count_bam_entries_in_xml) {
+  if (rnaseq_calls.length === count_bam_entries_in_xml) {
     sra_list_check = [];
     rnaseq_change = 1;
-    for (var i = 0; i < count_bam_entries_in_xml; i++) {      
+    for (var i = 0; i < count_bam_entries_in_xml; i++) {
       var tissueWebservice = rnaseq_calls[i][0];
       if (bam_type_list[i] == "Google Drive") {        
         if (rnaseq_calls[i][0] == undefined || rnaseq_calls[i][0] == "None" || rnaseq_calls[i][0] == null) {
@@ -1200,7 +1201,7 @@ function populate_table(status) {
         igbView_link += 'server_url=bar';
         
         // Construct a table row <tr> element
-        var append_str = '<tr>';
+        var append_str = '<tr id="' + experimentno + '_row">';
         // table_dl_str is used for downloading the table as CSV
         var table_dl_str = "<table id='table_dl'>\n\t<tbody>\n";
         table_dl_str += "\t\t<caption>" + document.getElementById("xmldatabase").value + "</caption>\n";
@@ -1219,7 +1220,7 @@ function populate_table(status) {
         append_str += '<div id="igbLink_' + experimentno + '">Show: <a href="' + igbView_link + '" target="_blank" rel="noopener">Alignments in IGB</a></div>';
         append_str += '<div id="extraLinks_' + experimentno + '">Go to: <a href="' + url + '" target="_blank" rel="noopener">NCBI SRA</a> or <a href="' + publicationid + '" target="_blank" rel="noopener">PubMed</a></div>';
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + moreDetails.trim() + '</a>';
-        append_str += '<div id="' + experimentno + '" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '.<br>';
+        append_str += '<div id="' + experimentno + '" class="moreDetails" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '<br>';
         append_str += '<div id="' + experimentno + '_totalReadsNum">' + 'Total reads = ' + numberofreads + '</div>';
         if (read_map_method != undefined && read_map_method.length > 0) {
           append_str += '<div id="' + experimentno + '_readMappedMethod">' + 'Read mapped method = ' + read_map_method.trim() + '</div>';
@@ -1233,7 +1234,14 @@ function populate_table(status) {
         $("#thetable").append(append_str);
 
         exp_info.push([experimentno + '_svg', svg_part, controls, 0, 0, 0, 0]);
-        rnaseq_images(status);
+        if (loadNewDataset === true) {
+          count_bam_num();
+          setTimeout(function() {rnaseq_images(status);}, 10);  
+        }
+        else {
+          rnaseq_images(status);
+        }
+              
       });
       // add parser through the tablesorter addParser method
       $.tablesorter.addParser({
@@ -1392,12 +1400,14 @@ function clickDetailsTextChange(details_id) {
   if (document.getElementById(details_id) != null) {
     if (document.getElementById(details_id).innerHTML == moreDetails) {
       document.getElementById(details_id).setAttribute("hidden", true);
+      // Non-truncate the details
       var innerDescription = document.getElementById(document.getElementById(details_id).name);
-      innerDescription.innerHTML = innerDescription.getAttribute("name");
+      innerDescription.innerHTML = innerDescription.getAttribute("name");    
     }
     else if (document.getElementById(details_id).innerHTML == lessDetails) {
       var ogID = details_id.substring(0, (details_id.length - 5));
       document.getElementById(ogID).removeAttribute("hidden");
+      // Truncate the details
       var innerDescription = document.getElementById(document.getElementById(details_id).name);
       innerDescription.innerHTML = truncateDescription(innerDescription.getAttribute("name"));
     }
@@ -1588,127 +1598,25 @@ function populate_efp_modal(status) {
   for (i = 0; i < (~~ (filtered_2d.length / 11) * 11); i += 11) {
     if (document.getElementById(filtered_2d[i + 10]).outerHTML != 'null') {
       efp_table_column = '<tr>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i] + '_rep">' + document.getElementById(filtered_2d[i]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 1] + '_rep">' + document.getElementById(filtered_2d[i + 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 1] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 2] + '_rep">' + document.getElementById(filtered_2d[i + 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 2] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 3] + '_rep">' + document.getElementById(filtered_2d[i + 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 3] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 4] + '_rep">' + document.getElementById(filtered_2d[i + 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 4] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 5] + '_rep">' + document.getElementById(filtered_2d[i + 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 5] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 6] + '_rep">' + document.getElementById(filtered_2d[i + 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 6] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 7] + '_rep">' + document.getElementById(filtered_2d[i + 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 7] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 8] + '_rep">' + document.getElementById(filtered_2d[i + 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 8] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 9] + '_rep">' + document.getElementById(filtered_2d[i + 9]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 9] + '</span></div></td>';
-      efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + 10] + '_rep">' + document.getElementById(filtered_2d[i + 10]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i] + " - " +  filtered_2d_title[i + 10] + '</span></div></td>';
+      for (r = 0; r < 11; r++) {
+        efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + r] + '_rep" onclick="ScrollToRNARow(\'' + filtered_2d_id[i + r] + '_row\')">' + document.getElementById(filtered_2d[i + r]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i + r] + " - " +  filtered_2d_title[i + r] + '</span></div></td>';
+      }
       efp_table_column += '</tr>';
       $("#eFPtable").append(efp_table_column);
     }
   }
 
-  if (remainder_efp == 1) {
-    efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
-    efp_table_column += '</tr>';
-    $("#eFPtable").append(efp_table_column);
+  for (r = 0; r < 12; r++) {
+    if (remainder_efp === r) {
+      efp_table_column = '<tr>';
+      for (c = remainder_efp; c > 0; c--) {
+        efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - c] + '_rep" onclick="ScrollToRNARow(\'' + filtered_2d_id[efp_length - c] + '\')">' + document.getElementById(filtered_2d[efp_length - c]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - c] + " - " +  filtered_2d_title[efp_length - c] + '</span></div></td>';
+      }
+      efp_table_column += '</tr>';
+      $("#eFPtable").append(efp_table_column);
+    }
   }
-  else if (remainder_efp == 2) {
-    efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
-    efp_table_column += '</tr>';
-    $("#eFPtable").append(efp_table_column);
-  }
-  else if (remainder_efp == 3) {
-    efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
-    efp_table_column += '</tr>';
-    $("#eFPtable").append(efp_table_column);
-  }
-  else if (remainder_efp == 4) {
-    efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
-    efp_table_column += '</tr>';
-    $("#eFPtable").append(efp_table_column);
-  }
-  else if (remainder_efp == 5) {
-    efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
-    efp_table_column += '</tr>';
-    $("#eFPtable").append(efp_table_column);
-  }
-  else if (remainder_efp == 6) {
-    efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 6] + " - " +  filtered_2d_title[efp_length - 6] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
-    efp_table_column += '</tr>';
-    $("#eFPtable").append(efp_table_column);
-  }
-  else if (remainder_efp == 7) {
-    efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 7] + " - " +  filtered_2d_title[efp_length - 7] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 6] + " - " +  filtered_2d_title[efp_length - 6] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
-    efp_table_column += '</tr>';
-    $("#eFPtable").append(efp_table_column);
-  }
-  else if (remainder_efp == 8) {
-    efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 8] + '_rep">' + document.getElementById(filtered_2d[efp_length - 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 8] + " - " +  filtered_2d_title[efp_length - 8] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 7] + " - " +  filtered_2d_title[efp_length - 7] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 6] + " - " +  filtered_2d_title[efp_length - 6] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
-    efp_table_column += '</tr>';
-    $("#eFPtable").append(efp_table_column);
-  }
-  else if (remainder_efp == 9) {
-    efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 9] + '_rep">' + document.getElementById(filtered_2d[efp_length - 9]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 9] + " - " +  filtered_2d_title[efp_length - 9] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 8] + '_rep">' + document.getElementById(filtered_2d[efp_length - 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 8] + " - " +  filtered_2d_title[efp_length - 8] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 7] + " - " +  filtered_2d_title[efp_length - 7] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 6] + " - " +  filtered_2d_title[efp_length - 6] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
-    efp_table_column += '</tr>';
-    $("#eFPtable").append(efp_table_column);
-  }
-  else if (remainder_efp == 10) {
-    efp_table_column = '<tr>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 10] + '_rep">' + document.getElementById(filtered_2d[efp_length - 10]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 10] + " - " +  filtered_2d_title[efp_length - 10] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 9] + '_rep">' + document.getElementById(filtered_2d[efp_length - 9]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 9] + " - " +  filtered_2d_title[efp_length - 9] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 8] + '_rep">' + document.getElementById(filtered_2d[efp_length - 8]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 8] + " - " +  filtered_2d_title[efp_length - 8] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 7] + '_rep">' + document.getElementById(filtered_2d[efp_length - 7]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 7] + " - " +  filtered_2d_title[efp_length - 7] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 6] + '_rep">' + document.getElementById(filtered_2d[efp_length - 6]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 6] + " - " +  filtered_2d_title[efp_length - 6] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 5] + '_rep">' + document.getElementById(filtered_2d[efp_length - 5]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 5] + " - " +  filtered_2d_title[efp_length - 5] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 4] + '_rep">' + document.getElementById(filtered_2d[efp_length - 4]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 4] + " - " +  filtered_2d_title[efp_length - 4] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 3] + '_rep">' + document.getElementById(filtered_2d[efp_length - 3]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 3] + " - " +  filtered_2d_title[efp_length - 3] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 2] + '_rep">' + document.getElementById(filtered_2d[efp_length - 2]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 2] + " - " +  filtered_2d_title[efp_length - 2] + '</span></div></td>';
-    efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - 1] + '_rep">' + document.getElementById(filtered_2d[efp_length - 1]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - 1] + " - " +  filtered_2d_title[efp_length - 1] + '</span></div></td>';
-    efp_table_column += '</tr>';
-    $("#eFPtable").append(efp_table_column);
-  }
+
   toggleResponsiveTable();
 }
 
@@ -2414,6 +2322,18 @@ function displayNavBAR() {
 function adjustFooterSize() {
   var navbar = document.getElementById("navbar_menu");
   document.getElementById("nm_footer").style.width = (navbar.offsetWidth * 1.1) + "px";
+  if (navbar.scrollHeight == navbar.clientHeight) {
+    if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_abs") == false) {
+      document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_sticky');
+      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_abs');
+    }
+  }
+  else if (navbar.scrollHeight > navbar.clientHeight) { 
+    if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_sticky") == false) {
+      document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_abs');
+      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_sticky');
+    }
+  }
 }
 
 /**
@@ -2464,61 +2384,60 @@ function reponsiveRNAWidthReize() {
 }
 
 /**
+ * Helper function for making the tableResponsiveTable function shorter
+ * @param {Bool} colTitleBool true = title column visible, false = column hidden
+ * @param {Bool} colRNABool true = RNA column visible, false = column hidden
+ * @param {Bool} colPCCBool true = PCC column visible, false = column hidden
+ * @param {Bool} coleFPBool true = eFP column visible, false = column hidden
+ * @param {Bool} colRPKMBool true = RPKM column visible, false = column hidden
+ * @param {Bool} colDetailsBool true = details column visible, false = column hidden
+ */
+function toggleResponsiveTableOptions(colTitleBool, colRNABool, colPCCBool, coleFPBool, colRPKMBool, colDetailsBool) {
+  toggleTableCol("colTitle", colTitleBool);
+  document.getElementById("toggleTitle").checked = colTitleBool;
+  toggleTableCol("colRNA", colRNABool);
+  document.getElementById("toggleRNA").checked = colRNABool;
+  toggleTableCol("colPCC", colPCCBool);
+  document.getElementById("togglePCC").checked = colPCCBool;
+  toggleTableCol("coleFP", coleFPBool);
+  document.getElementById("toggleeFP").checked = coleFPBool;
+  toggleTableCol("colRPKM", colRPKMBool);
+  document.getElementById("toggleRPKM").checked = colRPKMBool;
+  toggleTableCol("colDetails", colDetailsBool);
+  document.getElementById("toggleDetails").checked = colDetailsBool;
+  RememberToggleOptions(colTitleBool, colRNABool, colPCCBool, coleFPBool, colRPKMBool, colDetailsBool);
+}
+
+/**
  * Craetes a responsive mobile/small screen RNA-Table design *
  * @param {number} [forceToggle=0] Forces a toggled responsive design. 0 = none, 1 = mobile, 2 = desktop
  * @param {bool} [buttonClick=false] If clicked from mobile/responsive page, hide nav bar
  */
 function toggleResponsiveTable(forceToggle = 0, buttonClick = false) {
   if (document.getElementById("tableToggle").style.display != 'none') {
-    if ((forceToggle == 2) || (window.innerWidth > 575 && usedToggle == false)) {
-      toggleTableCol("colTitle", true);
-      document.getElementById("toggleTitle").checked = true;
-      toggleTableCol("colRNA", true);
-      document.getElementById("toggleRNA").checked = true;
-      toggleTableCol("colPCC", true);
-      document.getElementById("togglePCC").checked = true;
-      toggleTableCol("coleFP", true);
-      document.getElementById("toggleeFP").checked = true;
-      toggleTableCol("colRPKM", true);
-      document.getElementById("toggleRPKM").checked = true;
-      toggleTableCol("colDetails", true);
-      document.getElementById("toggleDetails").checked = true;
-      RememberToggleOptions(true, true, true, true, true, true);
+    // Mobile design
+    if ((forceToggle == 1) || (window.innerWidth <= 575 && usedToggle == false)) {
+      toggleResponsiveTableOptions(false, true, false, false, false, false);
     }
-    else if ((forceToggle == 1) || (window.innerWidth <= 575 && usedToggle == false)) {
-      toggleTableCol("colTitle", false);
-      document.getElementById("toggleTitle").checked = false;
-      toggleTableCol("colRNA", true);
-      document.getElementById("toggleRNA").checked = true;
-      toggleTableCol("colPCC", false);
-      document.getElementById("togglePCC").checked = false;
-      toggleTableCol("coleFP", false);
-      document.getElementById("toggleeFP").checked = false;
-      toggleTableCol("colRPKM", false);
-      document.getElementById("toggleRPKM").checked = false;
-      toggleTableCol("colDetails", false);
-      document.getElementById("toggleDetails").checked = false;
-      RememberToggleOptions(false, true, false, false, false, false);
-      if (buttonClick == true) {
-        displayNavBAR()
-      }
+    // Default
+    else if ((forceToggle == 2) || (window.innerWidth >= 1100 && usedToggle == false)) {
+      toggleResponsiveTableOptions(true, true, true, true, true, true);
     }
-    if (usedToggle == true) {
-      toggleTableCol("colTitle", ToggledTable[0]);
-      document.getElementById("toggleTitle").checked = ToggledTable[0];
-      toggleTableCol("colRNA", ToggledTable[1]);
-      document.getElementById("toggleRNA").checked = ToggledTable[1];
-      toggleTableCol("colPCC", ToggledTable[2]);
-      document.getElementById("togglePCC").checked = ToggledTable[2];
-      toggleTableCol("coleFP", ToggledTable[3]);
-      document.getElementById("toggleeFP").checked = ToggledTable[3];
-      toggleTableCol("colRPKM", ToggledTable[4]);
-      document.getElementById("toggleRPKM").checked = ToggledTable[4];
-      toggleTableCol("colDetails", ToggledTable[5]);
-      document.getElementById("toggleDetails").checked = ToggledTable[5];
-      if (buttonClick == true) {
-        displayNavBAR()
-      }
+    // Toggle off same as below but also PCC values at windows resolution less than 830 pixels
+    else if ((forceToggle == 3) || (window.innerWidth < 830 && usedToggle == false)) {
+      toggleResponsiveTableOptions(true, true, false, false, false, false);
+    }
+    // Toggle off same as below but also RPKM count at windows resolution less than 900 pixels
+    else if ((forceToggle == 4) || (window.innerWidth < 900 && usedToggle == false)) {
+      toggleResponsiveTableOptions(true, true, true, false, false, false);
+    }
+    // Toggle off same as below but also eFP images at windows resolution less than 990 pixels
+    else if ((forceToggle == 5) || (window.innerWidth < 990 && usedToggle == false)) {
+      toggleResponsiveTableOptions(true, true, true, false, true, false);
+    }
+    // Toggle off details at windows resolution less than 1100 pixels
+    else if ((forceToggle == 6) || (window.innerWidth < 1100 && usedToggle == false)) {
+      toggleResponsiveTableOptions(true, true, true, true, true, false);
     }
   }
 }
@@ -2583,13 +2502,63 @@ function ChangeColArrow(tableArrowID) {
   }, 100)  
 }
 
+let cardIDList = ['aboutCardTitle', 'navbarCardTitle', 'additionalFeaturesCardTitle', 'generateDataCardTitle', 'xmlCardTitle', 'accountCardTitle', 'feedbackCardTitle'];
+/**
+ * Changes the help direcitonal arrow on each card when clicked
+ * @param {String} elementID The element ID for the help card's title
+ */
+function ChangeHelpArrowDirection(elementID) {
+  for (i = 0; i < cardIDList.length; i++) {
+    // If have arrow down, change to up (or down if up)
+    if (elementID === cardIDList[i]) {
+      let elementText = document.getElementById(elementID).innerHTML.trim();
+      if (elementText.substr(-1) == "▼") {
+        let replaceText = elementText.substr(0, elementText.length-1) + "▲";
+        document.getElementById(elementID).innerHTML = replaceText;
+      }
+      else if (elementText.substr(-1) == "▲") {
+        let replaceText = elementText.substr(0, elementText.length-1) + "▼";
+        document.getElementById(elementID).innerHTML = replaceText;
+      }
+    }
+    // Make all other cards have an arrow down
+    else {
+      let elementText = document.getElementById(cardIDList[i]).innerHTML.trim();
+      let replaceText = elementText.substr(0, elementText.length-1) + "▼";
+        document.getElementById(cardIDList[i]).innerHTML = replaceText;
+    }
+  }  
+}
+
+/**
+ * Scroll to a desired RNA row 
+ * @param {String} rowID The ID of the row which will be scrolled to 
+ */
+function ScrollToRNARow(rowID) {  
+  // Close eFP Overview if open
+  document.getElementById("closemodal_efPOverview").click();
+  // Scroll to RNA row
+  $('#main_content').animate({scrollTop: $("#" + rowID).offset().top}, 'slow');
+  // Add background colour of selected row for clarity 
+  document.getElementById(rowID).className += " scrollToRow";
+  // Fade out colour
+  setTimeout(function() {
+    document.getElementById(rowID).className += " scrollToRowRemove";
+  }, 1000);
+  // Remove those classes
+  setTimeout(function() {
+    document.getElementById(rowID).classList.remove('scrollToRow');
+    document.getElementById(rowID).classList.remove('scrollToRowRemove');
+  }, 1600);
+  
+}
+
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
   adjustFooterSize();
   adjustSubmissionIFrameSize();
   reponsiveRNAWidthReize();
-  toggleResponsiveTable()
-  //ResizeArrowRow();
+  toggleResponsiveTable();
 })
 
 /**
@@ -2601,6 +2570,9 @@ function init() {
   old_locus = locus;
   yscale_validation();
   rpkm_validation();
+
+  // Adjust UI
+  adjustFooterSize();
 
   // Check if mobile
   if (legacy == true) {
@@ -2632,8 +2604,6 @@ function init() {
     getGFF(locus);
   }, 700);
 
-  adjustFooterSize();
-
   $("#locus").autocomplete({
     source: function(request, response) {
   		var last = request.term.split(/,\s*/).pop();
@@ -2658,4 +2628,4 @@ function init() {
   adjustSubmissionIFrameSize();
 }
 
-setTimeout(function(){init()}, 1000);
+setTimeout(function(){init()}, 100);

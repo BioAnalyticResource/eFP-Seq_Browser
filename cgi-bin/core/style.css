@@ -341,7 +341,6 @@ a {
 .navbar_menu_general_font {
     color: white;
     line-height: 100%;
-    text-align: justify;
     font-family: Arial;
     font-size: 1.9em;
     margin-bottom: 2%;
@@ -394,6 +393,16 @@ a {
     bottom: 0;
     padding-top: 14px;
     padding-bottom: 34px;
+    background: #3d3d3d;
+    margin-left: -10%;
+}
+
+.navbar_menu_footer_overflow_abs {
+    z-index: 100;
+    position: absolute;
+    bottom: 0;
+    padding-top: 14px;
+    padding-bottom: 1%;
     background: #3d3d3d;
     margin-left: -10%;
 }
@@ -533,4 +542,13 @@ a {
     max-width: 576px !important; 
     width:95% !important; 
     height: auto  !important;
+}
+
+.scrollToRow {
+    background-color: #c7f3f3;
+    transition: background-color 0.5s linear;
+}
+
+.scrollToRow.scrollToRowRemove {
+    background-color: transparent;
 }

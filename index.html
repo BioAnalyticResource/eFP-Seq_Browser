@@ -359,7 +359,7 @@
             <div class="card about">
               <div class="card-header" id="about">
                 <p class="mb-0">
-                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#aboutCard" aria-expanded="true" aria-controls="aboutCard">
+                  <button id="aboutCardTitle" onclick="ChangeHelpArrowDirection(this.id)" class="btn btn-link cardTitle" data-toggle="collapse" data-target="#aboutCard" aria-expanded="true" aria-controls="aboutCard">
                     About the eFP-Seq Browser ▼
                   </button>
                 </p>
@@ -375,7 +375,7 @@
             <div class="card navigationBar">
               <div class="card-header" id="navigationBar">
                 <p class="mb-0">
-                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#navigationBarCard" aria-expanded="true" aria-controls="navigationBarCard">
+                  <button class="btn btn-link cardTitle" id="navbarCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-toggle="collapse" data-target="#navigationBarCard" aria-expanded="true" aria-controls="navigationBarCard">
                     Navigation bar and its options ▼
                   </button>
                 </p>
@@ -445,7 +445,7 @@
             <div class="card additionalFeatures">
               <div class="card-header" id="additionalFeatures">
                 <p class="mb-0">
-                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#additionalFeaturesCard" aria-expanded="true" aria-controls="additionalFeaturesCard">
+                  <button class="btn btn-link cardTitle" id="additionalFeaturesCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-toggle="collapse" data-target="#additionalFeaturesCard" aria-expanded="true" aria-controls="additionalFeaturesCard">
                     Additional features ▼
                   </button>
                 </p>
@@ -575,7 +575,7 @@
             <div class="card generateOwnData">
               <div class="card-header" id="generateOwnData">
                 <p class="mb-0">
-                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#generateOwnDataCard" aria-expanded="true" aria-controls="generateOwnDataCard">
+                  <button class="btn btn-link cardTitle" id="generateDataCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-toggle="collapse" data-target="#generateOwnDataCard" aria-expanded="true" aria-controls="generateOwnDataCard">
                     Visualize your own data ▼
                   </button>
                 </p>
@@ -717,7 +717,7 @@
             <div class="card xmlParameters">
               <div class="card-header" id="xmlParameters">
                 <p class="mb-0">
-                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#xmlParametersCard" aria-expanded="true" aria-controls="xmlParametersCard">
+                  <button class="btn btn-link cardTitle" id="xmlCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-toggle="collapse" data-target="#xmlParametersCard" aria-expanded="true" aria-controls="xmlParametersCard">
                     XML Parameters ▼
                   </button>
                 </p>
@@ -827,7 +827,7 @@
             <div class="card manageAccount">
               <div class="card-header" id="manageAccount">
                 <p class="mb-0">
-                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">
+                  <button class="btn btn-link cardTitle" id="accountCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-toggle="collapse" data-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">
                     Manage Personal Account ▼
                   </button>
                 </p>
@@ -857,7 +857,7 @@
             <div class="card feedback">
               <div class="card-header" id="feedback">
                 <p class="mb-0">
-                  <button class="btn btn-link cardTitle" data-toggle="collapse" data-target="#feedbackCard" aria-expanded="true" aria-controls="feedbackCard">
+                  <button class="btn btn-link cardTitle" id="feedbackCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-toggle="collapse" data-target="#feedbackCard" aria-expanded="true" aria-controls="feedbackCard">
                     Feedback ▼
                   </button>
                 </p>
@@ -1101,6 +1101,7 @@
      * Loads a new dataset
      */
      function loadNewData() {
+      loadNewDataset = false;
       var repeat = window.setInterval(function () {
         if (base_src != 'cgi-bin/data/bamdata_amazon_links.xml') {
           send_null_count = 0;
@@ -1182,6 +1183,8 @@
           if (typeof (FileReader) != "undefined") {
             //loop for each file selected for uploaded.
             for (var i = 0; i < countFiles; i++) {
+              loadNewDataset = true;
+
               var reader = new FileReader();
 
               reader.onload = function (e) {
