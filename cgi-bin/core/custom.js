@@ -2559,6 +2559,7 @@ $(window).resize(function() {
   adjustSubmissionIFrameSize();
   reponsiveRNAWidthReize();
   toggleResponsiveTable();
+  setTimeout(function() {adjustFooterSize();}, 10);
 })
 
 /**
