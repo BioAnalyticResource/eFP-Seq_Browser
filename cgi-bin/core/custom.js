@@ -1328,8 +1328,6 @@ function populate_efp_modal(status) {
   efp_RPKM_values = [];
 
   for (i = 0; i < eFPSortedSRA.length; i++) {
-    if (isNaN(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"])) == false)
-
     if (isNaN(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"])) == false) {
       efp_RPKM_values.push(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"]));
     }
@@ -1486,7 +1484,6 @@ function get_user_XML_display() {
         xml_title;
         match_title = {};
         title_list = [];
-        dataLoopInt = 0;
         // Unnamed dataset name number:
         var unnamed_title_num = 1;
         var private_version_num = 1;
@@ -1560,8 +1557,8 @@ function get_user_XML_display() {
 */
 var datalist = [];
 var datalist_Title = {};
-var dataLoopInt = 0;
 function create_data_list(size) {
+  datalist = [];// Reset
   datalist_Title = {}; // Reset
   for (i = 0; i < size; i++) {
     $.ajax({
