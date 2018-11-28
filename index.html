@@ -30,8 +30,6 @@
   <meta name="google-signin-client_id" content="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com">
   <!-- Math.js -->
   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.9.0/math.min.js"></script>
-  <!-- HTML2Canvas-->
-  <script defer src="cgi-bin/core/html2canvas/html2canvas.js"></script>
   <!-- ddslick -->
   <script defer src="cgi-bin/core/ddslick/jquery.ddslick.min.js"></script>
   <link rel="stylesheet" href="cgi-bin/core/style.min.css">
@@ -75,7 +73,7 @@
   <meta name="theme-color" content="#cddaa7">
 </head>
 
-<body>
+<body style="overflow-y:hidden;">
   <div id="testing_count" hidden=hidden>count</div>
   <!-- Pre-body requirements -->
   <div id="loading_requirement">
@@ -96,7 +94,7 @@
 
   <!-- Primary displayed content -->
   <div id="mainContainer" class="container-fluid">
-    <div class="row" id="mainRow">
+    <div class="row" id="mainRow" style="display: inline-block;">
       <!-- Navigation menu-->
       <div class="col-sm-4 col-lg-3 navbar_menu" id="navbar_menu" style="padding-top:1%; overflow-y: auto; overflow-x: hidden;">
         <!-- Title -->
@@ -223,7 +221,7 @@
 
           <!-- Manage account -->
           <div id="manageAccount_button" style="display:none;">
-            <button id="manageXMLs" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" onclick="delete_fill(); fill_tableCSV();" data-toggle="modal" data-target="#logoutModal">Manage Account</button>
+            <button id="manageXMLs" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" onclick="delete_fill(); fill_tableCSV(); hideWarning_index();" data-toggle="modal" data-target="#logoutModal">Manage Account</button>
           </div>
           <div class="mdl-tooltip" for="manageXMLs">Manage files and data associated with your account</div>
         </div>
@@ -1019,7 +1017,7 @@
             <div class="warning_nope_index" id="warning_index">
               <strong>Warning!</strong> Are you sure you wish to delete the selected data from your private account?
               <span class="warning_button_index" onclick="hideWarning_index()" style="margin-top:3px;"> No </span>
-              <span class="warning_button_index modal-close" onclick="delete_selectedXML(); delete_fill();" data-dismiss="modal" style="margin-top:3px;"> Yes </span>
+              <span class="warning_button_index modal-close" onclick="delete_selectedXML(); delete_fill(); hideWarning_index();" data-dismiss="modal" style="margin-top:3px;"> Yes </span>
             </div>
             <p style="font-size: 0.7em;"> The following XML to CSV conversion was created using
               <a href="https://github.com/cyriac/jquery.tabletoCSV" target="_blank" rel="noopener">Cryiac Thomas' tabletoCSV function</a>
@@ -1124,6 +1122,7 @@
     function change_dataset() {
       progress_percent = 0;
       base_src = dataset_dictionary[document.getElementById("xmldatabase").value];
+      sraDict = {};
       generate_loading_screen();
       count_bam_num();
       checkPreload();
@@ -1160,19 +1159,6 @@
       document.getElementById("manageXMLs").classList.add("spacerBottom");
       document.getElementById("upload_button").classList.remove("spacerBottom");
     };
-
-    /**
-     * Checks if the user is logged in or not
-     */
-    function check_if_Google_login() {
-      if (users_email != "") {
-        document.getElementById("private_dataset_header").style.display = 'block';
-        get_user_XML_display();
-      } 
-      else {
-        remove_private_database();
-      }
-    }
 
     var add_usersFileID = false;
     $(function () {
@@ -1225,16 +1211,19 @@
           alert("Insert valid XML only");
         }
         update_all_images(0);
-        //setTimeout(function(){ populate_table(0); }, 3000);
+        // Add to user's private database
         if (add_usersFileID == true) {
           setTimeout(function () {
+            databasesAdded = false;
             add_user_xml_by_upload()
-          }, 1000);
+          }, 1500);
           add_usersFileID = false;
         }
       });
     });
   </script>
+  <!-- HTML2Canvas-->
+  <script defer src="cgi-bin/core/html2canvas/html2canvas.js"></script>
 
   <!-- Open menu -->
   <a class="openMenu" id="openMenu" onclick="displayNavBAR();" title="Open navigation menu" style="display:none;">

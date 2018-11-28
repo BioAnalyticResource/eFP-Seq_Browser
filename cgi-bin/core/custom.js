@@ -69,7 +69,6 @@ var send_null_count = 0;
 function count_bam_num() {
   send_null_count = 0;
   var xhr = new XMLHttpRequest();
-  var old_count = count_bam_entries_in_xml;
   xhr.open('GET', base_src, true);
   xhr.onreadystatechange = function(e) {
     if (xhr.readyState == 4 && xhr.status == 200)
@@ -231,9 +230,9 @@ var colouring_part;
 */
 function colour_part_by_id(id, part, fpkm, mode) {
   colouring_part = "all";
-  for (var i = 0; i < svg_part_list.length; i++) {
-    if (id.replace("_svg", "") == svg_part_list[i][0]) {
-      colouring_part = svg_part_list[i][1];
+  for (var i = 0; i < sraList.length; i++) {
+    if (id.replace("_svg", "") == sraList[i]) {
+      colouring_part = sraDict[sraList[i]]["svg_part"];
     }
   }
 
@@ -341,7 +340,6 @@ var current_radio = "abs";
 * Find and update each SVG in the DOM.
 */
 function colour_svgs_now(mode) {
-  //console.log("colour_svgs_now function is called with mode = " + mode);
   mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   current_radio = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   for (var i = 0; i < count_bam_entries_in_xml; i++) {
@@ -358,8 +356,6 @@ function colour_svgs_now(mode) {
     }
     if (ctrl_count > 0)
       ctrl_avg_fpkm = ctrl_fpkm_sum / ctrl_count;
-
-    //console.log("id = " + exp_info[i][0] + " fpkm = " + exp_info[i][3] + " controls = " + ctrl_count + " controls fpkm = " + ctrl_avg_fpkm + " log2() = " + Math.log2(exp_info[i][3] / ctrl_avg_fpkm));
 
     // Save the average fpkm of controls and the log fpkm...
     if (ctrl_count > 0) {
@@ -394,9 +390,6 @@ function colour_svgs_now(mode) {
       colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][3], mode); // index 3 = absolute fpkm
     }
   }
-  //console.log('Max ABS FPKM = ' + max_absolute_fpkm);
-  //console.log('Max Log FPKM = ' + max_log_fpkm);
-  //console.log("Colouring function finished. Errors should be above this log entry.");
 
   $("#thetable").trigger("update");
 
@@ -526,8 +519,9 @@ function gene_structure_radio_on_change(variant_selected, variant_img) {
   // update all pcc pcc_value
   // Go through the exp_info array and make changes
   for (var i = 0; i < exp_info.length; i++) {
-    //console.log("exp_info[i] = " + exp_info[i]);
-    document.getElementById(rnaseq_calls[i][1] + '_pcc').innerHTML = exp_info[i][5][variant_selected].toFixed(2);
+    var pccValue = exp_info[i][5][variant_selected].toFixed(2);
+    document.getElementById(exp_info[i][0].split("_svg")[0] + '_pcc').innerHTML = pccValue;
+    sraDict[exp_info[i][0].split("_svg")[0]]["PCC"] = pccValue;
   }
 
   $("#thetable").trigger("update");
@@ -546,14 +540,9 @@ function parseIntArray(arr) {
 var rnaseq_image_url = "cgi-bin/rnaSeqMapCoverage.cgi";
 var match_drive = "";
 var progress_percent = 0;
-var sra_list_check = [];
+var sraList_check = [];
 var rnaseq_change = 1;
-var bp_length_dic = {};
-var bp_start_dic = {};
-var bp_end_dic = {};
-var mapped_reads_dic = {};
 var totalreadsMapped_dic = {};
-var locus_dic = {};
 var dumpOutputs = "";
 var dumpMethod = "simple";
 var callDumpOutputs = false;
@@ -562,28 +551,24 @@ var callDumpOutputs = false;
 */
 function rnaseq_images(status) {
   dumpOutputs = "";
-  bp_length_dic = {};
-  mapped_reads_dic = {};
-  locus_dic = {};
-  filtered_2d_totalReads = {};
   data = {};
   rnaseq_success = 1;
   match_drive = ["NotGoogleDrive", "NotGoogleDrive"];
   get_input_values();
   if (rnaseq_calls.length === count_bam_entries_in_xml) {
-    sra_list_check = [];
+    sraList_check = [];
     rnaseq_change = 1;
     for (var i = 0; i < count_bam_entries_in_xml; i++) {
       var tissueWebservice = rnaseq_calls[i][0];
-      if (bam_type_list[i] == "Google Drive") {        
+      if (sraDict[sraList[i]]["bam_type"] === "Google Drive") {        
         if (rnaseq_calls[i][0] == undefined || rnaseq_calls[i][0] == "None" || rnaseq_calls[i][0] == null) {
           tissueWebservice = "undefined"
         }
         var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
-        var linkString = drive_link_list[i];
+        var linkString = sraDict[sraList[i]]["drive_link"];
         match_drive = myRegexp.exec(linkString);
       }
-      data = {status: status, numberofreads: numberofreads_list[i], hexcodecolour: hexcode_list[i], remoteDrive: match_drive[1], filename: filename[i], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, struct: splice_variants, dumpMethod: dumpMethod};
+      data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive[1], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, struct: splice_variants, dumpMethod: dumpMethod};
 
       $.ajax({
         method: 'POST',
@@ -594,13 +579,13 @@ function rnaseq_images(status) {
           $('#failure').show();
         },
         success: function(response_rnaseq) {
-          sra_list_check.push(response_rnaseq['record']);
-          bp_length_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['end']) - parseFloat(response_rnaseq['start']));
-          bp_start_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['start']));
-          bp_end_dic[response_rnaseq['record']] = (parseFloat(response_rnaseq['end']));
-          mapped_reads_dic[response_rnaseq['record']] = response_rnaseq['reads_mapped_to_locus'];
+          sraList_check.push(response_rnaseq['record']);
+          sraDict[response_rnaseq['record']]["bp_length"] = (parseFloat(response_rnaseq['end']) - parseFloat(response_rnaseq['start']));
+          sraDict[response_rnaseq['record']]["bp_start"] = (parseFloat(response_rnaseq['start']));
+          sraDict[response_rnaseq['record']]["bp_end"] = (parseFloat(response_rnaseq['end']));
+          sraDict[response_rnaseq['record']]["MappedReads"] = response_rnaseq['reads_mapped_to_locus'];
           totalreadsMapped_dic[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];
-          locus_dic[response_rnaseq['record']] = response_rnaseq['locus'];
+          sraDict[response_rnaseq['record']]["locusValue"] = response_rnaseq['locus'];
           if (locus != response_rnaseq['locus']) {
             console.log("ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.");
           }
@@ -645,9 +630,10 @@ function rnaseq_images(status) {
           document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
           rnaseq_change += 1;
           document.getElementById(response_rnaseq['record'] + '_pcc').innerHTML = parseFloat(r[0]).toFixed(2);
+          sraDict[response_rnaseq['record']]["PCC"] = parseFloat(r[0]).toFixed(2);
           document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
+          sraDict[response_rnaseq['record']]["RPKM"] = response_rnaseq['absolute-fpkm'];
           document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
-          filtered_2d_totalReads[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];
 
           // Generate pre-caching information
           if (callDumpOutputs == true) {
@@ -718,332 +704,207 @@ function rnaseq_images(status) {
 * @return {String} subunit - The SVG tissue corrected subunit if an error occured, input if not
 */
 function checkSubunit(svg, subunit) {
+  var toReturn = subunit;
   if (svg == "ath-10dayOldSeedling.svg") {
     if (subunit != "all" && subunit != "root" && subunit != "shoot") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-15dayOldSeedling.svg") {
     if (subunit != "all" && subunit != "root" && subunit != "shoot") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-etiolatedSeedling.svg") {
     if (subunit != "etiolatedseedling") {
-      return "etiolatedseedling";
-    }
-    else {
-      return subunit
+      toReturn = "etiolatedseedling";
     }
   }
   else if (svg == "ath-Flower.svg") {
     if (subunit != "flower" && subunit != "receptacle") {
-      return "flower";
-    }
-    else {
-      return subunit
+      toReturn = "flower";
     }
   }
   else if (svg == "ath-FlowerParts.svg") {
     if (subunit != "all" && subunit != "petals" && subunit != "stamen" && subunit != "sepals" && subunit != "carpels") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-GerminatingSeed.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-Internode.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-leaf.svg") {
     if (subunit != "leaf") {
-      return "leaf";
-    }
-    else {
-      return subunit
+      toReturn = "leaf";
     }
   }
   else if (svg == "ath-LeafParts.svg") {
     if (subunit != "all" && subunit != "lamina" && subunit != "petiole" && subunit != "veins") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-Pollen.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-RootTip.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-rosettePlusRoot.svg") {
     if (subunit != "all" && subunit != "shoot" && subunit != "root") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-Seed1-4.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-Seed5-7.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-Seed8+.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-SenescentLeaf.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-ShootApexInflorescense.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-ShootApexVegetative-Transition.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-Silique1-5.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-Silique6-10.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-YoungLeaf1-4.svg") {
     if (subunit != "all") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-EarlyBuddingFlower.svg") {
     if (subunit != "all" && subunit != "shoot" && subunit != "buds") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-FlowerBud.svg") {
     if (subunit != "flowerBud") {
-      return "flowerBud";
-    }
-    else {
-      return subunit
+      toReturn = "flowerBud";
     }
   }
   else if (svg == "ath-Stamen.svg") {
     if (subunit != "all" && subunit != "anthers" && subunit != "filament") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-StigmaAndOvaries.svg") {
     if (subunit != "all" && subunit != "Stigma_tissue" && subunit != "Ovary_tissue") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-WholeSilique.svg") {
     if (subunit != "all" && subunit != "silique" && subunit != "seed") {
-      return "silique";
-    }
-    else {
-      return subunit
+      toReturn = "silique";
     }
   }
   else if (svg == "ath-youngSeedling.svg") {
     if (subunit != "all" && subunit != "root" && subunit != "hypocotyl" && subunit != "cotyledon") {
-      return "all";
-    }
-    else {
-      return subunit
+      toReturn = "all";
     }
   }
   else if (svg == "ath-FlowerDevelopment1.svg") {
     if (subunit != "flowerDevelopmentPart1") {
-      return "flowerDevelopmentPart1";
-    }
-    else {
-      return subunit
+      toReturn = "flowerDevelopmentPart1";
     }
   }
   else if (svg == "ath-FlowerDevelopment2.svg") {
     if (subunit != "flowerDevelopmentPart2") {
-      return "flowerDevelopmentPart2";
-    }
-    else {
-      return subunit
+      toReturn = "flowerDevelopmentPart2";
     }
   }
   else if (svg == "ath-FlowerDevelopment3.svg") {
     if (subunit != "flowerDevelopmentPart3") {
-      return "flowerDevelopmentPart3";
-    }
-    else {
-      return subunit
+      toReturn = "flowerDevelopmentPart3";
     }
   }
   else if (svg == "ath-FlowerDevelopment4.svg") {
     if (subunit != "flowerDevelopmentPart4") {
-      return "flowerDevelopmentPart4";
-    }
-    else {
-      return subunit
+      toReturn = "flowerDevelopmentPart4";
     }
   }
   else if (svg == "ath-FlowerDevelopment5.svg") {
     if (subunit != "flowerDevelopmentPart5") {
-      return "flowerDevelopmentPart5";
-    }
-    else {
-      return subunit
+      toReturn = "flowerDevelopmentPart5";
     }
   }
   else if (svg == "ath-FlowerDevelopment6-8.svg") {
     if (subunit != "flowerDevelopmentPart6") {
-      return "flowerDevelopmentPart6";
-    }
-    else {
-      return subunit
+      toReturn = "flowerDevelopmentPart6";
     }
   }
   else if (svg == "ath-FlowerDevelopment9-11.svg") {
     if (subunit != "flowerDevelopmentPart9") {
-      return "flowerDevelopmentPart9";
-    }
-    else {
-      return subunit
+      toReturn = "flowerDevelopmentPart9";
     }
   }
   else if (svg == "ath-FlowerDevelopment12-14.svg") {
     if (subunit != "flowerDevelopmentPart12") {
-      return "flowerDevelopmentPart12";
-    }
-    else {
-      return subunit
+      toReturn = "flowerDevelopmentPart12";
     }
   }
   else if (svg == "ath-FlowerDevelopment15-18.svg") {
     if (subunit != "flowerDevelopmentPart15") {
-      return "flowerDevelopmentPart15";
-    }
-    else {
-      return subunit
+      toReturn = "flowerDevelopmentPart15";
     }
   }  
   else if (svg == "ath-FlowerDevelopment19.svg") {
     if (subunit != "flowerDevelopmentPart19") {
-      return "flowerDevelopmentPart19";
-    }
-    else {
-      return subunit
+      toReturn = "flowerDevelopmentPart19";
     }
   }  
   else if (svg == "ath-Other.svg") {
     if (subunit != "all") {
       return "all";
     }
-    else {
-      return subunit
-    }
   }
+  return toReturn;
 }
 
-var bam_type_list = [];
-var sra_list = [];
-var drive_link_list = [];
-var numberofreads_list = [];
-var hexcode_list = [];
-var filename = [];
-var svg_part_list = [];
-var efp_rep_2d = [];
-var efp_column_count = 0;
+var sraList = [];
+var sraDict = {};
+var sraCountDic = {};
+
 var efp_table_column;
-var efp_rep_2d_title = [];
-var repo_list = [];
-var efp_rpkm_names = [];
-var efp_pcc_names = [];
 var xmlTitleName = "";
-var tissue_list = [];
-var svg_pat = [];
-var svg_name_list = [];
 var variantdiv_str;
-var variantdiv_call = 0;
 var iteration_num = 1;
 var moreDetails = 'Show More Details <i class="material-icons detailsIcon">arrow_drop_down</i>';
 var lessDetails = 'Show Less Details <i class="material-icons detailsIcon">arrow_drop_up</i>';
@@ -1062,21 +923,7 @@ function populate_table(status) {
   max_log_fpkm = -1;
   svg_colouring_element = null;
   gene_structure_colouring_element = null;
-  bam_type_list = [];
-  drive_link_list = [];
-  numberofreads_list = [];
-  hexcode_list = [];
-  filename = [];
-  svg_part_list = [];
-  efp_rep_2d = [];
-  efp_rep_2d_title = [];
-  efp_rpkm_names = [];
-  efp_pcc_names = [];
-  sra_list = [];
-  repo_list = [];
-  tissue_list = [];
-  svg_name_list = [];
-  filtered_2d_controls = {};
+  sraList = [];
 
   // Creating exon intron scale image
   var img_created = '<img src="' + 'data:image/png;base64,' + exon_intron_scale + '" alt="RNA-Seq mapped image" style="float: right; margin-right: 10px;">';
@@ -1111,42 +958,62 @@ function populate_table(status) {
       var $title = $(xml_res).find("file");
       $title.each(function() { // Iterate over each subtag inside the <file> tag.
         // Extract information
+        var experimentno = $(this).attr('record_number');
+        if (sraList.includes(experimentno)) {
+          if (sraCountDic[experimentno]) {
+            sraCountDic[experimentno] += 1;
+            var tempExperimentNo = experimentno + "(" + sraCountDic[experimentno] + ")";
+            sraList.push(tempExperimentNo);
+            sraDict[tempExperimentNo] = {};
+          }
+        }
+        else {
+          sraCountDic[experimentno] = 1;
+          sraList.push(experimentno);
+          sraDict[experimentno] = {};
+        }
+        // Title
         var title = $(this).attr('description');
+        sraDict[experimentno]["title"] = title;
+        // Description
         var description = $(this).attr('info');
+        sraDict[experimentno]["description"] = description;
+        // SVG
         var svg = $(this).attr('svgname');
-        svg_name_list.push(svg);
+        sraDict[experimentno]["svg"] = svg;
         var svg_part = $(this).attr('svg_subunit');
         svg_part = checkSubunit(svg, svg_part);
-        tissue_list.push(svg_part);
-        var experimentno = $(this).attr('record_number');
-        sra_list.push(experimentno);
-        svg_part_list.push([experimentno, svg_part]);
-        efp_rep_2d.push(experimentno + "_svg");
-        efp_rep_2d_title.push(title);
-        efp_rpkm_names.push(experimentno + "_rpkm");
-        efp_pcc_names.push(experimentno + "_pcc");
+        sraDict[experimentno]["svg_part"] = svg_part;
+        // SRA URL
         var url = $(this).attr('url');
+        sraDict[experimentno]["url"] = url;
+        // Publication URL
         var publicationid = $(this).attr('publication_link');
+        sraDict[experimentno]["publicationid"] = publicationid;
+        // Total number of reads
         var numberofreads = $(this).attr('total_reads_mapped');
         if (numberofreads == null || numberofreads == "") {
           numberofreads = "0";
-          numberofreads_list.push(numberofreads);
-        } else {
-          numberofreads_list.push(numberofreads);
         }
+        sraDict[experimentno]["numberofreads"] = numberofreads;
+        // Coloured hex code
         var hexColourCode;
         if ($(this).attr('hex_colour') == null || $(this).attr('hex_colour') == "") {
           hexColourCode = '0x64cc65';
         } else {
           hexColourCode = $(this).attr('hex_colour');
         }
-        hexcode_list.push(hexColourCode);
+        sraDict[experimentno]["hexColourCode"] = hexColourCode;
+        // BAM file's filename
         var filenameIn =  ($(this).attr('filename'));
         if (filenameIn == null || filenameIn == "" || filenameIn == undefined) {
           filenameIn = "accepted_hits.bam"
         }
-        filename.push(filenameIn)
-        var species = $(this).attr('species');
+        sraDict[experimentno]["filenameIn"] = filenameIn;
+        // Species
+        var species = $(this).attr('species');    
+        sraDict[experimentno]["species"] = species;
+        // Control
         var controls = [];
         if ($(this).find("controls")[0].innerHTML == undefined) {
           for (i = 1; i < $(this).find("controls")[0].childNodes.length; i+2) {
@@ -1156,6 +1023,7 @@ function populate_table(status) {
         else if ($(this).find("controls")[0].innerHTML != undefined) {
           controls = $(this).find("controls")[0].innerHTML.replace(/<bam_exp>/g, "").replace(/<\/bam_exp>/g, ",").replace(/\n/g, " ").replace(/ /g, "").split(",");
         }
+        sraDict[experimentno]["controls"] = controls;
         var links = "";
         if (controls.length > 0) {
           for (var i = controls.length; i--;) {
@@ -1165,7 +1033,8 @@ function populate_table(status) {
               links += controls[i];
             }
           }
-        }
+        }        
+        sraDict[experimentno]["links"] = links;
         var controlsString = "";
         if (controls.length > 0) {
           for (var y = 0; y < controls.length; y++) {
@@ -1175,18 +1044,20 @@ function populate_table(status) {
             }
           }
         }
-        filtered_2d_controls[experimentno] = controlsString;
-        var name = $(this).attr('name').split("/");
-        repo_list.push($(this).attr('name'));
+        sraDict[experimentno]["controlsString"] = controlsString.trim();
+        var name = $(this).attr('name');
+        sraDict[experimentno]["name"] = name;
         if ($(this).attr('bam_type') == "Amazon AWS") {
           var tissue = $(this).attr('name').split("/")[8];
         };
         rnaseq_calls.push([tissue, experimentno]);
+        sraDict[experimentno]["tissue"] = tissue;
         var bam_type = $(this).attr('bam_type');
-        bam_type_list.push(bam_type);
+        sraDict[experimentno]["bam_type"] = bam_type;
         var drive_link = $(this).attr('name');
-        drive_link_list.push(drive_link);
+        sraDict[experimentno]["drive_link"] = drive_link;
         var read_map_method = $(this).attr('read_map_method');
+        sraDict[experimentno]["read_map_method"] = read_map_method;
 
         // Setup IGB
         var igbView_link = 'https://bioviz.org/bar.html?';
@@ -1372,7 +1243,6 @@ function populate_table(status) {
     variantdiv_str += '</select>';
     variantdiv_str += '</div>';
     document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = variantdiv_str;
-    variantdiv_call = 1
   }
   else if (isPrecache == false) {
     $('#variant_select').ddslick('destroy');
@@ -1380,7 +1250,6 @@ function populate_table(status) {
     variantdiv_str = '<div id="variants_div">';
     variantdiv_str += '</div>';
     document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = variantdiv_str;
-    variantdiv_call = 1
   }
 
   $('#variant_select').ddslick({
@@ -1433,24 +1302,8 @@ function truncateDescription(stringInput) {
 
 var remainder_efp = 0;
 var efp_length = 0;
+var eFPSortedSRA = [];
 var efp_RPKM_values = [];
-var filtered_2d_title = [];
-var filtered_2d = [];
-var filtered_2d_id = [];
-var filtered_2d_tissue = [];
-var filtered_2d_subtissue = [];
-var filtered_2d_totalReads = {};
-var filtered_2d_PCC = [];
-var filtered_2d_rpkmNames = [];
-var filtered_2d_mappedReads = [];
-var filtered_2d_bpLength = [];
-var filtered_2d_bpStart = [];
-var filtered_2d_bpEnd = [];
-var filtered_2d_locus = [];
-var filtered_2d_controls = [];
-var tr_of_table;
-var to_be_removed_efp = [];
-var keep_loop_var = [];
 /**
 * Creates a table of the coloured SVGs and their corresponding RPKM values
 * @param {String | Number} status Index call version
@@ -1458,126 +1311,27 @@ var keep_loop_var = [];
 function populate_efp_modal(status) {
   toggleResponsiveTable(2);
   $("#efpModalTable").empty();
+  // Reset variables
   efp_table_column = '';
-  efp_column_count = 0;
-  keep_loop_var = [];
+  eFPSortedSRA = [];
 
-  // Creating new options for Filtering
-  var all_of_table = document.getElementById("data_table_body").innerHTML;
-  tr_of_table = all_of_table.split("</tr>");
-  if (tr_of_table[tr_of_table.length - 1] == "") {
-    tr_of_table.splice(tr_of_table.length - 1)
-  }; // Remove empty at end
-
-  // Remove display:none; from count
-  to_be_removed_efp = [];
-  for (i = 0; i < tr_of_table.length; i++) {
-    var single_trs = tr_of_table[i].split('"'); // Split items so increased of having a long string, have large array
-    var dislpay_loop_number = single_trs.length; // The max number of the display:none; loop so it does not go on for too long
-    if (single_trs.length >= 3) { // An if statement to make sure single_trs is longer than 4 to prevent any errors
-      display_loop_number = 3; // To check for display:none; in early parts only
-    }
-    for (u = 0; u < dislpay_loop_number; u++) {
-      var single_var = single_trs[u]; // Testing purposes for debugging
-      if (single_trs[u] == "display: none;") {
-        to_be_removed_efp.push(i); // The index of what item needs to be removed
-        break;
-      }
-    }
+  var allSRASorted = document.getElementsByClassName("colTitle");
+  for (s = 2; s < allSRASorted.length; s++) {
+    var SRASortedID = allSRASorted[s].id.substr(0, allSRASorted[s].id.length - 6);
+    if (document.getElementById(SRASortedID + "_row").style.display != "none") {
+      eFPSortedSRA.push(SRASortedID);
+    }    
   }
-  if (to_be_removed_efp.length > 0) {
-    for (i = (to_be_removed_efp.length - 1); i >= 0; i--) {
-      tr_of_table.splice(to_be_removed_efp[i], 1); // Removing the hidden based off of index
-    }
-  }
-
-  // Create arrays of SVG names and titles
-  filtered_2d = [];
-  filtered_2d_title = [];
-  filtered_2d_id = [];
-  filtered_2d_tissue = [];
-  filtered_2d_subtissue = [];
-  filtered_2d_PCC = [];
-  filtered_2d_rpkmNames = [];
-  filtered_2d_mappedReads = [];
-  filtered_2d_bpLength = [];
-  filtered_2d_locus = [];
-  filtered_2d_bpStart = [];
-  filtered_2d_bpEnd = [];
-  for (i = 0; i < tr_of_table.length; i++) {
-    var single_trs = tr_of_table[i].split('"'); // Split items so increased of having a long string, have large array
-    // Title
-    for (u = 0; u < single_trs.length; u++) {
-      var single_var = single_trs[u]; // Testing purposes for debugging
-      if ((single_trs[u].length > 6) && (single_trs[u].substr(single_trs[u].length - 6) == "_title")) {
-        var trs_title_left = single_trs[u + 1].split(">");
-        var trs_title_right = trs_title_left[1].split("<");
-        if (trs_title_right[0] == "") {
-          filtered_2d_title.push(trs_title_right[1]);
-        }
-        else {
-          filtered_2d_title.push(trs_title_right[0]);
-        }
-        break;
-      }
-    }
-    // SRR/SRA number or Record Number
-    for (u = 0; u < single_trs.length; u++) {
-      var single_var = single_trs[u]; // Testing purposes for debugging
-      if ((single_trs[u].length > 4) && (single_trs[u].substr(single_trs[u].length - 4) == "_svg")) {
-        filtered_2d.push(single_trs[u]);
-        filtered_2d_id.push(single_trs[u].substring(0, single_trs[u].length - 4));
-        filtered_2d_bpLength.push(bp_length_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
-        filtered_2d_mappedReads.push(mapped_reads_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
-        filtered_2d_locus.push(locus_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
-        filtered_2d_bpStart.push(bp_start_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
-        filtered_2d_bpEnd.push(bp_end_dic[single_trs[u].substring(0, single_trs[u].length - 4)]);
-        break;
-      }
-    }
-    // Tissue
-    for (u = 0; u < single_trs.length; u++) {
-      var single_var = single_trs[u]; // Testing purposes for debugging
-      if ((single_trs[u].length > 7) && (single_trs[u].substr(single_trs[u].length - 7) == "_tissue")) {
-        filtered_2d_tissue.push(single_trs[u].substring(0, single_trs[u].length - 7));
-        break;
-      }
-    }
-    // Subtissue
-    for (u = 0; u < single_trs.length; u++) {
-      var single_var = single_trs[u]; // Testing purposes for debugging
-      if ((single_trs[u].length > 16) && (single_trs[u].substr(single_trs[u].length - 16) == "_subtissue&quot;")) {
-        filtered_2d_subtissue.push(single_trs[u].substring(0, single_trs[u].length - 16));
-        break;
-      }
-    }
-    // PCC
-    for (u = 0; u < single_trs.length; u++) {
-      var single_var = single_trs[u]; // Testing purposes for debugging
-      if ((single_trs[u].length > 13) && (single_trs[u].substr(single_trs[u].length - 13) == "</td><td tag=")) {
-        filtered_2d_PCC.push(single_trs[u].substr(0, single_trs[u].length - 13).substr(1));
-        break;
-      }
-    }
-    // Filtered RPKM names
-    for (u = 0; u < single_trs.length; u++) {
-      var single_var = single_trs[u]; // Testing purposes for debugging
-      if ((single_trs[u].length > 5) && (single_trs[u].substr(single_trs[u].length - 5) == "_rpkm")) {
-        filtered_2d_rpkmNames.push(single_trs[u]);
-        break;
-      }
-    }
-  }
-
-  // remainder_efp = efp_rep_2d.length % 11;  Old without filter option
-  // efp_length = efp_rep_2d.length;  Old without filter option
-  remainder_efp = tr_of_table.length % 11;
-  efp_length = tr_of_table.length;
+  
+  remainder_efp = eFPSortedSRA.length % 11;
+  efp_length = eFPSortedSRA.length;
   efp_RPKM_values = [];
 
-  for (i = 0; i < filtered_2d_rpkmNames.length; i++) {
-    if (isNaN(parseFloat(document.getElementById(filtered_2d_rpkmNames[i]).textContent)) == false) {
-      efp_RPKM_values.push(parseFloat(document.getElementById(filtered_2d_rpkmNames[i]).textContent));
+  for (i = 0; i < eFPSortedSRA.length; i++) {
+    if (isNaN(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"])) == false)
+
+    if (isNaN(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"])) == false) {
+      efp_RPKM_values.push(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"]));
     }
   }
 
@@ -1595,11 +1349,11 @@ function populate_efp_modal(status) {
   $("#efpModalTable").append('<table id="eFPtable" class="table"></table>');
 
   // Creating eFP representative table
-  for (i = 0; i < (~~ (filtered_2d.length / 11) * 11); i += 11) {
-    if (document.getElementById(filtered_2d[i + 10]).outerHTML != 'null') {
+  for (i = 0; i < (~~ (eFPSortedSRA.length / 11) * 11); i += 11) {
+    if (document.getElementById(eFPSortedSRA[i + 10]).outerHTML != 'null') {
       efp_table_column = '<tr>';
       for (r = 0; r < 11; r++) {
-        efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[i + r] + '_rep" onclick="ScrollToRNARow(\'' + filtered_2d_id[i + r] + '_row\')">' + document.getElementById(filtered_2d[i + r]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[i + r] + " - " +  filtered_2d_title[i + r] + '</span></div></td>';
+        efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + eFPSortedSRA[i + r] + '_rep" onclick="ScrollToRNARow(\'' + eFPSortedSRA[i + r] + '_row\')">' + document.getElementById(eFPSortedSRA[i + r] + "_svg").outerHTML + '<span class="efp_table_tooltip_text">' + eFPSortedSRA[i + r] + " - " +  sraDict[eFPSortedSRA[i + r]]["title"] + '</span></div></td>';
       }
       efp_table_column += '</tr>';
       $("#eFPtable").append(efp_table_column);
@@ -1610,7 +1364,7 @@ function populate_efp_modal(status) {
     if (remainder_efp === r) {
       efp_table_column = '<tr>';
       for (c = remainder_efp; c > 0; c--) {
-        efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + filtered_2d[efp_length - c] + '_rep" onclick="ScrollToRNARow(\'' + filtered_2d_id[efp_length - c] + '\')">' + document.getElementById(filtered_2d[efp_length - c]).outerHTML + '<span class="efp_table_tooltip_text">' + filtered_2d_id[efp_length - c] + " - " +  filtered_2d_title[efp_length - c] + '</span></div></td>';
+        efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + eFPSortedSRA[efp_length - c] + '_rep" onclick="ScrollToRNARow(\'' + eFPSortedSRA[efp_length - c] + '\')">' + document.getElementById(eFPSortedSRA[efp_length - c] + "_svg").outerHTML + '<span class="efp_table_tooltip_text">' + eFPSortedSRA[efp_length - c] + " - " +  sraDict[eFPSortedSRA[efp_length - c]]["title"] + '</span></div></td>';
       }
       efp_table_column += '</tr>';
       $("#eFPtable").append(efp_table_column);
@@ -1697,6 +1451,7 @@ var base_dataset_dictionary = {
   "Araport 11 RNA-seq data": 'cgi-bin/data/bamdata_amazon_links.xml',
   "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
 };
+var databasesAdded = false;
 /**
 * Resets the dataset_dictionary and removes users added tags from index.html (document)
 */
@@ -1704,6 +1459,7 @@ function reset_database_options() {
   $('.userAdded').remove();
   dataset_dictionary = base_dataset_dictionary; // Resets dictionary
   list_modified = false;
+  databasesAdded = false;
 }
 
 var get_xml_list_output = [];
@@ -1791,6 +1547,7 @@ function get_user_XML_display() {
             list_modified = true;
           }, 1000)
         }
+        databasesAdded = true;
       }
     })
   }
@@ -1801,19 +1558,72 @@ function get_user_XML_display() {
 * @param {Number} size - How many private datasets the user has
 * @return {List} datalist_Title - Dictionary of base64 strings
 */
-var datalist_Title = {}
+var datalist = [];
+var datalist_Title = {};
 var dataLoopInt = 0;
 function create_data_list(size) {
+  datalist_Title = {}; // Reset
   for (i = 0; i < size; i++) {
     $.ajax({
       url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml.php?file=" + match_title[title_list[i]],
       dataType: 'json',
       success: function(get_xml_return) {
         xml_file = get_xml_return;
-        datalist_Title[title_list[dataLoopInt]] = xml_file["data"];
-        dataLoopInt++;
+        datalist.push(xml_file["data"]);
       }
     })
+
+    if (i === (size - 1)) {
+      setTimeout(function() {
+        dlCallLength = size;
+        DatalistXHRCall(datalist);
+      }, 200)
+    }
+  }  
+}
+
+var dlCallLength = 0;
+var dlCallPosition = 0;
+var testDoc;
+/**
+ * Retrieves information and titles of individual XMLs
+ * @param {List} datalist The list of base64/url for the XML's being parsed through 
+ */
+function DatalistXHRCall(datalist) {
+  if (dlCallPosition != dlCallLength) {
+    const xhr = new XMLHttpRequest();
+    let url = datalist[dlCallPosition];
+
+    xhr.responseType = 'document';
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        let response = xhr.responseXML;
+        let resonseTitle = response.getElementsByTagName("files")[0].attributes.xmltitle.nodeValue;
+        datalist_Title[resonseTitle] = datalist[dlCallPosition];
+
+        // Make function recursive
+        dlCallPosition += 1;
+        DatalistXHRCall(datalist);
+      }
+    }
+
+    xhr.open('GET', url);
+    xhr.send();
+  }
+}
+
+/**
+ * Checks if the user is logged in or not
+ */
+function check_if_Google_login() {
+  if (users_email != "") {
+    if (databasesAdded === false) {
+      document.getElementById("private_dataset_header").style.display = 'block';
+      get_user_XML_display();
+    }
+  } 
+  else {
+    remove_private_database();
   }
 }
 
@@ -1952,6 +1762,7 @@ function delete_selectedXML() {
       });
     }
   }
+  databasesAdded = false;
 }
 
 var warningActive_index = "nope";
@@ -2130,21 +1941,21 @@ function download_mainTableCSV() {
   downlodaIndexTable_str += "\t\t<caption>" + document.getElementById("xmldatabase").value + "</caption>\n";
   downlodaIndexTable_str += downloadIndexTable_base;
   // Looping through each row of the table
-  for (i = 0; i < filtered_2d_title.length; i++) {
+  for (i = 0; i < eFPSortedSRA.length; i++) {
     downlodaIndexTable_str += "\t\t<tr>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_title[i] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_id[i] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_tissue[i] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_subtissue[i] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_locus[i] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_bpLength[i]) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_bpStart[i]) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_bpEnd[i]) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_totalReads[filtered_2d_id[i]] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_mappedReads[i]) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + filtered_2d_PCC[i] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(efp_RPKM_values[i]) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(filtered_2d_controls[filtered_2d_id[i]]) + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["title"] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + eFPSortedSRA[i] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["svg"].substr(4, sraDict[eFPSortedSRA[i]]["svg"].length-8) + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["svg_part"] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["locusValue"] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_length"]) + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_start"]) + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_end"]) + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["numberofreads"] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["MappedReads"]) + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["PCC"] + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["RPKM"].toFixed(2)) + "</td>\n";
+    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["controlsString"]) + "</td>\n";
     downlodaIndexTable_str += "\t\t</tr>\n";
   }
   downlodaIndexTable_str += "\t</tbody>\n</table>"; // Closing
@@ -2307,12 +2118,14 @@ function displayNavBAR() {
     document.getElementById("main_content").className = "col-sm-12";
     document.getElementById("openMenu").style.display = "block";
     document.getElementById("thetable").classList.add("RNATable");
+    document.getElementById("mainRow").removeAttribute("style");
   }
   else if ($("#navbar_menu").is(":visible") == false) {
     document.getElementById("navbar_menu").style.display = "block";
     document.getElementById("main_content").className = "col-sm-8 col-lg-9";
     document.getElementById("openMenu").style.display = "none";
     document.getElementById("thetable").classList.remove("RNATable");
+    document.getElementById("mainRow").style.display = "inline-block";
   }
 }
 
@@ -2566,6 +2379,10 @@ $(window).resize(function() {
  * Initialize the script for the eFP-Seq Browser
  */
 function init() {
+  // Prevent Microsoft Edge from autofilling causing errors
+  document.getElementById("locus").value = "AT2G24270";
+  document.getElementById("xmldatabase").value = "Araport 11 RNA-seq data";
+
   // On load, validate input
   locus_validation();
   old_locus = locus;
