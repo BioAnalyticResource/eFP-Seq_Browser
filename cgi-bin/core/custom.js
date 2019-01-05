@@ -2363,6 +2363,17 @@ function ScrollToRNARow(rowID) {
   
 }
 
+/**
+ * Determine if a enter was pressed and if so, click a button
+ * @param {Event} event The key press
+ * @param {String} toClickButton Which button to click
+ */
+function IfPressEnter(event, toClickButton) {
+  if (event.which == 13 || event.keyCode == 13) {
+    $('#' + toClickButton).click();
+  }
+}
+
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
   adjustFooterSize();
