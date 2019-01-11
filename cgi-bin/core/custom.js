@@ -2374,6 +2374,89 @@ function IfPressEnter(event, toClickButton) {
   }
 }
 
+var BrowserDetected = false;
+/**
+ * Detect the browser the user is using and change the manage cookies string
+ */
+function DetectBrowser() {
+  if (BrowserDetected === false) {
+    // userAgent Browser detection object
+    var userAgentParser = {
+      'Microsoft+Edge': {
+        'Contain': ['Edge']
+      },
+      'Opera': {
+        'Contain': ['OPR', 'Opera']
+      },
+      'Firefox': {
+        'Contain': ['Firefox'],
+        'NContain': ['Seamonkey']
+      },
+      'Seamonkey': {
+        'Contain': ['Seamonkey']
+      },
+      'Chrome': {
+        'Contain': ['Chrome'],
+        'NContain': ['Chromium']
+      },
+      'Chromium': {
+        'Contain': ['Chromium']
+      },
+      'Internet+Explorer': {
+        'Contain': ['MSIE']
+      },
+      'Safari': {
+        'Contain': ['Safari'],
+        'NContain': ['Chromium', 'Chrome']
+      }
+    };
+    // Retrieve keys from userAgent in the instense this is modified
+    var userAgentParserKeys = Object.keys(userAgentParser);
+    var detectBrowser;
+    var notDetectedBrowser = true;
+
+    for (i = 0; i < userAgentParserKeys.length; i++) {
+      // If contains the required keyword
+      for (c = 0; c < userAgentParser[userAgentParserKeys[i]]["Contain"].length; c++) {
+        if (notDetectedBrowser && navigator.userAgent.indexOf(userAgentParser[userAgentParserKeys[i]]["Contain"][c]) !== -1){
+          // If detected key has a exclusion, go through those
+          if (userAgentParser[userAgentParserKeys[i]]["NContain"]) {
+            // If pass is the same as fail, then it contains the excluded keywords and fails the test
+            var failLength = userAgentParser[userAgentParserKeys[i]]["NContain"].length;
+            var passLength = 0;
+            for (n = 0; n < userAgentParser[userAgentParserKeys[i]]["NContain"].length; n++) {
+              // If contains exclusion word, increase pass count towards failure
+              if (navigator.userAgent.indexOf(userAgentParser[userAgentParserKeys[i]]["NContain"][n]) !== -1){
+                passLength++;
+              }
+            }
+            if (passLength != failLength) {
+              detectBrowser = userAgentParserKeys[i];
+              notDetectedBrowser = false;
+              break;
+            }
+          }
+          else {
+            detectBrowser = userAgentParserKeys[i];
+            notDetectedBrowser = false;
+            break;
+          }
+        }
+      }
+    }
+
+    // Change the help string to manage cookies
+    if (detectBrowser) {    
+      $("#notChrome").empty();
+      append_str = ' or through the following <a href="https://www.google.com/search?q=manage+cookies+in+' + detectBrowser + '" target="_blank" rel="noopner">Google search results</a>';
+      $("#notChrome").append(append_str);
+    }
+
+    // make BrowserDetected true so this will not run again
+    BrowserDetected = true;
+  }  
+}
+
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
   adjustFooterSize();

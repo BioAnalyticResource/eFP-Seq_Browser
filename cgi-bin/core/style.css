@@ -552,3 +552,45 @@ a {
 .scrollToRow.scrollToRowRemove {
     background-color: transparent;
 }
+
+.PnC {
+    background: #000000;
+    z-index: 1005;
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    font-size: 1.7em;
+    padding: 0.5em;
+    justify-content: space-between;
+    font-size: 1.6em;
+}
+
+.PnCText {
+    color: white;
+}
+
+.PnCClose {
+    text-align: right;
+
+}
+
+.PnCPolicy {
+    font-size: 1.6em; 
+    text-align: left;
+    padding: 1.2em;
+}
+
+.cookiesTitle {
+    font-size: 225%;
+    color: #0275d8;
+    font-weight: bold;
+}
+
+ol li {
+    font-weight:bold;
+}
+
+li > p {
+    font-weight:normal;
+}

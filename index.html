@@ -324,6 +324,13 @@
           else {
             return true
           }
+        }        
+
+        /**
+         * Make the cookie consentor disapear
+         */
+        function PnCDisappear(){
+          document.getElementById("PrivacyAndCookies").setAttribute("hidden", true);
         }
 
         function filter_num(filter_id1, filter_id2) {
@@ -337,6 +344,20 @@
       </script>
     </div>
   </div>
+  </div>
+
+  <!-- Privacy and Cookies -->
+  <div id="PrivacyAndCookies" class="PnC">
+    <div class="container-fluid">
+        <div class="row">
+            <div id="PnCText" class="col-xs-11 PnCText">
+                The eFP-Seq Browser uses cookies to improve your experience with our tool. <a data-toggle="modal" data-target="#PnCModal" id="help_button" style="cursor: help; color: #0673e8;" onclick="DetectBrowser()">Click here to learn more</a>
+            </div>
+            <div id="PnCClose" class="col-xs-1 PnCClose">
+                <button class="btn btn-success" style="font-size:1em;" onclick="PnCDisappear()">Close</button>
+            </div>
+        </div>
+    </div>
   </div>
 
   <!-- Modals -->
@@ -869,6 +890,8 @@
                   We welcome feedback on the eFP-Seq Browser to <a href="mailto:nicholas.provart@utoronto.ca">nicholas.provart@utoronto.ca</a>. You can also reach us on Twitter at <a target="_blank" rel="noopener" href="https://twitter.com/BAR_PlantBio">@BAR_PlantBio</a>
                   <br><br> 
                   Also, if found any bugs, would like any features added to accommodate your needs or we would simply like to tell us how much you enjoyed using the eFP-Seq Browser, feel free to email or Tweet at us.
+                  <br><br>
+                  If you are curious about our privacy or cookie policy, you can <a data-toggle="modal" data-target="#PnCModal" id="help_button" style="cursor: help; color: #0673e8;" onclick="DetectBrowser()">click here to learn more</a>.
                 </div>
               </div>
             </div>
@@ -958,6 +981,166 @@
         <div class="modal-footer modal-footer-colour">
           <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal_DownloadImage">Close</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy and Cookies modal -->
+  <button id="PnC_modal" data-toggle="modal" data-target="#PnCModal" hidden></button>
+  <div id="PnCModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="z-index: 5050;">
+    <div class="modal-dialog modal-lg" style="max-width: 93%; margin-left:auto; margin-right: auto;">
+      <div class="modal-content">     
+        <div class="modal-header">
+          <h3>Cookie and Privacy Policy</h3>
+          <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">×</button>
+        </div>
+        <div class="modal-body" id="imageDownloadBody">
+            <div class="card text-center">
+                <div class="card-header">
+                  <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="cookie-tab" data-toggle="tab" href="#cookie" role="tab" aria-controls="cookie" aria-selected="true">Cookie Policy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="privacy-tab" data-toggle="tab" href="#privacy" role="tab" aria-controls="privacy" aria-selected="false">Privacy Policy</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active PnCPolicy" id="cookie" role="tabpanel" aria-labelledby="cookie-tab">
+                        <span class="cookiesTitle">It is your cookies!</span><br><br>
+
+                        <span style="font-weight:bold;">Do we use cookies?</span><br>
+                        Yes. As described in our Privacy Policy, we use cookies and other technology to ensure the best possible experience for you while  using the eFP-Seq Browser.<br><br>
+
+                        <span style="font-weight:bold;">What Are Cookies?</span><br>                        
+                        A cookie is a small file of information sent to your browser whenever you visit a website. These tiny files are used to store information about you and your preferences while you visit a site. This information is then used to give you the same or similar experience as you had before when you visit the site again. <br><br>
+
+                        <span style="font-weight:bold;">What cookies do we use?</span><br>                    
+                        The following table below describes most of the cookies we intentionally use in the eFP-Seq Browser. These may include third-party cookies.<br><br>
+                        <table>
+                          <tr>
+                            <th>Category of Use</th>
+                            <th>Description</th>
+                          </tr>
+                          <tr>
+                            <td>Account related cookies</td>
+                            <td>Of you create an account with us, we will use cookies to manage the signup and login/admission process. These cookies can be used to keep you logged in or keep any preferences you had from your previous visit.</td>
+                          </tr>
+                          <tr>
+                            <td>Google Analytics</td>
+                            <td>
+                              The eFP-Seq Browser uses Google Analytics (a trusted analytics platform) to help understand how you use our site and to help us then improve your quality and experience with our web-tool. These cookies may track things such as how long you spend using the eFP-Seq Browser.<br>
+                            
+                              For more information on Google Analytics cookies, see the official <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener">Google Analytics page</a>.
+                            </td>
+                          </tr>
+                        </table>                        	
+                        <br>               
+                        
+                        <span style="font-weight:bold;">Disabling Cookies</span><br>                        
+                        Most browsers allow you to control cookies through its setting preferences. Be aware, disabling cookies may affect the functionality of the eFP-Seq Browser and many other sites that you visit. It is recommended that you do not disable your cookies.
+                        You can learn more about how to manage your cookies by either following for the <a href="https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DDesktop&hl=en" target="_blank" rel="noopener">hyperlink for Chrome</a><span id="notChrome"></span>.<br><br>
+
+                        <span style="font-weight:bold;">More Information</span><br>                        
+                        We hope this clarifies information about cookies. However, if you are still looking for more information then you can contact us through one of our preferred contact methods:
+                        <ul>
+                          <li>Email: <a href="mailto:nicholas.provart@utoronto.ca">nicholas.provart@utoronto.ca</a></li>
+                          <li>Twitter: <a href="https://twitter.com/BAR_PlantBio" target="_blank" rel="noopener">@BAR_PlantBio</a></li>
+                        </ul>
+                        <br>
+                    </div>
+                    <div class="tab-pane fade PnCPolicy" id="privacy" role="tabpanel" aria-labelledby="privacy-tab">
+                        <span class="cookiesTitle">Your Privacy Matters!</span><br><br>
+
+                        Your privacy online and through our services is important. With the eFP-Seq Browser, we provide you with a free service which allows you to visualize and analyze your RNA seq-based genomic information. This Privacy Policy applies to the use of this service.<br><br>
+                        
+                        <ol>
+                          <li><span style="font-weight:bold;">What we collect?</span>
+                            <ol>
+                              <li><span style="font-weight:bold;">Upon Registration</span></li>
+                              <p>
+                                  <span style="font-weight:bold;">Account:</span>
+                                  Upon registration and creation of your account through Google Services (Google Identity/Authentication), you provide us with your Google-associated email address as well as your first and last name registered to your Google-associated email address. <br>
+                                  <span style="font-weight:bold;">Uploading data:</span>
+                                  Upon uploading data, (meta-data about a set of samples), the information related to those data is stored on our servers with repository links to your associated RNA-seq BAM files. The RNA-seq BAM files themselves are not stored on our servers.
+                                  <br>If you chose to delete a selected data set from your account, the associated information about that data set will also be deleted from our servers.
+                              </p>
+                              <li><span style="font-weight:bold;">Upon Using Our Service</span></li>
+                              <p>
+                                  Upon using our service, we collect the following information through Google Analytics about you: 
+                                  <ul>
+                                    <li style="font-weight:normal;">Which browser you are using</li>
+                                    <li style="font-weight:normal;">What operating system or device you are using with our service</li>
+                                    <li style="font-weight:normal;">Location</li>
+                                    <li style="font-weight:normal;">Behaviour and engagement on our site </li>
+                                  </ul>
+                                  This information is collected anonymously and is not associated with your registered account.
+                              </p>
+                              <li><span style="font-weight:bold;">Cookies</span></li>
+                              <p>
+                                  The eFP-Seq Browser uses cookies and similar technology to recognize you and/or your device. These cookies are to provide you with a better browsing experience. You can see more on our Cookie Policy. You can control your cookies through your browser settings.
+                              </p>
+                              <li><span style="font-weight:bold;">Data Collected from Others</span></li>
+                              <p>
+                                  The University of Toronto may collect other information about you that is not specified through this privacy policy. To find more information about this, please see more at the University of Toronto’s privacy information website: <a href="https://www.utoronto.ca/privacy" target="_blank" rel="noopener">https://www.utoronto.ca/privacy</a>
+                              </p>
+                            </ol>
+                          </li>
+                          <li><span style="font-weight:bold;">How we use your data</span>
+                            <ol>
+                              <li><span style="font-weight:bold;">Account and personal data</span></li>
+                              <p>
+                                  We use the data collected upon registration only to create your associated account. Upon uploading data, (that is, the meta-data for a set of samples), we use this to quickly retrieve information about your associated uploaded data for you to be able to quickly display and analyze the associated RNA-seq BAM files stored in the cloud. <br>
+                                  Your uploaded data can be deleted on request. Please go to the “Account Management” option in the navigation menu to do so.<br>
+                                  None of your information will be sold, distributed or shared by the Bio-Analytic Resource (BAR).
+                              </p>
+                              <li><span style="font-weight:bold;">Information collected upon use of our service</span></li>
+                              <p>
+                                  This information is used to improve the quality and performance of the eFP-Seq Browser. None of your information will be sold, distributed or shared by the Bio-Analytic Resource (BAR).
+                              </p>
+                            </ol>
+                          </li>
+                          <li><span style="font-weight:bold;">Sharing information</span>
+                            <ol>
+                              <li><span style="font-weight:bold;">Your account and personal data</span></li>
+                              <p>
+                                  We do not or will not share, sell or distribute your information. Through our “Account Management” option in the navigation menu, you can download your private information yourself or delete it there.
+                              </p>
+                              <li><span style="font-weight:bold;">Information we collect</span></li>
+                              <p>
+                                  We do not or will not share, sell or distribute your information outside of the Bio-Analytic Resource (BAR). All this information is stored with anonymously with unique IDs.
+                              </p>
+                              <li><span style="font-weight:bold;">Legal disclosure</span></li>
+                              <p>
+                                  It is possible that we may need to disclosure your information when required to by law, subpoena or other legal process. In this case, we will attempt to contact and notify you about these circumstances.
+                              </p>
+                            </ol>
+                          </li>
+                          <li><span style="font-weight:bold;">Your Data</span>
+                            <ol>
+                              <li><span style="font-weight:bold;">Data retained</span></li>
+                              <p>
+                                  Data will be retained and remain on our servers as long as they are active. Currently, there is no expiration data on uploaded data.<br>
+                                  Regarding information stored by Google Analytics, that information is stored for 26 months.
+                              </p>
+                              <li><span style="font-weight:bold;">Right to Access and Control</span></li>
+                              <p>
+                                  When making an account, you will always have the option to delete any uploaded that you chose to. You also have the option to download any data you uploaded as well. We will not restrict access to your own data. If you opt to share your data with BAR users, only meta-data you have provided will be visible to other users.<br>
+                                  Once data have been deleted, they will be removed permanently and cannot be retrieved. 
+                              </p>
+                            </ol>
+                          </li>
+                        </ol>
+                        <br>
+                        It is important to note that our privacy policy is an extension of the <a href="https://www.utoronto.ca/privacy" target="_blank" rel="noopener">University of Toronto Privacy Policy</a> and is exclusive to the <a href="https://bar.utoronto.ca/" target="_blank" rel="noopener">Bio-Analytic Resource (BAR)</a> and it’s <a href="https://bar.utoronto.ca/eFP-Seq_Browser/" target="_blank" rel="noopener">eFP-Seq Browser</a>.                        
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="modal-footer modal-footer-colour">
+          <button type="button" class="btn btn-default modal-close" data-dismiss="modal" id="closemodal_DownloadImage">Close</button>
+        </div>            
       </div>
     </div>
   </div>
