@@ -872,6 +872,8 @@
                       </p>
                     </p>
                   </div>
+                  <br>
+                  If you are curious about our privacy or cookie policy, you can <a data-toggle="modal" data-target="#PnCModal" id="help_button" style="cursor: help; color: #0673e8;" onclick="DetectBrowser()">click here to learn more</a>.
                 </div>
               </div>
             </div>
@@ -890,8 +892,6 @@
                   We welcome feedback on the eFP-Seq Browser to <a href="mailto:nicholas.provart@utoronto.ca">nicholas.provart@utoronto.ca</a>. You can also reach us on Twitter at <a target="_blank" rel="noopener" href="https://twitter.com/BAR_PlantBio">@BAR_PlantBio</a>
                   <br><br> 
                   Also, if found any bugs, would like any features added to accommodate your needs or we would simply like to tell us how much you enjoyed using the eFP-Seq Browser, feel free to email or Tweet at us.
-                  <br><br>
-                  If you are curious about our privacy or cookie policy, you can <a data-toggle="modal" data-target="#PnCModal" id="help_button" style="cursor: help; color: #0673e8;" onclick="DetectBrowser()">click here to learn more</a>.
                 </div>
               </div>
             </div>
@@ -1195,16 +1195,23 @@
             <a class="downloadfile" href="#" id="downloadXML"><button id="downloadXML_button" download hidden>Download file</button></a>
             <!-- Download selected dataset as an CSV/Excel -->
             <button class="btn account_manage_button" onclick="download_XMLtableCSV();" id="downloadAsCSV_button">Download as CSV</button>
-            <!-- Delete selected datasets-->
-            <button class="btn account_manage_button_delete" onclick="showWarning_index()" id="deleteXML_button" style="margin-left:1%;">Delete dataset</button>
-            <div class="warning_nope_index" id="warning_index">
+            <!-- Delete selected datasets -->
+            <button class="btn account_manage_button_delete" onclick="showWarning_index(01)" id="deleteXML_button" style="margin-left:1%;">Delete dataset</button>
+            <div class="warning_nope_index" id="warning_index_xml">
               <strong>Warning!</strong> Are you sure you wish to delete the selected data from your private account?
-              <span class="warning_button_index" onclick="hideWarning_index()" style="margin-top:3px;"> No </span>
-              <span class="warning_button_index modal-close" onclick="delete_selectedXML(); delete_fill(); hideWarning_index();" data-dismiss="modal" style="margin-top:3px;"> Yes </span>
+              <span class="warning_button_index" onclick="hideWarning_index(01)"> No </span>
+              <span class="warning_button_index modal-close" onclick="delete_selectedXML(); delete_fill(); hideWarning_index();" data-dismiss="modal"> Yes </span>
             </div>
             <p style="font-size: 0.7em;"> The following XML to CSV conversion was created using
               <a href="https://github.com/cyriac/jquery.tabletoCSV" target="_blank" rel="noopener">Cryiac Thomas' tabletoCSV function</a>
             </p>
+            <!-- Delete account -->
+            <button class="btn account_manage_button_delete" onclick="showWarning_index(02)" id="deleteXML_button" style="margin-left:1%;">Delete Account</button>
+            <div class="warning_nope_index" id="warning_index_account">
+              <strong>Warning!</strong> Are you sure you wish to delete your account? This is a permanent choice and you will not be able to recover anything once done.
+              <span class="warning_button_index" onclick="hideWarning_index(02)"> No </span>
+              <span class="warning_button_index modal-close" onclick="confirm_deleteUser();" data-dismiss="modal"> Yes </span>
+            </div>
           </div>
         </div>
         <div class="modal-footer modal-footer-colour">

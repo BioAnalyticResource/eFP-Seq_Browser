@@ -7,7 +7,6 @@ var legacy = false;
 
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
-
 var locus; 
 if (document.getElementById("locus") != null) {
   locus = document.getElementById("locus").value;
@@ -112,13 +111,19 @@ function checkmobile() {
       document.getElementById("correctspacing").style.display = "block";
       document.getElementById("butbarborder").style.display = "block";
       document.getElementById("uploaddata").style.display = "block";
-      if (users_email != "") {
-        document.getElementById("google_iden_login_button").style.display = 'none';
-        document.getElementById("google_iden_logout_button").style.display = '';
+      if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+        if (users_email != "") {
+          document.getElementById("google_iden_login_button").style.display = 'none';
+          document.getElementById("google_iden_logout_button").style.display = '';
+        }
+        else if (users_email == "") {
+          document.getElementById("google_iden_login_button").style.display = '';
+          document.getElementById("google_iden_logout_button").style.display = 'none';
+        }
       }
-      else if (users_email == "") {
-        document.getElementById("google_iden_login_button").style.display = '';
-        document.getElementById("google_iden_logout_button").style.display = 'none';
+      else if (users_email != "") {
+        signOut();
+        alert("Error occurred with your account, you have now been logged out. Please log back in");
       }
       document.getElementById("generatedata").style.display = "block";
       document.getElementById("publicdatabase").className = "col-md-6 col-xs-3 dropdown";
@@ -1472,7 +1477,7 @@ var title_list = [];
 */
 function get_user_XML_display() {
   // First check to make sure there is is a user logged in or else this script will not run
-  if (users_email != "" || users_email != undefined || users_email != null) {
+  if ((users_email != "" || users_email != undefined || users_email != null) && (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3)) {
     $.ajax({
       url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml_list.php?user=" + users_email,
       dataType: 'json',
@@ -1548,6 +1553,10 @@ function get_user_XML_display() {
       }
     })
   }
+  else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+    signOut();
+    alert("Error occurred with your account, you have now been logged out. Please log back in");
+  }
 }
 
 /**
@@ -1613,12 +1622,16 @@ function DatalistXHRCall(datalist) {
  * Checks if the user is logged in or not
  */
 function check_if_Google_login() {
-  if (users_email != "") {
+  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
     if (databasesAdded === false) {
       document.getElementById("private_dataset_header").style.display = 'block';
       get_user_XML_display();
     }
-  } 
+  }
+  else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+    signOut();
+    alert("Error occurred with your account, you have now been logged out. Please log back in");
+  }
   else {
     remove_private_database();
   }
@@ -1633,19 +1646,7 @@ function add_user_xml_by_upload() {
   setTimeout(function() {
     if (user_exist == false) {
       // Creates a new user if the user does not already exist
-      $.ajax({
-        method: "POST",
-        url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
-        data: {
-          user: users_email,
-          xml: upload_src,
-          title: xmlTitleName
-        }
-      })
-    }
-    else if (user_exist == true) {
-      if (dataset_dictionary[xmlTitleName] == undefined) {
-        // If the file does not already exist in the account, add it
+      if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
         $.ajax({
           method: "POST",
           url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
@@ -1656,23 +1657,53 @@ function add_user_xml_by_upload() {
           }
         })
       }
-      else if (dataset_dictionary[xmlTitleName] != undefined) {
-        // reset variables for get_user_XML_display
-        list_modified = false;
-        check_for_change = 0;
-        // If the file does already exist in the account, delete old and add new
-        $.ajax({
-          url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[xmlTitleName]
-        })
-        $.ajax({
-          method: "POST",
-          url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
-          data: {
-            user: users_email,
-            xml: upload_src,
-            title: xmlTitleName
-          }
-        })
+      else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+        signOut();
+        alert("Error occurred with your account, you have now been logged out. Please log back in");
+      }      
+    }
+    else if (user_exist == true) {
+      if (dataset_dictionary[xmlTitleName] == undefined) {
+        // If the file does not already exist in the account, add it
+        if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+          $.ajax({
+            method: "POST",
+            url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
+            data: {
+              user: users_email,
+              xml: upload_src,
+              title: xmlTitleName
+            }
+          })
+        }
+        else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+          signOut();
+          alert("Error occurred with your account, you have now been logged out. Please log back in");
+        }     
+      }
+      else if (dataset_dictionary[xmlTitleName] != undefined) {        
+        if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+          // reset variables for get_user_XML_display
+          list_modified = false;
+          check_for_change = 0;
+          // If the file does already exist in the account, delete old and add new
+          $.ajax({
+            url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[xmlTitleName]
+          })
+          $.ajax({
+            method: "POST",
+            url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
+            data: {
+              user: users_email,
+              xml: upload_src,
+              title: xmlTitleName
+            }
+          })
+        }
+        else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+          signOut();
+          alert("Error occurred with your account, you have now been logged out. Please log back in");
+        }        
       }
     }
     get_user_XML_display(); // Update data again
@@ -1683,9 +1714,14 @@ function add_user_xml_by_upload() {
 * UI function: If logged in, upload to account vs not
 */
 function which_upload_option() {
-  if (users_email != "") {
+  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
     document.getElementById("upload_modal").click();
-  } else if (users_email == "") {
+  } 
+  else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+    signOut();
+    alert("Error occurred with your account, you have now been logged out. Please log back in");
+  } 
+  else if (users_email == "") {
     document.getElementById("upload_logX").click();
   }
 }
@@ -1753,7 +1789,7 @@ function disableDeletePublic() {
 function delete_selectedXML() {
   for (i = 0; i < title_list.length; i++) {
     var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
-    if (document.getElementById(deleteBox_id).checked == true) {
+    if (document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
       $.ajax({
         url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
       });
@@ -1762,27 +1798,88 @@ function delete_selectedXML() {
   databasesAdded = false;
 }
 
-var warningActive_index = "nope";
 /**
-* Show warning before making permanent decision
-*/
-function showWarning_index() {
-  if (isDeletePublicDisabled == false) {
-    if (warningActive_index == "nope") {
-      document.getElementById("warning_index").className = "warning_index";
-      warningActive_index = "yes";
-    } else if (warningActive_index == "yes") {
-      hideWarning_index();
+ * Confirm the action of delete all users and if so, begin deletion process
+ */
+function confirm_deleteUser() {
+  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+    delete_allXMLs(gapi.auth2.getAuthInstance().currentUser.Ab.w3.Eea);
+  }
+}
+
+/**
+ * Delete all XMLs related to an account
+ * @param {String} verify Verification code related to an account
+ */
+function delete_allXMLs(verify) {
+  if (verify === gapi.auth2.getAuthInstance().currentUser.Ab.w3.Eea) {
+    for (i = 0; i < title_list.length; i++) {
+      var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
+      if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+        $.ajax({
+          url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
+        });
+      }
+    }
+    delete_user();
+    databasesAdded = false;
+  }  
+}
+
+/**
+ * Delete the currently logged in user from the BAR
+ */
+function delete_user() {
+  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+    $.ajax({
+      url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_user.php?user=" + users_email
+    });
+  }
+  signOut();
+}
+
+var warningActive_index_XML = "nope";
+var warningActive_index_account = "nope";
+/**
+ * Show warning before making permanent decision
+ * @param {Number} whichWarning Which warning to be displayed? 01 for XML, 02 for accounts
+ */
+function showWarning_index(whichWarning) {
+  if (whichWarning === 01) { // Delete single XML
+    if (isDeletePublicDisabled == false) {
+      if (warningActive_index_XML == "nope") {
+        document.getElementById("warning_index_xml").className = "warning_index";
+        warningActive_index_XML = "yes";
+      } 
+      else if (warningActive_index_XML == "yes") {
+        hideWarning_index(whichWarning);
+      }
+    }
+  }
+  else if (whichWarning === 02) { // Delete account
+    if (warningActive_index_account == "nope") {
+      document.getElementById("warning_index_account").className = "warning_index";
+      warningActive_index_account = "yes";
+    } 
+    else if (warningActive_index_account == "yes") {
+      hideWarning_index(whichWarning);
     }
   }
 }
 
 /**
 * Hide warning of permanent decision
+ * @param {Number} whichWarning Which warning to be displayed? 01 for XML, 02 for accounts
 */
-function hideWarning_index() {
-  document.getElementById("warning_index").className = "warning_nope_index";
-  warningActive_index = "nope";
+function hideWarning_index(whichWarning) {
+  if (whichWarning === 01) { // Delete single XML
+    document.getElementById("warning_index_xml").className = "warning_nope_index";
+    warningActive_index_XML = "nope";
+  }
+  else if (whichWarning === 02) { // Delete account
+    document.getElementById("warning_index_account").className = "warning_nope_index";
+    warningActive_index_account = "nope";
+  }
 }
 
 /**
