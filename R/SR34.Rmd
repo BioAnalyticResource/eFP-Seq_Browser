@@ -1,0 +1,184 @@
+---
+title: "Investigate correlation between RNA-Seq coverage from one data set and a gene model"
+author: "Ann Loraine"
+date: "1/9/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include=FALSE}
+gene_model_id="AT1G02840.1"
+gene_name="SR34"
+gene_model_url="http://igbquickload.org/quickload/A_thaliana_Jun_2009/Araport11.bed.gz"
+gene_model_file=tail(unlist(strsplit(gene_model_url,split = "/")),n=1)
+bam_url="http://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/pollen/SRR847501/accepted_hits.bam"
+dataset="SRR847501 Mature pollen"
+```
+
+## Introduction
+
+This Markdown:
+
+* shows how to retrieve RNA-Seq coverage data and gene structure data for a gene model 
+
+* compares methods for calculating correlation between RNA-Seq coverage data and a gene model
+
+### About the data
+
+RNA-Seq alignments data are stored as BAM format files in Amazon S3 buckets. For listing of available files, see xml files in ../cgi-bin/data. The data set shown here is labeled as Mature Pollen in the eFP-Seq Browser. The eFP-Seq browser reports its correlation (PCC) as 0.73.
+
+Gene model data are stored as BED format in IGB Quickload subversion repository https://svn.bioviz.org/viewvc/genomes/quickload/, deployed on an [IGB Quickload site](http://igbquickload.org/quickload). 
+
+As a proof of concept, we retrieve gene model and alignment data
+for one gene model (`r gene_name`, `r gene_model_id`) and one data set (`r dataset`).
+
+The alignment file URL is:
+
+* `r bam_url`
+
+The gene models file URL is:
+
+* `r gene_model_url`
+
+### Dependencies
+
+To knit this Markdown, you need the following utilities installed in system PATH:
+
+* samtools - http://www.htslib.org/
+* bedtools - https://bedtools.readthedocs.io/en/latest/
+
+*Note*: To find out what directories on your system are in the system PATH and therefore accessible from within R, run this command at the console:
+
+```{r}
+# system("echo $PATH")
+```
+
+## Analysis and Results
+
+Read gene model data:
+
+```{r message=FALSE, warning=FALSE}
+if (!file.exists(gene_model_file)) {
+  download.file(gene_model_url,gene_model_file)
+}
+models=read.delim2(gene_model_file,header=F,
+                   quote="",as.is = T)[,c(1,2,3,4,6,11,12)]
+names(models)=c("seq","start","end","name","strand",
+                "exon_sizes","exon_starts")
+model=models[models$name==gene_model_id,]
+start=model$start
+end=model$end
+```
+
+Get number of reads per genomic position from BAM data:
+
+```{r}
+region=paste0(model$seq,":",model$start,"-",model$end)
+command=paste("samtools view -b",bam_url,region,"| bedtools genomecov -dz -split -ibam stdin")
+output=read.table(text=system(command,intern=T))[,2:3]
+names(output)=c("chr.positions","num.alignments")
+# relative to first transcribed base, inclusive
+output$tx.positions=output$chr.positions-start+1
+```
+
+Sometimes samtools returns reads that extend beyond the requested region. When this happens, first and final values in tx.positions column may be negative. 
+
+
+```{r}
+v = (output$tx.positions<1)+
+  (output$tx.positions>(end-start))
+answer=ifelse(any(v>=1),"Yes","No")
+```
+
+Did that happen here? `r answer`.
+
+If yes, remove those rows:
+
+```{r}
+if (answer == "Yes") {
+  output=output[v==0,]
+}
+``` 
+
+Coverage data from genomeCoverageBed may omit positions with zero overlapping read alignments - zero counts. (I may be mis-understanding the documentation.) However, to compute correlation with gene structure data, we need those zero-expression positions to be included.
+
+Create vector listing number of reads per position, for every position, including positions with zero reads:
+
+```{r}
+coverage=rep(0,end-start)
+coverage[output$tx.positions]=output$num.alignments
+```
+
+To be representative and useful, the coverage data for this gene model should include a variety of expression values, in a bi-model distribution. There should be many positions for which coverage is zero (introns) and many positions for which coverage fluctuates around a mean (exons). 
+
+View the distribution of coverage values using a histogram:
+
+```{r fig.height=5, fig.width=6}
+h=hist(coverage,plot=F)
+ylim1=0
+ylim2=max(h$counts)+500
+plot(h,ylim=c(ylim1,ylim2),labels=T)
+```
+
+The preceding plot shows a bimodel distribution, with the number of bases with zero coverage outnumbering bases with some coverage, which is low to moderate. The zero coverage bases mainly are from introns within the gene model. Introns with read coverage indicate inconsistency between the gene model and RNA-Seq expression data.
+
+I have not viewed many of these plots. However, I think this gene and this data set provide an acceptable typical example. 
+
+To compute correlations between coverage (reads per base) and whether or not a given base is exonic, intronic, or exterior, we need to also calculate a vector containing 1's indicating exonic sequence and 0's for everything else. 
+
+Note that our method of calulating coverage ensures that no exterior positions are included.
+
+Calculate vector of 0's and 1's indicating exonic positions:
+
+```{r}
+positions=rep(0,end-start)
+exon_sizes=as.numeric(unlist(strsplit(model$exon_sizes,",")))
+exon_starts=as.numeric(unlist(strsplit(model$exon_starts,",")))
+for (i in 1:length(exon_sizes)) {
+  exon_size = exon_sizes[i]
+  exon_start = exon_starts[i]
+  positions[seq(exon_start+1,exon_start+exon_size)]=1
+}
+
+```
+
+Calculate [point biserial correlation](https://www.rdocumentation.org/packages/ltm):
+
+```{r message=FALSE, warning=FALSE}
+library(ltm)
+pbc=biserial.cor(coverage,positions,level=2)
+```
+
+The point biserial correlation is: `r pbc`.
+
+It is of interest to compare this value to Pearson's correlation coefficient, where 0's are replaced with 10 and 1's are replaced with 100 in the positions vector, as follows:
+
+```{r}
+positions2=ifelse(positions==0,10,100)
+pcc=cor(coverage,positions2)
+```
+
+Calculating Pearson's correlation coefficient (PCC) using indicator variables 0 and 1:
+
+```{r}
+pcc=cor(coverage,positions)
+```
+
+This second calculation of Pearson's correlation coefficient (PCC) yields `r pcc`.
+
+The three correlation calculations produced the same result. 
+
+## Conclusions
+
+We showed how to calculate correlation for gene model using an RNA-Seq data set hosted in S3 and R functions.
+
+We showed that for this gene model and this data set, three methods of calculating correlation produced identical results. 
+
+## Discussion
+
+Correlation may depend on uniformity (lack of variance) in expression across exons, which may not be relevant to the question of how well (or not) a given data set supports or is consistent with a gene model. This lack of uniformity may increase when overall expression decreases. If so, this means that correlation metrics as a tool for assessing correspondence between data sets and gene models may need to be calibrated by overall expression level.
+
+We noted that samtools can return reads that extend beyond the requested region. This occurs when a gene model's annotated start and stop of transcription are too large or too small respectively. The correlations as we have calcualted them above ignore those alignments beyond the boundaries of the gene model. Thus, this metric addresses correspondence between splicing patterns and RNA-Seq data only. 
