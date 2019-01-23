@@ -280,31 +280,53 @@
         <a class="tableToggle" data-toggle="dropdown" id="tableToggle" title="Toggle on/off columns in RNA-table" style="display: none;">
           <i class="material-icons" style="-webkit-transform: scaleY(-1);transform:scaleY(-1);">settings</i>
         </a>
-        <ul class="dropdown-menu" style="font-size: 12px; width: 190px; transform: translate3d(1198px, 749px, 0px) !important;">
-          <li class="form-check">
-            <input class="form-check-input" type="checkbox" id="toggleTitle" onclick="toggleTableCol('colTitle', document.getElementById('toggleTitle').checked); RememberToggleOptions(document.getElementById('toggleTitle').checked, ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleTitle" checked>
-            <p class="form-check-label" for="toggleTitle" style="padding-left: 20px; font-weight: 10;">Toggle Title</p>
-          </li>
-          <li class="form-check">
-            <input class="form-check-input" type="checkbox" id="toggleRNA" onclick="toggleTableCol('colRNA', document.getElementById('toggleRNA').checked); RememberToggleOptions(ToggledTable[0], document.getElementById('toggleRNA').checked, ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRNA" checked>
-            <p class="form-check-label" for="toggleRNA" style="padding-left: 20px; font-weight: 10;">Toggle RNA-Seq Coverage</p>
-          </li>
-          <li class="form-check">
-            <input class="form-check-input" type="checkbox" id="togglePCC" onclick="toggleTableCol('colPCC', document.getElementById('togglePCC').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], document.getElementById('togglePCC').checked, ToggledTable[3], ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="togglePCC" checked>
-            <p class="form-check-label" for="togglePCC" style="padding-left: 20px; font-weight: 10;">Toggle PCC</p>
-          </li>
-          <li class="form-check">
-            <input class="form-check-input" type="checkbox" id="toggleeFP" onclick="toggleTableCol('coleFP', document.getElementById('toggleeFP').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2],document.getElementById('toggleeFP').checked,  ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleeFP" checked>
-            <p class="form-check-label" for="toggleeFP" style="padding-left: 20px; font-weight: 10;">Toggle eFP</p>
-          </li>
-          <li class="form-check">
-            <input class="form-check-input" type="checkbox" id="toggleRPKM" onclick="toggleTableCol('colRPKM', document.getElementById('toggleRPKM').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], document.getElementById('toggleRPKM').checked, ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRPKM" checked>
-            <p class="form-check-label" for="toggleRPKM" style="padding-left: 20px; font-weight: 10;">Toggle RPKM</p>
-          </li>
-          <li class="form-check">
-            <input class="form-check-input" type="checkbox" id="toggleDetails" onclick="toggleTableCol('colDetails', document.getElementById('toggleDetails').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], document.getElementById('toggleDetails').checked); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleDetails" checked>
-            <p class="form-check-label" for="toggleDetails" style="padding-left: 20px; font-weight: 10;">Toggle Details</p>
-          </li>
+        <ul id="filterDropdown" class="dropdown-menu" style="font-size: 12px; width: 25%; transform: translate3d(1198px, 749px, 0px) !important; min-width: 280px;">
+          <div class="card text-center">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" id="tableFilter-tab" data-toggle="tab" href="#tableFilter" role="tab" aria-controls="tableFilter" aria-selected="true" onclick="setTimeout(function() {document.getElementById('tableToggle').click();}, 100)">Filter Table</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="eFPFilter-tab" data-toggle="tab" href="#eFPFilter" role="tab" aria-controls="eFPFilter" aria-selected="false" onclick="setTimeout(function() {document.getElementById('tableToggle').click();}, 100)">Filter eFP Images</a>
+                </li>
+              </ul>
+            </div>
+            <div class="tab-content" id="tableFilterTabContent">
+              <!-- Filter table content -->
+              <div class="tab-pane fade show active PnCPolicy" id="tableFilter" role="tabpanel" aria-labelledby="tableFilter-tab">
+                <li class="form-check">
+                  <input class="form-check-input" type="checkbox" id="toggleTitle" onclick="toggleTableCol('colTitle', document.getElementById('toggleTitle').checked); RememberToggleOptions(document.getElementById('toggleTitle').checked, ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleTitle" checked>
+                  <p class="form-check-label" for="toggleTitle" style="padding-left: 20px; font-weight: 10;">Toggle Title</p>
+                </li>
+                <li class="form-check">
+                  <input class="form-check-input" type="checkbox" id="toggleRNA" onclick="toggleTableCol('colRNA', document.getElementById('toggleRNA').checked); RememberToggleOptions(ToggledTable[0], document.getElementById('toggleRNA').checked, ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRNA" checked>
+                  <p class="form-check-label" for="toggleRNA" style="padding-left: 20px; font-weight: 10;">Toggle RNA-Seq Coverage</p>
+                </li>
+                <li class="form-check">
+                  <input class="form-check-input" type="checkbox" id="togglePCC" onclick="toggleTableCol('colPCC', document.getElementById('togglePCC').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], document.getElementById('togglePCC').checked, ToggledTable[3], ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="togglePCC" checked>
+                  <p class="form-check-label" for="togglePCC" style="padding-left: 20px; font-weight: 10;">Toggle PCC</p>
+                </li>
+                <li class="form-check">
+                  <input class="form-check-input" type="checkbox" id="toggleeFP" onclick="toggleTableCol('coleFP', document.getElementById('toggleeFP').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2],document.getElementById('toggleeFP').checked,  ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleeFP" checked>
+                  <p class="form-check-label" for="toggleeFP" style="padding-left: 20px; font-weight: 10;">Toggle eFP</p>
+                </li>
+                <li class="form-check">
+                  <input class="form-check-input" type="checkbox" id="toggleRPKM" onclick="toggleTableCol('colRPKM', document.getElementById('toggleRPKM').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], document.getElementById('toggleRPKM').checked, ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRPKM" checked>
+                  <p class="form-check-label" for="toggleRPKM" style="padding-left: 20px; font-weight: 10;">Toggle RPKM</p>
+                </li>
+                <li class="form-check">
+                  <input class="form-check-input" type="checkbox" id="toggleDetails" onclick="toggleTableCol('colDetails', document.getElementById('toggleDetails').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], document.getElementById('toggleDetails').checked); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleDetails" checked>
+                  <p class="form-check-label" for="toggleDetails" style="padding-left: 20px; font-weight: 10;">Toggle Details</p>
+                </li>
+              </div>
+              <!-- Filter eFP content -->
+              <div class="tab-pane fade PnCPolicy" id="eFPFilter" role="tabpanel" aria-labelledby="eFPFilter-tab">
+                <nav class="navScroll" id="filtereFPList">                                  
+                </nav>                
+              </div>
+            </div>
+          </div>
         </ul>
       </div>
       <script>
@@ -350,10 +372,10 @@
   <div id="PrivacyAndCookies" class="PnC">
     <div class="container-fluid">
         <div class="row">
-            <div id="PnCText" class="col-xs-11 PnCText">
+            <div id="PnCText" class="col-xs-10 PnCText">
                 The eFP-Seq Browser uses cookies to improve your experience with our tool. <a data-toggle="modal" data-target="#PnCModal" id="help_button" style="cursor: help; color: #0673e8;" onclick="DetectBrowser()">Click here to learn more</a>
             </div>
-            <div id="PnCClose" class="col-xs-1 PnCClose">
+            <div id="PnCClose" class="col-xs-2 PnCClose">
                 <button class="btn btn-success" style="font-size:1em;" onclick="PnCDisappear()">Close</button>
             </div>
         </div>
@@ -583,12 +605,18 @@
                       <p class="HelpNoteBottom"> If the image looks stretched in the "Download table as an image" module, do not worry, it is just being displayed like that because of the browser. It will not look like that when downloaded. </p>
                     </p>
                   </div>
-                  <br><br>
+                  <br>
                   <span style="font-weight: bold; font-size: 1.2em;">Toggle the RNA Table</span>
                   <br><br> 
-                  You can toggle which columns you would like to see in RNA table by clicking on the "gears"/settings icon on the bottom right of the screen once a dataset has been loaded. Just check any box off that you would not like to see and that image will be toggled off (or check a box that you do want to keep displayed and it will show).
+                  You can toggle which columns you would like to see in RNA table by clicking on the "gears"/settings icon on the bottom right of the screen once a dataset has been loaded and then clicking on the "Filter Table" tab (this is the default tab when opening the RNA-table's settings). Just check any box off that you would not like to see and that image will be toggled off (or check a box that you do want to keep displayed and it will show).
                   <br><br>
                   <img class="helpCardImages" src="cgi-bin\img\helpModal\0017_toggleTable.png" alt="Help image for toggling the RNA Table as an image was not able to load"style="max-width: 100%;">
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Filter eFP Images</span>
+                  <br><br> 
+                  You can also toggle and filter which eFP images you would like to see in RNA table by clicking on the "gears"/settings icon on the bottom right of the screen once a dataset has been loaded and then clicking on the "Filter eFP Images" tab. Just check any box off that you would not like to see and that image will be toggled off (or check a box that you do want to keep displayed and it will show).
+                  <br><br>
+                  <img class="helpCardImages" src="cgi-bin\img\helpModal\0019_eFPImagesFilter.png" alt="Help image for toggling and filtering eFP images from the RNA-table"style="max-width: 100%;">
                   <br>
                 </div>
               </div>
@@ -873,6 +901,17 @@
                     </p>
                   </div>
                   <br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Deleting your account</span>
+                  <br><br> 
+                  If you wish to delete your account, you can do so whenever you are logged into your account and then simply open the "Manage account" option and click the "Delete Account" button. This will promt a warning and confirmation before you are able to fully delete your account. 
+                  <br>
+                  <div id="loadDataTip_ManageAccountDeletion" class="HelpNoteDiv">
+                    <p class="HelpNoteTop">
+                      <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
+                      <p class="HelpNoteBottom"> If you chose to delete your account, this action is permanent and you cannot recover your account or its data once it has been deleted.
+                      </p>
+                    </p>
+                  </div>
                   If you are curious about our privacy or cookie policy, you can <a data-toggle="modal" data-target="#PnCModal" id="help_button" style="cursor: help; color: #0673e8;" onclick="DetectBrowser()">click here to learn more</a>.
                 </div>
               </div>
@@ -994,7 +1033,7 @@
           <h3>Cookie and Privacy Policy</h3>
           <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">×</button>
         </div>
-        <div class="modal-body" id="imageDownloadBody">
+        <div class="modal-body" id="PnCBody">
             <div class="card text-center">
                 <div class="card-header">
                   <ul class="nav nav-tabs card-header-tabs">
@@ -1196,11 +1235,11 @@
             <!-- Download selected dataset as an CSV/Excel -->
             <button class="btn account_manage_button" onclick="download_XMLtableCSV();" id="downloadAsCSV_button">Download as CSV</button>
             <!-- Delete selected datasets -->
-            <button class="btn account_manage_button_delete" onclick="showWarning_index(01)" id="deleteXML_button" style="margin-left:1%;">Delete dataset</button>
+            <button class="btn account_manage_button_delete" onclick="var check = CheckIfSelectedXML(); if (check === true) {showWarning_index(01)}" id="deleteXML_button" style="margin-left:1%;">Delete dataset</button>
             <div class="warning_nope_index" id="warning_index_xml">
               <strong>Warning!</strong> Are you sure you wish to delete the selected data from your private account?
               <span class="warning_button_index" onclick="hideWarning_index(01)"> No </span>
-              <span class="warning_button_index modal-close" onclick="delete_selectedXML(); delete_fill(); hideWarning_index();" data-dismiss="modal"> Yes </span>
+              <span class="warning_button_index modal-close" onclick="delete_selectedXML(); delete_fill(); hideWarning_index(01); document.getElementById('closemodal_Logout').click(); get_user_XML_display();" data-dismiss="modal"> Yes </span>
             </div>
             <p style="font-size: 0.7em;"> The following XML to CSV conversion was created using
               <a href="https://github.com/cyriac/jquery.tabletoCSV" target="_blank" rel="noopener">Cryiac Thomas' tabletoCSV function</a>
@@ -1209,8 +1248,8 @@
             <button class="btn account_manage_button_delete" onclick="showWarning_index(02)" id="deleteXML_button" style="margin-left:1%;">Delete Account</button>
             <div class="warning_nope_index" id="warning_index_account">
               <strong>Warning!</strong> Are you sure you wish to delete your account? This is a permanent choice and you will not be able to recover anything once done.
-              <span class="warning_button_index" onclick="hideWarning_index(02)"> No </span>
-              <span class="warning_button_index modal-close" onclick="confirm_deleteUser();" data-dismiss="modal"> Yes </span>
+              <span class="warning_button_index" onclick="hideWarning_index(02);"> No </span>
+              <span class="warning_button_index modal-close" onclick="confirm_deleteUser(); hideWarning_index(02); document.getElementById('closemodal_Logout').click(); get_user_XML_display();" data-dismiss="modal"> Yes </span>
             </div>
           </div>
         </div>

@@ -571,7 +571,7 @@ a {
 
 .PnCClose {
     text-align: right;
-
+    margin: auto;
 }
 
 .PnCPolicy {
@@ -592,4 +592,10 @@ ol li {
 
 li > p {
     font-weight:normal;
+}
+
+.navScroll {
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 173px;
 }

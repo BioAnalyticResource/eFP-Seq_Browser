@@ -560,6 +560,7 @@ function rnaseq_images(status) {
   rnaseq_success = 1;
   match_drive = ["NotGoogleDrive", "NotGoogleDrive"];
   get_input_values();
+  CreateFiltereFPList();
   if (rnaseq_calls.length === count_bam_entries_in_xml) {
     sraList_check = [];
     rnaseq_change = 1;
@@ -703,200 +704,315 @@ function rnaseq_images(status) {
 }
 
 /**
-* Checking to make sure the subunit matches tissue
-* @param {String} svg - SVG name starting with ath- and ending with .svg
-* @param {String} subunit - SVG's subunit
-* @return {String} subunit - The SVG tissue corrected subunit if an error occured, input if not
-*/
-function checkSubunit(svg, subunit) {
+ * Checking to make sure the subunit matches tissue
+ * @param {String} svg SVG name starting with ath- and ending with .svg
+ * @param {String} subunit SVG's subunit
+ * @param {Bool} returnName True = return human readable name, false = return subunit
+ * @return {String} subunit - The SVG tissue corrected subunit if an error occurred, input if not
+ */
+function checkAgainstSVG(svg, subunit, returnName = false) {
   var toReturn = subunit;
   if (svg == "ath-10dayOldSeedling.svg") {
-    if (subunit != "all" && subunit != "root" && subunit != "shoot") {
+    if (returnName === true) {
+      toReturn = "10 Day Old Seedling";
+    }
+    else if (subunit != "all" && subunit != "root" && subunit != "shoot") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-15dayOldSeedling.svg") {
-    if (subunit != "all" && subunit != "root" && subunit != "shoot") {
+    if (returnName === true) {
+      toReturn = "15 Day Old Seedling";
+    }
+    else if (subunit != "all" && subunit != "root" && subunit != "shoot") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-etiolatedSeedling.svg") {
-    if (subunit != "etiolatedseedling") {
+    if (returnName === true) {
+      toReturn = "Etiolated Seedling";
+    }
+    else if (subunit != "etiolatedseedling") {
       toReturn = "etiolatedseedling";
     }
   }
   else if (svg == "ath-Flower.svg") {
-    if (subunit != "flower" && subunit != "receptacle") {
+    if (returnName === true) {
+      toReturn = "Flower";
+    }
+    else if (subunit != "flower" && subunit != "receptacle") {
       toReturn = "flower";
     }
   }
   else if (svg == "ath-FlowerParts.svg") {
-    if (subunit != "all" && subunit != "petals" && subunit != "stamen" && subunit != "sepals" && subunit != "carpels") {
+    if (returnName === true) {
+      toReturn = "Flower Parts";
+    }
+    else if (subunit != "all" && subunit != "petals" && subunit != "stamen" && subunit != "sepals" && subunit != "carpels") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-GerminatingSeed.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Germinating Seed";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-Internode.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Internode";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-leaf.svg") {
-    if (subunit != "leaf") {
+    if (returnName === true) {
+      toReturn = "Leaf";
+    }
+    else if (subunit != "leaf") {
       toReturn = "leaf";
     }
   }
   else if (svg == "ath-LeafParts.svg") {
-    if (subunit != "all" && subunit != "lamina" && subunit != "petiole" && subunit != "veins") {
+    if (returnName === true) {
+      toReturn = "Leaf Parts";
+    }
+    else if (subunit != "all" && subunit != "lamina" && subunit != "petiole" && subunit != "veins") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-Pollen.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Pollen";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-RootTip.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Root Tip";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-rosettePlusRoot.svg") {
-    if (subunit != "all" && subunit != "shoot" && subunit != "root") {
+    if (returnName === true) {
+      toReturn = "Rosette Plus Root";
+    }
+    else if (subunit != "all" && subunit != "shoot" && subunit != "root") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-Seed1-4.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Seed 1-4";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-Seed5-7.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Seed 5-7";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-Seed8+.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Seed 8+";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-SenescentLeaf.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Senescent Leaf";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-ShootApexInflorescense.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Shoot Apex Inflorescense";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-ShootApexVegetative-Transition.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Shoot Apex Vegetative-Transition";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-Silique1-5.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Silique 1-5";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-Silique6-10.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Silique 6-10";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-YoungLeaf1-4.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Young Leaf 1-4";
+    }
+    else if (subunit != "all") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-EarlyBuddingFlower.svg") {
-    if (subunit != "all" && subunit != "shoot" && subunit != "buds") {
+    if (returnName === true) {
+      toReturn = "Early Budding Flower";
+    }
+    else if (subunit != "all" && subunit != "shoot" && subunit != "buds") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-FlowerBud.svg") {
-    if (subunit != "flowerBud") {
+    if (returnName === true) {
+      toReturn = "Flower Bud";
+    }
+    else if (subunit != "flowerBud") {
       toReturn = "flowerBud";
     }
   }
   else if (svg == "ath-Stamen.svg") {
-    if (subunit != "all" && subunit != "anthers" && subunit != "filament") {
+    if (returnName === true) {
+      toReturn = "Stamen";
+    }
+    else if (subunit != "all" && subunit != "anthers" && subunit != "filament") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-StigmaAndOvaries.svg") {
-    if (subunit != "all" && subunit != "Stigma_tissue" && subunit != "Ovary_tissue") {
+    if (returnName === true) {
+      toReturn = "Stigma And Ovaries";
+    }
+    else if (subunit != "all" && subunit != "Stigma_tissue" && subunit != "Ovary_tissue") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-WholeSilique.svg") {
-    if (subunit != "all" && subunit != "silique" && subunit != "seed") {
+    if (returnName === true) {
+      toReturn = "Whole Silique";
+    }
+    else if (subunit != "all" && subunit != "silique" && subunit != "seed") {
       toReturn = "silique";
     }
   }
   else if (svg == "ath-youngSeedling.svg") {
-    if (subunit != "all" && subunit != "root" && subunit != "hypocotyl" && subunit != "cotyledon") {
+    if (returnName === true) {
+      toReturn = "Young Seedling";
+    }
+    else if (subunit != "all" && subunit != "root" && subunit != "hypocotyl" && subunit != "cotyledon") {
       toReturn = "all";
     }
   }
   else if (svg == "ath-FlowerDevelopment1.svg") {
-    if (subunit != "flowerDevelopmentPart1") {
+    if (returnName === true) {
+      toReturn = "Late Flower Development (1)";
+    }
+    else if (subunit != "flowerDevelopmentPart1") {
       toReturn = "flowerDevelopmentPart1";
     }
   }
   else if (svg == "ath-FlowerDevelopment2.svg") {
-    if (subunit != "flowerDevelopmentPart2") {
+    if (returnName === true) {
+      toReturn = "Flower Development 2";
+    }
+    else if (subunit != "flowerDevelopmentPart2") {
       toReturn = "flowerDevelopmentPart2";
     }
   }
   else if (svg == "ath-FlowerDevelopment3.svg") {
-    if (subunit != "flowerDevelopmentPart3") {
+    if (returnName === true) {
+      toReturn = "Flower Development 3";
+    }
+    else if (subunit != "flowerDevelopmentPart3") {
       toReturn = "flowerDevelopmentPart3";
     }
   }
   else if (svg == "ath-FlowerDevelopment4.svg") {
-    if (subunit != "flowerDevelopmentPart4") {
+    if (returnName === true) {
+      toReturn = "Flower Development 4";
+    }
+    else if (subunit != "flowerDevelopmentPart4") {
       toReturn = "flowerDevelopmentPart4";
     }
   }
   else if (svg == "ath-FlowerDevelopment5.svg") {
-    if (subunit != "flowerDevelopmentPart5") {
+    if (returnName === true) {
+      toReturn = "Flower Development 5";
+    }
+    else if (subunit != "flowerDevelopmentPart5") {
       toReturn = "flowerDevelopmentPart5";
     }
   }
   else if (svg == "ath-FlowerDevelopment6-8.svg") {
-    if (subunit != "flowerDevelopmentPart6") {
+    if (returnName === true) {
+      toReturn = "Flower Development 6-8";
+    }
+    else if (subunit != "flowerDevelopmentPart6") {
       toReturn = "flowerDevelopmentPart6";
     }
   }
   else if (svg == "ath-FlowerDevelopment9-11.svg") {
-    if (subunit != "flowerDevelopmentPart9") {
+    if (returnName === true) {
+      toReturn = "Flower Development 9-11";
+    }
+    else if (subunit != "flowerDevelopmentPart9") {
       toReturn = "flowerDevelopmentPart9";
     }
   }
   else if (svg == "ath-FlowerDevelopment12-14.svg") {
-    if (subunit != "flowerDevelopmentPart12") {
+    if (returnName === true) {
+      toReturn = "Flower Development 12-14";
+    }
+    else if (subunit != "flowerDevelopmentPart12") {
       toReturn = "flowerDevelopmentPart12";
     }
   }
   else if (svg == "ath-FlowerDevelopment15-18.svg") {
-    if (subunit != "flowerDevelopmentPart15") {
+    if (returnName === true) {
+      toReturn = "Flower Development 15-18";
+    }
+    else if (subunit != "flowerDevelopmentPart15") {
       toReturn = "flowerDevelopmentPart15";
     }
   }  
   else if (svg == "ath-FlowerDevelopment19.svg") {
-    if (subunit != "flowerDevelopmentPart19") {
+    if (returnName === true) {
+      toReturn = "Flower Development 19";
+    }
+    else if (subunit != "flowerDevelopmentPart19") {
       toReturn = "flowerDevelopmentPart19";
     }
   }  
   else if (svg == "ath-Other.svg") {
-    if (subunit != "all") {
+    if (returnName === true) {
+      toReturn = "Other";
+    }
+    else if (subunit != "all") {
       return "all";
     }
   }
@@ -906,6 +1022,7 @@ function checkSubunit(svg, subunit) {
 var sraList = [];
 var sraDict = {};
 var sraCountDic = {};
+var tissueSRADic = {};
 
 var efp_table_column;
 var xmlTitleName = "";
@@ -929,6 +1046,9 @@ function populate_table(status) {
   svg_colouring_element = null;
   gene_structure_colouring_element = null;
   sraList = [];
+  sraDict = {};
+  sraCountDic = {};
+  tissueSRADic = {};
 
   // Creating exon intron scale image
   var img_created = '<img src="' + 'data:image/png;base64,' + exon_intron_scale + '" alt="RNA-Seq mapped image" style="float: right; margin-right: 10px;">';
@@ -977,6 +1097,7 @@ function populate_table(status) {
           sraList.push(experimentno);
           sraDict[experimentno] = {};
         }
+
         // Title
         var title = $(this).attr('description');
         sraDict[experimentno]["title"] = title;
@@ -987,8 +1108,15 @@ function populate_table(status) {
         var svg = $(this).attr('svgname');
         sraDict[experimentno]["svg"] = svg;
         var svg_part = $(this).attr('svg_subunit');
-        svg_part = checkSubunit(svg, svg_part);
+        svg_part = checkAgainstSVG(svg, svg_part);
         sraDict[experimentno]["svg_part"] = svg_part;
+        if (tissueSRADic[checkAgainstSVG(svg, svg_part, true)]) {
+          tissueSRADic[checkAgainstSVG(svg, svg_part, true)].push(experimentno);
+        }
+        else {
+          tissueSRADic[checkAgainstSVG(svg, svg_part, true)] = [experimentno];
+        }
+
         // SRA URL
         var url = $(this).attr('url');
         sraDict[experimentno]["url"] = url;
@@ -1780,7 +1908,24 @@ function disableDeletePublic() {
       }
     }
   }
+}
 
+/**
+ * Check if any XML's from "Manage Account" has been selected or not
+ */
+function CheckIfSelectedXML() {
+  var returnTrue = false;
+  for (i = 0; i < title_list.length; i++) {
+    var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
+    if (document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+      returnTrue = true;
+      return true;
+      break;
+    }
+  }
+  if (returnTrue === false) {
+    return false;
+  }
 }
 
 /**
@@ -2552,6 +2697,42 @@ function DetectBrowser() {
     // make BrowserDetected true so this will not run again
     BrowserDetected = true;
   }  
+}
+
+/**
+ * Create the filtered eFP List
+ */
+function CreateFiltereFPList() {
+  $("#filtereFPList").empty();
+  // Add individual Tissues
+  var allTissuesDisplayed = Object.keys(tissueSRADic);
+  for (i = 0; i < allTissuesDisplayed.length; i++) {
+    var append_str = '<li class="form-check">';
+    append_str += '<input class="form-check-input" type="checkbox" id="' + allTissuesDisplayed[i].replace(" ", "_") + '" onclick="ToggleFilteredeFP(this.id, this.checked);" style="margin: 6px 5px 0;" value="toggleeFP" checked>'
+    append_str += '<p class="form-check-label" for="toggleTitle" style="padding-left: 20px; font-weight: 10;">' + allTissuesDisplayed[i] + '</p>';
+    append_str += '</li>';
+    $("#filtereFPList").append(append_str);
+  }
+}
+
+/**
+ * Toggle eFP (RPKM) rows to visible or not
+ * @param {String} whichToToggle Which tissue to filter in or out
+ * @param {Boolean} OnOrOff True = visible, False = filtered out
+ */
+function ToggleFilteredeFP(whichToToggle, OnOrOff) {
+  var whichSVG = whichToToggle.replace("_", " ");
+  var whichSRA = tissueSRADic[whichSVG];
+  if (OnOrOff === true) {
+    for (i = 0; i < whichSRA.length; i++) {
+      document.getElementById(whichSRA[i] + "_row").removeAttribute("hidden");
+    }    
+  }  
+  else if (OnOrOff === false) {
+    for (i = 0; i < whichSRA.length; i++) {
+      document.getElementById(whichSRA[i] + "_row").setAttribute("hidden", true);
+    }    
+  }
 }
 
 // Whenever browser resized, checks to see if footer class needs to be changed

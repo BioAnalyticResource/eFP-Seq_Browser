@@ -24,6 +24,7 @@ We aim to make the eFP-Seq Browser as perfect as possible but unfortunately, the
 * After generating a new dataset through the "Generate Data" option, the user cannot scroll up without first scrolling down
 * The IGB links do not work with Google Drive repositories 
 * Download page as an image does not render SVGs in Microsoft Edge
+* Some specific resolutions will cause the RNA-table to disappear underneath the navbar menu
 
 ## Contributing
 
