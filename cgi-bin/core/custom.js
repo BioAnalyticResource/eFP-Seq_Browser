@@ -574,7 +574,7 @@ function rnaseq_images(status) {
         var linkString = sraDict[sraList[i]]["drive_link"];
         match_drive = myRegexp.exec(linkString);
       }
-      data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive[1], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, struct: splice_variants, dumpMethod: dumpMethod};
+      data = {status: parseInt(status), numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive[1], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, struct: splice_variants, dumpMethod: dumpMethod};
 
       $.ajax({
         method: 'POST',
@@ -1934,7 +1934,7 @@ function CheckIfSelectedXML() {
 function delete_selectedXML() {
   for (i = 0; i < title_list.length; i++) {
     var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
-    if (document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+    if ((document.getElementById(deleteBox_id) != null) || (document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3)) {
       $.ajax({
         url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
       });
@@ -2089,6 +2089,9 @@ function fill_tableCSV() {
           table_add += "\t\t\t<td>" + bam_type + "</td>\n";
           // BAM/repo type
           var bam_filename = $(this).attr('filename');
+          if (bam_filename === null || bam_filename === undefined || bam_filename === "undefined") {
+            bam_filename = "accepted_hits.bam";
+          }
           table_add += "\t\t\t<td>" + bam_filename + "</td>\n";
           // Publication link
           var publication_link = $(this).attr('publication_link');
@@ -2733,6 +2736,17 @@ function ToggleFilteredeFP(whichToToggle, OnOrOff) {
       document.getElementById(whichSRA[i] + "_row").setAttribute("hidden", true);
     }    
   }
+}
+
+/**
+ * Load newly generated data from the submission page
+ */
+function LoadSubmittedData() {
+  emptyLanding();
+  progress_percent = 0;
+  count_bam_num();
+  generate_loading_screen();
+  update_all_images(0);
 }
 
 // Whenever browser resized, checks to see if footer class needs to be changed

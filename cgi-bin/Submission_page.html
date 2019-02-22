@@ -207,11 +207,10 @@
 
 							<!-- Total reads mapped -->
 							<div class="forminput row">
-								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-total_reads_mapped">Total Reads Mapped<span style="font-weight:bold;">*</span>
-									<span class="sub_tooltip_text">The total amount of reads mapped in your RNA-Seq data without commas. If you do not know how many total reads mapped
-										there are, just insert 0 (NOTE: Inputting 0 will significantly increase load time)</span>
+								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-total_reads_mapped">Total Reads Mapped
+									<span class="sub_tooltip_text">The total amount of reads mapped in your RNA-Seq data without commas. If you do not know how many total reads mapped there are, just insert 0 or leave it blank (NOTE: Inputting 0/nothing will significantly increase load time)</span>
 								</label>
-								<input class="channeltotalreadsmapped col-sm-8 col-xs-8 reqfield readNumberClass input_right inputXMLForm" id="reqread" name="channeltotalreadsmapped" placeholder="Example: 29098868" type="text" data-help-text="total_reads_mapped" />
+								<input class="channeltotalreadsmapped col-sm-8 col-xs-8 readNumberClass input_right inputXMLForm" id="reqread" name="channeltotalreadsmapped" placeholder="Example: 29098868" type="text" data-help-text="total_reads_mapped" />
 								<script>
 									// Code taken from http://stackoverflow.com/questions/7144167/only-allow-english-characters-and-numbers-for-text-input
 									$("#reqread").keypress(function (event) {
@@ -6927,13 +6926,10 @@
 					var generatesrc = '';
 					$(function () {
 						$("#sendXML").click(function () {
-							generatesrc = $('.downloadfile').attr('href');
+							generatesrc = base64;
 							parent.base_src = generatesrc;
-							parent.progress_percent = 0;
-							parent.emptyLanding();
-							parent.generate_loading_screen();
-							parent.update_all_images(0);
-							parent.closeGenerate();
+							parent.LoadSubmittedData();
+							parent.closeGenerate();					
 						});
 					});
 				</script>

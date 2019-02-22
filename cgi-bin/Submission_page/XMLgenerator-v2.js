@@ -4,6 +4,7 @@
 //
 //=============================================================================
 var count_clicks = 1;
+var base64 = '';
 
 // When clicking on the generate data button, the following aggregates all the data and creates the XML
 $(function () {
@@ -23,10 +24,11 @@ $(function () {
     if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield") && check_req_tissue(".reqtissuebutton") && check_links(".channelbamtype", ".bam_link")) {
       $(".Entries").each(function (i, v) {
         formatXML += update(formatXML, v)
-        $('#ResultXml').val(filledbase + formatXML + existingXML + end);
-        $('#DownloadLink').attr('href', 'data:text/xml;base64,' + btoa(filledbase + formatXML + existingXML + end)).attr('download', file_name + '.xml');
-        $('#generated').show();
       });
+      $('#ResultXml').val(filledbase + formatXML + existingXML + end);
+      $('#DownloadLink').attr('href', 'data:text/xml;base64,' + btoa(filledbase + formatXML + existingXML + end)).attr('download', file_name + '.xml');
+      base64 = 'data:text/xml;base64,' + btoa(unescape(encodeURIComponent(filledbase + formatXML + existingXML + end)));
+      $('#generated').show();
     } 
     else {
       if (check_req(".reqfield") == false) {
@@ -248,10 +250,11 @@ function correct_ReadMapCount(class_name) {
   var i;
   var u;
   for (i = 0; i < x.length; i++) {
-    if (x[i].value.length > 0) {
-      x[i].value = x[i].value.trim();
-      x[i].value = only_ReadNum(x[i].value);
+    x[i].value = x[i].value.trim();
+    if (x[i].value === ("" || null || undefined)) {
+      x[i].value = 0;
     }
+    x[i].value = only_ReadNum(x[i].value);
   }
 }
 
@@ -299,10 +302,10 @@ function check_links(bam_name, repo_name) {
           }
         } 
         else if (bam_x[i].value == "Amazon AWS") {
-          if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == true) {
+          if (((x[i].value.includes("amazonaws.com/") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud/")) && (check_amazon_for_bam(x[i].value) == true)) == true) {
             return true;
           } 
-          else if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == false) {
+          else if (((x[i].value.includes("amazonaws.com/") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud/")) && (check_amazon_for_bam(x[i].value) == true)) == false) {
             return false;
           } 
           else {
@@ -472,11 +475,11 @@ function outline_links(bam_name, repo_name) {
           }
         } 
         else if (bam_x[i].value == "Amazon AWS") {
-          if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == true) {
+          if (((x[i].value.includes("amazonaws.com/") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud/")) && (check_amazon_for_bam(x[i].value) == true)) == true) {
             x[i].style.borderColor = null;
             x[i].style.boxShadow = null;
           } 
-          else if ((x[i].value.includes("amazonaws.com/") && (check_amazon_for_bam(x[i].value) == true)) == false) {
+          else if (((x[i].value.includes("amazonaws.com/") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud/")) && (check_amazon_for_bam(x[i].value) == true)) == false) {
             x[i].style.borderColor = "#ff2626";
             x[i].style.boxShadow = "0 0 10px #ff2626";
           }

@@ -96,7 +96,7 @@
   <div id="mainContainer" class="container-fluid">
     <div class="row" id="mainRow" style="display: inline-block;">
       <!-- Navigation menu-->
-      <div class="col-sm-4 col-lg-3 navbar_menu" id="navbar_menu" style="padding-top:1%; overflow-y: auto; overflow-x: hidden;">
+      <div class="col-sm-4 navbar_menu" id="navbar_menu" style="padding-top:1%; overflow-y: auto; overflow-x: hidden; float: left;">
         <!-- Title -->
         <div id="nm_title" style="margin-bottom: 5%; margin-top: 2.5%;">
           <div class="row">
@@ -246,7 +246,7 @@
       </div>
 
       <!-- Displayed information -->
-      <div class="col-sm-8 col-lg-9" style="overflow-y: auto; height:100vh; padding: 0px !important;" id="main_content">
+      <div class="col-sm-8" style="overflow-y: auto; height:100vh; padding: 0px !important;" id="main_content">
         <!-- Landing page -->
         <div id="landing" style="background-color: white;">
           <div id="landing_body" style="padding: 3%;">
@@ -689,7 +689,7 @@
                     </tr>
                     <tr>
                       <td> Total Reads Mapped </td>
-                      <td> REQUIRED* The total number of reads in the BAM entry/file. A read refers to a sequence of base pair(s) corresponding to all or part of a nucleotide fragment. If you do not know how many total reads mapped there are in your BAM file/entry, just insert 0 and the eFP-Seq Browser will find this value for you (NOTE: If you do input 0, this will significantly increase load time).</td>
+                      <td> REQUIRED* The total number of reads in the BAM entry/file. A read refers to a sequence of base pair(s) corresponding to all or part of a nucleotide fragment. If you do not know how many total reads mapped there are in your BAM file/entry, just insert 0 or leave it blank and the eFP-Seq Browser will find this value for you (NOTE: If you do input 0/blank, this will significantly increase load time).</td>
                     </tr>
                     <tr>
                       <td> Read map method </td>
@@ -1347,10 +1347,13 @@
     
     /**
      * Change and load a new dataset based on selected one from the navbar
+      * @param {Boolean} alreadySet Whether a base_src is predetermined or not [false means use dataset selection]
      */
-    function change_dataset() {
+    function change_dataset(alreadySet = false) {
+      emptyLanding();
       progress_percent = 0;
-      base_src = dataset_dictionary[document.getElementById("xmldatabase").value];
+        base_src = dataset_dictionary[document.getElementById("xmldatabase").value];
+      }      
       sraDict = {};
       sraCountDic = {};
       generate_loading_screen();
