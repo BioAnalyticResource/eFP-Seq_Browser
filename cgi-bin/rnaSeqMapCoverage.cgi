@@ -108,7 +108,7 @@ def hex_to_rgb(val):
 
 ''' Used if in the instance the user does not know how many reads are mapped to 
 their locus '''
-def determineReadMapNumber(filedir, filename, readMappedNumber, remoteDrive):
+def determineReadMapNumber(filedir, filename, readMappedNumber, remoteDrive, bamtype):
 	if readMappedNumber == 0:
 		readsMappedHold = [] # Holds the number
 
@@ -116,7 +116,7 @@ def determineReadMapNumber(filedir, filename, readMappedNumber, remoteDrive):
 		os.system("find ../temp/* -mtime +1 -exec rm -f {} \\;")
 
 		# Set the environment
-		if remoteDrive == "NotGoogleDrive":
+		if bamtype == "Amazon AWS":
 			os.chdir("data/" + filedir)
 		my_env = os.environ.copy()
 		my_env["LD_LIBRARY_PATH"] = "/usr/local/lib/"
@@ -146,13 +146,13 @@ def determineReadMapNumber(filedir, filename, readMappedNumber, remoteDrive):
 		return float(readMappedNumber)
 
 ''' Once we have chromosome, start, end and filename, we can make the image.'''
-def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcodecolour, remoteDrive):
+def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcodecolour, remoteDrive, bamtype):
 	max_mapped_reads_count = 0 # For setting the appropriate Y scale
 
 	x_bp_vals = [] # Holds nucleotide positions...
 	y_reads_values = [] # Holds the valid mapped reads for the position...
 
-	if remoteDrive != "NotGoogleDrive": 
+	if bamtype == "Google Drive": 
 		# Clear temporary files and name a new one
 		#os.system("find ../temp/* -mtime +1 -exec rm -f {} \\;")
 		tempfile = "../temp/RNASeqGraph.png"
@@ -161,7 +161,7 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 	region = chromosome + ":" + str(start) + "-" + str(end)
 
 	# Set the environment
-	if remoteDrive == "NotGoogleDrive":
+	if bamtype == "Amazon AWS":
 		os.chdir("data/" + filedir)
 	my_env = os.environ.copy()
 	my_env["LD_LIBRARY_PATH"] = "/usr/local/lib/"	
@@ -173,7 +173,7 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 	except:
 		pass
 
-	if remoteDrive == "NotGoogleDrive":
+	if bamtype == "Amazon AWS":
 		os.chdir("../../../")
 
 	if mpileup == None:
@@ -229,7 +229,7 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 
 	rnaseqgraph.string(0, (420, 5), str(int(yscale)), black) # Y-axis scale label
 
-	if remoteDrive == "NotGoogleDrive":
+	if bamtype == "Amazon AWS":
 		# Clear temporary files and name a new one
 		os.system("find ../temp/* -mtime +1 -exec rm -f {} \\;")
 		tempfile = "../temp/RNASeqGraph.png"
@@ -281,15 +281,16 @@ def main():
 	bamfilename = form.getvalue('filename')
 	totalReadsMapped = form.getvalue('numberofreads')
 	dumpMethod = form.getvalue('dumpMethod')
-	status = int(form.getvalue('status'))
+	status = form.getvalue('status')
 	remoteDrive = form.getvalue('remoteDrive')
+	bamtype = form.getvalue('bamtype')
 
 	############################################################################
 	# Generate new data or return cached data for speedy first-load.
 	############################################################################
 	# (status == 0) => RETURN NEWLY GENERATED DATA
 	#subprocess.check_output(['export', 'LD_LIBRARY_PATH=/usr/local/lib/'])
-	if (status == 0):
+	if (status == 0 or status == "0"):
 		# Get info required for generating new data
 		variant_structure = json.loads(form.getvalue('struct')) # Exon-Intron
 		chromosome = validateChromosome(str(locus[2]))
@@ -327,11 +328,11 @@ def main():
 					expected_expr_in_variant[variants_count].append(1)				
 		
 		# Correct total reads mapped:
-		if (totalReadsMapped is None or totalReadsMapped == "0"):
+		if (totalReadsMapped is None or totalReadsMapped == "0" or totalReadsMapped == 0):
 			totalReadsMapped = 0
-			totalReadsMapped = determineReadMapNumber(bam_dir, bam_file, totalReadsMapped, remoteDrive)
+			totalReadsMapped = determineReadMapNumber(bam_dir, bam_file, totalReadsMapped, remoteDrive, bamtype)
 
-		if remoteDrive != "NotGoogleDrive":
+		if bamtype == "Google Drive":
 			# Create a Google Drive mount point and muont the bam file.
 			uniqId = str(random.randint(1,1000000))
 			try:
@@ -354,34 +355,34 @@ def main():
 					error("Mounting timed out")
 
 			# Now make a image using samtools
-			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive)
+			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
 
 			if base64img == "FAILED":
-				base64img = makeImage(bam_dir, bam_file, "chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive)
+				base64img = makeImage(bam_dir, bam_file, "chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
 				region = "chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
 
 			if base64img == "FAILED":
-				base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive)
+				base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
 
 			if base64img == "FAILED":
 				subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
 				subprocess.call(["rm", "-rf", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
 				error("Failed to get data.")
 
-		elif remoteDrive == "NotGoogleDrive":
+		elif bamtype == "Amazon AWS":
 			# Make S3FS filename here
-			bam_file = "s3://iplant-cdn/iplant/home/araport/rnaseq_bam/" + tissue + "/" + record + "/" + bamfilename
+			bam_file = "s3://" + remoteDrive + tissue + "/" + record + "/" + bamfilename
 			bam_dir = tissue + "/" + record
 
 			# Now make a image using samtools
-			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive)
+			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
 
 			if base64img == "FAILED":
-				base64img = makeImage(bam_dir, bam_file, "chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive)
+				base64img = makeImage(bam_dir, bam_file, "chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
 				region = "chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
 
 			if base64img == "FAILED":
-				base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive)
+				base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
 
 		# OFTEN, mpileup output doesn't include all the bases assigned to locus
 		# The ones that are not included should get a mpileup expression value of 0
@@ -437,12 +438,12 @@ def main():
 		# the same info would be there. So just pass that along instead of
 		# making this call .. to speed things up
 		# Set the environment
-		if remoteDrive == "NotGoogleDrive":
+		if bamtype == "Amazon AWS":
 			os.chdir("data/" + bam_dir)
 		my_env = os.environ
 		my_env["LD_LIBRARY_PATH"] = "/usr/local/lib/"
 		lines = subprocess.check_output(['samtools', 'view', bam_file, region], env=my_env)
-		if remoteDrive == "NotGoogleDrive":
+		if bamtype == "Amazon AWS":
 			os.chdir("../../../")
 		mapped_reads = lines.lower().count('chr')
 
@@ -458,7 +459,7 @@ def main():
 				r_val = float(sp / (math.sqrt(ss_x[i] * ss_y)))
 				r.append(round(r_val, PRECISION))
 
-		if remoteDrive != "NotGoogleDrive":
+		if bamtype == "Google Drive":
 			try:
 				subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
 			except:
@@ -982,7 +983,7 @@ def main():
 			elif (record == "SRR3581346"):
 				dumpJSON(200, "AT2G24270", 1, 2, 10326917, 10330049, "SRR3581346", "Klepikova", "iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyBAMAAAA908bbAAAAFVBMVEX/////AABkzGX//wAAAADAwMCXmZnsxbRDAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACvElEQVRoge3aTXaEIAwAYBY25/IS7Tqr3P8I7ahAfgCNYKuvk9WoEPMJA05fQ3jHO97xjl+Ij09HfHka3yD8jwPGP+HRMc1hCmE+250GlnJRzFOY52k61xnwAcKf4esQ0hOEXWP4BGHfLH2CsGuluaMQh2YbIcT+Mi7Mp4XgTw+jZ4G/hFaQEbrzE514LI3wV9CMH6FISH8vlAX1p5ODCHcQjp31txQOTqeF7id4Tlh/4b9a6J8j+qt8sJc6TmJ4tJANnL5NyjFYCEpIfiGcEppNNOU4NyVkRWxLvVqoLuR7W2FMMkLIMixCllAIj/36bwn1EpTTg+6TruR0Z//6UBDmVAWhqqSUryrUE4KYA82l9AH5/f0hhFQWrjdbR0BVEvS5htC81l8rhDQ/jJDUcaAl+dquVL1eflWbODmbQnsJ5YfTQtoV0iKEVVj65QAXClk674uEnQWhIaQ41mUhiYN0CLK0utDuu0OEJFKlW7ICyQpLXzIyi1X8vM7prTQzutgWkup0qfA1sFFoBhGsUO4BNxTGlNsh5NNkSikLcfu4/DRRQkiTlzP+VEjpNJpSsC2k11uLESJr6RGCaz2NPXlyNlhlIelScFOz9wIlBCFcdldC1XJPmKayR5iSOoS0YkBkWc/Vha/nwkSYJ82WHnaF1CUUyRNpOUIjlA8gpFnNUvAmx4TUEgLLvggxHA3iKcrCtMIcFkJRCIOE6t5OIcqCDwpZg4ZQik4L4QJhLVAk2RPSnhD3hZhv9itC/aVzCZG0kGpC4uMsc3mFmN/jO4WxorqwcGw3IStErzCV1SMEfQrS8usSqh2VC2MT3bcdELduNdGPC9nbpBKKOo4KWYaakFTfdoikY4Wyjm5hcUfe9amynidEjzAuY3cVlndkDO1/iSl2epzQtP9Hwrza9QmloCysiw4LW5GafgOQwFtv1kVEIgAAAABJRU5ErkJggg==", 4493, 24.29066, [0.57828,0.58006,0.65573,0.66431], 59057532)
 			elif (record == "SRR3581336"):
-				dumpJSON(200, "AT2G24270", 1, 2, 10326917, 10330049, "SRR3581336", "Klepikova", "iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyBAMAAAA908bbAAAAFVBMVEX/////AABkzGX//wAAAADAwMDMzJg85+yVAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACm0lEQVRoge3XS2KEIAwAUBY253LRK3SfTXP/I3Q+QhIIKIiOWrMaAUOeKDrO3XHHHXfsEF8/FUE1g/eI33J39dVA2uASrwpMWobRDc6NjfnoBMJxcOP4YDYFHE9oFDQ+hK1reA7hsEJIBxRC3DJeTZhU9Npphu/WdC1CbJtsWRD1TP94DFvy9SwhDjiCEHqWkCT/gDB58nsIsymOIWytAfihzz7+PYRiCXJCiYKyECq2Kt7W8mftJpRjok59Ts2C7iSUJWWFXAtB/Ao+vJAKQuB2MSKqpoMQjLMwTLg8YW4akr9V/T55JES1ilpY880gs6LuAr+q1PaKlqmKQp5GjtB/IlUJz+5kK8oEquuWlIUhIbo1kQpFPiFEMYJioc6Q7rb2zKium+4MLaIidE0xI0TfjmLEnNCPLkv5obcf7kTY+KdgToi6AiXEtLypf+rJTIlhZv6VEcIWQpFoyp4RAtcQZfBCtKfEMPN7z9pWKJNDfA9OB6Kxs5CMFKosIaz5WrJS8ZwVQozL8xmKQnlvloTo1HPT+vm7XAjxCHjdZPI+6i5ML2hfoZ/5XbQhfP4A0RAL7ftqqZC2E6LoYyHxgMVCi0h7CcU3g0qbCH0jAaZClPuvITSIqZDSgVOWNUL5VeRfzVoIoIQqWAhKqDJ8XMjfDH7/1gBaJFQNpjDa5SEWwrzQ38s1QFBCsZ5CSNVCsIWTKMC0UGYoCHGNEEvCULUp1A0zQt8qhVgQ8txObxh9hWZkhOFQCIUIp71XCoOiKMQ2IXKq7YSc/X3oomOdISeclvoUQmwUikQHF1rHi4U1ixgmOrSQA81Rc0J+2x5faI/610Lww+GaQv8IX1YIVxfK4XrO5UIt2FGIdcL4xBMI51eR/8SeVZgQ/wBv7eJV5ou0wQAAAABJRU5ErkJggg==", 5165, 67.31645, [0.57363,0.55476,0.63095,0.6842], 24497817)	
+				dumpJSON(200, "AT2G24270", 1, 2, 10326917, 10330049, "SRR3581336", "Klepikova", "iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyBAMAAAA908bbAAAAFVBMVEX/////AABkzGX//wAAAADAwMDMzJg85+yVAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACm0lEQVRoge3XS2KEIAwAUBY253LRK3SfTXP/I3Q+QhIIKIiOWrMaAUOeKDrO3XHHHXfsEF8/FUE1g/eI33J39dVA2uASrwpMWobRDc6NjfnoBMJxcOP4YDYFHE9oFDQ+hK1reA7hsEJIBxRC3DJeTZhU9Npphu/WdC1CbJtsWRD1TP94DFvy9SwhDjiCEHqWkCT/gDB58nsIsymOIWytAfihzz7+PYRiCXJCiYKyECq2Kt7W8mftJpRjok59Ts2C7iSUJWWFXAtB/Ao+vJAKQuB2MSKqpoMQjLMwTLg8YW4akr9V/T55JES1ilpY880gs6LuAr+q1PaKlqmKQp5GjtB/IlUJz+5kK8oEquuWlIUhIbo1kQpFPiFEMYJioc6Q7rb2zKium+4MLaIidE0xI0TfjmLEnNCPLkv5obcf7kTY+KdgToi6AiXEtLypf+rJTIlhZv6VEcIWQpFoyp4RAtcQZfBCtKfEMPN7z9pWKJNDfA9OB6Kxs5CMFKosIaz5WrJS8ZwVQozL8xmKQnlvloTo1HPT+vm7XAjxCHjdZPI+6i5ML2hfoZ/5XbQhfP4A0RAL7ftqqZC2E6LoYyHxgMVCi0h7CcU3g0qbCH0jAaZClPuvITSIqZDSgVOWNUL5VeRfzVoIoIQqWAhKqDJ8XMjfDH7/1gBaJFQNpjDa5SEWwrzQ38s1QFBCsZ5CSNVCsIWTKMC0UGYoCHGNEEvCULUp1A0zQt8qhVgQ8txObxh9hWZkhOFQCIUIp71XCoOiKMQ2IXKq7YSc/X3oomOdISeclvoUQmwUikQHF1rHi4U1ixgmOrSQA81Rc0J+2x5faI/610Lww+GaQv8IX1YIVxfK4XrO5UIt2FGIdcL4xBMI51eR/8SeVZgQ/wBv7eJV5ou0wQAAAABJRU5ErkJggg==", 5165, 67.31645, [0.57363,0.55476,0.63095,0.6842], 24497817)
 
 # The main program
 if __name__ == '__main__':

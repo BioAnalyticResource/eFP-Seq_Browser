@@ -555,26 +555,38 @@ var callDumpOutputs = false;
 * Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function
 */
 function rnaseq_images(status) {
+  var awsSplit = "amazonaws.com/";
+  var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
   dumpOutputs = "";
   data = {};
   rnaseq_success = 1;
-  match_drive = ["NotGoogleDrive", "NotGoogleDrive"];
+  match_drive = "";
   get_input_values();
   CreateFiltereFPList();
   if (rnaseq_calls.length === count_bam_entries_in_xml) {
     sraList_check = [];
     rnaseq_change = 1;
     for (var i = 0; i < count_bam_entries_in_xml; i++) {
-      var tissueWebservice = rnaseq_calls[i][0];
-      if (sraDict[sraList[i]]["bam_type"] === "Google Drive") {        
-        if (rnaseq_calls[i][0] == undefined || rnaseq_calls[i][0] == "None" || rnaseq_calls[i][0] == null) {
-          tissueWebservice = "undefined"
-        }
-        var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
-        var linkString = sraDict[sraList[i]]["drive_link"];
-        match_drive = myRegexp.exec(linkString);
+      // Creates the tissue variable for the rnaSeqMapCoverage webservice
+      var tissueWebservice;
+      if (rnaseq_calls[i][0] == undefined || rnaseq_calls[i][0] == "None" || rnaseq_calls[i][0] == null) {
+        tissueWebservice = "undefined"; // If no "tissue" variable, create an undefined one
       }
-      data = {status: parseInt(status), numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive[1], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, struct: splice_variants, dumpMethod: dumpMethod};
+      else {
+        tissueWebservice = rnaseq_calls[i][0];
+      }
+      // Creates the removeDrive link for the rnaSeqMapCoverage webservice 
+      if (sraDict[sraList[i]]["bam_type"] === "Google Drive") {        
+        // Obtains the Google drive file ID
+        var linkString = sraDict[sraList[i]]["drive_link"];
+        match_drive = myRegexp.exec(linkString)[1];
+      }
+      else if (sraDict[sraList[i]]["bam_type"] === "Amazon AWS") {
+        // Obtains the S3 
+        var linkString = sraDict[sraList[i]]["drive_link"];
+        match_drive = linkString.split(awsSplit)[1].split(tissueWebservice)[0];
+      }
+      data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive, bamtype: sraDict[sraList[i]]["bam_type"], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, struct: splice_variants, dumpMethod: dumpMethod};
 
       $.ajax({
         method: 'POST',

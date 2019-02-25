@@ -1352,6 +1352,7 @@
     function change_dataset(alreadySet = false) {
       emptyLanding();
       progress_percent = 0;
+      if (alreadySet === false) {
         base_src = dataset_dictionary[document.getElementById("xmldatabase").value];
       }      
       sraDict = {};
