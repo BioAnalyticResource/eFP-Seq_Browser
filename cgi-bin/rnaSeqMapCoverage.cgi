@@ -49,7 +49,7 @@ def validateTissue(tissue):
 		error("Tissue validation error: 1.")
 	elif tissue == None:
 		tissue = "undefined"
-	if re.search(r'^[a-zA-Z]{1,15}$', tissue): # Can only have upto 15 alpha numeric charactors
+	if re.search(r'^[[a-z A-Z0-9\-\/_\s]{1,20}$', tissue): # Can only have upto 20 alpha numeric charactors
 		return tissue
 	else:
 		error("Tissue validation error: 2.");
@@ -371,7 +371,7 @@ def main():
 
 		elif bamtype == "Amazon AWS":
 			# Make S3FS filename here
-			bam_file = "s3://" + remoteDrive + tissue + "/" + record + "/" + bamfilename
+			bam_file = "s3://" + remoteDrive
 			bam_dir = tissue + "/" + record
 
 			# Now make a image using samtools

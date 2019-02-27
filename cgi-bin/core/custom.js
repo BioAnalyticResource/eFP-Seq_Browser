@@ -584,7 +584,11 @@ function rnaseq_images(status) {
       else if (sraDict[sraList[i]]["bam_type"] === "Amazon AWS") {
         // Obtains the S3 
         var linkString = sraDict[sraList[i]]["drive_link"];
-        match_drive = linkString.split(awsSplit)[1].split(tissueWebservice)[0];
+        match_drive = linkString.split(awsSplit)[1];
+        // Change tissue:
+        var tissueLink = match_drive.split('/');
+        var recordPos = tissueLink.indexOf(rnaseq_calls[i][1]);
+        tissueWebservice = tissueLink[recordPos-1];
       }
       data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive, bamtype: sraDict[sraList[i]]["bam_type"], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, struct: splice_variants, dumpMethod: dumpMethod};
 
@@ -1192,8 +1196,10 @@ function populate_table(status) {
         sraDict[experimentno]["controlsString"] = controlsString.trim();
         var name = $(this).attr('name');
         sraDict[experimentno]["name"] = name;
-        if ($(this).attr('bam_type') == "Amazon AWS") {
-          var tissue = $(this).attr('name').split("/")[8];
+        if ($(this).attr('bam_type') == "Amazon AWS") {        
+          var bamTissueLink = $(this).attr('name').split('/');
+          var bamTissuePos = bamTissueLink.indexOf(experimentno);
+          var tissue = bamTissueLink[bamTissuePos-1];
         };
         rnaseq_calls.push([tissue, experimentno]);
         sraDict[experimentno]["tissue"] = tissue;
