@@ -456,7 +456,6 @@ function variants_radio_options(status) {
       populate_efp_modal(status);
 
       // Remove existing variant images.
-      variantList = [];
       testList = [];
       var variants_div = document.getElementById("variants_div");
       if (variants_div.firstChild != null || variants_div.firstChild != undefined || variants_div != null) {
@@ -470,7 +469,6 @@ function variants_radio_options(status) {
         // retrieve the base64 and create the element to insert
         append_str += '<option value="' + i + "\"";
         append_str += " data-imagesrc=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + '" style="max-width:none;"></option>';
-        variantList.push("data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure']);
         // Append the element to the div
       }
       img_gene_struct_1 = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
@@ -585,10 +583,6 @@ function rnaseq_images(status) {
         // Obtains the S3 
         var linkString = sraDict[sraList[i]]["drive_link"];
         match_drive = linkString.split(awsSplit)[1];
-        // Change tissue:
-        var tissueLink = match_drive.split('/');
-        var recordPos = tissueLink.indexOf(rnaseq_calls[i][1]);
-        tissueWebservice = tissueLink[recordPos-1];
       }
       data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive, bamtype: sraDict[sraList[i]]["bam_type"], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, struct: splice_variants, dumpMethod: dumpMethod};
 
@@ -1238,8 +1232,10 @@ function populate_table(status) {
         // Append abs/rel RPKM
         append_str += '<td class="colRPKM" id="' + experimentno + '_rpkm' + '" style="font-size: 12px; width: 50px; ">-9999</td>';
         // Append the details <td>
-        append_str += '<td class="colDetails" style="font-size: 12px;"><div id="' + experimentno + '_description" name="' + description.trim() + '">' + truncateDescription(description) + '</div>'; 
-        append_str += '<div id="igbLink_' + experimentno + '">Show: <a href="' + igbView_link + '" target="_blank" rel="noopener">Alignments in IGB</a></div>';
+        append_str += '<td class="colDetails" style="font-size: 12px;"><div id="' + experimentno + '_description" name="' + description.trim() + '">' + truncateDescription(description) + '</div>';  
+        if (bam_type === "Amazon AWS") {
+            append_str += '<div id="igbLink_' + experimentno + '">Show: <a href="' + igbView_link + '" target="_blank" rel="noopener">Alignments in IGB</a></div>';
+        }
         append_str += '<div id="extraLinks_' + experimentno + '">Go to: <a href="' + url + '" target="_blank" rel="noopener">NCBI SRA</a> or <a href="' + publicationid + '" target="_blank" rel="noopener">PubMed</a></div>';
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + moreDetails.trim() + '</a>';
         append_str += '<div id="' + experimentno + '" class="moreDetails" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '<br>';
