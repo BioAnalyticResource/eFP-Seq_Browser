@@ -39,6 +39,8 @@ RNA_IMG_HEIGHT = 50
 exp_arr = []
 exp_arr0 = []
 
+start_time = str(time.time()).replace('.', '')
+
 ################################################################################
 # Validation functions
 ################################################################################
@@ -117,7 +119,12 @@ def determineReadMapNumber(filedir, filename, readMappedNumber, remoteDrive, bam
 
 		# Set the environment
 		if bamtype == "Amazon AWS":
-			os.chdir("data/" + filedir)
+			bai_directory = ("data/" + filedir + "_" + start_time)
+			if os.path.isdir(bai_directory):
+				os.chdir(bai_directory)
+			else:
+				os.makedirs(bai_directory)
+				os.chdir(bai_directory)
 		my_env = os.environ.copy()
 		my_env["LD_LIBRARY_PATH"] = "/usr/local/lib/"
 
@@ -162,7 +169,12 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 
 	# Set the environment
 	if bamtype == "Amazon AWS":
-		os.chdir("data/" + filedir)
+		bai_directory = ("data/" + filedir + "_" + start_time)
+		if os.path.isdir(bai_directory):
+			os.chdir(bai_directory)
+		else:
+			os.makedirs(bai_directory)
+			os.chdir(bai_directory)
 	my_env = os.environ.copy()
 	my_env["LD_LIBRARY_PATH"] = "/usr/local/lib/"	
 
@@ -342,7 +354,7 @@ def main():
 
 			# Make S3FS filename here
 			bam_file = "/mnt/gDrive/" + remoteDrive + "_" + uniqId + "/" + bamfilename
-			bam_dir = tissue + "/" + record
+			bam_dir = "uploads" + "/" + record
 
 			# Wait unilt the file is ready, without locking up the system forever, locking system for five minutes
 			startTime = time.time()
@@ -372,7 +384,7 @@ def main():
 		elif bamtype == "Amazon AWS":
 			# Make S3FS filename here
 			bam_file = "s3://" + remoteDrive
-			bam_dir = tissue + "/" + record
+			bam_dir = "uploads" + "/" + record
 
 			# Now make a image using samtools
 			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
@@ -439,7 +451,12 @@ def main():
 		# making this call .. to speed things up
 		# Set the environment
 		if bamtype == "Amazon AWS":
-			os.chdir("data/" + bam_dir)
+			bai_directory = ("data/" + bam_dir + "_" + start_time)
+			if os.path.isdir(bai_directory):
+				os.chdir(bai_directory)
+			else:
+				os.makedirs(bai_directory)
+				os.chdir(bai_directory)
 		my_env = os.environ
 		my_env["LD_LIBRARY_PATH"] = "/usr/local/lib/"
 		lines = subprocess.check_output(['samtools', 'view', bam_file, region], env=my_env)

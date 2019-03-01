@@ -445,7 +445,7 @@ function update_all_images(status) {
 function variants_radio_options(status) {
   get_input_values();
   $.ajax({
-    url: 'cgi-bin/get_gene_structures.cgi?locus=' + locus,
+    url: 'cgi-bin/get_gene_structures.cgi?locus=' + locus, 
     dataType: 'json',
     success: function(gene_res) {
       // Update locus_start and locus_end
@@ -554,6 +554,7 @@ var callDumpOutputs = false;
 */
 function rnaseq_images(status) {
   var awsSplit = "amazonaws.com/";
+  var araportCDN = 'araport.cyverse-cdn.tacc.cloud/';
   var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
   dumpOutputs = "";
   data = {};
@@ -582,7 +583,16 @@ function rnaseq_images(status) {
       else if (sraDict[sraList[i]]["bam_type"] === "Amazon AWS") {
         // Obtains the S3 
         var linkString = sraDict[sraList[i]]["drive_link"];
-        match_drive = linkString.split(awsSplit)[1];
+        var driveLinkSplit = linkString.split(awsSplit);
+        if (driveLinkSplit.length === 1) {
+          driveLinkSplit = linkString.split(araportCDN);
+        }
+        if (driveLinkSplit.length > 1) {
+          match_drive = driveLinkSplit[1];
+        }
+        else {
+          match_drive = linkString;
+        }
       }
       data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive, bamtype: sraDict[sraList[i]]["bam_type"], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, struct: splice_variants, dumpMethod: dumpMethod};
 
@@ -1948,7 +1958,7 @@ function CheckIfSelectedXML() {
 function delete_selectedXML() {
   for (i = 0; i < title_list.length; i++) {
     var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
-    if ((document.getElementById(deleteBox_id) != null) || (document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3)) {
+    if ((document.getElementById(deleteBox_id) != null && document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3)) {
       $.ajax({
         url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
       });
