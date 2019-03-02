@@ -561,7 +561,7 @@ function rnaseq_images(status) {
   rnaseq_success = 1;
   match_drive = "";
   get_input_values();
-  CreateFiltereFPList();
+  CreateFilteredeFPList();
   if (rnaseq_calls.length === count_bam_entries_in_xml) {
     sraList_check = [];
     rnaseq_change = 1;
@@ -2729,7 +2729,7 @@ function DetectBrowser() {
 /**
  * Create the filtered eFP List
  */
-function CreateFiltereFPList() {
+function CreateFilteredeFPList() {
   $("#filtereFPList").empty();
   // Add individual Tissues
   var allTissuesDisplayed = Object.keys(tissueSRADic);

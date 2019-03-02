@@ -195,13 +195,12 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 	for read in mpileup.splitlines():
 		x_bp_vals.append(float(read.split('\t')[1])) # nucleotide position
 		# get the number of mapped reads and subtract the reference skips
-		mapped_reads_count = float(int(read.split('\t')[3]) - read.split('\t')[4].count('<') - read.split('\t')[4].count('>'))		
-		# List of mapped_read_counts=
+		mapped_reads_count = float(int(read.split('\t')[3]) - read.split('\t')[4].count('<') - read.split('\t')[4].count('>'))
 		exp_arr0.append((float(read.split('\t')[1]), mapped_reads_count))
 		y_reads_values.append(mapped_reads_count)
 		# Figure out the max number of reads mapped at any given locus
-		if (mapped_reads_count > max_mapped_reads_count):
-			max_mapped_reads_count = mapped_reads_count
+		# if (mapped_reads_count > max_mapped_reads_count):
+		max_mapped_reads_count = mapped_reads_count
 
 	# IF the user specified a custom y-scale, use that
 	if (yscale == -1): # If the user did not specify a yscale, use the highest mapped read count
@@ -318,6 +317,9 @@ def main():
 		record = validateRecord(record)
 		region = "Chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
 
+		# Generate BAM directory link
+		bam_dir = "uploads" + "/" + record
+
 		exons_in_variant = []
 		variants_count = -1
 		expected_expr_in_variant = []
@@ -338,11 +340,6 @@ def main():
 						break
 				if (i_in_exon == 0):
 					expected_expr_in_variant[variants_count].append(1)				
-		
-		# Correct total reads mapped:
-		if (totalReadsMapped is None or totalReadsMapped == "0" or totalReadsMapped == 0):
-			totalReadsMapped = 0
-			totalReadsMapped = determineReadMapNumber(bam_dir, bam_file, totalReadsMapped, remoteDrive, bamtype)
 
 		if bamtype == "Google Drive":
 			# Create a Google Drive mount point and muont the bam file.
@@ -354,7 +351,6 @@ def main():
 
 			# Make S3FS filename here
 			bam_file = "/mnt/gDrive/" + remoteDrive + "_" + uniqId + "/" + bamfilename
-			bam_dir = "uploads" + "/" + record
 
 			# Wait unilt the file is ready, without locking up the system forever, locking system for five minutes
 			startTime = time.time()
@@ -384,7 +380,6 @@ def main():
 		elif bamtype == "Amazon AWS":
 			# Make S3FS filename here
 			bam_file = "s3://" + remoteDrive
-			bam_dir = "uploads" + "/" + record
 
 			# Now make a image using samtools
 			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
@@ -396,6 +391,11 @@ def main():
 			if base64img == "FAILED":
 				base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
 
+		# Correct total reads mapped:
+		if (totalReadsMapped is None or totalReadsMapped == "0" or totalReadsMapped == 0):
+			totalReadsMapped = 0
+			totalReadsMapped = determineReadMapNumber(bam_dir, bam_file, totalReadsMapped, remoteDrive, bamtype)
+		
 		# OFTEN, mpileup output doesn't include all the bases assigned to locus
 		# The ones that are not included should get a mpileup expression value of 0
 		# Take the exp_arr0 (generated in makeImage) and create exp_arr based on the above explanation
