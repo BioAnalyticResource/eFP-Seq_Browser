@@ -555,6 +555,7 @@ var callDumpOutputs = false;
 function rnaseq_images(status) {
   var awsSplit = "amazonaws.com/";
   var araportCDN = 'araport.cyverse-cdn.tacc.cloud/';
+  var gDriveSplit = 'drive.google.com/drive/folders/';
   var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
   dumpOutputs = "";
   data = {};
@@ -578,7 +579,14 @@ function rnaseq_images(status) {
       if (sraDict[sraList[i]]["bam_type"] === "Google Drive") {        
         // Obtains the Google drive file ID
         var linkString = sraDict[sraList[i]]["drive_link"];
-        match_drive = myRegexp.exec(linkString)[1];
+        var driveLinkSplit = linkString.split('?usp=sharing');
+        driveLinkSplit = driveLinkSplit[0].split(gDriveSplit);
+        if (driveLinkSplit.length > 1) {
+          match_drive = driveLinkSplit[1];
+        }
+        else {
+          match_drive = linkString;
+        }
       }
       else if (sraDict[sraList[i]]["bam_type"] === "Amazon AWS") {
         // Obtains the S3 
@@ -2113,7 +2121,7 @@ function fill_tableCSV() {
           table_add += "\t\t\t<td>" + bam_type + "</td>\n";
           // BAM/repo type
           var bam_filename = $(this).attr('filename');
-          if (bam_filename === null || bam_filename === undefined || bam_filename === "undefined") {
+          if (bam_filename === null || bam_filename === undefined || bam_filename === "undefined" || bam_filename === ".bam") {
             bam_filename = "accepted_hits.bam";
           }
           table_add += "\t\t\t<td>" + bam_filename + "</td>\n";
@@ -2249,7 +2257,7 @@ var isPrecache = true;
 */
 function checkPreload() {
   get_input_values();
-  if ((publicData == true) && (locus == "AT2G24270") && (dumpMethod == "simple")) {
+  if ((publicData == true) && (locus == "AT2G24270") && (dumpMethod == "simple") && (callDumpOutputs === false)) {
     populate_table(1);
     isPrecache = true;
   }
