@@ -181,7 +181,7 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 	mpileup = None
 
 	try:
-		mpileup = subprocess.check_output(['samtools', 'mpileup', '-r', region, filename], env=my_env)
+		mpileup = subprocess.check_output(['bcftools', 'mpileup','--no-reference' , '-r', region, filename], env=my_env)
 	except:
 		pass
 
@@ -193,14 +193,18 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 
 	# Read pileup output
 	for read in mpileup.splitlines():
-		x_bp_vals.append(float(read.split('\t')[1])) # nucleotide position
-		# get the number of mapped reads and subtract the reference skips
-		mapped_reads_count = float(int(read.split('\t')[3]) - read.split('\t')[4].count('<') - read.split('\t')[4].count('>'))
-		exp_arr0.append((float(read.split('\t')[1]), mapped_reads_count))
-		y_reads_values.append(mapped_reads_count)
-		# Figure out the max number of reads mapped at any given locus
-		if (mapped_reads_count > max_mapped_reads_count):
-			max_mapped_reads_count = mapped_reads_count
+		split_Read_Lines = read.split('\t')
+		if split_Read_Lines[0].strip()[0] != '#':
+			readPos = split_Read_Lines[1]
+			x_bp_vals.append(float(readPos)) # nucleotide position
+			# get the number of mapped reads and subtract the reference skips
+			dpNum = split_Read_Lines[7].split(';')[0]
+			mapped_reads_count = float(re.sub('[^0-9]', "", dpNum))
+			exp_arr0.append((float(readPos), mapped_reads_count))
+			y_reads_values.append(mapped_reads_count)
+			# Figure out the max number of reads mapped at any given locus
+			if (mapped_reads_count > max_mapped_reads_count):
+				max_mapped_reads_count = mapped_reads_count
 
 	# IF the user specified a custom y-scale, use that
 	if (yscale == -1): # If the user did not specify a yscale, use the highest mapped read count

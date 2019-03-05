@@ -1243,7 +1243,7 @@
 			</groupwith>
 		</file>
 		
-				<file info="Third leaf was collected from 15 plants after cold treatment at 4�C for 1 hour" record_number="SRR3724649" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724649/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="40986056" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 1 hour Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724649" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724649">
+				<file info="Third leaf was collected from 15 plants after cold treatment at 4C for 1 hour" record_number="SRR3724649" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724649/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="40986056" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 1 hour Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724649" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724649">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1252,7 +1252,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after cold treatment at 4�C for 1 hour" record_number="SRR3724650" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724650/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="38739023" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 1 hour Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724650" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724650">
+		<file info="Third leaf was collected from 15 plants after cold treatment at 4C for 1 hour" record_number="SRR3724650" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724650/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="38739023" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 1 hour Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724650" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724650">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1261,7 +1261,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after cold treatment at 4�C for 3 hours" record_number="SRR3724651" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724651/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="28152120" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 3 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724651" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724651">
+		<file info="Third leaf was collected from 15 plants after cold treatment at 4C for 3 hours" record_number="SRR3724651" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724651/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="28152120" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 3 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724651" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724651">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1270,7 +1270,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after cold treatment at 4�C for 3 hours" record_number="SRR3724652" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724652/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="31958404" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 3 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724652" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724652">
+		<file info="Third leaf was collected from 15 plants after cold treatment at 4C for 3 hours" record_number="SRR3724652" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724652/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="31958404" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 3 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724652" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724652">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1279,7 +1279,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after cold treatment at 4�C for 6 hours" record_number="SRR3724663" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724663/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="26211190" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 6 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724663" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724663">
+		<file info="Third leaf was collected from 15 plants after cold treatment at 4C for 6 hours" record_number="SRR3724663" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724663/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="26211190" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 6 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724663" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724663">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1288,7 +1288,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after cold treatment at 4�C for 6 hours" record_number="SRR3724668" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724668/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="30249969" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 6 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724668" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724668">
+		<file info="Third leaf was collected from 15 plants after cold treatment at 4C for 6 hours" record_number="SRR3724668" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724668/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="30249969" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 6 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724668" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724668">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1297,7 +1297,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after cold treatment at 4�C for 12 hours" record_number="SRR3724737" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724737/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="36857670" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 12 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724737" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724737">
+		<file info="Third leaf was collected from 15 plants after cold treatment at 4C for 12 hours" record_number="SRR3724737" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724737/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="36857670" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 12 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724737" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724737">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1306,7 +1306,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after cold treatment at 4�C for 12 hours" record_number="SRR3724738" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724738/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="295419" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 12 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724738" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724738">
+		<file info="Third leaf was collected from 15 plants after cold treatment at 4C for 12 hours" record_number="SRR3724738" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724738/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="295419" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 12 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724738" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724738">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1315,7 +1315,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after cold treatment at 4�C for 24 hours" record_number="SRR3724739" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724739/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="46720327" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 24 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724739" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724739">
+		<file info="Third leaf was collected from 15 plants after cold treatment at 4C for 24 hours" record_number="SRR3724739" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724739/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="46720327" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 24 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724739" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724739">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1324,7 +1324,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after cold treatment at 4�C for 24 hours" record_number="SRR3724741" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724741/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="56914490" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 24 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724741" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724741">
+		<file info="Third leaf was collected from 15 plants after cold treatment at 4C for 24 hours" record_number="SRR3724741" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724741/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="56914490" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Cold Treatment 24 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724741" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724741">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1333,7 +1333,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after heat treatment at 42�C for 1 hour" record_number="SRR3724768" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724768/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="13676907" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 1 hour Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724768" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724768">
+		<file info="Third leaf was collected from 15 plants after heat treatment at 42C for 1 hour" record_number="SRR3724768" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724768/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="13676907" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 1 hour Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724768" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724768">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1342,7 +1342,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after heat treatment at 42�C for 1 hour" record_number="SRR3724774" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724774/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="13341635" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 1 hour Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724774" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724774">
+		<file info="Third leaf was collected from 15 plants after heat treatment at 42C for 1 hour" record_number="SRR3724774" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724774/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="13341635" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 1 hour Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724774" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724774">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1351,7 +1351,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after heat treatment at 42�C for 3 hours" record_number="SRR3724778" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724778/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="15624490" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 3 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724778" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724778">
+		<file info="Third leaf was collected from 15 plants after heat treatment at 42C for 3 hours" record_number="SRR3724778" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724778/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="15624490" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 3 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724778" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724778">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1360,7 +1360,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after heat treatment at 42�C for 3 hours" record_number="SRR3724782" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724782/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="12400117" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 3 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724782" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724782">
+		<file info="Third leaf was collected from 15 plants after heat treatment at 42C for 3 hours" record_number="SRR3724782" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724782/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="12400117" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 3 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724782" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724782">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1369,7 +1369,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after heat treatment at 42�C for 6 hours" record_number="SRR3724785" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724785/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="14375884" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 6 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724785" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724785">
+		<file info="Third leaf was collected from 15 plants after heat treatment at 42C for 6 hours" record_number="SRR3724785" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724785/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="14375884" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 6 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724785" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724785">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1378,7 +1378,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after heat treatment at 42�C for 6 hours" record_number="SRR3724786" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724786/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="14634825" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 6 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724786" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724786">
+		<file info="Third leaf was collected from 15 plants after heat treatment at 42C for 6 hours" record_number="SRR3724786" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724786/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="14634825" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 6 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724786" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724786">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1387,7 +1387,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after heat treatment at 42�C for 12 hours" record_number="SRR3724787" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724787/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="16809588" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 12 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724787" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724787">
+		<file info="Third leaf was collected from 15 plants after heat treatment at 42C for 12 hours" record_number="SRR3724787" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724787/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="16809588" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 12 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724787" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724787">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1396,7 +1396,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after heat treatment at 42�C for 12 hours" record_number="SRR3724798" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724798/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="16380932" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 12 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724798" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724798">
+		<file info="Third leaf was collected from 15 plants after heat treatment at 42C for 12 hours" record_number="SRR3724798" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724798/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="16380932" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 12 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724798" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724798">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1405,7 +1405,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after heat treatment at 42�C for 24 hours" record_number="SRR3724806" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724806/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="16139067" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 24 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724806" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724806">
+		<file info="Third leaf was collected from 15 plants after heat treatment at 42C for 24 hours" record_number="SRR3724806" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724806/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="16139067" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 24 hours Replicate 1" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724806" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724806">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
@@ -1414,7 +1414,7 @@
 			</groupwith>
 		</file>
 
-		<file info="Third leaf was collected from 15 plants after heat treatment at 42�C for 24 hours" record_number="SRR3724814" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724814/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="14942736" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 24 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724814" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724814">
+		<file info="Third leaf was collected from 15 plants after heat treatment at 42C for 24 hours" record_number="SRR3724814" foreground="65CC66" hex_colour="0x65cc66" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Klepikova_Stress/SRR3724814/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="14942736" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://onlinelibrary.wiley.com/doi/10.1111/tpj.13312/abstract" svg_subunit="all" svgname="ath-LeafParts.svg" description="Arabidopsis thaliana Heat Treatment 24 hours Replicate 2" url="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3724814" species="Arabidopsis thaliana" title="Developmental transcriptome - Stress data - Klepikova et al/SRR3724814">
 			<controls>
 				<bam_exp></bam_exp>
 			</controls>
