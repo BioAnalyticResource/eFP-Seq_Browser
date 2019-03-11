@@ -1979,7 +1979,7 @@ function delete_selectedXML() {
  * Confirm the action of delete all users and if so, begin deletion process
  */
 function confirm_deleteUser() {
-  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3 && $('#logoutModal').is(':visible')) {
     delete_allXMLs(gapi.auth2.getAuthInstance().currentUser.Ab.w3.Eea);
   }
 }

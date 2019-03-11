@@ -14,17 +14,15 @@ Chrome | Firefox | IE | Edge | Safari | Opera
 
 ## Installation/Open
 
-If you wish to modify the code, all .CGI files use [Python 2](https://www.python.org) as well as there are a few [Perl](https://www.perl.org/) scripts. If you are running the primary webservice ([rnaSeqMapCoverage.cgi](cgi-bin/rnaSeqMapCoverage.cgi)) locally, you will also need to install [SAMTools](https://github.com/samtools/samtools).
+If you wish to modify the code, all .CGI files use [Python 2](https://www.python.org) as well as there are a few [Perl](https://www.perl.org/) scripts. If you are running the primary webservice ([rnaSeqMapCoverage.cgi](cgi-bin/rnaSeqMapCoverage.cgi)) locally, you will also need to install [SAMTools](https://github.com/samtools/samtools) and [bcftools](https://samtools.github.io/bcftools/bcftools.html).
 
 Outside of that, there is nothing to install, just download all the files and open "[index.html](index.html)" ([legacy.html](legacy.html) is no longer supported).
 
 ## Known issues
 
 We aim to make the eFP-Seq Browser as perfect as possible but unfortunately, there may be some unforeseen bugs. If you manage to find one that is not here, feel free to create a [bug report](https://github.com/ASully/eFP-Seq-Browser/issues/new?template=bug_report.md) so we can fix it.
-* After generating a new dataset through the "Generate Data" option, the user cannot scroll up without first scrolling down
 * The IGB links do not work with Google Drive repositories 
 * Download page as an image does not render SVGs in Microsoft Edge
-* Some specific resolutions will cause the RNA-table to disappear underneath the navbar menu
 
 ## Contributing
 
