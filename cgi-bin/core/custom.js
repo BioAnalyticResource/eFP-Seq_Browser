@@ -2396,7 +2396,7 @@ function displayNavBAR() {
   }
   else if ($("#navbar_menu").is(":visible") == false) {
     document.getElementById("navbar_menu").style.display = "block";
-    document.getElementById("main_content").className = "col-sm-8 col-lg-9";
+    document.getElementById("main_content").className = "col-sm-9";
     document.getElementById("openMenu").style.display = "none";
     document.getElementById("thetable").classList.remove("RNATable");
     document.getElementById("mainRow").style.display = "inline-block";

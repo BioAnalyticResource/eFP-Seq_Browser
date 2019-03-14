@@ -319,6 +319,10 @@ a {
 .navbar_menu {
     background-color: #4a4a4a;
     height: inherit;
+    padding-top:1%; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    float: left;
 }
 
 @media screen and (min-width:576px) {
