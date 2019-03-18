@@ -2064,7 +2064,8 @@ function hideWarning_index(whichWarning) {
 * @return {File} XML - Download selected file as an XML
 */
 function manage_DownloadXML() {
-  for (i = 0; i < title_list.length; i++) {
+  var numberOfOptions = (title_list.length + 2);
+  for (i = 0; i < numberOfOptions; i++) {
     var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
     if (document.getElementById(downloadBox_id).checked == true) {
       $('#downloadXML').attr('href', dataset_dictionary[document.getElementById(downloadBox_id).value]).attr('download', document.getElementById(downloadBox_id).value + '.xml');
