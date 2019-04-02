@@ -464,7 +464,7 @@ def main():
 		mapped_reads = lines.lower().count('chr')
 
 		abs_fpkm = float(mapped_reads) / (float((end-start)) / 1000.0) / (float(totalReadsMapped) / 1000000.0)
-
+		
 		# Calculate the r values for each variant.
 		r = []
 		for i in range(len(sum_xy)):
