@@ -118,7 +118,7 @@ def determineReadMapNumber(filedir, filename, readMappedNumber, remoteDrive, bam
 		os.system("find ../temp/* -mtime +1 -exec rm -f {} \\;")
 
 		# Set the environment
-		bai_directory = ("data/" + filedir + "_" + start_time)
+		bai_directory = ("data/" + filedir)
 		if os.path.isdir(bai_directory):
 			os.chdir(bai_directory)
 		else:
@@ -167,7 +167,7 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 	region = chromosome + ":" + str(start) + "-" + str(end)
 
 	# Set the environment
-	bai_directory = ("data/" + filedir + "_" + start_time)
+	bai_directory = ("data/" + filedir)
 	if os.path.isdir(bai_directory):
 		os.chdir(bai_directory)
 	else:
@@ -296,6 +296,11 @@ def main():
 	status = form.getvalue('status')
 	remoteDrive = form.getvalue('remoteDrive')
 	bamtype = form.getvalue('bamtype')
+	cachedDatapoints = form.getvalue('cachedDatapoints')
+	if (cachedDatapoints.lower() == 'true') or (cachedDatapoints is True): # Verify cachedDatapoint is a boolean
+		cachedDatapoints = True
+	else:
+		cachedDatapoints = False
 
 	############################################################################
 	# Generate new data or return cached data for speedy first-load.
@@ -318,9 +323,6 @@ def main():
 		record = validateRecord(record)
 		region = "Chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
 
-		# Generate BAM directory link
-		bam_dir = "uploads" + "/" + record
-
 		exons_in_variant = []
 		variants_count = -1
 		expected_expr_in_variant = []
@@ -340,7 +342,35 @@ def main():
 						expected_expr_in_variant[variants_count].append(100)
 						break
 				if (i_in_exon == 0):
-					expected_expr_in_variant[variants_count].append(1)				
+					expected_expr_in_variant[variants_count].append(1)
+					
+		# Public datasets and their directories:
+		publicDatapoints = {
+			'aerial': ['ERR274310', 'SRR547531', 'SRR548277', 'SRR847503', 'SRR847504', 'SRR847505', 'SRR847506'],
+			'carpel': ['SRR1207194', 'SRR1207195'], 
+			'dark': ['SRR1019436', 'SRR1019437', 'SRR1049784', 'SRR477075', 'SRR477076', 'SRR493237', 'SRR493238'], 
+			'flower': ['SRR314815', 'SRR800753', 'SRR800754'], 
+			'Klepikova': ['SRR3581336', 'SRR3581345', 'SRR3581346', 'SRR3581347', 'SRR3581352', 'SRR3581356', 'SRR3581383', 'SRR3581388', 'SRR3581499', 'SRR3581591', 'SRR3581639', 'SRR3581672', 'SRR3581676', 'SRR3581678', 'SRR3581679', 'SRR3581680', 'SRR3581681', 'SRR3581682', 'SRR3581683', 'SRR3581684', 'SRR3581685', 'SRR3581686', 'SRR3581687', 'SRR3581688', 'SRR3581689', 'SRR3581690', 'SRR3581691', 'SRR3581692', 'SRR3581693', 'SRR3581694', 'SRR3581695', 'SRR3581696', 'SRR3581697', 'SRR3581698', 'SRR3581699', 'SRR3581700', 'SRR3581701', 'SRR3581702', 'SRR3581703', 'SRR3581704', 'SRR3581705', 'SRR3581706', 'SRR3581707', 'SRR3581708', 'SRR3581709', 'SRR3581710', 'SRR3581711', 'SRR3581712', 'SRR3581713', 'SRR3581714', 'SRR3581715', 'SRR3581716', 'SRR3581717', 'SRR3581719', 'SRR3581720', 'SRR3581721', 'SRR3581724', 'SRR3581726', 'SRR3581727', 'SRR3581728', 'SRR3581730', 'SRR3581731', 'SRR3581732', 'SRR3581733', 'SRR3581734', 'SRR3581735', 'SRR3581736', 'SRR3581737', 'SRR3581738', 'SRR3581740', 'SRR3581831', 'SRR3581833', 'SRR3581834', 'SRR3581835', 'SRR3581836', 'SRR3581837', 'SRR3581838', 'SRR3581839', 'SRR3581840', 'SRR3581841', 'SRR3581842', 'SRR3581843', 'SRR3581844', 'SRR3581845', 'SRR3581846', 'SRR3581847', 'SRR3581848', 'SRR3581849', 'SRR3581850', 'SRR3581851', 'SRR3581852', 'SRR3581853', 'SRR3581854', 'SRR3581855', 'SRR3581856', 'SRR3581857', 'SRR3581858', 'SRR3581859', 'SRR3581860', 'SRR3581861', 'SRR3581862', 'SRR3581863', 'SRR3581864', 'SRR3581865', 'SRR3581866', 'SRR3581867', 'SRR3581868', 'SRR3581869', 'SRR3581870', 'SRR3581871', 'SRR3581872', 'SRR3581873', 'SRR3581874', 'SRR3581875', 'SRR3581876', 'SRR3581877', 'SRR3581878', 'SRR3581879', 'SRR3581880', 'SRR3581881', 'SRR3581882', 'SRR3581883', 'SRR3581884', 'SRR3581885', 'SRR3581886', 'SRR3581887', 'SRR3581888', 'SRR3581889', 'SRR3581890', 'SRR3581891', 'SRR3581892', 'SRR3581893', 'SRR3581894', 'SRR3581895', 'SRR3581896', 'SRR3581897', 'SRR3581898', 'SRR3581899'], 
+			'leaf': ['SRR1105822', 'SRR1105823', 'SRR1159821', 'SRR1159827', 'SRR1159837', 'SRR314813', 'SRR446027', 'SRR446028', 'SRR446033', 'SRR446034', 'SRR446039', 'SRR446040', 'SRR446484', 'SRR446485', 'SRR446486', 'SRR446487', 'SRR493036', 'SRR493097', 'SRR493098', 'SRR493101', 'SRR764885', 'SRR924656', 'SRR934391', 'SRR942022'], 
+			'light': ['SRR070570', 'SRR070571', 'SRR1001909', 'SRR1001910', 'SRR1019221', 'SRR345561', 'SRR345562', 'SRR346552', 'SRR346553', 'SRR394082', 'SRR504179', 'SRR504180', 'SRR504181', 'SRR515073', 'SRR515074', 'SRR527164', 'SRR527165', 'SRR584115', 'SRR584121', 'SRR584129', 'SRR584134', 'SRR653555', 'SRR653556', 'SRR653557', 'SRR653561', 'SRR653562', 'SRR653563', 'SRR653564', 'SRR653565', 'SRR653566', 'SRR653567', 'SRR653568', 'SRR653569', 'SRR653570', 'SRR653571', 'SRR653572', 'SRR653573', 'SRR653574', 'SRR653575', 'SRR653576', 'SRR653577', 'SRR653578', 'SRR797194', 'SRR797230', 'SRR833246'], 
+			'pollen': ['SRR847501', 'SRR847502'], 
+			'RAM': ['SRR1260032', 'SRR1260033', 'SRR1261509'], 
+			'receptacle': ['SRR401413', 'SRR401414', 'SRR401415', 'SRR401416', 'SRR401417', 'SRR401418', 'SRR401419', 'SRR401420', 'SRR401421'], 
+			'root': ['ERR274309', 'SRR1046909', 'SRR1046910', 'SRR1524935', 'SRR1524938', 'SRR1524940', 'SRR314814'], 
+			'SAM': ['SRR949956', 'SRR949965', 'SRR949988', 'SRR949989']
+		}
+
+		### Generate BAM directory link
+		bam_dir = '' # Reset bam_dir value
+		# Check if data is public or private dataset
+		if cachedDatapoints == True:
+			for x in publicDatapoints: # If public, find tissue (x) to create bam_dir
+				if record in publicDatapoints[x]:
+					bam_dir = x + '/' + record
+			if bam_dir == '': # If tissue not found, download new bam index file
+				bam_dir = 'uploads' + '/' + record + "_" + start_time
+		else: # If private, download new bam index file
+			bam_dir = "uploads" + "/" + record + "_" + start_time
 
 		if bamtype == "Google Drive":
 			# Create a Google Drive mount point and muont the bam file.
@@ -451,7 +481,7 @@ def main():
 		# the same info would be there. So just pass that along instead of
 		# making this call .. to speed things up
 		# Set the environment
-		bai_directory = ("data/" + bam_dir + "_" + start_time)
+		bai_directory = ("data/" + bam_dir)
 		if os.path.isdir(bai_directory):
 			os.chdir(bai_directory)
 		else:

@@ -602,7 +602,7 @@ function rnaseq_images(status) {
           match_drive = linkString;
         }
       }
-      data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive, bamtype: sraDict[sraList[i]]["bam_type"], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, struct: splice_variants, dumpMethod: dumpMethod};
+      data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive, bamtype: sraDict[sraList[i]]["bam_type"], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, cachedDatapoints: publicData, struct: splice_variants, dumpMethod: dumpMethod};
 
       $.ajax({
         method: 'POST',

@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-	<title> Submiting your RNA-Seq data for eFP-Seq Browser</title>
-	<meta name="description" content="Submiting your RNA-Seq data for eFP-Seq Browser" />
+	<title> Submitting your RNA-Seq data for eFP-Seq Browser</title>
+	<meta name="description" content="Submitting your RNA-Seq data for eFP-Seq Browser" />
 	<meta name="keyboard" content="eFP, RNA-Seq" />
 	<meta name="author" content="Alexander Sullivan" />
 	<link rel="stylesheet" type="text/css" href="Submission_page/submissionStyle.min.css" />
@@ -18,6 +18,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="" crossorigin="anonymous">
 	<link rel="stylesheet" href="core/bootstrap/bootstrap-theme-3-3-7.min.css" integrity="" crossorigin="anonymous">
 	<script src="core/bootstrap/bootstrap3-3-7.min.js" integrity="" crossorigin="anonymous"></script>
+	<!-- lazysizes -->
+	<script src='core/lazysizes/lazysizes.min.js'></script>
 	<!-- Google Analytics ID -->
 	<script>
 		(function (i, s, o, g, r, a, m) {
@@ -6886,7 +6888,7 @@
 
 							<!-- Replicate control 1 -->
 							<div class="forminput row">
-								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidtho">&nbsp;&nbsp;&nbsp;<img class="scalearrow" src=" Submission_page/Images/dropArrow.png" alt="Next row"> Replicate Controls 1
+								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidtho">&nbsp;&nbsp;&nbsp;<img class="scalearrow lazyload" data-src="Submission_page/Images/dropArrow.png" alt="Next row"> Replicate Controls 1
 									<span class="sub_tooltip_text">The BAM record/experiment number of the replicate controls in your RNA-Seq data. Seperate controls by commas.</span>
 								</label>
 								<input class="channelgroupwidtho col-sm-8 col-xs-8 input_right inputXMLForm" name="channelgroupwidtho" id="replicate_controls1" placeholder="Seperate controls by commas. Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth" />
