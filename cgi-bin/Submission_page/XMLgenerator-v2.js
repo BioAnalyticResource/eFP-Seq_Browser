@@ -291,13 +291,26 @@ function check_links(bam_name, repo_name) {
     if (x[i].id = "bam_input") {
       if (x[i].value.length > 0) {
         if (bam_x[i].value == "Google Drive") {
-          if ((x[i].value.includes("drive.google.com/drive/folders/")) == true) {
-            return true;
-          } 
-          else if ((x[i].value.includes("drive.google.com/drive/folders/")) == false) {
-            return false;
-          } 
-          else {
+          // Verify if Google Link
+          var driveLink = x[i].value.split('//');
+          if (driveLink.length > 1) { // If starts with https
+            var driveURL = driveLink[1];
+            if ((driveURL.split('/')[0] === 'drive.google.com') || (driveURL.split('/')[0] === 'www.drive.google.com')) {
+              return true
+            }
+            else {
+              return false
+            }
+          }
+          else if (driveLink.length === 0) { // If does not start with https
+            if ((driveLink.split('/')[0] === 'drive.google.com') || (driveLink.split('/')[0] === 'www.drive.google.com')) {
+              return true
+            }
+            else {
+              return false
+            }
+          }
+          else { // Not URL
             return false;
           }
         } 

@@ -6930,6 +6930,7 @@
 						$("#sendXML").click(function () {
 							generatesrc = base64;
 							parent.base_src = generatesrc;
+							parent.uploadingdata = true;
 							parent.LoadSubmittedData();
 							parent.closeGenerate();					
 						});

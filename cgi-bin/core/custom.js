@@ -158,6 +158,7 @@ function generate_loading_screen() {
       $('#help_button').prop('disabled', false);
       addGFF();
       stop_generating_loading();
+      uploadingData = false;
     }
   }, 50);
   stop_generating_loading();
@@ -553,6 +554,7 @@ var callDumpOutputs = false;
 * Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function
 */
 function rnaseq_images(status) {
+  changePublicData();
   var awsSplit = "amazonaws.com/";
   var araportCDN = 'araport.cyverse-cdn.tacc.cloud/';
   var gDriveSplit = 'drive.google.com/drive/folders/';
@@ -1870,10 +1872,12 @@ function add_user_xml_by_upload() {
   }, 10000);
 }
 
+var uploadingData = false;
 /**
 * UI function: If logged in, upload to account vs not
 */
 function which_upload_option() {
+  uploadingData = true;
   if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
     document.getElementById("upload_modal").click();
   } 
@@ -2241,10 +2245,13 @@ function download_mainTableCSV() {
 var publicData = true;
 /**
 * Checks if the index.html's (document) "RNA-Seq Database" is currently selected on a public or private database
-* @return {Boolean} publicData - Whether a public database is or is not selected
+* @return {Boolean} forceFalse - Force a the publicData boolean to be false or have it be decided by design
 */
-function changePublicData() {
-  if ((document.getElementById("xmldatabase").selectedIndex == 1) || (document.getElementById("xmldatabase").selectedIndex == 2)) {
+function changePublicData(forceFalse = false) {
+  if (forceFalse || uploadingData) {
+    publicData = false;
+  }
+  else if ((document.getElementById("xmldatabase").selectedIndex == 1) || (document.getElementById("xmldatabase").selectedIndex == 2)) {
     publicData = true;
   }
   else {

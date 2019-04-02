@@ -213,7 +213,7 @@
 
           <!-- Upload XML/data -->
           <div id="uploadData_button">
-            <button id="upload_button" type="button" class="btn navbar_menu_buttons btn-block spacerBottom navbar_menu_clickable" onclick="which_upload_option()">Upload Data</button>
+            <button id="upload_button" type="button" class="btn navbar_menu_buttons btn-block spacerBottom navbar_menu_clickable" onclick="which_upload_option(); uploadingData = true;">Upload Data</button>
             <!-- Hidden buttons to open either upload to private database if logged in (upload_modal) or if not logged in, just upload directly (upload_logX) -->
             <button id="upload_modal" data-toggle="modal" data-target="#uploadModal" hidden></button>
             <button id="upload_logX" onclick="document.getElementById('fileID').click(); emptyLanding();" hidden></button>
