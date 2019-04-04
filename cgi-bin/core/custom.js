@@ -85,32 +85,32 @@ function count_bam_num() {
 /**
 * Changes UI of index.html (document) based on width of navigator.userAgent
 */
-function checkmobile() {
+function checkMobile() {
   if (legacy == true) {
     if (($(window).width() < 598) || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       //Creating mobile UI:
-      document.getElementById("correctspacing").style.display = "none";
-      document.getElementById("butbarborder").style.display = "none";
-      document.getElementById("uploaddata").style.display = "none";
+      document.getElementById("correctSpacing").style.display = "none";
+      document.getElementById("barBoarder").style.display = "none";
+      document.getElementById("uploadData").style.display = "none";
       document.getElementById("google_iden_login_button").style.display = "none";
       document.getElementById("google_iden_logout_button").style.display = "none";
-      document.getElementById("generatedata").style.display = "none";
-      $("#publicdatabase").removeClass("col-md-6");
-      $("#publicdatabase").removeClass("col-xs-3");
+      document.getElementById("generateData").style.display = "none";
+      $("#publicDatabase").removeClass("col-md-6");
+      $("#publicDatabase").removeClass("col-xs-3");
       document.getElementById("eFP_button").style.display = "none";
-      document.getElementById("locusbrowser").className = "col-xs-6";
+      document.getElementById("locusBrowser").className = "col-xs-6";
       document.getElementById("locus").style.width = "100%";
       document.getElementById("yscale_input").style.width = "100%";
-      document.getElementById("mobilebrspacing").style.display = "inline";
+      document.getElementById("mobileSpacing").style.display = "inline";
       document.getElementById("default_radio").className = "col-xs-6";
       document.getElementById("rpkm_scale_input").style.width = "100%";
-      document.getElementById("mobilenavbar").style.display = "block";
+      document.getElementById("mobileNavbar").style.display = "block";
     }
     else {
       // Restoring default UI:
-      document.getElementById("correctspacing").style.display = "block";
-      document.getElementById("butbarborder").style.display = "block";
-      document.getElementById("uploaddata").style.display = "block";
+      document.getElementById("correctSpacing").style.display = "block";
+      document.getElementById("barBoarder").style.display = "block";
+      document.getElementById("uploadData").style.display = "block";
       if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
         if (users_email != "") {
           document.getElementById("google_iden_login_button").style.display = 'none';
@@ -125,16 +125,16 @@ function checkmobile() {
         signOut();
         alert("Error occurred with your account, you have now been logged out. Please log back in");
       }
-      document.getElementById("generatedata").style.display = "block";
-      document.getElementById("publicdatabase").className = "col-md-6 col-xs-3 dropdown";
+      document.getElementById("generateData").style.display = "block";
+      document.getElementById("publicDatabase").className = "col-md-6 col-xs-3 dropdown";
       document.getElementById("eFP_button").style.display = "block";
-      document.getElementById("locusbrowser").className = "col-xs-4";
+      document.getElementById("locusBrowser").className = "col-xs-4";
       document.getElementById("locus").style.width = "175px";
       document.getElementById("yscale_input").style.width = "175px";
-      document.getElementById("mobilebrspacing").style.display = "none";
+      document.getElementById("mobileSpacing").style.display = "none";
       document.getElementById("default_radio").className = "col-xs-4";
       document.getElementById("rpkm_scale_input").style.width = "175px";
-      document.getElementById("mobilenavbar").style.display = "none";
+      document.getElementById("mobileNavbar").style.display = "none";
     }
   }
 };
@@ -397,7 +397,7 @@ function colour_svgs_now(mode) {
     }
   }
 
-  $("#thetable").trigger("update");
+  $("#theTable").trigger("update");
 
   colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   change_rpkm_colour_scale(colouring_mode);
@@ -490,7 +490,7 @@ function variants_radio_options(status) {
           callVariantChange(selectedData);
         }
       });
-      $("#thetable").trigger("update");
+      $("#theTable").trigger("update");
     },
     error: function() {
       $("tbody").empty();
@@ -509,7 +509,7 @@ function variants_radio_options(status) {
 }
 
 /**
-* When radio button changes, update the gene structure throughout the document and update the PCC values
+* When radio button changes, update the gene structure throughout the document and update the rpb values
 * @param {Num} variant_selected - Index of which variant is selected
 * @param {Num} variant_img - Image of the variant
 */
@@ -520,15 +520,15 @@ function gene_structure_radio_on_change(variant_selected, variant_img) {
   for (var i = 0; i < all_gene_structure_imgs.length; i++) {
     all_gene_structure_imgs[i].src = variant_img;
   }
-  // update all pcc pcc_value
+  // update all rpb rpb_value
   // Go through the exp_info array and make changes
   for (var i = 0; i < exp_info.length; i++) {
-    var pccValue = exp_info[i][5][variant_selected].toFixed(2);
-    document.getElementById(exp_info[i][0].split("_svg")[0] + '_pcc').innerHTML = pccValue;
-    sraDict[exp_info[i][0].split("_svg")[0]]["PCC"] = pccValue;
+    var rpbValue = exp_info[i][5][variant_selected].toFixed(2);
+    document.getElementById(exp_info[i][0].split("_svg")[0] + '_rpb').innerHTML = rpbValue;
+    sraDict[exp_info[i][0].split("_svg")[0]]["rpb"] = rpbValue;
   }
 
-  $("#thetable").trigger("update");
+  $("#theTable").trigger("update");
 }
 
 /**
@@ -604,7 +604,7 @@ function rnaseq_images(status) {
           match_drive = linkString;
         }
       }
-      data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive, bamtype: sraDict[sraList[i]]["bam_type"], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, cachedDatapoints: publicData, struct: splice_variants, dumpMethod: dumpMethod};
+      data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive, bamType: sraDict[sraList[i]]["bam_type"], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, cachedDatapoints: publicData, struct: splice_variants, dumpMethod: dumpMethod};
 
       $.ajax({
         method: 'POST',
@@ -665,8 +665,8 @@ function rnaseq_images(status) {
           }
           document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
           rnaseq_change += 1;
-          document.getElementById(response_rnaseq['record'] + '_pcc').innerHTML = parseFloat(r[0]).toFixed(2);
-          sraDict[response_rnaseq['record']]["PCC"] = parseFloat(r[0]).toFixed(2);
+          document.getElementById(response_rnaseq['record'] + '_rpb').innerHTML = parseFloat(r[0]).toFixed(2);
+          sraDict[response_rnaseq['record']]["rpb"] = parseFloat(r[0]).toFixed(2);
           document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
           sraDict[response_rnaseq['record']]["RPKM"] = response_rnaseq['absolute-fpkm'];
           document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
@@ -724,8 +724,8 @@ function rnaseq_images(status) {
             }
           }
 
-          $("#thetable").trigger("update");
-          reponsiveRNAWidthReize();
+          $("#theTable").trigger("update");
+          responsiveRNAWidthResize();
           toggleResponsiveTable();
         }
       });
@@ -1062,10 +1062,11 @@ var moreDetails = 'Show More Details <i class="material-icons detailsIcon">arrow
 var lessDetails = 'Show Less Details <i class="material-icons detailsIcon">arrow_drop_up</i>';
 /**
 * Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make.
+* @param {String | Number} status Index call version
 */
 function populate_table(status) {
   // Reset values
-  $("#thetable").empty();
+  $("#theTable").empty();
   rnaseq_calls = [];
   exp_info = [];
   rnaseq_success = 0;
@@ -1083,13 +1084,13 @@ function populate_table(status) {
   // Creating exon intron scale image
   var img_created = '<img src="' + 'data:image/png;base64,' + exon_intron_scale + '" alt="RNA-Seq mapped image" style="float: right; margin-right: 10px;">';
   // Insert table headers
-  $("#thetable").append(
+  $("#theTable").append(
     '<thead><tr>' +
     '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-xs-10">Title</div><div class="col-xs-0.5"><img class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
     '<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
     img_created +
     '</th>' +
-    '<th class="sortable colPCC" id="colPCC" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colPCCRow"><div class="col-xs-6">PCC</div><div class="col-xs-1"><img class="sortingArrow" id="colPCCArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
+    '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6">r<sub>pb</sub></div><div class="col-xs-1"><img class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
     '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
     '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
     '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
@@ -1104,14 +1105,14 @@ function populate_table(status) {
       $xmltitle.each(function() {
         xmlTitleName = $(this).attr('xmltitle');
         if (xmlTitleName != "" || xmlTitleName != "Uploaded dataset") {
-          document.getElementById("uplodaed_dataset").innerHTML = xmlTitleName;
+          document.getElementById("uploaded_dataset").innerHTML = xmlTitleName;
         } else if (xmlTitleName == "" || xmlTitleName == "Uploaded dataset") {
-          document.getElementById("uplodaed_dataset").innerHTML = "Uploaded dataset";
+          document.getElementById("uploaded_dataset").innerHTML = "Uploaded dataset";
         }
       });
       iteration_num = 1;
       var $title = $(xml_res).find("file");
-      $title.each(function() { // Iterate over each subtag inside the <file> tag.
+      $title.each(function() { // Iterate over each sub-tag inside the <file> tag.
         // Extract information
         var experimentno = $(this).attr('record_number');
         if (sraList.includes(experimentno)) {
@@ -1240,14 +1241,14 @@ function populate_table(status) {
         var append_str = '<tr id="' + experimentno + '_row">';
         // table_dl_str is used for downloading the table as CSV
         var table_dl_str = "<table id='table_dl'>\n\t<tbody>\n";
-        table_dl_str += "\t\t<caption>" + document.getElementById("xmldatabase").value + "</caption>\n";
+        table_dl_str += "\t\t<caption>" + document.getElementById("xmlDatabase").value + "</caption>\n";
         // Append title <td>
         append_str += '<td class="colTitle" style="width: 250px; font-size: 12px;" id="' + experimentno + '_title">' + title + '</td>\n';
         // Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
         append_str += '<td class="colRNA" style="max-width: 576px;">' + '<img id="' + experimentno + '_rnaseq_img" alt="RNA-Seq mapped image for:' + experimentno + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" class="rnaseq_img responsiveRNAWidth" src="' + img_loading_base64 + '" /><br/>' + '<img id="' + experimentno + '_gene_structure_img" style="max-width: 576px; width:100%; height: auto;" class="gene_structure_img" src="' + img_gene_struct_1 + '" alt="Gene variant image for:' + experimentno + '"/>' + '</td>\n';
-        // Append the PCC <td>
-        append_str += '<td id="' + experimentno + '_pcc' + '" class="pcc_value colPCC" style="font-size: 12px; width: 50px; ">' + -9999 + '</td>';
-        // Append the approparite SVG with place holder sorting number in front of it .. all in one <td>
+        // Append the rpb <td>
+        append_str += '<td id="' + experimentno + '_rpb' + '" class="rpb_value colrpb" style="font-size: 12px; width: 50px; ">' + -9999 + '</td>';
+        // Append the appropriate SVG with place holder sorting number in front of it .. all in one <td>
         append_str += '<td class="coleFP" tag="svg_name" style="width:  75px;">' + '<div id="' + experimentno + '_svg" name="' + svg.substring(0, svg.length - 4).slice(4) + '_tissue" tag=' + svg_part + '_subtissue" width="75" height="75" style="width: 75px; height: 75px; max-width: 75px; max-height: 75px;">' + document.getElementById(svg.substring(4).replace(".svg", "_svg")).innerHTML + '</div>' + '<div class="mdl-tooltip" for="' + experimentno + '_svg' + '">' + svg.substring(4).replace(".svg", "") + '</div></td>\n';
         // Append abs/rel RPKM
         append_str += '<td class="colRPKM" id="' + experimentno + '_rpkm' + '" style="font-size: 12px; width: 50px; ">-9999</td>';
@@ -1269,7 +1270,7 @@ function populate_table(status) {
         iteration_num++;
 
         // Append the <tr> to the table
-        $("#thetable").append(append_str);
+        $("#theTable").append(append_str);
 
         exp_info.push([experimentno + '_svg', svg_part, controls, 0, 0, 0, 0]);
         if (loadNewDataset === true) {
@@ -1284,7 +1285,7 @@ function populate_table(status) {
       // add parser through the tablesorter addParser method
       $.tablesorter.addParser({
         // set a unique id
-        id: 'pcc_sorter',
+        id: 'rpb_sorter',
         is: function(s) {
           // return false so this parser is not auto detected
           return false;
@@ -1341,14 +1342,14 @@ function populate_table(status) {
         // set type, either numeric or text
         type: 'numeric'
       });
-      $('#thetable').tablesorter({
+      $('#theTable').tablesorter({
         headers: {
           0: {},
           1: {
             sorter: false // disable sorting on this column
           },
           2: {
-            sorter: 'pcc_sorter'
+            sorter: 'rpb_sorter'
           },
           3: {
             //sorter: false  disable sorting on this column
@@ -1361,7 +1362,7 @@ function populate_table(status) {
           }
         }
       });
-      $("#thetable").trigger("update");
+      $("#theTable").trigger("update");
     }
   });
 
@@ -1380,8 +1381,8 @@ function populate_table(status) {
     alternate_rows: false,
     msg_filter: 'Filtering...'
   };
-  //var tf = new TableFilter('thetable', {base_path: 'core/tablefilter/'});
-  var tf = new TableFilter('thetable', filtersConfig);
+  //var tf = new TableFilter('theTable', {base_path: 'core/tablefilter/'});
+  var tf = new TableFilter('theTable', filtersConfig);
   //var tf = new TableFilter('demo', filtersConfig);
   tf.init();
   colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
@@ -1394,7 +1395,7 @@ function populate_table(status) {
   }
 
   if (gene_structure_colouring_element == null) {
-    gene_structure_colouring_element = document.getElementById("flt1_thetable").parentElement;
+    gene_structure_colouring_element = document.getElementById("flt1_theTable").parentElement;
   }
   gene_structure_colouring_element.innerHTML = "";
   document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = "";
@@ -1544,7 +1545,7 @@ function populate_efp_modal(status) {
 */
 function change_rpkm_colour_scale(colouring_mode) {
   if (svg_colouring_element == null) {
-    svg_colouring_element = document.getElementById("flt3_thetable").parentElement;
+    svg_colouring_element = document.getElementById("flt3_theTable").parentElement;
   }
   svg_colouring_element.innerHTML = "";
   if (colouring_mode == "rel") {
@@ -1560,7 +1561,7 @@ function change_rpkm_colour_scale(colouring_mode) {
     svg_colouring_element.appendChild(img_created);
   }
   // Add border to fltrow class tr's child td elements
-  var columnList = ["colTitle", "colRNA", "colPCC", "coleFP", "colRPKM", "colDetails"]
+  var columnList = ["colTitle", "colRNA", "colrpb", "coleFP", "colRPKM", "colDetails"]
   var tds = document.getElementsByClassName("fltrow")[0].getElementsByTagName("td");
   for (var i = 0; i < tds.length; i++) {
     tds[i].style = "border: 1px solid #D3D3D3";
@@ -1602,8 +1603,8 @@ function yscale_validation() {
 }
 
 function rpkm_validation() {
-  var rpkmscale = parseInt(document.getElementById("rpkm_scale_input").value);
-  if (rpkmscale > 0) {
+  var rpkmScale = parseInt(document.getElementById("rpkm_scale_input").value);
+  if (rpkmScale > 0) {
     $("#abs_scale_button").removeAttr('disabled');
   }
   else {
@@ -1682,7 +1683,7 @@ function get_user_XML_display() {
                 unnamed_title_num += 1;
               }
               else if (xml_title == "Araport 11 RNA-seq data") {
-                xml_title = "Ararport 11 RNA-seq data - Private version #" + private_version_num;
+                xml_title = "Araport 11 RNA-seq data - Private version #" + private_version_num;
                 private_version_num += 1;
               }
               else if (xml_title == "Developmental transcriptome - Klepikova et al") {
@@ -1705,7 +1706,7 @@ function get_user_XML_display() {
                 // Add data to list of accessible datasets
                 dataset_dictionary[title_list[i]] = datalist_Title[title_list[i]];
                 // Create option to select data from user
-                document.getElementById("xmldatabase").innerHTML += '<option class="userAdded" tag="private" value="' + title_list[i] + '" id="' + title_list[i] + '">' + title_list[i] + '</option>';
+                document.getElementById("xmlDatabase").innerHTML += '<option class="userAdded" tag="private" value="' + title_list[i] + '" id="' + title_list[i] + '">' + title_list[i] + '</option>';
               }
             };
             list_modified = true;
@@ -1766,8 +1767,8 @@ function DatalistXHRCall(datalist) {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         let response = xhr.responseXML;
-        let resonseTitle = response.getElementsByTagName("files")[0].attributes.xmltitle.nodeValue;
-        datalist_Title[resonseTitle] = datalist[dlCallPosition];
+        let responseTitle = response.getElementsByTagName("files")[0].attributes.xmltitle.nodeValue;
+        datalist_Title[responseTitle] = datalist[dlCallPosition];
 
         // Make function recursive
         dlCallPosition += 1;
@@ -2080,13 +2081,13 @@ function manage_DownloadXML() {
 
 var table_base = "\t\t<tr>\n\t\t\t<th>Title*</th>\n\t\t\t<th>Description*</th>\n\t\t\t<th>Record Number *</th>\n\t\t\t<th>RNA-Seq Data/BAM file repository link*</th>\n\t\t\t<th>Repository type*</th>\n\t\t\t<th>BAM Filename*</th>\n\t\t\t<th>Publication Link</th>\n\t\t\t<th>SRA/NCBI Link</th>\n\t\t\t<th>Total Reads Mapped*</th>\n\t\t\t<th>Read Map Method</th>\n\t\t\t<th>Species*</th>\n\t\t\t<th>Tissue*</th>\n\t\t\t<th>Tissue subunit*</th>\n\t\t\t<th>Controls</th>\n\t\t\t<th>Replicate Controls</th>\n\t\t</tr>\n";
 /**
-* Initilizes and fills a hidden table (#XMLtoCSVtable) to be filled with potentially downloadable CSV files
+* Initializes and fills a hidden table (#XMLtoCSVtable) to be filled with potentially downloadable CSV files
 */
 function fill_tableCSV() {
   $("#XMLtoCSVtable").empty();
   for (i = 0; i < total_amount_of_datasets; i++) {
     var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
-    //console.log("Initilizing fill_tableCSV() on " + downloadBox_id);
+    //console.log("Initializing fill_tableCSV() on " + downloadBox_id);
     $.ajax({
       url: dataset_dictionary[document.getElementById(downloadBox_id).value],
       dataType: 'xml',
@@ -2208,7 +2209,7 @@ function download_XMLtableCSV() {
   }
 }
 
-var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Record Number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>bp Start site</th>\n\t\t\t<th>bp End site</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>PCC</th>\n\t\t\t<th>RPKM</th>\n\t\t\t<th>Controls</th>\n\t\t</tr>\n";
+var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Record Number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>bp Start site</th>\n\t\t\t<th>bp End site</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>rpb</th>\n\t\t\t<th>RPKM</th>\n\t\t\t<th>Controls</th>\n\t\t</tr>\n";
 /**
 * Converts and downloads index's (document) main table as an CSV
 * @return {File} CSV
@@ -2216,29 +2217,29 @@ var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Record 
 function download_mainTableCSV() {
   populate_efp_modal(1); // Needed for the filtered_2d_x variables
   $("#hiddenDownloadModal_table").empty(); // reset
-  var downlodaIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
-  downlodaIndexTable_str += "\t\t<caption>" + document.getElementById("xmldatabase").value + "</caption>\n";
-  downlodaIndexTable_str += downloadIndexTable_base;
+  var downloadIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
+  downloadIndexTable_str += "\t\t<caption>" + document.getElementById("xmlDatabase").value + "</caption>\n";
+  downloadIndexTable_str += downloadIndexTable_base;
   // Looping through each row of the table
   for (i = 0; i < eFPSortedSRA.length; i++) {
-    downlodaIndexTable_str += "\t\t<tr>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["title"] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + eFPSortedSRA[i] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["svg"].substr(4, sraDict[eFPSortedSRA[i]]["svg"].length-8) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["svg_part"] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["locusValue"] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_length"]) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_start"]) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_end"]) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["numberofreads"] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["MappedReads"]) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["PCC"] + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["RPKM"].toFixed(2)) + "</td>\n";
-    downlodaIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["controlsString"]) + "</td>\n";
-    downlodaIndexTable_str += "\t\t</tr>\n";
+    downloadIndexTable_str += "\t\t<tr>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["title"] + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + eFPSortedSRA[i] + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["svg"].substr(4, sraDict[eFPSortedSRA[i]]["svg"].length-8) + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["svg_part"] + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["locusValue"] + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_length"]) + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_start"]) + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_end"]) + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["numberofreads"] + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["MappedReads"]) + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["rpb"] + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["RPKM"].toFixed(2)) + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["controlsString"]) + "</td>\n";
+    downloadIndexTable_str += "\t\t</tr>\n";
   }
-  downlodaIndexTable_str += "\t</tbody>\n</table>"; // Closing
-  document.getElementById("hiddenDownloadModal_table").innerHTML += downlodaIndexTable_str;
+  downloadIndexTable_str += "\t</tbody>\n</table>"; // Closing
+  document.getElementById("hiddenDownloadModal_table").innerHTML += downloadIndexTable_str;
   $("#hiddenDownloadModal_table").tableToCSV();
 }
 
@@ -2251,7 +2252,7 @@ function changePublicData(forceFalse = false) {
   if (forceFalse || uploadingData) {
     publicData = false;
   }
-  else if ((document.getElementById("xmldatabase").selectedIndex == 1) || (document.getElementById("xmldatabase").selectedIndex == 2)) {
+  else if ((document.getElementById("xmlDatabase").selectedIndex == 1) || (document.getElementById("xmlDatabase").selectedIndex == 2)) {
     publicData = true;
   }
   else {
@@ -2261,7 +2262,7 @@ function changePublicData(forceFalse = false) {
 
 var isPrecache = true;
 /**
-* Determines if dataset should load a precached data or new set of information
+* Determines if dataset should load a preCached data or new set of information
 */
 function checkPreload() {
   get_input_values();
@@ -2351,13 +2352,13 @@ function remove_private_database() {
   document.getElementById("private_dataset_header").style.display = 'none';
   var privateList = document.getElementsByClassName("userAdded");
   for (i = 0; i < privateList.length; i++) {
-    $("#xmldatabase option:last").remove();
+    $("#xmlDatabase option:last").remove();
   }
   check_for_change = 0;
 }
 
 /**
-* After autocomplete, correct AGI (locusbrowser) input value
+* After autocomplete, correct AGI (locusBrowser) input value
 */
 function correctAGIIDInput() {
   if (document.getElementById("locus").value != "" || document.getElementById("locus").value != " " || document.getElementById("locus").value != undefined || document.getElementById("locus").value != null) {
@@ -2399,14 +2400,14 @@ function displayNavBAR() {
     document.getElementById("navbar_menu").style.display = "none";
     document.getElementById("main_content").className = "col-sm-12";
     document.getElementById("openMenu").style.display = "block";
-    document.getElementById("thetable").classList.add("RNATable");
+    document.getElementById("theTable").classList.add("RNATable");
     document.getElementById("mainRow").removeAttribute("style");
   }
   else if ($("#navbar_menu").is(":visible") == false) {
     document.getElementById("navbar_menu").style.display = "block";
     document.getElementById("main_content").className = "col-sm-9";
     document.getElementById("openMenu").style.display = "none";
-    document.getElementById("thetable").classList.remove("RNATable");
+    document.getElementById("theTable").classList.remove("RNATable");
     document.getElementById("mainRow").style.display = "inline-block";
   }
 }
@@ -2432,7 +2433,7 @@ function adjustFooterSize() {
 }
 
 /**
- * Adjust the submisison iFrame (generate data modal) based on window's height
+ * Adjust the submission iFrame (generate data modal) based on window's height
  */
 function adjustSubmissionIFrameSize() {
   var iFrameSize = window.innerHeight * 0.7;
@@ -2463,7 +2464,7 @@ var responsiveRNAWidthAdjusted = false;
 /**
  * Creates a responsive design for the RNA-Seq images
  */
-function reponsiveRNAWidthReize() {
+function responsiveRNAWidthResize() {
   var responsive = document.getElementsByClassName("responsiveRNAWidth");
   if (window.innerWidth <= 575) {    
     for (i = 0; i < responsive.length; i++) {
@@ -2482,29 +2483,29 @@ function reponsiveRNAWidthReize() {
  * Helper function for making the tableResponsiveTable function shorter
  * @param {Bool} colTitleBool true = title column visible, false = column hidden
  * @param {Bool} colRNABool true = RNA column visible, false = column hidden
- * @param {Bool} colPCCBool true = PCC column visible, false = column hidden
+ * @param {Bool} colrpbBool true = rpb column visible, false = column hidden
  * @param {Bool} coleFPBool true = eFP column visible, false = column hidden
  * @param {Bool} colRPKMBool true = RPKM column visible, false = column hidden
  * @param {Bool} colDetailsBool true = details column visible, false = column hidden
  */
-function toggleResponsiveTableOptions(colTitleBool, colRNABool, colPCCBool, coleFPBool, colRPKMBool, colDetailsBool) {
+function toggleResponsiveTableOptions(colTitleBool, colRNABool, colrpbBool, coleFPBool, colRPKMBool, colDetailsBool) {
   toggleTableCol("colTitle", colTitleBool);
   document.getElementById("toggleTitle").checked = colTitleBool;
   toggleTableCol("colRNA", colRNABool);
   document.getElementById("toggleRNA").checked = colRNABool;
-  toggleTableCol("colPCC", colPCCBool);
-  document.getElementById("togglePCC").checked = colPCCBool;
+  toggleTableCol("colrpb", colrpbBool);
+  document.getElementById("togglerpb").checked = colrpbBool;
   toggleTableCol("coleFP", coleFPBool);
   document.getElementById("toggleeFP").checked = coleFPBool;
   toggleTableCol("colRPKM", colRPKMBool);
   document.getElementById("toggleRPKM").checked = colRPKMBool;
   toggleTableCol("colDetails", colDetailsBool);
   document.getElementById("toggleDetails").checked = colDetailsBool;
-  RememberToggleOptions(colTitleBool, colRNABool, colPCCBool, coleFPBool, colRPKMBool, colDetailsBool);
+  RememberToggleOptions(colTitleBool, colRNABool, colrpbBool, coleFPBool, colRPKMBool, colDetailsBool);
 }
 
 /**
- * Craetes a responsive mobile/small screen RNA-Table design *
+ * Creates a responsive mobile/small screen RNA-Table design *
  * @param {number} [forceToggle=0] Forces a toggled responsive design. 0 = none, 1 = mobile, 2 = desktop
  * @param {bool} [buttonClick=false] If clicked from mobile/responsive page, hide nav bar
  */
@@ -2518,7 +2519,7 @@ function toggleResponsiveTable(forceToggle = 0, buttonClick = false) {
     else if ((forceToggle == 2) || (window.innerWidth >= 1100 && usedToggle == false)) {
       toggleResponsiveTableOptions(true, true, true, true, true, true);
     }
-    // Toggle off same as below but also PCC values at windows resolution less than 830 pixels
+    // Toggle off same as below but also rpb values at windows resolution less than 830 pixels
     else if ((forceToggle == 3) || (window.innerWidth < 830 && usedToggle == false)) {
       toggleResponsiveTableOptions(true, true, false, false, false, false);
     }
@@ -2542,16 +2543,16 @@ var ToggledTable = [true, true, true, true, true, true];
  * Remember what toggle options were chosen in the RNA table
  * @param {boolean} [title=true] Title
  * @param {boolean} [rna=true] RNA-Seq Coverage
- * @param {boolean} [pcc=true] PCC
+ * @param {boolean} [rpb=true] rpb
  * @param {boolean} [efp=true] eFP
  * @param {boolean} [rpkm=true] RPKM
  * @param {boolean} [details=true] Details
  */
-function RememberToggleOptions(title = true, rna = true, pcc = true, efp = true, rpkm = true, details = true) {
-  ToggledTable = [title, rna, pcc, efp, rpkm, details];
+function RememberToggleOptions(title = true, rna = true, rpb = true, efp = true, rpkm = true, details = true) {
+  ToggledTable = [title, rna, rpb, efp, rpkm, details];
 }
 
-var colSortList = ["colTitle", "colPCC", "colRPKM", "colDetails"];
+var colSortList = ["colTitle", "colrpb", "colRPKM", "colDetails"];
 /**
  * Resize the directional arrows to more accurately fix the column size
  */
@@ -2599,7 +2600,7 @@ function ChangeColArrow(tableArrowID) {
 
 let cardIDList = ['aboutCardTitle', 'navbarCardTitle', 'additionalFeaturesCardTitle', 'generateDataCardTitle', 'xmlCardTitle', 'accountCardTitle', 'feedbackCardTitle'];
 /**
- * Changes the help direcitonal arrow on each card when clicked
+ * Changes the help directional arrow on each card when clicked
  * @param {String} elementID The element ID for the help card's title
  */
 function ChangeHelpArrowDirection(elementID) {
@@ -2695,7 +2696,7 @@ function DetectBrowser() {
         'NContain': ['Chromium', 'Chrome']
       }
     };
-    // Retrieve keys from userAgent in the instense this is modified
+    // Retrieve keys from userAgent in the instance this is modified
     var userAgentParserKeys = Object.keys(userAgentParser);
     var detectBrowser;
     var notDetectedBrowser = true;
@@ -2733,7 +2734,7 @@ function DetectBrowser() {
     // Change the help string to manage cookies
     if (detectBrowser) {    
       $("#notChrome").empty();
-      append_str = ' or through the following <a href="https://www.google.com/search?q=manage+cookies+in+' + detectBrowser + '" target="_blank" rel="noopner">Google search results</a>';
+      append_str = ' or through the following <a href="https://www.google.com/search?q=manage+cookies+in+' + detectBrowser + '" target="_blank" rel="noopener">Google search results</a>';
       $("#notChrome").append(append_str);
     }
 
@@ -2793,7 +2794,7 @@ function LoadSubmittedData() {
 $(window).resize(function() {
   adjustFooterSize();
   adjustSubmissionIFrameSize();
-  reponsiveRNAWidthReize();
+  responsiveRNAWidthResize();
   toggleResponsiveTable();
   setTimeout(function() {adjustFooterSize();}, 10);
 })
@@ -2804,7 +2805,7 @@ $(window).resize(function() {
 function init() {
   // Prevent Microsoft Edge from autofilling causing errors
   document.getElementById("locus").value = "AT2G24270";
-  document.getElementById("xmldatabase").value = "Araport 11 RNA-seq data";
+  document.getElementById("xmlDatabase").value = "Araport 11 RNA-seq data";
 
   // On load, validate input
   locus_validation();
@@ -2817,7 +2818,7 @@ function init() {
 
   // Check if mobile
   if (legacy == true) {
-    checkmobile();
+    checkMobile();
     publicData = false;
   }
 

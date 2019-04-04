@@ -110,7 +110,7 @@ def hex_to_rgb(val):
 
 ''' Used if in the instance the user does not know how many reads are mapped to 
 their locus '''
-def determineReadMapNumber(filedir, filename, readMappedNumber, remoteDrive, bamtype):
+def determineReadMapNumber(filedir, filename, readMappedNumber, remoteDrive, bamType):
 	if readMappedNumber == 0:
 		readsMappedHold = [] # Holds the number
 
@@ -152,13 +152,13 @@ def determineReadMapNumber(filedir, filename, readMappedNumber, remoteDrive, bam
 		return float(readMappedNumber)
 
 ''' Once we have chromosome, start, end and filename, we can make the image.'''
-def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcodecolour, remoteDrive, bamtype):
+def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcodecolour, remoteDrive, bamType):
 	max_mapped_reads_count = 0 # For setting the appropriate Y scale
 
 	x_bp_vals = [] # Holds nucleotide positions...
 	y_reads_values = [] # Holds the valid mapped reads for the position...
 
-	if bamtype == "Google Drive": 
+	if bamType == "Google Drive": 
 		# Clear temporary files and name a new one
 		#os.system("find ../temp/* -mtime +1 -exec rm -f {} \\;")
 		tempfile = "../temp/RNASeqGraph.png"
@@ -241,7 +241,7 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 
 	rnaseqgraph.string(0, (420, 5), str(int(yscale)), black) # Y-axis scale label
 
-	if bamtype == "Amazon AWS":
+	if bamType == "Amazon AWS":
 		# Clear temporary files and name a new one
 		os.system("find ../temp/* -mtime +1 -exec rm -f {} \\;")
 		tempfile = "../temp/RNASeqGraph.png"
@@ -295,7 +295,7 @@ def main():
 	dumpMethod = form.getvalue('dumpMethod')
 	status = form.getvalue('status')
 	remoteDrive = form.getvalue('remoteDrive')
-	bamtype = form.getvalue('bamtype')
+	bamType = form.getvalue('bamType')
 	cachedDatapoints = form.getvalue('cachedDatapoints')
 	if (cachedDatapoints.lower() == 'true') or (cachedDatapoints is True): # Verify cachedDatapoint is a boolean
 		cachedDatapoints = True
@@ -372,7 +372,7 @@ def main():
 		else: # If private, download new bam index file
 			bam_dir = "uploads" + "/" + record + "_" + start_time
 
-		if bamtype == "Google Drive":
+		if bamType == "Google Drive":
 			# Create a Google Drive mount point and muont the bam file.
 			uniqId = str(random.randint(1,1000000))
 			try:
@@ -394,38 +394,38 @@ def main():
 					error("Mounting timed out")
 
 			# Now make a image using samtools
-			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
+			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamType)
 
 			if base64img == "FAILED":
-				base64img = makeImage(bam_dir, bam_file, "chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
+				base64img = makeImage(bam_dir, bam_file, "chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamType)
 				region = "chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
 
 			if base64img == "FAILED":
-				base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
+				base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive, bamType)
 
 			if base64img == "FAILED":
 				subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
 				subprocess.call(["rm", "-rf", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
 				error("Failed to get data.")
 
-		elif bamtype == "Amazon AWS":
+		elif bamType == "Amazon AWS":
 			# Make S3FS filename here
 			bam_file = "s3://" + remoteDrive
 
 			# Now make a image using samtools
-			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
+			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamType)
 
 			if base64img == "FAILED":
-				base64img = makeImage(bam_dir, bam_file, "chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
+				base64img = makeImage(bam_dir, bam_file, "chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamType)
 				region = "chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
 
 			if base64img == "FAILED":
-				base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive, bamtype)
+				base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive, bamType)
 
 		# Correct total reads mapped:
 		if (totalReadsMapped is None or totalReadsMapped == "0" or totalReadsMapped == 0):
 			totalReadsMapped = 0
-			totalReadsMapped = determineReadMapNumber(bam_dir, bam_file, totalReadsMapped, remoteDrive, bamtype)
+			totalReadsMapped = determineReadMapNumber(bam_dir, bam_file, totalReadsMapped, remoteDrive, bamType)
 		
 		# OFTEN, mpileup output doesn't include all the bases assigned to locus
 		# The ones that are not included should get a mpileup expression value of 0
@@ -505,7 +505,7 @@ def main():
 				r_val = float(sp / (math.sqrt(ss_x[i] * ss_y)))
 				r.append(round(r_val, PRECISION))
 
-		if bamtype == "Google Drive":
+		if bamType == "Google Drive":
 			try:
 				subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
 			except:

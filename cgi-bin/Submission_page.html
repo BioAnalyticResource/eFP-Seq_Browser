@@ -42,10 +42,10 @@
 <body>
 	<!-- Titles and top buttons -->
 	<header>
-		<div class="leftmargin">
+		<div class="leftMargin">
 			<!-- Intro -->
 			<h1 style="font-weight:bold;">eFP-Seq Browser User Data Submission</h1>
-			<p> To visualize and interpret your own RNA-seq data with the eFP-Seq Browser, please fill out the form below with the informationfor your data. All fields with an <span style="font-weight:bold;">*</span> are required fields. </p>
+			<p> To visualize and interpret your own RNA-seq data with the eFP-Seq Browser, please fill out the form below with the information for your data. All fields with an <span style="font-weight:bold;">*</span> are required fields. </p>
 			<p> When you have finished filling in the forms, please click the "Generate XML" button at the bottom of the page. It will give you an option to download an XML file of readable data; it is highly recommended that you download that XML file so you may simply submit that XML file next time instead of needing to fill out the form again. You can also choose to make the XML file publicly accessible</p>
 			<p> If you have a lot of RNA-Seq data files to input into the eFP-Seq Browser, it may be best to upload an Excel file with all the information filled in instead of typing it below. You can download the Excel template <a href="Submission_page/bulk_template.xlsx" download>here</a>
 			</p>
@@ -53,7 +53,7 @@
 			<!-- Submission options (buttons) -->
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-toggle="modal" data-target="#excelModal" data-upgraded=",MaterialButton,MaterialRipple">Upload Excel<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
-			<button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px" onclick="showWarning()">Reset form<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+			<button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px" onclick="showWarning()">Reset form<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 			<div class="warning_nope" id="warning">
 				<strong>Warning!</strong> "Reset form" clears all filled entires below, are you sure you wish to continue?
 				<span class="warning_button" onclick="hideWarning()"> No </span>
@@ -73,7 +73,7 @@
 			<div class="SubmissionArea" id="Entries_all">
 				<!-- Basic information of each XML file -->
 				<div class="Basic_info" name="Basic_info">
-					<legend class="leftmargin" style="padding-top:2%; font-weight:bold;" id="basic_yo"> Basic Information </legend>
+					<legend class="leftMargin" style="padding-top:2%; font-weight:bold;" id="basic_yo"> Basic Information </legend>
 					<div class="form_in">
 						<fieldset id="basic_info">
 							<!-- Title of XML file -->
@@ -128,7 +128,7 @@
 
 				<!-- Single entry for the submission -->
 				<div class="Entries" name="Entries" id="entries">
-					<legend class="leftmargin" style="padding-top:2%; font-weight:bold;" id="Enty_num"> Entry 1 </legend>
+					<legend class="leftMargin" style="padding-top:2%; font-weight:bold;" id="Entry_num"> Entry 1 </legend>
 					<div class="form_in">
 						<fieldset>
 							<!-- Title -->
@@ -143,7 +143,7 @@
 
 							<!-- Description -->
 							<div class="forminput row">
-								<label for="channel-description" class="formtextarea col-sm-3 col-xs-3 sub_tooltip">Description<span style="font-weight:bold;">*</span>
+								<label for="channel-description" class="formTextArea col-sm-3 col-xs-3 sub_tooltip">Description<span style="font-weight:bold;">*</span>
 									<span class="sub_tooltip_text">Description of your RNA-Seq submission data.</span>
 								</label>
 								<textarea class="channeldescription col-sm-8 col-xs-8 reqfield inputXMLForm" id="reqdesc" name="channeldescription" type="text" placeholder="Example: E-MTAB-1668 24hCS-RNA or GSM798296 mRNASeq_WT_rep2" data-help-text="description"></textarea>
@@ -168,15 +168,15 @@
 							<div class="forminput row" hidden>
 								<label class="col-sm-3 col-xs-3" for="channel-foreground" title="Admin use, this temp">IGB Foreground color<span style="font-weight:bold;">*</span>
 								</label>
-								<input class="channelforeground col-sm-8 col-xs-8 input_right change_forgroundcolor inputXMLForm" id="foregroundID_num1" name="channelforeground" placeholder="Hidden input for generating XML" type="text" data-help-text="foreground" />
+								<input class="channelforeground col-sm-8 col-xs-8 input_right change_foregroundcolor inputXMLForm" id="foregroundID_num1" name="channelforeground" placeholder="Hidden input for generating XML" type="text" data-help-text="foreground" />
 							</div>
 
 							<!-- BAM Repository link -->
 							<div class="forminput row">
 								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-bam_link">RNA-Seq Data/BAM file Repository Link<span style="font-weight:bold;">*</span>
-									<span class="sub_tooltip_text">A link to your RNA-Seq Data/BAM file repository. If it is Googe Drive, please add a Shared View link WITHOUT the "?usp=sharing." at the end. If Amazon AWS, please have the link end with the file like /name.bam</span>
+									<span class="sub_tooltip_text">A link to your RNA-Seq Data/BAM file repository. If it is Google Drive, please add a Shared View link WITHOUT the "?usp=sharing." at the end. If Amazon AWS, please have the link end with the file like /name.bam</span>
 								</label>
-								<select class="channelbamtype col-sm-2 col-xs-2" list="channelbamtype reqfield" id="bamtype" name="channelbamtype" placeholder="Link type" type="text" data-help-text="bamtype" onchange="bamtype_placeholder()" onclick="bamtype_placeholder()" />
+								<select class="channelbamType col-sm-2 col-xs-2" list="channelbamType reqfield" id="bamType" name="channelbamType" placeholder="Link type" type="text" data-help-text="bamType" onchange="bamType_placeholder()" onclick="bamType_placeholder()" />
 									<option value="Google Drive">Google Drive</option>
 									<option value="Amazon AWS">Amazon AWS</option>
 								</select>
@@ -193,7 +193,7 @@
 
 							<!-- Publication link -->
 							<div class="forminput row">
-								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-publication_link">Publicaiton Link
+								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-publication_link">Publication Link
 									<span class="sub_tooltip_text">If your research has been published or referencing a research, it may be useful to link to the publication.</span>
 								</label>
 								<input class="channelpublicationlink col-sm-8 col-xs-8 sub_link input_right inputXMLForm" name="channelpublicationlink" id="publink" placeholder="Example: https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-1668/" type="text" data-help-text="publication_link" />
@@ -242,10 +242,10 @@
 							<div class="forminput row" hidden>
 								<label class="col-sm-3 col-xs-3 " for="channel-svgname" title="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg">SVG Name<span style="font-weight:bold;">*</span>
 								</label>
-								<input class="channelsvgname col-sm-8 col-xs-8 reqfield change_svg input_right inputXMLForm" id="svg1" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="sngname" />
+								<input class="channelsvgname col-sm-8 col-xs-8 reqfield change_svg input_right inputXMLForm" id="svg1" name="channelsvgname" placeholder="Admin use only: SVG Name. Ex: ath-rosettePlusRoot.svg" type="text" data-help-text="svgname" />
 							</div>
 
-							<!-- Spcies -->
+							<!-- Species -->
 							<div class="forminput row">
 								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-species">Species<span style="font-weight:bold;">*</span>
 									<span class="sub_tooltip_text">The organism that your RNA-Seq data is for. Currently, the eFP-Seq Browser is only functional for Arabidopsis thaliana but if your dataset is for another species, please select Other</span>
@@ -1483,7 +1483,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flowres_stamen" class="tissue_box stamen">Flowers's stamen:
+													<td onclick="clickclick(this.id)" id="Flowers_stamen" class="tissue_box stamen">Flowers's stamen:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -6904,24 +6904,24 @@
 			<div id="Cloning" class="button_fixed">
 				<p> All field entries with a * next to them are required entries </p>
 				<p>
-					<button type="button" id="CloneForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple">Add another entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+					<button type="button" id="CloneForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin" data-upgraded=",MaterialButton,MaterialRipple">Add another entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
-					<button type="button" onclick="DeleteSection()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Delete last entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+					<button type="button" onclick="DeleteSection()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Delete last entry<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
-					<button type="button" id="addExistingData" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;" data-toggle="modal" data-target="#existingModal" onclick="update_existingAdd_options();" hidden>Add Existing Data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+					<button type="button" id="addExistingData" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;" data-toggle="modal" data-target="#existingModal" onclick="update_existingAdd_options();" hidden>Add Existing Data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
-					<button type="button" id="GenerateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Generate XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+					<button type="button" id="GenerateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px;">Generate XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
 					<span id="not_filled" style="margin-left:10px;"></span>
 				</p>
 			</div>
 
 			<!-- Generate XML download -->
-			<div id="generated" style="display:none; padding-bottom:6px;" class="leftmargin">
+			<div id="generated" style="display:none; padding-bottom:6px;" class="leftMargin">
 				<p style="font-size:2em;">Please download the following XML to use your data at a later point without the necessicity of filling in the form again. Click the submit button to start generating your data on the eFP-Seq Browser.</p>
-				<a class="downloadfile" href="#" id="DownloadLink"><button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" download>Download XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a>
+				<a class="downloadfile" href="#" id="DownloadLink"><button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin" data-upgraded=",MaterialButton,MaterialRipple" download>Download XML<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></a>
 
-				<button type="button" class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" id="sendXML" data-upgraded=",MaterialButton,MaterialRipple" data-dismiss="modal" style="margin-left:10px;">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+				<button type="button" class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin" id="sendXML" data-upgraded=",MaterialButton,MaterialRipple" data-dismiss="modal" style="margin-left:10px;">Submit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
 				<!-- Script for changing base_src and uploading XML, clienside. This script is based off the following StackOverFlow http://stackoverflow.com/questions/37699927/file-not-uploading-in-file-reader -->
 				<script>
@@ -6955,7 +6955,7 @@
 							<input class="settingsElement input_right" type="checkbox" name="" value="" id="headersProvidedCB" checked="" hidden>
 							<div id='converter' style="width: 100%;">
 							</div>
-							<button type="button" id="convert_to_json" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="convert_to_json()" style="margin-top:1%; margin-bottom:1%;" data-dismiss="modal">Convert data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+							<button type="button" id="convert_to_json" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="convert_to_json()" style="margin-top:1%; margin-bottom:1%;" data-dismiss="modal">Convert data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 							<p> The following Excel converted was created using <a href="https://github.com/shancarter/Mr-Data-Converter">Shan Carter's Mr-Data-Converted</a></p>
 						</div>
 					</div>
@@ -7010,7 +7010,7 @@
 								</div>
 							</div>
 							<br>
-							<button type="button" id="addToData" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin" data-upgraded=",MaterialButton,MaterialRipple" style="display:none;" data-dismiss="modal" onclick="addPublic_toExisting();">Add<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+							<button type="button" id="addToData" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin" data-upgraded=",MaterialButton,MaterialRipple" style="display:none;" data-dismiss="modal" onclick="addPublic_toExisting();">Add<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 						</div>
 					</div>
 					<div class="modal-footer" style="background-color: #eafaea;">

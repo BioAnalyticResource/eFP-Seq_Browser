@@ -21,7 +21,7 @@ $(function () {
     no_null_contact();
     check_filename("channelfilename");
     check_inputs("inputXMLForm");
-    if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield") && check_req_tissue(".reqtissuebutton") && check_links(".channelbamtype", ".bam_link")) {
+    if (document.getElementById("reqxml").value.length > 0 && document.getElementById("reqauthor").value.length > 0 && check_req(".reqfield") && check_req_tissue(".reqtissuebutton") && check_links(".channelbamType", ".bam_link")) {
       $(".Entries").each(function (i, v) {
         formatXML += update(formatXML, v)
       });
@@ -38,8 +38,8 @@ $(function () {
         outline_req_tissue(".reqtissuebutton");
       }
       document.getElementById("not_filled").innerHTML += "Please fill in all red highlighted fields. ";
-      if (check_links(".channelbamtype", ".bam_link") == false) {
-        outline_links(".channelbamtype", ".bam_link");
+      if (check_links(".channelbamType", ".bam_link") == false) {
+        outline_links(".channelbamType", ".bam_link");
         document.getElementById("not_filled").innerHTML += "<br> Please only use proper and valid links only. BAM Repository Links can only contain Google Drive URLs and/or Amazon AWS URLs. ";
       }
     }
@@ -53,7 +53,7 @@ $(function () {
 
 var end = ['\t</files>'].join('\r\n');
 var base = ['<?xml version="1.0" encoding="UTF-8"?>', '\t<files xmltitle=\"<?channelxmltitle?>\" author=\"<?channelauthor?>\" contact=\"<?channelcontact?>\">', '\n'].join('\r\n');
-var topXML = ['\t\t<file info=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" foreground=\"<?channelforeground?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamtype?>\" name=\"<?channelbamlink?>\" filename=\"<?channelfilename?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" description=\"<?channeltitle?>\" url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\" title=\"<?channeligbtitle?>\">', '\t\t\t<controls>\n'].join('\r\n');
+var topXML = ['\t\t<file info=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" foreground=\"<?channelforeground?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamType?>\" name=\"<?channelbamlink?>\" filename=\"<?channelfilename?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" description=\"<?channeltitle?>\" url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\" title=\"<?channeligbtitle?>\">', '\t\t\t<controls>\n'].join('\r\n');
 var controlsXML = [].join('\r\n');
 var replicatesXML = ['\t\t\t</controls>', '\t\t\t<groupwith>\n'].join('\r\n');
 var endingXML = ['\t\t\t</groupwith>', '\t\t</file>', '\n'].join('\r\n');
@@ -86,7 +86,7 @@ function update(formatXML, v) {
     'channeldescription': $(v).find('.channeldescription').val(),
     'channelrecordnumber': $(v).find('.channelrecordnumber').val(),
     'channelhexcolor': $(v).find('.channelhexcolor').val(),
-    'channelbamtype': $(v).find('.channelbamtype').val(),
+    'channelbamType': $(v).find('.channelbamType').val(),
     'channelbamlink': $(v).find('.channelbamlink').val(),
     'channeltotalreadsmapped': $(v).find('.channeltotalreadsmapped').val(),
     'channelreadmapmethod': $(v).find('.channelreadmapmethod').val(),
@@ -181,7 +181,7 @@ function CloneSection() {
   $(".change_id_tissue_subunit").last().attr("id", new_tissue_subunit);
   $(".change_id_tissue").last().attr("id", new_tissue);
   $(".change_svg").last().attr("id", new_svg);
-  $(".change_forgroundcolor").last().attr("id", new_foregroundID);
+  $(".change_foregroundcolor").last().attr("id", new_foregroundID);
   $(".change_hexcolor").last().attr("id", new_hexID);
   $(".tissueInput").last().attr("id", tissueInput);
   $(".tissue_table").last().attr("id", "tissueTable_" + tissueInput);
@@ -593,10 +593,10 @@ function clickclick(clickid) {
   var count_which_click = tissue_click.match(/\d/g).join("");
   which_svg = "svg" + count_which_click;
   which_hex = "hexID_num" + count_which_click;
-  which_forground = "foregroundID_num" + count_which_click;
+  which_foreground = "foregroundID_num" + count_which_click;
   document.getElementById(which_svg).value = determine_svgname(clickid);
   document.getElementById(which_hex).value = determine_hexcode(determine_svgname(clickid), clickid);
-  document.getElementById(which_forground).value = determine_foreground(determine_hexcode(determine_svgname(clickid), clickid));
+  document.getElementById(which_foreground).value = determine_foreground(determine_hexcode(determine_svgname(clickid), clickid));
 };
 
 /**
@@ -617,7 +617,7 @@ function determine_svgname(from_svg) {
   else if (from_svg == "Flower" || from_svg == "Flower_receptacle" || from_svg == "ath-Flower.svg") {
     return "ath-Flower.svg";
   }
-  else if (from_svg == "Carpel_petals_stamen_and_sepals" || from_svg == "Flowers_petals" || from_svg == "Flowres_stamen" || from_svg == "Flowers_sepals" || from_svg == "Flowers_carpel" || from_svg == "ath-FlowerParts.svg") {
+  else if (from_svg == "Carpel_petals_stamen_and_sepals" || from_svg == "Flowers_petals" || from_svg == "Flowers_stamen" || from_svg == "Flowers_sepals" || from_svg == "Flowers_carpel" || from_svg == "ath-FlowerParts.svg") {
     return "ath-FlowerParts.svg";
   }
   else if (from_svg == "Germinating_seed" || from_svg == "ath-GerminatingSeed.svg") {
@@ -932,7 +932,7 @@ function convert_to_json() {
       }
       CloneSection()
     }
-    $("select[id=bamtype]").last().val(useableJSON[i]["repository type*"]);
+    $("select[id=bamType]").last().val(useableJSON[i]["repository type*"]);
     $("input[id=reqtitle]").last().val(useableJSON[i]["title*"]);
     $("textarea[id=reqdesc]").last().val(useableJSON[i]["description*"]);
     $("input[id=rec]").last().val(useableJSON[i]["record number *"]);
@@ -998,7 +998,7 @@ function update_accountAdd_options() { // Unfinished
 }
 
 /**
- * Update options from private and public databases to add to usbmisison page
+ * Update options from private and public databases to add to submission page
  */
 function update_existingAdd_options() {
   display_add_button(display_or);
@@ -1013,7 +1013,7 @@ function update_existingAdd_options() {
   araport11XML.responseType = 'document';
   araport11XML.send();
   setTimeout(function () {
-    retriveSRR_existing(araport11XML, "araport11XML")
+    retrieveSRR_existing(araport11XML, "araport11XML")
   }, 1000);
 
   // Add Klepikova database:
@@ -1022,7 +1022,7 @@ function update_existingAdd_options() {
   klepikovaXML.responseType = 'document';
   klepikovaXML.send();
   setTimeout(function () {
-    retriveSRR_existing(klepikovaXML, "klepikovaXML")
+    retrieveSRR_existing(klepikovaXML, "klepikovaXML")
   }, 1000);
 }
 
@@ -1045,7 +1045,7 @@ function display_add_button(display_out) {
  * @param {Object} xml The XML information
  * @param {String} SRR_num The record number
  */
-function retriveCONTENT_existing(xml, SRR_num) {
+function retrieveCONTENT_existing(xml, SRR_num) {
   var x,
     xmlDoc;
   xmlDoc = xml.responseXML;
@@ -1077,7 +1077,7 @@ function addPublic_toExisting() {
       araport11XML.responseType = 'document';
       araport11XML.send();
       setTimeout(function () {
-        retriveCONTENT_existing(araport11XML, document.getElementById(addBox_id).value)
+        retrieveCONTENT_existing(araport11XML, document.getElementById(addBox_id).value)
       }, 1000);
     }
   }
@@ -1092,7 +1092,7 @@ function addPublic_toExisting() {
       klepikovaXML.responseType = 'document';
       klepikovaXML.send();
       setTimeout(function () {
-        retriveCONTENT_existing(klepikovaXML, document.getElementById(addBox_id).value)
+        retrieveCONTENT_existing(klepikovaXML, document.getElementById(addBox_id).value)
       }, 1000);
     }
   }
@@ -1156,10 +1156,10 @@ var tissue_click = "";
 /**
  * Changes the BAM repository link placeholder depending which type it is
  */
-function bamtype_placeholder() {
-  if (document.getElementById("bamtype").value == "Google Drive") {
+function bamType_placeholder() {
+  if (document.getElementById("bamType").value == "Google Drive") {
     $("#bam_input").attr('placeholder', 'Please input a Shared View link WITHOUT the "?usp=sharing." at the end')
-  } else if (document.getElementById("bamtype").value == "Amazon AWS") {
+  } else if (document.getElementById("bamType").value == "Amazon AWS") {
     $("#bam_input").attr('placeholder', 'Please input the link end with the file like /name.bam')
   }
 }

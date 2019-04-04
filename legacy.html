@@ -49,7 +49,7 @@
       $.ajaxSetup({
         beforeSend: function(jqXHR) {
           $.xhrPool.push(jqXHR);
-        }, //  annd connection to list
+        }, //  and connection to list
         complete: function(jqXHR) {
           var i = $.xhrPool.indexOf(jqXHR); //  get index for current connection completed
           if (i > -1) $.xhrPool.splice(i, 1); //  removes from list by index
@@ -87,7 +87,7 @@
   <div id="testing_mobile" hidden=hidden>mobile</div>
   <div id="testing_progress" hidden=hidden>testing percent</div>
   <!-- mobile nav bar -->
-  <nav class="navbar navbar-default navbar-top" id="mobilenavbar" style="display:none;">
+  <nav class="navbar navbar-default navbar-top" id="mobileNavbar" style="display:none;">
     <div class="nav">
       <div class="col-xs-6" style="padding-left:0%; padding-right:0%;"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " style="width:100%" onclick="document.getElementById('fileID').click();" style="margin-top:3%;"><i class="material-icons">file_upload</i></button></div>
       <div class="col-xs-6" style="padding-left:0%; padding-right:0%;"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " style="width:100%" data-toggle="modal" data-target="#SubmissionModal"><i class="material-icons">create</i></button></div>
@@ -111,7 +111,7 @@
       <div id="title_bar" class="row">
         <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top:1%;">
           <p style="font-size: 35px; margin: 5px; text-align: center;"><i>A. thaliana</i> eFP-Seq Browser</p>
-          <p style="font-size: 15px; margin: 5px; text-align: center;">Priyank Purohit, Alexander Sullivan, Gini Chin, Alison Wu, Asher Pasha, Richard Song, Michelle Chen, Dr. Nicholas Provart. University of Toronto.</p>
+          <p style="font-size: 15px; margin: 5px; text-align: center;">Priyank Purohit, Alexander Sullivan, Alison Wu, Asher Pasha, Richard Song, Michelle Chen, Dr. Nicholas Provart. University of Toronto.</p>
           <div class="col-xs-3 col-sm-3 col-md-3 col-xs-offset-9 col-sm-offset-9 col-md-offset-9" style="margin-top: -50px; padding-left:3%;">
             <!--
                             <div class="col-sm-6" id="feedback_div">
@@ -140,8 +140,8 @@
       <!-- Options for uploading and generating data -->
       <hr style="border: 1px solid gray; margin: 5px; " id="topbarborder" />
       <div class="row middle_buttons" id="middle_buttons">
-        <div class="col-md-3 col-xs-3 dropdown" style="padding-left: 2%; text-align:left;" id="uploaddata">
-          <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftmargin dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%;"
+        <div class="col-md-3 col-xs-3 dropdown" style="padding-left: 2%; text-align:left;" id="uploadData">
+          <button class="create_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-upgraded=",MaterialButton,MaterialRipple" style="margin-top:3%;"
             id="custom_view">Custom Data
                       <span class="mdl-button__ripple-container">
                         <span class="mdl-ripple"></span>
@@ -149,11 +149,11 @@
                     </button>
           <div class="dropdown-menu" style="left:auto;" aria-labelledby="custom_view">
             <a class="dropdown-item" style="font-size: 14px;" id="upload_button" onclick="which_upload_option()">Upload XML</a>
-            <a class="dropdown-item" style="font-size: 14px;" data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple" id="generatedata" onclick="get_user_XML_display();">Generate XML</a>
+            <a class="dropdown-item" style="font-size: 14px;" data-toggle="modal" data-target="#SubmissionModal" data-upgraded=",MaterialButton,MaterialRipple" id="generateData" onclick="get_user_XML_display();">Generate XML</a>
           </div>
           <button id="upload_modal" data-toggle="modal" data-target="#uploadModal" hidden></button>
           <button id="upload_logX" onclick="document.getElementById('fileID').click();" hidden></button>
-          <div class="mdl-tooltip" for="generatedata">Visualize your BAM files in the eFP-Seq Browser</div>
+          <div class="mdl-tooltip" for="generateData">Visualize your BAM files in the eFP-Seq Browser</div>
           <div class="mdl-tooltip" for="upload_button">Upload your XML data to be visualized in eFP-Seq Browser</div>
           <input type="file" id="fileID" hidden accept="text/xml" />
 
@@ -172,7 +172,7 @@
           </div>
 
 
-          <!-- Script for changing base_src and uploading XML, clienside -->
+          <!-- Script for changing base_src and uploading XML, client side -->
           <script>
             $(function() {
               $("#fileID").on('change', function() {
@@ -198,9 +198,9 @@
 
                         base_src = document.getElementById("newsrc").getAttribute("src");
                         upload_src = document.getElementById("newsrc").getAttribute("src");
-                        document.getElementById("uplodaed_dataset").style.display = 'block';
+                        document.getElementById("uploaded_dataset").style.display = 'block';
                         document.getElementById("uploaded_dataset_header").style.display = 'block';
-                        document.getElementById("xmldatabase").value = "Uploaded dataset";
+                        document.getElementById("xmlDatabase").value = "Uploaded dataset";
                         dataset_dictionary["Uploaded dataset"] = upload_src;
                         //window.open(base_src);
                       }
@@ -233,14 +233,14 @@
           <div id="hold-xml"></div>
         </div>
 
-        <div class="col-md-6 col-xs-6 dropdown" style="padding-top: 0.5%; text-align: center;" id="publicdatabase">
+        <div class="col-md-6 col-xs-6 dropdown" style="padding-top: 0.5%; text-align: center;" id="publicDatabase">
           <div class="public-rna" id="public_words">RNA-Seq Databases:
-            <select class="xmldatabase" id="xmldatabase" name="xmldatabase" type="text" data-help-text="xmldatabase" style="width:40%;" onclick="check_if_Google_login()" onchange="changePublicData()">
+            <select class="xmlDatabase" id="xmlDatabase" name="xmlDatabase" type="text" data-help-text="xmlDatabase" style="width:40%;" onclick="check_if_Google_login()" onchange="changePublicData()">
                 <option value="-- eFP-Seq Browser public database options --" disabled> -- eFP-Seq Browser Public Database Options -- </option>
                 <option value="Araport 11 RNA-seq data" tag="preload">Araport 11 RNA-seq data</option>
                 <option value="Developmental transcriptome - Klepikova et al" tag="preload">Developmental transcriptome - Klepikova et al</option>
                 <option value="-- Uploaded dataset --" id="uploaded_dataset_header" disabled style="display:none;">-- Uploaded dataset --</option>
-                <option value="Uploaded dataset" id="uplodaed_dataset" style="display:none;" tag="private">Uploaded dataset</option>
+                <option value="Uploaded dataset" id="uploaded_dataset" style="display:none;" tag="private">Uploaded dataset</option>
                 <option value="-- Private database options --" id="private_dataset_header" disabled style="display:none;">-- Private database options --</option>
                 </select>
 
@@ -255,17 +255,17 @@
           function change_dataset() {
             progress_percent = 0;
             /*
-            if (document.getElementById("xmldatabase").value == "Default data") {
+            if (document.getElementById("xmlDatabase").value == "Default data") {
               base_src = 'cgi-bin/data/bamdata_amazon_links.xml';
             }
-            else if (document.getElementById("xmldatabase").value == "Developmental transcriptome - Plant J - Sample") {
+            else if (document.getElementById("xmlDatabase").value == "Developmental transcriptome - Plant J - Sample") {
               base_src = 'cgi-bin/data/bamdata_Developmental-transcriptome-PlantJ.xml';
             }
-            else if (document.getElementById("xmldatabase").value == "Uploaded dataset") {
+            else if (document.getElementById("xmlDatabase").value == "Uploaded dataset") {
               base_src = upload_src;
             }
             */
-            base_src = dataset_dictionary[document.getElementById("xmldatabase").value];
+            base_src = dataset_dictionary[document.getElementById("xmlDatabase").value];
             generate_loading_screen();
             count_bam_num();
             checkPreload();
@@ -344,7 +344,7 @@
 
 
 
-      <hr style="border: 1px solid gray; margin: 5px; " id="butbarborder" />
+      <hr style="border: 1px solid gray; margin: 5px; " id="barBoarder" />
       <!-- Options and Variants selection. -->
       <div class="row" id="options_and_variants">
         <!-- Variants selection -->
@@ -377,11 +377,11 @@
         <!-- Options -->
         <div class="col-xs-12 col-sm-12 col-md-6" id="options_portion">
           <div class="row">
-            <div class="col-xs-1" id="correctspacing">
+            <div class="col-xs-1" id="correctSpacing">
               <!-- For correct spacing. -->
             </div>
             <!-- Locus input -->
-            <div class="col-xs-4" id="locusbrowser">
+            <div class="col-xs-4" id="locusBrowser">
               <p>
                 <input type="text" class="form-control" name="Locus" id="locus" value="AT2G24270" style="width: 175px; height: 35px; border: 1.5px solid rgb(76,175,80);" autofocus/><i>Locus</i>
               </p>
@@ -415,7 +415,7 @@
               <!-- For correct spacing. -->
             </div>
             <!-- SVG colouring mode: abs or rel -->
-            <br id="mobilebrspacing" style="display:none;">
+            <br id="mobileSpacing" style="display:none;">
             <div class="col-xs-4" id="default_radio">
               <div class="radio" style="margin-top:0px;">
                 <label id="abs_radio">
@@ -454,17 +454,17 @@
       <hr style="border: 1px solid gray; margin: 5px; " />
       <!-- RNA-Seq table. -->
       <div class="col-xs-12 table-responsive">
-        <table id="thetable" class="table" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);"></table>
+        <table id="theTable" class="table" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);"></table>
         <div class="mdl-tooltip" for="eFP_th">Sorts by plant part.</div>
-        <div class="mdl-tooltip" for="flt0_thetable">See Help for advanced options.</div>
-        <div class="mdl-tooltip" for="flt2_thetable">See Help for advanced options.</div>
-        <div class="mdl-tooltip" for="flt4_thetable">See Help for advanced options.</div>
-        <div class="mdl-tooltip" for="flt5_thetable">See Help for advanced options.</div>
+        <div class="mdl-tooltip" for="flt0_theTable">See Help for advanced options.</div>
+        <div class="mdl-tooltip" for="flt2_theTable">See Help for advanced options.</div>
+        <div class="mdl-tooltip" for="flt4_theTable">See Help for advanced options.</div>
+        <div class="mdl-tooltip" for="flt5_theTable">See Help for advanced options.</div>
       </div>
     </div>
     <script>
-      var filter1 = "flt2_thetable"
-      var filter2 = "flt4_thetable"
+      var filter1 = "flt2_theTable"
+      var filter2 = "flt4_theTable"
 
       function checkNum(n) {
         var test = parseFloat(document.getElementById(n).value);
@@ -580,7 +580,7 @@
               on the eFP (RPKM) you will sort the rows by the plant part used for RNA-seq sampling <br> * If you sort based on RPKM the rows will be sorted by RPKM expression level <br> * Linkouts are provided to the SRA at NCBI and to associated
               publications <br> * You may filter the data in the columns, and you can combine multiple filter criteria. For example, try '&gt; 100 &amp;&amp; &lt; 110' filter in the RPKM column.<br><br> You can also set the mode to be "Relative" in
               which case the RPKM values of the appropriate control experiment or experiments (if no control is apparent, we used all samples in an experiment) are used to compute the fold-change in expression (increase or decrease) of the gene in
-              question in that sample (row) relative to the control. You can then sort on this fold-change. <br><br> You can ajdust the RNA-seq readmap scale or the RPKM colour scale from their default settings of "auto" (readmap y-axes are autoscaled
+              question in that sample (row) relative to the control. You can then sort on this fold-change. <br><br> You can adjust the RNA-seq readmap scale or the RPKM colour scale from their default settings of "auto" (readmap y-axes are autoscaled
               on a per sample basis) and whatever the maximum RPKM value is (any sample which has this score would have a red-coloured pictograph, while samples where expression is lower would have pictographs tending towards yellow in colour.) <br><br>                  We welcome feedback to nicholas.provart@utoronto.ca.<br>
 
             </p>
