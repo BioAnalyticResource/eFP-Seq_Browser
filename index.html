@@ -124,14 +124,14 @@
           <!-- Locus input -->
           <div id="locusBrowser" class="form-group navbar_menu_form_group">
             <p class="navbar_menu_general_font">1) Enter a gene name or AGI ID</p>
-            <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" name="Locus" id="locus" value="AT2G24270" onkeypress="IfPressEnter(event, 'locus_button')" autofocus/>
+            <input type="text" class="form-control navbar_menu_clickable navbar_menu_input disableOnLoading" name="Locus" id="locus" value="AT2G24270" onkeypress="IfPressEnter(event, 'locus_button')" autofocus/>
           </div>
           <div class="mdl-tooltip" for="locusBrowser">Locus example: AT2G24270</div>
 
           <!-- Dataset selection -->
           <div id="publicDatabase" class="form-group navbar_menu_form_group">
             <p class="navbar_menu_general_font">2) Select a dataset</p>
-            <select class="xmlDatabase form-control navbar_menu_clickable navbar_menu_input" id="xmlDatabase" name="xmlDatabase" style="height:34px;" type="text" data-help-text="xmlDatabase" onclick="check_if_Google_login()" onchange="changePublicData()">
+            <select class="xmlDatabase form-control navbar_menu_clickable navbar_menu_input disableOnLoading" id="xmlDatabase" name="xmlDatabase" style="height:34px;" type="text" data-help-text="xmlDatabase" onclick="check_if_Google_login()" onchange="changePublicData()">
               <option value="-- eFP-Seq Browser public database options --" disabled> -- eFP-Seq Browser Public Database Options -- </option>
               <option value="Araport 11 RNA-seq data" tag="preload">Araport 11 RNA-seq data</option>
               <option value="Developmental transcriptome - Klepikova et al" tag="preload">Developmental transcriptome - Klepikova et al</option>
@@ -148,10 +148,10 @@
             <p class="navbar_menu_general_font">3) Select options</p>
             <!-- Abs/Rel Radio -->
             <div id="default_radio" class="btn-group-justified" data-toggle="buttons" style="padding-bottom: 5%;">
-              <label id="abs_radio" class="btn navbar_menu_buttons btn-secondary active" style="font-size:1.5em;">
+              <label id="abs_radio" class="btn navbar_menu_buttons btn-secondary active disableOnLoading" style="font-size:1.5em;">
                 <input type="radio" name="svg_colour_radio_group" value="abs" checked>Absolute
               </label>
-              <label id="rel_radio" class="btn navbar_menu_buttons btn-secondary" style="font-size:1.5em;">
+              <label id="rel_radio" class="btn navbar_menu_buttons btn-secondary disableOnLoading" style="font-size:1.5em;">
                 <input type="radio" name="svg_colour_radio_group" value="rel">Relative
               </label>
             </div>
@@ -162,13 +162,13 @@
               <div class="row">
                 <div class="col-xs-5 navbar_menu_center" id="tt4">
                   <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em">Y-axis Scale</p>
-                  <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" name="yscale_inp" id="yscale_input" onkeypress="IfPressEnter(event, 'locus_button')" value="Auto" />
+                  <input type="text" class="form-control navbar_menu_clickable navbar_menu_input disableOnLoading" name="yscale_inp" id="yscale_input" onkeypress="IfPressEnter(event, 'locus_button')" value="Auto" />
                 </div>
                 <div class="mdl-tooltip" for="tt4">RNA-Seq Y-axis Scale. 'Auto' or >= 1</div>
 
                 <div class="col-xs-5 navbar_menu_center" id="absolutedefault">
                   <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em;">Absolute Max</p>
-                  <input type="text" class="form-control navbar_menu_clickable navbar_menu_input" onkeyup="colour_svgs_now();" name="rpkm_inp" id="rpkm_scale_input" value="1000" />
+                  <input type="text" class="form-control navbar_menu_clickable navbar_menu_input disableOnLoading" onkeyup="colour_svgs_now();" name="rpkm_inp" id="rpkm_scale_input" value="1000" />
                 </div>
                 <div class="mdl-tooltip" for="absolutedefault">Automatically set to the highest value</div>
               </div>
@@ -178,7 +178,7 @@
           <!-- Load data button -->
           <div id="locusButton" class="navbar_menu_form_group">
             <p class="navbar_menu_general_font">4) Load your dataset</p>
-            <button id="locus_button" onclick="change_dataset(); loadNewData(); emptyLanding(); toggleResponsiveTable(0, true);" class="btn navbar_menu_loadData btn-block navbar_menu_clickable">LOAD DATA</button>
+            <button id="locus_button" onclick="change_dataset(); loadNewData(); emptyLanding(); toggleResponsiveTable(0, true);" class="btn navbar_menu_loadData btn-block navbar_menu_clickable disableOnLoading">LOAD DATA</button>
           </div>
         </div>
         <div class="mdl-tooltip" for="locusButton">Load new settings.</div>
@@ -189,31 +189,31 @@
 
           <!-- eFP Overview -->
           <div id="eFP_button">
-            <button id="eFPOverview_open" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" data-toggle="modal" data-target="#eFPModal" onclick="populate_efp_modal(1)" disabled>eFP Overview</button>
+            <button id="eFPOverview_open" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading" data-toggle="modal" data-target="#eFPModal" onclick="populate_efp_modal(1)" disabled>eFP Overview</button>
           </div>
           <div class="mdl-tooltip" for="eFPOverview_open">See all the eFP tissue levels in one table</div>
 
           <!-- Download the table as a CSV/Excel -->
           <div id="download_button">
-            <button id="download_icon" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" onclick="download_mainTableCSV()" disabled>Download table as CSV</button>
+            <button id="download_icon" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading" onclick="download_mainTableCSV()" disabled>Download table as CSV</button>
           </div>
           <div class="mdl-tooltip" for="download_icon">Download the currently displayed dataset as a CSV (Excel) file</div>
 
           <!-- Download the table as an image -->
           <div id="download_tableAsImage">
-            <button id="download_tableDiv" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" onclick="downloadDiv('theTable')" disabled>Download table as image</button>
+            <button id="download_tableDiv" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading" onclick="downloadDiv('theTable')" disabled>Download table as image</button>
           </div>
           <div class="mdl-tooltip" for="download_icon">Download the currently displayed dataset as an image</div>
 
           <!-- Generate own data/submission page -->
           <div id="generate_button">
-            <button id="generateData" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" onclick="get_user_XML_display()" data-toggle="modal" data-target="#SubmissionModal">Generate Data</button>
+            <button id="generateData" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading" onclick="get_user_XML_display()" data-toggle="modal" data-target="#SubmissionModal">Generate Data</button>
           </div>
           <div class="mdl-tooltip" for="generateData">Generate an XML config file to view your own BAM files</div>
 
           <!-- Upload XML/data -->
           <div id="uploadData_button">
-            <button id="upload_button" type="button" class="btn navbar_menu_buttons btn-block spacerBottom navbar_menu_clickable" onclick="which_upload_option(); uploadingData = true;">Upload Data</button>
+            <button id="upload_button" type="button" class="btn navbar_menu_buttons btn-block spacerBottom navbar_menu_clickable disableOnLoading" onclick="which_upload_option(); uploadingData = true;">Upload Data</button>
             <!-- Hidden buttons to open either upload to private database if logged in (upload_modal) or if not logged in, just upload directly (upload_logX) -->
             <button id="upload_modal" data-toggle="modal" data-target="#uploadModal" hidden></button>
             <button id="upload_logX" onclick="document.getElementById('fileID').click(); emptyLanding();" hidden></button>
@@ -223,7 +223,7 @@
 
           <!-- Manage account -->
           <div id="manageAccount_button" style="display:none;">
-            <button id="manageXMLs" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" onclick="delete_fill(); fill_tableCSV(); hideWarning_index();" data-toggle="modal" data-target="#logoutModal">Manage Account</button>
+            <button id="manageXMLs" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading" onclick="delete_fill(); fill_tableCSV(); hideWarning_index();" data-toggle="modal" data-target="#logoutModal">Manage Account</button>
           </div>
           <div class="mdl-tooltip" for="manageXMLs">Manage files and data associated with your account</div>
         </div>
@@ -239,9 +239,9 @@
           <!-- Sign in/out using Google -->
           <div class="col-xs-6">
             <div class="container-fluid" style="padding-left:0px; margin-left: -5px; margin-top:-5px;">
-              <a id="google_iden_login_button" href="#" class="btn btn-lg btn-primary signin" onclick="document.getElementById('loginClick0').click();"><span class="glyphicon glyphicon-user"></span> Sign In</a>
+              <a id="google_iden_login_button" href="#" class="btn btn-lg btn-primary signin disableOnLoading" onclick="document.getElementById('loginClick0').click();"><span class="glyphicon glyphicon-user"></span> Sign In</a>
               <div class="g-signin2" data-onsuccess="onSignIn" id="google_login" hidden></div>
-              <a id="google_iden_logout_button" href="#" class="btn btn-lg btn-primary signout" style="display:none;" onclick="signOut();"><span class="glyphicon glyphicon-user"></span> Sign Out</a>
+              <a id="google_iden_logout_button" href="#" class="btn btn-lg btn-primary signout disableOnLoading" style="display:none;" onclick="signOut();"><span class="glyphicon glyphicon-user"></span> Sign Out</a>
             </div>
           </div>
         </div>
@@ -1360,7 +1360,6 @@
       }      
       sraDict = {};
       sraCountDic = {};
-      generate_loading_screen();
       count_bam_num();
       checkPreload();
     };
@@ -1434,7 +1433,6 @@
               hold_xml.show();
               reader.readAsDataURL($(this)[0].files[i]);
               progress_percent = 0;
-              generate_loading_screen();
               setTimeout(function () {
                 count_bam_num();
               }, 250)

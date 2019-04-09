@@ -1,4 +1,4 @@
-//=============================================================================
+//============================ Alexander Sullivan =============================
 //
 // Purpose: General functions for the eFP-Seq Browser
 //
@@ -139,37 +139,32 @@ function checkMobile() {
   }
 };
 
-// Code edited by StackOverFlow user Matthew "Treeless" Rowlandson https://stackoverflow.com/questions/42166138/css-transition-triggered-by-javascript?noredirect=1#comment71503764_42166138
 /**
-* Start loading screen for index.html (document)
+* Initialize or terminate the loading screen
+* @param {boolean} terminate True = end, False = start
 */
-function generate_loading_screen() {
-  window.setInterval(function() {
-    if (progress_percent < 96) {
-      document.getElementById("loading_screen").className = "loading";
-      document.getElementById("body_of").className = "body_of_loading";
-      $(':button').prop('disabled', true);
-      $('#help_button').prop('disabled', true);
-    } 
-    else if (progress_percent > 96) {
-      document.getElementById("loading_screen").className = "loading done_loading";
-      document.getElementById("body_of").className = "body_of_loading body_of_loading_done";
-      $(':button').prop('disabled', false);
-      $('#help_button').prop('disabled', false);
-      addGFF();
-      stop_generating_loading();
-      uploadingData = false;
-    }
-  }, 50);
-  stop_generating_loading();
-};
-
-/**
-* Stop loading screen for index.html (document)
-*/
-function stop_generating_loading() {
-  clearInterval(generate_loading_screen);
-};
+function loadingScreen(terminate = true) {
+  if (terminate === false) {
+    document.getElementById("loading_screen").className = "loading";
+    document.getElementById("body_of").className = "body_of_loading";
+    // Disable buttons:
+    let toDisableList = document.getElementsByClassName('disableOnLoading');
+    for (var i = 0; i < toDisableList.length; i++) {
+      $('#' + toDisableList[i].id).prop('disabled', true);
+    };
+  }
+  else {
+    document.getElementById("loading_screen").className = "loading done_loading";
+    document.getElementById("body_of").className = "body_of_loading body_of_loading_done";
+    // Enable buttons:
+    let toDisableList = document.getElementsByClassName('disableOnLoading');
+    for (var i = 0; i < toDisableList.length; i++) {
+      $('#' + toDisableList[i].id).prop('disabled', false);
+    };
+    addGFF();
+    uploadingData = false;
+  }
+}
 
 // Base 64 images
 var img_loading_base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyCAYAAADP/dvoAAAABmJLR0QAwADAAMAanQdUAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAB3RJTUUH4AoRDzYeAMpyUgAABGJJREFUeNrt3TFoE3scwPGvjxtOzKAQMEOECBkyROhQsWOEChURBFtssdJFB9Gl4OJkwaEtRRAUdLAUqYJgwamIEFAwUoS43RCw0AwpOjhkuCHDQd5Qes9q+7A+7cP2+1na5K53cH/Kl19yIfu63W4XSZL2qL+8BJIkQyhJ0h4VfPvExMSEV0WStGt92zknQkmSE+GPFFOSpN00CToRSpJkCCVJhlCSJEMoSZIhlCTJEEqSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKe8HDhw/5/Pnzbzn2/v3709/Hx8d/23kkGULpp01PT9NoNH7LsTudDgBJktBut0mSxAsu/Q8CL4G0fUmSEEURcRxTLpc5ePBguu3Lly9EUUQ2m6VcLm/4u0ajQRzH9PT0/PNPGARcu3aNXC6X7lMqlVheXv5u3/Xt69NjJpOht7fXBZEMobRz2u02Z8+eJY5jCoUCtVqN58+fU6lUePLkCXfu3KGnp4d6vU5vby9zc3PA2peCzs7OUiqVvjvm8ePHWVlZoVAocPr0aQYHB6nX6zSbTSqVSnqMkZGRdHp88+YNw8PDzM/PuyiSIZR2zv3798lms7x9+xZYex/x5s2bLC0tce7cOYaHhwmCgHa7zaFDh5ibm6PZbDI9Pc3Hjx/J5/MsLCxQrVa3PMfhw4d5/fo1rVaLI0eOMDk5CUC1WuXTp08EQcCxY8e4cOGCCyIZQmlnffjwgfPnz6ePBwYGuHr1KrD2UmW1WqVWq7G6upru02w2yeVy5PN5AAYHB//1HOvb1/fvdDpkMhniOGZ5eZlCoUCSJOnLqZIMobRjkiRJb3RZF4YhAFNTUywuLnLr1i2KxSKPHj36df+sQUChUODSpUt0Oh0uXrzo+4PSL+Bdo9I2nThxgsePH6d3eS4sLDAwMADA+/fvOXPmDP39/RtiWSqVaLVaRFEEwN27d7d93iiKCIKA27dv8+DBAy5fvpxuazQa1Ov1dHp89uxZuq1ardJqtVw4yYlQ2r4wDDl58mT6eGZmhuvXr/Pu3TuOHj1KJpMhDENevHgBwNjYGFeuXOHVq1eEYUg2mwUgl8sxMzPDqVOnyOfz9PX1pS97/sgkCFAul2m32zx9+pQkSajVaoyOjjI5Ocns7CxRFPHy5UuiKGJkZIT+/n6y2Szj4+OMjY1x48YNF1TaxL5ut9v9+omJiYkNPyVtLo5jkiTZ8NEJWPv4BJBG8GudTockSchkMts+39TUFKurq9y7dw+Aer3O0NAQKysrLob0A7bqmxOh9JO2itlmAfx6wvxZfX19DA0NEYYhBw4cYHFxkdHRURdC+o8MofSHqFQqLC0tUavVAJifn9/0M4mSDKG0axWLRYrFohdC+oW8a1SSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKkmQIJUkyhJIkGUJJkgyhJEmGUJKkP9mWX8PkN9RLkpwIJUna5fZ1u92ul0GS5EQoSdIe9DfEVWhcl8IjHgAAAABJRU5ErkJggg==";
@@ -242,6 +237,15 @@ function colour_part_by_id(id, part, fpkm, mode) {
     }
   }
 
+  // Verify which type of input is added as fpkm
+  let fpkmUse = fpkm
+  if (Array.isArray(fpkmUse)) {
+    fpkmUse = fpkmUse[variantPosition];
+  }
+  else {
+    fpkmUse = parseFloat(fpkmUse);
+  }
+
   //console.log('COLOUR PART BY ID\'s part = ' + part);
   // Get the user set RPKM scale
   max_abs_scale = document.getElementById("rpkm_scale_input").value;
@@ -256,7 +260,7 @@ function colour_part_by_id(id, part, fpkm, mode) {
   if (paths != null) {
     if (mode == "abs") { // For absolute FPKM colouring
       var r = 255;
-      var g = 255 - parseInt(fpkm / max_abs_scale * 255);
+      var g = 255 - parseInt(fpkmUse / max_abs_scale * 255);
       var b = 0;
       if (colouring_part == "all") {
         for (i = 0; i < paths.length; i++) {
@@ -287,22 +291,22 @@ function colour_part_by_id(id, part, fpkm, mode) {
       // Make the log FPKM a number between 0 and 1 to denote the 0 to +-3 scale.
       var log_scale_max = 3;
       var log_scaling = 0;
-      if (fpkm != "Missing controls data" && Math.abs(fpkm) > log_scale_max)
+      if (fpkmUse != "Missing controls data" && Math.abs(fpkmUse) > log_scale_max)
         log_scaling = log_scale_max;
-      else if (fpkm != "Missing controls data")
-        log_scaling = Math.abs(fpkm);
+      else if (fpkmUse != "Missing controls data")
+        log_scaling = Math.abs(fpkmUse);
       log_scaling /= log_scale_max;
 
-      if (fpkm == "Missing controls data") {
+      if (fpkmUse == "Missing controls data") {
         hex = "#D9D9D9"
       }
-      else if (fpkm > 0) { // yellow-red
+      else if (fpkmUse > 0) { // yellow-red
         hex = generate_colour("FFFF00", "FF0000", log_scaling);
       }
-      else if (fpkm == 0) { // yellow
+      else if (fpkmUse == 0) { // yellow
         hex = "FFFF00";
       }
-      else if (fpkm < 0) { // yellow-blue
+      else if (fpkmUse < 0) { // yellow-blue
         hex = generate_colour("FFFF00", "0000FF", log_scaling);
       }
       //console.log('fpkm = ' + fpkm + ' -> hex = ' + hex);
@@ -330,11 +334,11 @@ function colour_part_by_id(id, part, fpkm, mode) {
         }
       }
     }
-    if (fpkm == "Missing controls data") {
-      document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = fpkm;
+    if (fpkmUse == "Missing controls data") {
+      document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = fpkmUse;
     }
     else {
-      document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = round(fpkm, 2);
+      document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = round(fpkmUse, 2);
     }
   } else {
     console.log("Paths is null for id = " + id);
@@ -345,8 +349,9 @@ var current_radio = "abs";
 /**
 * Find and update each SVG in the DOM.
 */
-function colour_svgs_now(mode) {
-  mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
+function colour_svgs_now(mode) {  
+  colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
+  mode = colouring_mode
   current_radio = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   for (var i = 0; i < count_bam_entries_in_xml; i++) {
     // For every exp, figure out the fpkm average of the controls
@@ -364,42 +369,48 @@ function colour_svgs_now(mode) {
       ctrl_avg_fpkm = ctrl_fpkm_sum / ctrl_count;
 
     // Save the average fpkm of controls and the log fpkm...
+    var relativeRPKM = [];
     if (ctrl_count > 0) {
-      if (exp_info[i][3] == 0 && ctrl_avg_fpkm == 0) {
-        // Define log2(0/0) = 0 as opposed to undefined
-        exp_info[i].splice(4, 1, 0);
-      }
-      else {
-        exp_info[i].splice(4, 1, Math.log2(exp_info[i][3] / ctrl_avg_fpkm));
-      }
+      for (var v = 0; v < exp_info[0][3].length; v++) {
+        if (exp_info[i][3][variantPosition] == 0 && ctrl_avg_fpkm == 0) {
+          // Define log2(0/0) = 0 as opposed to undefined
+          relativeRPKM.push(0);
+          exp_info[i].splice(4, 1, 0);
+        }
+        else {
+          relativeRPKM.push(Math.log2(exp_info[i][3][variantPosition] / ctrl_avg_fpkm))
+        }
+      }      
     }
     else {
-      exp_info[i].splice(4, 1, "Missing controls data");
+      for (var v = 0; v < exp_info[0][3].length; v++) {
+        relativeRPKM.push("Missing controls data");
+      }      
     }
+    exp_info[i].splice(4, 1, relativeRPKM);
     exp_info[i].splice(6, 1, ctrl_avg_fpkm);
 
     // See if the absolute or the relative FPKM is max
-    if (exp_info[i][3] >= max_absolute_fpkm)
-      max_absolute_fpkm = exp_info[i][3];
+    if (exp_info[i][3][variantPosition] >= max_absolute_fpkm)
+      max_absolute_fpkm = exp_info[i][3][variantPosition];
     if (exp_info[i][4] != "Missing controls data" && Math.abs(exp_info[i][4]) >= max_log_fpkm && Math.abs(exp_info[i][4]) < 1000)
       max_log_fpkm = Math.abs(exp_info[i][4]);
 
     // Colour SVGs based on the mode requested. Pass in the correct FPKM value...
-    if (mode == "rel") {
+    if (colouring_mode === "rel") {
       if (!exp_info[i][4] && exp_info[i][4] != 0)
         exp_info[i][4] = -999999;
-      colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][4], mode); // index 5 = relative fpkm
+      colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][4], colouring_mode); // index 5 = relative fpkm
     }
     else {
-      if (!exp_info[i][3] && exp_info[i][3] != 0)
-        exp_info[i][3] = -999999;
-      colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][3], mode); // index 3 = absolute fpkm
+      if (!exp_info[i][3][variantPosition] && exp_info[i][3][variantPosition] != 0)
+        exp_info[i][3][variantPosition] = -999999;
+      colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][3], colouring_mode); // index 3 = absolute fpkm
     }
   }
 
   $("#theTable").trigger("update");
 
-  colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   change_rpkm_colour_scale(colouring_mode);
 }
 
@@ -508,27 +519,63 @@ function variants_radio_options(status) {
   })
 }
 
+var variantPosition = 0;
 /**
 * When radio button changes, update the gene structure throughout the document and update the rpb values
-* @param {Num} variant_selected - Index of which variant is selected
-* @param {Num} variant_img - Image of the variant
 */
-function gene_structure_radio_on_change(variant_selected, variant_img) {
+function gene_structure_radio_on_change() {
+  // Create and update variables
+  variant_selected = document.getElementsByClassName('dd-selected-value')[0].value; // Index of which variant is selected
+  variantPosition = variant_selected;
+  variant_img = document.getElementsByClassName('dd-selected-image')[0].src; // Image of the variant
   // Find all img tags that should be updated (all the <img> with class gene_structure)
   var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
   // Change their src to the newly selected variant's src
   for (var i = 0; i < all_gene_structure_imgs.length; i++) {
     all_gene_structure_imgs[i].src = variant_img;
   }
-  // update all rpb rpb_value
+  // update all rpb and rpkm values 
   // Go through the exp_info array and make changes
   for (var i = 0; i < exp_info.length; i++) {
+    // Update rpb values:
     var rpbValue = exp_info[i][5][variant_selected].toFixed(2);
     document.getElementById(exp_info[i][0].split("_svg")[0] + '_rpb').innerHTML = rpbValue;
     sraDict[exp_info[i][0].split("_svg")[0]]["rpb"] = rpbValue;
+    // Update RPKM values:
+    absOrRel();
   }
 
   $("#theTable").trigger("update");
+}
+
+/**
+ * Change the values and colours of the table based on absolute or relative mode selected
+ */
+function absOrRel() {
+  if (exp_info.length > 0) {
+    for (var i = 0; i < exp_info.length; i++) {
+      // Update RPKM values and colours
+      if (colouring_mode == "rel") {
+        if (!exp_info[i][4] && exp_info[i][4] != 0) {
+          exp_info[i][4] = -999999;
+        }
+        var rpkmValue = exp_info[i][5][variant_selected].toFixed(2);
+        document.getElementById(exp_info[i][0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
+        sraDict[exp_info[i][0].split("_svg")[0]]["rpkm"] = rpkmValue;
+        colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][5], colouring_mode); // index 5 = relative fpkm
+      }
+      else {
+        if (!exp_info[i][3] && exp_info[i][3] != 0) {
+          exp_info[i][3] = -999999;
+        }
+        var rpkmValue = exp_info[i][3][variant_selected].toFixed(2);
+        document.getElementById(exp_info[i][0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
+        sraDict[exp_info[i][0].split("_svg")[0]]["rpkm"] = rpkmValue;
+        colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][3], colouring_mode); // index 3 = absolute fpkm
+      }
+    }
+    change_rpkm_colour_scale(colouring_mode);
+  }  
 }
 
 /**
@@ -554,15 +601,19 @@ var callDumpOutputs = false;
 * Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function
 */
 function rnaseq_images(status) {
+  // Verify
   changePublicData();
+  // Set variables
   var awsSplit = "amazonaws.com/";
   var araportCDN = 'araport.cyverse-cdn.tacc.cloud/';
   var gDriveSplit = 'drive.google.com/drive/folders/';
   var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
+  // Reset variables
   dumpOutputs = "";
   data = {};
   rnaseq_success = 1;
   match_drive = "";
+  // Start
   get_input_values();
   CreateFilteredeFPList();
   if (rnaseq_calls.length === count_bam_entries_in_xml) {
@@ -630,10 +681,13 @@ function rnaseq_images(status) {
             rnaseq_success++;
             date_obj3 = new Date();
             rnaseq_success_current_time = date_obj3.getTime(); // Keep track of start time
-            // progress_percent = rnaseq_success / count_bam_entries_in_xml * 100;
             progress_percent = rnaseq_change / count_bam_entries_in_xml * 100;
             $('div#progress').width(progress_percent + '%');
+            if (progress_percent >= 96) {
+              loadingScreen(true);
+            }
             document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time <= " + String(round(parseInt(rnaseq_success_current_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
+            document.getElementById('progress').title = progress_percent.toFixed(2) + '%';
             //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
           }
           else {
@@ -693,7 +747,7 @@ function rnaseq_images(status) {
               dumpOutputs += '})\n'
             }
             else {
-              dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ')\n';
+              dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', [' + response_rnaseq["absolute-fpkm"] + '], [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ')\n';
             }
           }          
 
@@ -706,7 +760,7 @@ function rnaseq_images(status) {
             }
           }
 
-          colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'], 'abs');
+          colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'][variantPosition], colouring_mode);
 
           if (rnaseq_success == count_bam_entries_in_xml || rnaseq_success % 10 == 0) {
             // Execute the colour_svgs_now() function
@@ -1572,6 +1626,7 @@ function change_rpkm_colour_scale(colouring_mode) {
 /* Disables the absolute RPKM scale input button if the relative mode is selected. */
 $("input[name=svg_colour_radio_group]:radio").change(function() {
   colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
+  absOrRel();
   if (colouring_mode == "abs") {
     $("#rpkm_scale_input").removeAttr('disabled');
   }
@@ -2266,6 +2321,8 @@ var isPrecache = true;
 */
 function checkPreload() {
   get_input_values();
+  loadingScreen(false);
+  document.getElementById('progress').title = '0%';
   if ((publicData == true) && (locus == "AT2G24270") && (dumpMethod == "simple") && (callDumpOutputs === false)) {
     populate_table(1);
     isPrecache = true;
@@ -2342,7 +2399,7 @@ function hiddenGoogleSignin() {
 }
 
 function callVariantChange(inputData) {
-  gene_structure_radio_on_change(inputData["selectedData"]["value"], inputData["selectedData"]["imageSrc"]);
+  gene_structure_radio_on_change();
 }
 
 /**
@@ -2785,8 +2842,8 @@ function ToggleFilteredeFP(whichToToggle, OnOrOff) {
 function LoadSubmittedData() {
   emptyLanding();
   progress_percent = 0;
+  loadingScreen(false);
   count_bam_num();
-  generate_loading_screen();
   update_all_images(0);
 }
 

@@ -2838,7 +2838,7 @@
                 <bam_exp>SRR833246</bam_exp>
             </groupwith>
         </file>
-        <file info="Pollen, SRA: SRS419143" record_number="SRR847501" foreground="FF0000" hex_colour="0xFF0000" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/pollen/SRR847501/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="57084121" read_map_method="TopHat" publication_link="https://www.ncbi.nlm.nih.gov/pubmed/24792048" svg_subunit="all" svgname="ath-Pollen.svg" species="Arabidopsis thaliana" description="Mature pollen" url="https://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR847501">
+        <file info="Pollen, SRA: SRS419143" record_number="SRR847501" foreground="FF0000" hex_colour="0xFF0000" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Pollen_Loraine_Lab/SRR847501/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="24133008" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://www.ncbi.nlm.nih.gov/pubmed/24792048" svg_subunit="all" svgname="ath-Pollen.svg" species="Arabidopsis thaliana" description="Mature pollen" url="https://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR847501">
             <controls>
                 <bam_exp>SRR847503</bam_exp>
                 <bam_exp>SRR847504</bam_exp>
@@ -2854,7 +2854,7 @@
                 <bam_exp>SRR847506</bam_exp>
             </groupwith>
         </file>
-        <file info="Pollen, SRA: SRS419143" record_number="SRR847502" foreground="FF0000" hex_colour="0xFF0000" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/pollen/SRR847502/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="20633235" read_map_method="TopHat" publication_link="https://www.ncbi.nlm.nih.gov/pubmed/24792048" svg_subunit="all" svgname="ath-Pollen.svg" species="Arabidopsis thaliana" description="Mature pollen" url="https://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR847502">
+        <file info="Pollen, SRA: SRS419143" record_number="SRR847502" foreground="FF0000" hex_colour="0xFF0000" bam_type="Amazon AWS" name="https://s3.amazonaws.com/iplant-cdn/iplant/home/araport/rnaseq_bam/Pollen_Loraine_Lab/SRR847502/accepted_hits.bam" filename="accepted_hits.bam" total_reads_mapped="22714097" read_map_method="Galaxy's TopHat/TopHat2 (Kim et al 2013)" publication_link="https://www.ncbi.nlm.nih.gov/pubmed/24792048" svg_subunit="all" svgname="ath-Pollen.svg" species="Arabidopsis thaliana" description="Mature pollen" url="https://www.ncbi.nlm.nih.gov/Traces/sra/?run=SRR847502">
             <controls>
                 <bam_exp>SRR847503</bam_exp>
                 <bam_exp>SRR847504</bam_exp>
