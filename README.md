@@ -31,7 +31,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 ## License
 
 SVG images are [CC-BY SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
-For rest: [GPL-3.0](LICENSE.md)
+For rest: [GPL-2.0](LICENSE.md)
 
 ## Authors
 
