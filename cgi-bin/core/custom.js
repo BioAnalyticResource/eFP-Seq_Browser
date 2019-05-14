@@ -1316,7 +1316,7 @@ function populate_table(status) {
         append_str += '<div id="' + experimentno + '" class="moreDetails" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '<br>';
         append_str += '<div id="' + experimentno + '_totalReadsNum">' + 'Total reads = ' + numberofreads + '</div>';
         if (read_map_method != undefined && read_map_method.length > 0) {
-          append_str += '<div id="' + experimentno + '_readMappedMethod">' + 'Read mapped method = ' + read_map_method.trim() + '</div>';
+          append_str += '<div id="' + experimentno + '_readMappedMethod">' + 'Read map method = ' + read_map_method.trim() + '</div>';
         }
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '_less" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + lessDetails + '</a></div></td>\n';
         append_str += '</tr>';
