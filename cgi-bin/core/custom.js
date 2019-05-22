@@ -50,37 +50,33 @@ var dataset_dictionary = {
 let loadNewDataset = false;
 
 //Following lines are used to count and determine how many BAM entries are in the XML file
-var count_bam_entries_in_xml = 0;
-
-var xhr = new XMLHttpRequest();
-xhr.open('GET', base_src, true);
-xhr.onreadystatechange = function(e) {
-  if (xhr.readyState == 4 && xhr.status == 200)
-    count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("file").length;
-  };
-xhr.send(null);
-var send_null_count = 0;
-
+var count_bam_entries_in_xml = 113;
 /**
 * Count the amount of entries in a BAM file
-* @return {int} count_bam_entries_in_xml - number of bam entries pushed to index.html (document)
 */
 function count_bam_num() {
-  send_null_count = 0;
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', base_src, true);
-  xhr.onreadystatechange = function(e) {
-    if (xhr.readyState == 4 && xhr.status == 200)
-      count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("file").length;
+  const xhr = new XMLHttpRequest();
+  let url = base_src;
+
+  xhr.responseType = 'document';
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      var response = xhr.responseXML;
+
+      if (response != undefined && response.getElementsByTagName('file') != undefined) {
+        count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("file").length;
+      } else if (response === undefined || response === null) {
+        console.log('failed at response');
+      };
+
+      document.getElementById("testing_count").innerHTML = count_bam_entries_in_xml;
     };
-  // This if condition is to make sure the xhr request is not too many times
-  var max_null_calls = (count_bam_entries_in_xml * 1.5);
-  if (send_null_count < max_null_calls) {
-    xhr.send(null);
-    send_null_count += 1;
-  }
-  document.getElementById("testing_count").innerHTML = count_bam_entries_in_xml;
+  };
+
+  xhr.open('GET', url);
+  xhr.send();
 };
+count_bam_num();
 
 /**
 * Changes UI of index.html (document) based on width of navigator.userAgent
@@ -434,12 +430,11 @@ function get_input_values() {
 function update_all_images(status) {
   if (document.getElementById("locus") != null) {
     new_locus = document.getElementById("locus").value;
-    if (new_locus == old_locus) {
+    if (new_locus === old_locus) {
       $.xhrPool.abortAll();
       variants_radio_options(status);
       send_null_count = 0;
-    }
-    else if (new_locus != old_locus) {
+    } else if (new_locus != old_locus) {
       getGFF(new_locus);
       old_locus = new_locus;
       setTimeout(function() {
@@ -1328,13 +1323,15 @@ function populate_table(status) {
 
         exp_info.push([experimentno + '_svg', svg_part, controls, 0, 0, 0, 0]);
         if (loadNewDataset === true) {
-          count_bam_num();
-          setTimeout(function() {rnaseq_images(status);}, 10);  
-        }
-        else {
+          setTimeout(function() {
+            count_bam_num();
+          }, 200);
+          setTimeout(function() {
+            rnaseq_images(status);
+          }, 10);  
+        } else {
           rnaseq_images(status);
-        }
-              
+        };              
       });
       // add parser through the tablesorter addParser method
       $.tablesorter.addParser({
@@ -1820,7 +1817,7 @@ function DatalistXHRCall(datalist) {
 
     xhr.responseType = 'document';
     xhr.onreadystatechange = () => {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
         let response = xhr.responseXML;
         let responseTitle = response.getElementsByTagName("files")[0].attributes.xmltitle.nodeValue;
         datalist_Title[responseTitle] = datalist[dlCallPosition];
@@ -2321,17 +2318,20 @@ var isPrecache = true;
 */
 function checkPreload() {
   get_input_values();
+  // Update progress bar and add loading screen
   loadingScreen(false);
+  progress_percent = 0;
   document.getElementById('progress').title = '0%';
+  $('div#progress').width(progress_percent + '%');
+  // Check if public data or not
   if ((publicData == true) && (locus == "AT2G24270") && (dumpMethod == "simple") && (callDumpOutputs === false)) {
     populate_table(1);
     isPrecache = true;
-  }
-  else {
+  } else {
     update_all_images(0);
     isPrecache = false;
-  }
-}
+  };
+};
 
 var GFF_List = [];
 var parse_output;
@@ -2834,7 +2834,7 @@ function ToggleFilteredeFP(whichToToggle, OnOrOff) {
       document.getElementById(whichSRA[i] + "_row").setAttribute("hidden", true);
     }    
   }
-}
+};
 
 /**
  * Load newly generated data from the submission page
@@ -2843,9 +2843,11 @@ function LoadSubmittedData() {
   emptyLanding();
   progress_percent = 0;
   loadingScreen(false);
-  count_bam_num();
+  setTimeout(function() {
+    count_bam_num();
+  }, 200);
   update_all_images(0);
-}
+};
 
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {

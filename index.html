@@ -170,7 +170,7 @@
           <!-- Load data button -->
           <div id="locusButton" class="navbar_menu_form_group">
             <p class="navbar_menu_general_font">4) Load your dataset</p>
-            <button id="locus_button" onclick="change_dataset(); loadNewData(); emptyLanding(); toggleResponsiveTable(0, true);" class="btn navbar_menu_loadData btn-block navbar_menu_clickable disableOnLoading">LOAD DATA</button>
+            <button id="locus_button" onclick="change_dataset(); emptyLanding(); toggleResponsiveTable(0, true);" class="btn navbar_menu_loadData btn-block navbar_menu_clickable disableOnLoading">LOAD DATA</button>
           </div>
         </div>
         <div class="mdl-tooltip" for="locusButton">Load new settings.</div>
@@ -1324,23 +1324,6 @@
     };
     
     /**
-     * Loads a new dataset
-     */
-     function loadNewData() {
-      loadNewDataset = false;
-      var repeat = window.setInterval(function () {
-        if (base_src != 'cgi-bin/data/bamdata_amazon_links.xml') {
-          send_null_count = 0;
-          count_bam_num();
-        }
-      }, 500);
-
-      setTimeout(function () {
-        window.clearInterval(repeat);
-      }, 2500)
-    }
-    
-    /**
      * Change and load a new dataset based on selected one from the navbar
       * @param {Boolean} alreadySet Whether a base_src is predetermined or not [false means use dataset selection]
      */
@@ -1352,8 +1335,11 @@
       }      
       sraDict = {};
       sraCountDic = {};
-      count_bam_num();
-      checkPreload();
+      loadNewDataset = false;
+      setTimeout(function() {
+        count_bam_num();
+        checkPreload();
+      }, 200);
     };
 
     /**
@@ -1427,7 +1413,7 @@
               progress_percent = 0;
               setTimeout(function () {
                 count_bam_num();
-              }, 250)
+              }, 250);
             }
           } 
           else {
