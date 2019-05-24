@@ -791,7 +791,7 @@ function rnaseq_images(status) {
  */
 function checkAgainstSVG(svg, subunit, returnName = false) {
   var toReturn = subunit;
-  if (svg == "ath-10dayOldSeedling.svg") {
+  if (svg === "ath-10dayOldSeedling.svg" || svg === "ath-10dayOldSeedling.min.svg") {
     if (returnName === true) {
       toReturn = "10 Day Old Seedling";
     }
@@ -799,7 +799,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-15dayOldSeedling.svg") {
+  else if (svg === "ath-15dayOldSeedling.svg" || svg === "ath-15dayOldSeedling.min.svg") {
     if (returnName === true) {
       toReturn = "15 Day Old Seedling";
     }
@@ -807,7 +807,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-etiolatedSeedling.svg") {
+  else if (svg === "ath-etiolatedSeedling.svg" || svg === "ath-etiolatedSeedling.min.svg") {
     if (returnName === true) {
       toReturn = "Etiolated Seedling";
     }
@@ -815,7 +815,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "etiolatedseedling";
     }
   }
-  else if (svg == "ath-Flower.svg") {
+  else if (svg === "ath-Flower.svg" || svg === "ath-Flower.min.svg") {
     if (returnName === true) {
       toReturn = "Flower";
     }
@@ -823,7 +823,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "flower";
     }
   }
-  else if (svg == "ath-FlowerParts.svg") {
+  else if (svg === "ath-FlowerParts.svg" || svg === "ath-FlowerParts.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Parts";
     }
@@ -831,7 +831,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-GerminatingSeed.svg") {
+  else if (svg === "ath-GerminatingSeed.svg" || svg === "ath-GerminatingSeed.min.svg") {
     if (returnName === true) {
       toReturn = "Germinating Seed";
     }
@@ -839,7 +839,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-Internode.svg") {
+  else if (svg === "ath-Internode.svg" || svg === "ath-Internode.min.svg") {
     if (returnName === true) {
       toReturn = "Internode";
     }
@@ -847,7 +847,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-leaf.svg") {
+  else if (svg === "ath-leaf.svg" || svg === "ath-leaf.min.svg") {
     if (returnName === true) {
       toReturn = "Leaf";
     }
@@ -855,7 +855,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "leaf";
     }
   }
-  else if (svg == "ath-LeafParts.svg") {
+  else if (svg === "ath-LeafParts.svg" || svg === "ath-LeafParts.min.svg") {
     if (returnName === true) {
       toReturn = "Leaf Parts";
     }
@@ -863,7 +863,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-Pollen.svg") {
+  else if (svg === "ath-Pollen.svg" || svg === "ath-Pollen.min.svg") {
     if (returnName === true) {
       toReturn = "Pollen";
     }
@@ -871,7 +871,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-RootTip.svg") {
+  else if (svg === "ath-RootTip.svg" || svg === "ath-RootTip.min.svg") {
     if (returnName === true) {
       toReturn = "Root Tip";
     }
@@ -879,7 +879,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-rosettePlusRoot.svg") {
+  else if (svg === "ath-rosettePlusRoot.svg" || svg === "ath-rosettePlusRoot.min.svg") {
     if (returnName === true) {
       toReturn = "Rosette Plus Root";
     }
@@ -887,7 +887,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-Seed1-4.svg") {
+  else if (svg === "ath-Seed1-4.svg" || svg === "ath-Seed1-4.min.svg") {
     if (returnName === true) {
       toReturn = "Seed 1-4";
     }
@@ -895,7 +895,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-Seed5-7.svg") {
+  else if (svg === "ath-Seed5-7.svg" || svg === "ath-Seed5-7.min.svg") {
     if (returnName === true) {
       toReturn = "Seed 5-7";
     }
@@ -903,7 +903,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-Seed8+.svg") {
+  else if (svg === "ath-Seed8+.svg" || svg === "ath-Seed8+.min.svg") {
     if (returnName === true) {
       toReturn = "Seed 8+";
     }
@@ -911,7 +911,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-SenescentLeaf.svg") {
+  else if (svg === "ath-SenescentLeaf.svg" || svg === "ath-SenescentLeaf.min.svg") {
     if (returnName === true) {
       toReturn = "Senescent Leaf";
     }
@@ -919,7 +919,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-ShootApexInflorescense.svg") {
+  else if (svg === "ath-ShootApexInflorescense.svg" || svg === "ath-ShootApexInflorescense.min.svg") {
     if (returnName === true) {
       toReturn = "Shoot Apex Inflorescense";
     }
@@ -927,7 +927,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-ShootApexVegetative-Transition.svg") {
+  else if (svg === "ath-ShootApexVegetative-Transition.svg" || svg === "ath-ShootApexVegetative-Transition.min.svg") {
     if (returnName === true) {
       toReturn = "Shoot Apex Vegetative-Transition";
     }
@@ -935,7 +935,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-Silique1-5.svg") {
+  else if (svg === "ath-Silique1-5.svg" || svg === "ath-Silique1-5.min.svg") {
     if (returnName === true) {
       toReturn = "Silique 1-5";
     }
@@ -943,7 +943,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-Silique6-10.svg") {
+  else if (svg === "ath-Silique6-10.svg" || svg === "ath-Silique6-10.min.svg") {
     if (returnName === true) {
       toReturn = "Silique 6-10";
     }
@@ -951,7 +951,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-YoungLeaf1-4.svg") {
+  else if (svg === "ath-YoungLeaf1-4.svg" || svg === "ath-YoungLeaf1-4.min.svg") {
     if (returnName === true) {
       toReturn = "Young Leaf 1-4";
     }
@@ -959,7 +959,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-EarlyBuddingFlower.svg") {
+  else if (svg === "ath-EarlyBuddingFlower.svg" || svg === "ath-EarlyBuddingFlower.min.svg") {
     if (returnName === true) {
       toReturn = "Early Budding Flower";
     }
@@ -967,15 +967,15 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-FlowerBud.svg") {
+  else if (svg === "ath-FlowerBud.svg" || svg === "ath-FlowerBud.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Bud";
     }
-    else if (subunit != "flowerBud") {
+    else if (subunit != "flowerBud" || svg === "ath-10dayOldSeedling.min.svg") {
       toReturn = "flowerBud";
     }
   }
-  else if (svg == "ath-Stamen.svg") {
+  else if (svg === "ath-Stamen.svg" || svg === "ath-Stamen.min.svg") {
     if (returnName === true) {
       toReturn = "Stamen";
     }
@@ -983,7 +983,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-StigmaAndOvaries.svg") {
+  else if (svg === "ath-StigmaAndOvaries.svg" || svg === "ath-StigmaAndOvaries.min.svg") {
     if (returnName === true) {
       toReturn = "Stigma And Ovaries";
     }
@@ -991,7 +991,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-WholeSilique.svg") {
+  else if (svg === "ath-WholeSilique.svg" || svg === "ath-WholeSilique.min.svg") {
     if (returnName === true) {
       toReturn = "Whole Silique";
     }
@@ -999,7 +999,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "silique";
     }
   }
-  else if (svg == "ath-youngSeedling.svg") {
+  else if (svg === "ath-youngSeedling.svg" || svg === "ath-youngSeedling.min.svg") {
     if (returnName === true) {
       toReturn = "Young Seedling";
     }
@@ -1007,7 +1007,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "all";
     }
   }
-  else if (svg == "ath-FlowerDevelopment1.svg") {
+  else if (svg === "ath-FlowerDevelopment1.svg" || svg === "ath-FlowerDevelopment1.min.svg") {
     if (returnName === true) {
       toReturn = "Late Flower Development (1)";
     }
@@ -1015,7 +1015,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "flowerDevelopmentPart1";
     }
   }
-  else if (svg == "ath-FlowerDevelopment2.svg") {
+  else if (svg === "ath-FlowerDevelopment2.svg" || svg === "ath-FlowerDevelopment2.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 2";
     }
@@ -1023,7 +1023,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "flowerDevelopmentPart2";
     }
   }
-  else if (svg == "ath-FlowerDevelopment3.svg") {
+  else if (svg === "ath-FlowerDevelopment3.svg" || svg === "ath-FlowerDevelopment3.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 3";
     }
@@ -1031,7 +1031,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "flowerDevelopmentPart3";
     }
   }
-  else if (svg == "ath-FlowerDevelopment4.svg") {
+  else if (svg === "ath-FlowerDevelopment4.svg" || svg === "ath-FlowerDevelopment4.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 4";
     }
@@ -1039,7 +1039,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "flowerDevelopmentPart4";
     }
   }
-  else if (svg == "ath-FlowerDevelopment5.svg") {
+  else if (svg === "ath-FlowerDevelopment5.svg" || svg === "ath-FlowerDevelopment5.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 5";
     }
@@ -1047,7 +1047,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "flowerDevelopmentPart5";
     }
   }
-  else if (svg == "ath-FlowerDevelopment6-8.svg") {
+  else if (svg === "ath-FlowerDevelopment6-8.svg" || svg === "ath-FlowerDevelopment6-8.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 6-8";
     }
@@ -1055,7 +1055,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "flowerDevelopmentPart6";
     }
   }
-  else if (svg == "ath-FlowerDevelopment9-11.svg") {
+  else if (svg === "ath-FlowerDevelopment9-11.svg" || svg === "ath-FlowerDevelopment9-11.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 9-11";
     }
@@ -1063,7 +1063,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "flowerDevelopmentPart9";
     }
   }
-  else if (svg == "ath-FlowerDevelopment12-14.svg") {
+  else if (svg === "ath-FlowerDevelopment12-14.svg" || svg === "ath-FlowerDevelopment12-14.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 12-14";
     }
@@ -1071,7 +1071,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "flowerDevelopmentPart12";
     }
   }
-  else if (svg == "ath-FlowerDevelopment15-18.svg") {
+  else if (svg === "ath-FlowerDevelopment15-18.svg" || svg === "ath-FlowerDevelopment15-18.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 15-18";
     }
@@ -1079,7 +1079,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "flowerDevelopmentPart15";
     }
   }  
-  else if (svg == "ath-FlowerDevelopment19.svg") {
+  else if (svg === "ath-FlowerDevelopment19.svg" || svg === "ath-FlowerDevelopment19.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 19";
     }
@@ -1087,7 +1087,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       toReturn = "flowerDevelopmentPart19";
     }
   }  
-  else if (svg == "ath-Other.svg") {
+  else if (svg === "ath-Other.svg" || svg === "ath-Other.min.svg") {
     if (returnName === true) {
       toReturn = "Other";
     }
@@ -1135,14 +1135,14 @@ function populate_table(status) {
   // Insert table headers
   $("#theTable").append(
     '<thead><tr>' +
-    '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-xs-10">Title</div><div class="col-xs-0.5"><img class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
+    '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-xs-10">Title</div><div class="col-xs-0.5"><img class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
     '<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
     img_created +
     '</th>' +
-    '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6">r<sub>pb</sub></div><div class="col-xs-1"><img class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
+    '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6">r<sub>pb</sub></div><div class="col-xs-1"><img class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
     '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-    '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
-    '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.svg"></div></div></th>' +
+    '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
     '</tr></thead>' +
     '<tbody id="data_table_body"></tbody>');
 
@@ -2286,7 +2286,7 @@ function download_mainTableCSV() {
     downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["numberofreads"] + "</td>\n";
     downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["MappedReads"]) + "</td>\n";
     downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["rpb"] + "</td>\n";
-    downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["RPKM"].toFixed(2)) + "</td>\n";
+    downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["RPKM"][variantPosition].toFixed(2)) + "</td>\n";
     downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["controlsString"]) + "</td>\n";
     downloadIndexTable_str += "\t\t</tr>\n";
   }
@@ -2638,8 +2638,8 @@ function CheckElementWidth(arrowID, widthCheckFor) {
  * @param {String} tableArrowID The element ID for the table's icon that will change
  */
 function ChangeColArrow(tableArrowID) {
-  var arrowDown = "./cgi-bin/SVGs/arrowSortDown.svg";
-  var arrowUp = "./cgi-bin/SVGs/arrowSortUp.svg";
+  var arrowDown = "./cgi-bin/SVGs/arrowSortDown.min.svg";
+  var arrowUp = "./cgi-bin/SVGs/arrowSortUp.min.svg";
   setTimeout(function(){
     var arrowColID = tableArrowID + "Arrow";
     if (document.getElementById(tableArrowID).classList.contains("headerSortDown")) {
