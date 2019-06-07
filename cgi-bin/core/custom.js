@@ -101,8 +101,7 @@ function checkMobile() {
       document.getElementById("default_radio").className = "col-xs-6";
       document.getElementById("rpkm_scale_input").style.width = "100%";
       document.getElementById("mobileNavbar").style.display = "block";
-    }
-    else {
+    } else {
       // Restoring default UI:
       document.getElementById("correctSpacing").style.display = "block";
       document.getElementById("barBoarder").style.display = "block";
@@ -111,16 +110,14 @@ function checkMobile() {
         if (users_email != "") {
           document.getElementById("google_iden_login_button").style.display = 'none';
           document.getElementById("google_iden_logout_button").style.display = '';
-        }
-        else if (users_email == "") {
+        } else if (users_email == "") {
           document.getElementById("google_iden_login_button").style.display = '';
           document.getElementById("google_iden_logout_button").style.display = 'none';
-        }
-      }
-      else if (users_email != "") {
+        };
+      } else if (users_email != "") {
         signOut();
         alert("Error occurred with your account, you have now been logged out. Please log back in");
-      }
+      };
       document.getElementById("generateData").style.display = "block";
       document.getElementById("publicDatabase").className = "col-md-6 col-xs-3 dropdown";
       document.getElementById("eFP_button").style.display = "block";
@@ -131,8 +128,8 @@ function checkMobile() {
       document.getElementById("default_radio").className = "col-xs-4";
       document.getElementById("rpkm_scale_input").style.width = "175px";
       document.getElementById("mobileNavbar").style.display = "none";
-    }
-  }
+    };
+  };
 };
 
 /**
@@ -148,8 +145,7 @@ function loadingScreen(terminate = true) {
     for (var i = 0; i < toDisableList.length; i++) {
       $('#' + toDisableList[i].id).prop('disabled', true);
     };
-  }
-  else {
+  } else {
     document.getElementById("loading_screen").className = "loading done_loading";
     document.getElementById("body_of").className = "body_of_loading body_of_loading_done";
     // Enable buttons:
@@ -159,8 +155,8 @@ function loadingScreen(terminate = true) {
     };
     addGFF();
     uploadingData = false;
-  }
-}
+  };
+};
 
 // Base 64 images
 var img_loading_base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyCAYAAADP/dvoAAAABmJLR0QAwADAAMAanQdUAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAB3RJTUUH4AoRDzYeAMpyUgAABGJJREFUeNrt3TFoE3scwPGvjxtOzKAQMEOECBkyROhQsWOEChURBFtssdJFB9Gl4OJkwaEtRRAUdLAUqYJgwamIEFAwUoS43RCw0AwpOjhkuCHDQd5Qes9q+7A+7cP2+1na5K53cH/Kl19yIfu63W4XSZL2qL+8BJIkQyhJ0h4VfPvExMSEV0WStGt92zknQkmSE+GPFFOSpN00CToRSpJkCCVJhlCSJEMoSZIhlCTJEEqSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKe8HDhw/5/Pnzbzn2/v3709/Hx8d/23kkGULpp01PT9NoNH7LsTudDgBJktBut0mSxAsu/Q8CL4G0fUmSEEURcRxTLpc5ePBguu3Lly9EUUQ2m6VcLm/4u0ajQRzH9PT0/PNPGARcu3aNXC6X7lMqlVheXv5u3/Xt69NjJpOht7fXBZEMobRz2u02Z8+eJY5jCoUCtVqN58+fU6lUePLkCXfu3KGnp4d6vU5vby9zc3PA2peCzs7OUiqVvjvm8ePHWVlZoVAocPr0aQYHB6nX6zSbTSqVSnqMkZGRdHp88+YNw8PDzM/PuyiSIZR2zv3798lms7x9+xZYex/x5s2bLC0tce7cOYaHhwmCgHa7zaFDh5ibm6PZbDI9Pc3Hjx/J5/MsLCxQrVa3PMfhw4d5/fo1rVaLI0eOMDk5CUC1WuXTp08EQcCxY8e4cOGCCyIZQmlnffjwgfPnz6ePBwYGuHr1KrD2UmW1WqVWq7G6upru02w2yeVy5PN5AAYHB//1HOvb1/fvdDpkMhniOGZ5eZlCoUCSJOnLqZIMobRjkiRJb3RZF4YhAFNTUywuLnLr1i2KxSKPHj36df+sQUChUODSpUt0Oh0uXrzo+4PSL+Bdo9I2nThxgsePH6d3eS4sLDAwMADA+/fvOXPmDP39/RtiWSqVaLVaRFEEwN27d7d93iiKCIKA27dv8+DBAy5fvpxuazQa1Ov1dHp89uxZuq1ardJqtVw4yYlQ2r4wDDl58mT6eGZmhuvXr/Pu3TuOHj1KJpMhDENevHgBwNjYGFeuXOHVq1eEYUg2mwUgl8sxMzPDqVOnyOfz9PX1pS97/sgkCFAul2m32zx9+pQkSajVaoyOjjI5Ocns7CxRFPHy5UuiKGJkZIT+/n6y2Szj4+OMjY1x48YNF1TaxL5ut9v9+omJiYkNPyVtLo5jkiTZ8NEJWPv4BJBG8GudTockSchkMts+39TUFKurq9y7dw+Aer3O0NAQKysrLob0A7bqmxOh9JO2itlmAfx6wvxZfX19DA0NEYYhBw4cYHFxkdHRURdC+o8MofSHqFQqLC0tUavVAJifn9/0M4mSDKG0axWLRYrFohdC+oW8a1SSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKkmQIJUkyhJIkGUJJkgyhJEmGUJKkP9mWX8PkN9RLkpwIJUna5fZ1u92ul0GS5EQoSdIe9DfEVWhcl8IjHgAAAABJRU5ErkJggg==";
@@ -184,10 +180,10 @@ function generate_colour(start_color, end_color, percent) {
   // convert 3 char codes to 6, e.g. `E0F` to `EE00FF`
   if (start_color.length == 3) {
     start_color = start_color.replace(/(.)/g, '$1$1');
-  }
+  };
   if (end_color.length == 3) {
     end_color = end_color.replace(/(.)/g, '$1$1');
-  }
+  };
   // get colors
   var start_red = parseInt(start_color.substr(0, 2), 16),
     start_green = parseInt(start_color.substr(2, 2), 16),
@@ -204,12 +200,15 @@ function generate_colour(start_color, end_color, percent) {
   diff_green = ((diff_green * percent) + start_green).toString(16).split('.')[0];
   diff_blue = ((diff_blue * percent) + start_blue).toString(16).split('.')[0];
   // ensure 2 digits by color
-  if (diff_red.length == 1)
-    diff_red = '0' + diff_red
-  if (diff_green.length == 1)
-    diff_green = '0' + diff_green
-  if (diff_blue.length == 1)
-    diff_blue = '0' + diff_blue
+  if (diff_red.length == 1) {
+    diff_red = '0' + diff_red;
+  };
+  if (diff_green.length == 1) {
+    diff_green = '0' + diff_green;
+  };
+  if (diff_blue.length == 1) {
+    diff_blue = '0' + diff_blue;
+  };
   return '#' + diff_red + diff_green + diff_blue;
 };
 
@@ -217,8 +216,8 @@ function generate_colour(start_color, end_color, percent) {
 * Round the float X to DIGIT number of decimal places.
 */
 function round(x, digits) {
-  return parseFloat(x.toFixed(digits))
-}
+  return parseFloat(x.toFixed(digits));
+};
 
 var colouring_part;
 
@@ -230,23 +229,23 @@ function colour_part_by_id(id, part, fpkm, mode) {
   for (var i = 0; i < sraList.length; i++) {
     if (id.replace("_svg", "") == sraList[i]) {
       colouring_part = sraDict[sraList[i]]["svg_part"];
-    }
-  }
+    };
+  };
 
   // Verify which type of input is added as fpkm
-  let fpkmUse = fpkm
+  let fpkmUse = fpkm;
   if (Array.isArray(fpkmUse)) {
     fpkmUse = fpkmUse[variantPosition];
-  }
-  else {
+  } else {
     fpkmUse = parseFloat(fpkmUse);
-  }
+  };
 
   //console.log('COLOUR PART BY ID\'s part = ' + part);
   // Get the user set RPKM scale
   max_abs_scale = document.getElementById("rpkm_scale_input").value;
-  if ((!max_abs_scale) || max_abs_scale <= 0)
+  if ((!max_abs_scale) || max_abs_scale <= 0) {
     max_abs_scale = 1000;
+  };
 
   var paths1 = document.getElementById(id).getElementsByTagName("path");
   var paths2 = document.getElementById(id).getElementsByTagName("g");
@@ -261,9 +260,8 @@ function colour_part_by_id(id, part, fpkm, mode) {
       if (colouring_part == "all") {
         for (i = 0; i < paths.length; i++) {
           paths[i].style.fill = 'rgb(' + r + ', ' + g + ', ' + b + ')';
-        }
-      }
-      else {
+        };
+      } else {
         //console.log("\n\n ********** id = " + id + " and svg_part = " + colouring_part);
         for (i = 0; i < paths.length; i++) {
           //console.log("Checking if " + paths[i].id + " == " + colouring_part + " and it is " + (paths[i].id == colouring_part));
@@ -273,45 +271,40 @@ function colour_part_by_id(id, part, fpkm, mode) {
               //console.log("It was g with " + child_paths.length + " elements!!!!");
               for (ii = 0; ii < child_paths.length; ii++) {
                 child_paths[ii].style.fill = 'rgb(' + r + ', ' + g + ', ' + b + ')';
-              }
-            }
-            else {
+              };
+            } else {
               paths[i].style.fill = 'rgb(' + r + ', ' + g + ', ' + b + ')';
-            }
-          }
-        }
-      }
-    }
-    else if (mode == "rel") { // For relative FPKM colouring
+            };
+          };
+        };
+      };
+    } else if (mode == "rel") { // For relative FPKM colouring
       var hex = "";
       // Make the log FPKM a number between 0 and 1 to denote the 0 to +-3 scale.
       var log_scale_max = 3;
       var log_scaling = 0;
-      if (fpkmUse != "Missing controls data" && Math.abs(fpkmUse) > log_scale_max)
+      if (fpkmUse != "Missing controls data" && Math.abs(fpkmUse) > log_scale_max) {
         log_scaling = log_scale_max;
-      else if (fpkmUse != "Missing controls data")
+      } else if (fpkmUse != "Missing controls data") {
         log_scaling = Math.abs(fpkmUse);
+      };
       log_scaling /= log_scale_max;
 
       if (fpkmUse == "Missing controls data") {
         hex = "#D9D9D9"
-      }
-      else if (fpkmUse > 0) { // yellow-red
+      } else if (fpkmUse > 0) { // yellow-red
         hex = generate_colour("FFFF00", "FF0000", log_scaling);
-      }
-      else if (fpkmUse == 0) { // yellow
+      } else if (fpkmUse == 0) { // yellow
         hex = "FFFF00";
-      }
-      else if (fpkmUse < 0) { // yellow-blue
+      } else if (fpkmUse < 0) { // yellow-blue
         hex = generate_colour("FFFF00", "0000FF", log_scaling);
-      }
+      };
       //console.log('fpkm = ' + fpkm + ' -> hex = ' + hex);
       if (colouring_part == "all") {
         for (i = 0; i < paths.length; i++) {
           paths[i].style.fill = hex;
-        }
-      }
-      else {
+        };
+      } else {
         //console.log("\n\n ********** id = " + id + " and svg_part = " + colouring_part);
         for (i = 0; i < paths.length; i++) {
           //console.log("Checking if " + paths[i].id + " == " + colouring_part + " and it is " + (paths[i].id == colouring_part));
@@ -321,25 +314,23 @@ function colour_part_by_id(id, part, fpkm, mode) {
               //console.log("It was g with " + child_paths.length + " elements!!!!");
               for (ii = 0; ii < child_paths.length; ii++) {
                 child_paths[ii].style.fill = hex;
-              }
-            }
-            else {
+              };
+            } else {
               paths[i].style.fill = hex;
-            }
-          }
-        }
-      }
-    }
+            };
+          };
+        };
+      };
+    };
     if (fpkmUse == "Missing controls data") {
       document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = fpkmUse;
-    }
-    else {
+    } else {
       document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = round(fpkmUse, 2);
-    }
+    };
   } else {
     console.log("Paths is null for id = " + id);
-  }
-}
+  };
+};
 
 var current_radio = "abs";
 /**
@@ -347,7 +338,7 @@ var current_radio = "abs";
 */
 function colour_svgs_now(mode) {  
   colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
-  mode = colouring_mode
+  mode = colouring_mode;
   current_radio = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   for (var i = 0; i < count_bam_entries_in_xml; i++) {
     // For every exp, figure out the fpkm average of the controls
@@ -359,10 +350,11 @@ function colour_svgs_now(mode) {
         // experiment ii is a control for experiment i, save FPKM of exp ii
         ctrl_count++;
         ctrl_fpkm_sum += exp_info[ii][3];
-      }
-    }
-    if (ctrl_count > 0)
+      };
+    };
+    if (ctrl_count > 0) {
       ctrl_avg_fpkm = ctrl_fpkm_sum / ctrl_count;
+    };
 
     // Save the average fpkm of controls and the log fpkm...
     var relativeRPKM = [];
@@ -372,43 +364,44 @@ function colour_svgs_now(mode) {
           // Define log2(0/0) = 0 as opposed to undefined
           relativeRPKM.push(0);
           exp_info[i].splice(4, 1, 0);
-        }
-        else {
+        } else {
           relativeRPKM.push(Math.log2(exp_info[i][3][variantPosition] / ctrl_avg_fpkm))
-        }
-      }      
-    }
-    else {
+        };
+      };   
+    } else {
       for (var v = 0; v < exp_info[0][3].length; v++) {
         relativeRPKM.push("Missing controls data");
-      }      
-    }
+      };      
+    };
     exp_info[i].splice(4, 1, relativeRPKM);
     exp_info[i].splice(6, 1, ctrl_avg_fpkm);
 
     // See if the absolute or the relative FPKM is max
-    if (exp_info[i][3][variantPosition] >= max_absolute_fpkm)
+    if (exp_info[i][3][variantPosition] >= max_absolute_fpkm) {
       max_absolute_fpkm = exp_info[i][3][variantPosition];
-    if (exp_info[i][4] != "Missing controls data" && Math.abs(exp_info[i][4]) >= max_log_fpkm && Math.abs(exp_info[i][4]) < 1000)
+    };
+    if (exp_info[i][4] != "Missing controls data" && Math.abs(exp_info[i][4]) >= max_log_fpkm && Math.abs(exp_info[i][4]) < 1000) {
       max_log_fpkm = Math.abs(exp_info[i][4]);
+    };
 
     // Colour SVGs based on the mode requested. Pass in the correct FPKM value...
     if (colouring_mode === "rel") {
-      if (!exp_info[i][4] && exp_info[i][4] != 0)
+      if (!exp_info[i][4] && exp_info[i][4] != 0) {
         exp_info[i][4] = -999999;
+      };
       colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][4], colouring_mode); // index 5 = relative fpkm
-    }
-    else {
-      if (!exp_info[i][3][variantPosition] && exp_info[i][3][variantPosition] != 0)
+    } else {
+      if (!exp_info[i][3][variantPosition] && exp_info[i][3][variantPosition] != 0) {
         exp_info[i][3][variantPosition] = -999999;
+      };
       colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][3], colouring_mode); // index 3 = absolute fpkm
-    }
-  }
+    };
+  };
 
   $("#theTable").trigger("update");
 
   change_rpkm_colour_scale(colouring_mode);
-}
+};
 
 /**
 * Re-read the value from the input box
@@ -420,9 +413,9 @@ function get_input_values() {
   if (yscale_input == "Auto" || parseInt(yscale_input) < 1) {
     yscale_input = parseInt(-1);
     //console.log("yscale_input value set to -1.");
-  }
+  };
   max_abs_scale = document.getElementById("rpkm_scale_input").value;
-}
+};
 
 /**
 * When user clicks GO button, this function is called to update gene structure AND RNA-Seq images
@@ -442,9 +435,9 @@ function update_all_images(status) {
         variants_radio_options(status);
         send_null_count = 0;
       }, 1650);
-    }
+    };
   };
-}
+};
 
 /**
 * Updates the radio button <DIV> with new variants images.
@@ -468,8 +461,8 @@ function variants_radio_options(status) {
       if (variants_div.firstChild != null || variants_div.firstChild != undefined || variants_div != null) {
         while (variants_div.firstChild) {
           variants_div.removeChild(variants_div.firstChild);
-        }
-      }      
+        };
+      };   
       $('#variant_select').ddslick('destroy');
       var append_str = '<select id="variant_select">';
       for (var i = 0; i < parseInt(gene_res['variant_count']); i++) {
@@ -477,13 +470,13 @@ function variants_radio_options(status) {
         append_str += '<option value="' + i + "\"";
         append_str += " data-imagesrc=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + '" style="max-width:none;"></option>';
         // Append the element to the div
-      }
+      };
       img_gene_struct_1 = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
       testList.push("data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure']);
       var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
       for (var i = 0; i < all_gene_structure_imgs.length; i++) {
         all_gene_structure_imgs[i].src = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
-      }
+      };
       $('input[type=radio][name=radio_group]').change(function() { // Bind an event listener..
         gene_structure_radio_on_change();
       });
@@ -504,15 +497,15 @@ function variants_radio_options(status) {
       if (variants_div.firstChild != null || variants_div.firstChild != undefined || variants_div != null) {
         while (variants_div.firstChild) {
           variants_div.removeChild(variants_div.firstChild);
-        }
-      }  
-      var append_str = "<p class=\"warning_core\" style=\"text-align:center;\"> ERROR IN get_gene_structures ! PLEASE REFRESH PAGE AND UPLOAD DATA AGAIN OR CONTACT AN ADMIN </p>"
+        };
+      };
+      var append_str = "<p class=\"warning_core\" style=\"text-align:center;\"> ERROR IN get_gene_structures ! PLEASE REFRESH PAGE AND UPLOAD DATA AGAIN OR CONTACT AN ADMIN </p>";
       $("#variants_div").append(append_str);
       $('#locus_button').prop('disabled', true);
       $('#abs_scale_button').prop('disabled', true);
     }
-  })
-}
+  });
+};
 
 var variantPosition = 0;
 /**
@@ -528,7 +521,7 @@ function gene_structure_radio_on_change() {
   // Change their src to the newly selected variant's src
   for (var i = 0; i < all_gene_structure_imgs.length; i++) {
     all_gene_structure_imgs[i].src = variant_img;
-  }
+  };
   // update all rpb and rpkm values 
   // Go through the exp_info array and make changes
   for (var i = 0; i < exp_info.length; i++) {
@@ -538,10 +531,10 @@ function gene_structure_radio_on_change() {
     sraDict[exp_info[i][0].split("_svg")[0]]["rpb"] = rpbValue;
     // Update RPKM values:
     absOrRel();
-  }
+  };
 
   $("#theTable").trigger("update");
-}
+};
 
 /**
  * Change the values and colours of the table based on absolute or relative mode selected
@@ -553,25 +546,24 @@ function absOrRel() {
       if (colouring_mode == "rel") {
         if (!exp_info[i][4] && exp_info[i][4] != 0) {
           exp_info[i][4] = -999999;
-        }
+        };
         var rpkmValue = exp_info[i][5][variant_selected].toFixed(2);
         document.getElementById(exp_info[i][0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
         sraDict[exp_info[i][0].split("_svg")[0]]["rpkm"] = rpkmValue;
         colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][5], colouring_mode); // index 5 = relative fpkm
-      }
-      else {
+      } else {
         if (!exp_info[i][3] && exp_info[i][3] != 0) {
           exp_info[i][3] = -999999;
-        }
+        };
         var rpkmValue = exp_info[i][3][variant_selected].toFixed(2);
         document.getElementById(exp_info[i][0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
         sraDict[exp_info[i][0].split("_svg")[0]]["rpkm"] = rpkmValue;
         colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][3], colouring_mode); // index 3 = absolute fpkm
-      }
-    }
+      };
+    };
     change_rpkm_colour_scale(colouring_mode);
-  }  
-}
+  };
+};
 
 /**
 * Converts numbers stored as str to int.
@@ -579,9 +571,9 @@ function absOrRel() {
 function parseIntArray(arr) {
   for (var i = 0, len = arr.length; i < len; i++) {
     arr[i] = parseInt(arr[i], 10);
-  }
+  };
   return arr;
-}
+};
 
 var rnaseq_image_url = "cgi-bin/rnaSeqMapCoverage.cgi";
 var match_drive = "";
@@ -619,10 +611,9 @@ function rnaseq_images(status) {
       var tissueWebservice;
       if (rnaseq_calls[i][0] == undefined || rnaseq_calls[i][0] == "None" || rnaseq_calls[i][0] == null) {
         tissueWebservice = "undefined"; // If no "tissue" variable, create an undefined one
-      }
-      else {
+      } else {
         tissueWebservice = rnaseq_calls[i][0];
-      }
+      };
       // Creates the removeDrive link for the rnaSeqMapCoverage webservice 
       if (sraDict[sraList[i]]["bam_type"] === "Google Drive") {        
         // Obtains the Google drive file ID
@@ -631,25 +622,22 @@ function rnaseq_images(status) {
         driveLinkSplit = driveLinkSplit[0].split(gDriveSplit);
         if (driveLinkSplit.length > 1) {
           match_drive = driveLinkSplit[1];
-        }
-        else {
+        } else {
           match_drive = linkString;
-        }
-      }
-      else if (sraDict[sraList[i]]["bam_type"] === "Amazon AWS") {
+        };
+      } else if (sraDict[sraList[i]]["bam_type"] === "Amazon AWS") {
         // Obtains the S3 
         var linkString = sraDict[sraList[i]]["drive_link"];
         var driveLinkSplit = linkString.split(awsSplit);
         if (driveLinkSplit.length === 1) {
           driveLinkSplit = linkString.split(araportCDN);
-        }
+        };
         if (driveLinkSplit.length > 1) {
           match_drive = driveLinkSplit[1];
-        }
-        else {
+        } else {
           match_drive = linkString;
-        }
-      }
+        };
+      };
       data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive, bamType: sraDict[sraList[i]]["bam_type"], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, cachedDatapoints: publicData, struct: splice_variants, dumpMethod: dumpMethod};
 
       $.ajax({
@@ -670,7 +658,7 @@ function rnaseq_images(status) {
           sraDict[response_rnaseq['record']]["locusValue"] = response_rnaseq['locus'];
           if (locus != response_rnaseq['locus']) {
             console.log("ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.");
-          }
+          };
           // Update the progress bar
           if (response_rnaseq['status'] == 200) {
             rnaseq_success++;
@@ -680,15 +668,14 @@ function rnaseq_images(status) {
             $('div#progress').width(progress_percent + '%');
             if (progress_percent >= 96) {
               loadingScreen(true);
-            }
+            };
             document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time <= " + String(round(parseInt(rnaseq_success_current_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
             document.getElementById('progress').title = progress_percent.toFixed(2) + '%';
             //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
-          }
-          else {
+          } else {
             $('#failure').show();
             console.log("ERROR CODE = " + response_rnaseq['status'] + " returned for " + locus + " RNA-Seq data on " + response_rnaseq['record'] + ".");
-          }
+          };
 
           var r = [];
           if (status == 2) { // Used to be 1
@@ -707,11 +694,10 @@ function rnaseq_images(status) {
             for (var i = 0; i < sum_xy.length; i++) {
               sp.splice(i, 0, sum_xy[i] - ((sum_x[i] * sum_y) / n));
               r.splice(i, 0, sp[i] / (Math.sqrt(ssx[i] * ssy)));
-            }
-          }
-          else {
+            };
+          } else {
             r = response_rnaseq['r'];
-          }
+          };
           document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
           rnaseq_change += 1;
           document.getElementById(response_rnaseq['record'] + '_rpb').innerHTML = parseFloat(r[0]).toFixed(2);
@@ -730,21 +716,20 @@ function rnaseq_images(status) {
                 if (r != (response_rnaseq["ReadsMappedNucleotidePosition"].length - 2)) {
                   dumpOutputs += ", "
                 };
-              }
+              };
               dumpOutputs += '], {';
               for (e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
                 dumpOutputs += '"' + GFF_List[e].replace(locus, '') + '": ';
                 dumpOutputs += '[' + response_rnaseq["expected_expr_in_variant"][e] + ']';
                 if (e != response_rnaseq["expected_expr_in_variant"].length - 1) {
                   dumpOutputs += ', ';
-                }
-              }               
+                };
+              };            
               dumpOutputs += '})\n'
-            }
-            else {
+            } else {
               dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', [' + response_rnaseq["absolute-fpkm"] + '], [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ')\n';
-            }
-          }          
+            };
+          };       
 
           // Save the abs-fpkm, and the stats numbers
           for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
@@ -752,8 +737,8 @@ function rnaseq_images(status) {
               exp_info[ii].splice(3, 1, response_rnaseq['absolute-fpkm']);
               exp_info[ii].splice(5, 1, r);
               //console.log("Found " + response_rnaseq['record'] + " == " + exp_info[ii][0] + ".");
-            }
-          }
+            };
+          };
 
           colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'][variantPosition], colouring_mode);
 
@@ -770,17 +755,17 @@ function rnaseq_images(status) {
               //console.log(rnaseq_success_end_time);
               document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time ~= " + String(round(parseInt(rnaseq_success_end_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
               //console.log("**** Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_end_time - rnaseq_success_start_time)));
-            }
-          }
+            };
+          };
 
           $("#theTable").trigger("update");
           responsiveRNAWidthResize();
           toggleResponsiveTable();
         }
       });
-    }
-  }
-}
+    };
+  };
+};
 
 /**
  * Checking to make sure the subunit matches tissue
@@ -794,309 +779,234 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
   if (svg === "ath-10dayOldSeedling.svg" || svg === "ath-10dayOldSeedling.min.svg") {
     if (returnName === true) {
       toReturn = "10 Day Old Seedling";
-    }
-    else if (subunit != "all" && subunit != "root" && subunit != "shoot") {
+    } else if (subunit != "all" && subunit != "root" && subunit != "shoot") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-15dayOldSeedling.svg" || svg === "ath-15dayOldSeedling.min.svg") {
+    };
+  } else if (svg === "ath-15dayOldSeedling.svg" || svg === "ath-15dayOldSeedling.min.svg") {
     if (returnName === true) {
       toReturn = "15 Day Old Seedling";
-    }
-    else if (subunit != "all" && subunit != "root" && subunit != "shoot") {
+    } else if (subunit != "all" && subunit != "root" && subunit != "shoot") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-etiolatedSeedling.svg" || svg === "ath-etiolatedSeedling.min.svg") {
+    };
+  } else if (svg === "ath-etiolatedSeedling.svg" || svg === "ath-etiolatedSeedling.min.svg") {
     if (returnName === true) {
       toReturn = "Etiolated Seedling";
-    }
-    else if (subunit != "etiolatedseedling") {
+    } else if (subunit != "etiolatedseedling") {
       toReturn = "etiolatedseedling";
-    }
-  }
-  else if (svg === "ath-Flower.svg" || svg === "ath-Flower.min.svg") {
+    };
+  } else if (svg === "ath-Flower.svg" || svg === "ath-Flower.min.svg") {
     if (returnName === true) {
       toReturn = "Flower";
-    }
-    else if (subunit != "flower" && subunit != "receptacle") {
+    } else if (subunit != "flower" && subunit != "receptacle") {
       toReturn = "flower";
-    }
-  }
-  else if (svg === "ath-FlowerParts.svg" || svg === "ath-FlowerParts.min.svg") {
+    };
+  } else if (svg === "ath-FlowerParts.svg" || svg === "ath-FlowerParts.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Parts";
-    }
-    else if (subunit != "all" && subunit != "petals" && subunit != "stamen" && subunit != "sepals" && subunit != "carpels") {
+    } else if (subunit != "all" && subunit != "petals" && subunit != "stamen" && subunit != "sepals" && subunit != "carpels") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-GerminatingSeed.svg" || svg === "ath-GerminatingSeed.min.svg") {
+    };
+  } else if (svg === "ath-GerminatingSeed.svg" || svg === "ath-GerminatingSeed.min.svg") {
     if (returnName === true) {
       toReturn = "Germinating Seed";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-Internode.svg" || svg === "ath-Internode.min.svg") {
+    };
+  } else if (svg === "ath-Internode.svg" || svg === "ath-Internode.min.svg") {
     if (returnName === true) {
       toReturn = "Internode";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-leaf.svg" || svg === "ath-leaf.min.svg") {
+    };
+  } else if (svg === "ath-leaf.svg" || svg === "ath-leaf.min.svg") {
     if (returnName === true) {
       toReturn = "Leaf";
-    }
-    else if (subunit != "leaf") {
+    } else if (subunit != "leaf") {
       toReturn = "leaf";
-    }
-  }
-  else if (svg === "ath-LeafParts.svg" || svg === "ath-LeafParts.min.svg") {
+    };
+  } else if (svg === "ath-LeafParts.svg" || svg === "ath-LeafParts.min.svg") {
     if (returnName === true) {
       toReturn = "Leaf Parts";
-    }
-    else if (subunit != "all" && subunit != "lamina" && subunit != "petiole" && subunit != "veins") {
+    } else if (subunit != "all" && subunit != "lamina" && subunit != "petiole" && subunit != "veins") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-Pollen.svg" || svg === "ath-Pollen.min.svg") {
+    };
+  } else if (svg === "ath-Pollen.svg" || svg === "ath-Pollen.min.svg") {
     if (returnName === true) {
       toReturn = "Pollen";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-RootTip.svg" || svg === "ath-RootTip.min.svg") {
+    };
+  } else if (svg === "ath-RootTip.svg" || svg === "ath-RootTip.min.svg") {
     if (returnName === true) {
       toReturn = "Root Tip";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-rosettePlusRoot.svg" || svg === "ath-rosettePlusRoot.min.svg") {
+    };
+  } else if (svg === "ath-rosettePlusRoot.svg" || svg === "ath-rosettePlusRoot.min.svg") {
     if (returnName === true) {
       toReturn = "Rosette Plus Root";
-    }
-    else if (subunit != "all" && subunit != "shoot" && subunit != "root") {
+    } else if (subunit != "all" && subunit != "shoot" && subunit != "root") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-Seed1-4.svg" || svg === "ath-Seed1-4.min.svg") {
+    };
+  } else if (svg === "ath-Seed1-4.svg" || svg === "ath-Seed1-4.min.svg") {
     if (returnName === true) {
       toReturn = "Seed 1-4";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-Seed5-7.svg" || svg === "ath-Seed5-7.min.svg") {
+    };
+  } else if (svg === "ath-Seed5-7.svg" || svg === "ath-Seed5-7.min.svg") {
     if (returnName === true) {
       toReturn = "Seed 5-7";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-Seed8+.svg" || svg === "ath-Seed8+.min.svg") {
+    };
+  } else if (svg === "ath-Seed8+.svg" || svg === "ath-Seed8+.min.svg") {
     if (returnName === true) {
       toReturn = "Seed 8+";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-SenescentLeaf.svg" || svg === "ath-SenescentLeaf.min.svg") {
+    };
+  } else if (svg === "ath-SenescentLeaf.svg" || svg === "ath-SenescentLeaf.min.svg") {
     if (returnName === true) {
       toReturn = "Senescent Leaf";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-ShootApexInflorescense.svg" || svg === "ath-ShootApexInflorescense.min.svg") {
+    };
+  } else if (svg === "ath-ShootApexInflorescense.svg" || svg === "ath-ShootApexInflorescense.min.svg") {
     if (returnName === true) {
       toReturn = "Shoot Apex Inflorescense";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-ShootApexVegetative-Transition.svg" || svg === "ath-ShootApexVegetative-Transition.min.svg") {
+    };
+  } else if (svg === "ath-ShootApexVegetative-Transition.svg" || svg === "ath-ShootApexVegetative-Transition.min.svg") {
     if (returnName === true) {
       toReturn = "Shoot Apex Vegetative-Transition";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-Silique1-5.svg" || svg === "ath-Silique1-5.min.svg") {
+    };
+  } else if (svg === "ath-Silique1-5.svg" || svg === "ath-Silique1-5.min.svg") {
     if (returnName === true) {
       toReturn = "Silique 1-5";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-Silique6-10.svg" || svg === "ath-Silique6-10.min.svg") {
+    };
+  } else if (svg === "ath-Silique6-10.svg" || svg === "ath-Silique6-10.min.svg") {
     if (returnName === true) {
       toReturn = "Silique 6-10";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-YoungLeaf1-4.svg" || svg === "ath-YoungLeaf1-4.min.svg") {
+    };
+  } else if (svg === "ath-YoungLeaf1-4.svg" || svg === "ath-YoungLeaf1-4.min.svg") {
     if (returnName === true) {
       toReturn = "Young Leaf 1-4";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-EarlyBuddingFlower.svg" || svg === "ath-EarlyBuddingFlower.min.svg") {
+    };
+  } else if (svg === "ath-EarlyBuddingFlower.svg" || svg === "ath-EarlyBuddingFlower.min.svg") {
     if (returnName === true) {
       toReturn = "Early Budding Flower";
-    }
-    else if (subunit != "all" && subunit != "shoot" && subunit != "buds") {
+    } else if (subunit != "all" && subunit != "shoot" && subunit != "buds") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-FlowerBud.svg" || svg === "ath-FlowerBud.min.svg") {
+    };
+  } else if (svg === "ath-FlowerBud.svg" || svg === "ath-FlowerBud.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Bud";
-    }
-    else if (subunit != "flowerBud" || svg === "ath-10dayOldSeedling.min.svg") {
+    } else if (subunit != "flowerBud" || svg === "ath-10dayOldSeedling.min.svg") {
       toReturn = "flowerBud";
-    }
-  }
-  else if (svg === "ath-Stamen.svg" || svg === "ath-Stamen.min.svg") {
+    };
+  } else if (svg === "ath-Stamen.svg" || svg === "ath-Stamen.min.svg") {
     if (returnName === true) {
       toReturn = "Stamen";
-    }
-    else if (subunit != "all" && subunit != "anthers" && subunit != "filament") {
+    } else if (subunit != "all" && subunit != "anthers" && subunit != "filament") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-StigmaAndOvaries.svg" || svg === "ath-StigmaAndOvaries.min.svg") {
+    };
+  } else if (svg === "ath-StigmaAndOvaries.svg" || svg === "ath-StigmaAndOvaries.min.svg") {
     if (returnName === true) {
       toReturn = "Stigma And Ovaries";
-    }
-    else if (subunit != "all" && subunit != "Stigma_tissue" && subunit != "Ovary_tissue") {
+    } else if (subunit != "all" && subunit != "Stigma_tissue" && subunit != "Ovary_tissue") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-WholeSilique.svg" || svg === "ath-WholeSilique.min.svg") {
+    };
+  } else if (svg === "ath-WholeSilique.svg" || svg === "ath-WholeSilique.min.svg") {
     if (returnName === true) {
       toReturn = "Whole Silique";
-    }
-    else if (subunit != "all" && subunit != "silique" && subunit != "seed") {
+    } else if (subunit != "all" && subunit != "silique" && subunit != "seed") {
       toReturn = "silique";
-    }
-  }
-  else if (svg === "ath-youngSeedling.svg" || svg === "ath-youngSeedling.min.svg") {
+    };
+  } else if (svg === "ath-youngSeedling.svg" || svg === "ath-youngSeedling.min.svg") {
     if (returnName === true) {
       toReturn = "Young Seedling";
-    }
-    else if (subunit != "all" && subunit != "root" && subunit != "hypocotyl" && subunit != "cotyledon") {
+    } else if (subunit != "all" && subunit != "root" && subunit != "hypocotyl" && subunit != "cotyledon") {
       toReturn = "all";
-    }
-  }
-  else if (svg === "ath-FlowerDevelopment1.svg" || svg === "ath-FlowerDevelopment1.min.svg") {
+    };
+  } else if (svg === "ath-FlowerDevelopment1.svg" || svg === "ath-FlowerDevelopment1.min.svg") {
     if (returnName === true) {
       toReturn = "Late Flower Development (1)";
-    }
-    else if (subunit != "flowerDevelopmentPart1") {
+    } else if (subunit != "flowerDevelopmentPart1") {
       toReturn = "flowerDevelopmentPart1";
-    }
-  }
-  else if (svg === "ath-FlowerDevelopment2.svg" || svg === "ath-FlowerDevelopment2.min.svg") {
+    };
+  } else if (svg === "ath-FlowerDevelopment2.svg" || svg === "ath-FlowerDevelopment2.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 2";
-    }
-    else if (subunit != "flowerDevelopmentPart2") {
+    } else if (subunit != "flowerDevelopmentPart2") {
       toReturn = "flowerDevelopmentPart2";
-    }
-  }
-  else if (svg === "ath-FlowerDevelopment3.svg" || svg === "ath-FlowerDevelopment3.min.svg") {
+    };
+  } else if (svg === "ath-FlowerDevelopment3.svg" || svg === "ath-FlowerDevelopment3.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 3";
-    }
-    else if (subunit != "flowerDevelopmentPart3") {
+    } else if (subunit != "flowerDevelopmentPart3") {
       toReturn = "flowerDevelopmentPart3";
-    }
-  }
-  else if (svg === "ath-FlowerDevelopment4.svg" || svg === "ath-FlowerDevelopment4.min.svg") {
+    };
+  } else if (svg === "ath-FlowerDevelopment4.svg" || svg === "ath-FlowerDevelopment4.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 4";
-    }
-    else if (subunit != "flowerDevelopmentPart4") {
+    } else if (subunit != "flowerDevelopmentPart4") {
       toReturn = "flowerDevelopmentPart4";
-    }
-  }
-  else if (svg === "ath-FlowerDevelopment5.svg" || svg === "ath-FlowerDevelopment5.min.svg") {
+    };
+  } else if (svg === "ath-FlowerDevelopment5.svg" || svg === "ath-FlowerDevelopment5.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 5";
-    }
-    else if (subunit != "flowerDevelopmentPart5") {
+    } else if (subunit != "flowerDevelopmentPart5") {
       toReturn = "flowerDevelopmentPart5";
-    }
-  }
-  else if (svg === "ath-FlowerDevelopment6-8.svg" || svg === "ath-FlowerDevelopment6-8.min.svg") {
+    };
+  } else if (svg === "ath-FlowerDevelopment6-8.svg" || svg === "ath-FlowerDevelopment6-8.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 6-8";
-    }
-    else if (subunit != "flowerDevelopmentPart6") {
+    } else if (subunit != "flowerDevelopmentPart6") {
       toReturn = "flowerDevelopmentPart6";
-    }
-  }
-  else if (svg === "ath-FlowerDevelopment9-11.svg" || svg === "ath-FlowerDevelopment9-11.min.svg") {
+    };
+  } else if (svg === "ath-FlowerDevelopment9-11.svg" || svg === "ath-FlowerDevelopment9-11.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 9-11";
-    }
-    else if (subunit != "flowerDevelopmentPart9") {
+    } else if (subunit != "flowerDevelopmentPart9") {
       toReturn = "flowerDevelopmentPart9";
-    }
-  }
-  else if (svg === "ath-FlowerDevelopment12-14.svg" || svg === "ath-FlowerDevelopment12-14.min.svg") {
+    };
+  } else if (svg === "ath-FlowerDevelopment12-14.svg" || svg === "ath-FlowerDevelopment12-14.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 12-14";
-    }
-    else if (subunit != "flowerDevelopmentPart12") {
+    } else if (subunit != "flowerDevelopmentPart12") {
       toReturn = "flowerDevelopmentPart12";
-    }
-  }
-  else if (svg === "ath-FlowerDevelopment15-18.svg" || svg === "ath-FlowerDevelopment15-18.min.svg") {
+    };
+  } else if (svg === "ath-FlowerDevelopment15-18.svg" || svg === "ath-FlowerDevelopment15-18.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 15-18";
-    }
-    else if (subunit != "flowerDevelopmentPart15") {
+    } else if (subunit != "flowerDevelopmentPart15") {
       toReturn = "flowerDevelopmentPart15";
-    }
-  }  
-  else if (svg === "ath-FlowerDevelopment19.svg" || svg === "ath-FlowerDevelopment19.min.svg") {
+    };
+  } else if (svg === "ath-FlowerDevelopment19.svg" || svg === "ath-FlowerDevelopment19.min.svg") {
     if (returnName === true) {
       toReturn = "Flower Development 19";
-    }
-    else if (subunit != "flowerDevelopmentPart19") {
+    } else if (subunit != "flowerDevelopmentPart19") {
       toReturn = "flowerDevelopmentPart19";
-    }
-  }  
-  else if (svg === "ath-Other.svg" || svg === "ath-Other.min.svg") {
+    };
+  } else if (svg === "ath-Other.svg" || svg === "ath-Other.min.svg") {
     if (returnName === true) {
       toReturn = "Other";
-    }
-    else if (subunit != "all") {
+    } else if (subunit != "all") {
       return "all";
-    }
-  }
+    };
+  };
   return toReturn;
-}
+};
 
 var sraList = [];
 var sraDict = {};
@@ -1157,7 +1067,7 @@ function populate_table(status) {
           document.getElementById("uploaded_dataset").innerHTML = xmlTitleName;
         } else if (xmlTitleName == "" || xmlTitleName == "Uploaded dataset") {
           document.getElementById("uploaded_dataset").innerHTML = "Uploaded dataset";
-        }
+        };
       });
       iteration_num = 1;
       var $title = $(xml_res).find("file");
@@ -1170,13 +1080,12 @@ function populate_table(status) {
             var tempExperimentNo = experimentno + "(" + sraCountDic[experimentno] + ")";
             sraList.push(tempExperimentNo);
             sraDict[tempExperimentNo] = {};
-          }
-        }
-        else {
+          };
+        } else {
           sraCountDic[experimentno] = 1;
           sraList.push(experimentno);
           sraDict[experimentno] = {};
-        }
+        };
 
         // Title
         var title = $(this).attr('description');
@@ -1192,10 +1101,9 @@ function populate_table(status) {
         sraDict[experimentno]["svg_part"] = svg_part;
         if (tissueSRADic[checkAgainstSVG(svg, svg_part, true)]) {
           tissueSRADic[checkAgainstSVG(svg, svg_part, true)].push(experimentno);
-        }
-        else {
+        } else {
           tissueSRADic[checkAgainstSVG(svg, svg_part, true)] = [experimentno];
-        }
+        };
 
         // SRA URL
         var url = $(this).attr('url');
@@ -1207,7 +1115,7 @@ function populate_table(status) {
         var numberofreads = $(this).attr('total_reads_mapped');
         if (numberofreads == null || numberofreads == "") {
           numberofreads = "0";
-        }
+        };
         sraDict[experimentno]["numberofreads"] = numberofreads;
         // Coloured hex code
         var hexColourCode;
@@ -1215,13 +1123,13 @@ function populate_table(status) {
           hexColourCode = '0x64cc65';
         } else {
           hexColourCode = $(this).attr('hex_colour');
-        }
+        };
         sraDict[experimentno]["hexColourCode"] = hexColourCode;
         // BAM file's filename
         var filenameIn =  ($(this).attr('filename'));
         if (filenameIn == null || filenameIn == "" || filenameIn == undefined) {
           filenameIn = "accepted_hits.bam"
-        }
+        };
         sraDict[experimentno]["filenameIn"] = filenameIn;
         // Species
         var species = $(this).attr('species');    
@@ -1231,11 +1139,10 @@ function populate_table(status) {
         if ($(this).find("controls")[0].innerHTML == undefined) {
           for (i = 1; i < $(this).find("controls")[0].childNodes.length; i+2) {
             controls.push($(this).find("controls")[0].childNodes[i].firstChild.textContent);
-          }
-        }
-        else if ($(this).find("controls")[0].innerHTML != undefined) {
+          };
+        } else if ($(this).find("controls")[0].innerHTML != undefined) {
           controls = $(this).find("controls")[0].innerHTML.replace(/<bam_exp>/g, "").replace(/<\/bam_exp>/g, ",").replace(/\n/g, " ").replace(/ /g, "").split(",");
-        }
+        };
         sraDict[experimentno]["controls"] = controls;
         var links = "";
         if (controls.length > 0) {
@@ -1244,9 +1151,9 @@ function populate_table(status) {
               links += '<a href="https://www.ncbi.nlm.nih.gov/Traces/sra/?run=' + controls[i] + '"target="_blank" rel="noopener">' + controls[i] + '</a> ';
             } else {
               links += controls[i];
-            }
-          }
-        }        
+            };
+          };
+        };     
         sraDict[experimentno]["links"] = links;
         var controlsString = "";
         if (controls.length > 0) {
@@ -1254,9 +1161,9 @@ function populate_table(status) {
             controlsString += controls[y].toString();
             if (y < (controls.length - 2)) {
               controlsString += ", ";
-            }
-          }
-        }
+            };
+          };
+        };
         sraDict[experimentno]["controlsString"] = controlsString.trim();
         var name = $(this).attr('name');
         sraDict[experimentno]["name"] = name;
@@ -1279,7 +1186,7 @@ function populate_table(status) {
         igbView_link += 'version=A_thaliana_Jun_2009&';
         // Load custom data
         igbView_link += 'gene_id=' + locus + '&';
-        igbView_link += 'feature_url_0=' + drive_link + '&'
+        igbView_link += 'feature_url_0=' + drive_link + '&';
         igbView_link += 'genome=A_thaliana_Jun_2009&';
         igbView_link += 'annotation_set=Araport11&';
         igbView_link += 'query_url=' + drive_link + '&';
@@ -1305,14 +1212,14 @@ function populate_table(status) {
         append_str += '<td class="colDetails" style="font-size: 12px;"><div id="' + experimentno + '_description" name="' + description.trim() + '">' + truncateDescription(description) + '</div>';  
         if (bam_type === "Amazon AWS") {
             append_str += '<div id="igbLink_' + experimentno + '">Show: <a href="' + igbView_link + '" target="_blank" rel="noopener">Alignments in IGB</a></div>';
-        }
+        };
         append_str += '<div id="extraLinks_' + experimentno + '">Go to: <a href="' + url + '" target="_blank" rel="noopener">NCBI SRA</a> or <a href="' + publicationid + '" target="_blank" rel="noopener">PubMed</a></div>';
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + moreDetails.trim() + '</a>';
         append_str += '<div id="' + experimentno + '" class="moreDetails" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '<br>';
         append_str += '<div id="' + experimentno + '_totalReadsNum">' + 'Total reads = ' + numberofreads + '</div>';
         if (read_map_method != undefined && read_map_method.length > 0) {
           append_str += '<div id="' + experimentno + '_readMappedMethod">' + 'Read map method = ' + read_map_method.trim() + '</div>';
-        }
+        };
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '_less" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + lessDetails + '</a></div></td>\n';
         append_str += '</tr>';
 
@@ -1345,19 +1252,15 @@ function populate_table(status) {
           // format your data for normalization
           if (s == NaN) {
             return -99999;
-          }
-          else if (s == undefined) {
+          } else if (s == undefined) {
             return -999999;
-          }
-          else if (s == Infinity) {
+          } else if (s == Infinity) {
             return 99999;
-          }
-          else if (s == -Infinity) {
+          } else if (s == -Infinity) {
             return -99999;
-          }
-          else {
+          } else {
             return parseFloat(s);
-          }
+          };
         },
         // set type, either numeric or text
         type: 'numeric'
@@ -1373,22 +1276,17 @@ function populate_table(status) {
           // format your data for normalization
           if (s == NaN) {
             return -99999;
-          }
-          else if (s == undefined) {
+          } else if (s == undefined) {
             return -999999;
-          }
-          else if (s == Infinity) {
+          } else if (s == Infinity) {
             return 99999;
-          }
-          else if (s == -Infinity) {
+          } else if (s == -Infinity) {
             return -99999;
-          }
-          else if (s == "Missing controls data") {
+          } else if (s == "Missing controls data") {
             return -9999999;
-          }
-          else {
+          } else {
             return parseFloat(s);
-          }
+          };
         },
         // set type, either numeric or text
         type: 'numeric'
@@ -1443,11 +1341,11 @@ function populate_table(status) {
   for (i = 0; i < colSortList.length; i++) {
     var colArrow = colSortList[i] + "Arrow";
     CheckElementWidth(colArrow, 8);
-  }
+  };
 
   if (gene_structure_colouring_element == null) {
     gene_structure_colouring_element = document.getElementById("flt1_theTable").parentElement;
-  }
+  };
   gene_structure_colouring_element.innerHTML = "";
   document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = "";
   if (isPrecache == true) {
@@ -1462,14 +1360,13 @@ function populate_table(status) {
     variantdiv_str += '</select>';
     variantdiv_str += '</div>';
     document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = variantdiv_str;
-  }
-  else if (isPrecache == false) {
+  } else if (isPrecache == false) {
     $('#variant_select').ddslick('destroy');
     document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = "";
     variantdiv_str = '<div id="variants_div">';
     variantdiv_str += '</div>';
     document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = variantdiv_str;
-  }
+  };
 
   $('#variant_select').ddslick({
     width: "100%",
@@ -1478,7 +1375,7 @@ function populate_table(status) {
       callVariantChange(selectedData);
     }
   });
-}
+};
 
 /**
 * Change the text within moreDetails
@@ -1491,16 +1388,15 @@ function clickDetailsTextChange(details_id) {
       // Non-truncate the details
       var innerDescription = document.getElementById(document.getElementById(details_id).name);
       innerDescription.innerHTML = innerDescription.getAttribute("name");    
-    }
-    else if (document.getElementById(details_id).innerHTML == lessDetails) {
+    } else if (document.getElementById(details_id).innerHTML == lessDetails) {
       var ogID = details_id.substring(0, (details_id.length - 5));
       document.getElementById(ogID).removeAttribute("hidden");
       // Truncate the details
       var innerDescription = document.getElementById(document.getElementById(details_id).name);
       innerDescription.innerHTML = truncateDescription(innerDescription.getAttribute("name"));
-    }
-  }
-}
+    };
+  };
+};
 
 /**
 * Determines the length of a string and if it is too long, truncate it
@@ -1512,12 +1408,11 @@ function truncateDescription(stringInput) {
     if (stringInput.length > 30) {
       var newString = stringInput.substring(0, 30) + "...";
       return newString;
-    }
-    else {
+    } else {
       return stringInput;
-    }
-  }
-}
+    };
+  };
+};
 
 var remainder_efp = 0;
 var efp_length = 0;
@@ -1539,8 +1434,8 @@ function populate_efp_modal(status) {
     var SRASortedID = allSRASorted[s].id.substr(0, allSRASorted[s].id.length - 6);
     if (document.getElementById(SRASortedID + "_row").style.display != "none") {
       eFPSortedSRA.push(SRASortedID);
-    }    
-  }
+    };
+  };
   
   remainder_efp = eFPSortedSRA.length % 11;
   efp_length = eFPSortedSRA.length;
@@ -1549,8 +1444,8 @@ function populate_efp_modal(status) {
   for (i = 0; i < eFPSortedSRA.length; i++) {
     if (isNaN(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"])) == false) {
       efp_RPKM_values.push(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"]));
-    }
-  }
+    };
+  };
 
   // Insert eFP Table header
   $("#efpModalTable").append('<p class="eFP_thead"> AGI-ID: <a href="https://www.arabidopsis.org/servlets/TairObject?type=locus&name=' + locus + '" target="_blank" rel="noopener">' + locus + '</a></p>');
@@ -1560,7 +1455,7 @@ function populate_efp_modal(status) {
     $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII=" alt="Absolute RPKM"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM, Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM</p>' + '<br><table><tbody class="eFP_tbody"></tbody>');
   } else if (current_radio == "rel") {
     $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==" alt="Relative RPKM"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ', Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + '</p>' + '<br><table><tbody></tbody>');
-  }
+  };
 
   // Insert eFP Table
   $("#efpModalTable").append('<table id="eFPtable" class="table"></table>');
@@ -1571,25 +1466,25 @@ function populate_efp_modal(status) {
       efp_table_column = '<tr>';
       for (r = 0; r < 11; r++) {
         efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + eFPSortedSRA[i + r] + '_rep" onclick="ScrollToRNARow(\'' + eFPSortedSRA[i + r] + '_row\')">' + document.getElementById(eFPSortedSRA[i + r] + "_svg").outerHTML + '<span class="efp_table_tooltip_text">' + eFPSortedSRA[i + r] + " - " +  sraDict[eFPSortedSRA[i + r]]["title"] + '</span></div></td>';
-      }
+      };
       efp_table_column += '</tr>';
       $("#eFPtable").append(efp_table_column);
-    }
-  }
+    };
+  };
 
   for (r = 0; r < 12; r++) {
     if (remainder_efp === r) {
       efp_table_column = '<tr>';
       for (c = remainder_efp; c > 0; c--) {
         efp_table_column += '<td>' + '<div class="efp_table_tooltip" id="' + eFPSortedSRA[efp_length - c] + '_rep" onclick="ScrollToRNARow(\'' + eFPSortedSRA[efp_length - c] + '\')">' + document.getElementById(eFPSortedSRA[efp_length - c] + "_svg").outerHTML + '<span class="efp_table_tooltip_text">' + eFPSortedSRA[efp_length - c] + " - " +  sraDict[eFPSortedSRA[efp_length - c]]["title"] + '</span></div></td>';
-      }
+      };
       efp_table_column += '</tr>';
       $("#eFPtable").append(efp_table_column);
-    }
-  }
+    };
+  };
 
   toggleResponsiveTable();
-}
+};
 
 /**
 * Changes the legend for scales.
@@ -1597,28 +1492,27 @@ function populate_efp_modal(status) {
 function change_rpkm_colour_scale(colouring_mode) {
   if (svg_colouring_element == null) {
     svg_colouring_element = document.getElementById("flt3_theTable").parentElement;
-  }
+  };
   svg_colouring_element.innerHTML = "";
   if (colouring_mode == "rel") {
     var img_created = document.createElement('img');
     img_created.src = 'data:image/png;base64,' + relative_rpkm_scale;
     img_created.style = 'margin-top: 10px;';
     svg_colouring_element.appendChild(img_created);
-  }
-  else {
+  } else {
     var img_created = document.createElement('img');
     img_created.src = 'data:image/png;base64,' + absolute_rpkm_scale;
     img_created.style = 'margin-top: 10px;';
     svg_colouring_element.appendChild(img_created);
-  }
+  };
   // Add border to fltrow class tr's child td elements
-  var columnList = ["colTitle", "colRNA", "colrpb", "coleFP", "colRPKM", "colDetails"]
+  var columnList = ["colTitle", "colRNA", "colrpb", "coleFP", "colRPKM", "colDetails"];
   var tds = document.getElementsByClassName("fltrow")[0].getElementsByTagName("td");
   for (var i = 0; i < tds.length; i++) {
     tds[i].style = "border: 1px solid #D3D3D3";
     tds[i].classList.add(columnList[i]);
-  }
-}
+  };
+};
 
 /* Disables the absolute RPKM scale input button if the relative mode is selected. */
 $("input[name=svg_colour_radio_group]:radio").change(function() {
@@ -1626,43 +1520,39 @@ $("input[name=svg_colour_radio_group]:radio").change(function() {
   absOrRel();
   if (colouring_mode == "abs") {
     $("#rpkm_scale_input").removeAttr('disabled');
-  }
-  else {
+  } else {
     $("#rpkm_scale_input").prop("disabled", true);
-  }
+  };
 });
 
 function locus_validation() {
   var loc = document.getElementById("locus").value;
   if (loc.length == 9 && (loc[0] == 'A' || loc[0] == 'a') && (loc[1] == 'T' || loc[1] == 't') && ((loc[2] >= 1 && loc[2] <= 5) || loc[2] == 'C' || loc[2] == 'M' || loc[2] == 'c' || loc[2] == 'm') && (loc[3] == 'G' || loc[3] == 'g') && (loc[4] >= 0 && loc[4] <= 9) && (loc[5] >= 0 && loc[5] <= 9) && (loc[6] >= 0 && loc[6] <= 9) && (loc[7] >= 0 && loc[7] <= 9) && (loc[8] >= 0 && loc[8] <= 9)) {
     $("#locus_button").removeAttr('disabled');
-  }
-  else {
+  } else {
     $("#locus_button").prop("disabled", true);
-  }
-}
+  };
+};
 
 function yscale_validation() {
   var yscale = document.getElementById("yscale_input").value;
   if (parseInt(yscale) > 0 || yscale == "Auto" || yscale == "") {
     //$("#yscale_button").removeAttr('disabled');
     $("#locus_button").removeAttr('disabled');
-  }
-  else {
+  } else {
     //$("#yscale_button").prop("disabled", true);
     $("#locus_button").prop("disabled", true);
-  }
-}
+  };
+};
 
 function rpkm_validation() {
   var rpkmScale = parseInt(document.getElementById("rpkm_scale_input").value);
   if (rpkmScale > 0) {
     $("#abs_scale_button").removeAttr('disabled');
-  }
-  else {
+  } else {
     $("#abs_scale_button").prop("disabled", true);
-  }
-}
+  };
+};
 
 /* Used for resetting dataset_dictionary */
 var base_dataset_dictionary = {
@@ -1678,7 +1568,7 @@ function reset_database_options() {
   dataset_dictionary = base_dataset_dictionary; // Resets dictionary
   list_modified = false;
   databasesAdded = false;
-}
+};
 
 var get_xml_list_output = [];
 var user_exist = false;
@@ -1708,18 +1598,17 @@ function get_user_XML_display() {
         var unnamed_title_num = 1;
         var private_version_num = 1;
         // Check if the output is working and store as variable
-        get_xml_list_output = get_xml_list_return
+        get_xml_list_output = get_xml_list_return;
         if (get_xml_list_output["status"] == "fail") {
           console.log("Error code: " + get_xml_list_output["error"]);
           user_exist = false;
-        }
-        else if (get_xml_list_output["status"] == "success") {
+        } else if (get_xml_list_output["status"] == "success") {
           user_exist = true;
           // Check for change in output from last time ran function
           if (check_for_change != get_xml_list_output["files"].length) {
             reset_database_options();
             list_modified = false;
-          }
+          };
           check_for_change = get_xml_list_output["files"].length;
           // Check each file in output
           var old_data_input = "empty";
@@ -1733,25 +1622,23 @@ function get_user_XML_display() {
               if (xml_title == "" || xml_title == "Uploaded dataset" || xml_title == undefined || xml_title == null) {
                 xml_title = "Uploaded dataset - Unnamed dataset #" + unnamed_title_num;
                 unnamed_title_num += 1;
-              }
-              else if (xml_title == "Araport 11 RNA-seq data") {
+              } else if (xml_title == "Araport 11 RNA-seq data") {
                 xml_title = "Araport 11 RNA-seq data - Private version #" + private_version_num;
                 private_version_num += 1;
-              }
-              else if (xml_title == "Developmental transcriptome - Klepikova et al") {
+              } else if (xml_title == "Developmental transcriptome - Klepikova et al") {
                 xml_title = "Developmental transcriptome - Klepikova et al - Private version #" + private_version_num;
                 private_version_num += 1;
-              }
+              };
               title_list.push(xml_title);
-              xml_fle_name = get_xml_list_output["files"][i][0]
+              xml_fle_name = get_xml_list_output["files"][i][0];
               // This needed for later on
               match_title[xml_title] = xml_fle_name;
               // Obtain data location for each individual XML
               if (i == (get_xml_list_output["files"].length - 1)) {
                 create_data_list(get_xml_list_output["files"].length)
-              }
-            }
-          }
+              };
+            };
+          };
           setTimeout(function() {
             if (list_modified == false) {
               for (i = 0; i < get_xml_list_output["files"].length; i++) {
@@ -1759,20 +1646,19 @@ function get_user_XML_display() {
                 dataset_dictionary[title_list[i]] = datalist_Title[title_list[i]];
                 // Create option to select data from user
                 document.getElementById("xmlDatabase").innerHTML += '<option class="userAdded" tag="private" value="' + title_list[i] + '" id="' + title_list[i] + '">' + title_list[i] + '</option>';
-              }
+              };
             };
             list_modified = true;
           }, 1000)
-        }
+        };
         databasesAdded = true;
       }
-    })
-  }
-  else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+    });
+  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
     signOut();
     alert("Error occurred with your account, you have now been logged out. Please log back in");
-  }
-}
+  };
+};
 
 /**
 * Creates a list of base64 strings that contains XML of user's private datasets
@@ -1792,16 +1678,16 @@ function create_data_list(size) {
         xml_file = get_xml_return;
         datalist.push(xml_file["data"]);
       }
-    })
+    });
 
     if (i === (size - 1)) {
       setTimeout(function() {
         dlCallLength = size;
         DatalistXHRCall(datalist);
-      }, 200)
-    }
-  }  
-}
+      }, 200);
+    };
+  };
+};
 
 var dlCallLength = 0;
 var dlCallPosition = 0;
@@ -1825,13 +1711,13 @@ function DatalistXHRCall(datalist) {
         // Make function recursive
         dlCallPosition += 1;
         DatalistXHRCall(datalist);
-      }
-    }
+      };
+    };
 
     xhr.open('GET', url);
     xhr.send();
-  }
-}
+  };
+};
 
 /**
  * Checks if the user is logged in or not
@@ -1841,16 +1727,14 @@ function check_if_Google_login() {
     if (databasesAdded === false) {
       document.getElementById("private_dataset_header").style.display = 'block';
       get_user_XML_display();
-    }
-  }
-  else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+    };
+  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
     signOut();
     alert("Error occurred with your account, you have now been logged out. Please log back in");
-  }
-  else {
+  } else {
     remove_private_database();
-  }
-}
+  };
+};
 
 /**
 * If user does not exist, adds user to our database and upload file; if does, upload file
@@ -1870,14 +1754,12 @@ function add_user_xml_by_upload() {
             xml: upload_src,
             title: xmlTitleName
           }
-        })
-      }
-      else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+        });
+      } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
         signOut();
         alert("Error occurred with your account, you have now been logged out. Please log back in");
-      }      
-    }
-    else if (user_exist == true) {
+      };     
+    } else if (user_exist == true) {
       if (dataset_dictionary[xmlTitleName] == undefined) {
         // If the file does not already exist in the account, add it
         if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
@@ -1889,14 +1771,12 @@ function add_user_xml_by_upload() {
               xml: upload_src,
               title: xmlTitleName
             }
-          })
-        }
-        else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+          });
+        } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
           signOut();
           alert("Error occurred with your account, you have now been logged out. Please log back in");
-        }     
-      }
-      else if (dataset_dictionary[xmlTitleName] != undefined) {        
+        };    
+      } else if (dataset_dictionary[xmlTitleName] != undefined) {        
         if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
           // reset variables for get_user_XML_display
           list_modified = false;
@@ -1904,7 +1784,7 @@ function add_user_xml_by_upload() {
           // If the file does already exist in the account, delete old and add new
           $.ajax({
             url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[xmlTitleName]
-          })
+          });
           $.ajax({
             method: "POST",
             url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
@@ -1913,17 +1793,16 @@ function add_user_xml_by_upload() {
               xml: upload_src,
               title: xmlTitleName
             }
-          })
-        }
-        else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+          });
+        } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
           signOut();
           alert("Error occurred with your account, you have now been logged out. Please log back in");
-        }        
-      }
-    }
+        };       
+      };
+    };
     get_user_XML_display(); // Update data again
   }, 10000);
-}
+};
 
 var uploadingData = false;
 /**
@@ -1933,15 +1812,13 @@ function which_upload_option() {
   uploadingData = true;
   if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
     document.getElementById("upload_modal").click();
-  } 
-  else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
     signOut();
     alert("Error occurred with your account, you have now been logged out. Please log back in");
-  } 
-  else if (users_email == "") {
+  } else if (users_email == "") {
     document.getElementById("upload_logX").click();
-  }
-}
+  };
+};
 
 /* User's private dataset_dictionary */
 var public_dataset_dictionary = {
@@ -1961,21 +1838,21 @@ function delete_fill() {
   for (var public_title in public_dataset_dictionary) {
     if (public_dataset_dictionary.hasOwnProperty(public_title)) {
       public_title_list.push(public_title);
-    }
-  }
+    };
+  };
   var deleteBoxNum = 0;
   total_amount_of_datasets = public_title_list.length + title_list.length;
   for (i = 0; i < public_title_list.length; i++) {
     // Fills the manage XML modal with available XMLs on the account
     $("#publicDatabaseDownload").append('<input type="checkbox" tag="publicDataCheckbox" class="publicDataCheckbox" onchange="disableDeletePublic()" id="deleteBox_' + deleteBoxNum + '" value="' + public_title_list[i] + '"> ' + public_title_list[i] + '</input><br>');
     deleteBoxNum += 1;
-  }
+  };
   for (i = 0; i < title_list.length; i++) {
     // Fills the manage XML modal with available XMLs on the account
     $("#delete_fill").append('<input type="checkbox" tag="privateDataCheckbox" class="privateDataCheckbox" onchange="disableDeletePublic()" id="deleteBox_' + deleteBoxNum + '" value="' + title_list[i] + '"> ' + title_list[i] + '</input><br>');
     deleteBoxNum += 1;
-  }
-}
+  };
+};
 
 var isDeletePublicDisabled = false;
 /**
@@ -1987,17 +1864,16 @@ function disableDeletePublic() {
       if (isDeletePublicDisabled == false) {
         document.getElementById("deleteXML_button").classList.add('disabled');
         isDeletePublicDisabled = true;
-      }
-      break
-    }
-    else {
+      };
+      break;
+    } else {
       if (isDeletePublicDisabled == true) {
         document.getElementById("deleteXML_button").classList.remove('disabled');
         isDeletePublicDisabled = false;
-      }
-    }
-  }
-}
+      };
+    };
+  };
+};
 
 /**
  * Check if any XML's from "Manage Account" has been selected or not
@@ -2010,12 +1886,12 @@ function CheckIfSelectedXML() {
       returnTrue = true;
       return true;
       break;
-    }
-  }
+    };
+  };
   if (returnTrue === false) {
     return false;
-  }
-}
+  };
+};
 
 /**
 * Delete selected XMLs from their private account
@@ -2027,10 +1903,10 @@ function delete_selectedXML() {
       $.ajax({
         url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
       });
-    }
-  }
+    };
+  };
   databasesAdded = false;
-}
+};
 
 /**
  * Confirm the action of delete all users and if so, begin deletion process
@@ -2038,8 +1914,8 @@ function delete_selectedXML() {
 function confirm_deleteUser() {
   if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3 && $('#logoutModal').is(':visible')) {
     delete_allXMLs(gapi.auth2.getAuthInstance().currentUser.Ab.w3.Eea);
-  }
-}
+  };
+};
 
 /**
  * Delete all XMLs related to an account
@@ -2053,12 +1929,12 @@ function delete_allXMLs(verify) {
         $.ajax({
           url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
         });
-      }
-    }
+      };
+    };
     delete_user();
     databasesAdded = false;
-  }  
-}
+  };
+};
 
 /**
  * Delete the currently logged in user from the BAR
@@ -2068,9 +1944,9 @@ function delete_user() {
     $.ajax({
       url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_user.php?user=" + users_email
     });
-  }
+  };
   signOut();
-}
+};
 
 var warningActive_index_XML = "nope";
 var warningActive_index_account = "nope";
@@ -2084,22 +1960,19 @@ function showWarning_index(whichWarning) {
       if (warningActive_index_XML == "nope") {
         document.getElementById("warning_index_xml").className = "warning_index";
         warningActive_index_XML = "yes";
-      } 
-      else if (warningActive_index_XML == "yes") {
+      } else if (warningActive_index_XML == "yes") {
         hideWarning_index(whichWarning);
-      }
-    }
-  }
-  else if (whichWarning === 02) { // Delete account
+      };
+    };
+  } else if (whichWarning === 02) { // Delete account
     if (warningActive_index_account == "nope") {
       document.getElementById("warning_index_account").className = "warning_index";
       warningActive_index_account = "yes";
-    } 
-    else if (warningActive_index_account == "yes") {
+    } else if (warningActive_index_account == "yes") {
       hideWarning_index(whichWarning);
-    }
-  }
-}
+    };
+  };
+};
 
 /**
 * Hide warning of permanent decision
@@ -2109,12 +1982,11 @@ function hideWarning_index(whichWarning) {
   if (whichWarning === 01) { // Delete single XML
     document.getElementById("warning_index_xml").className = "warning_nope_index";
     warningActive_index_XML = "nope";
-  }
-  else if (whichWarning === 02) { // Delete account
+  } else if (whichWarning === 02) { // Delete account
     document.getElementById("warning_index_account").className = "warning_nope_index";
     warningActive_index_account = "nope";
-  }
-}
+  };
+};
 
 /**
 * Download selected file (in document's/index.html "Manage data") as an XML
@@ -2127,9 +1999,9 @@ function manage_DownloadXML() {
     if (document.getElementById(downloadBox_id).checked == true) {
       $('#downloadXML').attr('href', dataset_dictionary[document.getElementById(downloadBox_id).value]).attr('download', document.getElementById(downloadBox_id).value + '.xml');
       document.getElementById("downloadXML_button").click();
-    }
-  }
-}
+    };
+  };
+};
 
 var table_base = "\t\t<tr>\n\t\t\t<th>Title*</th>\n\t\t\t<th>Description*</th>\n\t\t\t<th>Record Number *</th>\n\t\t\t<th>RNA-Seq Data/BAM file repository link*</th>\n\t\t\t<th>Repository type*</th>\n\t\t\t<th>BAM Filename*</th>\n\t\t\t<th>Publication Link</th>\n\t\t\t<th>SRA/NCBI Link</th>\n\t\t\t<th>Total Reads Mapped*</th>\n\t\t\t<th>Read Map Method</th>\n\t\t\t<th>Species*</th>\n\t\t\t<th>Tissue*</th>\n\t\t\t<th>Tissue subunit*</th>\n\t\t\t<th>Controls</th>\n\t\t\t<th>Replicate Controls</th>\n\t\t</tr>\n";
 /**
@@ -2152,7 +2024,7 @@ function fill_tableCSV() {
           fileTitle = $(this).attr('xmltitle');
           if (fileTitle == "" || fileTitle == "Uploaded dataset") {
             fileTitle = "Uploaded dataset";
-          }
+          };
           fileTitle = fileTitle.split(' ').join('_')
         });
         var $title = $(xml_data).find("file"); // XML title
@@ -2181,7 +2053,7 @@ function fill_tableCSV() {
           var bam_filename = $(this).attr('filename');
           if (bam_filename === null || bam_filename === undefined || bam_filename === "undefined" || bam_filename === ".bam") {
             bam_filename = "accepted_hits.bam";
-          }
+          };
           table_add += "\t\t\t<td>" + bam_filename + "</td>\n";
           // Publication link
           var publication_link = $(this).attr('publication_link');
@@ -2193,7 +2065,7 @@ function fill_tableCSV() {
           var total_reads_mapped = $(this).attr('total_reads_mapped');
           if (total_reads_mapped == null || total_reads_mapped == "") {
             total_reads_mapped = "0";
-          }
+          };
           table_add += "\t\t\t<td>" + total_reads_mapped + "</td>\n";
           // Read mapped method
           var read_map_method = $(this).attr('read_map_method');
@@ -2202,7 +2074,7 @@ function fill_tableCSV() {
           var species = $(this).attr('species');
           if (species == null || species == "") {
             species = "Arabidopsis thaliana";
-          }
+          };
           table_add += "\t\t\t<td>" + species + "</td>\n";
           // Tissue
           var svgname = $(this).attr('svgname');
@@ -2218,10 +2090,10 @@ function fill_tableCSV() {
                 controlsXMLString += ($(this).find("controls")[0].childNodes[i].firstChild.textContent);
                 if (i < ($(this).find("controls")[0].childNodes.length - 2)) {
                   controlsXMLString += ", ";
-                }
-              }        
-            }
-          }
+                };
+              };     
+            };
+          };
           table_add += "\t\t\t<td>" + controlsXMLString + "</td>\n";
           // Replicate Controls
           var RcontrolsXMLString = "";
@@ -2231,21 +2103,21 @@ function fill_tableCSV() {
                 RcontrolsXMLString += ($(this).find("groupwith")[0].childNodes[i].firstChild.textContent);
                 if (i < ($(this).find("groupwith")[0].childNodes.length - 2)) {
                   RcontrolsXMLString += ", ";
-                }
-              }
-            }
-          }
+                };
+              };
+            };
+          };
           table_add += "\t\t\t<td>" + RcontrolsXMLString + "</td>\n";
           // Closing
           table_add += "\t\t</tr>\n"
-        })
+        });
         table_add += "\t</tbody>\n</table>";
         //console.log(table_add);
         document.getElementById("XMLtoCSVtable").innerHTML += table_add;
       }
-    })
-  }
-}
+    });
+  };
+};
 
 /**
 * Download selected file (in document's/index.html "Manage data") as an CSV
@@ -2257,9 +2129,9 @@ function download_XMLtableCSV() {
     if (document.getElementById(downloadBox_id).checked == true) {
       var tableTitle = document.getElementById(downloadBox_id).value.split(' ').join('_');
       $("#" + tableTitle).tableToCSV();
-    }
-  }
-}
+    };
+  };
+};
 
 var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Record Number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>bp Start site</th>\n\t\t\t<th>bp End site</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>rpb</th>\n\t\t\t<th>RPKM</th>\n\t\t\t<th>Controls</th>\n\t\t</tr>\n";
 /**
@@ -2289,11 +2161,11 @@ function download_mainTableCSV() {
     downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["RPKM"][variantPosition].toFixed(2)) + "</td>\n";
     downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["controlsString"]) + "</td>\n";
     downloadIndexTable_str += "\t\t</tr>\n";
-  }
+  };
   downloadIndexTable_str += "\t</tbody>\n</table>"; // Closing
   document.getElementById("hiddenDownloadModal_table").innerHTML += downloadIndexTable_str;
   $("#hiddenDownloadModal_table").tableToCSV();
-}
+};
 
 var publicData = true;
 /**
@@ -2303,14 +2175,12 @@ var publicData = true;
 function changePublicData(forceFalse = false) {
   if (forceFalse || uploadingData) {
     publicData = false;
-  }
-  else if ((document.getElementById("xmlDatabase").selectedIndex == 1) || (document.getElementById("xmlDatabase").selectedIndex == 2)) {
+  } else if ((document.getElementById("xmlDatabase").selectedIndex == 1) || (document.getElementById("xmlDatabase").selectedIndex == 2)) {
     publicData = true;
-  }
-  else {
+  } else {
     publicData = false;
-  }
-}
+  };
+};
 
 var isPrecache = true;
 /**
@@ -2355,26 +2225,22 @@ function getGFF(locusID) {
         for (i = 0; i < parsed_features.length; i++) {
           if (parsed_features[i]["uniqueID"] != null) {
             GFF_List.push(parsed_features[i]["uniqueID"]);
-          }
-          else {
+          } else {
             GFF_List.push("Error retrieving unique ID/GFF");
-          }
-        }
-      }
-      else if (parse_output["status"] == "fail") {
+          };
+        };
+      } else if (parse_output["status"] == "fail") {
         console.log("Error: Cannot find GFF ID's with parse output. Please contact admin");
-      }
-      else if (parse_output["wasSuccessful"] == "false") {
+      } else if (parse_output["wasSuccessful"] == "false") {
         if (parse_output["error"] != null) {
           console.log("Error: Cannot find GFF ID's due to following error: " + parse_output["error"] + ". Please contact admin");
-        }
-        else {
+        } else {
           console.log("Error: Cannot find GFF ID's with parse output. Please contact admin");
-        }
-      }
+        };
+      };
     }
   });
-}
+};
 
 /**
  * Adds to the GFFs to the ddSlick dropdown
@@ -2384,9 +2250,9 @@ function addGFF() {
   if (eachVariant.length > 0) {
   for (i = 0; i < GFF_List.length; i++) {
       document.getElementsByClassName("dd-option")[i].setAttribute("title", GFF_List[i]); 
-    }
-  }
-}
+    };
+  };
+};
 
 /**
 * Modifies and adds a id attribute to the hidden g-signin2 on the index page
@@ -2395,12 +2261,12 @@ function hiddenGoogleSignin() {
   var signInButtonList = document.getElementsByClassName("abcRioButtonLightBlue");
   for (i = 0; i < signInButtonList.length; i++) {
     signInButtonList[i].setAttribute("id", "loginClick" + i);
-  }
-}
+  };
+};
 
 function callVariantChange(inputData) {
   gene_structure_radio_on_change();
-}
+};
 
 /**
 * Makes all privates databases none-visible anymore
@@ -2410,9 +2276,9 @@ function remove_private_database() {
   var privateList = document.getElementsByClassName("userAdded");
   for (i = 0; i < privateList.length; i++) {
     $("#xmlDatabase option:last").remove();
-  }
+  };
   check_for_change = 0;
-}
+};
 
 /**
 * After autocomplete, correct AGI (locusBrowser) input value
@@ -2422,8 +2288,8 @@ function correctAGIIDInput() {
     var locusID = document.getElementById("locus").value.split("/");
     document.getElementById("locus").value = locusID[0].toUpperCase().trim();
     locus_validation();
-  }
-}
+  };
+};
 
 /**
 * Return back to top of page
@@ -2431,7 +2297,7 @@ function correctAGIIDInput() {
 function returnBackToTop() {
   mainBody = document.getElementById("main_content");
   mainBody.scrollTop = 0;
-}
+};
 
 var downloadDivNum = 1;
 /**
@@ -2446,8 +2312,8 @@ function downloadDiv(id) {
       document.getElementById("downloadDivNum_" + downloadDivNum).style.width = '100%';
       document.getElementById("downloadImage_button").click();
       downloadDivNum++;
-  })
-}
+  });
+};
 
 /**
 * On click, hide the nav bar from main screen
@@ -2459,15 +2325,14 @@ function displayNavBAR() {
     document.getElementById("openMenu").style.display = "block";
     document.getElementById("theTable").classList.add("RNATable");
     document.getElementById("mainRow").removeAttribute("style");
-  }
-  else if ($("#navbar_menu").is(":visible") == false) {
+  } else if ($("#navbar_menu").is(":visible") == false) {
     document.getElementById("navbar_menu").style.display = "block";
     document.getElementById("main_content").className = "col-sm-9";
     document.getElementById("openMenu").style.display = "none";
     document.getElementById("theTable").classList.remove("RNATable");
     document.getElementById("mainRow").style.display = "inline-block";
-  }
-}
+  };
+};
 
 /**
  * Adjust the size of the navbar menu footer to fit the size of the navbar itself
@@ -2479,15 +2344,14 @@ function adjustFooterSize() {
     if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_abs") == false) {
       document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_sticky');
       document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_abs');
-    }
-  }
-  else if (navbar.scrollHeight > navbar.clientHeight) { 
+    };
+  } else if (navbar.scrollHeight > navbar.clientHeight) { 
     if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_sticky") == false) {
       document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_abs');
       document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_sticky');
-    }
-  }
-}
+    };
+  };
+};
 
 /**
  * Adjust the submission iFrame (generate data modal) based on window's height
@@ -2495,7 +2359,7 @@ function adjustFooterSize() {
 function adjustSubmissionIFrameSize() {
   var iFrameSize = window.innerHeight * 0.7;
   document.getElementById("submissioniframe").height = iFrameSize + "px";
-}
+};
 
 var usedToggle = false;
 /**
@@ -2508,14 +2372,13 @@ function toggleTableCol(colClass, enable) {
   if (enable == true) {
     for (i = 0; i < column.length; i++) {
       column[i].removeAttribute("hidden");
-    }
-  }
-  else if (enable == false) {    
+    };
+  } else if (enable == false) {    
     for (i = 0; i < column.length; i++) {
       column[i].setAttribute("hidden", true);
-    }
-  }
-}
+    };
+  };
+};
 
 var responsiveRNAWidthAdjusted = false;
 /**
@@ -2526,15 +2389,14 @@ function responsiveRNAWidthResize() {
   if (window.innerWidth <= 575) {    
     for (i = 0; i < responsive.length; i++) {
       responsive[i].style.minWidth = (window.innerWidth * 0.93) + "px";
-    }
+    };
     responsiveRNAWidthAdjusted = true;
-  }
-  else if (window.innerWidth > 575 && responsiveRNAWidthAdjusted == true) {
+  } else if (window.innerWidth > 575 && responsiveRNAWidthAdjusted == true) {
     for (i = 0; i < responsive.length; i++) {
       responsive[i].style.minWidth = "420px";
-    }
-  }
-}
+    };
+  };
+};
 
 /**
  * Helper function for making the tableResponsiveTable function shorter
@@ -2559,7 +2421,7 @@ function toggleResponsiveTableOptions(colTitleBool, colRNABool, colrpbBool, cole
   toggleTableCol("colDetails", colDetailsBool);
   document.getElementById("toggleDetails").checked = colDetailsBool;
   RememberToggleOptions(colTitleBool, colRNABool, colrpbBool, coleFPBool, colRPKMBool, colDetailsBool);
-}
+};
 
 /**
  * Creates a responsive mobile/small screen RNA-Table design *
@@ -2571,29 +2433,24 @@ function toggleResponsiveTable(forceToggle = 0, buttonClick = false) {
     // Mobile design
     if ((forceToggle == 1) || (window.innerWidth <= 575 && usedToggle == false)) {
       toggleResponsiveTableOptions(false, true, false, false, false, false);
-    }
-    // Default
-    else if ((forceToggle == 2) || (window.innerWidth >= 1100 && usedToggle == false)) {
+    } else if ((forceToggle == 2) || (window.innerWidth >= 1100 && usedToggle == false)) {
+      // Default
       toggleResponsiveTableOptions(true, true, true, true, true, true);
-    }
-    // Toggle off same as below but also rpb values at windows resolution less than 830 pixels
-    else if ((forceToggle == 3) || (window.innerWidth < 830 && usedToggle == false)) {
+    } else if ((forceToggle == 3) || (window.innerWidth < 830 && usedToggle == false)) {
+      // Toggle off same as below but also rpb values at windows resolution less than 830 pixels
       toggleResponsiveTableOptions(true, true, false, false, false, false);
-    }
-    // Toggle off same as below but also RPKM count at windows resolution less than 900 pixels
-    else if ((forceToggle == 4) || (window.innerWidth < 900 && usedToggle == false)) {
+    } else if ((forceToggle == 4) || (window.innerWidth < 900 && usedToggle == false)) {
+      // Toggle off same as below but also RPKM count at windows resolution less than 900 pixels
       toggleResponsiveTableOptions(true, true, true, false, false, false);
-    }
-    // Toggle off same as below but also eFP images at windows resolution less than 990 pixels
-    else if ((forceToggle == 5) || (window.innerWidth < 990 && usedToggle == false)) {
+    } else if ((forceToggle == 5) || (window.innerWidth < 990 && usedToggle == false)) {
+      // Toggle off same as below but also eFP images at windows resolution less than 990 pixels
       toggleResponsiveTableOptions(true, true, true, false, true, false);
-    }
-    // Toggle off details at windows resolution less than 1100 pixels
-    else if ((forceToggle == 6) || (window.innerWidth < 1100 && usedToggle == false)) {
+    } else if ((forceToggle == 6) || (window.innerWidth < 1100 && usedToggle == false)) {
+      // Toggle off details at windows resolution less than 1100 pixels
       toggleResponsiveTableOptions(true, true, true, true, true, false);
-    }
-  }
-}
+    };
+  };
+};
 
 var ToggledTable = [true, true, true, true, true, true];
 /**
@@ -2607,7 +2464,7 @@ var ToggledTable = [true, true, true, true, true, true];
  */
 function RememberToggleOptions(title = true, rna = true, rpb = true, efp = true, rpkm = true, details = true) {
   ToggledTable = [title, rna, rpb, efp, rpkm, details];
-}
+};
 
 var colSortList = ["colTitle", "colrpb", "colRPKM", "colDetails"];
 /**
@@ -2615,12 +2472,12 @@ var colSortList = ["colTitle", "colrpb", "colRPKM", "colDetails"];
  */
 function ResizeArrowRow() {
   for (i = 0; i < colSortList.length; i++) {
-    var colRow = colSortList[i] + "Row"
+    var colRow = colSortList[i] + "Row";
     document.getElementById(colRow).style.width = (document.getElementById(colRow).parentNode.offsetWidth - 2) + "px";
     var colArrow = colSortList[i] + "Arrow";
     CheckElementWidth(colArrow, 8);
-  }
-}
+  };
+};
 
 /** 
  * Check if the directional arrows are visible or not
@@ -2630,8 +2487,8 @@ function ResizeArrowRow() {
 function CheckElementWidth(arrowID, widthCheckFor) {
   if (document.getElementById(arrowID).offsetWidth < widthCheckFor) {
       document.getElementById(arrowID).style.width = widthCheckFor + "px";
-  }
-}
+  };
+};
 
 /**
  * Change the directional arrow of a table based on its sorting direction
@@ -2644,16 +2501,15 @@ function ChangeColArrow(tableArrowID) {
     var arrowColID = tableArrowID + "Arrow";
     if (document.getElementById(tableArrowID).classList.contains("headerSortDown")) {
       document.getElementById(arrowColID).src = arrowDown;
-    }
-    else if (document.getElementById(tableArrowID).classList.contains("headerSortUp")) {
+    } else if (document.getElementById(tableArrowID).classList.contains("headerSortUp")) {
       document.getElementById(arrowColID).src = arrowUp;
-    }
+    };
     for (i = 0; i < colSortList.length; i++) {
       var colArrow = colSortList[i] + "Arrow";
       CheckElementWidth(colArrow, 8);
-    }
-  }, 100)  
-}
+    };
+  }, 100);  
+};
 
 let cardIDList = ['aboutCardTitle', 'navbarCardTitle', 'additionalFeaturesCardTitle', 'generateDataCardTitle', 'xmlCardTitle', 'accountCardTitle', 'feedbackCardTitle'];
 /**
@@ -2668,20 +2524,18 @@ function ChangeHelpArrowDirection(elementID) {
       if (elementText.substr(-1) == "▼") {
         let replaceText = elementText.substr(0, elementText.length-1) + "▲";
         document.getElementById(elementID).innerHTML = replaceText;
-      }
-      else if (elementText.substr(-1) == "▲") {
+      } else if (elementText.substr(-1) == "▲") {
         let replaceText = elementText.substr(0, elementText.length-1) + "▼";
         document.getElementById(elementID).innerHTML = replaceText;
-      }
-    }
-    // Make all other cards have an arrow down
-    else {
+      };
+    } else {
+      // Make all other cards have an arrow down
       let elementText = document.getElementById(cardIDList[i]).innerHTML.trim();
       let replaceText = elementText.substr(0, elementText.length-1) + "▼";
         document.getElementById(cardIDList[i]).innerHTML = replaceText;
-    }
-  }  
-}
+    };
+  };
+};
 
 /**
  * Scroll to a desired RNA row 
@@ -2702,9 +2556,8 @@ function ScrollToRNARow(rowID) {
   setTimeout(function() {
     document.getElementById(rowID).classList.remove('scrollToRow');
     document.getElementById(rowID).classList.remove('scrollToRowRemove');
-  }, 1600);
-  
-}
+  }, 1600);  
+};
 
 /**
  * Determine if a enter was pressed and if so, click a button
@@ -2714,8 +2567,8 @@ function ScrollToRNARow(rowID) {
 function IfPressEnter(event, toClickButton) {
   if (event.which == 13 || event.keyCode == 13) {
     $('#' + toClickButton).click();
-  }
-}
+  };
+};
 
 var BrowserDetected = false;
 /**
@@ -2771,34 +2624,33 @@ function DetectBrowser() {
               // If contains exclusion word, increase pass count towards failure
               if (navigator.userAgent.indexOf(userAgentParser[userAgentParserKeys[i]]["NContain"][n]) !== -1){
                 passLength++;
-              }
-            }
+              };
+            };
             if (passLength != failLength) {
               detectBrowser = userAgentParserKeys[i];
               notDetectedBrowser = false;
               break;
-            }
-          }
-          else {
+            };
+          } else {
             detectBrowser = userAgentParserKeys[i];
             notDetectedBrowser = false;
             break;
-          }
-        }
-      }
-    }
+          };
+        };
+      };
+    };
 
     // Change the help string to manage cookies
     if (detectBrowser) {    
       $("#notChrome").empty();
       append_str = ' or through the following <a href="https://www.google.com/search?q=manage+cookies+in+' + detectBrowser + '" target="_blank" rel="noopener">Google search results</a>';
       $("#notChrome").append(append_str);
-    }
+    };
 
     // make BrowserDetected true so this will not run again
     BrowserDetected = true;
-  }  
-}
+  };
+};
 
 /**
  * Create the filtered eFP List
@@ -2809,12 +2661,12 @@ function CreateFilteredeFPList() {
   var allTissuesDisplayed = Object.keys(tissueSRADic);
   for (i = 0; i < allTissuesDisplayed.length; i++) {
     var append_str = '<li class="form-check">';
-    append_str += '<input class="form-check-input" type="checkbox" id="' + allTissuesDisplayed[i].replace(" ", "_") + '" onclick="ToggleFilteredeFP(this.id, this.checked);" style="margin: 6px 5px 0;" value="toggleeFP" checked>'
+    append_str += '<input class="form-check-input" type="checkbox" id="' + allTissuesDisplayed[i].replace(" ", "_") + '" onclick="ToggleFilteredeFP(this.id, this.checked);" style="margin: 6px 5px 0;" value="toggleeFP" checked>';
     append_str += '<p class="form-check-label" for="toggleTitle" style="padding-left: 20px; font-weight: 10;">' + allTissuesDisplayed[i] + '</p>';
     append_str += '</li>';
     $("#filtereFPList").append(append_str);
-  }
-}
+  };
+};
 
 /**
  * Toggle eFP (RPKM) rows to visible or not
@@ -2827,13 +2679,12 @@ function ToggleFilteredeFP(whichToToggle, OnOrOff) {
   if (OnOrOff === true) {
     for (i = 0; i < whichSRA.length; i++) {
       document.getElementById(whichSRA[i] + "_row").removeAttribute("hidden");
-    }    
-  }  
-  else if (OnOrOff === false) {
+    };
+  } else if (OnOrOff === false) {
     for (i = 0; i < whichSRA.length; i++) {
       document.getElementById(whichSRA[i] + "_row").setAttribute("hidden", true);
-    }    
-  }
+    };    
+  };
 };
 
 /**
@@ -2856,7 +2707,7 @@ $(window).resize(function() {
   responsiveRNAWidthResize();
   toggleResponsiveTable();
   setTimeout(function() {adjustFooterSize();}, 10);
-})
+});
 
 /**
  * Initialize the script for the eFP-Seq Browser
@@ -2879,7 +2730,7 @@ function init() {
   if (legacy == true) {
     checkMobile();
     publicData = false;
-  }
+  };
 
   // Bind event listeners...
   $('input[type=radio][name=radio_group]').change(function() {
@@ -2901,7 +2752,7 @@ function init() {
   setTimeout(function() {
     if (signInButton = document.getElementsByClassName("abcRioButtonLightBlue").length > 0) {
       hiddenGoogleSignin();
-    }
+    };
     getGFF(locus);
   }, 700);
 
@@ -2925,8 +2776,8 @@ function init() {
   var subiFrame = document.getElementById("submissioniframe");
   if (subiFrame.getAttribute('data-src')) {
     subiFrame.setAttribute('src', subiFrame.getAttribute('data-src'));
-  }
+  };
   adjustSubmissionIFrameSize();
-}
+};
 
 setTimeout(function(){init()}, 100);
