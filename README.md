@@ -23,6 +23,7 @@ Outside of that, there is nothing to install, just download all the files and op
 We aim to make the eFP-Seq Browser as perfect as possible but unfortunately, there may be some unforeseen bugs. If you manage to find one that is not here, feel free to create a [bug report](https://github.com/ASully/eFP-Seq-Browser/issues/new?template=bug_report.md) so we can fix it.
 * The IGB links do not work with Google Drive repositories 
 * Download page as an image does not render SVGs in Microsoft Edge
+* Some sorting arrows may not display in Microsoft Edge
 
 ## Contributing
 
@@ -50,4 +51,4 @@ For rest: [GPL-2.0](LICENSE.md)
 * Vivek Krishnakumar
 * Chris Town
 * Ann E. Loraine - [Website](http://lorainelab.org/)
-* Nicholas J. Provart - [Github](https://github.com/BioAnalyticResource), [Twitter](https://twitter.com/BAR_PlantBio), [Website](http://bar.utoronto.ca)
+* Nicholas J. Provart - [Github](https://github.com/BioAnalyticResource), [Twitter](https://twitter.com/BAR_PlantBio), [Website](https://bar.utoronto.ca)
