@@ -486,7 +486,7 @@ function variants_radio_options(status) {
         width: "100%",
         onSelected: function(selectedData){
           setData = selectedData;
-          callVariantChange(selectedData);
+          gene_structure_radio_on_change(selectedData);
         }
       });
       $("#theTable").trigger("update");
@@ -509,8 +509,8 @@ function variants_radio_options(status) {
 
 var variantPosition = 0;
 /**
-* When radio button changes, update the gene structure throughout the document and update the rpb values
-*/
+ * When radio button changes, update the gene structure throughout the document and update the rpb values
+ */
 function gene_structure_radio_on_change() {
   // Create and update variables
   variant_selected = document.getElementsByClassName('dd-selected-value')[0].value; // Index of which variant is selected
@@ -525,43 +525,61 @@ function gene_structure_radio_on_change() {
   // update all rpb and rpkm values 
   // Go through the exp_info array and make changes
   for (var i = 0; i < exp_info.length; i++) {
+    // Update variant image:
+    var geneStructureImg = document.getElementById(exp_info[i][2][0] + '_gene_structure_img');
+    geneStructureImg.src = variant_img;
     // Update rpb values:
     var rpbValue = exp_info[i][5][variant_selected].toFixed(2);
     document.getElementById(exp_info[i][0].split("_svg")[0] + '_rpb').innerHTML = rpbValue;
     sraDict[exp_info[i][0].split("_svg")[0]]["rpb"] = rpbValue;
     // Update RPKM values:
-    absOrRel();
+    whichAbsOrRel(true, i);
   };
 
   $("#theTable").trigger("update");
 };
 
 /**
- * Change the values and colours of the table based on absolute or relative mode selected
+ * Which type of absOrRel do you want to call
+ * @param {Boolean} preIterate If already iterated through exp_ino before calling, then set to true, else leave false
+ * @param {Number} iteratePos If preIterate is true, an index position for exp_info must be added here
  */
-function absOrRel() {
-  if (exp_info.length > 0) {
-    for (var i = 0; i < exp_info.length; i++) {
-      // Update RPKM values and colours
-      if (colouring_mode == "rel") {
-        if (!exp_info[i][4] && exp_info[i][4] != 0) {
-          exp_info[i][4] = -999999;
-        };
-        var rpkmValue = exp_info[i][5][variant_selected].toFixed(2);
-        document.getElementById(exp_info[i][0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
-        sraDict[exp_info[i][0].split("_svg")[0]]["rpkm"] = rpkmValue;
-        colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][5], colouring_mode); // index 5 = relative fpkm
-      } else {
-        if (!exp_info[i][3] && exp_info[i][3] != 0) {
-          exp_info[i][3] = -999999;
-        };
-        var rpkmValue = exp_info[i][3][variant_selected].toFixed(2);
-        document.getElementById(exp_info[i][0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
-        sraDict[exp_info[i][0].split("_svg")[0]]["rpkm"] = rpkmValue;
-        colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][3], colouring_mode); // index 3 = absolute fpkm
+function whichAbsOrRel(preIterate = false, iteratePos = 0) {
+  if (preIterate === true) {
+    absOrRel(iteratePos);
+  } else {
+    if (exp_info.length > 0) {
+      for (var i = 0; i < exp_info.length; i++) {
+        absOrRel(i);
       };
     };
-    change_rpkm_colour_scale(colouring_mode);
+  };
+  change_rpkm_colour_scale(colouring_mode);
+};
+
+/**
+ * Change the values and colours of the table based on absolute or relative mode selected
+ * @param {Number} expInfoPos What the index position of exp_info
+ */
+function absOrRel(expInfoPos = 0) {
+  var expInfo = expoInfo[expInfoPos];
+  // Update RPKM values and colours
+  if (colouring_mode == "rel") {
+    if (!expInfo[4] && expInfo[4] != 0) {
+      expInfo[4] = -999999;
+    };
+    var rpkmValue = expInfo[5][variant_selected].toFixed(2);
+    document.getElementById(expInfo[0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
+    sraDict[expInfo[0].split("_svg")[0]]["rpkm"] = rpkmValue;
+    colour_part_by_id(expInfo[0], expInfo[1], expInfo[5], colouring_mode); // index 5 = relative fpkm
+  } else {
+    if (!expInfo[3] && expInfo[3] != 0) {
+      expInfo[3] = -999999;
+    };
+    var rpkmValue = expInfo[3][variant_selected].toFixed(2);
+    document.getElementById(expInfo[0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
+    sraDict[expInfo[0].split("_svg")[0]]["rpkm"] = rpkmValue;
+    colour_part_by_id(expInfo[0], expInfo[1], expInfo[3], colouring_mode); // index 3 = absolute fpkm
   };
 };
 
@@ -1343,36 +1361,29 @@ function populate_table(status) {
     CheckElementWidth(colArrow, 8);
   };
 
+  createVariantDiv();
+};
+
+/**
+ * Create the gene variants dropdown option's container
+ */
+function createVariantDiv() {
   if (gene_structure_colouring_element == null) {
     gene_structure_colouring_element = document.getElementById("flt1_theTable").parentElement;
   };
   gene_structure_colouring_element.innerHTML = "";
+
+  $('#variant_select').ddslick('destroy');
   document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = "";
-  if (isPrecache == true) {
-    $('#variant_select').ddslick('destroy');
-    document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = "";
-    variantdiv_str = '<div id="variants_div">';
-    variantdiv_str += '<select id="variant_select">';
-    variantdiv_str += '<option value="0" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWNgYGAIxQnC0iAggQEE0mAA lYcFgBWw4RZIQOEmYJNF0Q4zAQ4Qkqm4XQ8EASDFjMPeh4LD3YeMw96HgsMdjIA4HP75cNiXpQDz LMP3r8Y/VgAAAABJRU5ErkJggg==" style="max-width:none;" title="AT2G24270.1"></option>';
-    variantdiv_str += '<option value="1" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAUUlEQVQ4jWNgYGAIxQnC0iAggQEE0mAA lYcFgBWw4RZIQOEmYJNF0Q4zAQ6QJRNQhFJRPBAAkmEc9j4UHO4+ZBz2PhQc7mAExOHwz4fDviwF AHwvt+HVrHUkAAAAAElFTkSuQmCC" style="max-width:none;" title="AT2G24270.2"></option>';
-    variantdiv_str += '<option value="2" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAUUlEQVQ4jWNggIJQbCAsDQISwErSYACV hwWAFbDhFkhA4SZgk0XRDjMBDhCSqQFQIVY0twfAFTMOex8KDncfMg57HwoOdzAC4nD458NhX5YC AMtOmiH6inyxAAAAAElFTkSuQmCC" style="max-width:none;" title="AT2G24270.3"></option>';
-    variantdiv_str += '<option value="3" data-imagesrc="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAVUlEQVQ4jWNggIJQMEhLY0AGbGkQkADm pcEAKg8LQNGMRSABhZuATRZFexqau5AkU0MDIEKsoaggAK6Ycdj7UHC4+5Bx2PtQcLiDERCHwz8f DvuyFABHFHz72l50RQAAAABJRU5ErkJggg==" style="max-width:none;" title="AT2G24270.4"></option>';
-    variantdiv_str += '</select>';
-    variantdiv_str += '</div>';
-    document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = variantdiv_str;
-  } else if (isPrecache == false) {
-    $('#variant_select').ddslick('destroy');
-    document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = "";
-    variantdiv_str = '<div id="variants_div">';
-    variantdiv_str += '</div>';
-    document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = variantdiv_str;
-  };
+  variantdiv_str = '<div id="variants_div">';
+  variantdiv_str += '</div>';
+  document.getElementsByClassName("fltrow")[0]["childNodes"][1].innerHTML = variantdiv_str;
 
   $('#variant_select').ddslick({
     width: "100%",
     onSelected: function(selectedData){
       setData = selectedData;
-      callVariantChange(selectedData);
+      gene_structure_radio_on_change(selectedData);
     }
   });
 };
@@ -1517,7 +1528,7 @@ function change_rpkm_colour_scale(colouring_mode) {
 /* Disables the absolute RPKM scale input button if the relative mode is selected. */
 $("input[name=svg_colour_radio_group]:radio").change(function() {
   colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
-  absOrRel();
+  whichAbsOrRel();
   if (colouring_mode == "abs") {
     $("#rpkm_scale_input").removeAttr('disabled');
   } else {
@@ -2195,7 +2206,7 @@ function checkPreload() {
   $('div#progress').width(progress_percent + '%');
   // Check if public data or not
   if ((publicData == true) && (locus == "AT2G24270") && (dumpMethod == "simple") && (callDumpOutputs === false)) {
-    populate_table(1);
+    variants_radio_options(1);
     isPrecache = true;
   } else {
     update_all_images(0);
@@ -2262,10 +2273,6 @@ function hiddenGoogleSignin() {
   for (i = 0; i < signInButtonList.length; i++) {
     signInButtonList[i].setAttribute("id", "loginClick" + i);
   };
-};
-
-function callVariantChange(inputData) {
-  gene_structure_radio_on_change();
 };
 
 /**
