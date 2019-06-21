@@ -106,7 +106,7 @@
             </div>
             <!-- Title text -->
             <div class="col-xs-8" id="nm_title_words" style="margin: auto; display: inline-block; vertical-align: middle;">
-              <p class="navbar_menu_title">eFP-Seq Browser</p>
+              <a id='hrefTitle' href='./'><p class="navbar_menu_title">eFP-Seq Browser</p></a>
             </div>
           </div>
         </div>
@@ -196,6 +196,12 @@
             <button id="download_tableDiv" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading" onclick="downloadDiv('theTable')" disabled>Download table as image</button>
           </div>
           <div class="mdl-tooltip" for="download_icon">Download the currently displayed dataset as an image</div>
+
+          <!-- Generate a share link -->
+          <div id="share_button">
+            <button id="generateShareLink" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading" onclick="generateShareLink()" data-toggle="modal" data-target="#ShareLinkModal" disabled>Generate Share Link</button>
+          </div>
+          <div class="mdl-tooltip" for="generateShareLink">Generate a link to share loaded data</div>
 
           <!-- Generate own data/submission page -->
           <div id="generate_button">
@@ -979,6 +985,33 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Generate custom data modal -->  
+  <div id="ShareLinkModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" style="max-width: 1100px; margin-left:auto; margin-right: auto;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class='efp_modal_table' id='shareInfo'>
+            Use this URL to automatically load the dataset from this session:
+            <br>
+            <br>
+            <textarea id='shareLinkTextArea' spellcheck='false' style='width:100%;'></textarea>
+            <br>
+            <br>
+            <button id="copyToClipboard" type="button" class="efp_modal_table btn btn-success" onclick="copyToClipboard()">Copy to Clipboard</button>
+          </div>
+        </div>
+        <div class="modal-footer modal-footer-colour">
+          <button type="button" class="btn btn-default modal-close" data-dismiss="modal"
+            id="closemodal_ShareLinkModal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 
   <!-- Generate custom data modal -->

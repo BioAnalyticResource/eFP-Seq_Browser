@@ -603,3 +603,7 @@ li > p {
     overflow-y: scroll;
     height: 173px;
 }
+
+.sortingArrow {
+    max-width: 8px;
+}

@@ -1061,18 +1061,18 @@ function populate_table(status) {
   // Creating exon intron scale image
   var img_created = '<img src="' + 'data:image/png;base64,' + exon_intron_scale + '" alt="RNA-Seq mapped image" style="float: right; margin-right: 10px;">';
   // Insert table headers
-  $("#theTable").append(
-    '<thead><tr>' +
-    '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-xs-10">Title</div><div class="col-xs-0.5"><img class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-    '<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
-    img_created +
-    '</th>' +
-    '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6">r<sub>pb</sub></div><div class="col-xs-1"><img class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-    '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-    '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-    '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-    '</tr></thead>' +
-    '<tbody id="data_table_body"></tbody>');
+  var tableHeader = '<thead><tr>' +
+  '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-xs-10">Title</div><div class="col-xs-0.5"><img class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+  '<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
+  img_created +
+  '</th>' +
+  '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6">r<sub>pb</sub></div><div class="col-xs-1"><img class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+  '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
+  '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+  '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+  '</tr></thead>' +
+  '<tbody id="data_table_body"></tbody>';
+  $("#theTable").append(tableHeader);
 
   $.ajax({
     url: base_src,
@@ -2707,6 +2707,79 @@ function LoadSubmittedData() {
   update_all_images(0);
 };
 
+var shareLink;
+/**
+ * Generate a share link
+ */
+function generateShareLink() {
+  // Generate base link
+  var url = 'https://' + window.location.host + window.location.pathname;
+
+  // If a public dataset, generate link for that information
+  url += '?locus=' + locus + '&dataset=' + base_src;
+
+  // Add to page
+  shareLink = url;
+  document.getElementById('shareLinkTextArea').innerHTML = shareLink;
+};
+
+/**
+ * Read shared link and display data if appropriate 
+ */
+function readShareLink() {
+  // Find share link information
+  var query = window.location.search.substr(1);
+
+  // If this value hits 2, then all the essential information has been called for it to be loaded
+  var locusInput = false;
+  var datasetInput = false;
+
+  // If exists, continue
+  if (query != '') {
+    var inputs = query.split('&');
+    for (var i = 0; i < inputs.length; i++) {
+      var queryInputs = inputs[i].split('=');
+
+      if (queryInputs.length > 1) {
+        // If locus
+        if (queryInputs[0] === 'locus') {
+          var qIValue = inputs[i].substr(6);
+          document.getElementById('locus').value = qIValue;
+          locusInput = true;
+        } else if (queryInputs[0] === 'dataset') {
+          var qIValue = inputs[i].substr(8);
+          base_src = qIValue;
+          datasetInput = true;
+        };
+      };
+    };
+
+    // Load new data
+    if (locusInput && datasetInput) {
+      emptyLanding();
+      progress_percent = 0;
+      sraDict = {};
+      sraCountDic = {};
+      loadNewDataset = false;
+      setTimeout(function() {
+        count_bam_num();
+        checkPreload();
+      }, 200);
+      toggleResponsiveTable(0, true);
+    };    
+  };
+};
+
+/**
+ * Copy share link to the user's clipboard
+ */
+function copyToClipboard() {
+  if (document.getElementById('shareLinkTextArea') != '') {
+    document.getElementById('shareLinkTextArea').select();
+    document.execCommand("copy");
+  };
+};
+
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
   adjustFooterSize();
@@ -2785,6 +2858,8 @@ function init() {
     subiFrame.setAttribute('src', subiFrame.getAttribute('data-src'));
   };
   adjustSubmissionIFrameSize();
+
+  readShareLink();
 };
 
 setTimeout(function(){init()}, 100);
