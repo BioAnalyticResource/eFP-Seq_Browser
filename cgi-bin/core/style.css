@@ -616,3 +616,7 @@ li > p {
     vertical-align: middle !important;
     text-align: center;
 }
+
+.colourScale {
+    max-width: 100px;
+}

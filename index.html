@@ -303,31 +303,31 @@
               <!-- Filter table content -->
               <div class="tab-pane fade show active PnCPolicy" id="tableFilter" role="tabpanel" aria-labelledby="tableFilter-tab">
                 <li class="form-check">
-                  <input class="form-check-input" type="checkbox" id="toggleTitle" onclick="toggleTableCol('colTitle', document.getElementById('toggleTitle').checked); RememberToggleOptions(document.getElementById('toggleTitle').checked, ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleTitle" checked>
+                  <input class="form-check-input" type="checkbox" id="toggleTitle" onclick="toggleTableCol('colTitle', document.getElementById('toggleTitle').checked); RememberToggleOptions(document.getElementById('toggleTitle').checked, ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleTitle" checked>
                   <p class="form-check-label" for="toggleTitle" style="padding-left: 20px; font-weight: 10;">Toggle Title</p>
                 </li>
                 <li class="form-check">
-                  <input class="form-check-input" type="checkbox" id="toggleRNA" onclick="toggleTableCol('colRNA', document.getElementById('toggleRNA').checked); RememberToggleOptions(ToggledTable[0], document.getElementById('toggleRNA').checked, ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRNA" checked>
+                  <input class="form-check-input" type="checkbox" id="toggleRNA" onclick="toggleTableCol('colRNA', document.getElementById('toggleRNA').checked); RememberToggleOptions(ToggledTable[0], document.getElementById('toggleRNA').checked, ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRNA" checked>
                   <p class="form-check-label" for="toggleRNA" style="padding-left: 20px; font-weight: 10;">Toggle RNA-Seq Coverage</p>
                 </li>
                 <li class="form-check">
-                  <input class="form-check-input" type="checkbox" id="togglerpb" onclick="toggleTableCol('colrpb', document.getElementById('togglerpb').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], document.getElementById('togglerpb').checked, ToggledTable[3], ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="togglerpb" checked>
+                  <input class="form-check-input" type="checkbox" id="togglerpb" onclick="toggleTableCol('colrpb', document.getElementById('togglerpb').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], document.getElementById('togglerpb').checked, ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="togglerpb" checked>
                   <p class="form-check-label" for="togglerpb" style="padding-left: 20px; font-weight: 10;">Toggle r<sub>pb</sub></p>
                 </li>
                 <li class="form-check">
-                  <input class="form-check-input" type="checkbox" id="toggleeFP" onclick="toggleTableCol('coleFP', document.getElementById('toggleeFP').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2],document.getElementById('toggleeFP').checked,  ToggledTable[4], ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleeFP" checked>
+                  <input class="form-check-input" type="checkbox" id="toggleeFP" onclick="toggleTableCol('coleFP', document.getElementById('toggleeFP').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2],document.getElementById('toggleeFP').checked,  ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleeFP" checked>
                   <p class="form-check-label" for="toggleeFP" style="padding-left: 20px; font-weight: 10;">Toggle eFP</p>
                 </li>
                 <li class="form-check">
-                  <input class="form-check-input" type="checkbox" id="toggleRPKM" onclick="toggleTableCol('colRPKM', document.getElementById('toggleRPKM').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], document.getElementById('toggleRPKM').checked, ToggledTable[5]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRPKM" checked>
+                  <input class="form-check-input" type="checkbox" id="toggleRPKM" onclick="toggleTableCol('colRPKM', document.getElementById('toggleRPKM').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], document.getElementById('toggleRPKM').checked, ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRPKM" checked>
                   <p class="form-check-label" for="toggleRPKM" style="padding-left: 20px; font-weight: 10;">Toggle RPKM</p>
                 </li>
                 <li class="form-check">
-                  <input class="form-check-input" type="checkbox" id="toggleDetails" onclick="toggleTableCol('colDetails', document.getElementById('toggleDetails').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], document.getElementById('toggleDetails').checked); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleDetails" checked>
+                  <input class="form-check-input" type="checkbox" id="toggleDetails" onclick="toggleTableCol('colDetails', document.getElementById('toggleDetails').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], document.getElementById('toggleDetails').checked, ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleDetails" checked>
                   <p class="form-check-label" for="toggleDetails" style="padding-left: 20px; font-weight: 10;">Toggle Details</p>
                 </li>
                 <li class="form-check">
-                  <input class="form-check-input" type="checkbox" id="toggleCompare" onclick="toggleTableCol('colCompare', document.getElementById('toggleCompare').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], document.getElementById('toggleCompare').checked); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleCompare">
+                  <input class="form-check-input" type="checkbox" id="toggleCompare" onclick="toggleTableCol('colCompare', document.getElementById('toggleCompare').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], document.getElementById('toggleCompare').checked); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleCompare">
                   <p class="form-check-label" for="toggleCompare" style="padding-left: 20px; font-weight: 10;">Toggle Compare Gene Variants</p>
                 </li>
               </div>
@@ -637,6 +637,12 @@
 
                   To disable or remove a comparison, either uncheck the individual sample/row or uncheck the box in the top row to deselect all. 
                   <br><br>
+                  <div id="loadDataTip_downloadTable" class="HelpNoteDiv">
+                    <p class="HelpNoteTop">
+                      <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
+                      <p class="HelpNoteBottom"> Comparing gene variants only work for absolute mode, not relative! </p>
+                    </p>
+                  </div>
                   <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0020_compareGeneVariants.png" alt="Help image for comparing gene variants"style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Sharing your session</span>

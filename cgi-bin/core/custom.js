@@ -332,6 +332,26 @@ function colour_part_by_id(id, part, fpkm, mode) {
   };
 };
 
+var rpkmAverage = 1; // Set to 1 as default so prevents the divide by 0 zero later
+var rpkmMedian = 1; // Set to 1 as default so prevents the divide by 0 zero later
+/**
+ * Find the RPKM average across all samples
+ */
+function findRPKMValuesAcrossAll() {
+  var listOfSRA = Object.keys(sraDict);
+  var listOfRPKM = [];
+  var rpkmTotal = 0;
+  for (var l = 0; l < listOfSRA.length; l++) {
+    if (sraDict[listOfSRA[l]]["RPKM"]) {
+      var currentRPKM = sraDict[listOfSRA[l]]["RPKM"][variantPosition];
+      listOfRPKM.push(currentRPKM);
+      rpkmTotal += currentRPKM;
+    };    
+  };
+  rpkmMedian = math.median(rpkmMedian);
+  rpkmAverage = (rpkmTotal / listOfSRA.length);
+};
+
 var current_radio = "abs";
 /**
 * Find and update each SVG in the DOM.
@@ -341,6 +361,7 @@ function colour_svgs_now(mode) {
   mode = colouring_mode;
   current_radio = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   for (var i = 0; i < count_bam_entries_in_xml; i++) {
+    var currentSRA = exp_info[i][0].slice(0, -4);
     // For every exp, figure out the fpkm average of the controls
     var ctrl_fpkm_sum = 0;
     var ctrl_count = 0;
@@ -349,36 +370,46 @@ function colour_svgs_now(mode) {
       if (exp_info[i][2].indexOf(exp_info[ii][0].slice(0, -4)) != -1) {
         // experiment ii is a control for experiment i, save FPKM of exp ii
         ctrl_count++;
-        ctrl_fpkm_sum += exp_info[ii][3];
+        ctrl_fpkm_sum += exp_info[ii][3][variantPosition];
       };
     };
+    // If no control found:
+    if (ctrl_fpkm_sum === 0 && sraDict[currentSRA]['RPKM']) {
+      ctrl_fpkm_sum = sraDict[currentSRA]['RPKM'][variantPosition];
+    };
+    
+    // Create control average
     if (ctrl_count > 0) {
       ctrl_avg_fpkm = ctrl_fpkm_sum / ctrl_count;
+    } else {
+      if (rpkmMedian === 1) {
+        findRPKMValuesAcrossAll();
+      };
+      ctrl_avg_fpkm = rpkmMedian;
     };
 
     // Save the average fpkm of controls and the log fpkm...
+    var relativeRPKMValue = 0;
     var relativeRPKM = [];
-    if (ctrl_count > 0) {
-      for (var v = 0; v < exp_info[0][3].length; v++) {
-        if (exp_info[i][3][variantPosition] == 0 && ctrl_avg_fpkm == 0) {
+    if (sraDict[currentSRA]['RPKM'][variantPosition] == 0 && ctrl_avg_fpkm == 0) {
+      // Define log2(0/0) = 0 as opposed to undefined      
           // Define log2(0/0) = 0 as opposed to undefined
-          relativeRPKM.push(0);
-          exp_info[i].splice(4, 1, 0);
-        } else {
-          relativeRPKM.push(Math.log2(exp_info[i][3][variantPosition] / ctrl_avg_fpkm))
-        };
-      };   
+      // Define log2(0/0) = 0 as opposed to undefined      
+      relativeRPKMValue = 0;
+      exp_info[i].splice(4, 1, 0);
     } else {
-      for (var v = 0; v < exp_info[0][3].length; v++) {
-        relativeRPKM.push("Missing controls data");
-      };      
+      relativeRPKMValue = (Math.log2(sraDict[currentSRA]['RPKM'][variantPosition] / ctrl_avg_fpkm));
     };
+    relativeRPKM.push(relativeRPKMValue);
+    sraDict[currentSRA]['relativeRPKM'] = relativeRPKMValue;
+
     exp_info[i].splice(4, 1, relativeRPKM);
     exp_info[i].splice(6, 1, ctrl_avg_fpkm);
 
     // See if the absolute or the relative FPKM is max
-    if (exp_info[i][3][variantPosition] >= max_absolute_fpkm) {
-      max_absolute_fpkm = exp_info[i][3][variantPosition];
+    if (sraDict[currentSRA]['RPKM'][variantPosition] >= max_absolute_fpkm) {
+      max_absolute_fpkm = sraDict[currentSRA]['RPKM'][variantPosition];
+      document.getElementById("rpkm_scale_input").value = parseInt(round(max_absolute_fpkm));
     };
     if (exp_info[i][4] != "Missing controls data" && Math.abs(exp_info[i][4]) >= max_log_fpkm && Math.abs(exp_info[i][4]) < 1000) {
       max_log_fpkm = Math.abs(exp_info[i][4]);
@@ -389,13 +420,12 @@ function colour_svgs_now(mode) {
       if (!exp_info[i][4] && exp_info[i][4] != 0) {
         exp_info[i][4] = -999999;
       };
-      colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][4], colouring_mode); // index 5 = relative fpkm
     } else {
       if (!exp_info[i][3][variantPosition] && exp_info[i][3][variantPosition] != 0) {
         exp_info[i][3][variantPosition] = -999999;
       };
-      colour_part_by_id(exp_info[i][0], exp_info[i][1], exp_info[i][3], colouring_mode); // index 3 = absolute fpkm
     };
+    whichAbsOrRel();
   };
 
   $("#theTable").trigger("update");
@@ -566,23 +596,28 @@ function whichAbsOrRel(preIterate = false, iteratePos = 0) {
  */
 function absOrRel(expInfoPos = 0) {
   var expInfo = exp_info[expInfoPos];
+  var currentSRA = expInfo[0].slice(0, -4);
   // Update RPKM values and colours
-  if (colouring_mode == "rel") {
+  if (colouring_mode == "rel" && sraDict[currentSRA]['relativeRPKM']) {
+    document.getElementById('compareGeneVariants').disabled = true;
     if (!expInfo[4] && expInfo[4] != 0) {
       expInfo[4] = -999999;
     };
-    var rpkmValue = expInfo[5][variant_selected].toFixed(2);
+    var rpkmValue = sraDict[currentSRA]['relativeRPKM'].toFixed(2);
     document.getElementById(expInfo[0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
     sraDict[expInfo[0].split("_svg")[0]]["rpkm"] = rpkmValue;
-    colour_part_by_id(expInfo[0], expInfo[1], expInfo[5], colouring_mode); // index 5 = relative fpkm
+    colour_part_by_id(currentSRA + '_svg', sraDict[currentSRA]['svg_part'], sraDict[currentSRA]['relativeRPKM'], colouring_mode); // index 5 = relative fpkm
   } else {
+    if (allCheckedOptions.length > 0) {
+      document.getElementById('compareGeneVariants').disabled = false;
+    }
     if (!expInfo[3] && expInfo[3] != 0) {
       expInfo[3] = -999999;
     };
-    var rpkmValue = expInfo[3][variant_selected].toFixed(2);
+    var rpkmValue = sraDict[currentSRA]['RPKM'][variant_selected].toFixed(2);
     document.getElementById(expInfo[0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
     sraDict[expInfo[0].split("_svg")[0]]["rpkm"] = rpkmValue;
-    colour_part_by_id(expInfo[0], expInfo[1], expInfo[3], colouring_mode); // index 3 = absolute fpkm
+    colour_part_by_id(currentSRA + '_svg', sraDict[currentSRA]['svg_part'], sraDict[currentSRA]['RPKM'][variant_selected], colouring_mode); // index 3 = absolute fpkm
   };
 };
 
@@ -605,6 +640,7 @@ var totalreadsMapped_dic = {};
 var dumpOutputs = "";
 var dumpMethod = "simple";
 var callDumpOutputs = false;
+var rpkmCount = 1;
 /**
 * Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function
 */
@@ -620,6 +656,7 @@ function rnaseq_images(status) {
   dumpOutputs = "";
   data = {};
   rnaseq_success = 1;
+  rpkmCount = 1;
   match_drive = "";
   // Start
   get_input_values();
@@ -726,6 +763,7 @@ function rnaseq_images(status) {
           sraDict[response_rnaseq['record']]["rpb"] = parseFloat(r[0]).toFixed(2);
           document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
           sraDict[response_rnaseq['record']]["RPKM"] = response_rnaseq['absolute-fpkm'];
+          rpkmCount++;
           document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
 
           // Generate pre-caching information
@@ -764,21 +802,16 @@ function rnaseq_images(status) {
 
           colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'][variantPosition], colouring_mode);
 
-          if (rnaseq_success == count_bam_entries_in_xml || rnaseq_success % 10 == 0) {
-            // Execute the colour_svgs_now() function
-            colour_svgs_now();
-            // Change the input box value to max absolute fpkm
-            document.getElementById("rpkm_scale_input").value = parseInt(round(max_absolute_fpkm));
-            // Execute the colour_svgs_now() function and use the new max absolute fpkm
-            colour_svgs_now();
-            if (rnaseq_success == count_bam_entries_in_xml) {
+          if (rpkmCount == count_bam_entries_in_xml) {
+            setTimeout(function(){
+              colour_svgs_now();
               date_obj4 = new Date();
               rnaseq_success_end_time = date_obj4.getTime(); // Keep track of start time
               //console.log(rnaseq_success_end_time);
               document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time ~= " + String(round(parseInt(rnaseq_success_end_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
               //console.log("**** Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_end_time - rnaseq_success_start_time)));
-            };
-          };
+            }, 100);
+          };       
 
           $("#theTable").trigger("update");
           responsiveRNAWidthResize();
@@ -1062,6 +1095,8 @@ function populate_table(status) {
   sraDict = {};
   sraCountDic = {};
   tissueSRADic = {};
+  rpkmAverage = 1;
+  rpkmMedian = 1;
 
   // Creating exon intron scale image
   var img_created = '<img src="' + 'data:image/png;base64,' + exon_intron_scale + '" alt="RNA-Seq mapped image" style="float: right; margin-right: 10px;">';
@@ -1075,7 +1110,7 @@ function populate_table(status) {
   '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
   '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
   '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-  '<th class="sortable colCompare" id="colCompare" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 30px;"><div class="row" id="colCompareRow"></div></th>' +
+  '<th class="sortable colCompare" id="colCompare" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 30px;" hidden><div class="row" id="colCompareRow"></div></th>' + 
   '</tr></thead>' +
   '<tbody id="data_table_body"></tbody>';
   $("#theTable").append(tableHeader);
@@ -1491,9 +1526,9 @@ function populate_efp_modal(status) {
 
   // Check radio
   if (current_radio == "abs") {
-    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII=" alt="Absolute RPKM"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM, Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM</p>' + '<br><table><tbody class="eFP_tbody"></tbody>');
+    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII=" alt="Absolute RPKM" class="colourScale"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM, Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM</p>' + '<br><table><tbody class="eFP_tbody"></tbody>');
   } else if (current_radio == "rel") {
-    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==" alt="Relative RPKM"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ', Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + '</p>' + '<br><table><tbody></tbody>');
+    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==" alt="Relative RPKM" class="colourScale"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ', Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + '</p>' + '<br><table><tbody></tbody>');
   };
 
   // Insert eFP Table
@@ -2458,6 +2493,7 @@ function toggleResponsiveTableOptions(colTitleBool, colRNABool, colrpbBool, cole
   document.getElementById("toggleDetails").checked = colDetailsBool;
   toggleTableCol("colCompare", colCompareBool);
   document.getElementById("toggleCompare").checked = colCompareBool;
+
   RememberToggleOptions(colTitleBool, colRNABool, colrpbBool, coleFPBool, colRPKMBool, colDetailsBool, colCompareBool);
 };
 
@@ -2490,7 +2526,7 @@ function toggleResponsiveTable(forceToggle = 0, buttonClick = false) {
   };
 };
 
-var ToggledTable = [true, true, true, true, true, true];
+var ToggledTable = [true, true, true, true, true, true, false];
 /**
  * Remember what toggle options were chosen in the RNA table
  * @param {boolean} [title=true] Title
@@ -2756,6 +2792,7 @@ function generateShareLink() {
   document.getElementById('shareLinkTextArea').innerHTML = shareLink;
 };
 
+var shareLinkInputs = {};
 /**
  * Read shared link and display data if appropriate 
  */
@@ -2777,10 +2814,12 @@ function readShareLink() {
         // If locus
         if (queryInputs[0] === 'locus') {
           var qIValue = inputs[i].substr(6);
+          shareLinkInputs['locus'] = qIValue;
           document.getElementById('locus').value = qIValue;
           locusInput = true;
         } else if (queryInputs[0] === 'dataset') {
           var qIValue = inputs[i].substr(8);
+          shareLinkInputs['dataset'] = qIValue;
           base_src = qIValue;
           datasetInput = true;
         };
@@ -2836,9 +2875,9 @@ function tableCheckbox(whatID, disableAll = false) {
       var append_str = '<tr class="compareDataRow" id="' + whatSRA + '_compareRow' + i + '">';
       // Append title <td>
       if (parseInt(i) === parseInt(variantPosition)) {
-        append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">' + document.getElementById(whatSRA + '_title').innerHTML + '</td>\n';
+        append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">' + document.getElementById(whatSRA + '_title').innerHTML + ' ... (' + GFF_List[i] + ')</td>\n';
       } else {
-        append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">^^^</td>\n';
+        append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">^^^ ... (' + GFF_List[i] + ')</td>\n';
       };  
       // Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
       append_str += '<td style="max-width: 576px;">' + '<img id="' + whatSRA + '_rnaseq_img' + i + '" alt="RNA-Seq mapped image for:' + whatSRA + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" src="" /><br/>' + '<img id="' + whatSRA + '_gene_structure_img' + i + '" style="max-width: 576px; width:100%; height: auto;" src="" alt="Gene variant image for:' + whatSRA + '"/>' + '</td>\n';
@@ -2850,7 +2889,7 @@ function tableCheckbox(whatID, disableAll = false) {
       append_str += '<td id="' + whatSRA + '_rpkm' + i + '" style="font-size: 12px; width: 50px; ">' + sraDict[whatSRA]["RPKM"][i].toFixed(2) + '</td>';
       // Append the details <td>      
       if (parseInt(i) === parseInt(variantPosition)) {
-        append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">' + document.getElementById(whatSRA + '_details').innerHTML + '</td>\n';
+        append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '"><div id="' + whatSRA + '_descriptionCompare" name="' + document.getElementById(whatSRA + '_description').getAttribute('name') + '">' + document.getElementById(whatSRA + '_description').innerHTML + '</div><div id="igbLinkCompare_' + whatSRA + '">' + document.getElementById('igbLink_' + whatSRA).innerHTML + '</div><div id="extraLinksCompare_' + whatSRA + '">' + document.getElementById('extraLinks_' + whatSRA).innerHTML + '</div></td>\n';
       } else {
         append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">^^^</td>\n';
       };
@@ -2870,7 +2909,9 @@ function tableCheckbox(whatID, disableAll = false) {
     };
     document.getElementById(whatID).checked = true;
     document.getElementById('allCheckbox').checked = true;
-    document.getElementById('compareGeneVariants').disabled = false;
+    if (colouring_mode != 'rel') {
+      document.getElementById('compareGeneVariants').disabled = false;
+    };
   } else { 
     // If unchecked, remove compare entries
     if (disableAll === false) {
