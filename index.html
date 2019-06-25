@@ -592,7 +592,7 @@
                     </tr>
                     <tr>
                       <td> r<sub>pb</sub> </td>
-                      <td> The Pearson Correlation Coefficient value. This value is used to determine the similarity of the splice variant selected where the closer the value is to 1 shows similarity and 0 shows no similarity </td>
+                      <td> The point biserial correlation coefficient (r<sub>pb</sub>) value. This value is used to determine the similarity of the splice variant selected where the closer the value is to 1 shows similarity and 0 shows no similarity </td>
                     </tr>
                     <tr>
                       <td> RPKM </td>
@@ -628,6 +628,29 @@
                   You can also toggle and filter which eFP images you would like to see in RNA table by clicking on the "gears"/settings icon on the bottom right of the screen once a dataset has been loaded and then clicking on the "Filter eFP Images" tab. Just check any box off that you would not like to see and that image will be toggled off (or check a box that you do want to keep displayed and it will show).
                   <br><br>
                   <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0019_eFPImagesFilter.png" alt="Help image for toggling and filtering eFP images from the RNA-table"style="max-width: 100%;">
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Compare gene variants</span>
+                  <br><br> 
+                  You are also able to compare gene variants of a selected sample within your dataset. By default, the option for this feature is hidden and disabled. To enable this feature, toggle 'Compare Gene Variants' in the 'Filter Table' option in the bottom right of the page (from the settings gear icon, see 'Toggle the RNA table above').
+
+                  From here, you will see a new column being displayed including a checkbox per row. When selected, the 'Compare gene variants' button will enable and when clicked, all checked samples/rows will be displayed here to compare how the sample changed between gene variants. 
+
+                  To disable or remove a comparison, either uncheck the individual sample/row or uncheck the box in the top row to deselect all. 
+                  <br><br>
+                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0020_compareGeneVariants.png" alt="Help image for comparing gene variants"style="max-width: 100%;">
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Sharing your session</span>
+                  <br><br> 
+                  You may also share or save your current session by using the 'Generate Share Link' option in the navigation menu. When this module is opened, you will see a URL which you can open and will load your currently displayed session. An example would be <a href='https://bar.utoronto.ca/eFP-Seq_Browser/?locus=AT2G24270&dataset=cgi-bin/data/bamdata_araport11.xml' target='_blank' rel='noopener'>https://bar.utoronto.ca/eFP-Seq_Browser/?locus=AT2G24270&dataset=cgi-bin/data/bamdata_araport11.xml</a>
+                  <br><br>
+                  <div id="loadDataTip_downloadTable" class="HelpNoteDiv">
+                    <p class="HelpNoteTop">
+                      <i class="material-icons" style="font-size: 1.2em; position: relative; top: 3px;">&#xE000;</i> NOTE:
+                      <p class="HelpNoteBottom"> For custom uploaded datasets, the URL will be long which is why we recommend you to use a link shortener. Some options can be found <a href='https://www.google.com/search?q=link+shortener' target='_blank' rel='noopener'>here</a> </p>
+                    </p>
+                  </div>
+                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0020_sharingSession.png" alt="Help image for toggling and filtering eFP images from the RNA-table"style="max-width: 100%;">
+                  <br><br>
                   <br>
                 </div>
               </div>

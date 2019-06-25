@@ -1071,9 +1071,9 @@ function populate_table(status) {
   '<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
   img_created +
   '</th>' +
-  '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6">r<sub>pb</sub></div><div class="col-xs-1"><img class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+  '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6" >r<sub>pb</sub></div><div class="col-xs-1"><img class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
   '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-  '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+  '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
   '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
   '<th class="sortable colCompare" id="colCompare" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 30px;"><div class="row" id="colCompareRow"></div></th>' +
   '</tr></thead>' +
@@ -1085,9 +1085,9 @@ function populate_table(status) {
   '<th id="compare_colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
   img_created +
   '</th>' +
-  '<th id="compare_colrpb" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="compare_colrpbRow"><div class="col-xs-6">r<sub>pb</sub></div></div></th>' +
+  '<th id="compare_colrpb" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="compare_colrpbRow"><div class="col-xs-6">r<sub>pb</sub></div></div></th>' +
   '<th id="compare_eFP_th" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-  '<th id="compare_colRPKM" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="compare_colRPKMRow"><div class="col-xs-7">RPKM</div></div></th>' +
+  '<th id="compare_colRPKM" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="compare_colRPKMRow"><div class="col-xs-7">RPKM</div></div></th>' +
   '<th id="compare_colDetails" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="compare_colDetailsRow"><div class="col-xs-10">Details</div></div></th>' +
   '</tr></thead>' +
   '<tbody id="compare_table_body"></tbody>';
