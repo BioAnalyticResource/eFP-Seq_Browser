@@ -41,10 +41,10 @@ var svg_colouring_element = null; // the element for inserting the SVG colouring
 var gene_structure_colouring_element = null; // the element for inserting the gene structure scale legend
 
 //Used to create location for uploaded XML, client side
-var base_src = 'cgi-bin/data/bamdata_amazon_links.xml';
+var base_src = 'cgi-bin/data/bamdata_araport11.xml';
 var upload_src = '';
 var dataset_dictionary = {
-  "Araport 11 RNA-seq data": 'cgi-bin/data/bamdata_amazon_links.xml',
+  "Araport 11 RNA-seq data": 'cgi-bin/data/bamdata_araport11.xml',
   "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
 };
 let loadNewDataset = false;
@@ -1048,6 +1048,7 @@ var lessDetails = 'Show Less Details <i class="material-icons detailsIcon">arrow
 function populate_table(status) {
   // Reset values
   $("#theTable").empty();
+  $("#compareTable").empty();
   rnaseq_calls = [];
   exp_info = [];
   rnaseq_success = 0;
@@ -1074,10 +1075,23 @@ function populate_table(status) {
   '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
   '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
   '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-  // '<th class="sortable colCompare" id="colCompare" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 30px;"><div class="row" id="colCompareRow"></div></th>' +
+  '<th class="sortable colCompare" id="colCompare" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 30px;"><div class="row" id="colCompareRow"></div></th>' +
   '</tr></thead>' +
   '<tbody id="data_table_body"></tbody>';
   $("#theTable").append(tableHeader);
+  // Create compare table header:  
+  var compareHeader = '<thead><tr>' +
+  '<th id="compare_colTitle" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="compare_colTitleRow"><div class="col-xs-10">Title</div></div></th>' +
+  '<th id="compare_colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
+  img_created +
+  '</th>' +
+  '<th id="compare_colrpb" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="compare_colrpbRow"><div class="col-xs-6">r<sub>pb</sub></div></div></th>' +
+  '<th id="compare_eFP_th" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
+  '<th id="compare_colRPKM" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="compare_colRPKMRow"><div class="col-xs-7">RPKM</div></div></th>' +
+  '<th id="compare_colDetails" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="compare_colDetailsRow"><div class="col-xs-10">Details</div></div></th>' +
+  '</tr></thead>' +
+  '<tbody id="compare_table_body"></tbody>';
+  $('#compareTable').append(compareHeader);
 
   $.ajax({
     url: base_src,
@@ -1232,7 +1246,7 @@ function populate_table(status) {
         // Append abs/rel RPKM
         append_str += '<td class="colRPKM" id="' + experimentno + '_rpkm' + '" style="font-size: 12px; width: 50px; ">-9999</td>';
         // Append the details <td>
-        append_str += '<td class="colDetails" style="font-size: 12px;"><div id="' + experimentno + '_description" name="' + description.trim() + '">' + truncateDescription(description) + '</div>';  
+        append_str += '<td class="colDetails" id="' + experimentno + '_details" style="font-size: 12px;"><div id="' + experimentno + '_description" name="' + description.trim() + '">' + truncateDescription(description) + '</div>';  
         if (bam_type === "Amazon AWS") {
             append_str += '<div id="igbLink_' + experimentno + '">Show: <a href="' + igbView_link + '" target="_blank" rel="noopener">Alignments in IGB</a></div>';
         };
@@ -1245,13 +1259,20 @@ function populate_table(status) {
         };
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '_less" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + lessDetails + '</a></div></td>\n';
         // // Append compare variants
-        // append_str += '<td class="sortable colCompare" style="font-size: 12px; max-width: 30px;"><div id="' + experimentno + '_compareVariant"><input type="checkbox" name="compareCheckbox" class="compareCheckbox" value="compareCheckbox" id="' + experimentno + '_compareCheckbox" onclick="tableCheckbox(this.id);"></div></td>';
+        append_str += '<td class="colCompare" style="font-size: 12px; max-width: 30px;"><div id="' + experimentno + '_compareVariant"><input type="checkbox" name="compareCheckbox" class="compareCheckbox" value="compareCheckbox" id="' + experimentno + '_compareCheckbox" onclick="tableCheckbox(this.id);"></div></td>';
         append_str += '</tr>';
 
         iteration_num++;
 
         // Append the <tr> to the table
         $("#theTable").append(append_str);
+
+        // Check to see if compare column missing classname
+        var compareColumn = document.getElementsByClassName("fltrow")[0]["childNodes"][6];
+        if (compareColumn.classList[0] === undefined || compareColumn.classList[0] === 'undefined') {
+          compareColumn.classList = ['colCompare'];
+          compareColumn.innerHTML = '<input type="checkbox" name="compareCheckbox" class="compareCheckbox" value="compareCheckbox" id="allCheckbox" onclick="disableAllComparison();">';
+        };
 
         exp_info.push([experimentno + '_svg', svg_part, controls, 0, 0, 0, 0]);
         if (loadNewDataset === true) {
@@ -1574,7 +1595,7 @@ function rpkm_validation() {
 
 /* Used for resetting dataset_dictionary */
 var base_dataset_dictionary = {
-  "Araport 11 RNA-seq data": 'cgi-bin/data/bamdata_amazon_links.xml',
+  "Araport 11 RNA-seq data": 'cgi-bin/data/bamdata_araport11.xml',
   "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
 };
 var databasesAdded = false;
@@ -1840,7 +1861,7 @@ function which_upload_option() {
 
 /* User's private dataset_dictionary */
 var public_dataset_dictionary = {
-  "Araport 11 RNA-seq data": 'cgi-bin/data/bamdata_amazon_links.xml',
+  "Araport 11 RNA-seq data": 'cgi-bin/data/bamdata_araport11.xml',
   "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
 };
 
@@ -2420,8 +2441,9 @@ function responsiveRNAWidthResize() {
  * @param {Bool} coleFPBool true = eFP column visible, false = column hidden
  * @param {Bool} colRPKMBool true = RPKM column visible, false = column hidden
  * @param {Bool} colDetailsBool true = details column visible, false = column hidden
+ * @param {Bool} colCompareBool true = compare variants column visible, false = column hidden
  */
-function toggleResponsiveTableOptions(colTitleBool, colRNABool, colrpbBool, coleFPBool, colRPKMBool, colDetailsBool) {
+function toggleResponsiveTableOptions(colTitleBool, colRNABool, colrpbBool, coleFPBool, colRPKMBool, colDetailsBool, colCompareBool) {
   toggleTableCol("colTitle", colTitleBool);
   document.getElementById("toggleTitle").checked = colTitleBool;
   toggleTableCol("colRNA", colRNABool);
@@ -2434,7 +2456,9 @@ function toggleResponsiveTableOptions(colTitleBool, colRNABool, colrpbBool, cole
   document.getElementById("toggleRPKM").checked = colRPKMBool;
   toggleTableCol("colDetails", colDetailsBool);
   document.getElementById("toggleDetails").checked = colDetailsBool;
-  RememberToggleOptions(colTitleBool, colRNABool, colrpbBool, coleFPBool, colRPKMBool, colDetailsBool);
+  toggleTableCol("colCompare", colCompareBool);
+  document.getElementById("toggleCompare").checked = colCompareBool;
+  RememberToggleOptions(colTitleBool, colRNABool, colrpbBool, coleFPBool, colRPKMBool, colDetailsBool, colCompareBool);
 };
 
 /**
@@ -2446,22 +2470,22 @@ function toggleResponsiveTable(forceToggle = 0, buttonClick = false) {
   if (document.getElementById("tableToggle").style.display != 'none') {
     // Mobile design
     if ((forceToggle == 1) || (window.innerWidth <= 575 && usedToggle == false)) {
-      toggleResponsiveTableOptions(false, true, false, false, false, false);
+      toggleResponsiveTableOptions(false, true, false, false, false, false, false);
     } else if ((forceToggle == 2) || (window.innerWidth >= 1100 && usedToggle == false)) {
       // Default
-      toggleResponsiveTableOptions(true, true, true, true, true, true);
+      toggleResponsiveTableOptions(true, true, true, true, true, true, false);
     } else if ((forceToggle == 3) || (window.innerWidth < 830 && usedToggle == false)) {
       // Toggle off same as below but also rpb values at windows resolution less than 830 pixels
-      toggleResponsiveTableOptions(true, true, false, false, false, false);
+      toggleResponsiveTableOptions(true, true, false, false, false, false, false);
     } else if ((forceToggle == 4) || (window.innerWidth < 900 && usedToggle == false)) {
       // Toggle off same as below but also RPKM count at windows resolution less than 900 pixels
-      toggleResponsiveTableOptions(true, true, true, false, false, false);
+      toggleResponsiveTableOptions(true, true, true, false, false, false, false);
     } else if ((forceToggle == 5) || (window.innerWidth < 990 && usedToggle == false)) {
       // Toggle off same as below but also eFP images at windows resolution less than 990 pixels
-      toggleResponsiveTableOptions(true, true, true, false, true, false);
+      toggleResponsiveTableOptions(true, true, true, false, true, false, false);
     } else if ((forceToggle == 6) || (window.innerWidth < 1100 && usedToggle == false)) {
       // Toggle off details at windows resolution less than 1100 pixels
-      toggleResponsiveTableOptions(true, true, true, true, true, false);
+      toggleResponsiveTableOptions(true, true, true, true, true, false, false);
     };
   };
 };
@@ -2475,9 +2499,10 @@ var ToggledTable = [true, true, true, true, true, true];
  * @param {boolean} [efp=true] eFP
  * @param {boolean} [rpkm=true] RPKM
  * @param {boolean} [details=true] Details
+ * @param {boolean} [compare=false] Compare gene variants
  */
-function RememberToggleOptions(title = true, rna = true, rpb = true, efp = true, rpkm = true, details = true) {
-  ToggledTable = [title, rna, rpb, efp, rpkm, details];
+function RememberToggleOptions(title = true, rna = true, rpb = true, efp = true, rpkm = true, details = true, compare = false) {
+  ToggledTable = [title, rna, rpb, efp, rpkm, details, compare];
 };
 
 var colSortList = ["colTitle", "colrpb", "colRPKM", "colDetails"];
@@ -2710,6 +2735,7 @@ function LoadSubmittedData() {
   loadingScreen(false);
   setTimeout(function() {
     count_bam_num();
+    disableAllComparison();
   }, 200);
   update_all_images(0);
 };
@@ -2770,6 +2796,7 @@ function readShareLink() {
       loadNewDataset = false;
       setTimeout(function() {
         count_bam_num();
+        disableAllComparison();
         checkPreload();
       }, 200);
       toggleResponsiveTable(0, true);
@@ -2787,115 +2814,127 @@ function copyToClipboard() {
   };
 };
 
-// var allCheckedOptions = []; // All checked and currently displayed comparisons
-// /**
-//  * Functionality of the table's individual entry's check box for comparison
-//  * @param {String} whatID The ID of what table entry is being checked 
-//  * @param {Boolean} disableAll If want to disable all at once, make this true
-//  */
-// function tableCheckbox(whatID, disableAll = false) {
-//   var whatSRA = whatID.split('_')[0]; // Retrieve SRA number
+var allCheckedOptions = []; // All checked and currently displayed comparisons
+/**
+ * Functionality of the table's individual entry's check box for comparison
+ * @param {String} whatID The ID of what table entry is being checked 
+ * @param {Boolean} disableAll If want to disable all at once, make this true
+ */
+function tableCheckbox(whatID, disableAll = false) {
+  var whatSRA = whatID.split('_')[0]; // Retrieve SRA number
 
-//   if (disableAll) {
-//     disableAllComparison();
-//   } else if (disableAll === false && document.getElementById(whatID) && document.getElementById(whatID).checked) { 
-//     // If checked, then add compare entries    
-//     allCheckedOptions.push(whatSRA); // Add to list of displayed comparisons 
-//     var iterationProcess = {};
-//     var isFirst = true;
+  if (disableAll) {
+    disableAllComparison();
+  } else if (disableAll === false && document.getElementById(whatID) && document.getElementById(whatID).checked) { 
+    // If checked, then add compare entries    
+    allCheckedOptions.push(whatSRA); // Add to list of displayed comparisons 
+    var iterationProcess = {};
 
-//     // Add other tables based on the list of variants available
-//     for (var i = 0; i < GFF_List.length; i++) {
-//       if (parseInt(i) != parseInt(variantPosition)) {
-//         // Construct a table row <tr> element 
-//         var append_str = '<tr class="compareDataRow" id="' + whatSRA + '_compareRow' + i + '">';
-//         // Append title <td>
-//         append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">^^^</td>\n';
-//         // Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
-//         append_str += '<td style="max-width: 576px;">' + '<img id="' + whatSRA + '_rnaseq_img' + i + '" alt="RNA-Seq mapped image for:' + whatSRA + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" src="" /><br/>' + '<img id="' + whatSRA + '_gene_structure_img' + i + '" style="max-width: 576px; width:100%; height: auto;" src="" alt="Gene variant image for:' + whatSRA + '"/>' + '</td>\n';
-//         // Append the rpb <td>
-//         append_str += '<td id="' + whatSRA + '_rpb' + i + '' + '" style="font-size: 12px; width: 50px; ">' + sraDict[whatSRA]["r"][i].toFixed(2) + '</td>';
-//         // Append the appropriate SVG with place holder sorting number in front of it .. all in one <td>
-//         append_str += '<td tag="svg_name" style="width:  75px;">' + '<div id="' + whatSRA + '_svg' + i + '" name="' + sraDict[whatSRA]["svg"].substr(4).replace('.', '_') + '_tissue" tag=' + sraDict[whatSRA]["svg_part"] + '_subtissue" width="75" height="75" style="width: 75px; height: 75px; max-width: 75px; max-height: 75px;">' + document.getElementById(sraDict[whatSRA]["svg"].substr(4).replace(".svg", "_svg")).innerHTML + '</div>' + '<div class="mdl-tooltip" for="' + whatSRA + '_svg' + i + '">' + sraDict[whatSRA]["svg"].substring(4).replace(".svg", "") + '</div></td>\n';
-//         // Append abs/rel RPKM
-//         append_str += '<td id="' + whatSRA + '_rpkm' + i + '" style="font-size: 12px; width: 50px; ">' + sraDict[whatSRA]["RPKM"][i].toFixed(2) + '</td>';
-//         // Append the details <td>
-//         append_str += '<td style="font-size: 12px;"><div id="' + whatSRA + '_description' + i + '" name="Compare genes">^^^</td>\n';
-//         // Append compare variants
-//         append_str += '<td style="font-size: 12px; max-width: 30px;"><div id="' + whatSRA + '_compareVariant' + i + '"></div></td>'
-//         append_str += '</tr>';
+    // Add other tables based on the list of variants available
+    for (var i = 0; i < GFF_List.length; i++) {
+      // Construct a table row <tr> element 
+      var append_str = '<tr class="compareDataRow" id="' + whatSRA + '_compareRow' + i + '">';
+      // Append title <td>
+      if (parseInt(i) === parseInt(variantPosition)) {
+        append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">' + document.getElementById(whatSRA + '_title').innerHTML + '</td>\n';
+      } else {
+        append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">^^^</td>\n';
+      };  
+      // Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
+      append_str += '<td style="max-width: 576px;">' + '<img id="' + whatSRA + '_rnaseq_img' + i + '" alt="RNA-Seq mapped image for:' + whatSRA + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" src="" /><br/>' + '<img id="' + whatSRA + '_gene_structure_img' + i + '" style="max-width: 576px; width:100%; height: auto;" src="" alt="Gene variant image for:' + whatSRA + '"/>' + '</td>\n';
+      // Append the rpb <td>
+      append_str += '<td id="' + whatSRA + '_rpb' + i + '' + '" style="font-size: 12px; width: 50px; ">' + sraDict[whatSRA]["r"][i].toFixed(2) + '</td>';
+      // Append the appropriate SVG with place holder sorting number in front of it .. all in one <td>
+      append_str += '<td tag="svg_name" style="width:  75px;">' + '<div id="' + whatSRA + '_svg' + i + '" name="' + sraDict[whatSRA]["svg"].substr(4).replace('.', '_') + '_tissue" tag=' + sraDict[whatSRA]["svg_part"] + '_subtissue" width="75" height="75" style="width: 75px; height: 75px; max-width: 75px; max-height: 75px;">' + document.getElementById(sraDict[whatSRA]["svg"].substr(4).replace(".svg", "_svg")).innerHTML + '</div>' + '<div class="mdl-tooltip" for="' + whatSRA + '_svg' + i + '">' + sraDict[whatSRA]["svg"].substring(4).replace(".svg", "") + '</div></td>\n';
+      // Append abs/rel RPKM
+      append_str += '<td id="' + whatSRA + '_rpkm' + i + '" style="font-size: 12px; width: 50px; ">' + sraDict[whatSRA]["RPKM"][i].toFixed(2) + '</td>';
+      // Append the details <td>      
+      if (parseInt(i) === parseInt(variantPosition)) {
+        append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">' + document.getElementById(whatSRA + '_details').innerHTML + '</td>\n';
+      } else {
+        append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">^^^</td>\n';
+      };
+      // End
+      append_str += '</tr>';
 
-//         // Find appropriate place to add new table row
-//         iterationProcess[i] = whatSRA + '_compareRow' + i;
-//         if (isFirst) {
-//           document.getElementById(whatSRA + '_row').outerHTML += append_str;
-//           isFirst = false;
-//         } else {
-//           var itPos = i - 1;
-//           document.getElementById(iterationProcess[itPos]).outerHTML += append_str;
-//         };
+      // Find appropriate place to add new table row
+      iterationProcess[i] = whatSRA + '_compareRow' + i;
+      document.getElementById('compareTable').innerHTML += append_str;
 
-//         // Update images
-//         document.getElementById(whatSRA + '_rnaseq_img' + i).setAttribute('src', document.getElementById(whatSRA + '_rnaseq_img').src);
-//         document.getElementById(whatSRA + '_gene_structure_img' + i).setAttribute('src', document.getElementsByClassName('dd-option-image')[i].src);
+      // Update images
+      document.getElementById(whatSRA + '_rnaseq_img' + i).setAttribute('src', document.getElementById(whatSRA + '_rnaseq_img').src);
+      document.getElementById(whatSRA + '_gene_structure_img' + i).setAttribute('src', document.getElementsByClassName('dd-option-image')[i].src);
 
-//         // Colour SVG
-//         colour_part_by_id(whatSRA + '_svg' + i, sraDict[whatSRA]['svg_part'], sraDict[whatSRA]['RPKM'][i], colouring_mode);
-//       };
-//     };
-//     document.getElementById(whatID).checked = true;
-//   } else { // If unchecked, remove compare entries
-//     if (disableAll === false) {
-//       disableCompare(whatSRA);
-//       allCheckedOptions.splice(allCheckedOptions.indexOf(whatSRA), 1);
-//       document.getElementById(whatID).checked = false;
-//     } else if (disableAll === true) {
-//       disableAllComparison();
-//     };
-//   };
-// };
+      // Colour SVG
+      colour_part_by_id(whatSRA + '_svg' + i, sraDict[whatSRA]['svg_part'], sraDict[whatSRA]['RPKM'][i], colouring_mode);
+    };
+    document.getElementById(whatID).checked = true;
+    document.getElementById('allCheckbox').checked = true;
+    document.getElementById('compareGeneVariants').disabled = false;
+  } else { 
+    // If unchecked, remove compare entries
+    if (disableAll === false) {
+      disableCompare(whatSRA);
+      allCheckedOptions.splice(allCheckedOptions.indexOf(whatSRA), 1);
+      document.getElementById(whatID).checked = false;
+    } else if (disableAll === true) {
+      disableAllComparison();
+    };
 
-// /**
-//  * Disable a desired compare region for a single SRA
-//  * @param {String} whatSRA What SRA comparison to remove
-//  */
-// function disableCompare(whatSRA) {
-//   for (var i = 0; i < GFF_List.length; i++) {
-//     if (document.getElementById(whatSRA + '_compareRow' + i) != undefined) {
-//       document.getElementById(whatSRA + '_compareRow' + i).remove();
-//     };
-//   };
-// };
+    // If no checks left, disable compareGeneVariants
+    if (allCheckedOptions.length === 0) {
+      document.getElementById('compareGeneVariants').disabled = true;
+    }
+  };
+};
 
-// /**
-//  * Disable all comparisons at once
-//  */
-// function disableAllComparison() {
-//   // Disable loaded comparisons
-//   var compareDataRows = document.getElementsByClassName('compareDataRow');
-//   for (var c = compareDataRows.length - 1; c >= 0; c--) {
-//     document.getElementsByClassName('compareDataRow')[c].remove();
-//   };
-//   allCheckedOptions = [];
+/**
+ * Disable a desired compare region for a single SRA
+ * @param {String} whatSRA What SRA comparison to remove
+ */
+function disableCompare(whatSRA) {
+  for (var i = 0; i < GFF_List.length; i++) {
+    if (document.getElementById(whatSRA + '_compareRow' + i) != undefined) {
+      document.getElementById(whatSRA + '_compareRow' + i).remove();
+    };
+  };
+};
 
-//   // Remove all check marks
-//   var compareDataRows = document.getElementsByClassName('compareCheckbox');
-//   for (var c = 0; c < compareDataRows.length; c++) {
-//     document.getElementsByClassName('compareCheckbox')[c].checked = false;
-//   };
+/**
+ * Disable all comparisons at once
+ */
+function disableAllComparison() {
+  if (document.getElementById('allCheckbox')) {
+    // Disable loaded comparisons
+    var compareDataRows = document.getElementsByClassName('compareDataRow');
+    for (var c = compareDataRows.length - 1; c >= 0; c--) {
+      document.getElementsByClassName('compareDataRow')[c].remove();
+    };
+    allCheckedOptions = [];
 
-//   // Double check
-//   var listOfEntries = [];
-//   var mainEntries = document.getElementsByClassName('mainEntries');
-//   for (var m = 0; m < mainEntries.length; m++) {
-//     var mainID = mainEntries[m].id
-//     if (listOfEntries.includes(mainID) === false) {
-//       listOfEntries.push(mainID);
-//     } else {      
-//       document.getElementsByClassName('mainEntries')[m].remove();
-//     };
-//   };
-// };
+    // Remove all check marks
+    var compareDataRows = document.getElementsByClassName('compareCheckbox');
+    for (var c = 0; c < compareDataRows.length; c++) {
+      document.getElementsByClassName('compareCheckbox')[c].checked = false;
+    };
+    document.getElementById('allCheckbox').checked = false;
+
+    // Double check
+    var listOfEntries = [];
+    var mainEntries = document.getElementsByClassName('mainEntries');
+    for (var m = 0; m < mainEntries.length; m++) {
+      var mainID = mainEntries[m].id;
+      if (listOfEntries.includes(mainID) === false) {
+        listOfEntries.push(mainID);
+      } else {      
+        document.getElementsByClassName('mainEntries')[m].remove();
+      };
+    };
+
+    // Disable comparison button
+    document.getElementById('compareGeneVariants').disabled = true;
+  };  
+};
 
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {

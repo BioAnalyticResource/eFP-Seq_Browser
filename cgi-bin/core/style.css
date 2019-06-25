@@ -607,3 +607,12 @@ li > p {
 .sortingArrow {
     max-width: 8px;
 }
+
+.dd-select {
+    background: white !important;
+}
+
+.colCompare {
+    vertical-align: middle !important;
+    text-align: center;
+}

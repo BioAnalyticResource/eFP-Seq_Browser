@@ -197,6 +197,12 @@
           </div>
           <div class="mdl-tooltip" for="download_icon">Download the currently displayed dataset as an image</div>
 
+          <!-- Compare gene variants of the table -->
+          <div id="download_tableAsImage">
+            <button id="compareGeneVariants" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable" data-toggle='modal' data-target="#CompareGeneVariants" disabled>Compare gene variants</button>
+          </div>
+          <div class="mdl-tooltip" for="download_icon">Compare selected samples against all of it's gene variants</div>
+
           <!-- Generate a share link -->
           <div id="share_button">
             <button id="generateShareLink" type="button" class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading" onclick="generateShareLink()" data-toggle="modal" data-target="#ShareLinkModal" disabled>Generate Share Link</button>
@@ -319,6 +325,10 @@
                 <li class="form-check">
                   <input class="form-check-input" type="checkbox" id="toggleDetails" onclick="toggleTableCol('colDetails', document.getElementById('toggleDetails').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], document.getElementById('toggleDetails').checked); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleDetails" checked>
                   <p class="form-check-label" for="toggleDetails" style="padding-left: 20px; font-weight: 10;">Toggle Details</p>
+                </li>
+                <li class="form-check">
+                  <input class="form-check-input" type="checkbox" id="toggleCompare" onclick="toggleTableCol('colCompare', document.getElementById('toggleCompare').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], document.getElementById('toggleCompare').checked); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleCompare">
+                  <p class="form-check-label" for="toggleCompare" style="padding-left: 20px; font-weight: 10;">Toggle Compare Gene Variants</p>
                 </li>
               </div>
               <!-- Filter eFP content -->
@@ -987,6 +997,29 @@
     </div>
   </div>
 
+  <!-- Compare gene variants -->  
+  <div id="CompareGeneVariants" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" style="max-width: 1100px; margin-left:auto; margin-right: auto;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" style="margin-top: -5px;" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class='efp_modal_table' id='compareGeneInfo'>
+            Table below compares the selected gene against all of the available gene variants.
+            <br>
+            <br>
+            <table id="compareTable" class="table theTable" style="background-color: white;"></table>
+          </div>
+        </div>
+        <div class="modal-footer modal-footer-colour">
+          <button type="button" class="btn btn-default modal-close" data-dismiss="modal"
+            id="closemodal_CompareGeneVariants">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Generate custom data modal -->  
   <div id="ShareLinkModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" style="max-width: 1100px; margin-left:auto; margin-right: auto;">
@@ -1011,7 +1044,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 
   <!-- Generate custom data modal -->
@@ -1371,6 +1403,7 @@
       loadNewDataset = false;
       setTimeout(function() {
         count_bam_num();
+        disableAllComparison();
         checkPreload();
       }, 200);
     };
@@ -1446,6 +1479,7 @@
               progress_percent = 0;
               setTimeout(function () {
                 count_bam_num();
+                disableAllComparison();
               }, 250);
             }
           } 
