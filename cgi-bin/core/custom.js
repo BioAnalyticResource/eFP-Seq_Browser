@@ -348,7 +348,7 @@ function findRPKMValuesAcrossAll() {
       rpkmTotal += currentRPKM;
     };    
   };
-  rpkmMedian = math.median(rpkmMedian);
+  rpkmMedian = math.median(listOfRPKM);
   rpkmAverage = (rpkmTotal / listOfSRA.length);
 };
 
