@@ -957,6 +957,22 @@
               </div>
             </div>
 
+            <!-- Citation card -->
+            <div class="card citation">
+              <div class="card-header" id="citation">
+                <p class="mb-0">
+                  <button class="btn btn-link cardTitle" id="citationCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-toggle="collapse" data-target="#citationCard" aria-expanded="true" aria-controls="citationCard">
+                    Citation ▼
+                  </button>
+                </p>
+              </div>
+              <div id="citationCard" class="collapse" aria-labelledby="citation" data-parent="#accordion">
+                <div class="card-body">
+                  Citation for the eFP-Seq Browser can be found with its official publication at <a target="_blank" rel="noopener" href="https://doi.org/10.1111/tpj.14468">https://doi.org/10.1111/tpj.14468</a>.
+                </div>
+              </div>
+            </div>
+
             <!-- Feedback card -->
             <div class="card feedback">
               <div class="card-header" id="feedback">
@@ -974,6 +990,7 @@
                 </div>
               </div>
             </div>
+
           </div>
         </div>
         <div class="modal-footer modal-footer-colour">
@@ -1508,6 +1525,7 @@
               progress_percent = 0;
               setTimeout(function () {
                 count_bam_num();
+                LoadSubmittedData();
                 disableAllComparison();
               }, 250);
             }
