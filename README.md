@@ -14,6 +14,11 @@ Chrome | Firefox | IE | Edge | Safari | Opera
 
 ## Installation/Open
 
+Clone the repository with git by running the following command:
+```
+git clone https://github.com/BioAnalyticResource/eFP-Seq-Browser.git
+```
+
 If you wish to modify the code, all .CGI files use [Python 2](https://www.python.org) as well as there are a few [Perl](https://www.perl.org/) scripts. If you are running the primary webservice ([rnaSeqMapCoverage.cgi](cgi-bin/rnaSeqMapCoverage.cgi)) locally, you will also need to install [SAMTools](https://github.com/samtools/samtools) and [bcftools](https://samtools.github.io/bcftools/bcftools.html).
 
 Outside of that, there is nothing to install, just download all the files and open "[index.html](index.html)" ([legacy.html](legacy.html) is no longer supported).
