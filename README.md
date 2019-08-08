@@ -2,9 +2,11 @@
 
 The eFP-Seq Browser is an RNA-Seq data exploration tool that shows read map coverage of a gene of interest along with an "electronic fluorescent pictographic" (eFP) image. This web-tool also allows generation of new datasets if provided with SAM/BAM (with their index files) to allow visualization of any RNA-Seq mapping coverage. Gene expression levels and the similarity is also shown by calculating the Reads per Kilobase per Million reads mapped (RPKM) expression levels and Point Biserial Correlation Coefficient (r<sub>pb</sub>) scores amongst its different splice variants.
 
+Official publication of the [eFP-Seq Browser](https://bar.utoronto.ca/eFP-Seq_Browser/) can be found at [https://doi.org/10.1111/tpj.14468](https://doi.org/10.1111/tpj.14468).
+
 ## Getting Started
 
-It is recommended that you use the web-version available at https://bar.utoronto.ca/eFP-Seq_Browser/ but if you want to download and run the eFP-Seq Browser locally, it is possible though it may require an internet connection to reach our webservers and Araport's APIs. 
+It is recommended that you use the web-version available at https://bar.utoronto.ca/eFP-Seq_Browser/ but if you want to download and run the eFP-Seq Browser locally, it is possible though it may require an internet connection to reach our webservices and Araport's APIs. 
 
 ## Browser Compatibilities 
 
@@ -55,5 +57,5 @@ For rest: [GPL-2.0](LICENSE.md)
 * Agnes Chan
 * Vivek Krishnakumar
 * Chris Town
-* Ann E. Loraine - [Website](http://lorainelab.org/)
+* Ann E. Loraine - [Twitter](https://twitter.com/igbbioviz), [Website](http://lorainelab.org/)
 * Nicholas J. Provart - [Github](https://github.com/BioAnalyticResource), [Twitter](https://twitter.com/BAR_PlantBio), [Website](https://bar.utoronto.ca)
