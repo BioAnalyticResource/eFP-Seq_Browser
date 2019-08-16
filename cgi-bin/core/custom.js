@@ -3,8 +3,6 @@
 // Purpose: General functions for the eFP-Seq Browser
 //
 //=============================================================================
-var legacy = false;
-
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
 var locus; 
@@ -77,60 +75,6 @@ function count_bam_num() {
   xhr.send();
 };
 count_bam_num();
-
-/**
-* Changes UI of index.html (document) based on width of navigator.userAgent
-*/
-function checkMobile() {
-  if (legacy == true) {
-    if (($(window).width() < 598) || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      //Creating mobile UI:
-      document.getElementById("correctSpacing").style.display = "none";
-      document.getElementById("barBoarder").style.display = "none";
-      document.getElementById("uploadData").style.display = "none";
-      document.getElementById("google_iden_login_button").style.display = "none";
-      document.getElementById("google_iden_logout_button").style.display = "none";
-      document.getElementById("generateData").style.display = "none";
-      $("#publicDatabase").removeClass("col-md-6");
-      $("#publicDatabase").removeClass("col-xs-3");
-      document.getElementById("eFP_button").style.display = "none";
-      document.getElementById("locusBrowser").className = "col-xs-6";
-      document.getElementById("locus").style.width = "100%";
-      document.getElementById("yscale_input").style.width = "100%";
-      document.getElementById("mobileSpacing").style.display = "inline";
-      document.getElementById("default_radio").className = "col-xs-6";
-      document.getElementById("rpkm_scale_input").style.width = "100%";
-      document.getElementById("mobileNavbar").style.display = "block";
-    } else {
-      // Restoring default UI:
-      document.getElementById("correctSpacing").style.display = "block";
-      document.getElementById("barBoarder").style.display = "block";
-      document.getElementById("uploadData").style.display = "block";
-      if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
-        if (users_email != "") {
-          document.getElementById("google_iden_login_button").style.display = 'none';
-          document.getElementById("google_iden_logout_button").style.display = '';
-        } else if (users_email == "") {
-          document.getElementById("google_iden_login_button").style.display = '';
-          document.getElementById("google_iden_logout_button").style.display = 'none';
-        };
-      } else if (users_email != "") {
-        signOut();
-        alert("Error occurred with your account, you have now been logged out. Please log back in");
-      };
-      document.getElementById("generateData").style.display = "block";
-      document.getElementById("publicDatabase").className = "col-md-6 col-xs-3 dropdown";
-      document.getElementById("eFP_button").style.display = "block";
-      document.getElementById("locusBrowser").className = "col-xs-4";
-      document.getElementById("locus").style.width = "175px";
-      document.getElementById("yscale_input").style.width = "175px";
-      document.getElementById("mobileSpacing").style.display = "none";
-      document.getElementById("default_radio").className = "col-xs-4";
-      document.getElementById("rpkm_scale_input").style.width = "175px";
-      document.getElementById("mobileNavbar").style.display = "none";
-    };
-  };
-};
 
 /**
 * Initialize or terminate the loading screen
@@ -409,7 +353,6 @@ function colour_svgs_now(mode) {
     // See if the absolute or the relative FPKM is max
     if (sraDict[currentSRA]['RPKM'][variantPosition] >= max_absolute_fpkm) {
       max_absolute_fpkm = sraDict[currentSRA]['RPKM'][variantPosition];
-      document.getElementById("rpkm_scale_input").value = parseInt(round(max_absolute_fpkm));
     };
     if (exp_info[i][4] != "Missing controls data" && Math.abs(exp_info[i][4]) >= max_log_fpkm && Math.abs(exp_info[i][4]) < 1000) {
       max_log_fpkm = Math.abs(exp_info[i][4]);
@@ -720,12 +663,17 @@ function rnaseq_images(status) {
           };
           // Update the progress bar
           if (response_rnaseq['status'] == 200) {
+            var stopLoadingScreen = 99;
+            if (count_bam_entries_in_xml > 0) {
+              stopLoadingScreen = parseInt(((count_bam_entries_in_xml - 1) / count_bam_entries_in_xml) * 100)
+            };
+
             rnaseq_success++;
             date_obj3 = new Date();
             rnaseq_success_current_time = date_obj3.getTime(); // Keep track of start time
             progress_percent = rnaseq_change / count_bam_entries_in_xml * 100;
             $('div#progress').width(progress_percent + '%');
-            if (progress_percent >= 96) {
+            if (progress_percent >= stopLoadingScreen) {
               loadingScreen(true);
             };
             document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time <= " + String(round(parseInt(rnaseq_success_current_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
@@ -762,6 +710,7 @@ function rnaseq_images(status) {
           document.getElementById(response_rnaseq['record'] + '_rpb').innerHTML = parseFloat(r[0]).toFixed(2);
           sraDict[response_rnaseq['record']]["rpb"] = parseFloat(r[0]).toFixed(2);
           document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
+          updateRPKMAbsoluteMax(response_rnaseq['absolute-fpkm']);
           sraDict[response_rnaseq['record']]["RPKM"] = response_rnaseq['absolute-fpkm'];
           rpkmCount++;
           document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
@@ -819,6 +768,22 @@ function rnaseq_images(status) {
         }
       });
     };
+  };
+};
+
+/**
+ * Check whether the RPKM Absolute Max is actually the absolute max or not
+ * @param {Number} RPKMCheckAgainst The RPKM value to check against the max to see if needs to change or not
+ */
+function updateRPKMAbsoluteMax(RPKMCheckAgainst) {
+  var currentRPKMAbsMax = parseInt(document.getElementById('rpkm_scale_input').value);
+  if (currentRPKMAbsMax === 1000) {
+    currentRPKMAbsMax = 0;
+  };
+
+  var newRPKMValue = parseInt(RPKMCheckAgainst);
+  if (newRPKMValue > currentRPKMAbsMax) {
+    document.getElementById('rpkm_scale_input').value = newRPKMValue;
   };
 };
 
@@ -3002,12 +2967,6 @@ function init() {
 
   // Adjust UI
   adjustFooterSize();
-
-  // Check if mobile
-  if (legacy == true) {
-    checkMobile();
-    publicData = false;
-  };
 
   // Bind event listeners...
   $('input[type=radio][name=radio_group]').change(function() {
