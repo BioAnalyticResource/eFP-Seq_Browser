@@ -5,7 +5,7 @@
   <title>eFP-Seq Browser</title>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
   <meta name="author" content="BAR Lab @ University of Toronto: Alexander Sullivan, Priyank Purohit  Nowlan H. Freese  Asher Pasha  Eddi Esteban  Jamie Waese  Alison Wu  Michelle Chen  Chih Ying Chin  Richard Song  Sneha Ramesh Watharkar Agnes P. Chan  Vivek Krishnakumar  Matthew W. Vaughn  Chris Town  Ann E. Loraine Nicholas J. Provart" />
-  <!-- Google API's-->
+  <!-- Google APIs-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="cgi-bin/core/APInLibraries/GoogleMaterial/material.green-pink.min.css">
   <script defer src="cgi-bin/core/APInLibraries/GoogleMaterial/material.min.js"></script>
@@ -1386,7 +1386,7 @@
   </div>
 
   <!-- In-house Scripts -->
-  <script src="cgi-bin/core/custom.min.js"></script>
+  <script src="cgi-bin/core/custom.min.js"></script> 
   <script src="cgi-bin/Submission_page/XMLgenerator-v2.min.js"></script>
   <script type="text/javascript">
     legacy = false;
@@ -1447,6 +1447,7 @@
       sraDict = {};
       sraCountDic = {};
       loadNewDataset = false;
+      loadedDataset = document.getElementById("xmlDatabase").value;
       setTimeout(function() {
         count_bam_num();
         disableAllComparison();

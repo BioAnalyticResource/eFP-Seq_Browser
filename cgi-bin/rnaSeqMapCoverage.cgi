@@ -212,8 +212,12 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 		max_mapped_reads_count = yscale * 1.1
 
 	# Scale all y-axis values
-	for i in range(len(y_reads_values)):
-		y_reads_values[i] = int(y_reads_values[i] / max_mapped_reads_count * RNA_IMG_HEIGHT)
+	if (max_mapped_reads_count > 0):
+		for i in range(len(y_reads_values)):
+			y_reads_values[i] = int(y_reads_values[i] / max_mapped_reads_count * RNA_IMG_HEIGHT)
+	else:
+		for i in range(len(y_reads_values)):
+			y_reads_values[i] = 0
 
 	# Create an image
 	rnaseqgraph = gd.image((RNA_IMG_WIDTH, RNA_IMG_HEIGHT))
@@ -297,7 +301,7 @@ def main():
 	remoteDrive = form.getvalue('remoteDrive')
 	bamType = form.getvalue('bamType')
 	cachedDatapoints = form.getvalue('cachedDatapoints')
-	if (cachedDatapoints.lower() == 'true') or (cachedDatapoints is True): # Verify cachedDatapoint is a boolean
+	if (cachedDatapoints is not None and cachedDatapoints.lower() == 'true') or (cachedDatapoints is True): # Verify cachedDatapoint is a boolean
 		cachedDatapoints = True
 	else:
 		cachedDatapoints = False
@@ -382,6 +386,7 @@ def main():
 		else: # If private, download new bam index file
 			bam_dir = "uploads" + "/" + record + "_" + start_time
 
+		bam_file = '' # Reset bam_file value
 		if bamType == "Google Drive":
 			# Create a Google Drive mount point and muont the bam file.
 			uniqId = str(random.randint(1,1000000))

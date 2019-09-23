@@ -1,4 +1,20 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# R data files
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+
+# Server files
+.htaccess
+cgi-bin/gDriveFast.pm
+cgi-bin/gDriveMountFast.pl
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.vscode

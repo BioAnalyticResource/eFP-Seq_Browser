@@ -46,6 +46,7 @@ var dataset_dictionary = {
   "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
 };
 let loadNewDataset = false;
+var loadedDataset = undefined;
 
 //Following lines are used to count and determine how many BAM entries are in the XML file
 var count_bam_entries_in_xml = 113;
@@ -335,14 +336,20 @@ function colour_svgs_now(mode) {
     // Save the average fpkm of controls and the log fpkm...
     var relativeRPKMValue = 0;
     var relativeRPKM = [];
-    if (sraDict[currentSRA]['RPKM'][variantPosition] == 0 && ctrl_avg_fpkm == 0) {
+    var useRPKM = '';
+    if (sraDict[currentSRA]['RPKM'] === undefined) {
+      useRPKM = 0;
+    } else {
+      useRPKM = sraDict[currentSRA]['RPKM'][variantPosition];
+    }
+    if (useRPKM == 0 && ctrl_avg_fpkm == 0) {
       // Define log2(0/0) = 0 as opposed to undefined      
           // Define log2(0/0) = 0 as opposed to undefined
       // Define log2(0/0) = 0 as opposed to undefined      
       relativeRPKMValue = 0;
       exp_info[i].splice(4, 1, 0);
     } else {
-      relativeRPKMValue = (Math.log2(sraDict[currentSRA]['RPKM'][variantPosition] / ctrl_avg_fpkm));
+      relativeRPKMValue = (Math.log2(useRPKM / ctrl_avg_fpkm));
     };
     relativeRPKM.push(relativeRPKMValue);
     sraDict[currentSRA]['relativeRPKM'] = relativeRPKMValue;
@@ -351,8 +358,8 @@ function colour_svgs_now(mode) {
     exp_info[i].splice(6, 1, ctrl_avg_fpkm);
 
     // See if the absolute or the relative FPKM is max
-    if (sraDict[currentSRA]['RPKM'][variantPosition] >= max_absolute_fpkm) {
-      max_absolute_fpkm = sraDict[currentSRA]['RPKM'][variantPosition];
+    if (useRPKM >= max_absolute_fpkm) {
+      max_absolute_fpkm = useRPKM;
     };
     if (exp_info[i][4] != "Missing controls data" && Math.abs(exp_info[i][4]) >= max_log_fpkm && Math.abs(exp_info[i][4]) < 1000) {
       max_log_fpkm = Math.abs(exp_info[i][4]);
@@ -431,7 +438,7 @@ function variants_radio_options(status) {
       // Remove existing variant images.
       testList = [];
       var variants_div = document.getElementById("variants_div");
-      if (variants_div.firstChild != null || variants_div.firstChild != undefined || variants_div != null) {
+      if (variants_div !== null && variants_div.firstChild !== null && variants_div.firstChild !== undefined) {
         while (variants_div.firstChild) {
           variants_div.removeChild(variants_div.firstChild);
         };
@@ -467,7 +474,7 @@ function variants_radio_options(status) {
     error: function() {
       $("tbody").empty();
       var variants_div = document.getElementById("variants_div");
-      if (variants_div.firstChild != null || variants_div.firstChild != undefined || variants_div != null) {
+      if (variants_div !== null && variants_div.firstChild !== null && variants_div.firstChild !== undefined) {
         while (variants_div.firstChild) {
           variants_div.removeChild(variants_div.firstChild);
         };
@@ -557,10 +564,18 @@ function absOrRel(expInfoPos = 0) {
     if (!expInfo[3] && expInfo[3] != 0) {
       expInfo[3] = -999999;
     };
-    var rpkmValue = sraDict[currentSRA]['RPKM'][variant_selected].toFixed(2);
-    document.getElementById(expInfo[0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
-    sraDict[expInfo[0].split("_svg")[0]]["rpkm"] = rpkmValue;
-    colour_part_by_id(currentSRA + '_svg', sraDict[currentSRA]['svg_part'], sraDict[currentSRA]['RPKM'][variant_selected], colouring_mode); // index 3 = absolute fpkm
+    
+    var useRPKM = '';
+    if (sraDict[currentSRA]['RPKM'] !== undefined) {
+      var rpkmValue = sraDict[currentSRA]['RPKM'][variant_selected].toFixed(2);
+      document.getElementById(expInfo[0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
+      useRPKM = rpkmValue;
+    } else {
+      var rpkmValue = 0;
+      document.getElementById(expInfo[0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
+      useRPKM = rpkmValue;
+    };    
+    colour_part_by_id(currentSRA + '_svg', sraDict[currentSRA]['svg_part'], useRPKM, colouring_mode); // index 3 = absolute fpkm
   };
 };
 
@@ -673,10 +688,10 @@ function rnaseq_images(status) {
             rnaseq_success_current_time = date_obj3.getTime(); // Keep track of start time
             progress_percent = rnaseq_change / count_bam_entries_in_xml * 100;
             $('div#progress').width(progress_percent + '%');
-            if (progress_percent >= stopLoadingScreen) {
+            if (progress_percent > stopLoadingScreen) {
               loadingScreen(true);
             };
-            document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time <= " + String(round(parseInt(rnaseq_success_current_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
+            document.getElementById('progress_tooltip').innerHTML = "Current progress is at " + progress_percent + "% done";
             document.getElementById('progress').title = progress_percent.toFixed(2) + '%';
             //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
           } else {
@@ -778,7 +793,7 @@ function rnaseq_images(status) {
 function updateRPKMAbsoluteMax(RPKMCheckAgainst) {
   var currentRPKMAbsMax = parseInt(document.getElementById('rpkm_scale_input').value);
   if (currentRPKMAbsMax === 1000) {
-    currentRPKMAbsMax = 0;
+    currentRPKMAbsMax = 1;
   };
 
   var newRPKMValue = parseInt(RPKMCheckAgainst);
@@ -2181,7 +2196,7 @@ function download_mainTableCSV() {
   populate_efp_modal(1); // Needed for the filtered_2d_x variables
   $("#hiddenDownloadModal_table").empty(); // reset
   var downloadIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
-  downloadIndexTable_str += "\t\t<caption>" + document.getElementById("xmlDatabase").value + "</caption>\n";
+  downloadIndexTable_str += "\t\t<caption>" + loadedDataset.split(' ').join('_') + "</caption>\n";
   downloadIndexTable_str += downloadIndexTable_base;
   // Looping through each row of the table
   for (i = 0; i < eFPSortedSRA.length; i++) {
