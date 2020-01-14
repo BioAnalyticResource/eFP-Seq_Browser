@@ -341,7 +341,7 @@ function colour_svgs_now(mode) {
       useRPKM = 0;
     } else {
       useRPKM = sraDict[currentSRA]['RPKM'][variantPosition];
-    }
+    };
     if (useRPKM == 0 && ctrl_avg_fpkm == 0) {
       // Define log2(0/0) = 0 as opposed to undefined      
           // Define log2(0/0) = 0 as opposed to undefined
@@ -560,7 +560,7 @@ function absOrRel(expInfoPos = 0) {
   } else {
     if (allCheckedOptions.length > 0) {
       document.getElementById('compareGeneVariants').disabled = false;
-    }
+    };
     if (!expInfo[3] && expInfo[3] != 0) {
       expInfo[3] = -999999;
     };
@@ -1638,7 +1638,7 @@ function get_user_XML_display() {
   // First check to make sure there is is a user logged in or else this script will not run
   if ((users_email != "" || users_email != undefined || users_email != null) && (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3)) {
     $.ajax({
-      url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml_list.php?user=" + users_email,
+      url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/get_xml_list.php?user=" + users_email,
       dataType: 'json',
       failure: function(get_xml_list_return) {
         console.log("ERROR! Something went wrong");
@@ -1726,7 +1726,7 @@ function create_data_list(size) {
   datalist_Title = {}; // Reset
   for (i = 0; i < size; i++) {
     $.ajax({
-      url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/get_xml.php?file=" + match_title[title_list[i]],
+      url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/get_xml.php?file=" + match_title[title_list[i]],
       dataType: 'json',
       success: function(get_xml_return) {
         xml_file = get_xml_return;
@@ -1802,7 +1802,7 @@ function add_user_xml_by_upload() {
       if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
         $.ajax({
           method: "POST",
-          url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
+          url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/upload.php",
           data: {
             user: users_email,
             xml: upload_src,
@@ -1819,7 +1819,7 @@ function add_user_xml_by_upload() {
         if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
           $.ajax({
             method: "POST",
-            url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
+            url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/upload.php",
             data: {
               user: users_email,
               xml: upload_src,
@@ -1837,11 +1837,11 @@ function add_user_xml_by_upload() {
           check_for_change = 0;
           // If the file does already exist in the account, delete old and add new
           $.ajax({
-            url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[xmlTitleName]
+            url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_xml.php?user=" + users_email + "&file=" + match_title[xmlTitleName]
           });
           $.ajax({
             method: "POST",
-            url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/upload.php",
+            url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/upload.php",
             data: {
               user: users_email,
               xml: upload_src,
@@ -1955,7 +1955,7 @@ function delete_selectedXML() {
     var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
     if ((document.getElementById(deleteBox_id) != null && document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3)) {
       $.ajax({
-        url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
+        url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
       });
     };
   };
@@ -1981,7 +1981,7 @@ function delete_allXMLs(verify) {
       var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
       if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
         $.ajax({
-          url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
+          url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
         });
       };
     };
@@ -1996,7 +1996,7 @@ function delete_allXMLs(verify) {
 function delete_user() {
   if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
     $.ajax({
-      url: "https://bar.utoronto.ca/~asher/efp_seq_userdata/delete_user.php?user=" + users_email
+      url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_user.php?user=" + users_email
     });
   };
   signOut();
@@ -2905,7 +2905,7 @@ function tableCheckbox(whatID, disableAll = false) {
     // If no checks left, disable compareGeneVariants
     if (allCheckedOptions.length === 0) {
       document.getElementById('compareGeneVariants').disabled = true;
-    }
+    };
   };
 };
 
