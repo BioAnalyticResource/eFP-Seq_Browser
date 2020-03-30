@@ -67,7 +67,7 @@
   <meta name="theme-color" content="#cddaa7">
 </head>
 
-<body style="overflow-y:hidden;">
+<body id="bodyContainer" style="overflow-y:hidden;">
   <div id="testing_count" hidden=hidden>count</div>
   <!-- Pre-body requirements -->
   <div id="loading_requirement">
@@ -1443,11 +1443,12 @@
       progress_percent = 0;
       if (alreadySet === false) {
         base_src = dataset_dictionary[document.getElementById("xmlDatabase").value];
-      }      
+      }; 
       sraDict = {};
       sraCountDic = {};
       loadNewDataset = false;
       loadedDataset = document.getElementById("xmlDatabase").value;
+      document.title = 'eFP-Seq Browser: ' + document.getElementById('locus').value + ' - ' + loadedDataset;
       setTimeout(function() {
         count_bam_num();
         disableAllComparison();

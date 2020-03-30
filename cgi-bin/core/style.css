@@ -620,3 +620,7 @@ li > p {
 .colourScale {
     max-width: 100px;
 }
+
+.progressLoading {
+    cursor: progress !important;
+}

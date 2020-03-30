@@ -85,6 +85,7 @@ function loadingScreen(terminate = true) {
   if (terminate === false) {
     document.getElementById("loading_screen").className = "loading";
     document.getElementById("body_of").className = "body_of_loading";
+    document.getElementById("bodyContainer").classList.add("progressLoading");
     // Disable buttons:
     let toDisableList = document.getElementsByClassName('disableOnLoading');
     for (var i = 0; i < toDisableList.length; i++) {
@@ -93,6 +94,7 @@ function loadingScreen(terminate = true) {
   } else {
     document.getElementById("loading_screen").className = "loading done_loading";
     document.getElementById("body_of").className = "body_of_loading body_of_loading_done";
+    document.getElementById("bodyContainer").classList.remove("progressLoading");
     // Enable buttons:
     let toDisableList = document.getElementsByClassName('disableOnLoading');
     for (var i = 0; i < toDisableList.length; i++) {
@@ -692,7 +694,7 @@ function rnaseq_images(status) {
               loadingScreen(true);
             };
             document.getElementById('progress_tooltip').innerHTML = "Current progress is at " + progress_percent + "% done";
-            document.getElementById('progress').title = progress_percent.toFixed(2) + '%';
+            document.getElementById('progress').title = progress_percent.toFixed(2) + '% (' + rnaseq_change + '/' + count_bam_entries_in_xml + ')';
             //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
           } else {
             $('#failure').show();
@@ -1636,7 +1638,7 @@ var title_list = [];
 */
 function get_user_XML_display() {
   // First check to make sure there is is a user logged in or else this script will not run
-  if ((users_email != "" || users_email != undefined || users_email != null) && (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3)) {
+  if ((users_email != "" || users_email != undefined || users_email != null) && (users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu)) {
     $.ajax({
       url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/get_xml_list.php?user=" + users_email,
       dataType: 'json',
@@ -1708,7 +1710,7 @@ function get_user_XML_display() {
         databasesAdded = true;
       }
     });
-  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
     signOut();
     alert("Error occurred with your account, you have now been logged out. Please log back in");
   };
@@ -1777,12 +1779,12 @@ function DatalistXHRCall(datalist) {
  * Checks if the user is logged in or not
  */
 function check_if_Google_login() {
-  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
     if (databasesAdded === false) {
       document.getElementById("private_dataset_header").style.display = 'block';
       get_user_XML_display();
     };
-  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
     signOut();
     alert("Error occurred with your account, you have now been logged out. Please log back in");
   } else {
@@ -1799,7 +1801,7 @@ function add_user_xml_by_upload() {
   setTimeout(function() {
     if (user_exist == false) {
       // Creates a new user if the user does not already exist
-      if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+      if (users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
         $.ajax({
           method: "POST",
           url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/upload.php",
@@ -1809,14 +1811,14 @@ function add_user_xml_by_upload() {
             title: xmlTitleName
           }
         });
-      } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+      } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
         signOut();
         alert("Error occurred with your account, you have now been logged out. Please log back in");
       };     
     } else if (user_exist == true) {
       if (dataset_dictionary[xmlTitleName] == undefined) {
         // If the file does not already exist in the account, add it
-        if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+        if (users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
           $.ajax({
             method: "POST",
             url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/upload.php",
@@ -1826,12 +1828,12 @@ function add_user_xml_by_upload() {
               title: xmlTitleName
             }
           });
-        } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+        } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
           signOut();
           alert("Error occurred with your account, you have now been logged out. Please log back in");
         };    
       } else if (dataset_dictionary[xmlTitleName] != undefined) {        
-        if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+        if (users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
           // reset variables for get_user_XML_display
           list_modified = false;
           check_for_change = 0;
@@ -1848,7 +1850,7 @@ function add_user_xml_by_upload() {
               title: xmlTitleName
             }
           });
-        } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+        } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
           signOut();
           alert("Error occurred with your account, you have now been logged out. Please log back in");
         };       
@@ -1864,9 +1866,9 @@ var uploadingData = false;
 */
 function which_upload_option() {
   uploadingData = true;
-  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
     document.getElementById("upload_modal").click();
-  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
     signOut();
     alert("Error occurred with your account, you have now been logged out. Please log back in");
   } else if (users_email == "") {
@@ -1936,7 +1938,7 @@ function CheckIfSelectedXML() {
   var returnTrue = false;
   for (i = 0; i < title_list.length; i++) {
     var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
-    if (document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+    if (document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
       returnTrue = true;
       return true;
       break;
@@ -1953,7 +1955,7 @@ function CheckIfSelectedXML() {
 function delete_selectedXML() {
   for (i = 0; i < title_list.length; i++) {
     var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
-    if ((document.getElementById(deleteBox_id) != null && document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3)) {
+    if ((document.getElementById(deleteBox_id) != null && document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu)) {
       $.ajax({
         url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
       });
@@ -1966,7 +1968,7 @@ function delete_selectedXML() {
  * Confirm the action of delete all users and if so, begin deletion process
  */
 function confirm_deleteUser() {
-  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3 && $('#logoutModal').is(':visible')) {
+  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu && $('#logoutModal').is(':visible')) {
     delete_allXMLs(gapi.auth2.getAuthInstance().currentUser.Ab.w3.Eea);
   };
 };
@@ -1979,7 +1981,7 @@ function delete_allXMLs(verify) {
   if (verify === gapi.auth2.getAuthInstance().currentUser.Ab.w3.Eea) {
     for (i = 0; i < title_list.length; i++) {
       var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
-      if (users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+      if (users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
         $.ajax({
           url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
         });
@@ -1994,7 +1996,7 @@ function delete_allXMLs(verify) {
  * Delete the currently logged in user from the BAR
  */
 function delete_user() {
-  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3) {
+  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
     $.ajax({
       url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_user.php?user=" + users_email
     });
@@ -2193,6 +2195,8 @@ var downloadIndexTable_base = "\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Record 
 * @return {File} CSV
 */
 function download_mainTableCSV() {
+  document.getElementById("download_icon").classList.add("progressLoading");
+  document.getElementById("bodyContainer").classList.add("progressLoading");
   populate_efp_modal(1); // Needed for the filtered_2d_x variables
   $("#hiddenDownloadModal_table").empty(); // reset
   var downloadIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
@@ -2219,6 +2223,8 @@ function download_mainTableCSV() {
   downloadIndexTable_str += "\t</tbody>\n</table>"; // Closing
   document.getElementById("hiddenDownloadModal_table").innerHTML += downloadIndexTable_str;
   $("#hiddenDownloadModal_table").tableToCSV();
+  document.getElementById("download_icon").classList.remove("progressLoading");
+  document.getElementById("bodyContainer").classList.remove("progressLoading");
 };
 
 var publicData = true;
