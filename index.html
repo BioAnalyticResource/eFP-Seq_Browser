@@ -5,12 +5,13 @@
   <title>eFP-Seq Browser</title>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
   <meta name="author" content="BAR Lab @ University of Toronto: Alexander Sullivan, Priyank Purohit  Nowlan H. Freese  Asher Pasha  Eddi Esteban  Jamie Waese  Alison Wu  Michelle Chen  Chih Ying Chin  Richard Song  Sneha Ramesh Watharkar Agnes P. Chan  Vivek Krishnakumar  Matthew W. Vaughn  Chris Town  Ann E. Loraine Nicholas J. Provart" />
+  <meta name="Description" content="Search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, http://biorxiv.org/content/early/2016/04/05/047308). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns.">
   <!-- Google APIs-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="cgi-bin/core/APInLibraries/GoogleMaterial/material.green-pink.min.css">
   <script defer src="cgi-bin/core/APInLibraries/GoogleMaterial/material.min.js"></script>
   <!-- jQuery using Google Hosted Library -->
-  <script src="cgi-bin/core/jquery-3.3.1/jquery.min.js"></script>
+  <script src="cgi-bin/core/jquery-3.4.1/jquery.min.js"></script>
   <!-- jQuery UI -->
   <link rel="stylesheet" href="cgi-bin/core/jquery-ui-1.12.1.custom/jquery-ui.css">
   <script async src="cgi-bin/core/jquery-ui-1.12.1.custom/jquery-ui-1.12.1.custom.min.js"></script>
@@ -20,18 +21,7 @@
   <!-- jQuery's slim build -->
   <script src="cgi-bin/core/bootstrap/popper.min.js" integrity="" crossorigin="anonymous"></script>
   <script async src="cgi-bin/core/bootstrap/bootstrap4-0-0.min.js" integrity="" crossorigin="anonymous"></script>
-  <!-- tabletoCSV tool to create an option to download XML as CSV -->
-  <script defer src="cgi-bin/core/tabletoCSV/jquery.tabletoCSV.js"></script>
-  <!-- tablesort -->
-  <script defer src="cgi-bin/core/tablesorter.min.js"></script>
-  <script defer src="cgi-bin/core/tablefilter/tablefilter.min.js"></script>
-  <!-- Google Identity login -->
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta name="google-signin-client_id" content="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com">
-  <!-- Math.js -->
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.9.0/math.min.js"></script>
-  <!-- ddslick -->
-  <script defer src="cgi-bin/core/ddslick/jquery.ddslick.min.js"></script>
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="cgi-bin/core/style.min.css">
   <!-- lazysizes -->
   <script async src='cgi-bin/core/lazysizes/lazysizes.min.js'></script>
@@ -1384,7 +1374,19 @@
       </div>
     </div>
   </div>
-
+  
+  <!-- Math.js -->
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.9.0/math.min.js"></script>
+  <!-- tabletoCSV tool to create an option to download XML as CSV -->
+  <script defer src="cgi-bin/core/tabletoCSV/jquery.tabletoCSV.js"></script>
+  <!-- tablesort -->
+  <script defer src="cgi-bin/core/tablesorter.min.js"></script>
+  <script defer src="cgi-bin/core/tablefilter/tablefilter.min.js"></script>
+  <!-- Google Identity login -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com">
+  <!-- ddslick -->
+  <script defer src="cgi-bin/core/ddslick/jquery.ddslick.min.js"></script>
   <!-- In-house Scripts -->
   <script src="cgi-bin/core/custom.min.js"></script> 
   <script src="cgi-bin/Submission_page/XMLgenerator-v2.min.js"></script>

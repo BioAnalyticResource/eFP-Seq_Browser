@@ -1637,8 +1637,9 @@ var title_list = [];
 * Gets list of users private XMLs
 */
 function get_user_XML_display() {
+  var AuthUser = findAuthUser();
   // First check to make sure there is is a user logged in or else this script will not run
-  if ((users_email != "" || users_email != undefined || users_email != null) && (users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu)) {
+  if ((users_email != "" || users_email != undefined || users_email != null) && (users_email === AuthUser)) {
     $.ajax({
       url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/get_xml_list.php?user=" + users_email,
       dataType: 'json',
@@ -1710,7 +1711,7 @@ function get_user_XML_display() {
         databasesAdded = true;
       }
     });
-  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+  } else if (users_email != "" && users_email != AuthUser) {
     signOut();
     alert("Error occurred with your account, you have now been logged out. Please log back in");
   };
@@ -1776,15 +1777,58 @@ function DatalistXHRCall(datalist) {
 };
 
 /**
+ * Determine whether or not a string is a email or not
+ * Modified from: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+ * @param {String} email String being tested if email or not
+ */
+function validateEmail(email) {
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+};
+
+/**
+ * Find what OAuth2.0 user may be logged in
+ * @returns {String} AuthUser - The email associated with the OAuth2.0 user logged in if any (empty string if not)
+ */
+function findAuthUser() {
+  var AuthUser = '';
+
+  var currentUser = gapi.auth2.getAuthInstance().currentUser;
+  var cUObj = Object.keys(currentUser);
+  for (var i = 0; i <  cUObj.length; i++) {
+    var cUDetails = currentUser[cUObj[i]];
+    if (Object.keys(cUDetails).length > 0) {
+      var cUDObj = Object.keys(cUDetails);
+      for (var c = 0; c <  cUDObj.length; c++) {
+        var cUDData = cUDetails[cUDObj[c]];
+        if (Object.keys(cUDData).length > 0) {
+          var containedDetails = Object.keys(cUDData);
+          for (var d = 0; d <  containedDetails.length; d++) {
+            var subDetails = cUDData[containedDetails[d]];
+            if (typeof subDetails === 'string' && validateEmail(subDetails)) {
+              AuthUser = subDetails;
+              break;
+            };
+          };
+        };
+      };
+    };
+  };
+
+  return AuthUser;
+};
+
+/**
  * Checks if the user is logged in or not
  */
 function check_if_Google_login() {
-  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+  var AuthUser = findAuthUser();
+  if (users_email != "" && users_email === AuthUser) {
     if (databasesAdded === false) {
       document.getElementById("private_dataset_header").style.display = 'block';
       get_user_XML_display();
     };
-  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+  } else if (users_email != "" && users_email != AuthUser) {
     signOut();
     alert("Error occurred with your account, you have now been logged out. Please log back in");
   } else {
@@ -1799,9 +1843,10 @@ function add_user_xml_by_upload() {
   get_user_XML_display(); // Updates data and determines if user_exists or now
   // setTimeout is necessary due to xmlTitleName taking a while to be generated. Though only requires 3 seconds to obtain, setTimeout set to 4 just in case
   setTimeout(function() {
+    var AuthUser = findAuthUser();
     if (user_exist == false) {
       // Creates a new user if the user does not already exist
-      if (users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+      if (users_email === AuthUser) {
         $.ajax({
           method: "POST",
           url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/upload.php",
@@ -1811,14 +1856,14 @@ function add_user_xml_by_upload() {
             title: xmlTitleName
           }
         });
-      } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+      } else if (users_email != "" && users_email != AuthUser) {
         signOut();
         alert("Error occurred with your account, you have now been logged out. Please log back in");
       };     
     } else if (user_exist == true) {
       if (dataset_dictionary[xmlTitleName] == undefined) {
         // If the file does not already exist in the account, add it
-        if (users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+        if (users_email === AuthUser) {
           $.ajax({
             method: "POST",
             url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/upload.php",
@@ -1828,12 +1873,12 @@ function add_user_xml_by_upload() {
               title: xmlTitleName
             }
           });
-        } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+        } else if (users_email != "" && users_email != AuthUser) {
           signOut();
           alert("Error occurred with your account, you have now been logged out. Please log back in");
         };    
       } else if (dataset_dictionary[xmlTitleName] != undefined) {        
-        if (users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+        if (users_email === AuthUser) {
           // reset variables for get_user_XML_display
           list_modified = false;
           check_for_change = 0;
@@ -1850,7 +1895,7 @@ function add_user_xml_by_upload() {
               title: xmlTitleName
             }
           });
-        } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+        } else if (users_email != "" && users_email != AuthUser) {
           signOut();
           alert("Error occurred with your account, you have now been logged out. Please log back in");
         };       
@@ -1866,9 +1911,10 @@ var uploadingData = false;
 */
 function which_upload_option() {
   uploadingData = true;
-  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+  var AuthUser = findAuthUser();
+  if (users_email != "" && users_email === AuthUser) {
     document.getElementById("upload_modal").click();
-  } else if (users_email != "" && users_email != gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+  } else if (users_email != "" && users_email != AuthUser) {
     signOut();
     alert("Error occurred with your account, you have now been logged out. Please log back in");
   } else if (users_email == "") {
@@ -1936,9 +1982,10 @@ function disableDeletePublic() {
  */
 function CheckIfSelectedXML() {
   var returnTrue = false;
+  var AuthUser = findAuthUser();
   for (i = 0; i < title_list.length; i++) {
     var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
-    if (document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+    if (document.getElementById(deleteBox_id).checked == true && users_email === AuthUser) {
       returnTrue = true;
       return true;
       break;
@@ -1953,9 +2000,10 @@ function CheckIfSelectedXML() {
 * Delete selected XMLs from their private account
 */
 function delete_selectedXML() {
+  var AuthUser = findAuthUser();
   for (i = 0; i < title_list.length; i++) {
     var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
-    if ((document.getElementById(deleteBox_id) != null && document.getElementById(deleteBox_id).checked == true && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu)) {
+    if ((document.getElementById(deleteBox_id) != null && document.getElementById(deleteBox_id).checked == true && users_email === AuthUser)) {
       $.ajax({
         url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
       });
@@ -1968,8 +2016,9 @@ function delete_selectedXML() {
  * Confirm the action of delete all users and if so, begin deletion process
  */
 function confirm_deleteUser() {
-  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu && $('#logoutModal').is(':visible')) {
-    delete_allXMLs(gapi.auth2.getAuthInstance().currentUser.Ab.w3.Eea);
+  var AuthUser = findAuthUser();
+  if (users_email != "" && users_email === AuthUser && $('#logoutModal').is(':visible')) {
+    delete_allXMLs(AuthUser);
   };
 };
 
@@ -1978,10 +2027,11 @@ function confirm_deleteUser() {
  * @param {String} verify Verification code related to an account
  */
 function delete_allXMLs(verify) {
-  if (verify === gapi.auth2.getAuthInstance().currentUser.Ab.w3.Eea) {
+  var AuthUser = findAuthUser();
+  if (verify === AuthUser) {
     for (i = 0; i < title_list.length; i++) {
       var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
-      if (users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+      if (users_email === AuthUser) {
         $.ajax({
           url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
         });
@@ -1996,7 +2046,8 @@ function delete_allXMLs(verify) {
  * Delete the currently logged in user from the BAR
  */
 function delete_user() {
-  if (users_email != "" && users_email === gapi.auth2.getAuthInstance().currentUser.je.Qt.zu) {
+  var AuthUser = findAuthUser();
+  if (users_email != "" && users_email === AuthUser) {
     $.ajax({
       url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_user.php?user=" + users_email
     });

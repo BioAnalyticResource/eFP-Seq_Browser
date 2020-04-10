@@ -1,3 +1,9 @@
+@font-face {
+    font-family: Arial;
+    src: local('Arial');
+    font-display: swap;
+}
+
 .vcenter {
     display: inline-block;
     vertical-align: middle;
