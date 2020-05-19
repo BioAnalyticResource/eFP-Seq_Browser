@@ -3,6 +3,9 @@
 // Purpose: General functions for the eFP-Seq Browser
 //
 //=============================================================================
+/** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
+var version = 'p20200519';
+
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
 var locus; 
@@ -18,27 +21,38 @@ if (document.getElementById("yscale_input") != null) {
   yscale_input = document.getElementById("yscale_input").value;
 };
 
-var max_abs_scale; // What is the max value for the svg colouring in absolute mode?
+/** What is the max value for the svg colouring in absolute mode? */
+var max_abs_scale;
 if (document.getElementById("rpkm_scale_input") != null) {
   max_abs_scale = document.getElementById("rpkm_scale_input").value;
 };
 
-var locus_start = 10326918; // Gets updated when user changes gene
-var locus_end = 10330048; // Gets updated when user changes gene
+/** Gets updated when user changes gene */
+var locus_start = 10326918; 
+/** Gets updated when user changes gene */
+var locus_end = 10330048;
 var splice_variants = '';
-var rnaseq_calls = []; // Make a list of records and tissues we need to query....
-var exp_info = []; // Keep track of the FPKM related information  TODO : rename all exp_info to fpkm_info
-var rnaseq_success = 0; // Make a list of records and tissues we need to query....
+/** Make a list of records and tissues we need to query.... */
+var rnaseq_calls = [];
+/** Keep track of the FPKM related information  TODO : rename all exp_info to fpkm_info */
+var exp_info = []; 
+/** Make a list of records and tissues we need to query.... */
+var rnaseq_success = 0;
 var date_obj = new Date();
-var rnaseq_success_start_time = date_obj.getTime(); // Keep track of start time
+/** Keep track of start time */
+var rnaseq_success_start_time = date_obj.getTime(); 
+/** Keep track of start time */
 var rnaseq_success_current_time;
+/**  Keep track of start time */
 var rnaseq_success_end_time;
 var max_absolute_fpkm = -1;
 var max_log_fpkm = -1;
-var svg_colouring_element = null; // the element for inserting the SVG colouring scale legend
-var gene_structure_colouring_element = null; // the element for inserting the gene structure scale legend
+/** The element for inserting the SVG colouring scale legend */
+var svg_colouring_element = null; 
+/** the element for inserting the gene structure scale legend */
+var gene_structure_colouring_element = null;
 
-//Used to create location for uploaded XML, client side
+/** Used to create location for uploaded XML, client side */
 var base_src = 'cgi-bin/data/bamdata_araport11.xml';
 var upload_src = '';
 var dataset_dictionary = {
@@ -48,7 +62,7 @@ var dataset_dictionary = {
 let loadNewDataset = false;
 var loadedDataset = undefined;
 
-//Following lines are used to count and determine how many BAM entries are in the XML file
+/** Used to count and determine how many BAM entries are in the XML file */
 var count_bam_entries_in_xml = 113;
 /**
 * Count the amount of entries in a BAM file
@@ -86,6 +100,7 @@ function loadingScreen(terminate = true) {
     document.getElementById("loading_screen").className = "loading";
     document.getElementById("body_of").className = "body_of_loading";
     document.getElementById("bodyContainer").classList.add("progressLoading");
+
     // Disable buttons:
     let toDisableList = document.getElementsByClassName('disableOnLoading');
     for (var i = 0; i < toDisableList.length; i++) {
@@ -95,6 +110,7 @@ function loadingScreen(terminate = true) {
     document.getElementById("loading_screen").className = "loading done_loading";
     document.getElementById("body_of").className = "body_of_loading body_of_loading_done";
     document.getElementById("bodyContainer").classList.remove("progressLoading");
+
     // Enable buttons:
     let toDisableList = document.getElementsByClassName('disableOnLoading');
     for (var i = 0; i < toDisableList.length; i++) {
@@ -105,7 +121,7 @@ function loadingScreen(terminate = true) {
   };
 };
 
-// Base 64 images
+/** Base 64 images */
 var img_loading_base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyCAYAAADP/dvoAAAABmJLR0QAwADAAMAanQdUAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAB3RJTUUH4AoRDzYeAMpyUgAABGJJREFUeNrt3TFoE3scwPGvjxtOzKAQMEOECBkyROhQsWOEChURBFtssdJFB9Gl4OJkwaEtRRAUdLAUqYJgwamIEFAwUoS43RCw0AwpOjhkuCHDQd5Qes9q+7A+7cP2+1na5K53cH/Kl19yIfu63W4XSZL2qL+8BJIkQyhJ0h4VfPvExMSEV0WStGt92zknQkmSE+GPFFOSpN00CToRSpJkCCVJhlCSJEMoSZIhlCTJEEqSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKe8HDhw/5/Pnzbzn2/v3709/Hx8d/23kkGULpp01PT9NoNH7LsTudDgBJktBut0mSxAsu/Q8CL4G0fUmSEEURcRxTLpc5ePBguu3Lly9EUUQ2m6VcLm/4u0ajQRzH9PT0/PNPGARcu3aNXC6X7lMqlVheXv5u3/Xt69NjJpOht7fXBZEMobRz2u02Z8+eJY5jCoUCtVqN58+fU6lUePLkCXfu3KGnp4d6vU5vby9zc3PA2peCzs7OUiqVvjvm8ePHWVlZoVAocPr0aQYHB6nX6zSbTSqVSnqMkZGRdHp88+YNw8PDzM/PuyiSIZR2zv3798lms7x9+xZYex/x5s2bLC0tce7cOYaHhwmCgHa7zaFDh5ibm6PZbDI9Pc3Hjx/J5/MsLCxQrVa3PMfhw4d5/fo1rVaLI0eOMDk5CUC1WuXTp08EQcCxY8e4cOGCCyIZQmlnffjwgfPnz6ePBwYGuHr1KrD2UmW1WqVWq7G6upru02w2yeVy5PN5AAYHB//1HOvb1/fvdDpkMhniOGZ5eZlCoUCSJOnLqZIMobRjkiRJb3RZF4YhAFNTUywuLnLr1i2KxSKPHj36df+sQUChUODSpUt0Oh0uXrzo+4PSL+Bdo9I2nThxgsePH6d3eS4sLDAwMADA+/fvOXPmDP39/RtiWSqVaLVaRFEEwN27d7d93iiKCIKA27dv8+DBAy5fvpxuazQa1Ov1dHp89uxZuq1ardJqtVw4yYlQ2r4wDDl58mT6eGZmhuvXr/Pu3TuOHj1KJpMhDENevHgBwNjYGFeuXOHVq1eEYUg2mwUgl8sxMzPDqVOnyOfz9PX1pS97/sgkCFAul2m32zx9+pQkSajVaoyOjjI5Ocns7CxRFPHy5UuiKGJkZIT+/n6y2Szj4+OMjY1x48YNF1TaxL5ut9v9+omJiYkNPyVtLo5jkiTZ8NEJWPv4BJBG8GudTockSchkMts+39TUFKurq9y7dw+Aer3O0NAQKysrLob0A7bqmxOh9JO2itlmAfx6wvxZfX19DA0NEYYhBw4cYHFxkdHRURdC+o8MofSHqFQqLC0tUavVAJifn9/0M4mSDKG0axWLRYrFohdC+oW8a1SSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKkmQIJUkyhJIkGUJJkgyhJEmGUJKkP9mWX8PkN9RLkpwIJUna5fZ1u92ul0GS5EQoSdIe9DfEVWhcl8IjHgAAAABJRU5ErkJggg==";
 
 var img_gene_struct_1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATklEQVQ4jWNgYGANxQnC0iAggQEE0mAA lYcFgBWw4RZIQOEmYJNF0Q4zAQ4Qkqm4XQ8CIMWMw96HgsPdh4zD3oeCwx2MgDgc/vlw2JelAO7V xD0GmsY3AAAAAElFTkSuQmCC ";
@@ -124,6 +140,7 @@ function generate_colour(start_color, end_color, percent) {
   // strip the leading # if it's there
   start_color = start_color.replace(/^\s*#|\s*$/g, '');
   end_color = end_color.replace(/^\s*#|\s*$/g, '');
+
   // convert 3 char codes to 6, e.g. `E0F` to `EE00FF`
   if (start_color.length == 3) {
     start_color = start_color.replace(/(.)/g, '$1$1');
@@ -131,6 +148,7 @@ function generate_colour(start_color, end_color, percent) {
   if (end_color.length == 3) {
     end_color = end_color.replace(/(.)/g, '$1$1');
   };
+
   // get colors
   var start_red = parseInt(start_color.substr(0, 2), 16),
     start_green = parseInt(start_color.substr(2, 2), 16),
@@ -139,6 +157,7 @@ function generate_colour(start_color, end_color, percent) {
   var end_red = parseInt(end_color.substr(0, 2), 16),
     end_green = parseInt(end_color.substr(2, 2), 16),
     end_blue = parseInt(end_color.substr(4, 2), 16);
+
   // calculate new color
   var diff_red = end_red - start_red;
   var diff_green = end_green - start_green;
@@ -146,6 +165,7 @@ function generate_colour(start_color, end_color, percent) {
   diff_red = ((diff_red * percent) + start_red).toString(16).split('.')[0];
   diff_green = ((diff_green * percent) + start_green).toString(16).split('.')[0];
   diff_blue = ((diff_blue * percent) + start_blue).toString(16).split('.')[0];
+
   // ensure 2 digits by color
   if (diff_red.length == 1) {
     diff_red = '0' + diff_red;
@@ -156,6 +176,7 @@ function generate_colour(start_color, end_color, percent) {
   if (diff_blue.length == 1) {
     diff_blue = '0' + diff_blue;
   };
+
   return '#' + diff_red + diff_green + diff_blue;
 };
 
@@ -173,6 +194,7 @@ var colouring_part;
  */
 function colour_part_by_id(id, part, fpkm, mode) {
   colouring_part = "all";
+
   for (var i = 0; i < sraList.length; i++) {
     if (id.replace("_svg", "") == sraList[i]) {
       colouring_part = sraDict[sraList[i]]["svg_part"];
@@ -188,6 +210,7 @@ function colour_part_by_id(id, part, fpkm, mode) {
   };
 
   //console.log('COLOUR PART BY ID\'s part = ' + part);
+
   // Get the user set RPKM scale
   max_abs_scale = document.getElementById("rpkm_scale_input").value;
   if ((!max_abs_scale) || max_abs_scale <= 0) {
@@ -204,6 +227,7 @@ function colour_part_by_id(id, part, fpkm, mode) {
       var r = 255;
       var g = 255 - parseInt(fpkmUse / max_abs_scale * 255);
       var b = 0;
+
       if (colouring_part == "all") {
         for (i = 0; i < paths.length; i++) {
           paths[i].style.fill = 'rgb(' + r + ', ' + g + ', ' + b + ')';
@@ -212,6 +236,7 @@ function colour_part_by_id(id, part, fpkm, mode) {
         //console.log("\n\n ********** id = " + id + " and svg_part = " + colouring_part);
         for (i = 0; i < paths.length; i++) {
           //console.log("Checking if " + paths[i].id + " == " + colouring_part + " and it is " + (paths[i].id == colouring_part));
+
           if (paths[i].id == colouring_part) {
             if (paths[i].tagName == "g") {
               var child_paths = paths[i].getElementsByTagName("path");
@@ -246,7 +271,9 @@ function colour_part_by_id(id, part, fpkm, mode) {
       } else if (fpkmUse < 0) { // yellow-blue
         hex = generate_colour("FFFF00", "0000FF", log_scaling);
       };
+
       //console.log('fpkm = ' + fpkm + ' -> hex = ' + hex);
+
       if (colouring_part == "all") {
         for (i = 0; i < paths.length; i++) {
           paths[i].style.fill = hex;
@@ -269,6 +296,7 @@ function colour_part_by_id(id, part, fpkm, mode) {
         };
       };
     };
+
     if (fpkmUse == "Missing controls data") {
       document.getElementById(id.replace('_svg', '_rpkm')).innerHTML = fpkmUse;
     } else {
@@ -279,8 +307,10 @@ function colour_part_by_id(id, part, fpkm, mode) {
   };
 };
 
-var rpkmAverage = 1; // Set to 1 as default so prevents the divide by 0 zero later
-var rpkmMedian = 1; // Set to 1 as default so prevents the divide by 0 zero later
+/** Set to 1 as default so prevents the divide by 0 zero later */
+var rpkmAverage = 1;
+/** Set to 1 as default so prevents the divide by 0 zero later */
+var rpkmMedian = 1;
 /**
  * Find the RPKM average across all samples
  */
@@ -309,6 +339,7 @@ function colour_svgs_now(mode) {
   current_radio = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   for (var i = 0; i < count_bam_entries_in_xml; i++) {
     var currentSRA = exp_info[i][0].slice(0, -4);
+
     // For every exp, figure out the fpkm average of the controls
     var ctrl_fpkm_sum = 0;
     var ctrl_count = 0;
@@ -320,6 +351,7 @@ function colour_svgs_now(mode) {
         ctrl_fpkm_sum += exp_info[ii][3][variantPosition];
       };
     };
+
     // If no control found:
     if (ctrl_fpkm_sum === 0 && sraDict[currentSRA]['RPKM']) {
       ctrl_fpkm_sum = sraDict[currentSRA]['RPKM'][variantPosition];
@@ -344,15 +376,15 @@ function colour_svgs_now(mode) {
     } else {
       useRPKM = sraDict[currentSRA]['RPKM'][variantPosition];
     };
+
     if (useRPKM == 0 && ctrl_avg_fpkm == 0) {
-      // Define log2(0/0) = 0 as opposed to undefined      
-          // Define log2(0/0) = 0 as opposed to undefined
       // Define log2(0/0) = 0 as opposed to undefined      
       relativeRPKMValue = 0;
       exp_info[i].splice(4, 1, 0);
     } else {
       relativeRPKMValue = (Math.log2(useRPKM / ctrl_avg_fpkm));
     };
+
     relativeRPKM.push(relativeRPKMValue);
     sraDict[currentSRA]['relativeRPKM'] = relativeRPKMValue;
 
@@ -363,6 +395,7 @@ function colour_svgs_now(mode) {
     if (useRPKM >= max_absolute_fpkm) {
       max_absolute_fpkm = useRPKM;
     };
+
     if (exp_info[i][4] != "Missing controls data" && Math.abs(exp_info[i][4]) >= max_log_fpkm && Math.abs(exp_info[i][4]) < 1000) {
       max_log_fpkm = Math.abs(exp_info[i][4]);
     };
@@ -377,6 +410,7 @@ function colour_svgs_now(mode) {
         exp_info[i][3][variantPosition] = -999999;
       };
     };
+
     whichAbsOrRel();
   };
 
@@ -392,10 +426,12 @@ function get_input_values() {
   colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   locus = document.getElementById("locus").value;
   yscale_input = document.getElementById("yscale_input").value;
+
   if (yscale_input == "Auto" || parseInt(yscale_input) < 1) {
     yscale_input = parseInt(-1);
     //console.log("yscale_input value set to -1.");
   };
+
   max_abs_scale = document.getElementById("rpkm_scale_input").value;
 };
 
@@ -405,6 +441,7 @@ function get_input_values() {
 function update_all_images(status) {
   if (document.getElementById("locus") != null) {
     new_locus = document.getElementById("locus").value;
+
     if (new_locus === old_locus) {
       $.xhrPool.abortAll();
       variants_radio_options(status);
@@ -446,6 +483,7 @@ function variants_radio_options(status) {
         };
       };   
       $('#variant_select').ddslick('destroy');
+
       var append_str = '<select id="variant_select">';
       for (var i = 0; i < parseInt(gene_res['variant_count']); i++) {
         // retrieve the base64 and create the element to insert
@@ -453,16 +491,20 @@ function variants_radio_options(status) {
         append_str += " data-imagesrc=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + '" style="max-width:none;"></option>';
         // Append the element to the div
       };
+
       img_gene_struct_1 = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
       testList.push("data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure']);
       var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
       for (var i = 0; i < all_gene_structure_imgs.length; i++) {
         all_gene_structure_imgs[i].src = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
       };
+
       $('input[type=radio][name=radio_group]').change(function() { // Bind an event listener..
         gene_structure_radio_on_change();
       });
+
       append_str += '</select></div>';
+
       $("#variants_div").append(append_str);
       $('#variant_select').ddslick({
         width: "100%",
@@ -495,27 +537,31 @@ var variantPosition = 0;
  */
 function gene_structure_radio_on_change() {
   // Create and update variables
-  variant_selected = document.getElementsByClassName('dd-selected-value')[0].value; // Index of which variant is selected
+  /** Index of which variant is selected */
+  var variant_selected = document.getElementsByClassName('dd-selected-value')[0].value;
   variantPosition = variant_selected;
-  variant_img = document.getElementsByClassName('dd-selected-image')[0].src; // Image of the variant
-  // Find all img tags that should be updated (all the <img> with class gene_structure)
+  /** Image of the variant */
+  var variant_img = document.getElementsByClassName('dd-selected-image')[0].src;
+
+  /** Find all img tags that should be updated (all the <img> with class gene_structure) */ 
   var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
   // Change their src to the newly selected variant's src
   for (var i = 0; i < all_gene_structure_imgs.length; i++) {
     all_gene_structure_imgs[i].src = variant_img;
   };
+
   // update all rpb and rpkm values 
   // Go through the exp_info array and make changes
   for (var i = 0; i < exp_info.length; i++) {
     var itLocus = exp_info[i][0].split('_')[0];
-    // Update variant image:
+    /** Update variant image: */ 
     var geneStructureImg = document.getElementById(itLocus + '_gene_structure_img');
     geneStructureImg.src = variant_img;
-    // Update rpb values:
+    /** Update rpb values: */
     var rpbValue = sraDict[itLocus]['r'][variant_selected].toFixed(2);
     document.getElementById(itLocus + '_rpb').innerHTML = rpbValue;
     sraDict[exp_info[i][0].split("_svg")[0]]["rpb"] = rpbValue;
-    // Update RPKM values:
+    /** Update RPKM values: */
     var rpkmValue = sraDict[itLocus]['RPKM'][variant_selected].toFixed(2);
     document.getElementById(itLocus + '_rpkm').innerHTML = rpkmValue;
     whichAbsOrRel(true, i);
@@ -549,12 +595,14 @@ function whichAbsOrRel(preIterate = false, iteratePos = 0) {
 function absOrRel(expInfoPos = 0) {
   var expInfo = exp_info[expInfoPos];
   var currentSRA = expInfo[0].slice(0, -4);
+
   // Update RPKM values and colours
   if (colouring_mode == "rel" && sraDict[currentSRA]['relativeRPKM']) {
     document.getElementById('compareGeneVariants').disabled = true;
     if (!expInfo[4] && expInfo[4] != 0) {
       expInfo[4] = -999999;
     };
+
     var rpkmValue = sraDict[currentSRA]['relativeRPKM'].toFixed(2);
     document.getElementById(expInfo[0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
     sraDict[expInfo[0].split("_svg")[0]]["rpkm"] = rpkmValue;
@@ -607,17 +655,20 @@ var rpkmCount = 1;
 function rnaseq_images(status) {
   // Verify
   changePublicData();
+
   // Set variables
   var awsSplit = "amazonaws.com/";
   var araportCDN = 'araport.cyverse-cdn.tacc.cloud/';
   var gDriveSplit = 'drive.google.com/drive/folders/';
   var myRegexp = /^https:\/\/drive.google.com\/drive\/folders\/(.+)/g;
+
   // Reset variables
   dumpOutputs = "";
   data = {};
   rnaseq_success = 1;
   rpkmCount = 1;
   match_drive = "";
+
   // Start
   get_input_values();
   CreateFilteredeFPList();
@@ -632,12 +683,14 @@ function rnaseq_images(status) {
       } else {
         tissueWebservice = rnaseq_calls[i][0];
       };
+
       // Creates the removeDrive link for the rnaSeqMapCoverage webservice 
       if (sraDict[sraList[i]]["bam_type"] === "Google Drive") {        
         // Obtains the Google drive file ID
         var linkString = sraDict[sraList[i]]["drive_link"];
         var driveLinkSplit = linkString.split('?usp=sharing');
         driveLinkSplit = driveLinkSplit[0].split(gDriveSplit);
+
         if (driveLinkSplit.length > 1) {
           match_drive = driveLinkSplit[1];
         } else {
@@ -647,6 +700,7 @@ function rnaseq_images(status) {
         // Obtains the S3 
         var linkString = sraDict[sraList[i]]["drive_link"];
         var driveLinkSplit = linkString.split(awsSplit);
+
         if (driveLinkSplit.length === 1) {
           driveLinkSplit = linkString.split(araportCDN);
         };
@@ -656,6 +710,7 @@ function rnaseq_images(status) {
           match_drive = linkString;
         };
       };
+
       data = {status: status, numberofreads: sraDict[sraList[i]]["numberofreads"], hexcodecolour: sraDict[sraList[i]]["hexColourCode"], remoteDrive: match_drive, bamType: sraDict[sraList[i]]["bam_type"], filename: sraDict[sraList[i]]["filenameIn"], tissue: tissueWebservice, record: rnaseq_calls[i][1], locus: locus, variant: 1, start: locus_start, end: locus_end, yscale: yscale_input, cachedDatapoints: publicData, struct: splice_variants, dumpMethod: dumpMethod};
 
       $.ajax({
@@ -675,9 +730,11 @@ function rnaseq_images(status) {
           totalreadsMapped_dic[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];
           sraDict[response_rnaseq['record']]["locusValue"] = response_rnaseq['locus'];
           sraDict[response_rnaseq['record']]['r'] = response_rnaseq["r"];
+
           if (locus != response_rnaseq['locus']) {
             console.log("ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.");
           };
+
           // Update the progress bar
           if (response_rnaseq['status'] == 200) {
             var stopLoadingScreen = 99;
@@ -687,14 +744,16 @@ function rnaseq_images(status) {
 
             rnaseq_success++;
             date_obj3 = new Date();
-            rnaseq_success_current_time = date_obj3.getTime(); // Keep track of start time
+            rnaseq_success_current_time = date_obj3.getTime();
             progress_percent = rnaseq_change / count_bam_entries_in_xml * 100;
             $('div#progress').width(progress_percent + '%');
             if (progress_percent > stopLoadingScreen) {
               loadingScreen(true);
             };
+
             document.getElementById('progress_tooltip').innerHTML = "Current progress is at " + progress_percent + "% done";
             document.getElementById('progress').title = progress_percent.toFixed(2) + '% (' + rnaseq_change + '/' + count_bam_entries_in_xml + ')';
+            
             //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
           } else {
             $('#failure').show();
@@ -714,6 +773,7 @@ function rnaseq_images(status) {
             var ssx = parseIntArray(response_rnaseq['ss_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
             var n = parseInt(response_rnaseq['end']) - parseInt(response_rnaseq['start']);
             var sp = [];
+
             // Compute the r values for each variant
             for (var i = 0; i < sum_xy.length; i++) {
               sp.splice(i, 0, sum_xy[i] - ((sum_x[i] * sum_y) / n));
@@ -722,6 +782,7 @@ function rnaseq_images(status) {
           } else {
             r = response_rnaseq['r'];
           };
+
           document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
           rnaseq_change += 1;
           document.getElementById(response_rnaseq['record'] + '_rpb').innerHTML = parseFloat(r[0]).toFixed(2);
@@ -737,12 +798,14 @@ function rnaseq_images(status) {
             dumpOutputs += '\t\telif (record == "' + response_rnaseq["record"] + '"):\n';
             if (dumpMethod == "complex") {
               dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["exp_arr"] + '], [';
+
               for (r = 0; r < response_rnaseq["ReadsMappedNucleotidePosition"].length; r += 2) {
                 dumpOutputs += '[' + response_rnaseq["ReadsMappedNucleotidePosition"][r] + ']';
                 if (r != (response_rnaseq["ReadsMappedNucleotidePosition"].length - 2)) {
                   dumpOutputs += ", "
                 };
               };
+
               dumpOutputs += '], {';
               for (e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
                 dumpOutputs += '"' + GFF_List[e].replace(locus, '') + '": ';
@@ -750,7 +813,8 @@ function rnaseq_images(status) {
                 if (e != response_rnaseq["expected_expr_in_variant"].length - 1) {
                   dumpOutputs += ', ';
                 };
-              };            
+              };     
+
               dumpOutputs += '})\n'
             } else {
               dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', [' + response_rnaseq["absolute-fpkm"] + '], [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ')\n';
@@ -762,6 +826,7 @@ function rnaseq_images(status) {
             if (exp_info[ii][0] == response_rnaseq['record'] + '_svg') { // Find the correct element
               exp_info[ii].splice(3, 1, response_rnaseq['absolute-fpkm']);
               exp_info[ii].splice(5, 1, r);
+
               //console.log("Found " + response_rnaseq['record'] + " == " + exp_info[ii][0] + ".");
             };
           };
@@ -772,9 +837,12 @@ function rnaseq_images(status) {
             setTimeout(function(){
               colour_svgs_now();
               date_obj4 = new Date();
-              rnaseq_success_end_time = date_obj4.getTime(); // Keep track of start time
+              rnaseq_success_end_time = date_obj4.getTime();
+
               //console.log(rnaseq_success_end_time);
+
               document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time ~= " + String(round(parseInt(rnaseq_success_end_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
+
               //console.log("**** Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_end_time - rnaseq_success_start_time)));
             }, 100);
           };       
@@ -813,6 +881,7 @@ function updateRPKMAbsoluteMax(RPKMCheckAgainst) {
  */
 function checkAgainstSVG(svg, subunit, returnName = false) {
   var toReturn = subunit;
+
   if (svg === "ath-10dayOldSeedling.svg" || svg === "ath-10dayOldSeedling.min.svg") {
     if (returnName === true) {
       toReturn = "10 Day Old Seedling";
@@ -1042,6 +1111,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
       return "all";
     };
   };
+
   return toReturn;
 };
 
@@ -1082,32 +1152,33 @@ function populate_table(status) {
 
   // Creating exon intron scale image
   var img_created = '<img src="' + 'data:image/png;base64,' + exon_intron_scale + '" alt="RNA-Seq mapped image" style="float: right; margin-right: 10px;">';
+
   // Insert table headers
   var tableHeader = '<thead><tr>' +
-  '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-xs-10">Title</div><div class="col-xs-0.5"><img class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-  '<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
-  img_created +
-  '</th>' +
-  '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6" >r<sub>pb</sub></div><div class="col-xs-1"><img class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-  '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-  '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-  '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-  '<th class="sortable colCompare" id="colCompare" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 30px;" hidden><div class="row" id="colCompareRow"></div></th>' + 
-  '</tr></thead>' +
-  '<tbody id="data_table_body"></tbody>';
+    '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-xs-10">Title</div><div class="col-xs-0.5"><img class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
+    img_created +
+    '</th>' +
+    '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6" >r<sub>pb</sub></div><div class="col-xs-1"><img class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
+    '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="sortable colCompare" id="colCompare" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 30px;" hidden><div class="row" id="colCompareRow"></div></th>' + 
+    '</tr></thead>' +
+    '<tbody id="data_table_body"></tbody>';
   $("#theTable").append(tableHeader);
   // Create compare table header:  
   var compareHeader = '<thead><tr>' +
-  '<th id="compare_colTitle" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="compare_colTitleRow"><div class="col-xs-10">Title</div></div></th>' +
-  '<th id="compare_colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
-  img_created +
-  '</th>' +
-  '<th id="compare_colrpb" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="compare_colrpbRow"><div class="col-xs-6">r<sub>pb</sub></div></div></th>' +
-  '<th id="compare_eFP_th" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-  '<th id="compare_colRPKM" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="compare_colRPKMRow"><div class="col-xs-7">RPKM</div></div></th>' +
-  '<th id="compare_colDetails" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="compare_colDetailsRow"><div class="col-xs-10">Details</div></div></th>' +
-  '</tr></thead>' +
-  '<tbody id="compare_table_body"></tbody>';
+    '<th id="compare_colTitle" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="compare_colTitleRow"><div class="col-xs-10">Title</div></div></th>' +
+    '<th id="compare_colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
+    img_created +
+    '</th>' +
+    '<th id="compare_colrpb" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="compare_colrpbRow"><div class="col-xs-6">r<sub>pb</sub></div></div></th>' +
+    '<th id="compare_eFP_th" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
+    '<th id="compare_colRPKM" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="compare_colRPKMRow"><div class="col-xs-7">RPKM</div></div></th>' +
+    '<th id="compare_colDetails" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="compare_colDetailsRow"><div class="col-xs-10">Details</div></div></th>' +
+    '</tr></thead>' +
+    '<tbody id="compare_table_body"></tbody>';
   $('#compareTable').append(compareHeader);
 
   $.ajax({
@@ -1141,13 +1212,15 @@ function populate_table(status) {
           sraDict[experimentno] = {};
         };
 
-        // Title
+        /** Title */
         var title = $(this).attr('description');
         sraDict[experimentno]["title"] = title;
-        // Description
+
+        /** Description */
         var description = $(this).attr('info');
         sraDict[experimentno]["description"] = description;
-        // SVG
+
+        /** SVG */
         var svg = $(this).attr('svgname');
         sraDict[experimentno]["svg"] = svg;
         var svg_part = $(this).attr('svg_subunit');
@@ -1159,19 +1232,22 @@ function populate_table(status) {
           tissueSRADic[checkAgainstSVG(svg, svg_part, true)] = [experimentno];
         };
 
-        // SRA URL
+        /** SRA URL */
         var url = $(this).attr('url');
         sraDict[experimentno]["url"] = url;
-        // Publication URL
+
+        /** Publication URL */
         var publicationid = $(this).attr('publication_link');
         sraDict[experimentno]["publicationid"] = publicationid;
-        // Total number of reads
+
+        /** Total number of reads */
         var numberofreads = $(this).attr('total_reads_mapped');
         if (numberofreads == null || numberofreads == "") {
           numberofreads = "0";
         };
         sraDict[experimentno]["numberofreads"] = numberofreads;
-        // Coloured hex code
+
+        /** Coloured hex code */
         var hexColourCode;
         if ($(this).attr('hex_colour') == null || $(this).attr('hex_colour') == "") {
           hexColourCode = '0x64cc65';
@@ -1179,16 +1255,19 @@ function populate_table(status) {
           hexColourCode = $(this).attr('hex_colour');
         };
         sraDict[experimentno]["hexColourCode"] = hexColourCode;
-        // BAM file's filename
+
+        /** BAM file's filename */
         var filenameIn =  ($(this).attr('filename'));
         if (filenameIn == null || filenameIn == "" || filenameIn == undefined) {
           filenameIn = "accepted_hits.bam"
         };
         sraDict[experimentno]["filenameIn"] = filenameIn;
-        // Species
+
+        /** Species */
         var species = $(this).attr('species');    
         sraDict[experimentno]["species"] = species;
-        // Control
+
+        /** Control */
         var controls = [];
         if ($(this).find("controls")[0].innerHTML == undefined) {
           for (i = 1; i < $(this).find("controls")[0].childNodes.length; i+2) {
@@ -1198,6 +1277,7 @@ function populate_table(status) {
           controls = $(this).find("controls")[0].innerHTML.replace(/<bam_exp>/g, "").replace(/<\/bam_exp>/g, ",").replace(/\n/g, " ").replace(/ /g, "").split(",");
         };
         sraDict[experimentno]["controls"] = controls;
+
         var links = "";
         if (controls.length > 0) {
           for (var i = controls.length; i--;) {
@@ -1209,6 +1289,7 @@ function populate_table(status) {
           };
         };     
         sraDict[experimentno]["links"] = links;
+
         var controlsString = "";
         if (controls.length > 0) {
           for (var y = 0; y < controls.length; y++) {
@@ -1219,6 +1300,7 @@ function populate_table(status) {
           };
         };
         sraDict[experimentno]["controlsString"] = controlsString.trim();
+
         var name = $(this).attr('name');
         sraDict[experimentno]["name"] = name;
         if ($(this).attr('bam_type') == "Amazon AWS") {        
@@ -1228,10 +1310,13 @@ function populate_table(status) {
         };
         rnaseq_calls.push([tissue, experimentno]);
         sraDict[experimentno]["tissue"] = tissue;
+
         var bam_type = $(this).attr('bam_type');
         sraDict[experimentno]["bam_type"] = bam_type;
+
         var drive_link = $(this).attr('name');
         sraDict[experimentno]["drive_link"] = drive_link;
+
         var read_map_method = $(this).attr('read_map_method');
         sraDict[experimentno]["read_map_method"] = read_map_method;
 
@@ -1249,32 +1334,44 @@ function populate_table(status) {
         
         // Construct a table row <tr> element
         var append_str = '<tr class="mainEntries" id="' + experimentno + '_row">';
-        // table_dl_str is used for downloading the table as CSV
+
+        /** table_dl_str is used for downloading the table as CSV */
         var table_dl_str = "<table id='table_dl'>\n\t<tbody>\n";
         table_dl_str += "\t\t<caption>" + document.getElementById("xmlDatabase").value + "</caption>\n";
+
         // Append title <td>
         append_str += '<td class="colTitle" style="width: 250px; font-size: 12px;" id="' + experimentno + '_title">' + title + '</td>\n';
+
         // Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
         append_str += '<td class="colRNA" style="max-width: 576px;">' + '<img id="' + experimentno + '_rnaseq_img" alt="RNA-Seq mapped image for:' + experimentno + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" class="rnaseq_img responsiveRNAWidth" src="' + img_loading_base64 + '" /><br/>' + '<img id="' + experimentno + '_gene_structure_img" style="max-width: 576px; width:100%; height: auto;" class="gene_structure_img" src="' + img_gene_struct_1 + '" alt="Gene variant image for:' + experimentno + '"/>' + '</td>\n';
+
         // Append the rpb <td>
         append_str += '<td id="' + experimentno + '_rpb' + '" class="rpb_value colrpb" style="font-size: 12px; width: 50px; ">' + -9999 + '</td>';
+
         // Append the appropriate SVG with place holder sorting number in front of it .. all in one <td>
         append_str += '<td class="coleFP" tag="svg_name" style="width:  75px;">' + '<div id="' + experimentno + '_svg" name="' + svg.substring(0, svg.length - 4).slice(4) + '_tissue" tag=' + svg_part + '_subtissue" width="75" height="75" style="width: 75px; height: 75px; max-width: 75px; max-height: 75px;">' + document.getElementById(svg.substring(4).replace(".svg", "_svg")).innerHTML + '</div>' + '<div class="mdl-tooltip" for="' + experimentno + '_svg' + '">' + svg.substring(4).replace(".svg", "") + '</div></td>\n';
+
         // Append abs/rel RPKM
         append_str += '<td class="colRPKM" id="' + experimentno + '_rpkm' + '" style="font-size: 12px; width: 50px; ">-9999</td>';
+
         // Append the details <td>
         append_str += '<td class="colDetails" id="' + experimentno + '_details" style="font-size: 12px;"><div id="' + experimentno + '_description" name="' + description.trim() + '">' + truncateDescription(description) + '</div>';  
+
         if (bam_type === "Amazon AWS") {
             append_str += '<div id="igbLink_' + experimentno + '">Show: <a href="' + igbView_link + '" target="_blank" rel="noopener">Alignments in IGB</a></div>';
         };
+
         append_str += '<div id="extraLinks_' + experimentno + '">Go to: <a href="' + url + '" target="_blank" rel="noopener">NCBI SRA</a> or <a href="' + publicationid + '" target="_blank" rel="noopener">PubMed</a></div>';
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + moreDetails.trim() + '</a>';
         append_str += '<div id="' + experimentno + '" class="moreDetails" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '<br>';
         append_str += '<div id="' + experimentno + '_totalReadsNum">' + 'Total reads = ' + numberofreads + '</div>';
+
         if (read_map_method != undefined && read_map_method.length > 0) {
           append_str += '<div id="' + experimentno + '_readMappedMethod">' + 'Read map method = ' + read_map_method.trim() + '</div>';
         };
+
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '_less" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + lessDetails + '</a></div></td>\n';
+
         // // Append compare variants
         append_str += '<td class="colCompare" style="font-size: 12px; max-width: 30px;"><div id="' + experimentno + '_compareVariant"><input type="checkbox" name="compareCheckbox" class="compareCheckbox" value="compareCheckbox" id="' + experimentno + '_compareCheckbox" onclick="tableCheckbox(this.id);"></div></td>';
         append_str += '</tr>';
@@ -1284,7 +1381,7 @@ function populate_table(status) {
         // Append the <tr> to the table
         $("#theTable").append(append_str);
 
-        // Check to see if compare column missing classname
+        /** Check to see if compare column missing classname */
         var compareColumn = document.getElementsByClassName("fltrow")[0]["childNodes"][6];
         if (compareColumn.classList[0] === undefined || compareColumn.classList[0] === 'undefined') {
           compareColumn.classList = ['colCompare'];
@@ -1638,6 +1735,7 @@ var title_list = [];
 */
 function get_user_XML_display() {
   var AuthUser = findAuthUser();
+
   // First check to make sure there is is a user logged in or else this script will not run
   if ((users_email != "" || users_email != undefined || users_email != null) && (users_email === AuthUser)) {
     $.ajax({
@@ -1651,9 +1749,11 @@ function get_user_XML_display() {
         xml_title;
         match_title = {};
         title_list = [];
-        // Unnamed dataset name number:
+
+        /** Unnamed dataset name number: */
         var unnamed_title_num = 1;
         var private_version_num = 1;
+
         // Check if the output is working and store as variable
         get_xml_list_output = get_xml_list_return;
         if (get_xml_list_output["status"] == "fail") {
@@ -1661,12 +1761,14 @@ function get_user_XML_display() {
           user_exist = false;
         } else if (get_xml_list_output["status"] == "success") {
           user_exist = true;
+
           // Check for change in output from last time ran function
           if (check_for_change != get_xml_list_output["files"].length) {
             reset_database_options();
             list_modified = false;
           };
           check_for_change = get_xml_list_output["files"].length;
+
           // Check each file in output
           var old_data_input = "empty";
           var new_data_input = "empty";
@@ -1675,6 +1777,7 @@ function get_user_XML_display() {
               var xml_file;
               xml_title;
               xml_title = get_xml_list_output["files"][i][1];
+
               // Make sure there is a title or if not, make one
               if (xml_title == "" || xml_title == "Uploaded dataset" || xml_title == undefined || xml_title == null) {
                 xml_title = "Uploaded dataset - Unnamed dataset #" + unnamed_title_num;
@@ -1688,8 +1791,10 @@ function get_user_XML_display() {
               };
               title_list.push(xml_title);
               xml_fle_name = get_xml_list_output["files"][i][0];
+
               // This needed for later on
               match_title[xml_title] = xml_fle_name;
+
               // Obtain data location for each individual XML
               if (i == (get_xml_list_output["files"].length - 1)) {
                 create_data_list(get_xml_list_output["files"].length)
@@ -1701,6 +1806,7 @@ function get_user_XML_display() {
               for (i = 0; i < get_xml_list_output["files"].length; i++) {
                 // Add data to list of accessible datasets
                 dataset_dictionary[title_list[i]] = datalist_Title[title_list[i]];
+
                 // Create option to select data from user
                 document.getElementById("xmlDatabase").innerHTML += '<option class="userAdded" tag="private" value="' + title_list[i] + '" id="' + title_list[i] + '">' + title_list[i] + '</option>';
               };
@@ -1725,7 +1831,7 @@ function get_user_XML_display() {
 var datalist = [];
 var datalist_Title = {};
 function create_data_list(size) {
-  datalist = [];// Reset
+  datalist = []; // Reset
   datalist_Title = {}; // Reset
   for (i = 0; i < size; i++) {
     $.ajax({
@@ -1747,6 +1853,7 @@ function create_data_list(size) {
 };
 
 var dlCallLength = 0;
+/** Make function recursive */
 var dlCallPosition = 0;
 var testDoc;
 /**
@@ -1842,6 +1949,7 @@ function check_if_Google_login() {
 function add_user_xml_by_upload() {
   get_user_XML_display(); // Updates data and determines if user_exists or now
   // setTimeout is necessary due to xmlTitleName taking a while to be generated. Though only requires 3 seconds to obtain, setTimeout set to 4 just in case
+
   setTimeout(function() {
     var AuthUser = findAuthUser();
     if (user_exist == false) {
@@ -1942,13 +2050,16 @@ function delete_fill() {
       public_title_list.push(public_title);
     };
   };
+
   var deleteBoxNum = 0;
   total_amount_of_datasets = public_title_list.length + title_list.length;
+  
   for (i = 0; i < public_title_list.length; i++) {
     // Fills the manage XML modal with available XMLs on the account
     $("#publicDatabaseDownload").append('<input type="checkbox" tag="publicDataCheckbox" class="publicDataCheckbox" onchange="disableDeletePublic()" id="deleteBox_' + deleteBoxNum + '" value="' + public_title_list[i] + '"> ' + public_title_list[i] + '</input><br>');
     deleteBoxNum += 1;
   };
+
   for (i = 0; i < title_list.length; i++) {
     // Fills the manage XML modal with available XMLs on the account
     $("#delete_fill").append('<input type="checkbox" tag="privateDataCheckbox" class="privateDataCheckbox" onchange="disableDeletePublic()" id="deleteBox_' + deleteBoxNum + '" value="' + title_list[i] + '"> ' + title_list[i] + '</input><br>');
@@ -1983,14 +2094,17 @@ function disableDeletePublic() {
 function CheckIfSelectedXML() {
   var returnTrue = false;
   var AuthUser = findAuthUser();
+
   for (i = 0; i < title_list.length; i++) {
-    var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
+    /** Find id of what is being called */
+    var deleteBox_id = "deleteBox_" + (i + 2);
     if (document.getElementById(deleteBox_id).checked == true && users_email === AuthUser) {
       returnTrue = true;
       return true;
       break;
     };
   };
+
   if (returnTrue === false) {
     return false;
   };
@@ -2001,14 +2115,18 @@ function CheckIfSelectedXML() {
 */
 function delete_selectedXML() {
   var AuthUser = findAuthUser();
+
   for (i = 0; i < title_list.length; i++) {
-    var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
+    /** Find id of what is being called */
+    var deleteBox_id = "deleteBox_" + (i + 2);
+
     if ((document.getElementById(deleteBox_id) != null && document.getElementById(deleteBox_id).checked == true && users_email === AuthUser)) {
       $.ajax({
         url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
       });
     };
   };
+
   databasesAdded = false;
 };
 
@@ -2028,9 +2146,11 @@ function confirm_deleteUser() {
  */
 function delete_allXMLs(verify) {
   var AuthUser = findAuthUser();
+
   if (verify === AuthUser) {
     for (i = 0; i < title_list.length; i++) {
-      var deleteBox_id = "deleteBox_" + (i + 2); // Find id of what is being called
+      /** Find id of what is being called */
+      var deleteBox_id = "deleteBox_" + (i + 2); 
       if (users_email === AuthUser) {
         $.ajax({
           url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_xml.php?user=" + users_email + "&file=" + match_title[document.getElementById(deleteBox_id).value]
@@ -2102,7 +2222,9 @@ function hideWarning_index(whichWarning) {
 function manage_DownloadXML() {
   var numberOfOptions = (title_list.length + 2);
   for (i = 0; i < numberOfOptions; i++) {
-    var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
+    /** Find id of what is being called */
+    var downloadBox_id = "deleteBox_" + i;
+
     if (document.getElementById(downloadBox_id).checked == true) {
       $('#downloadXML').attr('href', dataset_dictionary[document.getElementById(downloadBox_id).value]).attr('download', document.getElementById(downloadBox_id).value + '.xml');
       document.getElementById("downloadXML_button").click();
@@ -2117,8 +2239,10 @@ var table_base = "\t\t<tr>\n\t\t\t<th>Title*</th>\n\t\t\t<th>Description*</th>\n
 function fill_tableCSV() {
   $("#XMLtoCSVtable").empty();
   for (i = 0; i < total_amount_of_datasets; i++) {
-    var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
+    /** Find id of what is being called */
+    var downloadBox_id = "deleteBox_" + i;
     //console.log("Initializing fill_tableCSV() on " + downloadBox_id);
+
     $.ajax({
       url: dataset_dictionary[document.getElementById(downloadBox_id).value],
       dataType: 'xml',
@@ -2134,62 +2258,77 @@ function fill_tableCSV() {
           };
           fileTitle = fileTitle.split(' ').join('_')
         });
-        var $title = $(xml_data).find("file"); // XML title
+        /** XML title */
+        var $title = $(xml_data).find("file");
         var table_add = "";
         table_add += "<table id='" + fileTitle + "'>\n\t<tbody>\n";
         table_add += "\t\t<caption>" + fileTitle + "</caption>\n";
         table_add += table_base; // CSV header
         $title.each(function() {
           table_add += "\t\t<tr>\n";
-          // Title
+
+          /** Title */
           var title = $(this).attr('description'); 
           table_add += "\t\t\t<td>" + title + "</td>\n";
-          // Description
+
+          /** Description */
           var desc = $(this).attr('info'); 
           table_add += "\t\t\t<td>" + desc + "</td>\n";
-          // Record number
+          
+          /** Record number */
           var record_number = $(this).attr('record_number');
           table_add += "\t\t\t<td>" + record_number + "</td>\n";
-          // BAM/repository link
+          
+          /** BAM/repository link */
           var bam_link = $(this).attr('name');
           table_add += "\t\t\t<td>" + bam_link + "</td>\n";
-          // BAM/repo type
+
+          /** BAM/repo type */
           var bam_type = $(this).attr('bam_type');
           table_add += "\t\t\t<td>" + bam_type + "</td>\n";
-          // BAM/repo type
+
+          /** BAM/repo type */
           var bam_filename = $(this).attr('filename');
           if (bam_filename === null || bam_filename === undefined || bam_filename === "undefined" || bam_filename === ".bam") {
             bam_filename = "accepted_hits.bam";
           };
           table_add += "\t\t\t<td>" + bam_filename + "</td>\n";
-          // Publication link
+
+          /** Publication link */
           var publication_link = $(this).attr('publication_link');
           table_add += "\t\t\t<td>" + publication_link + "</td>\n";
-          // Publication URL
+
+          /** Publication URL */
           var publication_url = $(this).attr('url');
           table_add += "\t\t\t<td>" + publication_url + "</td>\n";
-          // Total reads mapped
+
+          /** Total reads mapped */
           var total_reads_mapped = $(this).attr('total_reads_mapped');
           if (total_reads_mapped == null || total_reads_mapped == "") {
             total_reads_mapped = "0";
           };
           table_add += "\t\t\t<td>" + total_reads_mapped + "</td>\n";
-          // Read mapped method
+
+          /** Read mapped method */
           var read_map_method = $(this).attr('read_map_method');
           table_add += "\t\t\t<td>" + read_map_method + "</td>\n";
-          // Species
+
+          /** Species */
           var species = $(this).attr('species');
           if (species == null || species == "") {
             species = "Arabidopsis thaliana";
           };
           table_add += "\t\t\t<td>" + species + "</td>\n";
-          // Tissue
+
+          /** Tissue */
           var svgname = $(this).attr('svgname');
           table_add += "\t\t\t<td>" + svgname + "</td>\n";
-          // Tissue subunit
+
+          /** Tissue subunit */
           var svg_subunit = $(this).attr('svg_subunit');
           table_add += "\t\t\t<td>" + svg_subunit + "</td>\n";
-          // Controls
+
+          /** Controls */
           var controlsXMLString = "";
           if ($(this).find("controls")[0].innerHTML != undefined) {
             for (i = 1; i < $(this).find("controls")[0].childNodes.length; i = i+2) {
@@ -2202,7 +2341,8 @@ function fill_tableCSV() {
             };
           };
           table_add += "\t\t\t<td>" + controlsXMLString + "</td>\n";
-          // Replicate Controls
+
+          /** Replicate Controls */
           var RcontrolsXMLString = "";
           if ($(this).find("groupwith")[0].innerHTML != undefined) {
             for (i = 1; i < $(this).find("groupwith")[0].childNodes.length; i = i+2) {
@@ -2215,11 +2355,15 @@ function fill_tableCSV() {
             };
           };
           table_add += "\t\t\t<td>" + RcontrolsXMLString + "</td>\n";
+
           // Closing
           table_add += "\t\t</tr>\n"
         });
+
         table_add += "\t</tbody>\n</table>";
+
         //console.log(table_add);
+
         document.getElementById("XMLtoCSVtable").innerHTML += table_add;
       }
     });
@@ -2232,7 +2376,8 @@ function fill_tableCSV() {
 */
 function download_XMLtableCSV() {
   for (i = 0; i < total_amount_of_datasets; i++) {
-    var downloadBox_id = "deleteBox_" + i; // Find id of what is being called
+    /** Find id of what is being called */
+    var downloadBox_id = "deleteBox_" + i;
     if (document.getElementById(downloadBox_id).checked == true) {
       var tableTitle = document.getElementById(downloadBox_id).value.split(' ').join('_');
       $("#" + tableTitle).tableToCSV();
@@ -2253,6 +2398,7 @@ function download_mainTableCSV() {
   var downloadIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
   downloadIndexTable_str += "\t\t<caption>" + loadedDataset.split(' ').join('_') + "</caption>\n";
   downloadIndexTable_str += downloadIndexTable_base;
+
   // Looping through each row of the table
   for (i = 0; i < eFPSortedSRA.length; i++) {
     downloadIndexTable_str += "\t\t<tr>\n";
@@ -2271,6 +2417,7 @@ function download_mainTableCSV() {
     downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["controlsString"]) + "</td>\n";
     downloadIndexTable_str += "\t\t</tr>\n";
   };
+
   downloadIndexTable_str += "\t</tbody>\n</table>"; // Closing
   document.getElementById("hiddenDownloadModal_table").innerHTML += downloadIndexTable_str;
   $("#hiddenDownloadModal_table").tableToCSV();
@@ -2299,11 +2446,13 @@ var isPrecache = true;
 */
 function checkPreload() {
   get_input_values();
+
   // Update progress bar and add loading screen
   loadingScreen(false);
   progress_percent = 0;
   document.getElementById('progress').title = '0%';
   $('div#progress').width(progress_percent + '%');
+
   // Check if public data or not
   if ((publicData == true) && (locus == "AT2G24270") && (dumpMethod == "simple") && (callDumpOutputs === false)) {
     variants_radio_options(1);
@@ -2399,8 +2548,8 @@ function correctAGIIDInput() {
 };
 
 /**
-* Return back to top of page
-*/
+ * Return back to top of page
+ */
 function returnBackToTop() {
   mainBody = document.getElementById("main_content");
   mainBody.scrollTop = 0;
@@ -2423,8 +2572,8 @@ function downloadDiv(id) {
 };
 
 /**
-* On click, hide the nav bar from main screen
-*/
+ * On click, hide the nav bar from main screen
+ */
 function displayNavBAR() {
   if ($("#navbar_menu").is(":visible") == true) {
     document.getElementById("navbar_menu").style.display = "none";
@@ -2656,14 +2805,18 @@ function ChangeHelpArrowDirection(elementID) {
 function ScrollToRNARow(rowID) {  
   // Close eFP Overview if open
   document.getElementById("closemodal_efPOverview").click();
+
   // Scroll to RNA row
   $('#main_content').animate({scrollTop: $("#" + rowID).offset().top}, 'slow');
+
   // Add background colour of selected row for clarity 
   document.getElementById(rowID).className += " scrollToRow";
+
   // Fade out colour
   setTimeout(function() {
     document.getElementById(rowID).className += " scrollToRowRemove";
   }, 1000);
+
   // Remove those classes
   setTimeout(function() {
     document.getElementById(rowID).classList.remove('scrollToRow');
@@ -2688,7 +2841,7 @@ var BrowserDetected = false;
  */
 function DetectBrowser() {
   if (BrowserDetected === false) {
-    // userAgent Browser detection object
+    /** userAgent Browser detection object */
     var userAgentParser = {
       'Microsoft+Edge': {
         'Contain': ['Edge']
@@ -2718,7 +2871,8 @@ function DetectBrowser() {
         'NContain': ['Chromium', 'Chrome']
       }
     };
-    // Retrieve keys from userAgent in the instance this is modified
+
+    /** Retrieve keys from userAgent in the instance this is modified */
     var userAgentParserKeys = Object.keys(userAgentParser);
     var detectBrowser;
     var notDetectedBrowser = true;
@@ -2738,6 +2892,7 @@ function DetectBrowser() {
                 passLength++;
               };
             };
+
             if (passLength != failLength) {
               detectBrowser = userAgentParserKeys[i];
               notDetectedBrowser = false;
@@ -2769,6 +2924,7 @@ function DetectBrowser() {
  */
 function CreateFilteredeFPList() {
   $("#filtereFPList").empty();
+
   // Add individual Tissues
   var allTissuesDisplayed = Object.keys(tissueSRADic);
   for (i = 0; i < allTissuesDisplayed.length; i++) {
@@ -2788,6 +2944,7 @@ function CreateFilteredeFPList() {
 function ToggleFilteredeFP(whichToToggle, OnOrOff) {
   var whichSVG = whichToToggle.replace("_", " ");
   var whichSRA = tissueSRADic[whichSVG];
+
   if (OnOrOff === true) {
     for (i = 0; i < whichSRA.length; i++) {
       document.getElementById(whichSRA[i] + "_row").removeAttribute("hidden");
@@ -2818,7 +2975,7 @@ var shareLink;
  * Generate a share link
  */
 function generateShareLink() {
-  // Generate base link
+  /** Generate base link */
   var url = 'https://' + window.location.host + window.location.pathname;
 
   // If a public dataset, generate link for that information
@@ -2834,7 +2991,7 @@ var shareLinkInputs = {};
  * Read shared link and display data if appropriate 
  */
 function readShareLink() {
-  // Find share link information
+  /** Find share link information */
   var query = window.location.search.substr(1);
 
   // If this value hits 2, then all the essential information has been called for it to be loaded
@@ -2890,7 +3047,8 @@ function copyToClipboard() {
   };
 };
 
-var allCheckedOptions = []; // All checked and currently displayed comparisons
+/** All checked and currently displayed comparisons */
+var allCheckedOptions = [];
 /**
  * Functionality of the table's individual entry's check box for comparison
  * @param {String} whatID The ID of what table entry is being checked 
@@ -2908,28 +3066,35 @@ function tableCheckbox(whatID, disableAll = false) {
 
     // Add other tables based on the list of variants available
     for (var i = 0; i < GFF_List.length; i++) {
-      // Construct a table row <tr> element 
+      /** Construct a table row <tr> element  */
       var append_str = '<tr class="compareDataRow" id="' + whatSRA + '_compareRow' + i + '">';
+
       // Append title <td>
       if (parseInt(i) === parseInt(variantPosition)) {
         append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">' + document.getElementById(whatSRA + '_title').innerHTML + ' ... (' + GFF_List[i] + ')</td>\n';
       } else {
         append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">^^^ ... (' + GFF_List[i] + ')</td>\n';
-      };  
+      }; 
+
       // Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
       append_str += '<td style="max-width: 576px;">' + '<img id="' + whatSRA + '_rnaseq_img' + i + '" alt="RNA-Seq mapped image for:' + whatSRA + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" src="" /><br/>' + '<img id="' + whatSRA + '_gene_structure_img' + i + '" style="max-width: 576px; width:100%; height: auto;" src="" alt="Gene variant image for:' + whatSRA + '"/>' + '</td>\n';
+
       // Append the rpb <td>
       append_str += '<td id="' + whatSRA + '_rpb' + i + '' + '" style="font-size: 12px; width: 50px; ">' + sraDict[whatSRA]["r"][i].toFixed(2) + '</td>';
+
       // Append the appropriate SVG with place holder sorting number in front of it .. all in one <td>
       append_str += '<td tag="svg_name" style="width:  75px;">' + '<div id="' + whatSRA + '_svg' + i + '" name="' + sraDict[whatSRA]["svg"].substr(4).replace('.', '_') + '_tissue" tag=' + sraDict[whatSRA]["svg_part"] + '_subtissue" width="75" height="75" style="width: 75px; height: 75px; max-width: 75px; max-height: 75px;">' + document.getElementById(sraDict[whatSRA]["svg"].substr(4).replace(".svg", "_svg")).innerHTML + '</div>' + '<div class="mdl-tooltip" for="' + whatSRA + '_svg' + i + '">' + sraDict[whatSRA]["svg"].substring(4).replace(".svg", "") + '</div></td>\n';
+
       // Append abs/rel RPKM
       append_str += '<td id="' + whatSRA + '_rpkm' + i + '" style="font-size: 12px; width: 50px; ">' + sraDict[whatSRA]["RPKM"][i].toFixed(2) + '</td>';
+
       // Append the details <td>      
       if (parseInt(i) === parseInt(variantPosition)) {
         append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '"><div id="' + whatSRA + '_descriptionCompare" name="' + document.getElementById(whatSRA + '_description').getAttribute('name') + '">' + document.getElementById(whatSRA + '_description').innerHTML + '</div><div id="igbLinkCompare_' + whatSRA + '">' + document.getElementById('igbLink_' + whatSRA).innerHTML + '</div><div id="extraLinksCompare_' + whatSRA + '">' + document.getElementById('extraLinks_' + whatSRA).innerHTML + '</div></td>\n';
       } else {
         append_str += '<td style="width: 250px; font-size: 12px;" id="' + whatSRA + '_compareTitle' + i + '">^^^</td>\n';
       };
+
       // End
       append_str += '</tr>';
 
@@ -2946,6 +3111,7 @@ function tableCheckbox(whatID, disableAll = false) {
     };
     document.getElementById(whatID).checked = true;
     document.getElementById('allCheckbox').checked = true;
+
     if (colouring_mode != 'rel') {
       document.getElementById('compareGeneVariants').disabled = false;
     };
@@ -3014,6 +3180,67 @@ function disableAllComparison() {
   };  
 };
 
+/**
+ * Make the cookie consent disappear
+ */
+function PnCDisappear(){
+  document.getElementById("PrivacyAndCookies").setAttribute("hidden", true);
+  document.cookie = 'barAcceptedCookies=1';
+  document.cookie = 'barVersion=' + version;
+};
+
+/**
+ * Setting up and determining functions based on existing BAR related cookies
+ */
+function setUpCookies() {
+  /** An array of all existing cookies for the eFP-Seq Browser */
+  var cookies = document.cookie.split(';');
+  /** Determine if the cookies T&S have been accepted or not (undefined means not accepted) */
+  var cookieAccept = undefined;
+  /** Determine the version of the eFP-Seq Browser (undefined means not yet designated) */
+  var cookieVersion = undefined;
+
+  for (var c = 0; c < cookies.length; c++) {
+    /** An array of the cookies where [0] should be cookie name/key and [1] should be cookie value */
+    var whichCookie = cookies[c].split('=');
+
+    // Look for barAcceptedCookies which is if the user has accepted the T&S or not (0 = false, 1 = true)
+    if (whichCookie[0] && whichCookie[0].trim() === 'barAcceptedCookies') {
+      cookieAccept = whichCookie[1].trim();
+    };
+
+    // Look for barVersion which is the version of the eFP-Seq Browser based on the version variable 
+    if (whichCookie[0] && whichCookie[0].trim() === 'barVersion') {
+      cookieVersion = whichCookie[1].trim();
+    };
+
+    // If all BAR related cookies found already, no need to look through all other cookies
+    if (cookieAccept && cookieVersion) {
+      break;
+    };
+  };
+
+  if (cookieAccept && cookieAccept === '1') { // If accepted T&S, do not display it
+    document.getElementById("PrivacyAndCookies").setAttribute("hidden", false);
+  } else if (cookieAccept && cookieAccept === '0') { // If not accepted T&S, display it
+    document.getElementById("PrivacyAndCookies").removeAttribute('hidden');
+  } else { // If not accepted T&S, display it
+    document.getElementById("PrivacyAndCookies").removeAttribute('hidden');
+  };
+
+  if (cookieVersion && cookieVersion !== version) { // If version does not match, display T&S
+    document.getElementById("PrivacyAndCookies").removeAttribute('hidden');
+    document.cookie = "barAcceptedCookies=0";
+  };
+};
+
+/**
+ * Display version number of the eFP-Seq Browser within the Help's section Feedback card
+ */
+function displayVersionNumber() {
+  document.getElementById('feedbackText').innerHTML += '<br><br>The eFP-Seq Browser\'s current version number is ' + version;
+};
+
 // Whenever browser resized, checks to see if footer class needs to be changed
 $(window).resize(function() {
   adjustFooterSize();
@@ -3039,6 +3266,10 @@ function init() {
 
   // Adjust UI
   adjustFooterSize();
+  displayVersionNumber();
+
+  // Cookies
+  setUpCookies();
 
   // Bind event listeners...
   $('input[type=radio][name=radio_group]').change(function() {
