@@ -48,52 +48,52 @@ start_time = str(time.time()).replace('.', '')
 ''' Check the format of tissue string and returns error if incorrect. '''
 def validateTissue(tissue):
 	if tissue == "":
-		error("Tissue validation error: 1.")
+		dumpError("Tissue validation error: 1.")
 	elif tissue == None:
 		tissue = "undefined"
 	if re.search(r'^[[a-z A-Z0-9\-\/_\s]{1,20}$', tissue): # Can only have upto 20 alpha numeric charactors
 		return tissue
 	else:
-		error("Tissue validation error: 2.");
+		dumpError("Tissue validation error: 2.");
 
 ''' Check the format of locus. '''
 def validateLocus(locus):
 	if locus == "":
-		error("Local validation error: 1.")
+		dumpError("Local validation error: 1.")
 	elif re.search(r'^at[12345cm]g\d+$', locus, re.I):
 		return locus
 	else:
-		error("Locus validation error: 2.")
+		dumpError("Locus validation error: 2.")
 
 ''' Check for format of record. '''
 def validateRecord(record):
 	if record == "":
-		error("Record validation error: 1.")
+		dumpError("Record validation error: 1.")
 	elif re.search(r'^\D{3}\d{1,10}$', record):
 		return record
 	else:
-		error("Record validation error: 2.")
+		dumpError("Record validation error: 2.")
 
 # Validate Chromosome
 def validateChromosome(chromosome):
 	if re.search(r'[12345cmCM]', chromosome):
 		return chromosome
 	else:
-		error("Chromosome validation error: 2.")
+		dumpError("Chromosome validation error: 2.")
 
 # Validate Start
 def validateStart(start, end):
 	if (start > 0 and start < end):
 		return start
 	else:
-		error("Start error.")
+		dumpError("Start error.")
 
 # Validate End
 def validateEnd(start, end):
 	if (end > 0 and start < end):
 		return end
 	else:
-		error("End error.")
+		dumpError("End error.")
 
 
 ################################################################################
@@ -266,17 +266,30 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 ################################################################################
 
 # Error function
-def error(string):
-	print json.dumps({"status": 1, "result":string})
+def dumpError(result, record = None, locus = None, base64img = None, abs_fpkm = None, r = None, totalReadsMapped = None):
+	"""Dumps and prints an error to the client/user
+
+	Arguments:
+		result {string} -- The error message to be displayed
+
+	Keyword Arguments:
+		record {string} -- The SRA record of the BAM data being interpreted (default: {None})
+		locus {string} -- The AGI ID of the gene that the RNA-Seq map coverage is interpreting (default: {None})
+		base64img {string} -- The base64 version of the RNA-Seq map coverage image (default: {None})
+		abs_fpkm {string, integer} -- The absolute FPKM/RPKM value (default: {None})
+		r {string, integer} -- The r coefficient value (default: {None})
+		totalReadsMapped {string, integer} -- The total number of reads mapped to the gene within the BAM file (default: {None})
+	"""
+	print json.dumps({"status": "fail", "result": result, "record": record, "locus": locus, "rnaseqbase64": base64img, "absolute-fpkm": abs_fpkm, "r" : r, "totalReadsMapped": totalReadsMapped})
 	sys.exit(0)
 
 # Final output, if everything at this point succeded
 def dumpJSON(status, locus, variant, chromosome, start, end, record, tissue, base64img, reads_mapped_to_locus, abs_fpkm, r, totalReadsMapped):
-	print json.dumps({"status": status, "locus": locus, "variant": variant, "chromosome": chromosome, "start": start, "end": end, "record": record, "tissue": tissue, "rnaseqbase64": base64img, "reads_mapped_to_locus": reads_mapped_to_locus, "absolute-fpkm": abs_fpkm, "r" : r, "totalReadsMapped": totalReadsMapped}) # and svg stuff
+	print json.dumps({"status": "success", "locus": locus, "variant": variant, "chromosome": chromosome, "start": start, "end": end, "record": record, "tissue": tissue, "rnaseqbase64": base64img, "reads_mapped_to_locus": reads_mapped_to_locus, "absolute-fpkm": abs_fpkm, "r" : r, "totalReadsMapped": totalReadsMapped}) # and svg stuff
 	sys.exit(0)
 
 def dumpJSON_full(status, locus, variant, chromosome, start, end, record, tissue, base64img, reads_mapped_to_locus, abs_fpkm, r, totalReadsMapped, exp_arr0, exp_arr, expected_expr_in_variant):
-	print json.dumps({"status": status, "locus": locus, "variant": variant, "chromosome": chromosome, "start": start, "end": end, "record": record, "tissue": tissue, "rnaseqbase64": base64img, "reads_mapped_to_locus": reads_mapped_to_locus, "absolute-fpkm": abs_fpkm, "r" : r, "totalReadsMapped": totalReadsMapped, "ReadsMappedNucleotidePosition": exp_arr0, "exp_arr": exp_arr, "expected_expr_in_variant": expected_expr_in_variant}) # and svg stuff
+	print json.dumps({"status": "success", "locus": locus, "variant": variant, "chromosome": chromosome, "start": start, "end": end, "record": record, "tissue": tissue, "rnaseqbase64": base64img, "reads_mapped_to_locus": reads_mapped_to_locus, "absolute-fpkm": abs_fpkm, "r" : r, "totalReadsMapped": totalReadsMapped, "ReadsMappedNucleotidePosition": exp_arr0, "exp_arr": exp_arr, "expected_expr_in_variant": expected_expr_in_variant}) # and svg stuff
 	sys.exit(0)
 
 ################################################################################
@@ -285,6 +298,12 @@ def dumpJSON_full(status, locus, variant, chromosome, start, end, record, tissue
 ################################################################################
 ################################################################################
 
+record = None
+locus = None
+base64img = None
+totalReadsMapped = None
+r = None
+abs_fpkm = None
 ''' The main program. '''
 def main():
 	# Get query details
@@ -305,6 +324,10 @@ def main():
 		cachedDatapoints = True
 	else:
 		cachedDatapoints = False
+	
+	base64img = None
+	r = None
+	abs_fpkm = None
 
 	############################################################################
 	# Generate new data or return cached data for speedy first-load.
@@ -406,7 +429,7 @@ def main():
 				if currentTime > (startTime + 300):
 					subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
 					subprocess.call(["rm", "-rf", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
-					error("Mounting timed out")
+					dumpError("Mounting timed out", record, locus, base64img, abs_fpkm, r, totalReadsMapped)
 
 			# Now make a image using samtools
 			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamType)
@@ -421,7 +444,7 @@ def main():
 			if base64img == "FAILED":
 				subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
 				subprocess.call(["rm", "-rf", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
-				error("Failed to get data.")
+				dumpError("Failed to get data.", record, locus, base64img, abs_fpkm, r, totalReadsMapped)
 
 		elif bamType == "Amazon AWS":
 			# Make S3FS filename here
@@ -504,7 +527,12 @@ def main():
 			os.chdir(bai_directory)
 		my_env = os.environ
 		my_env["LD_LIBRARY_PATH"] = "/usr/local/lib/"
-		lines = subprocess.check_output(['samtools', 'view', bam_file, region], env=my_env)
+
+		try: 
+			lines = subprocess.check_output(['samtools', 'view', bam_file, region], env=my_env)
+		except:
+			dumpError("Unable to retrieve BAM data", record, locus, base64img, abs_fpkm, r, totalReadsMapped)
+
 		os.chdir("../../../")
 		mapped_reads = lines.lower().count('chr')
 

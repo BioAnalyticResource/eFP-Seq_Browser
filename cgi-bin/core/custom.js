@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20200519';
+var version = 'p20200601';
 
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
@@ -371,10 +371,10 @@ function colour_svgs_now(mode) {
     var relativeRPKMValue = 0;
     var relativeRPKM = [];
     var useRPKM = '';
-    if (sraDict[currentSRA]['RPKM'] === undefined) {
-      useRPKM = 0;
-    } else {
+    if (sraDict[currentSRA]['RPKM'] && sraDict[currentSRA]['RPKM'][variantPosition]) {
       useRPKM = sraDict[currentSRA]['RPKM'][variantPosition];
+    } else {
+      useRPKM = 0;
     };
 
     if (useRPKM == 0 && ctrl_avg_fpkm == 0) {
@@ -532,13 +532,14 @@ function variants_radio_options(status) {
 };
 
 var variantPosition = 0;
+var variant_selected;
 /**
  * When radio button changes, update the gene structure throughout the document and update the rpb values
  */
 function gene_structure_radio_on_change() {
   // Create and update variables
   /** Index of which variant is selected */
-  var variant_selected = document.getElementsByClassName('dd-selected-value')[0].value;
+  variant_selected = document.getElementsByClassName('dd-selected-value')[0].value;
   variantPosition = variant_selected;
   /** Image of the variant */
   var variant_img = document.getElementsByClassName('dd-selected-image')[0].src;
@@ -616,7 +617,7 @@ function absOrRel(expInfoPos = 0) {
     };
     
     var useRPKM = '';
-    if (sraDict[currentSRA]['RPKM'] !== undefined) {
+    if (sraDict[currentSRA]['RPKM'] && sraDict[currentSRA]['RPKM'][variant_selected]) {
       var rpkmValue = sraDict[currentSRA]['RPKM'][variant_selected].toFixed(2);
       document.getElementById(expInfo[0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
       useRPKM = rpkmValue;
@@ -722,116 +723,132 @@ function rnaseq_images(status) {
           $('#failure').show();
         },
         success: function(response_rnaseq) {
-          sraList_check.push(response_rnaseq['record']);
-          sraDict[response_rnaseq['record']]["bp_length"] = (parseFloat(response_rnaseq['end']) - parseFloat(response_rnaseq['start']));
-          sraDict[response_rnaseq['record']]["bp_start"] = (parseFloat(response_rnaseq['start']));
-          sraDict[response_rnaseq['record']]["bp_end"] = (parseFloat(response_rnaseq['end']));
-          sraDict[response_rnaseq['record']]["MappedReads"] = response_rnaseq['reads_mapped_to_locus'];
-          totalreadsMapped_dic[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];
-          sraDict[response_rnaseq['record']]["locusValue"] = response_rnaseq['locus'];
-          sraDict[response_rnaseq['record']]['r'] = response_rnaseq["r"];
-
-          if (locus != response_rnaseq['locus']) {
-            console.log("ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.");
-          };
-
           // Update the progress bar
-          if (response_rnaseq['status'] == 200) {
-            var stopLoadingScreen = 99;
-            if (count_bam_entries_in_xml > 0) {
-              stopLoadingScreen = parseInt(((count_bam_entries_in_xml - 1) / count_bam_entries_in_xml) * 100)
-            };
-
-            rnaseq_success++;
-            date_obj3 = new Date();
-            rnaseq_success_current_time = date_obj3.getTime();
-            progress_percent = rnaseq_change / count_bam_entries_in_xml * 100;
-            $('div#progress').width(progress_percent + '%');
-            if (progress_percent > stopLoadingScreen) {
-              loadingScreen(true);
-            };
-
-            document.getElementById('progress_tooltip').innerHTML = "Current progress is at " + progress_percent + "% done";
-            document.getElementById('progress').title = progress_percent.toFixed(2) + '% (' + rnaseq_change + '/' + count_bam_entries_in_xml + ')';
-            
-            //console.log("Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_current_time - rnaseq_success_start_time)));
-          } else {
-            $('#failure').show();
-            console.log("ERROR CODE = " + response_rnaseq['status'] + " returned for " + locus + " RNA-Seq data on " + response_rnaseq['record'] + ".");
+          var stopLoadingScreen = 99;
+          if (count_bam_entries_in_xml > 0) {
+            stopLoadingScreen = parseInt(((count_bam_entries_in_xml - 1) / count_bam_entries_in_xml) * 100)
           };
 
-          var r = [];
-          if (status == 2) { // Used to be 1
-            // Finalize statistical calculations
-            var ss_y = parseInt(response_rnaseq['ss_y']);
-            var sum_y = parseInt(response_rnaseq['sum_y']);
-            var ssy = parseInt(response_rnaseq['ss_y']);
-            var sum_xy = parseIntArray(response_rnaseq['sum_xy'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
-            var sum_x = parseIntArray(response_rnaseq['sum_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
-            var sum_xx = parseIntArray(response_rnaseq['sum_xx'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
-            var ss_x = parseIntArray(response_rnaseq['ss_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
-            var ssx = parseIntArray(response_rnaseq['ss_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
-            var n = parseInt(response_rnaseq['end']) - parseInt(response_rnaseq['start']);
-            var sp = [];
-
-            // Compute the r values for each variant
-            for (var i = 0; i < sum_xy.length; i++) {
-              sp.splice(i, 0, sum_xy[i] - ((sum_x[i] * sum_y) / n));
-              r.splice(i, 0, sp[i] / (Math.sqrt(ssx[i] * ssy)));
-            };
-          } else {
-            r = response_rnaseq['r'];
+          rnaseq_success++;
+          date_obj3 = new Date();
+          rnaseq_success_current_time = date_obj3.getTime();
+          progress_percent = rnaseq_change / count_bam_entries_in_xml * 100;
+          $('div#progress').width(progress_percent + '%');
+          if (progress_percent > stopLoadingScreen) {
+            loadingScreen(true);
           };
 
-          document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
-          rnaseq_change += 1;
-          document.getElementById(response_rnaseq['record'] + '_rpb').innerHTML = parseFloat(r[0]).toFixed(2);
-          sraDict[response_rnaseq['record']]["rpb"] = parseFloat(r[0]).toFixed(2);
-          document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
-          updateRPKMAbsoluteMax(response_rnaseq['absolute-fpkm']);
-          sraDict[response_rnaseq['record']]["RPKM"] = response_rnaseq['absolute-fpkm'];
-          rpkmCount++;
-          document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
+          document.getElementById('progress_tooltip').innerHTML = "Current progress is at " + progress_percent + "% done";
+          document.getElementById('progress').title = progress_percent.toFixed(2) + '% (' + rnaseq_change + '/' + count_bam_entries_in_xml + ')';
 
-          // Generate pre-caching information
-          if (callDumpOutputs == true) {
-            dumpOutputs += '\t\telif (record == "' + response_rnaseq["record"] + '"):\n';
-            if (dumpMethod == "complex") {
-              dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["exp_arr"] + '], [';
+          if (response_rnaseq['status'] && response_rnaseq['status'] === 'success') {
+            sraList_check.push(response_rnaseq['record']);
+            sraDict[response_rnaseq['record']]["bp_length"] = (parseFloat(response_rnaseq['end']) - parseFloat(response_rnaseq['start']));
+            sraDict[response_rnaseq['record']]["bp_start"] = (parseFloat(response_rnaseq['start']));
+            sraDict[response_rnaseq['record']]["bp_end"] = (parseFloat(response_rnaseq['end']));
+            sraDict[response_rnaseq['record']]["MappedReads"] = response_rnaseq['reads_mapped_to_locus'];
+            totalreadsMapped_dic[response_rnaseq['record']] = response_rnaseq['totalReadsMapped'];
+            sraDict[response_rnaseq['record']]["locusValue"] = response_rnaseq['locus'];
+            sraDict[response_rnaseq['record']]['r'] = response_rnaseq["r"];
 
-              for (r = 0; r < response_rnaseq["ReadsMappedNucleotidePosition"].length; r += 2) {
-                dumpOutputs += '[' + response_rnaseq["ReadsMappedNucleotidePosition"][r] + ']';
-                if (r != (response_rnaseq["ReadsMappedNucleotidePosition"].length - 2)) {
-                  dumpOutputs += ", "
-                };
+            if (locus != response_rnaseq['locus']) {
+              throw("ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.");
+            };
+
+            var r = [];
+            if (response_rnaseq['ss_y'] && response_rnaseq['sum_y'] && response_rnaseq['sum_xy'] && response_rnaseq['sum_x'] && response_rnaseq['ss_x'] && response_rnaseq['end'] && response_rnaseq['start']) {
+              // Finalize statistical calculations
+              var ss_y = parseInt(response_rnaseq['ss_y']);
+              var sum_y = parseInt(response_rnaseq['sum_y']);
+              var ssy = parseInt(response_rnaseq['ss_y']);
+              var sum_xy = parseIntArray(response_rnaseq['sum_xy'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
+              var sum_x = parseIntArray(response_rnaseq['sum_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
+              var sum_xx = parseIntArray(response_rnaseq['sum_xx'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
+              var ss_x = parseIntArray(response_rnaseq['ss_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
+              var ssx = parseIntArray(response_rnaseq['ss_x'].replace(/\[/g, "").replace(/\]/g, "").replace(/"/g, "").split(','));
+              var n = parseInt(response_rnaseq['end']) - parseInt(response_rnaseq['start']);
+              var sp = [];
+
+              // Compute the r values for each variant
+              for (var i = 0; i < sum_xy.length; i++) {
+                sp.splice(i, 0, sum_xy[i] - ((sum_x[i] * sum_y) / n));
+                r.splice(i, 0, sp[i] / (Math.sqrt(ssx[i] * ssy)));
               };
-
-              dumpOutputs += '], {';
-              for (e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
-                dumpOutputs += '"' + GFF_List[e].replace(locus, '') + '": ';
-                dumpOutputs += '[' + response_rnaseq["expected_expr_in_variant"][e] + ']';
-                if (e != response_rnaseq["expected_expr_in_variant"].length - 1) {
-                  dumpOutputs += ', ';
-                };
-              };     
-
-              dumpOutputs += '})\n'
             } else {
-              dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', [' + response_rnaseq["absolute-fpkm"] + '], [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ')\n';
+              r = response_rnaseq['r'];
             };
-          };       
 
-          // Save the abs-fpkm, and the stats numbers
-          for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
-            if (exp_info[ii][0] == response_rnaseq['record'] + '_svg') { // Find the correct element
-              exp_info[ii].splice(3, 1, response_rnaseq['absolute-fpkm']);
-              exp_info[ii].splice(5, 1, r);
+            document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'data:image/png;base64,' + response_rnaseq['rnaseqbase64'];
+            rnaseq_change += 1;
 
-              //console.log("Found " + response_rnaseq['record'] + " == " + exp_info[ii][0] + ".");
+            document.getElementById(response_rnaseq['record'] + '_rpb').innerHTML = parseFloat(r[0]).toFixed(2);
+            sraDict[response_rnaseq['record']]["rpb"] = parseFloat(r[0]).toFixed(2);
+
+            document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = response_rnaseq['absolute-fpkm'];
+            updateRPKMAbsoluteMax(response_rnaseq['absolute-fpkm']);
+            sraDict[response_rnaseq['record']]["RPKM"] = response_rnaseq['absolute-fpkm'];
+            rpkmCount++;
+
+            document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
+
+            // Generate pre-caching information
+            if (callDumpOutputs == true) {
+              dumpOutputs += '\t\telif (record == "' + response_rnaseq["record"] + '"):\n';
+              if (dumpMethod == "complex") {
+                dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', ' + response_rnaseq["absolute-fpkm"] + ', [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ', [' + response_rnaseq["exp_arr"] + '], [';
+
+                for (r = 0; r < response_rnaseq["ReadsMappedNucleotidePosition"].length; r += 2) {
+                  dumpOutputs += '[' + response_rnaseq["ReadsMappedNucleotidePosition"][r] + ']';
+                  if (r != (response_rnaseq["ReadsMappedNucleotidePosition"].length - 2)) {
+                    dumpOutputs += ", "
+                  };
+                };
+
+                dumpOutputs += '], {';
+                for (e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
+                  dumpOutputs += '"' + GFF_List[e].replace(locus, '') + '": ';
+                  dumpOutputs += '[' + response_rnaseq["expected_expr_in_variant"][e] + ']';
+                  if (e != response_rnaseq["expected_expr_in_variant"].length - 1) {
+                    dumpOutputs += ', ';
+                  };
+                };     
+
+                dumpOutputs += '})\n'
+              } else {
+                dumpOutputs += '\t\t\tdumpJSON(200, "' + response_rnaseq["locus"] + '", ' + response_rnaseq["variant"] + ', ' + response_rnaseq["chromosome"] + ', ' + response_rnaseq["start"] + ', ' + response_rnaseq["end"] + ', "' + response_rnaseq["record"] + '", "' + response_rnaseq["tissue"] + '", "' + response_rnaseq["rnaseqbase64"] + '", ' + response_rnaseq["reads_mapped_to_locus"] + ', [' + response_rnaseq["absolute-fpkm"] + '], [' + response_rnaseq["r"] + '], ' + response_rnaseq["totalReadsMapped"] + ')\n';
+              };
+            };       
+
+            // Save the abs-fpkm, and the stats numbers
+            for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
+              if (exp_info[ii][0] == response_rnaseq['record'] + '_svg') { // Find the correct element
+                exp_info[ii].splice(3, 1, response_rnaseq['absolute-fpkm']);
+                exp_info[ii].splice(5, 1, r);
+
+                //console.log("Found " + response_rnaseq['record'] + " == " + exp_info[ii][0] + ".");
+              };
             };
+
+            colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'][variantPosition], colouring_mode);
+          } else if (response_rnaseq['status'] && response_rnaseq['status'] === 'fail') {
+            // Update image to error
+            document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'https://' + window.location.host + window.location.pathname + 'cgi-bin/img/error.png';
+            rnaseq_change += 1;
+
+            document.getElementById(response_rnaseq['record'] + '_rpb').innerHTML = null;
+            sraDict[response_rnaseq['record']]["rpb"] = null;
+
+            document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = null;
+            updateRPKMAbsoluteMax(null);
+            sraDict[response_rnaseq['record']]["RPKM"] = null;
+            rpkmCount++;
+            
+            document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
+
+            document.getElementById(response_rnaseq['record']+'_row').classList.add('mainEntriesError');
+
+            throw ("Unable to create RNA-Seq map coverage data for: Locus - " + locus + " , SRA - " + response_rnaseq['record'] + " , dataset - " + base_src);
           };
-
-          colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'][variantPosition], colouring_mode);
 
           if (rpkmCount == count_bam_entries_in_xml) {
             setTimeout(function(){
@@ -845,12 +862,12 @@ function rnaseq_images(status) {
 
               //console.log("**** Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_end_time - rnaseq_success_start_time)));
             }, 100);
-          };       
+          };
 
           $("#theTable").trigger("update");
           responsiveRNAWidthResize();
           toggleResponsiveTable();
-        }
+        },
       });
     };
   };
@@ -1364,6 +1381,7 @@ function populate_table(status) {
         append_str += '<div id="extraLinks_' + experimentno + '">Go to: <a href="' + url + '" target="_blank" rel="noopener">NCBI SRA</a> or <a href="' + publicationid + '" target="_blank" rel="noopener">PubMed</a></div>';
         append_str += '<a id="clickForMoreDetails_' + iteration_num + '" name="' + experimentno + '_description" onclick="clickDetailsTextChange(this.id)" href="javascript:(function(){$(\'#' + experimentno + '\').toggle();})()">' + moreDetails.trim() + '</a>';
         append_str += '<div id="' + experimentno + '" class="moreDetails" style="display:none">Controls: ' + links + '<br/>Species: ' + species + '<br>';
+        append_str += '<div id="' + experimentno + '_sra">' + 'SRA: ' + experimentno + '</div>';
         append_str += '<div id="' + experimentno + '_totalReadsNum">' + 'Total reads = ' + numberofreads + '</div>';
 
         if (read_map_method != undefined && read_map_method.length > 0) {
@@ -2453,6 +2471,15 @@ function checkPreload() {
   document.getElementById('progress').title = '0%';
   $('div#progress').width(progress_percent + '%');
 
+  for (const property in public_dataset_dictionary) {
+    if (base_src === public_dataset_dictionary[property]) {
+      publicData = true;
+      break;
+    } else {
+      publicData = false;
+    };
+  };
+
   // Check if public data or not
   if ((publicData == true) && (locus == "AT2G24270") && (dumpMethod == "simple") && (callDumpOutputs === false)) {
     variants_radio_options(1);
@@ -2974,7 +3001,7 @@ var shareLink;
 /**
  * Generate a share link
  */
-function generateShareLink() {
+function generateShareLink(changeURL = false) {
   /** Generate base link */
   var url = 'https://' + window.location.host + window.location.pathname;
 
@@ -2983,6 +3010,11 @@ function generateShareLink() {
 
   // Add to page
   shareLink = url;
+
+  if (changeURL && window.history.pushState) {
+    window.history.pushState({}, 'Title', window.location.pathname + '?locus=' + locus + '&dataset=' + base_src);
+  };
+
   document.getElementById('shareLinkTextArea').innerHTML = shareLink;
 };
 
@@ -3300,7 +3332,7 @@ function init() {
   		var last = request.term.split(/,\s*/).pop();
   		$.ajax({
   			type: "GET",
-  			url: "cgi-bin/idautocomplete.cgi?species=Arabidopsis_thaliana&term=" + last,
+  			url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/idautocomplete.cgi?species=Arabidopsis_thaliana&term=" + last,
   			dataType: "json"
   			}).done(function(data) {
   			response(data);

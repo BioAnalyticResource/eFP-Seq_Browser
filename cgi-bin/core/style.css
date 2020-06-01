@@ -193,6 +193,10 @@ a {
     background: #9ecaed;
 }
 
+.mainEntriesError {
+    filter: grayscale(100%);
+}
+
 .dropdown {
     position: relative;
 }

@@ -10,9 +10,9 @@ It is recommended that you use the web-version available at https://bar.utoronto
 
 ## Browser Compatibilities 
 
-Chrome | Firefox | IE | Edge | Safari | Opera
---- | --- | --- | --- | --- | --- |
-✔ |  ✔ | X |  ✔ | ✔ |  ✔ |
+Chrome | Firefox | IE | Edge | Safari | Opera | Tor |
+--- | --- | --- | --- | --- | --- | --- |
+✔ |  ✔ | X |  ✔ | ✔ |  ✔ | ✔ |
 
 ## Installation/Open
 
