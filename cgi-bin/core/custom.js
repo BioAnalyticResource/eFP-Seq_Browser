@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20200601';
+var version = 'p20200602';
 
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
@@ -892,7 +892,7 @@ function updateRPKMAbsoluteMax(RPKMCheckAgainst) {
 /**
  * Checking to make sure the subunit matches tissue
  * @param {String} svg SVG name starting with ath- and ending with .svg
- * @param {String} subunit SVG's subunit
+ * @param {String} subunit SVG subunit
  * @param {Bool} returnName True = return human readable name, false = return subunit
  * @return {String} subunit - The SVG tissue corrected subunit if an error occurred, input if not
  */
