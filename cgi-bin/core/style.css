@@ -135,14 +135,14 @@ a {
 }
 
 .warning_core {
-    padding: 20px;
-    background-color: #d62a1d;
-    color: white;
+    padding: 3%;
+    background-color: #8a1c13;
+    color: #ffffff;
     opacity: 100%;
     transition: 1s ease-in-out;
-    margin-bottom: 15px;
-    margin-top: 10px;
-    margin-right: 2%;
+    height: 100vh;
+    width: 100%;
+    font-size:1.7em;
 }
 
 .warning_core_nope {

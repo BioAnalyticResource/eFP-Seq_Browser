@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20200602';
+var version = 'p20200608';
 
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
@@ -315,18 +315,22 @@ var rpkmMedian = 1;
  * Find the RPKM average across all samples
  */
 function findRPKMValuesAcrossAll() {
-  var listOfSRA = Object.keys(sraDict);
-  var listOfRPKM = [];
-  var rpkmTotal = 0;
-  for (var l = 0; l < listOfSRA.length; l++) {
-    if (sraDict[listOfSRA[l]]["RPKM"]) {
-      var currentRPKM = sraDict[listOfSRA[l]]["RPKM"][variantPosition];
-      listOfRPKM.push(currentRPKM);
-      rpkmTotal += currentRPKM;
-    };    
+  if (sraDict) {
+    var listOfSRA = Object.keys(sraDict);
+    var listOfRPKM = [];
+    var rpkmTotal = 0;
+    for (var l = 0; l < listOfSRA.length; l++) {
+      if (sraDict[listOfSRA[l]]["RPKM"]) {
+        var currentRPKM = sraDict[listOfSRA[l]]["RPKM"][variantPosition];
+        listOfRPKM.push(currentRPKM);
+        rpkmTotal += currentRPKM;
+      };    
+    };
+    rpkmMedian = math.median(listOfRPKM);
+    rpkmAverage = (rpkmTotal / listOfSRA.length);
+  } else {
+    displayError('ERROR IN RETRIEVING ALL DATA POINTS WITHIN DATASET');
   };
-  rpkmMedian = math.median(listOfRPKM);
-  rpkmAverage = (rpkmTotal / listOfSRA.length);
 };
 
 var current_radio = "abs";
@@ -338,77 +342,81 @@ function colour_svgs_now(mode) {
   mode = colouring_mode;
   current_radio = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   for (var i = 0; i < count_bam_entries_in_xml; i++) {
-    var currentSRA = exp_info[i][0].slice(0, -4);
+    if (exp_info[i]) {
+      var currentSRA = exp_info[i][0].slice(0, -4);
 
-    // For every exp, figure out the fpkm average of the controls
-    var ctrl_fpkm_sum = 0;
-    var ctrl_count = 0;
-    var ctrl_avg_fpkm = 0;
-    for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
-      if (exp_info[i][2].indexOf(exp_info[ii][0].slice(0, -4)) != -1) {
-        // experiment ii is a control for experiment i, save FPKM of exp ii
-        ctrl_count++;
-        ctrl_fpkm_sum += exp_info[ii][3][variantPosition];
+      // For every exp, figure out the fpkm average of the controls
+      var ctrl_fpkm_sum = 0;
+      var ctrl_count = 0;
+      var ctrl_avg_fpkm = 0;
+      for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
+        if (exp_info[i][2].indexOf(exp_info[ii][0].slice(0, -4)) != -1) {
+          // experiment ii is a control for experiment i, save FPKM of exp ii
+          ctrl_count++;
+          ctrl_fpkm_sum += exp_info[ii][3][variantPosition];
+        };
       };
-    };
 
-    // If no control found:
-    if (ctrl_fpkm_sum === 0 && sraDict[currentSRA]['RPKM']) {
-      ctrl_fpkm_sum = sraDict[currentSRA]['RPKM'][variantPosition];
-    };
-    
-    // Create control average
-    if (ctrl_count > 0) {
-      ctrl_avg_fpkm = ctrl_fpkm_sum / ctrl_count;
-    } else {
-      if (rpkmMedian === 1) {
-        findRPKMValuesAcrossAll();
+      // If no control found:
+      if (ctrl_fpkm_sum === 0 && sraDict[currentSRA]['RPKM']) {
+        ctrl_fpkm_sum = sraDict[currentSRA]['RPKM'][variantPosition];
       };
-      ctrl_avg_fpkm = rpkmMedian;
-    };
+      
+      // Create control average
+      if (ctrl_count > 0) {
+        ctrl_avg_fpkm = ctrl_fpkm_sum / ctrl_count;
+      } else {
+        if (rpkmMedian === 1) {
+          findRPKMValuesAcrossAll();
+        };
+        ctrl_avg_fpkm = rpkmMedian;
+      };
 
-    // Save the average fpkm of controls and the log fpkm...
-    var relativeRPKMValue = 0;
-    var relativeRPKM = [];
-    var useRPKM = '';
-    if (sraDict[currentSRA]['RPKM'] && sraDict[currentSRA]['RPKM'][variantPosition]) {
-      useRPKM = sraDict[currentSRA]['RPKM'][variantPosition];
-    } else {
-      useRPKM = 0;
-    };
+      // Save the average fpkm of controls and the log fpkm...
+      var relativeRPKMValue = 0;
+      var relativeRPKM = [];
+      var useRPKM = '';
+      if (sraDict[currentSRA]['RPKM'] && sraDict[currentSRA]['RPKM'][variantPosition]) {
+        useRPKM = sraDict[currentSRA]['RPKM'][variantPosition];
+      } else {
+        useRPKM = 0;
+      };
 
-    if (useRPKM == 0 && ctrl_avg_fpkm == 0) {
-      // Define log2(0/0) = 0 as opposed to undefined      
-      relativeRPKMValue = 0;
-      exp_info[i].splice(4, 1, 0);
-    } else {
-      relativeRPKMValue = (Math.log2(useRPKM / ctrl_avg_fpkm));
-    };
+      if (useRPKM == 0 && ctrl_avg_fpkm == 0) {
+        // Define log2(0/0) = 0 as opposed to undefined      
+        relativeRPKMValue = 0;
+        exp_info[i].splice(4, 1, 0);
+      } else {
+        relativeRPKMValue = (Math.log2(useRPKM / ctrl_avg_fpkm));
+      };
 
-    relativeRPKM.push(relativeRPKMValue);
-    sraDict[currentSRA]['relativeRPKM'] = relativeRPKMValue;
+      relativeRPKM.push(relativeRPKMValue);
+      sraDict[currentSRA]['relativeRPKM'] = relativeRPKMValue;
 
-    exp_info[i].splice(4, 1, relativeRPKM);
-    exp_info[i].splice(6, 1, ctrl_avg_fpkm);
+      exp_info[i].splice(4, 1, relativeRPKM);
+      exp_info[i].splice(6, 1, ctrl_avg_fpkm);
 
-    // See if the absolute or the relative FPKM is max
-    if (useRPKM >= max_absolute_fpkm) {
-      max_absolute_fpkm = useRPKM;
-    };
+      // See if the absolute or the relative FPKM is max
+      if (useRPKM >= max_absolute_fpkm) {
+        max_absolute_fpkm = useRPKM;
+      };
 
-    if (exp_info[i][4] != "Missing controls data" && Math.abs(exp_info[i][4]) >= max_log_fpkm && Math.abs(exp_info[i][4]) < 1000) {
-      max_log_fpkm = Math.abs(exp_info[i][4]);
-    };
+      if (exp_info[i][4] != "Missing controls data" && Math.abs(exp_info[i][4]) >= max_log_fpkm && Math.abs(exp_info[i][4]) < 1000) {
+        max_log_fpkm = Math.abs(exp_info[i][4]);
+      };
 
-    // Colour SVGs based on the mode requested. Pass in the correct FPKM value...
-    if (colouring_mode === "rel") {
-      if (!exp_info[i][4] && exp_info[i][4] != 0) {
-        exp_info[i][4] = -999999;
+      // Colour SVGs based on the mode requested. Pass in the correct FPKM value...
+      if (colouring_mode === "rel") {
+        if (!exp_info[i][4] && exp_info[i][4] != 0) {
+          exp_info[i][4] = -999999;
+        };
+      } else {
+        if (!exp_info[i][3][variantPosition] && exp_info[i][3][variantPosition] != 0) {
+          exp_info[i][3][variantPosition] = -999999;
+        };
       };
     } else {
-      if (!exp_info[i][3][variantPosition] && exp_info[i][3][variantPosition] != 0) {
-        exp_info[i][3][variantPosition] = -999999;
-      };
+      logError('Issue retrieving exp_info for ' + mode + ' within BAM entry point ' + i);
     };
 
     whichAbsOrRel();
@@ -516,19 +524,33 @@ function variants_radio_options(status) {
       $("#theTable").trigger("update");
     },
     error: function() {
-      $("tbody").empty();
-      var variants_div = document.getElementById("variants_div");
-      if (variants_div !== null && variants_div.firstChild !== null && variants_div.firstChild !== undefined) {
-        while (variants_div.firstChild) {
-          variants_div.removeChild(variants_div.firstChild);
-        };
-      };
-      var append_str = "<p class=\"warning_core\" style=\"text-align:center;\"> ERROR IN get_gene_structures ! PLEASE REFRESH PAGE AND UPLOAD DATA AGAIN OR CONTACT AN ADMIN </p>";
-      $("#variants_div").append(append_str);
-      $('#locus_button').prop('disabled', true);
-      $('#abs_scale_button').prop('disabled', true);
+      displayError("ERROR IN get_gene_structures !");
     }
   });
+};
+
+/**
+ * Display an error message to the user
+ * @param {String} errorMessage The error message that wish to be displayed
+ */
+function displayError(errorMessage) {
+  $("#body_of").empty();
+  var append_str = "<p class=\"warning_core\" style=\"text-align:center;\">" + errorMessage + " <br /><br /> PLEASE REFRESH PAGE, RELOAD OR RE-INPUT DATA OR TRY AGAIN AT A LATER TIME </p>";
+  console.error('Error in logic:', errorMessage);
+  $("#body_of").append(append_str);
+  $('#locus_button').prop('disabled', true);
+  $('#abs_scale_button').prop('disabled', true);
+  progress_percent = 100;
+  $('div#progress').width(progress_percent + '%');
+  loadingScreen(true);
+};
+
+/**
+ * Logs all errors that flows through eFP-Seq Browser's logic
+ * @param {String} errorMessage The error message that wish to be logged
+ */
+function logError(errorMessage) {
+  console.error('Error in logic:', errorMessage);
 };
 
 var variantPosition = 0;
@@ -563,7 +585,20 @@ function gene_structure_radio_on_change() {
     document.getElementById(itLocus + '_rpb').innerHTML = rpbValue;
     sraDict[exp_info[i][0].split("_svg")[0]]["rpb"] = rpbValue;
     /** Update RPKM values: */
-    var rpkmValue = sraDict[itLocus]['RPKM'][variant_selected].toFixed(2);
+    var rpkmValue;
+    if (sraDict[itLocus]['RPKM'] && sraDict[itLocus]['RPKM'][variant_selected]) {
+      rpkmValue = sraDict[itLocus]['RPKM'][variant_selected].toFixed(2);
+    } else {
+      if (sraDict[itLocus]['RPKM']) {
+        logError('Unable to retrieve RPKM values at: [variant_selected] for ' + itLocus);
+      } else if (sraDict[itLocus]) {
+        logError('Unable to retrieve RPKM values at: ["RPKM"] for ' + itLocus);
+      } else if (sraDict) {
+        logError('Unable to retrieve RPKM values at: SRA within sraDict');
+      } else {
+        logError('Unable to retrieve RPKM values at: sraDict unreachable');
+      };
+    };
     document.getElementById(itLocus + '_rpkm').innerHTML = rpkmValue;
     whichAbsOrRel(true, i);
   };
@@ -851,17 +886,15 @@ function rnaseq_images(status) {
           };
 
           if (rpkmCount == count_bam_entries_in_xml) {
-            setTimeout(function(){
-              colour_svgs_now();
-              date_obj4 = new Date();
-              rnaseq_success_end_time = date_obj4.getTime();
+            colour_svgs_now();
+            date_obj4 = new Date();
+            rnaseq_success_end_time = date_obj4.getTime();
 
-              //console.log(rnaseq_success_end_time);
+            // console.log(rnaseq_success_end_time);
 
-              document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time ~= " + String(round(parseInt(rnaseq_success_end_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
+            document.getElementById('progress_tooltip').innerHTML = rnaseq_success + " / count_bam_entries_in_xml requests completed<br/>Load time ~= " + String(round(parseInt(rnaseq_success_end_time - rnaseq_success_start_time) / (1000 * 60))) + " mins.";
 
-              //console.log("**** Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_end_time - rnaseq_success_start_time)));
-            }, 100);
+            // console.log("**** Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_end_time - rnaseq_success_start_time)));
           };
 
           $("#theTable").trigger("update");
@@ -1133,6 +1166,7 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
 };
 
 var sraList = [];
+/** A dictionary containing all calculated information for all data points */
 var sraDict = {};
 var sraCountDic = {};
 var tissueSRADic = {};
@@ -1528,7 +1562,7 @@ function populate_table(status) {
  * Create the gene variants dropdown option's container
  */
 function createVariantDiv() {
-  if (gene_structure_colouring_element == null) {
+  if (gene_structure_colouring_element == null && document.getElementById("flt1_theTable") && document.getElementById("flt1_theTable").parentElement) {
     gene_structure_colouring_element = document.getElementById("flt1_theTable").parentElement;
   };
   gene_structure_colouring_element.innerHTML = "";
@@ -1661,7 +1695,7 @@ function populate_efp_modal(status) {
 * Changes the legend for scales.
 */
 function change_rpkm_colour_scale(colouring_mode) {
-  if (svg_colouring_element == null) {
+  if (svg_colouring_element == null && document.getElementById("flt3_theTable") && document.getElementById("flt3_theTable").parentElement) {
     svg_colouring_element = document.getElementById("flt3_theTable").parentElement;
   };
   svg_colouring_element.innerHTML = "";
@@ -1919,25 +1953,29 @@ function findAuthUser() {
   var AuthUser = '';
 
   var currentUser = gapi.auth2.getAuthInstance().currentUser;
-  var cUObj = Object.keys(currentUser);
-  for (var i = 0; i <  cUObj.length; i++) {
-    var cUDetails = currentUser[cUObj[i]];
-    if (Object.keys(cUDetails).length > 0) {
-      var cUDObj = Object.keys(cUDetails);
-      for (var c = 0; c <  cUDObj.length; c++) {
-        var cUDData = cUDetails[cUDObj[c]];
-        if (Object.keys(cUDData).length > 0) {
-          var containedDetails = Object.keys(cUDData);
-          for (var d = 0; d <  containedDetails.length; d++) {
-            var subDetails = cUDData[containedDetails[d]];
-            if (typeof subDetails === 'string' && validateEmail(subDetails)) {
-              AuthUser = subDetails;
-              break;
+  if (currentUser) {
+    var cUObj = Object.keys(currentUser);
+    for (var i = 0; i <  cUObj.length; i++) {
+      var cUDetails = currentUser[cUObj[i]];
+      if (cUDetails && Object.keys(cUDetails).length > 0) {
+        var cUDObj = Object.keys(cUDetails);
+        for (var c = 0; c <  cUDObj.length; c++) {
+          var cUDData = cUDetails[cUDObj[c]];
+          if (cUDData && Object.keys(cUDData).length > 0) {
+            var containedDetails = Object.keys(cUDData);
+            for (var d = 0; d <  containedDetails.length; d++) {
+              var subDetails = cUDData[containedDetails[d]];
+              if (typeof subDetails === 'string' && validateEmail(subDetails)) {
+                AuthUser = subDetails;
+                break;
+              };
             };
           };
         };
       };
     };
+  } else {
+    logError('Unable to react current user from OAuth');
   };
 
   return AuthUser;
@@ -2842,13 +2880,13 @@ function ScrollToRNARow(rowID) {
   // Fade out colour
   setTimeout(function() {
     document.getElementById(rowID).className += " scrollToRowRemove";
-  }, 1000);
+  }, 2000);
 
   // Remove those classes
   setTimeout(function() {
     document.getElementById(rowID).classList.remove('scrollToRow');
     document.getElementById(rowID).classList.remove('scrollToRowRemove');
-  }, 1600);  
+  }, 4050);  
 };
 
 /**
@@ -2900,7 +2938,12 @@ function DetectBrowser() {
     };
 
     /** Retrieve keys from userAgent in the instance this is modified */
-    var userAgentParserKeys = Object.keys(userAgentParser);
+    var userAgentParserKeys;
+    if (userAgentParser) {
+      userAgentParserKeys = Object.keys(userAgentParser);
+    } else {
+      logError('Unable retrieve userAgentParser');
+    };
     var detectBrowser;
     var notDetectedBrowser = true;
 
@@ -2953,13 +2996,17 @@ function CreateFilteredeFPList() {
   $("#filtereFPList").empty();
 
   // Add individual Tissues
-  var allTissuesDisplayed = Object.keys(tissueSRADic);
-  for (i = 0; i < allTissuesDisplayed.length; i++) {
-    var append_str = '<li class="form-check">';
-    append_str += '<input class="form-check-input" type="checkbox" id="' + allTissuesDisplayed[i].replace(" ", "_") + '" onclick="ToggleFilteredeFP(this.id, this.checked);" style="margin: 6px 5px 0;" value="toggleeFP" checked>';
-    append_str += '<p class="form-check-label" for="toggleTitle" style="padding-left: 20px; font-weight: 10;">' + allTissuesDisplayed[i] + '</p>';
-    append_str += '</li>';
-    $("#filtereFPList").append(append_str);
+  if (tissueSRADic) {
+    var allTissuesDisplayed = Object.keys(tissueSRADic);
+    for (i = 0; i < allTissuesDisplayed.length; i++) {
+      var append_str = '<li class="form-check">';
+      append_str += '<input class="form-check-input" type="checkbox" id="' + allTissuesDisplayed[i].replace(" ", "_") + '" onclick="ToggleFilteredeFP(this.id, this.checked);" style="margin: 6px 5px 0;" value="toggleeFP" checked>';
+      append_str += '<p class="form-check-label" for="toggleTitle" style="padding-left: 20px; font-weight: 10;">' + allTissuesDisplayed[i] + '</p>';
+      append_str += '</li>';
+      $("#filtereFPList").append(append_str);
+    };
+  } else {
+    logError('Unable to use tissueSRADic');
   };
 };
 
@@ -3032,6 +3079,8 @@ function readShareLink() {
 
   // If exists, continue
   if (query != '') {
+    emptyLanding();
+
     var inputs = query.split('&');
     for (var i = 0; i < inputs.length; i++) {
       var queryInputs = inputs[i].split('=');
@@ -3054,7 +3103,6 @@ function readShareLink() {
 
     // Load new data
     if (locusInput && datasetInput) {
-      emptyLanding();
       progress_percent = 0;
       sraDict = {};
       sraCountDic = {};
@@ -3065,7 +3113,13 @@ function readShareLink() {
         checkPreload();
       }, 200);
       toggleResponsiveTable(0, true);
-    };    
+    } else if (locusInput && datasetInput === false) {
+      displayError("ERROR IN SHARE LINK! Missing dataset");
+    } else if (locusInput === false && datasetInput) {
+      displayError("ERROR IN SHARE LINK! Missing locus");
+    } else {
+      displayError("ERROR IN SHARE LINK! Missing locus and dataset");
+    };
   };
 };
 
@@ -3139,7 +3193,9 @@ function tableCheckbox(whatID, disableAll = false) {
       document.getElementById(whatSRA + '_gene_structure_img' + i).setAttribute('src', document.getElementsByClassName('dd-option-image')[i].src);
 
       // Colour SVG
-      colour_part_by_id(whatSRA + '_svg' + i, sraDict[whatSRA]['svg_part'], sraDict[whatSRA]['RPKM'][i], colouring_mode);
+      if (sraDict[whatSRA]['RPKM'] && sraDict[whatSRA]['RPKM'][i]) {
+        colour_part_by_id(whatSRA + '_svg' + i, sraDict[whatSRA]['svg_part'], sraDict[whatSRA]['RPKM'][i], colouring_mode);
+      };
     };
     document.getElementById(whatID).checked = true;
     document.getElementById('allCheckbox').checked = true;
@@ -3327,22 +3383,24 @@ function init() {
     getGFF(locus);
   }, 700);
 
-  $("#locus").autocomplete({
-    source: function(request, response) {
-  		var last = request.term.split(/,\s*/).pop();
-  		$.ajax({
-  			type: "GET",
-  			url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/idautocomplete.cgi?species=Arabidopsis_thaliana&term=" + last,
-  			dataType: "json"
-  			}).done(function(data) {
-  			response(data);
-  		});
-  	},
-    close: function (e, ui) {
-      correctAGIIDInput();
-    }
-  });
-
+  setTimeout(function() {
+    $("#locus").autocomplete({
+      source: function(request, response) {
+        var last = request.term.split(/,\s*/).pop();
+        $.ajax({
+          type: "GET",
+          url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/idautocomplete.cgi?species=Arabidopsis_thaliana&term=" + last,
+          dataType: "json"
+          }).done(function(data) {
+          response(data);
+        });
+      },
+      close: function (e, ui) {
+        correctAGIIDInput();
+      }
+    });
+  }, 50);
+  
   // Delay and resize the iFrame for submission page
   var subiFrame = document.getElementById("submissioniframe");
   if (subiFrame.getAttribute('data-src')) {

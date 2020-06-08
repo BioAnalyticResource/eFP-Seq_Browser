@@ -276,12 +276,6 @@
 
         <!-- RNA-Seq table -->
         <div class="col-xs-12 table-responsive body_of_loading_done" id="body_of" hidden>
-          <table id="theTable" class="table theTable" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);" style="background-color: white;" hidden></table>
-          <div class="mdl-tooltip" for="eFP_th">Sorts by plant part.</div>
-          <div class="mdl-tooltip" for="flt0_theTable">See Help for advanced options.</div>
-          <div class="mdl-tooltip" for="flt2_theTable">See Help for advanced options.</div>
-          <div class="mdl-tooltip" for="flt4_theTable">See Help for advanced options.</div>
-          <div class="mdl-tooltip" for="flt5_theTable">See Help for advanced options.</div>
         </div>
         
         <!-- Back to top -->
@@ -1436,6 +1430,7 @@
      * Removes an landing page
      */
     function emptyLanding() {
+      createTable();
       $("#landing").empty();
       document.getElementById("progress_requirement").removeAttribute("hidden");
       document.getElementById("body_of").removeAttribute("hidden");
@@ -1447,7 +1442,15 @@
       document.getElementById("tableToggle").style.display = "block";
       document.getElementById("mainContainer").classList.add("mainContainer");
       addGFF();
-    }
+    };
+
+    /**
+     * Creates the table that holds the RNA-Seq visualized expression data
+     */
+    function createTable() {
+      var append_str = '<table id="theTable" class="table theTable" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);" style="background-color: white;" hidden></table><div class="mdl-tooltip" for="eFP_th">Sorts by plant part.</div><div class="mdl-tooltip" for="flt0_theTable">See Help for advanced options.</div><div class="mdl-tooltip" for="flt2_theTable">See Help for advanced options.</div><div class="mdl-tooltip" for="flt4_theTable">See Help for advanced options.</div><div class="mdl-tooltip" for="flt5_theTable">See Help for advanced options.</div>';      
+      $("#body_of").append(append_str);
+    };
 
     /**
      *  Closes an open modal
