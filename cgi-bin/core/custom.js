@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20200608';
+var version = 'p20200615';
 
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
@@ -1435,7 +1435,7 @@ function populate_table(status) {
 
         /** Check to see if compare column missing classname */
         var compareColumn = document.getElementsByClassName("fltrow")[0]["childNodes"][6];
-        if (compareColumn.classList[0] === undefined || compareColumn.classList[0] === 'undefined') {
+        if (compareColumn && compareColumn.classList[0] === undefined || compareColumn.classList[0] === 'undefined') {
           compareColumn.classList = ['colCompare'];
           compareColumn.innerHTML = '<input type="checkbox" name="compareCheckbox" class="compareCheckbox" value="compareCheckbox" id="allCheckbox" onclick="disableAllComparison();">';
         };
@@ -1695,10 +1695,12 @@ function populate_efp_modal(status) {
 * Changes the legend for scales.
 */
 function change_rpkm_colour_scale(colouring_mode) {
-  if (svg_colouring_element == null && document.getElementById("flt3_theTable") && document.getElementById("flt3_theTable").parentElement) {
+  if (svg_colouring_element === null && document.getElementById("flt3_theTable") && document.getElementById("flt3_theTable").parentElement) {
     svg_colouring_element = document.getElementById("flt3_theTable").parentElement;
   };
-  svg_colouring_element.innerHTML = "";
+  if (svg_colouring_element && svg_colouring_element.innerHTML) {
+    svg_colouring_element.innerHTML = "";
+  };
   if (colouring_mode == "rel") {
     var img_created = document.createElement('img');
     img_created.src = 'data:image/png;base64,' + relative_rpkm_scale;
@@ -2644,13 +2646,17 @@ function displayNavBAR() {
     document.getElementById("navbar_menu").style.display = "none";
     document.getElementById("main_content").className = "col-sm-12";
     document.getElementById("openMenu").style.display = "block";
-    document.getElementById("theTable").classList.add("RNATable");
+    if (document.getElementById("theTable")) {
+      document.getElementById("theTable").classList.add("RNATable");
+    };
     document.getElementById("mainRow").removeAttribute("style");
   } else if ($("#navbar_menu").is(":visible") == false) {
     document.getElementById("navbar_menu").style.display = "block";
     document.getElementById("main_content").className = "col-sm-9";
     document.getElementById("openMenu").style.display = "none";
-    document.getElementById("theTable").classList.remove("RNATable");
+    if (document.getElementById("theTable")) {
+      document.getElementById("theTable").classList.remove("RNATable");
+    };
     document.getElementById("mainRow").style.display = "inline-block";
   };
 };
@@ -2660,16 +2666,18 @@ function displayNavBAR() {
  */
 function adjustFooterSize() {
   var navbar = document.getElementById("navbar_menu");
-  document.getElementById("nm_footer").style.width = (navbar.offsetWidth * 1.1) + "px";
-  if (navbar.scrollHeight == navbar.clientHeight) {
-    if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_abs") == false) {
-      document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_sticky');
-      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_abs');
-    };
-  } else if (navbar.scrollHeight > navbar.clientHeight) { 
-    if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_sticky") == false) {
-      document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_abs');
-      document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_sticky');
+  if (navbar) {
+    document.getElementById("nm_footer").style.width = (navbar.offsetWidth * 1.1) + "px";
+    if (navbar.scrollHeight == navbar.clientHeight) {
+      if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_abs") == false) {
+        document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_sticky');
+        document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_abs');
+      };
+    } else if (navbar.scrollHeight > navbar.clientHeight) { 
+      if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_sticky") == false) {
+        document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_abs');
+        document.getElementById("nm_footer").classList.add('navbar_menu_footer_overflow_sticky');
+      };
     };
   };
 };
@@ -2874,19 +2882,21 @@ function ScrollToRNARow(rowID) {
   // Scroll to RNA row
   $('#main_content').animate({scrollTop: $("#" + rowID).offset().top}, 'slow');
 
-  // Add background colour of selected row for clarity 
-  document.getElementById(rowID).className += " scrollToRow";
+  if (document.getElementById(rowID)) {
+    // Add background colour of selected row for clarity 
+    document.getElementById(rowID).className += " scrollToRow";
 
-  // Fade out colour
-  setTimeout(function() {
-    document.getElementById(rowID).className += " scrollToRowRemove";
-  }, 2000);
+    // Fade out colour
+    setTimeout(function() {
+      document.getElementById(rowID).className += " scrollToRowRemove";
+    }, 2000);
 
-  // Remove those classes
-  setTimeout(function() {
-    document.getElementById(rowID).classList.remove('scrollToRow');
-    document.getElementById(rowID).classList.remove('scrollToRowRemove');
-  }, 4050);  
+    // Remove those classes
+    setTimeout(function() {
+      document.getElementById(rowID).classList.remove('scrollToRow');
+      document.getElementById(rowID).classList.remove('scrollToRowRemove');
+    }, 4050);  
+  };  
 };
 
 /**
@@ -3376,30 +3386,26 @@ function init() {
     rpkm_validation();
   });
 
-  setTimeout(function() {
-    if (signInButton = document.getElementsByClassName("abcRioButtonLightBlue").length > 0) {
-      hiddenGoogleSignin();
-    };
-    getGFF(locus);
-  }, 700);
+  if (signInButton = document.getElementsByClassName("abcRioButtonLightBlue").length > 0) {
+    hiddenGoogleSignin();
+  };
+  getGFF(locus);
 
-  setTimeout(function() {
-    $("#locus").autocomplete({
-      source: function(request, response) {
-        var last = request.term.split(/,\s*/).pop();
-        $.ajax({
-          type: "GET",
-          url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/idautocomplete.cgi?species=Arabidopsis_thaliana&term=" + last,
-          dataType: "json"
-          }).done(function(data) {
-          response(data);
-        });
-      },
-      close: function (e, ui) {
-        correctAGIIDInput();
-      }
-    });
-  }, 50);
+  $("#locus").autocomplete({
+    source: function(request, response) {
+      var last = request.term.split(/,\s*/).pop();
+      $.ajax({
+        type: "GET",
+        url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/idautocomplete.cgi?species=Arabidopsis_thaliana&term=" + last,
+        dataType: "json"
+        }).done(function(data) {
+        response(data);
+      });
+    },
+    close: function (e, ui) {
+      correctAGIIDInput();
+    }
+  });
   
   // Delay and resize the iFrame for submission page
   var subiFrame = document.getElementById("submissioniframe");
@@ -3411,4 +3417,6 @@ function init() {
   readShareLink();
 };
 
-setTimeout(function(){init()}, 100);
+window.addEventListener('load', function() {
+  init();
+});
