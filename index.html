@@ -107,7 +107,7 @@
             <!-- Back to BAR homepage -->
             <div class="col-xs-2" id="nm_title_img">
               <a href="https://bar.utoronto.ca/">
-                <img class="lazyload" data-src="cgi-bin/img/BAR.png" style="height: 5em;" alt="BAR" />
+                <img loading="lazy" class="lazyload" data-src="cgi-bin/img/BAR.png" style="height: 5em;" alt="BAR" />
               </a>
             </div>
             <!-- Title text -->
@@ -249,7 +249,7 @@
           <!-- Sign in/out using Google -->
           <div class="col-xs-6">
             <div class="container-fluid" style="padding-left:0px; margin-left: -5px; margin-top:-5px;">
-              <a id="google_iden_login_button" href="#" class="btn btn-lg btn-primary signin disableOnLoading" onclick="document.getElementById('loginClick0').click();"><img src='./cgi-bin/img/googleSignin/btn_google_light_normal_ios.svg' alt='GoogleSigninIcon' style='height:1.5em;' id='signinIcon' onmousedown='console.log(this.src)'></span> Sign In</a>
+              <a id="google_iden_login_button" href="#" class="btn btn-lg btn-primary signin disableOnLoading" onclick="document.getElementById('loginClick0').click();"><img loading="lazy" src='./cgi-bin/img/googleSignin/btn_google_light_normal_ios.svg' alt='GoogleSigninIcon' style='height:1.5em;' id='signinIcon' onmousedown='console.log(this.src)'></span> Sign In</a>
               <div class="g-signin2" data-onsuccess="onSignIn" id="google_login" hidden></div>
               <a id="google_iden_logout_button" href="#" class="btn btn-lg btn-primary signout disableOnLoading" style="display:none;" onclick="signOut();"><span class="glyphicon glyphicon-user"></span> Sign Out</a>
             </div>
@@ -266,7 +266,7 @@
             <p style="text-align: justify; font-family: Arial;">
               The eFP-Seq Browser allows you to explore RNA-seq-based gene expression levels for your gene of interest in different expression datasets. Simply enter your gene identifier in the first box on the left, select a dataset, adjust the options if desired, and click Load Data. The output is a table depicting your gene’s expression details (readmap coverage, RPKM expression levels) across all the samples in the database. Try it with the default settings!
             </p>
-            <img id="landingPage_image" class="lazyload" data-src="cgi-bin/img/landingPage.jpg" alt="Welcome to the eFP-Seq Browser!" style="max-width: 90%; height: auto; display: block; margin: auto;" />
+            <img loading="lazy" id="landingPage_image" class="lazyload" data-src="cgi-bin/img/landingPage.jpg" alt="Welcome to the eFP-Seq Browser!" style="max-width: 90%; height: auto; display: block; margin: auto;" />
             <br>
             <p style="text-align: justify; font-family: Arial;">
               Developed by Alexander Sullivan, Priyank K. Purohit, Nowlan H. Freese, Asher Pasha, Eddi Esteban, Jamie Waese, Alison Wu, Michelle Chen, Chih Y. Chin, Richard Song, Sneha R. Watharkar, Agnes P. Chan, Vivek Krishnakumar, Matthew W. Vaughn, Chris Town, Ann E. Loraine, Nicholas J. Provart at the University of Toronto.
@@ -433,7 +433,7 @@
                   <br><br> 
                   The first option is choosing your locus/gene by inserting its related AGI ID. Our autofill option can sometimes match protein names with certain genes so if you do not know your desired AGI ID (example AT2G24270), you can search by protein name.
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0001_geneLocusAutofill.png" alt="Help image for locus autofill was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0001_geneLocusAutofill.png" alt="Help image for locus autofill was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Dataset</span>
                   <br><br> By default, two public datasets will be available which will be the 113 RNA-seq data sets used by Cheng et al. to reannotate the Arabidopsis genome for the <a href="https://dx.doi.org/10.1111/tpj.13415">Araport 11 build (https://dx.doi.org/10.1111/tpj.13415)</a>, labelled "Araport 11 RNA-seq data" and <a href="https://dx.doi.org/10.1111/tpj.13312">Klepikova et al.’s Development Map (https://dx.doi.org/10.1111/tpj.13312)</a>, labelled  "Developmental transcriptome - Klepikova et al".
@@ -442,7 +442,7 @@
                   <br><br> 
                   There will also be the option store your uploaded datasets onto your account which utilizes Google. Just click the login button on the bottom left to login and whenever you upload a dataset and select it to be uploaded to your private account, it will now be stored to your account. If you wish to delete any XMLs, you can just click the "Manage Account" button. You can learn more on the <a href="#" data-toggle="collapse" data-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">"Manage Person Account"</a> help card.
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0002_selectDataset.png" alt="Help image for selecting datasets was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0002_selectDataset.png" alt="Help image for selecting datasets was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">RPKM mode</span>
                   <br><br> 
@@ -452,12 +452,12 @@
                   <p style="margin-left: 2%;">Absolute displays the calculated RPKM values for all visualized mapped RNA-Seq datasets. RPKM is calculated and used to normalize the effects of the length of a gene and the size of the cDNA library. By computing these values, the number of reads mapped is normalized to the length of the gene in kilobases and to the number of reads mapped in the entire experiment in mega bases.</p>
                   Relative:
                   <p style="margin-left: 2%;">Relative displays the log2 of the RPKM compared against its average. In relative mode, the RPKM values of the appropriate control experiment or experiments are used to compute the fold-change in expression (increase or decrease) of the gene in question in that sample relative to the control (if no control is apparent, we use the average expression level for that gene across all samples in an experiment). Relative attempts to display all RPKM values between a scale of -5.0 to +5.0.</p>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0003_selectOptions.png" alt="Help image for selecting options was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0003_selectOptions.png" alt="Help image for selecting options was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Y-axis scale</span>
                   <br><br> 
                   The "Y-axis Scale" input option changes maximum displayed y-axis for the mapped RNA-Seq information. The default is set to auto which will have each individually mapped image have their own y-axis set to its own maximum while if a manual input value is inserted, then all images will have that maximum input.
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0004_yAxisScale.png" alt="Help image for difference in y-axis scale was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0004_yAxisScale.png" alt="Help image for difference in y-axis scale was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Absolute max</span>
                   <br><br> 
@@ -469,19 +469,19 @@
                       <p class="HelpNoteBottom"> This value automatically changes whenever you click "Load Data". To update this value, simply start typing into the input box AFTER the data has been loaded. </p>
                     </p>
                   </div>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0005_absoluteMax.png" alt="Help image for showing absolute max was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0005_absoluteMax.png" alt="Help image for showing absolute max was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Load data</span>
                   <br><br> 
                   Once all settings have been determined (you can leave some or all to default), you can click "Load Data" to begin to visualize your data on the eFP-Seq Browser.
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0006_loadData.png" alt="Help image for how to load data was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0006_loadData.png" alt="Help image for how to load data was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Hide/Open navigation bar</span>
                   <br><br> 
                   It may be helpful to note that you can hide (and open) the navigation bar by clicking on the menu icon on the top left of the screen.
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0007_hideNav.png" alt="Help image for hiding navigation bar was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0007_hideNav.png" alt="Help image for hiding navigation bar was not able to load" style="max-width: 100%;">
                 </div>
               </div>
             </div>
@@ -503,7 +503,7 @@
                   <br><br> 
                   The eFP Overview is a feature that allows you to see a visual table of all the coloured eFP images for the visualized data. This information will be responsive to any filtered changes made to the RNA-Seq table.
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0008_eFPOverviewGeneral.png" alt="Help image for the eFP Overview was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0008_eFPOverviewGeneral.png" alt="Help image for the eFP Overview was not able to load" style="max-width: 100%;">
                   <br><br> 
                   At the top of each eFP Overview modal displays the following information:
                   <br><br>
@@ -524,15 +524,15 @@
                   <br> 
                   Hovering over each individual eFP image also gives the title for the relevant eFP.
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0009_eFPOverviewHover.png" alt="Help image for hover effects in the eFP Overview was not able to load"style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0009_eFPOverviewHover.png" alt="Help image for hover effects in the eFP Overview was not able to load"style="max-width: 100%;">
                   <br><br> 
                   Clicking on an eFP image will also send you to the datapoint within the RNA-Seq table.
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0018_eFPOverviewScrollTo.png" alt="Help image for clicking an eFP image sending you to the corresponding RNA-Seq table row"style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0018_eFPOverviewScrollTo.png" alt="Help image for clicking an eFP image sending you to the corresponding RNA-Seq table row"style="max-width: 100%;">
                   <br><br> 
                   You can also click on the small camera icon in the top right-hand corner of the module to download the eFP Overview as an image. To see how this work, scroll down to the section on "Download table as an image".
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0016_downloadeFPOverviewAsImage.png" alt="Help image for downloading the eFP Overview as an image was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0016_downloadeFPOverviewAsImage.png" alt="Help image for downloading the eFP Overview as an image was not able to load" style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Download table as CSV</span>
                   <br><br> 
@@ -601,7 +601,7 @@
                   <br><br> 
                   You can download the table as an image file by clicking on the "Download table as an image" once you have loaded a dataset onto the eFP-Seq Browser. This will open a module which you can right click and save the display image onto your local drive.
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0015_downloadTableAsImage.png" alt="Help image for downloading the RNA Table as an image was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0015_downloadTableAsImage.png" alt="Help image for downloading the RNA Table as an image was not able to load" style="max-width: 100%;">
                   <br><br>
                   <div id="loadDataTip_downloadTable" class="HelpNoteDiv">
                     <p class="HelpNoteTop">
@@ -614,13 +614,13 @@
                   <br><br> 
                   You can toggle which columns you would like to see in RNA table by clicking on the "gears"/settings icon on the bottom right of the screen once a dataset has been loaded and then clicking on the "Filter Table" tab (this is the default tab when opening the RNA-table's settings). Just check any box off that you would not like to see and that image will be toggled off (or check a box that you do want to keep displayed and it will show).
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0017_toggleTable.png" alt="Help image for toggling the RNA Table as an image was not able to load"style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0017_toggleTable.png" alt="Help image for toggling the RNA Table as an image was not able to load"style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Filter eFP Images</span>
                   <br><br> 
                   You can also toggle and filter which eFP images you would like to see in RNA table by clicking on the "gears"/settings icon on the bottom right of the screen once a dataset has been loaded and then clicking on the "Filter eFP Images" tab. Just check any box off that you would not like to see and that image will be toggled off (or check a box that you do want to keep displayed and it will show).
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0019_eFPImagesFilter.png" alt="Help image for toggling and filtering eFP images from the RNA-table"style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0019_eFPImagesFilter.png" alt="Help image for toggling and filtering eFP images from the RNA-table"style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Compare gene variants</span>
                   <br><br> 
@@ -636,7 +636,7 @@
                       <p class="HelpNoteBottom"> Comparing gene variants only work for absolute mode, not relative! </p>
                     </p>
                   </div>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0020_compareGeneVariants.png" alt="Help image for comparing gene variants"style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0020_compareGeneVariants.png" alt="Help image for comparing gene variants"style="max-width: 100%;">
                   <br><br>
                   <span style="font-weight: bold; font-size: 1.2em;">Sharing your session</span>
                   <br><br> 
@@ -648,7 +648,7 @@
                       <p class="HelpNoteBottom"> For custom uploaded datasets, the URL will be long which is why we recommend you to use a link shortener. Some options can be found <a href='https://www.google.com/search?q=link+shortener' target='_blank' rel='noopener'>here</a> </p>
                     </p>
                   </div>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0020_sharingSession.png" alt="Help image for toggling and filtering eFP images from the RNA-table"style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0020_sharingSession.png" alt="Help image for toggling and filtering eFP images from the RNA-table"style="max-width: 100%;">
                   <br><br>
                   <br>
                 </div>
@@ -672,7 +672,7 @@
                   <br><br> 
                   This opens a form to fill which generates an XML which is readable by the eFP-Seq Browser to visualize your data. Any field with an asterisk at the end of it are mandatory fields to be filled for your data to be visualized properly (without it, the eFP-Seq Browser cannot visualize your data).
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0010_GenerateData.png" alt="Help image for generating your own data was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0010_GenerateData.png" alt="Help image for generating your own data was not able to load" style="max-width: 100%;">
                   <br><br> 
                   The following table describes what each field requires:
                   <table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3;">
@@ -737,7 +737,7 @@
                       <td> 
                         REQUIRED* The tissue part that your individual BAM entry/file RNA-Seq data is mapped to. If you do not know what tissue it is mapped to or your species is not <i>Arabidopsis thaliana</i>, it is recommended you select the "Other" option
                         <br>
-                        <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0012_TissueSelect.png" alt="Help image for tissue selection was not able to load" style="max-width: 80%; margin-left: 10%; margin-bottom: 2%;">
+                        <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0012_TissueSelect.png" alt="Help image for tissue selection was not able to load" style="max-width: 80%; margin-left: 10%; margin-bottom: 2%;">
                       </td>
                     </tr>
                     <tr>
@@ -759,7 +759,7 @@
                   <br><br> 
                   For the column "Tissue subunit*", there is a dropdown of options that correspond with the tissue that you select. Please fill it appropriately with the correct option name from the dropdown. If you do not fill this correctly, this will default to either "all" or a respective correct tissue subunit.
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0013_bulkTemplate.png" alt="Help image for showing the CSV/Excel template was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0013_bulkTemplate.png" alt="Help image for showing the CSV/Excel template was not able to load" style="max-width: 100%;">
                   <br><br>
                   <div id="loadDataTip_ExcelTemplate" class="HelpNoteDiv">
                     <p class="HelpNoteTop">
@@ -775,7 +775,7 @@
                   </div>
                   To convert the Excel data, copy and paste your fill Excel template into the "Upload Excel" form (in Excel, Select all and then in the eFP-Seq Browser's Upload Excel, Paste), click the "Convert Data" button and let it load. If your Excel data has more than 50 datasets, it may take >5 to convert the data and the eFP-Seq Browser will be unresponsive during this time.
                   <br><br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0011_UploadExcel.png" alt="Help image uploading your own filled CSV/Excel template was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0011_UploadExcel.png" alt="Help image uploading your own filled CSV/Excel template was not able to load" style="max-width: 100%;">
                   <br><br>
                   <div id="loadDataTip_UploadExcel" class="HelpNoteDiv">
                     <p class="HelpNoteTop">
@@ -924,7 +924,7 @@
                   <br><br> 
                   To manage your account and what XML/datasets are uploaded to your account (or to redownload them), select the "Manage Account" option in the navigation bar. In this modal, you will have the option to download existing XML/datasets or to delete private datasets from your account.
                   <br> <br>
-                  <img class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0014_manageAccount.png" alt="Help image for managing your own account was not able to load" style="max-width: 100%;">
+                  <img loading="lazy" class="helpCardImages lazyload" data-src="cgi-bin\img\helpModal\0014_manageAccount.png" alt="Help image for managing your own account was not able to load" style="max-width: 100%;">
                   <br> <br>
                   <div id="loadDataTip_ManageAccount" class="HelpNoteDiv">
                     <p class="HelpNoteTop">
@@ -1583,7 +1583,7 @@
 
   <!-- Open menu -->
   <a class="openMenu" id="openMenu" onclick="displayNavBAR();" title="Open navigation menu" style="display:none;">
-    <img src="cgi-bin\SVGs\OpenMenu.min.svg" alt="Other.min.svg" width="40px">
+    <img loading="lazy" src="cgi-bin\SVGs\OpenMenu.min.svg" alt="Other.min.svg" width="40px" loading="lazy">
   </a>
 
   <!-- SVGs -->

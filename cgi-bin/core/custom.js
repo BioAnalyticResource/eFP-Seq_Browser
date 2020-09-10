@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20200615';
+var version = 'p20200910';
 
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
@@ -560,50 +560,52 @@ var variant_selected;
  */
 function gene_structure_radio_on_change() {
   // Create and update variables
-  /** Index of which variant is selected */
-  variant_selected = document.getElementsByClassName('dd-selected-value')[0].value;
-  variantPosition = variant_selected;
-  /** Image of the variant */
-  var variant_img = document.getElementsByClassName('dd-selected-image')[0].src;
+  if (document.getElementsByClassName('dd-selected-value') && document.getElementsByClassName('dd-selected-value')[0] && document.getElementsByClassName('dd-selected-value')[0].value) {
+    /** Index of which variant is selected */
+    variant_selected = document.getElementsByClassName('dd-selected-value')[0].value;
+    variantPosition = variant_selected;
+    /** Image of the variant */
+    var variant_img = document.getElementsByClassName('dd-selected-image')[0].src;
 
-  /** Find all img tags that should be updated (all the <img> with class gene_structure) */ 
-  var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
-  // Change their src to the newly selected variant's src
-  for (var i = 0; i < all_gene_structure_imgs.length; i++) {
-    all_gene_structure_imgs[i].src = variant_img;
-  };
-
-  // update all rpb and rpkm values 
-  // Go through the exp_info array and make changes
-  for (var i = 0; i < exp_info.length; i++) {
-    var itLocus = exp_info[i][0].split('_')[0];
-    /** Update variant image: */ 
-    var geneStructureImg = document.getElementById(itLocus + '_gene_structure_img');
-    geneStructureImg.src = variant_img;
-    /** Update rpb values: */
-    var rpbValue = sraDict[itLocus]['r'][variant_selected].toFixed(2);
-    document.getElementById(itLocus + '_rpb').innerHTML = rpbValue;
-    sraDict[exp_info[i][0].split("_svg")[0]]["rpb"] = rpbValue;
-    /** Update RPKM values: */
-    var rpkmValue;
-    if (sraDict[itLocus]['RPKM'] && sraDict[itLocus]['RPKM'][variant_selected]) {
-      rpkmValue = sraDict[itLocus]['RPKM'][variant_selected].toFixed(2);
-    } else {
-      if (sraDict[itLocus]['RPKM']) {
-        logError('Unable to retrieve RPKM values at: [variant_selected] for ' + itLocus);
-      } else if (sraDict[itLocus]) {
-        logError('Unable to retrieve RPKM values at: ["RPKM"] for ' + itLocus);
-      } else if (sraDict) {
-        logError('Unable to retrieve RPKM values at: SRA within sraDict');
-      } else {
-        logError('Unable to retrieve RPKM values at: sraDict unreachable');
-      };
+    /** Find all img tags that should be updated (all the <img> with class gene_structure) */ 
+    var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
+    // Change their src to the newly selected variant's src
+    for (var i = 0; i < all_gene_structure_imgs.length; i++) {
+      all_gene_structure_imgs[i].src = variant_img;
     };
-    document.getElementById(itLocus + '_rpkm').innerHTML = rpkmValue;
-    whichAbsOrRel(true, i);
-  };
 
-  $("#theTable").trigger("update");
+    // update all rpb and rpkm values 
+    // Go through the exp_info array and make changes
+    for (var i = 0; i < exp_info.length; i++) {
+      var itLocus = exp_info[i][0].split('_')[0];
+      /** Update variant image: */ 
+      var geneStructureImg = document.getElementById(itLocus + '_gene_structure_img');
+      geneStructureImg.src = variant_img;
+      /** Update rpb values: */
+      var rpbValue = sraDict[itLocus]['r'][variant_selected].toFixed(2);
+      document.getElementById(itLocus + '_rpb').innerHTML = rpbValue;
+      sraDict[exp_info[i][0].split("_svg")[0]]["rpb"] = rpbValue;
+      /** Update RPKM values: */
+      var rpkmValue;
+      if (sraDict[itLocus]['RPKM'] && sraDict[itLocus]['RPKM'][variant_selected]) {
+        rpkmValue = sraDict[itLocus]['RPKM'][variant_selected].toFixed(2);
+      } else {
+        if (sraDict[itLocus]['RPKM']) {
+          logError('Unable to retrieve RPKM values at: [variant_selected] for ' + itLocus);
+        } else if (sraDict[itLocus]) {
+          logError('Unable to retrieve RPKM values at: ["RPKM"] for ' + itLocus);
+        } else if (sraDict) {
+          logError('Unable to retrieve RPKM values at: SRA within sraDict');
+        } else {
+          logError('Unable to retrieve RPKM values at: sraDict unreachable');
+        };
+      };
+      document.getElementById(itLocus + '_rpkm').innerHTML = rpkmValue;
+      whichAbsOrRel(true, i);
+    };
+
+    $("#theTable").trigger("update");
+  };
 };
 
 /**
@@ -635,7 +637,7 @@ function absOrRel(expInfoPos = 0) {
   // Update RPKM values and colours
   if (colouring_mode == "rel" && sraDict[currentSRA]['relativeRPKM']) {
     document.getElementById('compareGeneVariants').disabled = true;
-    if (!expInfo[4] && expInfo[4] != 0) {
+    if (expInfo && !expInfo[4] && expInfo[4] != 0) {
       expInfo[4] = -999999;
     };
 
@@ -652,7 +654,7 @@ function absOrRel(expInfoPos = 0) {
     };
     
     var useRPKM = '';
-    if (sraDict[currentSRA]['RPKM'] && sraDict[currentSRA]['RPKM'][variant_selected]) {
+    if (variant_selected && sraDict[currentSRA]['RPKM'] && sraDict[currentSRA]['RPKM'][variant_selected]) {
       var rpkmValue = sraDict[currentSRA]['RPKM'][variant_selected].toFixed(2);
       document.getElementById(expInfo[0].split("_svg")[0] + '_rpkm').innerHTML = rpkmValue;
       useRPKM = rpkmValue;
@@ -776,7 +778,11 @@ function rnaseq_images(status) {
           document.getElementById('progress_tooltip').innerHTML = "Current progress is at " + progress_percent + "% done";
           document.getElementById('progress').title = progress_percent.toFixed(2) + '% (' + rnaseq_change + '/' + count_bam_entries_in_xml + ')';
 
-          if (response_rnaseq['status'] && response_rnaseq['status'] === 'success') {
+          if (response_rnaseq['status'] && response_rnaseq['status'] === 'success' && response_rnaseq['record']) {
+            if (!sraDict[response_rnaseq['record']]) {
+              sraDict[response_rnaseq['record']] = {};
+            };
+
             sraList_check.push(response_rnaseq['record']);
             sraDict[response_rnaseq['record']]["bp_length"] = (parseFloat(response_rnaseq['end']) - parseFloat(response_rnaseq['start']));
             sraDict[response_rnaseq['record']]["bp_start"] = (parseFloat(response_rnaseq['start']));
@@ -856,7 +862,7 @@ function rnaseq_images(status) {
 
             // Save the abs-fpkm, and the stats numbers
             for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
-              if (exp_info[ii][0] == response_rnaseq['record'] + '_svg') { // Find the correct element
+              if (exp_info && exp_info[ii] && exp_info[ii][0] && exp_info[ii][0] == response_rnaseq['record'] + '_svg') { // Find the correct element
                 exp_info[ii].splice(3, 1, response_rnaseq['absolute-fpkm']);
                 exp_info[ii].splice(5, 1, r);
 
@@ -866,23 +872,40 @@ function rnaseq_images(status) {
 
             colour_part_by_id(response_rnaseq['record'] + '_svg', 'Shapes', response_rnaseq['absolute-fpkm'][variantPosition], colouring_mode);
           } else if (response_rnaseq['status'] && response_rnaseq['status'] === 'fail') {
+            var record = undefined;
+            if (response_rnaseq['record']) {
+              record = response_rnaseq['record'];
+            };
+
             // Update image to error
-            document.getElementById(response_rnaseq['record'] + '_rnaseq_img').src = 'https://' + window.location.host + window.location.pathname + 'cgi-bin/img/error.png';
+            if (record && document.getElementById(record + '_rnaseq_img').src) {
+              document.getElementById(record + '_rnaseq_img').src = 'https://' + window.location.host + window.location.pathname + 'cgi-bin/img/error.png';
+            };
             rnaseq_change += 1;
 
-            document.getElementById(response_rnaseq['record'] + '_rpb').innerHTML = null;
-            sraDict[response_rnaseq['record']]["rpb"] = null;
+            if (record && document.getElementById(record + '_rpb')) {
+              document.getElementById(record + '_rpb').innerHTML = null;
+              sraDict[record]["rpb"] = null;
+            };
 
-            document.getElementById(response_rnaseq['record'] + '_rpkm').innerHTML = null;
-            updateRPKMAbsoluteMax(null);
-            sraDict[response_rnaseq['record']]["RPKM"] = null;
+            if (record && document.getElementById(record + '_rpkm')) {
+              document.getElementById(record + '_rpkm').innerHTML = null;
+              updateRPKMAbsoluteMax(null);
+              sraDict[record]["RPKM"] = null;
+            };
             rpkmCount++;
             
-            document.getElementById(response_rnaseq['record'] + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
+            if (record && document.getElementById(record + '_totalReadsNum')) {
+              if (response_rnaseq['totalReadsMapped']) {
+                document.getElementById(record + '_totalReadsNum').innerHTML = "Total reads = " + response_rnaseq['totalReadsMapped'];
+              };              
+            };
 
-            document.getElementById(response_rnaseq['record']+'_row').classList.add('mainEntriesError');
+            if (record && document.getElementById(record + '_row')) {
+              document.getElementById(record + '_row').classList.add('mainEntriesError');
+            };
 
-            throw ("Unable to create RNA-Seq map coverage data for: Locus - " + locus + " , SRA - " + response_rnaseq['record'] + " , dataset - " + base_src);
+            console.error("Unable to create RNA-Seq map coverage data for: Locus - " + locus + " , SRA - " + record + " , dataset - " + base_src);
           };
 
           if (rpkmCount == count_bam_entries_in_xml) {
@@ -1202,18 +1225,18 @@ function populate_table(status) {
   rpkmMedian = 1;
 
   // Creating exon intron scale image
-  var img_created = '<img src="' + 'data:image/png;base64,' + exon_intron_scale + '" alt="RNA-Seq mapped image" style="float: right; margin-right: 10px;">';
+  var img_created = '<img loading="lazy" src="' + 'data:image/png;base64,' + exon_intron_scale + '" alt="RNA-Seq mapped image" style="float: right; margin-right: 10px;">';
 
   // Insert table headers
   var tableHeader = '<thead><tr>' +
-    '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-xs-10">Title</div><div class="col-xs-0.5"><img class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-xs-10">Title</div><div class="col-xs-0.5"><img loading="lazy" class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
     '<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
     img_created +
     '</th>' +
-    '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6" >r<sub>pb</sub></div><div class="col-xs-1"><img class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6" >r<sub>pb</sub></div><div class="col-xs-1"><img loading="lazy" class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
     '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-    '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-    '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img loading="lazy" class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img loading="lazy" class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
     '<th class="sortable colCompare" id="colCompare" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 30px;" hidden><div class="row" id="colCompareRow"></div></th>' + 
     '</tr></thead>' +
     '<tbody id="data_table_body"></tbody>';
@@ -1394,7 +1417,7 @@ function populate_table(status) {
         append_str += '<td class="colTitle" style="width: 250px; font-size: 12px;" id="' + experimentno + '_title">' + title + '</td>\n';
 
         // Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
-        append_str += '<td class="colRNA" style="max-width: 576px;">' + '<img id="' + experimentno + '_rnaseq_img" alt="RNA-Seq mapped image for:' + experimentno + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" class="rnaseq_img responsiveRNAWidth" src="' + img_loading_base64 + '" /><br/>' + '<img id="' + experimentno + '_gene_structure_img" style="max-width: 576px; width:100%; height: auto;" class="gene_structure_img" src="' + img_gene_struct_1 + '" alt="Gene variant image for:' + experimentno + '"/>' + '</td>\n';
+        append_str += '<td class="colRNA" style="max-width: 576px;">' + '<img loading="lazy" id="' + experimentno + '_rnaseq_img" alt="RNA-Seq mapped image for:' + experimentno + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" class="rnaseq_img responsiveRNAWidth" src="' + img_loading_base64 + '" /><br/>' + '<img loading="lazy" id="' + experimentno + '_gene_structure_img" style="max-width: 576px; width:100%; height: auto;" class="gene_structure_img" src="' + img_gene_struct_1 + '" alt="Gene variant image for:' + experimentno + '"/>' + '</td>\n';
 
         // Append the rpb <td>
         append_str += '<td id="' + experimentno + '_rpb' + '" class="rpb_value colrpb" style="font-size: 12px; width: 50px; ">' + -9999 + '</td>';
@@ -1657,9 +1680,9 @@ function populate_efp_modal(status) {
 
   // Check radio
   if (current_radio == "abs") {
-    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII=" alt="Absolute RPKM" class="colourScale"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM, Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM</p>' + '<br><table><tbody class="eFP_tbody"></tbody>');
+    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img loading="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII=" alt="Absolute RPKM" class="colourScale"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM, Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM</p>' + '<br><table><tbody class="eFP_tbody"></tbody>');
   } else if (current_radio == "rel") {
-    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==" alt="Relative RPKM" class="colourScale"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ', Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + '</p>' + '<br><table><tbody></tbody>');
+    $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img loading="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==" alt="Relative RPKM" class="colourScale"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ', Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + '</p>' + '<br><table><tbody></tbody>');
   };
 
   // Insert eFP Table
@@ -1698,20 +1721,27 @@ function change_rpkm_colour_scale(colouring_mode) {
   if (svg_colouring_element === null && document.getElementById("flt3_theTable") && document.getElementById("flt3_theTable").parentElement) {
     svg_colouring_element = document.getElementById("flt3_theTable").parentElement;
   };
+
   if (svg_colouring_element && svg_colouring_element.innerHTML) {
     svg_colouring_element.innerHTML = "";
   };
+
   if (colouring_mode == "rel") {
     var img_created = document.createElement('img');
     img_created.src = 'data:image/png;base64,' + relative_rpkm_scale;
     img_created.style = 'margin-top: 10px;';
-    svg_colouring_element.appendChild(img_created);
+    if (svg_colouring_element) {
+      svg_colouring_element.appendChild(img_created);
+    };
   } else {
     var img_created = document.createElement('img');
     img_created.src = 'data:image/png;base64,' + absolute_rpkm_scale;
     img_created.style = 'margin-top: 10px;';
-    svg_colouring_element.appendChild(img_created);
+    if (svg_colouring_element) {
+      svg_colouring_element.appendChild(img_created);
+    };
   };
+
   // Add border to fltrow class tr's child td elements
   var columnList = ["colTitle", "colRNA", "colrpb", "coleFP", "colRPKM", "colDetails"];
   var tds = document.getElementsByClassName("fltrow")[0].getElementsByTagName("td");
@@ -1954,30 +1984,34 @@ function validateEmail(email) {
 function findAuthUser() {
   var AuthUser = '';
 
-  var currentUser = gapi.auth2.getAuthInstance().currentUser;
-  if (currentUser) {
-    var cUObj = Object.keys(currentUser);
-    for (var i = 0; i <  cUObj.length; i++) {
-      var cUDetails = currentUser[cUObj[i]];
-      if (cUDetails && Object.keys(cUDetails).length > 0) {
-        var cUDObj = Object.keys(cUDetails);
-        for (var c = 0; c <  cUDObj.length; c++) {
-          var cUDData = cUDetails[cUDObj[c]];
-          if (cUDData && Object.keys(cUDData).length > 0) {
-            var containedDetails = Object.keys(cUDData);
-            for (var d = 0; d <  containedDetails.length; d++) {
-              var subDetails = cUDData[containedDetails[d]];
-              if (typeof subDetails === 'string' && validateEmail(subDetails)) {
-                AuthUser = subDetails;
-                break;
+  if (gapi) {
+    var currentUser = gapi.auth2.getAuthInstance().currentUser;
+    if (currentUser) {
+      var cUObj = Object.keys(currentUser);
+      for (var i = 0; i <  cUObj.length; i++) {
+        var cUDetails = currentUser[cUObj[i]];
+        if (cUDetails && Object.keys(cUDetails).length > 0) {
+          var cUDObj = Object.keys(cUDetails);
+          for (var c = 0; c <  cUDObj.length; c++) {
+            var cUDData = cUDetails[cUDObj[c]];
+            if (cUDData && Object.keys(cUDData).length > 0) {
+              var containedDetails = Object.keys(cUDData);
+              for (var d = 0; d <  containedDetails.length; d++) {
+                var subDetails = cUDData[containedDetails[d]];
+                if (typeof subDetails === 'string' && validateEmail(subDetails)) {
+                  AuthUser = subDetails;
+                  break;
+                };
               };
             };
           };
         };
       };
+    } else {
+      logError('Unable to reach current user from OAuth');
     };
   } else {
-    logError('Unable to react current user from OAuth');
+    logError('Unable to reach data from OAuth');
   };
 
   return AuthUser;
@@ -2575,8 +2609,10 @@ function getGFF(locusID) {
 function addGFF() {
   eachVariant = document.getElementsByClassName("dd-option");
   if (eachVariant.length > 0) {
-  for (i = 0; i < GFF_List.length; i++) {
-      document.getElementsByClassName("dd-option")[i].setAttribute("title", GFF_List[i]); 
+    for (i = 0; i < GFF_List.length; i++) {
+      if (document.getElementsByClassName("dd-option")[i]) {
+        document.getElementsByClassName("dd-option")[i].setAttribute("title", GFF_List[i]); 
+      };
     };
   };
 };
@@ -2587,7 +2623,9 @@ function addGFF() {
 function hiddenGoogleSignin() {
   var signInButtonList = document.getElementsByClassName("abcRioButtonLightBlue");
   for (i = 0; i < signInButtonList.length; i++) {
-    signInButtonList[i].setAttribute("id", "loginClick" + i);
+    if (signInButtonList[i]) {
+      signInButtonList[i].setAttribute("id", "loginClick" + i);
+    };
   };
 };
 
@@ -2607,9 +2645,14 @@ function remove_private_database() {
 * After autocomplete, correct AGI (locusBrowser) input value
 */
 function correctAGIIDInput() {
-  if (document.getElementById("locus").value != "" || document.getElementById("locus").value != " " || document.getElementById("locus").value != undefined || document.getElementById("locus").value != null) {
-    var locusID = document.getElementById("locus").value.split("/");
-    document.getElementById("locus").value = locusID[0].toUpperCase().trim();
+  if (document.getElementById("locus") && document.getElementById("locus").value && document.getElementById("locus").value.trim().length > 0) {
+    var locusID = document.getElementById("locus").value.trim().split("/");
+    if (locusID[0]) {
+      document.getElementById("locus").value = locusID[0].toUpperCase().trim();
+    } else {
+      document.getElementById("locus").value = document.getElementById("locus").value.trim();
+    };
+    
     locus_validation();
   };
 };
@@ -2700,11 +2743,15 @@ function toggleTableCol(colClass, enable) {
   var column = document.getElementsByClassName(colClass);
   if (enable == true) {
     for (i = 0; i < column.length; i++) {
-      column[i].removeAttribute("hidden");
+      if (column[i]) {
+        column[i].removeAttribute("hidden");
+      };
     };
   } else if (enable == false) {    
     for (i = 0; i < column.length; i++) {
-      column[i].setAttribute("hidden", true);
+      if (column[i]) {
+        column[i].setAttribute("hidden", true);
+      };
     };
   };
 };
@@ -3031,12 +3078,16 @@ function ToggleFilteredeFP(whichToToggle, OnOrOff) {
 
   if (OnOrOff === true) {
     for (i = 0; i < whichSRA.length; i++) {
-      document.getElementById(whichSRA[i] + "_row").removeAttribute("hidden");
+      if (document.getElementById(whichSRA[i] + "_row")) {
+        document.getElementById(whichSRA[i] + "_row").removeAttribute("hidden");
+      };
     };
   } else if (OnOrOff === false) {
     for (i = 0; i < whichSRA.length; i++) {
-      document.getElementById(whichSRA[i] + "_row").setAttribute("hidden", true);
-    };    
+      if (document.getElementById(whichSRA[i] + "_row")) {
+        document.getElementById(whichSRA[i] + "_row").setAttribute("hidden", true);
+      };
+    };
   };
 };
 
@@ -3097,13 +3148,13 @@ function readShareLink() {
 
       if (queryInputs.length > 1) {
         // If locus
-        if (queryInputs[0] === 'locus') {
-          var qIValue = inputs[i].substr(6);
+        if (queryInputs[0].split('%20').join(' ').trim() === 'locus') {
+          var qIValue = inputs[i].substr(6).split('%20').join(' ').trim();
           shareLinkInputs['locus'] = qIValue;
           document.getElementById('locus').value = qIValue;
           locusInput = true;
-        } else if (queryInputs[0] === 'dataset') {
-          var qIValue = inputs[i].substr(8);
+        } else if (queryInputs[0].split('%20').join(' ').trim() === 'dataset') {
+          var qIValue = inputs[i].substr(8).split('%20').join(' ').trim();
           shareLinkInputs['dataset'] = qIValue;
           base_src = qIValue;
           datasetInput = true;
@@ -3173,7 +3224,7 @@ function tableCheckbox(whatID, disableAll = false) {
       }; 
 
       // Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
-      append_str += '<td style="max-width: 576px;">' + '<img id="' + whatSRA + '_rnaseq_img' + i + '" alt="RNA-Seq mapped image for:' + whatSRA + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" src="" /><br/>' + '<img id="' + whatSRA + '_gene_structure_img' + i + '" style="max-width: 576px; width:100%; height: auto;" src="" alt="Gene variant image for:' + whatSRA + '"/>' + '</td>\n';
+      append_str += '<td style="max-width: 576px;">' + '<img loading="lazy" id="' + whatSRA + '_rnaseq_img' + i + '" alt="RNA-Seq mapped image for:' + whatSRA + '" style="min-width:420px; max-width:576px; width:95%; height: auto;" src="" /><br/>' + '<img loading="lazy" id="' + whatSRA + '_gene_structure_img' + i + '" style="max-width: 576px; width:100%; height: auto;" src="" alt="Gene variant image for:' + whatSRA + '"/>' + '</td>\n';
 
       // Append the rpb <td>
       append_str += '<td id="' + whatSRA + '_rpb' + i + '' + '" style="font-size: 12px; width: 50px; ">' + sraDict[whatSRA]["r"][i].toFixed(2) + '</td>';
@@ -3199,8 +3250,12 @@ function tableCheckbox(whatID, disableAll = false) {
       document.getElementById('compareTable').innerHTML += append_str;
 
       // Update images
-      document.getElementById(whatSRA + '_rnaseq_img' + i).setAttribute('src', document.getElementById(whatSRA + '_rnaseq_img').src);
-      document.getElementById(whatSRA + '_gene_structure_img' + i).setAttribute('src', document.getElementsByClassName('dd-option-image')[i].src);
+      if (document.getElementById(whatSRA + '_rnaseq_img' + i)) {
+        document.getElementById(whatSRA + '_rnaseq_img' + i).setAttribute('src', document.getElementById(whatSRA + '_rnaseq_img').src);
+      };
+      if (document.getElementById(whatSRA + '_gene_structure_img' + i)) {
+        document.getElementById(whatSRA + '_gene_structure_img' + i).setAttribute('src', document.getElementsByClassName('dd-option-image')[i].src);
+      };
 
       // Colour SVG
       if (sraDict[whatSRA]['RPKM'] && sraDict[whatSRA]['RPKM'][i]) {
@@ -3409,7 +3464,7 @@ function init() {
   
   // Delay and resize the iFrame for submission page
   var subiFrame = document.getElementById("submissioniframe");
-  if (subiFrame.getAttribute('data-src')) {
+  if (subiFrame) {
     subiFrame.setAttribute('src', subiFrame.getAttribute('data-src'));
   };
   adjustSubmissionIFrameSize();

@@ -48,31 +48,31 @@ start_time = str(time.time()).replace('.', '')
 ''' Check the format of tissue string and returns error if incorrect. '''
 def validateTissue(tissue):
 	if tissue == "":
-		dumpError("Tissue validation error: 1.")
+		return False
 	elif tissue == None:
-		tissue = "undefined"
+		return False
 	if re.search(r'^[[a-z A-Z0-9\-\/_\s]{1,20}$', tissue): # Can only have upto 20 alpha numeric charactors
-		return tissue
+		return True
 	else:
-		dumpError("Tissue validation error: 2.");
+		return False
 
 ''' Check the format of locus. '''
 def validateLocus(locus):
 	if locus == "":
-		dumpError("Local validation error: 1.")
+		return False
 	elif re.search(r'^at[12345cm]g\d+$', locus, re.I):
-		return locus
+		return True
 	else:
-		dumpError("Locus validation error: 2.")
+		return False
 
 ''' Check for format of record. '''
 def validateRecord(record):
 	if record == "":
-		dumpError("Record validation error: 1.")
+		return False
 	elif re.search(r'^\D{3}\d{1,10}$', record):
-		return record
+		return True
 	else:
-		dumpError("Record validation error: 2.")
+		return False
 
 # Validate Chromosome
 def validateChromosome(chromosome):
@@ -266,15 +266,15 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
 ################################################################################
 
 # Error function
-def dumpError(result, record = None, locus = None, base64img = None, abs_fpkm = None, r = None, totalReadsMapped = None):
+def dumpError(result, locus = None, record = None, base64img = None, abs_fpkm = None, r = None, totalReadsMapped = None):
 	"""Dumps and prints an error to the client/user
 
 	Arguments:
 		result {string} -- The error message to be displayed
 
 	Keyword Arguments:
-		record {string} -- The SRA record of the BAM data being interpreted (default: {None})
 		locus {string} -- The AGI ID of the gene that the RNA-Seq map coverage is interpreting (default: {None})
+		record {string} -- The SRA record of the BAM data being interpreted (default: {None})
 		base64img {string} -- The base64 version of the RNA-Seq map coverage image (default: {None})
 		abs_fpkm {string, integer} -- The absolute FPKM/RPKM value (default: {None})
 		r {string, integer} -- The r coefficient value (default: {None})
@@ -309,8 +309,8 @@ def main():
 	# Get query details
 	form = cgi.FieldStorage()
 	tissue = form.getvalue('tissue')
-	locus = form.getvalue('locus')
 	record = form.getvalue('record')
+	locus = form.getvalue('locus')
 	variant = form.getvalue('variant')
 	hexcode = form.getvalue('hexcodecolour')
 	bamfilename = form.getvalue('filename')
@@ -345,9 +345,13 @@ def main():
 			yscale = int(form.getvalue('yscale'))
 
 		# Now validate the data
-		tissue = validateTissue(tissue)
-		locus = validateLocus(locus)
-		record = validateRecord(record)
+		if not validateTissue(tissue):
+			tissue = 'undefined'
+		if not validateLocus(locus):
+			dumpError('Locus validation error', locus, record, base64img, abs_fpkm, r, totalReadsMapped)
+		if not validateRecord(record):
+			dumpError('Record validation error', locus, record, base64img, abs_fpkm, r, totalReadsMapped)
+			
 		region = "Chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
 
 		exons_in_variant = []
