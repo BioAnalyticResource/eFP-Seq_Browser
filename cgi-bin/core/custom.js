@@ -603,9 +603,9 @@ function gene_structure_radio_on_change() {
       document.getElementById(itLocus + '_rpkm').innerHTML = rpkmValue;
       whichAbsOrRel(true, i);
     };
-
-    $("#theTable").trigger("update");
   };
+
+  $("#theTable").trigger("update");
 };
 
 /**
