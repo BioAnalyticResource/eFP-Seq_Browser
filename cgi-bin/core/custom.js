@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20200910';
+var version = 'p20200930';
 
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
@@ -76,7 +76,7 @@ function count_bam_num() {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
       var response = xhr.responseXML;
 
-      if (response != undefined && response.getElementsByTagName('file') != undefined) {
+      if (response && response.getElementsByTagName('file')) {
         count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("file").length;
       } else if (response === undefined || response === null) {
         console.log('failed at response');
@@ -217,10 +217,16 @@ function colour_part_by_id(id, part, fpkm, mode) {
     max_abs_scale = 1000;
   };
 
-  var paths1 = document.getElementById(id).getElementsByTagName("path");
-  var paths2 = document.getElementById(id).getElementsByTagName("g");
+  var paths1, paths2;
+  if (document.getElementById(id)) {
+    var paths1 = document.getElementById(id).getElementsByTagName("path");
+    var paths2 = document.getElementById(id).getElementsByTagName("g");
+  };
 
-  var paths = Array.prototype.slice.call(paths1).concat(Array.prototype.slice.call(paths2));
+  var paths = null;
+  if (paths1 && paths2) {
+    paths = Array.prototype.slice.call(paths1).concat(Array.prototype.slice.call(paths2));
+  };
 
   if (paths != null) {
     if (mode == "abs") { // For absolute FPKM colouring
@@ -483,7 +489,6 @@ function variants_radio_options(status) {
       populate_efp_modal(status);
 
       // Remove existing variant images.
-      testList = [];
       var variants_div = document.getElementById("variants_div");
       if (variants_div !== null && variants_div.firstChild !== null && variants_div.firstChild !== undefined) {
         while (variants_div.firstChild) {
@@ -494,17 +499,21 @@ function variants_radio_options(status) {
 
       var append_str = '<select id="variant_select">';
       for (var i = 0; i < parseInt(gene_res['variant_count']); i++) {
-        // retrieve the base64 and create the element to insert
-        append_str += '<option value="' + i + "\"";
-        append_str += " data-imagesrc=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + '" style="max-width:none;"></option>';
-        // Append the element to the div
+        if (gene_res['splice_variants'] && gene_res['splice_variants'][i] && gene_res['splice_variants'][i]['gene_structure']) {
+          // retrieve the base64 and create the element to insert
+          append_str += '<option value="' + i + "\"";
+          append_str += " data-imagesrc=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + '" style="max-width:none;"></option>';
+          // Append the element to the div
+        };
       };
 
-      img_gene_struct_1 = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
-      testList.push("data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure']);
-      var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
-      for (var i = 0; i < all_gene_structure_imgs.length; i++) {
-        all_gene_structure_imgs[i].src = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
+      if (gene_res['splice_variants'] && gene_res['splice_variants'][0] && gene_res['splice_variants'][0]['gene_structure']) {
+        img_gene_struct_1 = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
+        
+        var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
+        for (var i = 0; i < all_gene_structure_imgs.length; i++) {
+          all_gene_structure_imgs[i].src = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
+        };
       };
 
       $('input[type=radio][name=radio_group]').change(function() { // Bind an event listener..
@@ -1744,7 +1753,10 @@ function change_rpkm_colour_scale(colouring_mode) {
 
   // Add border to fltrow class tr's child td elements
   var columnList = ["colTitle", "colRNA", "colrpb", "coleFP", "colRPKM", "colDetails"];
-  var tds = document.getElementsByClassName("fltrow")[0].getElementsByTagName("td");
+  var tds = []; 
+  if (document.getElementsByClassName("fltrow") && document.getElementsByClassName("fltrow")[0]) {
+    tds = document.getElementsByClassName("fltrow")[0].getElementsByTagName("td");
+  };
   for (var i = 0; i < tds.length; i++) {
     tds[i].style = "border: 1px solid #D3D3D3";
     tds[i].classList.add(columnList[i]);
@@ -1953,12 +1965,14 @@ function DatalistXHRCall(datalist) {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
         let response = xhr.responseXML;
-        let responseTitle = response.getElementsByTagName("files")[0].attributes.xmltitle.nodeValue;
-        datalist_Title[responseTitle] = datalist[dlCallPosition];
-
-        // Make function recursive
-        dlCallPosition += 1;
-        DatalistXHRCall(datalist);
+        if (response) {
+          let responseTitle = response.getElementsByTagName("files")[0].attributes.xmltitle.nodeValue;
+          datalist_Title[responseTitle] = datalist[dlCallPosition];
+  
+          // Make function recursive
+          dlCallPosition += 1;
+          DatalistXHRCall(datalist);
+        };
       };
     };
 
