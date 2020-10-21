@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20200930';
+var version = 'p20201021';
 
 var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
 
