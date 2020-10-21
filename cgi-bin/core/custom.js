@@ -125,6 +125,8 @@ function loadingScreen(terminate = true) {
 var img_loading_base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyCAYAAADP/dvoAAAABmJLR0QAwADAAMAanQdUAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAB3RJTUUH4AoRDzYeAMpyUgAABGJJREFUeNrt3TFoE3scwPGvjxtOzKAQMEOECBkyROhQsWOEChURBFtssdJFB9Gl4OJkwaEtRRAUdLAUqYJgwamIEFAwUoS43RCw0AwpOjhkuCHDQd5Qes9q+7A+7cP2+1na5K53cH/Kl19yIfu63W4XSZL2qL+8BJIkQyhJ0h4VfPvExMSEV0WStGt92zknQkmSE+GPFFOSpN00CToRSpJkCCVJhlCSJEMoSZIhlCTJEEqSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKe8HDhw/5/Pnzbzn2/v3709/Hx8d/23kkGULpp01PT9NoNH7LsTudDgBJktBut0mSxAsu/Q8CL4G0fUmSEEURcRxTLpc5ePBguu3Lly9EUUQ2m6VcLm/4u0ajQRzH9PT0/PNPGARcu3aNXC6X7lMqlVheXv5u3/Xt69NjJpOht7fXBZEMobRz2u02Z8+eJY5jCoUCtVqN58+fU6lUePLkCXfu3KGnp4d6vU5vby9zc3PA2peCzs7OUiqVvjvm8ePHWVlZoVAocPr0aQYHB6nX6zSbTSqVSnqMkZGRdHp88+YNw8PDzM/PuyiSIZR2zv3798lms7x9+xZYex/x5s2bLC0tce7cOYaHhwmCgHa7zaFDh5ibm6PZbDI9Pc3Hjx/J5/MsLCxQrVa3PMfhw4d5/fo1rVaLI0eOMDk5CUC1WuXTp08EQcCxY8e4cOGCCyIZQmlnffjwgfPnz6ePBwYGuHr1KrD2UmW1WqVWq7G6upru02w2yeVy5PN5AAYHB//1HOvb1/fvdDpkMhniOGZ5eZlCoUCSJOnLqZIMobRjkiRJb3RZF4YhAFNTUywuLnLr1i2KxSKPHj36df+sQUChUODSpUt0Oh0uXrzo+4PSL+Bdo9I2nThxgsePH6d3eS4sLDAwMADA+/fvOXPmDP39/RtiWSqVaLVaRFEEwN27d7d93iiKCIKA27dv8+DBAy5fvpxuazQa1Ov1dHp89uxZuq1ardJqtVw4yYlQ2r4wDDl58mT6eGZmhuvXr/Pu3TuOHj1KJpMhDENevHgBwNjYGFeuXOHVq1eEYUg2mwUgl8sxMzPDqVOnyOfz9PX1pS97/sgkCFAul2m32zx9+pQkSajVaoyOjjI5Ocns7CxRFPHy5UuiKGJkZIT+/n6y2Szj4+OMjY1x48YNF1TaxL5ut9v9+omJiYkNPyVtLo5jkiTZ8NEJWPv4BJBG8GudTockSchkMts+39TUFKurq9y7dw+Aer3O0NAQKysrLob0A7bqmxOh9JO2itlmAfx6wvxZfX19DA0NEYYhBw4cYHFxkdHRURdC+o8MofSHqFQqLC0tUavVAJifn9/0M4mSDKG0axWLRYrFohdC+oW8a1SSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKkmQIJUkyhJIkGUJJkgyhJEmGUJKkP9mWX8PkN9RLkpwIJUna5fZ1u92ul0GS5EQoSdIe9DfEVWhcl8IjHgAAAABJRU5ErkJggg==";
 
 var img_gene_struct_1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATklEQVQ4jWNgYGANxQnC0iAggQEE0mAA lYcFgBWw4RZIQOEmYJNF0Q4zAQ4Qkqm4XQ8CIMWMw96HgsPdh4zD3oeCwx2MgDgc/vlw2JelAO7V xD0GmsY3AAAAAElFTkSuQmCC ";
+var img_gene_struct_error = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAICAIAAADlfmh0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMBSURBVGhD7Vi7ceswEGQrVBUMxC40wwKYKVANDpwpVuIqVIx6ealxHxzuA9BPsmfMGQOzgQgs7hZH3RrW8O/20dHR0dHxMrqN7gbneZAxLg/3GAlh13R6r8QhmgYQDtc3/Py2TMOwni2hCtg13/UM7M1x/gh06b6JHwxVx2X9zzfb8W10G90NXF/JozhdnNEmCKsNGgUU6EQtTgTsetZG99DJv6Xh18/eEtDt9efRbXQ30O6mH8XpwszjdFDWBu0BF9K40XmlTqSDj/M6ljssBqeBKXDXRASagb0c536k+WE4XjjL7f3KZJ4sHH1HRgF5QFgfKggzoRxnXO5GdluD04mPcGQfwQR/5CNXimNE+rwxi4RKM1ZVYKoPGwfPJc2px4P6ktDwBfGn6HgV3UZ3g9QSeWQ35BH/W6cZaCrXP6m74kbxSmICoWaj9MGR5fIiBPFrMQJYoj50N53yiB1bOCyM5tER0llgMoaKwjY4GBMhqYuGls6sDQoowurB5cgtTqmeSZHgs7SrB0x4rYmZ/m7B0tfFyVkKxy+JHi+sNtPxHLqN7gbwvVctmh+LV4YZ5U0J0Ay52exGB53oK2+iYXvYGwHKKAOWKJHqTyXGuhUKwAHBK6GCsAYnn8jJVhqaOrkIiYlBKgfX5WpxbPVU3nqWjerx0mUdl+sxbQE/rTO1NgRwuM5ZgJOqhfmlEqfjKXQb3Q1cS8gjt19rRrcErkaafKDI+Ehtg52J/Q+7jBGA8cE9ER5zx1KQPANxJCPtdSgdWxLpNpZ7lmyJoYKwBgeVkF9r2TpdUyc4Ow5YrR2cg8uRaxwrUuetZdmsHjDX0zKlFOd5Os4TESJTa0PYFwoCNgoSlkqcjqfQbXQ3wO89j3ShKB2C7Ycd5WfsDUuZhaU5G7W51C5q0dxmzIHfQ9kp3G+UYgTUkDxMV/M8SBUTYeUMpYQ62YeKwuqcnNfJNhqaOrmMJMxF0MGN9zlOQ6Q6rMmyWT1iQhx8dxJk6+CMXGd8WZX3qIWFpY5XcPv4BMHOh4rKP1r3AAAAAElFTkSuQmCC';
+
 var absolute_rpkm_scale = "iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII= ";
 var relative_rpkm_scale = "iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==";
 var exon_intron_scale = "iVBORw0KGgoAAAANSUhEUgAAALQAAAAPBAMAAAC/7vi3AAAAGFBMVEX///9QUFAAAADcFDz/jAAA AP+m3KYAfQCnICW7AAAArklEQVQ4jd3UMQ+CQAwF4OaG66ourpcO/DCGm7v17/vKBUU8SozBGBvy xo9HD6DzB3OicK4WTa7RfIGWgiiH0In6tBK/iMpKhsvyWAfB7NGlJEHQFA+6U5ZVjf2OTtfBI6YF OgIpadkaklGjZtrepIsXL63+U2s8vzHpila+0zsLEQe9ty+kQ7OuFgJ+pseY3nr5cIxtIQt6OkY/ 3lxReHMhF4nm1z+Zv6KP+/PdANuwQcLhhEyQAAAAAElFTkSuQmCC";
@@ -328,11 +330,15 @@ function findRPKMValuesAcrossAll() {
     for (var l = 0; l < listOfSRA.length; l++) {
       if (sraDict[listOfSRA[l]]["RPKM"]) {
         var currentRPKM = sraDict[listOfSRA[l]]["RPKM"][variantPosition];
-        listOfRPKM.push(currentRPKM);
-        rpkmTotal += currentRPKM;
+        if (parseFloat(currentRPKM)) {
+          listOfRPKM.push(currentRPKM);
+          rpkmTotal += currentRPKM;
+        };
       };    
     };
-    rpkmMedian = math.median(listOfRPKM);
+    if (listOfRPKM.length > 0) {
+      rpkmMedian = math.median(listOfRPKM);
+    };
     rpkmAverage = (rpkmTotal / listOfSRA.length);
   } else {
     displayError('ERROR IN RETRIEVING ALL DATA POINTS WITHIN DATASET');
@@ -372,7 +378,7 @@ function colour_svgs_now(mode) {
       if (ctrl_count > 0) {
         ctrl_avg_fpkm = ctrl_fpkm_sum / ctrl_count;
       } else {
-        if (rpkmMedian === 1) {
+        if (rpkmMedian && rpkmMedian === 1) {
           findRPKMValuesAcrossAll();
         };
         ctrl_avg_fpkm = rpkmMedian;
@@ -498,18 +504,33 @@ function variants_radio_options(status) {
       $('#variant_select').ddslick('destroy');
 
       var append_str = '<select id="variant_select">';
-      for (var i = 0; i < parseInt(gene_res['variant_count']); i++) {
-        if (gene_res['splice_variants'] && gene_res['splice_variants'][i] && gene_res['splice_variants'][i]['gene_structure']) {
-          // retrieve the base64 and create the element to insert
-          append_str += '<option value="' + i + "\"";
-          append_str += " data-imagesrc=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + '" style="max-width:none;"></option>';
-          // Append the element to the div
+      if (gene_res['variant_count'] && parseInt(gene_res['variant_count']) > 0) {
+        for (var i = 0; i < parseInt(gene_res['variant_count']); i++) {
+          if (gene_res['splice_variants'] && gene_res['splice_variants'][i] && gene_res['splice_variants'][i]['gene_structure']) {
+            // retrieve the base64 and create the element to insert
+            append_str += '<option value="' + i + "\"";
+            append_str += " data-imagesrc=\"data:image/png;base64," + gene_res['splice_variants'][i]['gene_structure'] + '" style="max-width:none;"></option>';
+            // Append the element to the div
+          };
         };
+      } else {
+        // retrieve the base64 and create the element to insert
+        append_str += '<option value="' + i + "\"";
+        append_str += " data-imagesrc=\"" + img_gene_struct_error + '" style="max-width:none;"></option>';
+        // Append the element to the div
       };
+      
 
       if (gene_res['splice_variants'] && gene_res['splice_variants'][0] && gene_res['splice_variants'][0]['gene_structure']) {
         img_gene_struct_1 = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
         
+        var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
+        for (var i = 0; i < all_gene_structure_imgs.length; i++) {
+          all_gene_structure_imgs[i].src = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
+        };
+      } else {
+        img_gene_struct_1 = img_gene_struct_error;
+
         var all_gene_structure_imgs = document.getElementsByClassName('gene_structure_img');
         for (var i = 0; i < all_gene_structure_imgs.length; i++) {
           all_gene_structure_imgs[i].src = "data:image/png;base64," + gene_res['splice_variants'][0]['gene_structure'];
@@ -523,13 +544,15 @@ function variants_radio_options(status) {
       append_str += '</select></div>';
 
       $("#variants_div").append(append_str);
-      $('#variant_select').ddslick({
-        width: "100%",
-        onSelected: function(selectedData){
-          setData = selectedData;
-          gene_structure_radio_on_change(selectedData);
-        }
-      });
+        if (document.getElementById('variant_select')) {
+          $('#variant_select').ddslick({
+            width: "100%",
+            onSelected: function(selectedData){
+              setData = selectedData;
+              gene_structure_radio_on_change(selectedData);
+            }
+          });
+        };
       $("#theTable").trigger("update");
     },
     error: function() {
@@ -593,6 +616,9 @@ function gene_structure_radio_on_change() {
       /** Update rpb values: */
       var rpbValue = sraDict[itLocus]['r'][variant_selected].toFixed(2);
       document.getElementById(itLocus + '_rpb').innerHTML = rpbValue;
+      if (!sraDict[exp_info[i][0].split("_svg")[0]]) {
+        sraDict[exp_info[i][0].split("_svg")[0]] = {};
+      };
       sraDict[exp_info[i][0].split("_svg")[0]]["rpb"] = rpbValue;
       /** Update RPKM values: */
       var rpkmValue;
@@ -894,6 +920,9 @@ function rnaseq_images(status) {
 
             if (record && document.getElementById(record + '_rpb')) {
               document.getElementById(record + '_rpb').innerHTML = null;
+              if (!sraDict[record]) {
+                sraDict[record] = {};
+              };
               sraDict[record]["rpb"] = null;
             };
 
