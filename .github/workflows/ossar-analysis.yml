@@ -5,7 +5,14 @@ name: OSSAR
 
 on:
   push:
+    branches: [ master ]
+    paths-ignore:
+      - "cgi-bin/core/packages/**"
   pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ master ]
+  schedule:
+    - cron: '34 22 * * 5'
 
 jobs:
   OSSAR-Scan:
