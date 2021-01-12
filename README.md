@@ -23,14 +23,16 @@ git clone https://github.com/BioAnalyticResource/eFP-Seq-Browser.git
 
 If you wish to modify the code, all .CGI files use [Python 2](https://www.python.org) as well as there are a few [Perl](https://www.perl.org/) scripts. If you are running the primary webservice ([rnaSeqMapCoverage.cgi](cgi-bin/rnaSeqMapCoverage.cgi)) locally, you will also need to install [SAMTools](https://github.com/samtools/samtools) and [bcftools](https://samtools.github.io/bcftools/bcftools.html).
 
-Outside of that, there is nothing to install, just download all the files and open "[index.html](index.html)".
+Outside of that, there is nothing to install, just download all the files and have your server host the [index.html](index.html) file and change all the Python scripts from our server to yours.
 
 ## Known issues
 
 We aim to make the eFP-Seq Browser as perfect as possible but unfortunately, there may be some unforeseen bugs. If you manage to find one that is not here, feel free to create a [bug report](https://github.com/ASully/eFP-Seq-Browser/issues/new?template=bug_report.md) so we can fix it.
+
+Current known issues:
 * The IGB links do not work with Google Drive repositories 
-* Download page as an image does not render SVGs in Microsoft Edge
-* Some sorting arrows may not display in Microsoft Edge
+* If the web service timeouts, the eFP-Seq Browser will load continuously
+* Loading circle is not centred  
 
 ## Contributing
 

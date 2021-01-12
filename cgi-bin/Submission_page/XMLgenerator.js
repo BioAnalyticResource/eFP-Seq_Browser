@@ -465,30 +465,46 @@ function outline_links(bam_name, repo_name) {
   var bam_x = document.getElementById("Entries_all").querySelectorAll(bam_name);
   var i;
   for (i = 0; i < repo_match; i++) {
-    if (x[i].id = "bam_input") {
+    if (x[i].id === "bam_input") {
       if (x[i].value.length > 0) {
-        if (bam_x[i].value == "Google Drive") {
-          if ((x[i].value.includes("drive.google.com/drive/folders/")) == true) {
-            x[i].style.borderColor = null;
-            x[i].style.boxShadow = null;
-          } else if ((x[i].value.includes("drive.google.com/drive/folders/")) == false) {
-            x[i].style.borderColor = "#ff2626";
-            x[i].style.boxShadow = "0 0 10px #ff2626";
+        /** Where the BAM file is being hosted */
+        let bamHostType;
+
+        if (bam_x[i] && bam_x[i].value) {
+          bamHostType = bam_x[i].value.trim();
+        };
+
+        /** URL for the hosted BAM file */
+        let urlValue;
+
+        // Convert the 
+        try {
+          urlValue = new URL(x[i].value)
+        } catch {
+          console.error('Unreadable URL presented: ', x[i].value);
+        };
+
+        if (bamHostType && urlValue) {
+          if (bamHostType === 'Amazon AWS') {
+            if (check_amazon_for_bam(x[i].value) && ['s3.amazonaws.com', 'araport.cyverse-cdn.tacc.cloud'].includes(urlValue[host])) {
+              x[i].style.borderColor = null;
+              x[i].style.boxShadow = null;
+            } else {
+              x[i].style.borderColor = "#ff2626";
+              x[i].style.boxShadow = "0 0 10px #ff2626";
+            };
+          } else if (bamHostType === 'Google Drive') {
+            if (['drive.google.com'].includes(urlValue[host])) {
+              x[i].style.borderColor = null;
+              x[i].style.boxShadow = null;
+            } else {
+              x[i].style.borderColor = "#ff2626";
+              x[i].style.boxShadow = "0 0 10px #ff2626";
+            }
           } else {
             x[i].style.borderColor = "#ff2626";
             x[i].style.boxShadow = "0 0 10px #ff2626";
-          };
-        } else if (bam_x[i].value == "Amazon AWS") {
-          if (((x[i].value.includes("amazonaws.com/") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud/")) && (check_amazon_for_bam(x[i].value) == true)) == true) {
-            x[i].style.borderColor = null;
-            x[i].style.boxShadow = null;
-          } else if (((x[i].value.includes("amazonaws.com/") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud/")) && (check_amazon_for_bam(x[i].value) == true)) == false) {
-            x[i].style.borderColor = "#ff2626";
-            x[i].style.boxShadow = "0 0 10px #ff2626";
-          } else {
-            x[i].style.borderColor = "#ff2626";
-            x[i].style.boxShadow = "0 0 10px #ff2626";
-          };
+          };          
         } else {
           x[i].style.borderColor = "#ff2626";
           x[i].style.boxShadow = "0 0 10px #ff2626";

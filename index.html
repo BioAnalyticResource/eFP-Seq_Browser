@@ -40,7 +40,7 @@
   <!-- Google APIs-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="cgi-bin/core/packages/GoogleMaterial/material.green-pink.min.css">
-  <script defer src="cgi-bin/core/packages/GoogleMaterial/material.min.js"></script>
+  <script async src="cgi-bin/core/packages/GoogleMaterial/material.min.js"></script>
   <!-- END Google APIs-->
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-38961857-5"></script>
@@ -265,6 +265,8 @@
 
       <!-- Displayed information -->
       <div class="col-9" style="overflow-y: auto; height:100vh; padding: 1px !important;" id="main_content">
+        <div id="displayError"></div>
+
         <!-- Landing page -->
         <div id="landing" style="background-color: white;">
           <div id="landing_body" style="padding: 3%;">

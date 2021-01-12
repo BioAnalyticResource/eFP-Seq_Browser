@@ -433,7 +433,7 @@ def main():
 				if currentTime > (startTime + 300):
 					subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
 					subprocess.call(["rm", "-rf", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
-					dumpError("Mounting timed out", record, locus, base64img, abs_fpkm, r, totalReadsMapped)
+					dumpError("Mounting timed out", locus, record, base64img, abs_fpkm, r, totalReadsMapped)
 
 			# Now make a image using samtools
 			base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode, remoteDrive, bamType)
@@ -448,7 +448,7 @@ def main():
 			if base64img == "FAILED":
 				subprocess.call(["fusermount", "-u", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
 				subprocess.call(["rm", "-rf", "/mnt/gDrive/" + remoteDrive + "_" + uniqId])
-				dumpError("Failed to get data.", record, locus, base64img, abs_fpkm, r, totalReadsMapped)
+				dumpError("Failed to get data.", locus, record, base64img, abs_fpkm, r, totalReadsMapped)
 
 		elif bamType == "Amazon AWS":
 			# Make S3FS filename here
@@ -535,7 +535,7 @@ def main():
 		try: 
 			lines = subprocess.check_output(['samtools', 'view', bam_file, region], env=my_env)
 		except:
-			dumpError("Unable to retrieve BAM data", record, locus, base64img, abs_fpkm, r, totalReadsMapped)
+			dumpError("Unable to retrieve BAM data", locus, record, base64img, abs_fpkm, r, totalReadsMapped)
 
 		os.chdir("../../../")
 		mapped_reads = lines.lower().count('chr')

@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20210111';
+var version = 'p20210112';
 
 /** Selected RPKM mode */
 var colouring_mode = "abs";
@@ -606,10 +606,10 @@ function variants_radio_options(status) {
  * @param {String} errorMessage The error message that wish to be displayed
  */
 function displayError(errorMessage) {
-  $("#body_of").empty();
+  $("#displayError").empty();
   var append_str = "<p class=\"warning_core\" style=\"text-align:center;\">" + errorMessage + " <br /><br /> PLEASE REFRESH PAGE, RELOAD OR RE-INPUT DATA OR TRY AGAIN AT A LATER TIME </p>";
   console.error('Error in logic:', errorMessage);
-  $("#body_of").append(append_str);
+  $("#displayError").append(append_str);
   $('#locus_button').prop('disabled', true);
   $('#abs_scale_button').prop('disabled', true);
   progress_percent = 100;
@@ -985,7 +985,9 @@ function rnaseq_images(status) {
               document.getElementById(record + '_row').classList.add('mainEntriesError');
             };
 
-            console.error("Unable to create RNA-Seq map coverage data for: Locus - " + locus + " , SRA - " + record + " , dataset - " + base_src);
+            console.error("Unable to create RNA-Seq map coverage data for: Locus - " + locus + ", SRA - " + record + ", dataset - " + base_src);
+          } else {
+            console.log('Error!', response_rnaseq, data)
           };
 
           if (rpkmCount == count_bam_entries_in_xml) {
@@ -1705,13 +1707,13 @@ function clickDetailsTextChange(details_id) {
       document.getElementById(details_id).setAttribute("hidden", true);
       // Non-truncate the details
       var innerDescription = document.getElementById(document.getElementById(details_id).name);
-      innerDescription.innerHTML = innerDescription.getAttribute("name");    
+      innerDescription.textContent = innerDescription.getAttribute("name");    
     } else if (document.getElementById(details_id).innerHTML == lessDetails) {
       var ogID = details_id.substring(0, (details_id.length - 5));
       document.getElementById(ogID).removeAttribute("hidden");
       // Truncate the details
       var innerDescription = document.getElementById(document.getElementById(details_id).name);
-      innerDescription.innerHTML = truncateDescription(innerDescription.getAttribute("name"));
+      innerDescription.textContent = truncateDescription(innerDescription.getAttribute("name"));
     };
   };
 };
@@ -3254,7 +3256,7 @@ function generateShareLink(changeURL = false) {
     window.history.pushState({}, 'Title', window.location.pathname + '?locus=' + locus + '&dataset=' + base_src);
   };
 
-  document.getElementById('shareLinkTextArea').innerHTML = shareLink;
+  document.getElementById('shareLinkTextArea').textContent = shareLink;
 };
 
 var shareLinkInputs = {};
@@ -3271,8 +3273,6 @@ function readShareLink() {
 
   // If exists, continue
   if (query != '') {
-    emptyLanding();
-
     var inputs = query.split('&');
     for (var i = 0; i < inputs.length; i++) {
       var queryInputs = inputs[i].split('=');
@@ -3295,6 +3295,7 @@ function readShareLink() {
 
     // Load new data
     if (locusInput && datasetInput) {
+      emptyLanding();
       progress_percent = 0;
       sraDict = {};
       sraCountDic = {};
@@ -3319,7 +3320,7 @@ function readShareLink() {
  * Copy share link to the user's clipboard
  */
 function copyToClipboard() {
-  if (document.getElementById('shareLinkTextArea') != '') {
+  if (document.getElementById('shareLinkTextArea').trim() !== '') {
     document.getElementById('shareLinkTextArea').select();
     document.execCommand("copy");
   };
