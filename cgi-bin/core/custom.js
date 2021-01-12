@@ -4,9 +4,10 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20201021';
+var version = 'p20210111';
 
-var colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
+/** Selected RPKM mode */
+var colouring_mode = "abs";
 
 var locus; 
 if (document.getElementById("locus") != null) {
@@ -60,7 +61,6 @@ var dataset_dictionary = {
   "Developmental transcriptome - Klepikova et al": 'cgi-bin/data/bamdata_Developmental_transcriptome.xml'
 };
 let loadNewDataset = false;
-var loadedDataset = undefined;
 
 /** Used to count and determine how many BAM entries are in the XML file */
 var count_bam_entries_in_xml = 113;
@@ -345,14 +345,52 @@ function findRPKMValuesAcrossAll() {
   };
 };
 
-var current_radio = "abs";
+/**
+ * Switch the current existing RPKM mode
+ * @param {String} selectedMode The DOM ID of the selected RPKM mode desired
+ */
+function switchRPKMMode(selectedMode) {
+  /** If relative mode (true) or absolute (false, default) */
+  let rel = false;
+
+  // If selectedMode is the relative mode, which rel to true
+  if (selectedMode === 'rel_radio') {
+    rel = true;
+  };
+
+  if (rel) {
+    // Change radio
+    colouring_mode = 'rel';  
+
+    // Change HTML classes for UI
+    document.getElementById('abs_radio').classList.remove('active');
+    document.getElementById('rel_radio').classList.add('active');  
+
+    // Disable RPKM scape input
+    $("#rpkm_scale_input").prop("disabled", true);
+  } else {
+    // Change radio
+    colouring_mode = 'abs';
+
+    // Change HTML classes for UI
+    document.getElementById('rel_radio').classList.remove('active');
+    document.getElementById('abs_radio').classList.add('active');
+
+    // Enable RPKM scape input
+    $("#rpkm_scale_input").removeAttr('disabled');
+  };
+
+  // If data already called, update
+  if (rnaseq_calls && rnaseq_calls.length > 0) {
+    whichAbsOrRel();
+  };
+};
+
 /**
 * Find and update each SVG in the DOM.
 */
-function colour_svgs_now(mode) {
-  colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
-  mode = colouring_mode;
-  current_radio = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
+function colour_svgs_now() {
+  var mode = colouring_mode;
   for (var i = 0; i < count_bam_entries_in_xml; i++) {
     if (exp_info[i]) {
       var currentSRA = exp_info[i][0].slice(0, -4);
@@ -434,6 +472,7 @@ function colour_svgs_now(mode) {
     whichAbsOrRel();
   };
 
+  document.getElementById('landing').setAttribute('hidden', 'true');
   $("#theTable").trigger("update");
 
   change_rpkm_colour_scale(colouring_mode);
@@ -443,7 +482,6 @@ function colour_svgs_now(mode) {
 * Re-read the value from the input box
 */
 function get_input_values() {
-  colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   locus = document.getElementById("locus").value;
   yscale_input = document.getElementById("yscale_input").value;
 
@@ -484,7 +522,7 @@ function update_all_images(status) {
 function variants_radio_options(status) {
   get_input_values();
   $.ajax({
-    url: 'cgi-bin/get_gene_structures.cgi?locus=' + locus, 
+    url: './cgi-bin/get_gene_structures.cgi?locus=' + locus, 
     dataType: 'json',
     success: function(gene_res) {
       // Update locus_start and locus_end
@@ -553,6 +591,8 @@ function variants_radio_options(status) {
             }
           });
         };
+
+      document.getElementById('landing').setAttribute('hidden', 'true');
       $("#theTable").trigger("update");
     },
     error: function() {
@@ -640,12 +680,13 @@ function gene_structure_radio_on_change() {
     };
   };
 
+  document.getElementById('landing').setAttribute('hidden', 'true');
   $("#theTable").trigger("update");
 };
 
 /**
  * Which type of absOrRel do you want to call
- * @param {Boolean} preIterate If already iterated through exp_ino before calling, then set to true, else leave false
+ * @param {Boolean} preIterate If already iterated through exp_info before calling, then set to true, else leave false
  * @param {Number} iteratePos If preIterate is true, an index position for exp_info must be added here
  */
 function whichAbsOrRel(preIterate = false, iteratePos = 0) {
@@ -751,6 +792,7 @@ function rnaseq_images(status) {
     for (var i = 0; i < count_bam_entries_in_xml; i++) {
       // Creates the tissue variable for the rnaSeqMapCoverage webservice
       var tissueWebservice;
+      
       if (rnaseq_calls[i][0] == undefined || rnaseq_calls[i][0] == "None" || rnaseq_calls[i][0] == null) {
         tissueWebservice = "undefined"; // If no "tissue" variable, create an undefined one
       } else {
@@ -958,6 +1000,7 @@ function rnaseq_images(status) {
             // console.log("**** Requests = " + String(rnaseq_success) + ", time delta = " + String(parseInt(rnaseq_success_end_time - rnaseq_success_start_time)));
           };
 
+          document.getElementById('landing').setAttribute('hidden', 'true');
           $("#theTable").trigger("update");
           responsiveRNAWidthResize();
           toggleResponsiveTable();
@@ -1267,14 +1310,14 @@ function populate_table(status) {
 
   // Insert table headers
   var tableHeader = '<thead><tr>' +
-    '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-xs-10">Title</div><div class="col-xs-0.5"><img loading="lazy" class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-10">Title</div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
     '<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
     img_created +
     '</th>' +
-    '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-xs-6" >r<sub>pb</sub></div><div class="col-xs-1"><img loading="lazy" class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-7" >r<sub>pb</sub></div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
     '<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-    '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-xs-7">RPKM</div><div class="col-xs-1"><img loading="lazy" class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
-    '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-xs-10">Details</div><div class="col-xs-0.5"><img loading="lazy" class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-8">RPKM</div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
+    '<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-10">Details</div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg"></div></div></th>' +
     '<th class="sortable colCompare" id="colCompare" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 30px;" hidden><div class="row" id="colCompareRow"></div></th>' + 
     '</tr></thead>' +
     '<tbody id="data_table_body"></tbody>';
@@ -1415,10 +1458,15 @@ function populate_table(status) {
 
         var name = $(this).attr('name');
         sraDict[experimentno]["name"] = name;
-        if ($(this).attr('bam_type') == "Amazon AWS") {        
-          var bamTissueLink = $(this).attr('name').split('/');
-          var bamTissuePos = bamTissueLink.indexOf(experimentno);
-          var tissue = bamTissueLink[bamTissuePos-1];
+        
+        var tissue = $(this).attr('svgname');
+        if (tissue) {
+          if (tissue.trim().substr(0, 4) === 'ath-') {
+            tissue = tissue.slice(4, tissue.length).trim()
+          };
+          if (tissue.trim().substr(tissue.length - 4, 4) === '.svg') {
+            tissue = tissue.slice(0, tissue.length - 4).trim()
+          };
         };
         rnaseq_calls.push([tissue, experimentno]);
         sraDict[experimentno]["tissue"] = tissue;
@@ -1502,6 +1550,11 @@ function populate_table(status) {
         };
 
         exp_info.push([experimentno + '_svg', svg_part, controls, 0, 0, 0, 0]);
+
+        if (document.title !== 'eFP-Seq Browser: ' + locus + ' - ' + xmlTitleName) {
+          document.title = 'eFP-Seq Browser: ' + locus + ' - ' + xmlTitleName;
+        };
+        
         if (loadNewDataset === true) {
           setTimeout(function() {
             count_bam_num();
@@ -1589,7 +1642,7 @@ function populate_table(status) {
   });
 
   var filtersConfig = {
-    base_path: 'cgi-bin/core/tablefilter/',
+    base_path: 'cgi-bin/core/packages/tableFilter/',
     columns_exact_match: [false, false, false, false, false, false],
     watermark: ["Filter", "Filter", "Filter", "Filter", "Filter", "Filter"],
     highlight_keywords: false,
@@ -1607,7 +1660,6 @@ function populate_table(status) {
   var tf = new TableFilter('theTable', filtersConfig);
   //var tf = new TableFilter('demo', filtersConfig);
   tf.init();
-  colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
   change_rpkm_colour_scale(colouring_mode);
 
   // Check if arrows are the right width or not
@@ -1717,9 +1769,9 @@ function populate_efp_modal(status) {
   $("#efpModalTable").append('<p class="eFP_thead"> AGI-ID: <a href="https://www.arabidopsis.org/servlets/TairObject?type=locus&name=' + locus + '" target="_blank" rel="noopener">' + locus + '</a></p>');
 
   // Check radio
-  if (current_radio == "abs") {
+  if (colouring_mode === "abs") {
     $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img loading="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII=" alt="Absolute RPKM" class="colourScale"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM, Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + ' RPKM</p>' + '<br><table><tbody class="eFP_tbody"></tbody>');
-  } else if (current_radio == "rel") {
+  } else if (colouring_mode === "rel") {
     $("#efpModalTable").append('<p class="eFP_thead"> eFP Colour Scale: <img loading="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==" alt="Relative RPKM" class="colourScale"> Min: ' + Math.min.apply(null, efp_RPKM_values).toFixed(1) + ', Max: ' + Math.max.apply(null, efp_RPKM_values).toFixed(1) + '</p>' + '<br><table><tbody></tbody>');
   };
 
@@ -1791,17 +1843,6 @@ function change_rpkm_colour_scale(colouring_mode) {
     tds[i].classList.add(columnList[i]);
   };
 };
-
-/* Disables the absolute RPKM scale input button if the relative mode is selected. */
-$("input[name=svg_colour_radio_group]:radio").change(function() {
-  colouring_mode = $('input[type="radio"][name="svg_colour_radio_group"]:checked').val();
-  whichAbsOrRel();
-  if (colouring_mode == "abs") {
-    $("#rpkm_scale_input").removeAttr('disabled');
-  } else {
-    $("#rpkm_scale_input").prop("disabled", true);
-  };
-});
 
 function locus_validation() {
   var loc = document.getElementById("locus").value;
@@ -2531,7 +2572,7 @@ function download_mainTableCSV() {
   populate_efp_modal(1); // Needed for the filtered_2d_x variables
   $("#hiddenDownloadModal_table").empty(); // reset
   var downloadIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
-  downloadIndexTable_str += "\t\t<caption>" + loadedDataset.split(' ').join('_') + "</caption>\n";
+  downloadIndexTable_str += "\t\t<caption>" + xmlTitleName.split(' ').join('_') + "</caption>\n";
   downloadIndexTable_str += downloadIndexTable_base;
 
   // Looping through each row of the table
@@ -2708,6 +2749,46 @@ function returnBackToTop() {
   mainBody.scrollTop = 0;
 };
 
+/**
+ * Display the table toggles options dropdown
+ */
+function toggleOptionsTable() {
+  if (document.getElementById('tableToggle').getAttribute('aria-expanded') === "false") {
+    document.getElementById('tableToggle').setAttribute('aria-expanded', true);
+    document.getElementById('filterDropdown').classList.add('show');
+  } else {
+    document.getElementById('tableToggle').setAttribute('aria-expanded', false);
+    document.getElementById('filterDropdown').classList.remove('show');
+  };
+};
+
+/**
+ * Toggle which table toggles options will be displayed
+ */
+function toggleTableOptionsView() {
+  /** true if already enabled for filtered columns being displayed, false for filtere eFP images */
+  let filterCols = document.getElementById('tableFilter-tab').classList.value.includes('active');
+
+  if (filterCols) {
+    // Change navigation buttons
+    document.getElementById('tableFilter-tab').classList.remove('active');
+    document.getElementById('eFPFilter-tab').classList.add('active');
+
+    // Change display
+    document.getElementById('tableFilter').classList.remove('show', 'active');
+    document.getElementById('eFPFilter').classList.add('show', 'active');
+  } else {
+    
+    // Change navigation buttons
+    document.getElementById('tableFilter-tab').classList.add('active');
+    document.getElementById('eFPFilter-tab').classList.remove('active');
+
+    // Change display
+    document.getElementById('tableFilter').classList.add('show', 'active');
+    document.getElementById('eFPFilter').classList.remove('show', 'active');
+  };
+};
+
 var downloadDivNum = 1;
 /**
  * Download the DIV as a image
@@ -2719,7 +2800,7 @@ function downloadDiv(id) {
       canvas.id = "downloadDivNum_" + downloadDivNum;
       document.getElementById("appendCanvas").appendChild(canvas);
       document.getElementById("downloadDivNum_" + downloadDivNum).style.width = '100%';
-      document.getElementById("downloadImage_button").click();
+      $('#DownloadImageModal').modal('toggle');
       downloadDivNum++;
   });
 };
@@ -2753,7 +2834,7 @@ function displayNavBAR() {
 function adjustFooterSize() {
   var navbar = document.getElementById("navbar_menu");
   if (navbar) {
-    document.getElementById("nm_footer").style.width = (navbar.offsetWidth * 1.1) + "px";
+    document.getElementById("nm_footer").style.width = (navbar.offsetWidth) + "px";
     if (navbar.scrollHeight == navbar.clientHeight) {
       if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_abs") == false) {
         document.getElementById("nm_footer").classList.remove('navbar_menu_footer_overflow_sticky');
@@ -2766,6 +2847,13 @@ function adjustFooterSize() {
       };
     };
   };
+};
+
+/**
+ * Adjust the table toggle options dropdown to fit above the icon for it
+ */
+function adjustTableOptionsDropdownSize() {
+  document.getElementById('filterDropdown').style.left = (document.body.offsetWidth - (document.getElementById('tableToggle').offsetWidth * 2) - document.getElementById('filterDropdown').offsetWidth).toString() + 'px';
 };
 
 /**
@@ -3443,6 +3531,7 @@ $(window).resize(function() {
   adjustSubmissionIFrameSize();
   responsiveRNAWidthResize();
   toggleResponsiveTable();
+  adjustTableOptionsDropdownSize();
   setTimeout(function() {adjustFooterSize();}, 10);
 });
 
@@ -3463,6 +3552,7 @@ function init() {
   // Adjust UI
   adjustFooterSize();
   displayVersionNumber();
+  adjustTableOptionsDropdownSize();
 
   // Cookies
   setUpCookies();
@@ -3496,11 +3586,14 @@ function init() {
         type: "GET",
         url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/idautocomplete.cgi?species=Arabidopsis_thaliana&term=" + last,
         dataType: "json"
-        }).done(function(data) {
-        response(data);
+      }).done(function(data) {
+        if (data && data.length >= 7) {
+          response(data.slice(0, 7))
+        } else {
+          response(data);
+        };
       });
-    },
-    close: function (e, ui) {
+    }, close: function (e, ui) {
       correctAGIIDInput();
     }
   });
@@ -3514,6 +3607,9 @@ function init() {
 
   readShareLink();
 };
+
+// Adjust right away so does not look weird
+adjustFooterSize();
 
 window.addEventListener('load', function() {
   init();

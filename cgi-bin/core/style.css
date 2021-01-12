@@ -34,6 +34,7 @@ th {
     transition-delay: 0.6s;
     font-family: Arial;
     font-size: 1.2em;
+    width: auto !important;
 }
 
 .loading {
@@ -127,7 +128,7 @@ a {
 .efp_modal_table {
     padding-right: 10px;
     padding-left: 10px;
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
 .modal-footer-colour {
@@ -223,24 +224,21 @@ a {
 }
 
 .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
+    position: fixed;
+    bottom: 3% !important;
+    left: 100%;
     z-index: 1000;
     display: none;
-    float: left;
-    min-width: 10rem;
     padding: 0.5rem 0;
     margin: 0.125rem 0 0;
-    font-size: 1rem;
     color: #292b2c;
     text-align: left;
     list-style: none;
     background-color: #fff;
-    -webkit-background-clip: padding-box;
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
+    padding: 0px !important;
 }
 
 .dropdown-divider {
@@ -333,6 +331,7 @@ a {
     overflow-y: auto; 
     overflow-x: hidden; 
     float: left;
+    font-size: 0.7em;
 }
 
 @media screen and (min-width:576px) {
@@ -362,6 +361,7 @@ a {
 .navbar_menu_clickable {
     font-size: 1.5em;
     margin-bottom: 3%;
+    width: 100%;
 }
 
 .navbar_menu_loadData {
@@ -408,6 +408,7 @@ a {
     padding-bottom: 34px;
     background: #3d3d3d;
     margin-left: -10%;
+    align-items: center;
 }
 
 .navbar_menu_footer_overflow_abs {
@@ -417,7 +418,7 @@ a {
     padding-top: 14px;
     padding-bottom: 1%;
     background: #3d3d3d;
-    margin-left: -10%;
+    align-items: center;
 }
 
 .navbar_menu_input {
@@ -540,6 +541,7 @@ a {
 
 .theTable { 
     font-size: 12px;
+    margin-bottom: 0rem !important;
 }
 
 .dd-option-image {
@@ -573,7 +575,7 @@ a {
     position: fixed;
     width: 100%;
     left: 0;
-    font-size: 1.7em;
+    font-size: 1.3em !important;
     padding: 0.5em;
     justify-content: space-between;
     font-size: 1.6em;
@@ -581,6 +583,7 @@ a {
 
 .PnCText {
     color: white;
+    margin: auto;
 }
 
 .PnCClose {
@@ -591,7 +594,7 @@ a {
 .PnCPolicy {
     font-size: 1.6em; 
     text-align: left;
-    padding: 1.2em;
+    padding: 0.5em;
 }
 
 .cookiesTitle {
@@ -633,4 +636,25 @@ li > p {
 
 .progressLoading {
     cursor: progress !important;
+}
+
+.select-radio:focus {
+    outline: none !important;
+}
+
+select {
+    /* CSS taken from https://codepen.io/vkjgr/pen/VYMeXp */ 
+    background-image:
+        linear-gradient(45deg, transparent 50%, gray 50%),
+        linear-gradient(135deg, gray 50%, transparent 50%),
+        linear-gradient(to right, #ccc, #ccc);
+    background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px),
+        calc(100% - 2.5em) 0.5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
+    background-repeat: no-repeat;
 }

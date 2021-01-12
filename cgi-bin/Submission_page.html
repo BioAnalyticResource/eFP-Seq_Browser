@@ -3,23 +3,29 @@
 
 <head>
 	<title> Submitting your RNA-Seq data for eFP-Seq Browser</title>
+
+	<!-- META DATA -->
 	<meta name="description" content="Submitting your RNA-Seq data for eFP-Seq Browser" />
 	<meta name="keyboard" content="eFP, RNA-Seq" />
 	<meta name="author" content="Alexander Sullivan" />
+	<!-- END META DATA -->
+
+	<!-- CORE SCRIPTS -->
 	<link rel="stylesheet" type="text/css" href="Submission_page/submissionStyle.min.css" />
-	<link rel="stylesheet" href="core/APInLibraries/GoogleMaterial/material.green-pink.min.css" />
-	<script src="core/jquery-3.4.1/jquery.min.js"></script>
-	<script defer src="Submission_page/mrDataConverter/Controller.js"></script>
-	<script src="Submission_page/mrDataConverter/converter.min.js"></script>
-	<script defer src="Submission_page/mrDataConverter/CSVParser.min.js"></script>
-	<script defer src="Submission_page/mrDataConverter/DataGridRenderer.min.js"></script>
+	<!-- END CORE SCRIPTS -->
+
+	<!-- LIBRARIES AND PACKAGES -->
+	<link rel="stylesheet" href="core/packages/GoogleMaterial/material.green-pink.min.css" />
+	<script src="core/packages/jQuery/jquery.min.js"></script>
+	<!-- Mr Data Converter -->
+	<script defer src="core/packages/mrDataConverter/Controller.js"></script>
+	<script src="core/packages/mrDataConverter/converter.min.js"></script>
+	<script defer src="core/packages/mrDataConverter/CSVParser.min.js"></script>
+	<script defer src="core/packages/mrDataConverter/DataGridRenderer.min.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!--Bootstrap -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="" crossorigin="anonymous">
-	<link rel="stylesheet" href="core/bootstrap/bootstrap-theme-3-3-7.min.css" integrity="" crossorigin="anonymous">
-	<script src="core/bootstrap/bootstrap3-3-7.min.js" integrity="" crossorigin="anonymous"></script>
-	<!-- lazysizes -->
-	<script src='core/lazysizes/lazysizes.min.js'></script>
+	<link rel="stylesheet" href="core/packages/boostrap/css/bootstrap.min.css">
+  	<script async src="core/packages/boostrap/js/bootstrap.min.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-38961857-5"></script>
 	<script>
@@ -29,6 +35,7 @@
   
 	  gtag('config', 'UA-38961857-5');
 	</script>
+	<!-- END LIBRARIES AND PACKAGES -->
 </head>
 
 <body>
@@ -39,7 +46,7 @@
 			<h1 style="font-weight:bold;">eFP-Seq Browser User Data Submission</h1>
 			<p> To visualize and interpret your own RNA-seq data with the eFP-Seq Browser, please fill out the form below with the information for your data. All fields with an <span style="font-weight:bold;">*</span> are required fields. </p>
 			<p> When you have finished filling in the forms, please click the "Generate XML" button at the bottom of the page. It will give you an option to download an XML file of readable data; it is highly recommended that you download that XML file so you may simply submit that XML file next time instead of needing to fill out the form again. You can also choose to make the XML file publicly accessible</p>
-			<p> If you have a lot of RNA-Seq data files to input into the eFP-Seq Browser, it may be best to upload an Excel file with all the information filled in instead of typing it below. You can download the Excel template <a href="Submission_page/bulk_template.xlsx" download>here</a>
+			<p> If you have a lot of RNA-Seq data files to input into the eFP-Seq Browser, it may be best to upload an Excel file with all the information filled in instead of typing it below. You can download the Excel template <a href="./Submission_page/bulk_template.xlsx" download>here</a>
 			</p>
 
 			<!-- Submission options (buttons) -->
@@ -254,15 +261,15 @@
 									<span class="sub_tooltip_text">The tissue the RNA-Seq data is from.</span>
 								</label>
 								<div class="btn-group col-sm-8 col-xs-8 change_div_id reqtissuediv" style="padding-left:0px; padding-right:0px;" name="tissue1" id="tissue_input">
-									<button id="tissue1" type="button" class="btn btn-default dropdown-toggle col-sm-12 col-xs-12 change_button_id reqtissuebutton" data-toggle="dropdown" name="channeltissue_false" style="text-align:left;">Tissue select </button>
+									<button id="tissue1" type="button" class="btn btn-default dropdown-toggle col-sm-12 col-xs-12 change_button_id reqtissuebutton tissue_button dropdown-arrow" data-toggle="dropdown" name="channeltissue_false" style="text-align:left;" onClick="toggleTissueSelection(this.id); designateTissueClick(this.id);" onmouseover="designateTissueClick(this.id)">Tissue select </button>
 									<input class="col-sm-12 col-xs-12 change_id_tissue_subunit channeltissue reqtissue input_right" list="channeltissuelist" id="tissue1_subunit" name="channeltissue" type="text" style="float:inherit;" hidden>
-									<ul class="dropdown-menu scrollable-menu col-sm-12 col-xs-12" role="menu">
+									<ul class="dropdown-menu change_tissue_select scrollable-menu col-sm-12 col-xs-12" role="menu" id="tissue1_select">
 										<li>
 											<p style="margin-left:2px;"> Please click on your tissue: </p>
 											<input type="text" class="input_right tissueInput" id="tissueInput1" onkeyup="updateTable(this.id)" placeholder="Search for tissue.." title="Tissue search" name="channeltissue" placeholder="Etiolated seedling" data-help-text="tissue">
 											<table id="tissueTable_tissueInput1" class="tissue_table" style="margin-left:2px; margin-right:4px;">
 												<tr>
-													<td onclick="clickclick(this.id)" id="10_Day_old_Seedling" class="tissue_box all">10 Day Old Seedling:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="10_Day_old_Seedling" class="tissue_box all">10 Day Old Seedling:
 														<br>
 														<?xml version="1.0" encoding="utf-8"?>
 														<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -312,7 +319,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="10_Day_old_Seedling_roots" class="tissue_box root">Roots:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="10_Day_old_Seedling_roots" class="tissue_box root">Roots:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -361,7 +368,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="10_Day_old_Seedling_shoots" class="tissue_box shoot">Shoots:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="10_Day_old_Seedling_shoots" class="tissue_box shoot">Shoots:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -412,7 +419,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="15_Day_old_Seedling" class="tissue_box all">15 Day Old Seedling:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="15_Day_old_Seedling" class="tissue_box all">15 Day Old Seedling:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -543,7 +550,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="15_Day_old_Seedling_roots" class="tissue_box root">Roots:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="15_Day_old_Seedling_roots" class="tissue_box root">Roots:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -674,7 +681,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="15_Day_old_Seedling_shoots" class="tissue_box shoot">Shoots:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="15_Day_old_Seedling_shoots" class="tissue_box shoot">Shoots:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -807,7 +814,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Etiolated_seedling" class="tissue_box etiolatedseedling">Etiolated seedling:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Etiolated_seedling" class="tissue_box etiolatedseedling">Etiolated seedling:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -839,7 +846,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flower" class="tissue_box flower">Flower:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower" class="tissue_box flower">Flower:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -993,7 +1000,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flower_receptacle" class="tissue_box receptacle">Flower's receptacle:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_receptacle" class="tissue_box receptacle">Flower's receptacle:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -1149,7 +1156,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Carpel_petals_stamen_and_sepals" class="tissue_box all">Carpel, petals, stamen and sepals:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Carpel_petals_stamen_and_sepals" class="tissue_box all">Carpel, petals, stamen and sepals:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -1312,7 +1319,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flowers_petals" class="tissue_box petals">Flowers's petals:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flowers_petals" class="tissue_box petals">Flowers's petals:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -1475,7 +1482,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flowers_stamen" class="tissue_box stamen">Flowers's stamen:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flowers_stamen" class="tissue_box stamen">Flowers's stamen:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -1640,7 +1647,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Flowers_sepals" class="tissue_box sepals">Flower's sepals:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flowers_sepals" class="tissue_box sepals">Flower's sepals:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -1804,7 +1811,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flowers_carpel" class="tissue_box carpels">Flower's carpel:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flowers_carpel" class="tissue_box carpels">Flower's carpel:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -1967,7 +1974,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Germinating_seed" class="tissue_box all">Germinating seed:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Germinating_seed" class="tissue_box all">Germinating seed:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -2117,7 +2124,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Internode" class="tissue_box all">Internode:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Internode" class="tissue_box all">Internode:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -2133,7 +2140,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Full_leaf" class="tissue_box all">All leaf parts:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Full_leaf" class="tissue_box all">All leaf parts:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -2164,7 +2171,7 @@
                               	" />
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Leaf_veins" class="tissue_box veins">Leaf's veins:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Leaf_veins" class="tissue_box veins">Leaf's veins:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -2197,7 +2204,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Leaf_lamina" class="tissue_box lamina">Leaf's lamina:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Leaf_lamina" class="tissue_box lamina">Leaf's lamina:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -2229,7 +2236,7 @@
 															/>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Leaf_petiole" class="tissue_box petiole">Leaf's petiole:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Leaf_petiole" class="tissue_box petiole">Leaf's petiole:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -2259,7 +2266,7 @@
                                 	" />
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Pollen" class="tissue_box all">Pollen:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Pollen" class="tissue_box all">Pollen:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -2551,7 +2558,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Roots_tip" class="tissue_box all">Root's tip
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Roots_tip" class="tissue_box all">Root's tip
 														<br>
 														<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px"
 														  height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -2947,7 +2954,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Rosette_Plus_Root" class="tissue_box all">Rosette Plus Root:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Rosette_Plus_Root" class="tissue_box all">Rosette Plus Root:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -3043,7 +3050,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Rosette_shoot" class="tissue_box shoot">Rosette's shoot:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Rosette_shoot" class="tissue_box shoot">Rosette's shoot:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -3142,7 +3149,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Rosette_root" class="tissue_box root">Rosette's root:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Rosette_root" class="tissue_box root">Rosette's root:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -3239,7 +3246,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Seed_1-4" class="tissue_box all">Seed 1-4:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Seed_1-4" class="tissue_box all">Seed 1-4:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -3255,7 +3262,7 @@
 															/>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Seed_5-7" class="tissue_box all">Seed 5-7:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Seed_5-7" class="tissue_box all">Seed 5-7:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 32.5 48.9" style="enable-background:new 0 0 32.5 48.9;" xml:space="preserve">
@@ -3281,7 +3288,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Seed_8+" class="tissue_box all">Seed 8+:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Seed_8+" class="tissue_box all">Seed 8+:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 38.3 57.8" style="enable-background:new 0 0 38.3 57.8;" xml:space="preserve">
@@ -3306,7 +3313,7 @@
                                   c0.2,1.4,0.4,5.9,0.4,7.3" />
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Senescent_Leaf" class="tissue_box all">Senescent Leaf:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Senescent_Leaf" class="tissue_box all">Senescent Leaf:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 27.6 74.8" style="enable-background:new 0 0 27.6 74.8;" xml:space="preserve">
@@ -3331,7 +3338,7 @@
 															/>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Shoot_Apex_Inflorescense" class="tissue_box all">Shoot Apex Inflorescense:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Shoot_Apex_Inflorescense" class="tissue_box all">Shoot Apex Inflorescense:
 														<br>
 														<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px"
 														  height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -3358,7 +3365,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Shoot_Apex_Vegetative-Transition" class="tissue_box all">Shoot Apex Vegetative-Transition:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Shoot_Apex_Vegetative-Transition" class="tissue_box all">Shoot Apex Vegetative-Transition:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 104.4 78.2" style="enable-background:new 0 0 104.4 78.2;" xml:space="preserve">
@@ -3377,7 +3384,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Silique_1-5" class="tissue_box all">Silique 1-5 :
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Silique_1-5" class="tissue_box all">Silique 1-5 :
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 10.1 64.8" style="enable-background:new 0 0 10.1 64.8;" xml:space="preserve">
@@ -3397,7 +3404,7 @@
 															/>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Silique_6-10" class="tissue_box all">Silique 6-10:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Silique_6-10" class="tissue_box all">Silique 6-10:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 24.7 118.8" style="enable-background:new 0 0 24.7 118.8;" xml:space="preserve">
@@ -3421,7 +3428,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Young_Leaf_1-4" class="tissue_box all">Young Leaf (1-4):
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Young_Leaf_1-4" class="tissue_box all">Young Leaf (1-4):
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 24.4 42.1" style="enable-background:new 0 0 24.4 42.1;" xml:space="preserve">
@@ -3441,7 +3448,7 @@
 															<path class="st0" d="M11.8,24.4c-0.8-3.8-2-9.8-2-9.8" />
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Early_Budding_Flower" class="tissue_box all">Stage 1 Flower:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Early_Budding_Flower" class="tissue_box all">Stage 1 Flower:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -3765,7 +3772,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Early_Budding_Flower_shoot" class="tissue_box shoot">Stage 1 Flower's shoot:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Early_Budding_Flower_shoot" class="tissue_box shoot">Stage 1 Flower's shoot:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -4091,7 +4098,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Early_Budding_Flower_buds" class="tissue_box buds">Stage 1 Flower's buds:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Early_Budding_Flower_buds" class="tissue_box buds">Stage 1 Flower's buds:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -4415,7 +4422,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flower_Bud" class="tissue_box stage12bud">Flower Bud:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_Bud" class="tissue_box stage12bud">Flower Bud:
 														<br>
 														<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px"
 														  height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -4441,7 +4448,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Stamen" class="tissue_box all">Stamen:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Stamen" class="tissue_box all">Stamen:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -4554,7 +4561,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Stamen_anthers" class="tissue_box anthers">Stamen's anthers:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Stamen_anthers" class="tissue_box anthers">Stamen's anthers:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -4665,7 +4672,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Stamen_filament" class="tissue_box filament">Stamen's filament:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Stamen_filament" class="tissue_box filament">Stamen's filament:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
@@ -4776,7 +4783,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Stigma_and_Ovaries" class="tissue_box all">Stigma and Ovaries:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Stigma_and_Ovaries" class="tissue_box all">Stigma and Ovaries:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 900 600" enable-background="new 0 0 900 600" xml:space="preserve">
@@ -5150,7 +5157,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Stigma" class="tissue_box Stigma_tissue">Stigma:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Stigma" class="tissue_box Stigma_tissue">Stigma:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 900 600" enable-background="new 0 0 900 600" xml:space="preserve">
@@ -5522,7 +5529,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Ovaries" class="tissue_box Ovary_tissue">Ovary_tissue:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Ovaries" class="tissue_box Ovary_tissue">Ovary_tissue:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 900 600" enable-background="new 0 0 900 600" xml:space="preserve">
@@ -5894,7 +5901,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Whole_Silique" class="tissue_box all">Whole Silique:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Whole_Silique" class="tissue_box all">Whole Silique:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="10px" y="0px"
 														  viewBox="300 320 30 150" xml:space="preserve" width="150px" height="150px" enable-background="new 0 0 612 792">
@@ -5917,7 +5924,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="young_Seedling" class="tissue_box all">Young Seedling:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="young_Seedling" class="tissue_box all">Young Seedling:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -5955,7 +5962,7 @@
                                 	c-4.536-0.035-9.813,0.32-14.396,2.841c-3.608,1.979-9.646,5.296-11.46,9.958" />
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="young_Seedling_root" class="tissue_box root">Young Seedling's root:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="young_Seedling_root" class="tissue_box root">Young Seedling's root:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -5993,7 +6000,7 @@
                                 c-4.536-0.035-9.813,0.32-14.396,2.841c-3.608,1.979-9.646,5.296-11.46,9.958" />
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="young_Seedling_hypocotyl" class="tissue_box hypocotyl">Young Seedling's hypocotyl:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="young_Seedling_hypocotyl" class="tissue_box hypocotyl">Young Seedling's hypocotyl:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -6033,7 +6040,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="young_Seedling_cotyledon" class="tissue_box cotyledon">Young Seedling's cotyledon:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="young_Seedling_cotyledon" class="tissue_box cotyledon">Young Seedling's cotyledon:
 														<br>
 														<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 														  width="150px" height="150px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
@@ -6070,7 +6077,7 @@
                               	c-4.536-0.035-9.813,0.32-14.396,2.841c-3.608,1.979-9.646,5.296-11.46,9.958" />
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flower_Development_1" class="tissue_box flowerDevelopmentPart1">Late flower development (1):
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_Development_1" class="tissue_box flowerDevelopmentPart1">Late flower development (1):
 														<br>
 														<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 														  xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -6131,7 +6138,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flower_Development_2" class="tissue_box flowerDevelopmentPart2">Flower development 2:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_Development_2" class="tissue_box flowerDevelopmentPart2">Flower development 2:
 														<br>
 														<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 														  xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -6233,7 +6240,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Flower_Development_3" class="tissue_box flowerDevelopmentPart3">Flower development 3:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_Development_3" class="tissue_box flowerDevelopmentPart3">Flower development 3:
 														<br>
 														<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 														  xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -6284,7 +6291,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flower_Development_4" class="tissue_box flowerDevelopmentPart4">Flower development 4:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_Development_4" class="tissue_box flowerDevelopmentPart4">Flower development 4:
 														<br>
 														<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 														  xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -6315,7 +6322,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flower_Development_5" class="tissue_box flowerDevelopmentPart5">Flower development 5:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_Development_5" class="tissue_box flowerDevelopmentPart5">Flower development 5:
 														<br>
 														<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 														  xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -6346,7 +6353,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Flower_Development_5-8" class="tissue_box flowerDevelopmentPart6">Flower development 6-8:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_Development_5-8" class="tissue_box flowerDevelopmentPart6">Flower development 6-8:
 														<br>
 														<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 														  xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -6407,7 +6414,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flower_Development_9-11" class="tissue_box flowerDevelopmentPart9">Flower development 9-11:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_Development_9-11" class="tissue_box flowerDevelopmentPart9">Flower development 9-11:
 														<br>
 														<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 														  xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -6474,7 +6481,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flower_Development_12-14" class="tissue_box flowerDevelopmentPart12">Flower development 12-14:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_Development_12-14" class="tissue_box flowerDevelopmentPart12">Flower development 12-14:
 														<br>
 														<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 														  xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -6590,7 +6597,7 @@
 													</td>
 												</tr>
 												<tr>
-													<td onclick="clickclick(this.id)" id="Flower_Development_15-18" class="tissue_box flowerDevelopmentPart15">Flower development 15-18:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_Development_15-18" class="tissue_box flowerDevelopmentPart15">Flower development 15-18:
 														<br>
 														<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 														  xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -6700,7 +6707,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Flower_Development_19" class="tissue_box flowerDevelopmentPart19">Early flower development (19+):
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Flower_Development_19" class="tissue_box flowerDevelopmentPart19">Early flower development (19+):
 														<br>
 														<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 														  xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -6854,7 +6861,7 @@
 															</g>
 														</svg>
 													</td>
-													<td onclick="clickclick(this.id)" id="Other" class="tissue_box all">Other:
+													<td onclick="clickclick(this.id); toggleTissueSelection(tissue_click);" id="Other" class="tissue_box all">Other:
 														<br>
 														<svg fill="#53f442" width="150px" height="150px" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
 															<g id="outlines">
@@ -6880,7 +6887,7 @@
 
 							<!-- Replicate control 1 -->
 							<div class="forminput row">
-								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidtho">&nbsp;&nbsp;&nbsp;<img class="scalearrow lazyload" data-src="Submission_page/Images/dropArrow.png" alt="Next row"> Replicate Controls 1
+								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-groupwidtho">&nbsp;&nbsp;&nbsp;<img class="scalearrow" loading="lazy" src="Submission_page/Images/dropArrow.png" alt="Next row"> Replicate Controls 1
 									<span class="sub_tooltip_text">The BAM record/experiment number of the replicate controls in your RNA-Seq data. Seperate controls by commas.</span>
 								</label>
 								<input class="channelgroupwidtho col-sm-8 col-xs-8 input_right inputXMLForm" name="channelgroupwidtho" id="replicate_controls1" placeholder="Seperate controls by commas. Example: ERR274308, ERR274309, ERR274310, ERR274311" type="text" data-help-text="groupwidth" />
@@ -6889,7 +6896,7 @@
 					</div>
 				</div>
 				<!-- Load custom script -->
-				<script src="Submission_page/XMLgenerator-v2.min.js"></script>
+				<script src="Submission_page/XMLgenerator.min.js"></script>
 			</div>
 
 			<!-- Add another entry and generate XML buttons -->
@@ -6922,9 +6929,8 @@
 						$("#sendXML").click(function () {
 							generatesrc = base64;
 							parent.base_src = generatesrc;
-							parent.uploadingdata = true;
-							parent.LoadSubmittedData();
-							parent.closeGenerate();					
+							parent.change_dataset(true);
+							parent.document.getElementById('closemodal_GenerateData').click();
 						});
 					});
 				</script>
