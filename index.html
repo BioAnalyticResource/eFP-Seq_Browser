@@ -182,7 +182,7 @@
           <!-- Load data button -->
           <div id="locusButton" class="navbar_menu_form_group">
             <p class="navbar_menu_general_font">4) Load your dataset</p>
-            <button id="locus_button" onclick="change_dataset(); toggleResponsiveTable(0, true);" class="btn navbar_menu_loadData btn-block navbar_menu_clickable disableOnLoading">LOAD DATA</button>
+            <button id="locus_button" onclick="change_dataset(); determineResponsiveTable()" class="btn navbar_menu_loadData btn-block navbar_menu_clickable disableOnLoading">LOAD DATA</button>
           </div>
         </div>
         <div class="mdl-tooltip" for="locusButton">Load new settings.</div>
@@ -414,8 +414,8 @@
             <div class="card accordion-item about">
               <div class="accordion-header" id="about">
                 <p class="mb-0">
-                  <button id="aboutCardTitle" onclick="ChangeHelpArrowDirection(this.id)" class="accordion-button collapsed cardTitle" type="button" data-bs-toggle="collapse"  data-bs-target="#aboutCard" aria-expanded="true" aria-controls="aboutCard">
-                    About the eFP-Seq Browser ▼
+                  <button id="aboutCardTitle" class="accordion-button collapsed cardTitle" type="button" data-bs-toggle="collapse"  data-bs-target="#aboutCard" aria-expanded="true" aria-controls="aboutCard">
+                    About the eFP-Seq Browser
                   </button>
                 </p>
               </div>
@@ -430,8 +430,8 @@
             <div class="card accordion-item navigationBar">
               <div class="accordion-header" id="navigationBar">
                 <p class="mb-0">
-                  <button class="accordion-button collapsed cardTitle" id="navbarCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-bs-toggle="collapse" data-bs-target="#navigationBarCard" aria-expanded="true" aria-controls="navigationBarCard">
-                    Navigation bar and its options ▼
+                  <button class="accordion-button collapsed cardTitle" id="navbarCardTitle" data-bs-toggle="collapse" data-bs-target="#navigationBarCard" aria-expanded="true" aria-controls="navigationBarCard">
+                    Navigation bar and its options
                   </button>
                 </p>
               </div>
@@ -500,8 +500,8 @@
             <div class="card accordion-item additionalFeatures">
               <div class="accordion-header" id="additionalFeatures">
                 <p class="mb-0">
-                  <button class="accordion-button collapsed cardTitle" id="additionalFeaturesCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-bs-toggle="collapse" data-bs-target="#additionalFeaturesCard" aria-expanded="true" aria-controls="additionalFeaturesCard">
-                    Additional features ▼
+                  <button class="accordion-button collapsed cardTitle" id="additionalFeaturesCardTitle" data-bs-toggle="collapse" data-bs-target="#additionalFeaturesCard" aria-expanded="true" aria-controls="additionalFeaturesCard">
+                    Additional features
                   </button>
                 </p>
               </div>
@@ -669,8 +669,8 @@
             <div class="card accordion-item generateOwnData">
               <div class="accordion-header" id="generateOwnData">
                 <p class="mb-0">
-                  <button class="accordion-button collapsed cardTitle" id="generateDataCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-bs-toggle="collapse" data-bs-target="#generateOwnDataCard" aria-expanded="true" aria-controls="generateOwnDataCard">
-                    Visualize your own data ▼
+                  <button class="accordion-button collapsed cardTitle" id="generateDataCardTitle" data-bs-toggle="collapse" data-bs-target="#generateOwnDataCard" aria-expanded="true" aria-controls="generateOwnDataCard">
+                    Visualize your own data
                   </button>
                 </p>
               </div>
@@ -811,8 +811,8 @@
             <div class="card accordion-item  xmlParameters">
               <div class="accordion-header" id="xmlParameters">
                 <p class="mb-0">
-                  <button class="accordion-button collapsed cardTitle" id="xmlCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-bs-toggle="collapse" data-bs-target="#xmlParametersCard" aria-expanded="true" aria-controls="xmlParametersCard">
-                    XML Parameters ▼
+                  <button class="accordion-button collapsed cardTitle" id="xmlCardTitle" data-bs-toggle="collapse" data-bs-target="#xmlParametersCard" aria-expanded="true" aria-controls="xmlParametersCard">
+                    XML Parameters
                   </button>
                 </p>
               </div>
@@ -921,8 +921,8 @@
             <div class="card accordion-item  manageAccount">
               <div class="accordion-header" id="manageAccount">
                 <p class="mb-0">
-                  <button class="accordion-button collapsed cardTitle" id="accountCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-bs-toggle="collapse" data-bs-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">
-                    Manage Personal Account ▼
+                  <button class="accordion-button collapsed cardTitle" id="accountCardTitle" data-bs-toggle="collapse" data-bs-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">
+                    Manage Personal Account
                   </button>
                 </p>
               </div>
@@ -964,8 +964,8 @@
             <div class="card accordion-item  citation">
               <div class="accordion-header" id="citation">
                 <p class="mb-0">
-                  <button class="accordion-button collapsed cardTitle" id="citationCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-bs-toggle="collapse" data-bs-target="#citationCard" aria-expanded="true" aria-controls="citationCard">
-                    Citation ▼
+                  <button class="accordion-button collapsed cardTitle" id="citationCardTitle" data-bs-toggle="collapse" data-bs-target="#citationCard" aria-expanded="true" aria-controls="citationCard">
+                    Citation
                   </button>
                 </p>
               </div>
@@ -980,8 +980,8 @@
             <div class="card accordion-item  feedback">
               <div class="accordion-header" id="feedback">
                 <p class="mb-0">
-                  <button class="accordion-button collapsed cardTitle" id="feedbackCardTitle" onclick="ChangeHelpArrowDirection(this.id)" data-bs-toggle="collapse" data-bs-target="#feedbackCard" aria-expanded="true" aria-controls="feedbackCard">
-                    Feedback ▼
+                  <button class="accordion-button collapsed cardTitle" id="feedbackCardTitle" data-bs-toggle="collapse" data-bs-target="#feedbackCard" aria-expanded="true" aria-controls="feedbackCard">
+                    Feedback
                   </button>
                 </p>
               </div>

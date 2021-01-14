@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20210112';
+var version = 'p20210114';
 
 /** Selected RPKM mode */
 var colouring_mode = "abs";
@@ -2809,9 +2809,10 @@ function downloadDiv(id) {
 
 /**
  * On click, hide the nav bar from main screen
+ * @param {Boolean} hideNavbar Force hide the navbar [true] or base on window [default, false]
  */
-function displayNavBAR() {
-  if ($("#navbar_menu").is(":visible") == true) {
+function displayNavBAR(hideNavbar = false) {
+  if ($("#navbar_menu").is(":visible") || hideNavbar) {
     document.getElementById("navbar_menu").style.display = "none";
     document.getElementById("main_content").className = "col-sm-12";
     document.getElementById("openMenu").style.display = "block";
@@ -2819,7 +2820,7 @@ function displayNavBAR() {
       document.getElementById("theTable").classList.add("RNATable");
     };
     document.getElementById("mainRow").removeAttribute("style");
-  } else if ($("#navbar_menu").is(":visible") == false) {
+  } else if ($("#navbar_menu").is(":visible") === false) {
     document.getElementById("navbar_menu").style.display = "block";
     document.getElementById("main_content").className = "col-sm-9";
     document.getElementById("openMenu").style.display = "none";
@@ -2937,11 +2938,22 @@ function toggleResponsiveTableOptions(colTitleBool, colRNABool, colrpbBool, cole
 };
 
 /**
+ * Determine what responsive table should be displayed based on screen width
+ */
+function determineResponsiveTable() {
+  if (document.body.offsetWidth <= 576) {
+    toggleResponsiveTable(2);
+    displayNavBAR(true);
+  } else {
+    toggleResponsiveTable(0);
+  };
+};
+
+/**
  * Creates a responsive mobile/small screen RNA-Table design *
  * @param {number} [forceToggle=0] Forces a toggled responsive design. 0 = none, 1 = mobile, 2 = desktop
- * @param {bool} [buttonClick=false] If clicked from mobile/responsive page, hide nav bar
  */
-function toggleResponsiveTable(forceToggle = 0, buttonClick = false) {
+function toggleResponsiveTable(forceToggle = 0) {
   if (document.getElementById("tableToggle").style.display != 'none') {
     // Mobile design
     if ((forceToggle == 1) || (window.innerWidth <= 575 && usedToggle == false)) {
@@ -3023,32 +3035,6 @@ function ChangeColArrow(tableArrowID) {
       CheckElementWidth(colArrow, 8);
     };
   }, 100);  
-};
-
-let cardIDList = ['aboutCardTitle', 'navbarCardTitle', 'additionalFeaturesCardTitle', 'generateDataCardTitle', 'xmlCardTitle', 'accountCardTitle', 'feedbackCardTitle'];
-/**
- * Changes the help directional arrow on each card when clicked
- * @param {String} elementID The element ID for the help card's title
- */
-function ChangeHelpArrowDirection(elementID) {
-  for (i = 0; i < cardIDList.length; i++) {
-    // If have arrow down, change to up (or down if up)
-    if (elementID === cardIDList[i]) {
-      let elementText = document.getElementById(elementID).innerHTML.trim();
-      if (elementText.substr(-1) == "▼") {
-        let replaceText = elementText.substr(0, elementText.length-1) + "▲";
-        document.getElementById(elementID).innerHTML = replaceText;
-      } else if (elementText.substr(-1) == "▲") {
-        let replaceText = elementText.substr(0, elementText.length-1) + "▼";
-        document.getElementById(elementID).innerHTML = replaceText;
-      };
-    } else {
-      // Make all other cards have an arrow down
-      let elementText = document.getElementById(cardIDList[i]).innerHTML.trim();
-      let replaceText = elementText.substr(0, elementText.length-1) + "▼";
-        document.getElementById(cardIDList[i]).innerHTML = replaceText;
-    };
-  };
 };
 
 /**

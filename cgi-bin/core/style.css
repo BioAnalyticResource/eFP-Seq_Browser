@@ -332,11 +332,13 @@ a {
     overflow-x: hidden; 
     float: left;
     font-size: 0.7em;
+    height: 100vh;
 }
 
-@media screen and (min-width:576px) {
+@media screen and (max-width:576px) {
     .navbar_menu {
         height: 100vh;
+        width: 100% !important;
     }
     .spacerBottom {
         margin-bottom: 7% !important;
