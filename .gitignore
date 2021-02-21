@@ -18,3 +18,6 @@ cgi-bin/gDriveMountFast.pl
 .env.test.local
 .env.production.local
 .vscode
+
+# workbox
+workbox-config.js

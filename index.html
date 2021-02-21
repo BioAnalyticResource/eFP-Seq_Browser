@@ -1410,6 +1410,15 @@
   <!-- ddslick -->
   <script defer src="cgi-bin/core/packages/ddslick/jquery.ddslick.min.js"></script>
   <!-- In-house Scripts -->
+  <script>
+    // Add service workers
+    if ('serviceWorker' in navigator) {
+      // Use the window load event to keep the page load performant
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./cgi-bin/core/serviceWorker/sw.js');
+      });
+    };
+  </script>
   <script src="cgi-bin/core/custom.min.js"></script> 
   <script src="cgi-bin/Submission_page/XMLgenerator.min.js"></script>
   <script type="text/javascript">

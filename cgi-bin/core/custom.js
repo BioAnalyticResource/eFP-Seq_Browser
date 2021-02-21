@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20210114';
+var version = 'p20210221';
 
 /** Selected RPKM mode */
 var colouring_mode = "abs";
@@ -2819,7 +2819,6 @@ function displayNavBAR(hideNavbar = false) {
     if (document.getElementById("theTable")) {
       document.getElementById("theTable").classList.add("RNATable");
     };
-    document.getElementById("mainRow").removeAttribute("style");
   } else if ($("#navbar_menu").is(":visible") === false) {
     document.getElementById("navbar_menu").style.display = "block";
     document.getElementById("main_content").className = "col-sm-9";
@@ -2827,7 +2826,6 @@ function displayNavBAR(hideNavbar = false) {
     if (document.getElementById("theTable")) {
       document.getElementById("theTable").classList.remove("RNATable");
     };
-    document.getElementById("mainRow").style.display = "inline-block";
   };
 };
 
@@ -3456,8 +3454,8 @@ function disableAllComparison() {
  */
 function PnCDisappear(){
   document.getElementById("PrivacyAndCookies").setAttribute("hidden", true);
-  document.cookie = 'barAcceptedCookies=1';
-  document.cookie = 'barVersion=' + version;
+  document.cookie = 'eSBAcceptedCookies=1; expires=Friday, December 31, 9999 at 7:00:00 AM;';
+  document.cookie = 'eSBVersion=' + version + '; expires=Friday, December 31, 9999 at 7:00:00 AM;';
 };
 
 /**
@@ -3475,13 +3473,13 @@ function setUpCookies() {
     /** An array of the cookies where [0] should be cookie name/key and [1] should be cookie value */
     var whichCookie = cookies[c].split('=');
 
-    // Look for barAcceptedCookies which is if the user has accepted the T&S or not (0 = false, 1 = true)
-    if (whichCookie[0] && whichCookie[0].trim() === 'barAcceptedCookies') {
+    // Look for eSBAcceptedCookies which is if the user has accepted the T&S or not (0 = false, 1 = true)
+    if (whichCookie[0] && whichCookie[0].trim() === 'eSBAcceptedCookies') {
       cookieAccept = whichCookie[1].trim();
     };
 
-    // Look for barVersion which is the version of the eFP-Seq Browser based on the version variable 
-    if (whichCookie[0] && whichCookie[0].trim() === 'barVersion') {
+    // Look for eSBVersion which is the version of the eFP-Seq Browser based on the version variable 
+    if (whichCookie[0] && whichCookie[0].trim() === 'eSBVersion') {
       cookieVersion = whichCookie[1].trim();
     };
 
@@ -3501,7 +3499,7 @@ function setUpCookies() {
 
   if (cookieVersion && cookieVersion !== version) { // If version does not match, display T&S
     document.getElementById("PrivacyAndCookies").removeAttribute('hidden');
-    document.cookie = "barAcceptedCookies=0";
+    document.cookie = "eSBAcceptedCookies=0";
   };
 };
 
