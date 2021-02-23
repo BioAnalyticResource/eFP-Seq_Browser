@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'p20210221';
+var version = 'p20210222';
 
 /** Selected RPKM mode */
 var colouring_mode = "abs";
