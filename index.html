@@ -22,25 +22,29 @@
   <meta property="og:url" content="https://bar.utoronto.ca/eFP-Seq_Browser/">
   <link rel="shortcut icon" href="cgi-bin/img/BAR.png" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-title" content="eFP-Seq Browser">
   <link rel="apple-touch-icon" sizes="180x180" href="cgi-bin/icon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="cgi-bin/icon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="cgi-bin/icon/android-chrome-192x192.png">
   <link rel="icon" type="image/png" sizes="16x16" href="cgi-bin/icon/favicon-16x16.png">
   <link rel="manifest" href="cgi-bin/icon/site.webmanifest">
   <link rel="mask-icon" href="cgi-bin/icon/safari-pinned-tab.svg" color="#cddaa7">
+  <meta name="application-name" content="eFP-Seq Browser">
+  <meta name="msapplication-config" content="cgi-bin/icon/browserconfig.xml">
   <meta name="msapplication-TileColor" content="#cddaa7">
   <meta name="msapplication-TileImage" content="cgi-bin/icon/mstile-144x144.png">
   <meta name="theme-color" content="#cddaa7">
+  <meta name="twitter:site" content="@BAR_PlantBio">
   <!-- END META DATA -->
   
   <!-- LIBRARIES AND PACKAGES -->
   <!-- jQuery -->
-  <script src="cgi-bin/core/packages/jQuery/jquery.min.js"></script>
+  <script rel="preload" as="script" src="cgi-bin/core/packages/jQuery/jquery.min.js"></script>
   <!-- END jQuery -->
   <!-- Google APIs-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="cgi-bin/core/packages/GoogleMaterial/material.green-pink.min.css">
-  <script async src="cgi-bin/core/packages/GoogleMaterial/material.min.js"></script>
+  <script async rel="preload" as="script" src="cgi-bin/core/packages/GoogleMaterial/material.min.js"></script>
   <!-- END Google APIs-->
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-38961857-5"></script>
@@ -65,11 +69,11 @@
   <!-- End Google Identity login -->
   <!-- jQuery UI -->
   <link rel="stylesheet" href="cgi-bin/core/packages/jQuery-ui/jquery-ui.min.css">
-  <script async src="cgi-bin/core/packages/jQuery-ui/jquery-ui.min.js"></script>
+  <script async rel="preload" as="script" src="cgi-bin/core/packages/jQuery-ui/jquery-ui.min.js"></script>
   <!-- END jQuery UI -->
   <!-- Bootstrap -->
   <link rel="stylesheet" href="cgi-bin/core/packages/boostrap/css/bootstrap.min.css">
-  <script async src="cgi-bin/core/packages/boostrap/js/bootstrap.min.js"></script>
+  <script async rel="preload" as="script" src="cgi-bin/core/packages/boostrap/js/bootstrap.min.js"></script>
   <!-- END Bootstrap -->
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="cgi-bin/core/style.min.css">
@@ -130,7 +134,7 @@
           <!-- Locus input -->
           <div id="locusBrowser" class="form-group navbar_menu_form_group">
             <p class="navbar_menu_general_font">1) Enter a gene name or AGI ID</p>
-            <input type="text" class="form-control navbar_menu_clickable navbar_menu_input disableOnLoading" name="Locus" id="locus" value="AT2G24270" onkeypress="IfPressEnter(event, 'locus_button')" autofocus/>
+            <input type="text" class="form-control navbar_menu_clickable navbar_menu_input disableOnLoading" name="Locus" id="locus" value="AT2G24270" onkeypress="IfPressEnter(event, 'locus_button')"  aria-label="Gene/Locus search" autofocus/>
           </div>
           <div class="mdl-tooltip" for="locusBrowser">Locus example: AT2G24270</div>
 
@@ -166,13 +170,13 @@
               <div class="row">
                 <div class="col-5 navbar_menu_center" id="tt4">
                   <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em">Y-axis Scale</p>
-                  <input type="text" class="form-control navbar_menu_clickable navbar_menu_input disableOnLoading" name="yscale_inp" id="yscale_input" onkeypress="IfPressEnter(event, 'locus_button')" value="Auto" />
+                  <input type="text" class="form-control navbar_menu_clickable navbar_menu_input disableOnLoading" name="yscale_inp" id="yscale_input" onkeypress="IfPressEnter(event, 'locus_button')" value="Auto" aria-label="RNA-Seq Y-axis Scale. 'Auto' or >= 1" />
                 </div>
                 <div class="mdl-tooltip" for="tt4">RNA-Seq Y-axis Scale. 'Auto' or >= 1</div>
 
                 <div class="col-5 navbar_menu_center" id="absolutedefault">
                   <p class="navbar_menu_general_font" style="text-align:center; font-size:1.25em;">Absolute Max</p>
-                  <input type="text" class="form-control navbar_menu_clickable navbar_menu_input disableOnLoading" onkeyup="colour_svgs_now();" name="rpkm_inp" id="rpkm_scale_input" value="1000" />
+                  <input type="text" class="form-control navbar_menu_clickable navbar_menu_input disableOnLoading" onkeyup="colour_svgs_now();" name="rpkm_inp" id="rpkm_scale_input" value="1000" aria-label="Absolute Max"/>
                 </div>
                 <div class="mdl-tooltip" for="absolutedefault">Automatically set to the highest value</div>
               </div>
@@ -233,7 +237,7 @@
             <!-- Hidden buttons to open either upload to private database if logged in (upload_modal) or if not logged in, just upload directly (upload_logX) -->
             <button id="upload_modal" data-toggle="modal" data-target="#uploadModal" hidden></button>
             <button id="upload_logX" onclick="document.getElementById('fileID').click(); emptyLanding();" hidden></button>
-            <input type="file" id="fileID" hidden accept="text/xml" />
+            <input type="file" id="fileID" hidden accept="text/xml" aria-label="Ignore - Meant to XML processing"/>
           </div>
           <div class="mdl-tooltip" for="upload_button">Upload your generated data (as XML format) to be visualized in the eFP-Seq Browser</div>
 
@@ -312,31 +316,31 @@
                 <!-- Filter table content -->
                 <div class="tab-pane fade show active PnCPolicy" id="tableFilter" role="tabpanel" aria-labelledby="tableFilter-tab">
                   <li class="form-check">
-                    <input class="form-check-input" type="checkbox" id="toggleTitle" onclick="toggleTableCol('colTitle', document.getElementById('toggleTitle').checked); RememberToggleOptions(document.getElementById('toggleTitle').checked, ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleTitle" checked>
+                    <input class="form-check-input" type="checkbox" id="toggleTitle" onclick="toggleTableCol('colTitle', document.getElementById('toggleTitle').checked); RememberToggleOptions(document.getElementById('toggleTitle').checked, ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleTitle" aria-label="Toggle title for filtering" checked>
                     <p class="form-check-label" for="toggleTitle" style="padding-left: 20px; font-weight: 10;">Toggle Title</p>
                   </li>
                   <li class="form-check">
-                    <input class="form-check-input" type="checkbox" id="toggleRNA" onclick="toggleTableCol('colRNA', document.getElementById('toggleRNA').checked); RememberToggleOptions(ToggledTable[0], document.getElementById('toggleRNA').checked, ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRNA" checked>
+                    <input class="form-check-input" type="checkbox" id="toggleRNA" onclick="toggleTableCol('colRNA', document.getElementById('toggleRNA').checked); RememberToggleOptions(ToggledTable[0], document.getElementById('toggleRNA').checked, ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRNA" aria-label="Toggle RNA-Seq coverage map for filtering" checked>
                     <p class="form-check-label" for="toggleRNA" style="padding-left: 20px; font-weight: 10;">Toggle RNA-Seq Coverage</p>
                   </li>
                   <li class="form-check">
-                    <input class="form-check-input" type="checkbox" id="togglerpb" onclick="toggleTableCol('colrpb', document.getElementById('togglerpb').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], document.getElementById('togglerpb').checked, ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="togglerpb" checked>
+                    <input class="form-check-input" type="checkbox" id="togglerpb" onclick="toggleTableCol('colrpb', document.getElementById('togglerpb').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], document.getElementById('togglerpb').checked, ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="togglerpb" aria-label="Toggle r statistically value for filtering" checked>
                     <p class="form-check-label" for="togglerpb" style="padding-left: 20px; font-weight: 10;">Toggle r<sub>pb</sub></p>
                   </li>
                   <li class="form-check">
-                    <input class="form-check-input" type="checkbox" id="toggleeFP" onclick="toggleTableCol('coleFP', document.getElementById('toggleeFP').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2],document.getElementById('toggleeFP').checked,  ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleeFP" checked>
+                    <input class="form-check-input" type="checkbox" id="toggleeFP" onclick="toggleTableCol('coleFP', document.getElementById('toggleeFP').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2],document.getElementById('toggleeFP').checked,  ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleeFP" aria-label="Toggle eFP images for filtering" checked>
                     <p class="form-check-label" for="toggleeFP" style="padding-left: 20px; font-weight: 10;">Toggle eFP</p>
                   </li>
                   <li class="form-check">
-                    <input class="form-check-input" type="checkbox" id="toggleRPKM" onclick="toggleTableCol('colRPKM', document.getElementById('toggleRPKM').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], document.getElementById('toggleRPKM').checked, ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRPKM" checked>
+                    <input class="form-check-input" type="checkbox" id="toggleRPKM" onclick="toggleTableCol('colRPKM', document.getElementById('toggleRPKM').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], document.getElementById('toggleRPKM').checked, ToggledTable[5], ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleRPKM" aria-label="Toggle RPKM for filtering" checked>
                     <p class="form-check-label" for="toggleRPKM" style="padding-left: 20px; font-weight: 10;">Toggle RPKM</p>
                   </li>
                   <li class="form-check">
-                    <input class="form-check-input" type="checkbox" id="toggleDetails" onclick="toggleTableCol('colDetails', document.getElementById('toggleDetails').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], document.getElementById('toggleDetails').checked, ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleDetails" checked>
+                    <input class="form-check-input" type="checkbox" id="toggleDetails" onclick="toggleTableCol('colDetails', document.getElementById('toggleDetails').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], document.getElementById('toggleDetails').checked, ToggledTable[6]); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleDetails" aria-label="Toggle details for filtering" checked>
                     <p class="form-check-label" for="toggleDetails" style="padding-left: 20px; font-weight: 10;">Toggle Details</p>
                   </li>
                   <li class="form-check">
-                    <input class="form-check-input" type="checkbox" id="toggleCompare" onclick="toggleTableCol('colCompare', document.getElementById('toggleCompare').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], document.getElementById('toggleCompare').checked); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleCompare">
+                    <input class="form-check-input" type="checkbox" id="toggleCompare" onclick="toggleTableCol('colCompare', document.getElementById('toggleCompare').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], document.getElementById('toggleCompare').checked); usedToggle = true;" style="margin: 6px 5px 0;" value="toggleCompare" aria-label="Toggle compare gene variants for filtering">
                     <p class="form-check-label" for="toggleCompare" style="padding-left: 20px; font-weight: 10;">Toggle Compare Gene Variants</p>
                   </li>
                 </div>
@@ -1401,14 +1405,14 @@
   </div>
   
   <!-- Math.js -->
-  <script async src="cgi-bin/core/packages/mathJS/math.min.js"></script>
+  <script async rel="preload" as="script" src="cgi-bin/core/packages/mathJS/math.min.js"></script>
   <!-- tabletoCSV tool to create an option to download XML as CSV -->
-  <script defer src="cgi-bin/core/packages/tableToCSV/jquery.tabletoCSV.js"></script>
+  <script defer rel="preload" as="script" src="cgi-bin/core/packages/tableToCSV/jquery.tabletoCSV.js"></script>
   <!-- tablesort -->
-  <script defer src="cgi-bin/core/packages/tableSorter/tablesorter.min.js"></script>
-  <script defer src="cgi-bin/core/packages/tableFilter/tablefilter.min.js"></script>
+  <script defer rel="preload" as="script" src="cgi-bin/core/packages/tableSorter/tablesorter.min.js"></script>
+  <script defer rel="preload" as="script" src="cgi-bin/core/packages/tableFilter/tablefilter.min.js"></script>
   <!-- ddslick -->
-  <script defer src="cgi-bin/core/packages/ddslick/jquery.ddslick.min.js"></script>
+  <script defer rel="preload" as="script" src="cgi-bin/core/packages/ddslick/jquery.ddslick.min.js"></script>
   <!-- In-house Scripts -->
   <script>
     // Add service workers
@@ -1419,8 +1423,8 @@
       });
     };
   </script>
-  <script src="cgi-bin/core/custom.min.js"></script> 
-  <script src="cgi-bin/Submission_page/XMLgenerator.min.js"></script>
+  <script async rel="preload" as="script" src="cgi-bin/core/custom.min.js"></script> 
+  <script rel="preload" as="script" src="cgi-bin/Submission_page/XMLgenerator.min.js"></script>
   <script type="text/javascript">
     legacy = false;
 
@@ -1597,7 +1601,7 @@
     });
   </script>
   <!-- HTML2Canvas-->
-  <script defer src="cgi-bin/core/packages/html2canvas/html2canvas.min.js"></script>
+  <script defer rel="preload" as="script" src="cgi-bin/core/packages/html2canvas/html2canvas.min.js"></script>
 
   <!-- Open menu -->
   <a class="openMenu" id="openMenu" onclick="displayNavBAR();" title="Open navigation menu" style="display:none;">

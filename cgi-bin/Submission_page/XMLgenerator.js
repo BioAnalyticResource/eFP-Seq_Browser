@@ -42,6 +42,10 @@ $(function () {
         document.getElementById("not_filled").innerHTML += "<br> Please only use proper and valid links only. BAM Repository Links can only contain Google Drive URLs and/or Amazon AWS URLs. ";
       };
     };
+
+    setTimeout(() => { 
+      $('html, body').animate({scrollTop: $(document).height()}, 'slow');
+    }, 50);
   });
 });
 
@@ -52,7 +56,7 @@ $(function () {
 
 var end = ['\t</files>'].join('\r\n');
 var base = ['<?xml version="1.0" encoding="UTF-8"?>', '\t<files xmltitle=\"<?channelxmltitle?>\" author=\"<?channelauthor?>\" contact=\"<?channelcontact?>\">', '\n'].join('\r\n');
-var topXML = ['\t\t<file info=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" foreground=\"<?channelforeground?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamType?>\" name=\"<?channelbamlink?>\" filename=\"<?channelfilename?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" description=\"<?channeltitle?>\" url=\"<?channelpublicationurl?>\" species=\"<?channelspecies?>\" title=\"<?channeligbtitle?>\">', '\t\t\t<controls>\n'].join('\r\n');
+var topXML = ['\t\t<file info=\"<?channeldescription?>\" record_number=\"<?channelrecordnumber?>\" foreground=\"<?channelforeground?>\" hex_colour=\"<?channelhexcolor?>\" bam_type=\"<?channelbamType?>\" name=\"<?channelbamlink?>\" filename=\"<?channelfilename?>\" total_reads_mapped=\"<?channeltotalreadsmapped?>\" read_map_method=\"<?channelreadmapmethod?>\" publication_link=\"<?channelpublicationlink?>\" svg_subunit=\"<?channeltissue?>\" svgname="<?channelsvgname?>\" description=\"<?channeltitle?>\" url=\"<?channelsralink?>\" species=\"<?channelspecies?>\" title=\"<?channeligbtitle?>\">', '\t\t\t<controls>\n'].join('\r\n');
 var controlsXML = [].join('\r\n');
 var replicatesXML = ['\t\t\t</controls>', '\t\t\t<groupwith>\n'].join('\r\n');
 var endingXML = ['\t\t\t</groupwith>', '\t\t</file>', '\n'].join('\r\n');
@@ -93,7 +97,7 @@ function update(formatXML, v) {
     'channeltissue': $(v).find('.channeltissue').val(),
     'channelsvgname': $(v).find('.channelsvgname').val(),
     'channeltitle': $(v).find('.channeltitle').val(),
-    'channelpublicationurl': $(v).find('.channelpublicationurl').val(),
+    'channelsralink': $(v).find('.channelsralink').val(),
     'channelspecies': $(v).find('.channelspecies').val(),
     'channelcontrols': $(v).find('.channelcontrols').val(),
     'channelgroupwidtho': $(v).find('.channelgroupwidtho').val(),
@@ -161,6 +165,8 @@ function resetLastEntryValues() {
  * Creates an empty clone of the submission form
  */
 function CloneSection() {
+  count_clicks = document.getElementsByClassName('channeltitle').length;
+
   var cacheQuery = document.getElementsByClassName("tissueInput")[document.getElementsByClassName("tissueInput").length - 1].value;
 
   document.getElementsByClassName("tissueInput")[document.getElementsByClassName("tissueInput").length - 1].value = "";
@@ -171,15 +177,14 @@ function CloneSection() {
 
   document.getElementsByClassName("tissueInput")[document.getElementsByClassName("tissueInput").length - 2].value = cacheQuery;
 
-  count_clicks += 1;
-  new_tissue = "tissue" + count_clicks;
-  new_tissue_subunit = "tissue" + count_clicks + "_subunit";
-  new_tissue_select = "tissue" + count_clicks + "_select";
-  new_svg = "svg" + count_clicks;
-  new_hexID = "hexID_num" + count_clicks;
-  new_foregroundID = "foregroundID_num" + count_clicks;
-  tissueInput = "tissueInput" + count_clicks;
-  $("legend:last").text("Entry " + count_clicks);
+  new_tissue = "tissue" + (count_clicks + 1);
+  new_tissue_subunit = "tissue" + (count_clicks + 1) + "_subunit";
+  new_tissue_select = "tissue" + (count_clicks + 1) + "_select";
+  new_svg = "svg" + (count_clicks + 1);
+  new_hexID = "hexID_num" + (count_clicks + 1);
+  new_foregroundID = "foregroundID_num" + (count_clicks + 1);
+  tissueInput = "tissueInput" + (count_clicks + 1);
+  $("legend:last").text("Entry " + (count_clicks + 1));
   $(".change_div_id").last().attr("name", new_tissue);
   $(".change_button_id").last().attr("id", new_tissue);
   $(".change_id_tissue_subunit").last().attr("name", new_tissue_subunit);
@@ -191,6 +196,8 @@ function CloneSection() {
   $(".change_hexcolor").last().attr("id", new_hexID);
   $(".tissueInput").last().attr("id", tissueInput);
   $(".tissue_table").last().attr("id", "tissueTable_" + tissueInput);
+
+  count_clicks = document.getElementsByClassName('channeltitle').length;
   // Resetting form values and emptying new form
   resetLastEntryValues();
 };
@@ -201,7 +208,7 @@ function CloneSection() {
 function DeleteSection() {
   if ($("div[id=entries]").length > 1) {
     $("div[id=entries]").last().remove();
-    count_clicks -= 1;
+    count_clicks = document.getElementsByClassName('channeltitle').length;
   };
 };
 
@@ -209,10 +216,9 @@ function DeleteSection() {
  * Resets the entire form
  */
 function resetForm() {
-  count_clicks = 0;
   CloneSection();
   while ($("div[id=entries]").length != 1) {
-    $("div[id=entries]").first().remove();
+    $("div[id=entries]").last().remove();
   };
   resetLastEntryValues();
   hideWarning();
@@ -221,6 +227,8 @@ function resetForm() {
   $("#araport11XML").empty();
   $("#klepikovaXML").empty();
   display_add_button(false);
+
+  count_clicks = document.getElementsByClassName('channeltitle').length;
 };
 
 /**
@@ -316,9 +324,12 @@ function check_links(bam_name, repo_name) {
             return false;
           };
         } else if (bam_x[i].value == "Amazon AWS") {
-          if (((x[i].value.includes("amazonaws.com/") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud/")) && (check_amazon_for_bam(x[i].value) == true)) == true) {
+          /** Link from string to URL format */
+          let urlString = new URL(x[i].value);
+          
+          if (((urlString.host("s3.amazonaws.com") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud")) && (check_amazon_for_bam(x[i].value) == true)) == true) {
             return true;
-          } else if (((x[i].value.includes("amazonaws.com/") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud/")) && (check_amazon_for_bam(x[i].value) == true)) == false) {
+          } else if (((urlString.host("s3.amazonaws.com") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud/")) && (check_amazon_for_bam(x[i].value) == true)) == false) {
             return false;
           } else {
             return false;
@@ -830,55 +841,93 @@ function determine_foreground(hexcode_colour) {
   };
 };
 
-var json_convert_output;
-var useableJSON = [];
 /**
  * Covert the entire convert Excel form into a JSON format
  */
 function convert_to_json() {
-  json_convert_output = JSON.parse(document.getElementById("dataOutput").value);
-  var maxLength = json_convert_output.length;
-  useableJSON = [];
-  for (x = 0; x < maxLength; x++) {
-    if (json_convert_output[x]["title*"] != null) {
-      useableJSON.push(json_convert_output[x]);
-    } else if (json_convert_output[x]["title*"] === null) {
-      break;
+  // Adjustments to the UI:
+  document.getElementById('dataInput').value = document.getElementById('dataInput').value.trim();
+  document.getElementById('closeExcel_modal').click();
+  
+  /** Excel input as an array of objects */
+  let excelOutput = [];
+  /** Inputted data from Excel */
+  let dataInput = document.getElementById('dataInput').value.trim().split('\n');
+
+  /** All input headers */
+  let inputHeaders = ['title', 'description', 'record number', 'rna-seq data/bam file repository link', 'repository type', 'bam filename', 'publication link', 'sra/ncbi link', 'total reads mapped', 'read map method', 'species', 'tissue', 'tissue subunit', 'controls', 'replicate controls'];
+
+  // Loop through data input and create appropriate JSON conversion of it
+  for (let i in dataInput) {
+    if (dataInput[i].split('\t')[0]) {
+      /** A list of all the input values */
+      let inputValuesArray = dataInput[i].split('\t');
+      
+      if (i == 0 && inputValuesArray[0].trim() === 'Title*') {
+        continue;
+      } else {
+        /** Temporary data which will be added to excelOutput */
+        let tempData = {};
+        for (let v in inputValuesArray) {
+          if (inputHeaders[v]) {
+            tempData[inputHeaders[v]] = inputValuesArray[v].trim()
+          };
+        };
+
+        excelOutput.push(tempData);
+      };
     };
   };
+  
   resetForm();
-  maxLength = useableJSON.length;
-  for (i = 0; i < maxLength; i++) {
-    if (i != 0) {
-      if (useableJSON[i]["title*"] === null) {
-        break;
-      };
+
+  for (let i in excelOutput) {
+    if (i > 0) {
       CloneSection();
     };
-    $("select[id=bamType]").last().val(useableJSON[i]["repository type*"]);
-    $("input[id=reqtitle]").last().val(useableJSON[i]["title*"]);
-    $("textarea[id=reqdesc]").last().val(useableJSON[i]["description*"]);
-    $("input[id=rec]").last().val(useableJSON[i]["record number *"]);
-    $("input[id=bam_input]").last().val(useableJSON[i]["rna-seq data/bam file repository link*"]);
-    $("input[id=filename]").last().val(useableJSON[i]["bam filename*"]);
-    $("input[id=publink]").last().val(useableJSON[i]["publication link"]);
-    $("input[id=sralink]").last().val(useableJSON[i]["sra/ncbi link"]);
-    $("input[id=reqread]").last().val(useableJSON[i]["total reads mapped*"]);
-    $("input[id=readmapmethod]").last().val(useableJSON[i]["read map method"]);
-    $("select[id=reqspecies]").last().val(useableJSON[i]["species*"]);
-    var json_svg = "svg" + (i + 1);
-    $("input[id=" + json_svg + "]").last().val(determine_svgname(useableJSON[i]["tissue*"]));
-    var json_subunit = "tissue" + (i + 1) + "_subunit";
-    $("input[id=" + json_subunit + "]").last().val(useableJSON[i]["tissue subunit*"]);
-    var hexColour = "hexID_num" + (i + 1);
-    var hexColourCode = determine_hexcode(determine_svgname(useableJSON[i]["tissue*"]), useableJSON[i]["tissue subunit*"]);
+
+    $("select[id=bamType]").last().val(excelOutput[i]["repository type"]);
+
+    $("input[id=reqtitle]").last().val(excelOutput[i]["title"]);
+
+    $("textarea[id=reqdesc]").last().val(excelOutput[i]["description"]);
+
+    $("input[id=rec]").last().val(excelOutput[i]["record number"]);
+
+    $("input[id=bam_input]").last().val(excelOutput[i]["rna-seq data/bam file repository link"]);
+
+    $("input[id=filename]").last().val(excelOutput[i]["bam filename"]);
+
+    $("input[id=publink]").last().val(excelOutput[i]["publication link"]);
+
+    $("input[id=sralink]").last().val(excelOutput[i]["sra/ncbi link"]);
+
+    $("input[id=reqread]").last().val(excelOutput[i]["total reads mapped"]);
+
+    $("input[id=readmapmethod]").last().val(excelOutput[i]["read map method"]);
+
+    $("select[id=reqspecies]").last().val(excelOutput[i]["species"]);
+
+    var json_svg = "svg" + (parseInt(i) + 1);
+    $("input[id=" + json_svg + "]").last().val(determine_svgname(excelOutput[i]["tissue"]));
+
+    var json_tissue = "tissue" + (parseInt(i) + 1);
+    $("button[id=" + json_tissue + "]").last().html(excelOutput[i]["tissue"].split('_').join(' '));
+    console.log(json_tissue, excelOutput[i]['tissue'])
+
+    var json_subunit = "tissue" + (parseInt(i) + 1) + "_subunit";
+    $("input[id=" + json_subunit + "]").last().val(excelOutput[i]["tissue subunit"]);
+
+    var hexColour = "hexID_num" + (parseInt(i) + 1);
+    var hexColourCode = determine_hexcode(determine_svgname(excelOutput[i]["tissue"]), excelOutput[i]["tissue subunit*"]);
     $("input[id=" + hexColour + "]").last().val(hexColourCode.toString());
-    var foregroundColour = "foregroundID_num" + (i + 1);
+
+    var foregroundColour = "foregroundID_num" + (parseInt(i) + 1);
     $("input[id=" + foregroundColour + "]").last().val(determine_foreground(hexColourCode));
-    $("input[id=controls]").last().val(useableJSON[i]["controls"]);
-    $("input[id=replicate_controls1]").last().val(useableJSON[i]["replicate controls"]);
-    var json_tissue = "tissue" + (i + 1);
-    $("button[id=" + json_tissue + "]").last().html(determine_svgname(useableJSON[i]["tissue*"]));
+
+    $("input[id=controls]").last().val(excelOutput[i]["controls"]);
+
+    $("input[id=replicate_controls1]").last().val(excelOutput[i]["replicate controls"]);
   };
 };
 

@@ -65,15 +65,6 @@ def validateLocus(locus):
 	else:
 		return False
 
-''' Check for format of record. '''
-def validateRecord(record):
-	if record == "":
-		return False
-	elif re.search(r'^\D{3}\d{1,10}$', record):
-		return True
-	else:
-		return False
-
 # Validate Chromosome
 def validateChromosome(chromosome):
 	if re.search(r'[12345cmCM]', chromosome):
@@ -349,8 +340,6 @@ def main():
 			tissue = 'undefined'
 		if not validateLocus(locus):
 			dumpError('Locus validation error', locus, record, base64img, abs_fpkm, r, totalReadsMapped)
-		if not validateRecord(record):
-			dumpError('Record validation error', locus, record, base64img, abs_fpkm, r, totalReadsMapped)
 			
 		region = "Chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
 
@@ -409,9 +398,15 @@ def main():
 				if record in publicDatapoints[x]:
 					bam_dir = x + '/' + record
 			if bam_dir == '': # If tissue not found, download new bam index file
-				bam_dir = 'uploads' + '/' + record + "_" + start_time
+				if record is not None:
+					bam_dir = "uploads" + "/" + record + "_" + start_time
+				else:
+					bam_dir = "uploads" + "/unknownRecord_" + start_time
 		else: # If private, download new bam index file
-			bam_dir = "uploads" + "/" + record + "_" + start_time
+			if record is not None:
+				bam_dir = "uploads" + "/" + record + "_" + start_time
+			else:
+				bam_dir = "uploads" + "/unknownRecord_" + start_time
 
 		bam_file = '' # Reset bam_file value
 		if bamType == "Google Drive":

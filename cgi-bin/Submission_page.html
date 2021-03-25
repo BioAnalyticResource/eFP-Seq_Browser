@@ -17,11 +17,7 @@
 	<!-- LIBRARIES AND PACKAGES -->
 	<link rel="stylesheet" href="core/packages/GoogleMaterial/material.green-pink.min.css" />
 	<script src="core/packages/jQuery/jquery.min.js"></script>
-	<!-- Mr Data Converter -->
-	<script defer src="core/packages/mrDataConverter/Controller.js"></script>
-	<script src="core/packages/mrDataConverter/converter.min.js"></script>
-	<script defer src="core/packages/mrDataConverter/CSVParser.min.js"></script>
-	<script defer src="core/packages/mrDataConverter/DataGridRenderer.min.js"></script>
+	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!--Bootstrap -->
 	<link rel="stylesheet" href="core/packages/boostrap/css/bootstrap.min.css">
@@ -50,7 +46,7 @@
 			</p>
 
 			<!-- Submission options (buttons) -->
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-toggle="modal" data-target="#excelModal" data-upgraded=",MaterialButton,MaterialRipple">Upload Excel<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-toggle="modal" data-target="#excelModal" data-upgraded=",MaterialButton,MaterialRipple" onClick="$('#excelModal').modal('toggle');">Upload Excel<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 
 			<button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin" data-upgraded=",MaterialButton,MaterialRipple" style="margin-left:10px" onclick="showWarning()">Reset form<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 			<div class="warning_nope" id="warning">
@@ -150,10 +146,10 @@
 
 							<!-- Record number -->
 							<div class="forminput row">
-								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-record_number">Record number<span style="font-weight:bold;">*</span>
+								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-record_number">Record number
 									<span class="sub_tooltip_text">A SRA's record or run number.</span>
 								</label>
-								<input class="channelrecordnumber col-sm-8 col-xs-8 reqfield input_right inputXMLForm" id="rec" name="channelrecordnumber" placeholder="Example: ERR274310 or SRR547531" type="text" data-help-text="record_number" />
+								<input class="channelrecordnumber col-sm-8 col-xs-8 input_right inputXMLForm" id="rec" name="channelrecordnumber" placeholder="Example: ERR274310 or SRR547531" type="text" data-help-text="record_number" />
 							</div>
 
 							<!-- Hex color -->
@@ -203,7 +199,7 @@
 								<label class="col-sm-3 col-xs-3 sub_tooltip" for="channel-publication_url">Sequence Reach Archive/NCBI Link
 									<span class="sub_tooltip_text">A link to your experiment run on the NCBI's Sequence Read Archive (SRA).</span>
 								</label>
-								<input class="channelpublicationurl col-sm-8 col-xs-8 sub_link input_right inputXMLForm" name="channelpublicationurl" id="sralink" placeholder="Example: https://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url" />
+								<input class="channelsralink col-sm-8 col-xs-8 sub_link input_right inputXMLForm" name="channelsralink" id="sralink" placeholder="Example: https://www.ncbi.nlm.nih.gov/Traces/sra/?run=ERR274310" type="text" data-help-text="publication_url" />
 							</div>
 
 							<!-- Total reads mapped -->
@@ -6944,21 +6940,21 @@
 			<div class="modal-dialog modal-lg" style="width: 80%;">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
 						<div class="table-responsive">
 							<p> Once you have filled the Excel template with the data you wish to upload, copy and paste all the content in your "Fill Data" Excel sheet into the box below. If you have not yet downloaded the Excel template, you can download it by clicking <a href="Submission_page/bulk_template.xlsx" download>here</a></p>
 							<p> Please note, if you fill cells outside of the designated areas on the Excel sheet, it may cause an error to occur when generating your data.</p>
 							<input class="settingsElement input_right" type="checkbox" name="" value="" id="headersProvidedCB" checked="" hidden>
-							<div id='converter' style="width: 100%;">
+							<div id='excelInput' style="width: 100%;">
+								<textarea class="textInputs" id="dataInput" style="width: 100%; height: 298.5px;"></textarea>
 							</div>
 							<button type="button" id="convert_to_json" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect leftMargin" data-upgraded=",MaterialButton,MaterialRipple" onclick="convert_to_json()" style="margin-top:1%; margin-bottom:1%;" data-dismiss="modal">Convert data<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-							<p> The following Excel converted was created using <a href="https://github.com/shancarter/Mr-Data-Converter">Shan Carter's Mr-Data-Converted</a></p>
 						</div>
 					</div>
 					<div class="modal-footer" style="background-color: #eafaea;">
-						<button type="button" class="btn btn-default" data-dismiss="modal" id="closemodal">Close</button>
+						<button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal" id="closeExcel_modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -7012,7 +7008,7 @@
 						</div>
 					</div>
 					<div class="modal-footer" style="background-color: #eafaea;">
-						<button type="button" class="btn btn-default" data-dismiss="modal" id="closemodal">Close</button>
+						<button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal" id="closemodal">Close</button>
 					</div>
 				</div>
 			</div>
