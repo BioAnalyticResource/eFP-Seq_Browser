@@ -10,7 +10,6 @@
   <meta name="description" content="Search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, http://biorxiv.org/content/early/2016/04/05/047308). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns.">
   <meta name="keywords" content="bioinformatic, computational, bioinformatics, rna, rna-seq, efp-seq browser, efp, browser, data, data visualization, visualization, plant, biology, arabidopsis, arabidopsis thaliana, a thaliana, provart, rna-seq mapping, mapping, webapp, web, application, bam, alternative, splicing, database">
   <meta name="robots" content="index, follow">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="language" content="English">
   <meta name="author" content="BAR Lab @ University of Toronto: Alexander Sullivan, Priyank K. Purohit, Nowlan H. Freese, Asher Pasha, Eddi Esteban, Jamie Waese, Alison Wu, Michelle Chen, Chih Y. Chin, Richard Song, Sneha R. Watharkar, Agnes P. Chan, Vivek Krishnakumar, Matthew W. Vaughn, Chris Town, Ann E. Loraine, Nicholas J. Provart">
   <meta property="og:title" content="eFP-Seq Browser" />
@@ -148,6 +147,7 @@
               <option value="-- Uploaded dataset --" id="uploaded_dataset_header" disabled style="display:none;">-- Uploaded dataset --</option>
               <option value="Uploaded dataset" id="uploaded_dataset" style="display:none;" tag="private">Uploaded dataset</option>
               <option value="-- Private database options --" id="private_dataset_header" disabled style="display:none;">-- Private database options --</option>
+              <option value="-- Community submitted dataset --" id="community_dataset_header" disabled style="display:none;">-- Community submitted dataset --</option>
             </select>
             <div id="hold-xml"></div>
           </div>
@@ -716,7 +716,7 @@
                     </tr>
                     <tr>
                       <td> Record Number </td>
-                      <td> REQUIRED* The SRA/SRR record number/identifier for the individual BAM entry/file </td>
+                      <td> The SRA/SRR record number/identifier for the individual BAM entry/file </td>
                     </tr>
                     <tr>
                       <td> RNA-Seq Data/BAM file Repository Link </td>
@@ -807,6 +807,10 @@
                   If you are logged into your private account, you will be prompted with the option if you want to upload the XML to your private account. If selected "YES", then this XML will be accessible at any time you are logged in without the need to upload again.
                   <br><br> 
                   If you wish to learn more about the XML file and its attributes, you can check out the <a href="#" data-toggle="collapse" data-target="#xmlParametersCard" aria-expanded="true" aria-controls="xmlParametersCard">"XML Parameters"</a> help card or if you wish to learn more about your private account and how to manage it, you can check the <a href="#" data-toggle="collapse" data-target="#manageAccountCard" aria-expanded="true" aria-controls="manageAccountCard">"Manage Personal Account"</a> help card.
+                  <br><br>
+                  <span style="font-weight: bold; font-size: 1.2em;">Submit data for community use</span>
+                  <br><br> 
+                  If you would like to have your dataset publicly available to all users, you can send your generated XML to nicholas.provart@utoronto.ca for us to review and possibly add for all users to access.
                 </div>
               </div>
             </div>
@@ -1354,6 +1358,7 @@
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" data-dismiss="modal">Yes<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
             </div>
             <br>
+            <p>If you would like to have your dataset publicly available to all users, you can send your generated XML to nicholas.provart@utoronto.ca for us to review and possibly add for all users to access.</p>
             <!-- Download selected dataset as an XML -->
             <button class="btn account_manage_button" href="#" onclick="manage_DownloadXML();" id="downloadAsXML_button" style="margin-right: 1%;">Download as XML</button>
             <a class="downloadfile" href="#" id="downloadXML"><button id="downloadXML_button" download hidden>Download file</button></a>
