@@ -46,9 +46,15 @@
             "src": "./android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
+        },
+        {
+            "src": "./maskable_icon.png",
+            "sizes": "196x196",
+            "type": "image/png",
+            "purpose": "any maskable"
         }
     ],
-    "theme_color": "#939d76",
+    "theme_color": "#cddaa7",
     "background_color": "#cddaa7",
     "display": "standalone",
     "scope": "/eFP-Seq_Browser",
