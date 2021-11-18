@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="BARLogoSVG" width="44" height="44" version="1.1">
-  <defs/>
   <g id="barLogo">
-    <path id="barCircle" fill="#9c0" fill-rule="evenodd" stroke="#969696" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".661" d="M.92 21.988C.92 10.298 10.398.822 22.088.822c11.69 0 21.167 9.476 21.167 21.166s-9.477 21.167-21.167 21.167C10.397 43.155.921 33.68.921 21.988z"/>
+    <path id="barCircle" fill="#9c0" fill-rule="evenodd" stroke="#969696" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".661" d="M.92 21.988C.92 10.298 10.398.822 22.088.822s21.167 9.476 21.167 21.166-9.477 21.167-21.167 21.167C10.397 43.155.921 33.68.921 21.988z"/>
     <text id="barText" x="4.758" y="27.677" fill="#fff" stroke-width=".265" font-family="Arial, Arial_MSFontService, sans-serif" font-size="15.875" font-weight="700">
       BAR
     </text>
