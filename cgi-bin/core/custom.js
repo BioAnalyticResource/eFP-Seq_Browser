@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = 'v1.3.12-p20211118';
+var version = 'v1.3.13-p20211208';
 
 /** Selected RPKM mode */
 var colouring_mode = "abs";
@@ -484,7 +484,10 @@ function colour_svgs_now() {
 * Re-read the value from the input box
 */
 function get_input_values() {
+  // Clean locus input
   locus = document.getElementById("locus").value;
+  locus = locus.trim().toUpperCase();
+
   yscale_input = document.getElementById("yscale_input").value;
 
   if (yscale_input == "Auto" || parseInt(yscale_input) < 1) {
@@ -2462,7 +2465,7 @@ var warningActive_index_account = "nope";
  * @param {Number} whichWarning Which warning to be displayed? 01 for XML, 02 for accounts
  */
 function showWarning_index(whichWarning) {
-  if (whichWarning === 01) { // Delete single XML
+  if (whichWarning === 1) { // Delete single XML
     if (isDeletePublicDisabled == false) {
       if (warningActive_index_XML == "nope") {
         document.getElementById("warning_index_xml").className = "warning_index";
@@ -2471,7 +2474,7 @@ function showWarning_index(whichWarning) {
         hideWarning_index(whichWarning);
       };
     };
-  } else if (whichWarning === 02) { // Delete account
+  } else if (whichWarning === 2) { // Delete account
     if (warningActive_index_account == "nope") {
       document.getElementById("warning_index_account").className = "warning_index";
       warningActive_index_account = "yes";
@@ -2727,29 +2730,60 @@ var isPrecache = true;
 function checkPreload() {
   get_input_values();
 
-  // Update progress bar and add loading screen
-  loadingScreen(false);
-  progress_percent = 0;
-  document.title = `eFP-Seq Browser: Loading 0% - ${locus}`;
-  document.getElementById('progress').title = '0%';
-  $('div#progress').width(progress_percent + '%');
+  if (verifyLoci(locus)) {
+    // Update progress bar and add loading screen
+    loadingScreen(false);
+    progress_percent = 0;
+    document.title = `eFP-Seq Browser: Loading 0% - ${locus}`;
+    document.getElementById('progress').title = '0%';
+    $('div#progress').width(progress_percent + '%');
 
-  for (const property in public_dataset_dictionary) {
-    if (base_src === public_dataset_dictionary[property]) {
-      publicData = true;
-      break;
-    } else {
-      publicData = false;
+    for (const property in public_dataset_dictionary) {
+      if (base_src === public_dataset_dictionary[property]) {
+        publicData = true;
+        break;
+      } else {
+        publicData = false;
+      };
     };
-  };
 
-  // Check if public data or not
-  if ((publicData == true) && (locus == "AT2G24270") && (dumpMethod == "simple") && (callDumpOutputs === false)) {
-    variants_radio_options(1);
-    isPrecache = true;
+    // Check if public data or not
+    if ((publicData == true) && (locus == "AT2G24270") && (dumpMethod == "simple") && (callDumpOutputs === false)) {
+      variants_radio_options(1);
+      isPrecache = true;
+    } else {
+      update_all_images(0);
+      isPrecache = false;
+    };
   } else {
-    update_all_images(0);
-    isPrecache = false;
+    console.error(`The following locus is not valid: ${locus}`);
+  };
+};
+
+/**
+ * Verify that the locus being called is valid
+ * IMPORTANT: The current script only works for Arabidopsis thaliana
+ * TODO: Add support for other languages. Fill list of loci patterns can be found within GAIA's tools (accessible only to BAR developer at the moment)
+ * @param {String} locus The AGI ID (example: AT3G24650 or AT3G24650.1) 
+ * @returns {Boolean} If locus is valid [true] or not [false, default]
+ */
+function verifyLoci(locus) {
+  // Check if locus is a string
+  if (typeof locus === 'string') {
+      /** Arabidopsis thaliana locus pattern */
+      let arabidopsisThalianaPattern = `^[A][T][MC0-9][G][0-9]{5}[.][0-9]{1,2}$|^[A][T][MC0-9][G][0-9]{5}$`;
+
+      /** Reg Exp for the locus pattern */
+      let regexPattern = new RegExp(arabidopsisThalianaPattern, 'i');
+
+      // If match, then return true, else return false
+      if (locus.trim().match(regexPattern)) {
+          return true;
+      } else {
+          return false;
+      };
+  } else { 
+      return false
   };
 };
 

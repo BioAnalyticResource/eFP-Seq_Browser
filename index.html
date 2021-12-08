@@ -1366,7 +1366,7 @@
             <!-- Download selected dataset as an CSV/Excel -->
             <button class="btn account_manage_button" onclick="download_XMLtableCSV();" id="downloadAsCSV_button">Download as CSV</button>
             <!-- Delete selected datasets -->
-            <button class="btn account_manage_button_delete" onclick="var check = CheckIfSelectedXML(); if (check === true) {showWarning_index(01)}" id="deleteXML_button" style="margin-left:1%;">Delete dataset</button>
+            <button class="btn account_manage_button_delete" onclick="var check = CheckIfSelectedXML(); if (check === true) {showWarning_index(1)}" id="deleteXML_button" style="margin-left:1%;">Delete dataset</button>
             <div class="warning_nope_index" id="warning_index_xml">
               <strong>Warning!</strong> Are you sure you wish to delete the selected data from your private account?
               <span class="warning_button_index" onclick="hideWarning_index(01)"> No </span>
@@ -1376,7 +1376,7 @@
               <a href="https://github.com/cyriac/jquery.tabletoCSV" target="_blank" rel="noopener">Cryiac Thomas' tabletoCSV function</a>
             </p>
             <!-- Delete account -->
-            <button class="btn account_manage_button_delete" onclick="showWarning_index(02)" id="deleteXML_button" style="margin-left:1%;">Delete Account</button>
+            <button class="btn account_manage_button_delete" onclick="showWarning_index(2)" id="deleteXML_button" style="margin-left:1%;">Delete Account</button>
             <div class="warning_nope_index" id="warning_index_account">
               <strong>Warning!</strong> Are you sure you wish to delete your account? This is a permanent choice and you will not be able to recover anything once done.
               <span class="warning_button_index" onclick="hideWarning_index(02);"> No </span>
