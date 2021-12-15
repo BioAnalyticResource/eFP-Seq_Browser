@@ -1,103 +1,103 @@
 {
-  "name": "efp-seq_browser",
-  "contributors": [
-    {
-      "name": "Alexander Sullivan",
-      "email": "alexander.j.sullivan@hotmail.com",
-      "url": "https://alexjsully.me/"
-    },
-    {
-      "name": "Priyank Purohit"
-    },
-    {
-      "name": "Nowlan H. Freese"
-    },
-    {
-      "name": "Asher Pasha"
-    },
-    {
-      "name": "Eddi Esteban"
-    },
-    {
-      "name": "Jamie Waese",
-      "website": "http://www.waese.com/#"
-    },
-    {
-      "name": "Alison Wu"
-    },
-    {
-      "name": "Michelle Chen"
-    },
-    {
-      "name": "Chih Ying Chin"
-    },
-    {
-      "name": "Richard Song"
-    },
-    {
-      "name": "Sneha Ramesh Watharkar"
-    },
-    {
-      "name": "Agnes P. Chan"
-    },
-    {
-      "name": "Vivek Krishnakumar"
-    },
-    {
-      "name": "Matthew W. Vaughn"
-    },
-    {
-      "name": "Chris Town"
-    },
-    {
-      "name": "Ann E. Loraine",
-      "url": "https://lorainelab.org/"
-    },
-    {
-      "name": "Nicholas Provart",
-      "email": "nicholas.provart@utoronto.ca",
-      "url": "https://bar.utoronto.ca/"
-    }
-  ],
-  "version": "1.3.13",
-  "private": true,
-  "description": "Search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, http://biorxiv.org/content/early/2016/04/05/047308). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns.",
-  "main": "index.html",
-  "bugs": {
-    "url": "https://github.com/BioAnalyticResource/eFP-Seq_Browser/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BioAnalyticResource/eFP-Seq_Browser.git"
-  },
-  "keywords": [
-    "bioinformatic",
-    "computational",
-    "bioinformatics",
-    "rna",
-    "rna-seq",
-    "efp-seq browser",
-    "efp",
-    "browser",
-    "data",
-    "data visualization",
-    "visualization",
-    "plant",
-    "biology",
-    "arabidopsis",
-    "arabidopsis thaliana",
-    "a thaliana",
-    "provart",
-    "rna-seq mapping",
-    "mapping",
-    "webapp",
-    "web",
-    "application",
-    "bam",
-    "alternative",
-    "splicing",
-    "database"
-  ],
-  "license": "GPL-2.0",
-  "homepage": "https://github.com/BioAnalyticResource/eFP-Seq_Browser#readme"
+	"name": "efp-seq_browser",
+	"contributors": [
+		{
+			"name": "Alexander Sullivan",
+			"email": "alexander.j.sullivan@hotmail.com",
+			"url": "https://alexjsully.me/"
+		},
+		{
+			"name": "Priyank Purohit"
+		},
+		{
+			"name": "Nowlan H. Freese"
+		},
+		{
+			"name": "Asher Pasha"
+		},
+		{
+			"name": "Eddi Esteban"
+		},
+		{
+			"name": "Jamie Waese",
+			"website": "http://www.waese.com/#"
+		},
+		{
+			"name": "Alison Wu"
+		},
+		{
+			"name": "Michelle Chen"
+		},
+		{
+			"name": "Chih Ying Chin"
+		},
+		{
+			"name": "Richard Song"
+		},
+		{
+			"name": "Sneha Ramesh Watharkar"
+		},
+		{
+			"name": "Agnes P. Chan"
+		},
+		{
+			"name": "Vivek Krishnakumar"
+		},
+		{
+			"name": "Matthew W. Vaughn"
+		},
+		{
+			"name": "Chris Town"
+		},
+		{
+			"name": "Ann E. Loraine",
+			"url": "https://lorainelab.org/"
+		},
+		{
+			"name": "Nicholas Provart",
+			"email": "nicholas.provart@utoronto.ca",
+			"url": "https://bar.utoronto.ca/"
+		}
+	],
+	"version": "1.3.14",
+	"private": true,
+	"description": "Search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, http://biorxiv.org/content/early/2016/04/05/047308). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns.",
+	"main": "index.html",
+	"bugs": {
+		"url": "https://github.com/BioAnalyticResource/eFP-Seq_Browser/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/BioAnalyticResource/eFP-Seq_Browser.git"
+	},
+	"keywords": [
+		"bioinformatic",
+		"computational",
+		"bioinformatics",
+		"rna",
+		"rna-seq",
+		"efp-seq browser",
+		"efp",
+		"browser",
+		"data",
+		"data visualization",
+		"visualization",
+		"plant",
+		"biology",
+		"arabidopsis",
+		"arabidopsis thaliana",
+		"a thaliana",
+		"provart",
+		"rna-seq mapping",
+		"mapping",
+		"webapp",
+		"web",
+		"application",
+		"bam",
+		"alternative",
+		"splicing",
+		"database"
+	],
+	"license": "GPL-2.0",
+	"homepage": "https://github.com/BioAnalyticResource/eFP-Seq_Browser#readme"
 }

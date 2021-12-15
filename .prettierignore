@@ -1,0 +1,27 @@
+# Build files
+*.min.js
+*.min.css
+sw.js
+*.js.map
+
+# R data files
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# Server files
+.htaccess
+cgi-bin/gDriveFast.pm
+cgi-bin/gDriveMountFast.pl
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.vscode
+
+# workbox
+workbox-config.js

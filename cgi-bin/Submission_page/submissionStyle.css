@@ -1,325 +1,316 @@
 .scaleArrow {
-  height: 1em;
-  width: auto;
+	height: 1em;
+	width: auto;
 }
 
 .formTextArea {
-  vertical-align: top;
+	vertical-align: top;
 }
 
 .leftMargin {
-  margin-left: 2%;
+	margin-left: 2%;
 }
 
 .form_in {
-  background-color: #CBE8BA;
-  border-radius: 25px;
-  margin-left: 0.5%;
-  margin-right: 2%;
-  padding-bottom: 1%;
+	background-color: #cbe8ba;
+	border-radius: 25px;
+	margin-left: 0.5%;
+	margin-right: 2%;
+	padding-bottom: 1%;
 }
 
 .forminput {
-  padding-left: 3.5%;
-  padding-top: 0.7%;
-  display: flex;
+	padding-left: 3.5%;
+	padding-top: 0.7%;
+	display: flex;
 }
 
 .button_fixed {
-  margin-left: 2%;
-  bottom: 1%;
-  padding-top: 1%;
+	margin-left: 2%;
+	bottom: 1%;
+	padding-top: 1%;
 }
 
 .generated span {
-  transition: 0.5s;
+	transition: 0.5s;
 }
 
 .generated span:after {
-  content: 'Generating';
-  right: 100%;
-  transition: 0.5s;
+	content: "Generating";
+	right: 100%;
+	transition: 0.5s;
 }
 
 td {
-  padding-left: 10%;
+	padding-left: 10%;
 }
 
 label {
-  padding-left: 10%;
+	padding-left: 10%;
 }
 
 .replicate_controls {
-  margin-left: 2%;
+	margin-left: 2%;
 }
 
 .create_button {
-  background-color: #e7e7e7 !important;
-  color: black;
+	background-color: #e7e7e7 !important;
+	color: black;
 }
 
 .finalsubmitbutton {
-  position: fixed;
-  bottom: 1%;
-  right: 7%;
-  -webkit-border-radius: 27;
-  -moz-border-radius: 27;
-  border-radius: 27px;
-  text-shadow: 1px 1px 3px #000000;
-  -webkit-box-shadow: 0px 1px 3px #000000;
-  -moz-box-shadow: 0px 1px 3px #000000;
-  box-shadow: 0px 1px 3px #000000;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 34px;
-  background: #3ebae0;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
+	position: fixed;
+	bottom: 1%;
+	right: 7%;
+	-webkit-border-radius: 27;
+	-moz-border-radius: 27;
+	border-radius: 27px;
+	text-shadow: 1px 1px 3px #000000;
+	-webkit-box-shadow: 0px 1px 3px #000000;
+	-moz-box-shadow: 0px 1px 3px #000000;
+	box-shadow: 0px 1px 3px #000000;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 34px;
+	background: #3ebae0;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
 }
 
 .finalsubmitbutton:hover {
-  background: #0d9e00;
-  text-decoration: none;
+	background: #0d9e00;
+	text-decoration: none;
 }
 
 input {
-  border: 2px solid #dadada;
-  border-radius: 7px;
-  padding: 5px;
-  margin-top: -10px;
+	border: 2px solid #dadada;
+	border-radius: 7px;
+	padding: 5px;
+	margin-top: -10px;
 }
 
 input .input_right {
-  float: right;
+	float: right;
 }
 
 input:focus {
-  outline: none;
-  border-color: #9ecaed;
-  box-shadow: 0 0 10px #9ecaed;
+	outline: none;
+	border-color: #9ecaed;
+	box-shadow: 0 0 10px #9ecaed;
 }
 
 input .xmlSRR_select {
-  float: left !important;
+	float: left !important;
 }
 
 select {
-  float: right;
-  border: 2px solid #dadada;
-  border-radius: 7px;
-  padding: 5px;
-  margin-top: -10px;
+	float: right;
+	border: 2px solid #dadada;
+	border-radius: 7px;
+	padding: 5px;
+	margin-top: -10px;
 }
 
 select:focus {
-  outline: none;
-  border-color: #9ecaed;
-  box-shadow: 0 0 10px #9ecaed;
+	outline: none;
+	border-color: #9ecaed;
+	box-shadow: 0 0 10px #9ecaed;
 }
 
 textarea {
-  float: right;
-  border: 2px solid #dadada;
-  border-radius: 7px;
-  padding: 5px;
-  margin-top: -10px;
+	float: right;
+	border: 2px solid #dadada;
+	border-radius: 7px;
+	padding: 5px;
+	margin-top: -10px;
 }
 
 textarea:focus {
-  outline: none;
-  border-color: #9ecaed;
-  box-shadow: 0 0 10px #9ecaed;
+	outline: none;
+	border-color: #9ecaed;
+	box-shadow: 0 0 10px #9ecaed;
 }
 
 .dropdown {
-  position: relative;
-  display: inline-block;
+	position: relative;
+	display: inline-block;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  ;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 12px 16px;
-  z-index: 1;
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	padding: 12px 16px;
+	z-index: 1;
 }
 
 .dropdown:hover .dropdown-content {
-  display: block;
+	display: block;
 }
 
 .dropdown-toggle::after {
-  display: none !important;
+	display: none !important;
 }
 
-.dropdown-arrow {  
-  /* CSS taken from https://codepen.io/vkjgr/pen/VYMeXp */ 
-  background-image:
-      linear-gradient(45deg, transparent 50%, gray 50%),
-      linear-gradient(135deg, gray 50%, transparent 50%),
-      linear-gradient(to right, #ccc, #ccc) !important;
-  background-position:
-      calc(100% - 20px) calc(1em + 2px),
-      calc(100% - 15px) calc(1em + 2px),
-      calc(100% - 2.5em) 0.5em !important;
-  background-size:
-      5px 5px,
-      5px 5px,
-      1px 1.5em !important;
-  background-repeat: no-repeat !important;
+.dropdown-arrow {
+	/* CSS taken from https://codepen.io/vkjgr/pen/VYMeXp */
+	background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+		linear-gradient(135deg, gray 50%, transparent 50%), linear-gradient(to right, #ccc, #ccc) !important;
+	background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em !important;
+	background-size: 5px 5px, 5px 5px, 1px 1.5em !important;
+	background-repeat: no-repeat !important;
 }
 
 .tissue_button {
-  background-color: white !important;
+	background-color: white !important;
 }
 
 .tissue_table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
 }
 
 .tissue_box {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-  transition: all 0.5s ease;
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+	transition: all 0.5s ease;
 }
 
 .tissue_box:hover {
-  background-color: #FFFBCC;
+	background-color: #fffbcc;
 }
 
 .tissueInput {
-  background-image: url('https://www.w3schools.com/css/searchicon.png');
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 14px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
+	background-image: url("https://www.w3schools.com/css/searchicon.png");
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	width: 100%;
+	font-size: 14px;
+	padding: 12px 20px 12px 40px;
+	border: 1px solid #ddd;
+	margin-bottom: 10px;
 }
 
 .scrollable-menu {
-  height: auto;
-  max-height: 400px;
-  overflow-x: hidden;
+	height: auto;
+	max-height: 400px;
+	overflow-x: hidden;
 }
 
 .sub_tooltip {
-  position: inherit;
+	position: inherit;
 }
 
 .sub_tooltip .sub_tooltip_text {
-  visibility: hidden;
-  width: 120px;
-  background-color: rgba(97, 97, 97, .9);
-  color: #fff;
-  text-align: center;
-  border-radius: 2px;
-  font-size: 10px;
-  padding: 2px;
-  position: absolute;
-  z-index: 1155;
-  margin-top: 2%;
-  margin-left: -60px;
-  max-width: 120px;
+	visibility: hidden;
+	width: 120px;
+	background-color: rgba(97, 97, 97, 0.9);
+	color: #fff;
+	text-align: center;
+	border-radius: 2px;
+	font-size: 10px;
+	padding: 2px;
+	position: absolute;
+	z-index: 1155;
+	margin-top: 2%;
+	margin-left: -60px;
+	max-width: 120px;
 }
 
 .sub_tooltip .sub_tooltip_text::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent rgba(97, 97, 97, .9) transparent;
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent rgba(97, 97, 97, 0.9) transparent;
 }
 
 .sub_tooltip:hover .sub_tooltip_text {
-  visibility: visible;
+	visibility: visible;
 }
 
 .warning {
-  padding: 20px;
-  background-color: #d62a1d;
-  color: white;
-  opacity: 100%;
-  transition: 1s ease-in-out;
-  margin-bottom: 15px;
-  margin-top: 10px;
-  margin-right: 2%;
+	padding: 20px;
+	background-color: #d62a1d;
+	color: white;
+	opacity: 100%;
+	transition: 1s ease-in-out;
+	margin-bottom: 15px;
+	margin-top: 10px;
+	margin-right: 2%;
 }
 
 .warning_nope {
-  opacity: 0;
-  height: 0px;
-  transition: 1s ease;
+	opacity: 0;
+	height: 0px;
+	transition: 1s ease;
 }
 
 .warning_button {
-  float: right;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  cursor: pointer;
-  padding: 5px 13px;
-  overflow: auto;
-  border: 1px solid #018dc4;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  color: rgba(0, 0, 0, 0.9);
-  -o-text-overflow: clip;
-  text-overflow: clip;
-  background: #CBE8BA;
-  -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-  text-shadow: 0 0 0 rgba(15, 73, 168, 0.66);
-  margin-right: 5px;
-  margin-top: -5px;
+	float: right;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	cursor: pointer;
+	padding: 5px 13px;
+	overflow: auto;
+	border: 1px solid #018dc4;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	color: rgba(0, 0, 0, 0.9);
+	-o-text-overflow: clip;
+	text-overflow: clip;
+	background: #cbe8ba;
+	-webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+	text-shadow: 0 0 0 rgba(15, 73, 168, 0.66);
+	margin-right: 5px;
+	margin-top: -5px;
 }
 
 .warning_button:hover {
-  background: #9ecaed;
+	background: #9ecaed;
 }
 
 .word_overflow {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 /* w3schools Tab tutorial scripts */
 
 .tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-  -webkit-animation: fadeEffect 1s;
-  animation: fadeEffect 1s;
-  /* Fading effect takes 1 second */
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+	-webkit-animation: fadeEffect 1s;
+	animation: fadeEffect 1s;
+	/* Fading effect takes 1 second */
 }
 
 @-webkit-keyframes fadeEffect {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 @keyframes fadeEffect {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }

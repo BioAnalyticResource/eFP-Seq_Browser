@@ -6,17 +6,18 @@ Official publication of the [eFP-Seq Browser](https://bar.utoronto.ca/eFP-Seq_Br
 
 ## Getting Started
 
-It is recommended that you use the web version available at https://bar.utoronto.ca/eFP-Seq_Browser/ but if you want to download and run the eFP-Seq Browser locally, it is possible though it may require an internet connection to reach our webservices and Araport's APIs. 
+It is recommended that you use the web version available at https://bar.utoronto.ca/eFP-Seq_Browser/ but if you want to download and run the eFP-Seq Browser locally, it is possible though it may require an internet connection to reach our webservices and Araport's APIs.
 
-## Browser Compatibilities 
+## Browser Compatibilities
 
-Chrome | Firefox | IE | Edge | Safari | Opera | Tor | Mobile |
---- | --- | --- | --- | --- | --- | --- | --- |
-✔ |  ✔ | X |  ✔ | ✔ |  ✔ | ✔ | ✔ |
+| Chrome | Firefox | IE  | Edge | Safari | Opera | Tor | Mobile |
+| ------ | ------- | --- | ---- | ------ | ----- | --- | ------ |
+| ✔      | ✔       | X   | ✔    | ✔      | ✔     | ✔   | ✔      |
 
 ## Installation/Open
 
 Clone the repository with git by running the following command:
+
 ```
 git clone https://github.com/BioAnalyticResource/eFP-Seq-Browser.git
 ```
@@ -30,9 +31,10 @@ Outside of that, there is nothing to install, just download all the files and ha
 We aim to make the eFP-Seq Browser as perfect as possible but unfortunately, there may be some unforeseen bugs. If you manage to find one that is not here, feel free to create a [bug report](https://github.com/ASully/eFP-Seq-Browser/issues/new?template=bug_report.md) so we can fix it.
 
 Current known issues:
-* The IGB links do not work with Google Drive repositories 
-* If the web service timeouts, the eFP-Seq Browser will load continuously
-* Loading circle is not centred  
+
+-   The IGB links do not work with Google Drive repositories
+-   If the web service timeouts, the eFP-Seq Browser will load continuously
+-   Loading circle is not centred
 
 ## Contributing
 
@@ -45,20 +47,20 @@ For rest: [GPL-2.0](LICENSE.md)
 
 ## Authors
 
-* Alexander Sullivan - [GitHub](https://github.com/ASully), [Twitter](https://twitter.com/alexjsully), [ORCiD](https://orcid.org/0000-0002-4463-4473), [LinkedIn](https://www.linkedin.com/in/alexanderjsullivan/), [Website](https://alexjsully.me/)
-* Priyank Purohit - [GitHub](https://github.com/priyank-purohit)
-* Nowlan H. Freese
-* Asher Pasha - [Github](https://github.com/asherpasha), [Twitter](https://twitter.com/AsherPasha), [ORCiD](https://orcid.org/0000-0002-9315-0520)
-* Eddi Esteban - [ORCiD](https://orcid.org/0000-0001-9016-9202)
-* Jamie Waese - [GitHub](https://github.com/jamiewaese), [Twitter](https://twitter.com/JamieWaese), [Website](https://www.waese.com/#)
-* Alison Wu
-* Michelle Chen
-* Chih Ying Chin
-* Richard Song
-* Sneha Ramesh Watharkar
-* Agnes P. Chan
-* Vivek Krishnakumar
-* Matthew W. Vaughn
-* Chris Town
-* Ann E. Loraine - [Twitter](https://twitter.com/igbbioviz), [Website](https://lorainelab.org/)
-* Nicholas J. Provart - [Github](https://github.com/BioAnalyticResource), [Twitter](https://twitter.com/BAR_PlantBio), [Website](https://bar.utoronto.ca)
+-   Alexander Sullivan - [GitHub](https://github.com/ASully), [Twitter](https://twitter.com/alexjsully), [ORCiD](https://orcid.org/0000-0002-4463-4473), [LinkedIn](https://www.linkedin.com/in/alexanderjsullivan/), [Website](https://alexjsully.me/)
+-   Priyank Purohit - [GitHub](https://github.com/priyank-purohit)
+-   Nowlan H. Freese
+-   Asher Pasha - [Github](https://github.com/asherpasha), [Twitter](https://twitter.com/AsherPasha), [ORCiD](https://orcid.org/0000-0002-9315-0520)
+-   Eddi Esteban - [ORCiD](https://orcid.org/0000-0001-9016-9202)
+-   Jamie Waese - [GitHub](https://github.com/jamiewaese), [Twitter](https://twitter.com/JamieWaese), [Website](https://www.waese.com/#)
+-   Alison Wu
+-   Michelle Chen
+-   Chih Ying Chin
+-   Richard Song
+-   Sneha Ramesh Watharkar
+-   Agnes P. Chan
+-   Vivek Krishnakumar
+-   Matthew W. Vaughn
+-   Chris Town
+-   Ann E. Loraine - [Twitter](https://twitter.com/igbbioviz), [Website](https://lorainelab.org/)
+-   Nicholas J. Provart - [Github](https://github.com/BioAnalyticResource), [Twitter](https://twitter.com/BAR_PlantBio), [Website](https://bar.utoronto.ca)
