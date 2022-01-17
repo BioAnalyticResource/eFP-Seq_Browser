@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = "v1.3.14-p20211215";
+var version = "v1.3.15-p20220117";
 
 /** Selected RPKM mode */
 var colouring_mode = "abs";
@@ -1829,23 +1829,29 @@ function populate_table(status) {
 					"</td>\n";
 
 				// Append RNA-Seq and Gene Structure images (2 imgs) in one <td>
-				append_str +=
-					'<td class="colRNA" style="max-width: 576px;">' +
-					'<img loading="lazy" id="' +
-					experimentno +
-					'_rnaseq_img" alt="RNA-Seq mapped image for:' +
-					experimentno +
-					'" style="min-width:420px; max-width:576px; width:95%; height: auto;" class="rnaseq_img responsiveRNAWidth" src="' +
-					img_loading_base64 +
-					'" /><br/>' +
-					'<img loading="lazy" id="' +
-					experimentno +
-					'_gene_structure_img" style="max-width: 576px; width:100%; height: auto;" class="gene_structure_img" src="' +
-					img_gene_struct_1 +
-					'" alt="Gene variant image for:' +
-					experimentno +
-					'"/>' +
-					"</td>\n";
+				append_str += `
+					<td class="colRNA" style="max-width: 576px;">
+						<img 
+							loading="lazy" 
+							id="${experimentno}_rnaseq_img" 
+							alt="RNA-Seq mapped image for: ${experimentno}" 
+							style="min-width:420px; max-width:576px; width:95%; height: auto;" 
+							class="rnaseq_img responsiveRNAWidth" 
+							src="${img_loading_base64}" 
+						/>
+						
+						<br/>
+						
+						<img 
+							loading="lazy" 
+							id="${experimentno}_gene_structure_img" 
+							style="max-width: 576px; width:100%; height: auto;" 
+							class="gene_structure_img" 
+							src="${img_gene_struct_1}" 
+							alt="Gene variant image for: ${experimentno}"
+						/>
+					</td>\n
+				`;
 
 				// Append the rpb <td>
 				append_str +=
@@ -2217,21 +2223,53 @@ function populate_efp_modal(status) {
 	// Check radio
 	if (colouring_mode === "abs") {
 		$("#efpModalTable").append(
-			'<p class="eFP_thead"> eFP Colour Scale: <img loading="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII=" alt="Absolute RPKM" class="colourScale" alt="RPKM absolute colour scale"> Min: ' +
-				Math.min.apply(null, efp_RPKM_values).toFixed(1) +
-				" RPKM, Max: " +
-				Math.max.apply(null, efp_RPKM_values).toFixed(1) +
-				" RPKM</p>" +
-				'<br><table><tbody class="eFP_tbody"></tbody>',
+			`
+				<p class="eFP_thead"> 
+					eFP Colour Scale: 
+
+					<img 
+						loading="lazy" 
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII=" 
+						class="colourScale" 
+						alt="Absolute RPKM colour scale"
+					/> 
+					
+					Min: ${Math.min.apply(null, efp_RPKM_values).toFixed(1)} RPKM, 
+						
+					Max: ${Math.max.apply(null, efp_RPKM_values).toFixed(1)} RPKM
+				</p>
+				
+				<br />
+				
+				<table>
+					<tbody class="eFP_tbody">
+				</tbody>
+			`,
 		);
 	} else if (colouring_mode === "rel") {
 		$("#efpModalTable").append(
-			'<p class="eFP_thead"> eFP Colour Scale: <img loading="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==" alt="Relative RPKM" class="colourScale" alt="RPKM relative colour scale"> Min: ' +
-				Math.min.apply(null, efp_RPKM_values).toFixed(1) +
-				", Max: " +
-				Math.max.apply(null, efp_RPKM_values).toFixed(1) +
-				"</p>" +
-				"<br><table><tbody></tbody>",
+			`
+				<p class="eFP_thead"> 
+					eFP Colour Scale: 
+
+					<img 
+						loading="lazy" 
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==" 
+						class="colourScale" 
+						alt="Relative RPKM colour scale"
+					/> 
+					
+					Min: ${Math.min.apply(null, efp_RPKM_values).toFixed(1)}, 
+						
+					Max: ${Math.max.apply(null, efp_RPKM_values).toFixed(1)}
+				</p>
+				
+				<br />
+				
+				<table>
+					<tbody>
+				</tbody>
+			`,
 		);
 	}
 
