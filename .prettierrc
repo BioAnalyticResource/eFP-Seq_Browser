@@ -4,5 +4,6 @@
 	"useTabs": true,
 	"semi": true,
 	"trailingComma": "all",
-	"bracketSpacing": false
+	"bracketSpacing": false,
+	"endOfLine": "auto"
 }

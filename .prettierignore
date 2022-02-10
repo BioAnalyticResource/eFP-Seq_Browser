@@ -4,6 +4,9 @@
 sw.js
 *.js.map
 
+# Packages
+cgi-bin/core/packages
+
 # R data files
 .Rproj.user
 .Rhistory
@@ -25,3 +28,17 @@ cgi-bin/gDriveMountFast.pl
 
 # workbox
 workbox-config.js
+cgi-bin/core/serviceWorker
+
+# image data
+.png
+
+# data files
+.bam.bai
+.bai
+.bam
+.bed.gz
+.bed
+.gz
+.xlsx
+.csv
