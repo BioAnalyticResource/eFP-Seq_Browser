@@ -3267,9 +3267,9 @@ function checkPreload() {
 /**
  * Verify that the locus being called is valid
  * IMPORTANT: The current script only works for Arabidopsis thaliana
- * TODO: Add support for other languages. Fill list of loci patterns can be found within GAIA's tools (accessible only to BAR developer at the moment)
  * @param {String} locus The AGI ID (example: AT3G24650 or AT3G24650.1)
  * @returns {Boolean} If locus is valid [true] or not [false, default]
+ * @TODO: Add support for other languages. Fill list of loci patterns can be found within GAIA's tools (accessible only to BAR developer at the moment)
  */
 function verifyLoci(locus) {
 	// Check if locus is a string

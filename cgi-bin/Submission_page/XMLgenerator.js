@@ -847,6 +847,7 @@ function determine_svgname(from_svg) {
  * @param {String} which_svg svgname
  * @param {String} which_svg svg_subunit
  * @return {String} - hexcode
+ * @TODO: Add hex colour for rosettePlusRoot, SenescentLeaf, ShootApexVegetative-Transition, YoungLeaf1-4, Other
  */
 function determine_hexcode(which_svg, svg_subunit) {
 	if (which_svg == "ath-10dayOldSeedling.svg" && svg_subunit == "10_Day_old_Seedling_shoots") {
@@ -894,7 +895,6 @@ function determine_hexcode(which_svg, svg_subunit) {
 	} else if (which_svg == "ath-RootTip.svg") {
 		return "0xBD7740";
 	} else if (which_svg == "ath-rosettePlusRoot.svg") {
-		// TODO: Add hex_color
 		return "0x64cc65";
 	} else if (which_svg == "ath-Seed1-4.svg") {
 		return "0xfe9900";
@@ -903,19 +903,16 @@ function determine_hexcode(which_svg, svg_subunit) {
 	} else if (which_svg == "ath-Seed8+.svg") {
 		return "0xf77700";
 	} else if (which_svg == "ath-SenescentLeaf.svg") {
-		// TODO: Add hex_color
 		return "0x64cc65";
 	} else if (which_svg == "ath-ShootApexInflorescense.svg") {
 		return "0x979999";
 	} else if (which_svg == "ath-ShootApexVegetative-Transition.svg") {
-		// TODO: Add hex_color
 		return "0x64cc65";
 	} else if (which_svg == "ath-Silique1-5.svg") {
 		return "0x937326";
 	} else if (which_svg == "ath-Silique6-10.svg") {
 		return "0x818211";
 	} else if (which_svg == "ath-YoungLeaf1-4.svg") {
-		// TODO: Add hex_color
 		return "0x64cc65";
 	} else if (which_svg == "ath-EarlyBuddingFlower.svg") {
 		return "0xffff66";
@@ -964,7 +961,6 @@ function determine_hexcode(which_svg, svg_subunit) {
 	} else if (which_svg == "ath-FlowerDevelopment19.svg") {
 		return "0xffff66";
 	} else if (which_svg == "ath-Other.svg") {
-		// TODO: Add hex_color
 		return "0x64cc65";
 	}
 }
