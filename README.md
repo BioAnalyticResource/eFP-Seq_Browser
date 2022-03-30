@@ -5,6 +5,10 @@ The eFP-Seq Browser is an RNA-Seq data exploration tool that shows read map cove
 Official publication of the [eFP-Seq Browser](https://bar.utoronto.ca/eFP-Seq_Browser/) can be found at [https://doi.org/10.1111/tpj.14468](https://doi.org/10.1111/tpj.14468).
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/0a119cf04831e18922ed/maintainability)](https://codeclimate.com/github/BioAnalyticResource/eFP-Seq_Browser/maintainability)
+[![Follow on Twitter](https://img.shields.io/twitter/follow/BAR_PlantBio?style=social)](https://twitter.com/BAR_PlantBio)
+[![GitHub repo size](https://img.shields.io/github/repo-size/BioAnalyticResource/eFP-Seq-Browser)](https://github.com/BioAnalyticResource/eFP-Seq-Browser)
+[![GitHub](https://img.shields.io/github/license/BioAnalyticResource/eFP-Seq-Browser)](https://github.com/BioAnalyticResource/eFP-Seq-Browser)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fbar.utoronto.ca%2FeFP-Seq_Browser%2F)](https://bar.utoronto.ca/eFP-Seq_Browser/)
 
 ## Getting Started
 

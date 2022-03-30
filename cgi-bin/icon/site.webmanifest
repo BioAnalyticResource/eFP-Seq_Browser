@@ -100,6 +100,7 @@
 			"type": "image/svg+xml"
 		}
 	],
+	"description": "An RNA-Seq data exploration tool that shows read map coverage of a gene along with a coloured eFP image",
 	"theme_color": "#cddaa7",
 	"background_color": "#cddaa7",
 	"display": "standalone",
