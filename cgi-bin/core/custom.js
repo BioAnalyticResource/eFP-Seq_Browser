@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-var version = "v1.3.13-p20220316";
+const version = "v1.3.13-p20220330";
 
 /** Selected RPKM mode */
 var colouring_mode = "abs";
@@ -1037,7 +1037,7 @@ function rnaseq_images(status) {
 									"https://" +
 									window.location.host +
 									window.location.pathname +
-									"cgi-bin/img/error.png";
+									"cgi-bin/img/error.webp";
 
 								console.error(
 									"Unable to create RNA-Seq map coverage data for: Locus - " +
@@ -1054,7 +1054,7 @@ function rnaseq_images(status) {
 									"https://" +
 									window.location.host +
 									window.location.pathname +
-									"cgi-bin/img/error.png";
+									"cgi-bin/img/error.webp";
 							}
 
 							console.error(
@@ -1195,7 +1195,7 @@ function rnaseq_images(status) {
 						// Update image to error
 						if (responseRecord && document.getElementById(responseRecord + "_rnaseq_img")) {
 							document.getElementById(responseRecord + "_rnaseq_img").src =
-								"https://" + window.location.host + window.location.pathname + "cgi-bin/img/error.png";
+								"https://" + window.location.host + window.location.pathname + "cgi-bin/img/error.webp";
 						}
 						rnaseq_change += 1;
 

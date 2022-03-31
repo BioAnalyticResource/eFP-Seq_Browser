@@ -17,6 +17,10 @@
 		<meta name="robots" content="index, follow" />
 		<meta name="language" content="English" />
 		<meta
+			http-equiv="Content-Security-Policy"
+			content="default-src 'self' 'unsafe-inline' *.google-analytics.com *.googleapis.com *.googletagmanager.com *.google.com *.google.ca *.gstatic.com *.utoronto.ca *.nih.gov *.amazonaws.com *.tacc.cloud *.w3schools.com data:; object-src 'self'"
+		/>
+		<meta
 			name="author"
 			content="BAR Lab @ University of Toronto: Alexander Sullivan, Priyank K. Purohit, Nowlan H. Freese, Asher Pasha, Eddi Esteban, Jamie Waese, Alison Wu, Michelle Chen, Chih Y. Chin, Richard Song, Sneha R. Watharkar, Agnes P. Chan, Vivek Krishnakumar, Matthew W. Vaughn, Chris Town, Ann E. Loraine, Nicholas J. Provart"
 		/>
@@ -75,7 +79,7 @@
 		<script async rel="preload" as="script" src="cgi-bin/core/packages/GoogleMaterial/material.min.js"></script>
 		<!-- END Google APIs-->
 		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-38961857-5"></script>
+		<script async rel="preconnect" src="https://www.googletagmanager.com/gtag/js?id=UA-38961857-5"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag() {
@@ -101,7 +105,7 @@
 		</script>
 		<!-- End Google Tag Manager -->
 		<!-- Google Identity login -->
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script rel="preconnect" src="https://apis.google.com/js/platform.js" async defer></script>
 		<meta
 			name="google-signin-client_id"
 			content="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com"
@@ -591,7 +595,7 @@
 							<img
 								loading="lazy"
 								id="landingPage_image"
-								src="cgi-bin/img/landingPage.jpg"
+								src="cgi-bin/img/landingPage.webp"
 								alt="Welcome to the eFP-Seq Browser!"
 								style="max-width: 90%; height: auto; display: block; margin: auto"
 							/>
@@ -990,7 +994,7 @@
 										<img
 											loading="lazy"
 											class="helpCardImages"
-											src="cgi-bin\img\helpModal\0001_geneLocusAutofill.png"
+											src="cgi-bin\img\helpModal\0001_geneLocusAutofill.webp"
 											alt="Help image for locus autofill was not able to load"
 											style="max-width: 100%"
 										/>
@@ -1045,7 +1049,7 @@
 										<img
 											loading="lazy"
 											class="helpCardImages"
-											src="cgi-bin\img\helpModal\0002_selectDataset.png"
+											src="cgi-bin\img\helpModal\0002_selectDataset.webp"
 											alt="Help image for selecting datasets was not able to load"
 											style="max-width: 100%"
 										/>
@@ -1501,7 +1505,7 @@
 										<img
 											loading="lazy"
 											class="helpCardImages"
-											src="cgi-bin\img\helpModal\0020_compareGeneVariants.png"
+											src="cgi-bin\img\helpModal\0020_compareGeneVariants.webp"
 											alt="Help image for comparing gene variants"
 											style="max-width: 100%"
 										/>
@@ -1542,7 +1546,7 @@
 										<img
 											loading="lazy"
 											class="helpCardImages"
-											src="cgi-bin\img\helpModal\0020_sharingSession.png"
+											src="cgi-bin\img\helpModal\0020_sharingSession.webp"
 											alt="Help image for toggling and filtering eFP images from the RNA-table"
 											style="max-width: 100%"
 										/>
