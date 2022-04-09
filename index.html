@@ -95,7 +95,7 @@
 			(function (w, d, s, l, i) {
 				w[l] = w[l] || [];
 				w[l].push({"gtm.start": new Date().getTime(), event: "gtm.js"});
-				var f = d.getElementsByTagName(s)[0],
+				let f = d.getElementsByTagName(s)[0],
 					j = d.createElement(s),
 					dl = l != "dataLayer" ? "&l=" + l : "";
 				j.async = true;
@@ -133,6 +133,7 @@
 				height="0"
 				width="0"
 				style="display: none; visibility: hidden"
+				title="Google Tag Manager's iFrame"
 			></iframe
 		></noscript>
 		<!-- End Google Tag Manager (noscript) -->
@@ -178,11 +179,11 @@
 						<div class="row">
 							<!-- Toggle menu button -->
 							<div class="col-1" id="nm_menu_icon">
-								<i
+								<em
 									class="material-icons"
 									style="color: white; cursor: pointer"
 									onclick="displayNavBAR();"
-									>menu</i
+									>menu</em
 								>
 							</div>
 							<!-- Back to BAR homepage -->
@@ -582,7 +583,7 @@
 					<div id="landing" style="background-color: white">
 						<div id="landing_body" style="padding: 3%">
 							<h1 style="text-align: center; padding-top: 3%">
-								Welcome to the <i>Arabidopsis thaliana</i> eFP-Seq Browser
+								Welcome to the <em>Arabidopsis thaliana</em> eFP-Seq Browser
 							</h1>
 							<p style="text-align: justify; font-family: Arial">
 								The eFP-Seq Browser allows you to explore RNA-seq-based gene expression levels for your
@@ -620,10 +621,10 @@
 						title="Return To Top"
 						style="display: none"
 					>
-						<i
+						<em
 							class="material-icons"
 							style="-webkit-transform: scaleY(-1); transform: scaleY(-1); color: black"
-							>arrow_drop_down_circle</i
+							>arrow_drop_down_circle</em
 						>
 					</a>
 					<div class="dropdown"></div>
@@ -639,10 +640,10 @@
 							style="display: none"
 							onClick="setTimeout(function() {adjustTableOptionsDropdownSize()}, 50); toggleOptionsTable()"
 						>
-							<i
+							<em
 								class="material-icons"
 								style="-webkit-transform: scaleY(-1); transform: scaleY(-1); color: black"
-								>settings</i
+								>settings</em
 							>
 						</a>
 						<ul id="filterDropdown" class="dropdown-menu" style="font-size: 12px; min-width: 280px">
@@ -833,8 +834,8 @@
 					</div>
 				</div>
 				<script>
-					var filter1 = "flt2_theTable";
-					var filter2 = "flt4_theTable";
+					let filter1 = "flt2_theTable";
+					let filter2 = "flt4_theTable";
 
 					/**
 					 * Checks if input argument is a number or not
@@ -842,7 +843,7 @@
 					 * @return {Boolean} True if number, false elsewords
 					 */
 					function checkNum(n) {
-						var test = parseFloat(document.getElementById(n).value);
+						let test = parseFloat(document.getElementById(n).value);
 						if (isNaN(test)) {
 							return false;
 						} else {
@@ -1107,10 +1108,10 @@
 										<br /><br />
 										<div id="loadDataTip_yAxis" class="HelpNoteDiv">
 											<p class="HelpNoteTop">
-												<i
+												<em
 													class="material-icons"
 													style="font-size: 1.2em; position: relative; top: 3px"
-													>&#xE000;</i
+													>&#xE000;</em
 												>
 												NOTE:
 												<p class="HelpNoteBottom">
@@ -1222,7 +1223,7 @@
 										<br /><br />
 										At the top of each eFP Overview modal displays the following information:
 										<br /><br />
-										<table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3">
+										<table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3" aria-describedby="eFP Overview">
 											<tr>
 												<td>AGI-ID Link</td>
 												<td>
@@ -1290,7 +1291,7 @@
 										which can be opened with Microsoft Excel and Google Sheets. The CSV consists of
 										the following columns:
 										<br /><br />
-										<table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3">
+										<table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3" aria-describedby="Excel columns/headers of downloaded table as CSV">
 											<tr>
 												<th>Column name</th>
 												<th>Column description</th>
@@ -1428,10 +1429,10 @@
 										<br /><br />
 										<div id="loadDataTip_downloadTable" class="HelpNoteDiv">
 											<p class="HelpNoteTop">
-												<i
+												<em
 													class="material-icons"
 													style="font-size: 1.2em; position: relative; top: 3px"
-													>&#xE000;</i
+													>&#xE000;</em
 												>
 												NOTE:
 												<p class="HelpNoteBottom">
@@ -1491,10 +1492,10 @@
 										<br /><br />
 										<div id="loadDataTip_downloadTable" class="HelpNoteDiv">
 											<p class="HelpNoteTop">
-												<i
+												<em
 													class="material-icons"
 													style="font-size: 1.2em; position: relative; top: 3px"
-													>&#xE000;</i
+													>&#xE000;</em
 												>
 												NOTE:
 												<p class="HelpNoteBottom">
@@ -1525,10 +1526,10 @@
 										<br /><br />
 										<div id="loadDataTip_downloadTable" class="HelpNoteDiv">
 											<p class="HelpNoteTop">
-												<i
+												<em
 													class="material-icons"
 													style="font-size: 1.2em; position: relative; top: 3px"
-													>&#xE000;</i
+													>&#xE000;</em
 												>
 												NOTE:
 												<p class="HelpNoteBottom">
@@ -1610,7 +1611,7 @@
 										/>
 										<br /><br />
 										The following table describes what each field requires:
-										<table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3">
+										<table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3" aria-describedby="Mandatory data for generating personal dataset & XML">
 											<tr>
 												<th>Form Label</th>
 												<th>Form Input Description</th>
@@ -1711,7 +1712,7 @@
 												<td>
 													REQUIRED* The organism that your RNA-Seq data is mapped for.
 													Currently, the eFP-Seq Browser only supports
-													<i>Arabidopsis thaliana</i>
+													<em>Arabidopsis thaliana</em>
 												</td>
 											</tr>
 											<tr>
@@ -1719,7 +1720,7 @@
 												<td>
 													REQUIRED* The tissue part that your individual BAM entry/file
 													RNA-Seq data is mapped to. If you do not know what tissue it is
-													mapped to or your species is not <i>Arabidopsis thaliana</i>, it is
+													mapped to or your species is not <em>Arabidopsis thaliana</em>, it is
 													recommended you select the "Other" option
 													<br />
 													<img
@@ -1776,10 +1777,10 @@
 										<br /><br />
 										<div id="loadDataTip_ExcelTemplate" class="HelpNoteDiv">
 											<p class="HelpNoteTop">
-												<i
+												<em
 													class="material-icons"
 													style="font-size: 1.2em; position: relative; top: 3px"
-													>&#xE000;</i
+													>&#xE000;</em
 												>
 												NOTE:
 												<p class="HelpNoteBottom">
@@ -1812,10 +1813,10 @@
 										<br /><br />
 										<div id="loadDataTip_UploadExcel" class="HelpNoteDiv">
 											<p class="HelpNoteTop">
-												<i
+												<em
 													class="material-icons"
 													style="font-size: 1.2em; position: relative; top: 3px"
-													>&#xE000;</i
+													>&#xE000;</em
 												>
 												NOTE:
 												<p class="HelpNoteBottom">
@@ -1899,7 +1900,7 @@
 									<div class="card-body">
 										The first XML element is the "files" element which consists of the following
 										attributes:
-										<table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3">
+										<table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3" aria-describedby="Heading XML tags and elements">
 											<tr>
 												<th>Attribute name</th>
 												<th>Attribute description</th>
@@ -1924,7 +1925,7 @@
 										Following the "files" element, each individual BAM entry/file will consist of
 										its own subelement to "files" called "file". The "file" subelement consists of
 										the following attributes:
-										<table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3">
+										<table style="margin-left: 2%; margin-right: 2%; background-color: #f3f3f3" aria-describedby="Individual entries' XML tags and elements">
 											<tr>
 												<th>Attribute name</th>
 												<th>Attribute description</th>
@@ -2021,7 +2022,7 @@
 												<td>species</td>
 												<td>
 													The organism that the RNA-Seq data is mapped to. Currently, the
-													eFP-Seq Browser only supports <i>Arabidopsis thaliana</i>
+													eFP-Seq Browser only supports <em>Arabidopsis thaliana</em>
 												</td>
 											</tr>
 											<tr>
@@ -2106,10 +2107,10 @@
 										<br />
 										<div id="loadDataTip_ManageAccount" class="HelpNoteDiv">
 											<p class="HelpNoteTop">
-												<i
+												<em
 													class="material-icons"
 													style="font-size: 1.2em; position: relative; top: 3px"
-													>&#xE000;</i
+													>&#xE000;</em
 												>
 												NOTE:
 												<p class="HelpNoteBottom">
@@ -2129,10 +2130,10 @@
 										<br />
 										<div id="loadDataTip_ManageAccountDeletion" class="HelpNoteDiv">
 											<p class="HelpNoteTop">
-												<i
+												<em
 													class="material-icons"
 													style="font-size: 1.2em; position: relative; top: 3px"
-													>&#xE000;</i
+													>&#xE000;</em
 												>
 												NOTE:
 												<p class="HelpNoteBottom">
@@ -2277,7 +2278,7 @@
 							id="downloadDiv"
 							title="Download as Image"
 						>
-							<i class="material-icons">camera_alt</i>
+							<em class="material-icons">camera_alt</em>
 						</a>
 					</div>
 					<div class="modal-footer modal-footer-colour">
@@ -2310,7 +2311,7 @@
 					<div class="modal-body">
 						<!-- Download information to convert as CSV/Excel goes here -->
 						<div class="table-responsive efp_modal_table">
-							<table id="hiddenDownloadModal_table" class="table"></table>
+							<table id="hiddenDownloadModal_table" class="table" aria-describedby="Table to download as an Excel's CSV file"></table>
 						</div>
 					</div>
 					<div class="modal-footer modal-footer-colour">
@@ -2345,7 +2346,7 @@
 							Table below compares the selected gene against all of the available gene variants.
 							<br />
 							<br />
-							<table id="compareTable" class="table theTable" style="background-color: white"></table>
+							<table id="compareTable" class="table theTable" style="background-color: white" aria-describedby="Comparing selected genes"></table>
 						</div>
 					</div>
 					<div class="modal-footer modal-footer-colour">
@@ -2415,6 +2416,7 @@
 							data-src="cgi-bin\Submission_page.html"
 							id="submissioniframe"
 							height="600px"
+							title="Generating personal dataset and XML"
 						></iframe>
 					</div>
 					<div class="modal-footer modal-footer-colour">
@@ -2527,7 +2529,7 @@
 									<span style="font-weight: bold">What cookies do we use?</span><br />
 									The following table below describes most of the cookies we intentionally use in the
 									eFP-Seq Browser. These may include third-party cookies.<br /><br />
-									<table>
+									<table aria-describedby="Cookies we use">
 										<tr>
 											<th>Category of Use</th>
 											<th>Description</th>
@@ -2909,7 +2911,7 @@
 							<!-- Delete selected datasets -->
 							<button
 								class="btn account_manage_button_delete"
-								onclick="var check = CheckIfSelectedXML(); if (check === true) {showWarning_index(1)}"
+								onclick="let check = CheckIfSelectedXML(); if (check === true) {showWarning_index(1)}"
 								id="deleteXML_button"
 								style="margin-left: 1%"
 							>
@@ -3033,7 +3035,7 @@
 						$.xhrPool.push(jqXHR);
 					}, //  and connection to list
 					complete: function (jqXHR) {
-						var i = $.xhrPool.indexOf(jqXHR); //  get index for current connection completed
+						let i = $.xhrPool.indexOf(jqXHR); //  get index for current connection completed
 						if (i > -1) $.xhrPool.splice(i, 1); //  removes from list by index
 					},
 				});
@@ -3062,7 +3064,7 @@
 			 */
 			function createTable() {
 				$("#body_of").empty();
-				var append_str =
+				let append_str =
 					'<table id="theTable" class="table theTable" onKeyDown="if(event.keyCode==13) filter_num(filter1, filter2);" style="background-color: white;" hidden></table><div class="mdl-tooltip" for="eFP_th">Sorts by plant part.</div><div class="mdl-tooltip" for="flt0_theTable">See Help for advanced options.</div><div class="mdl-tooltip" for="flt2_theTable">See Help for advanced options.</div><div class="mdl-tooltip" for="flt4_theTable">See Help for advanced options.</div><div class="mdl-tooltip" for="flt5_theTable">See Help for advanced options.</div>';
 				$("#body_of").append(append_str);
 			}
@@ -3099,7 +3101,7 @@
 			 * Log the user out
 			 */
 			function signOut() {
-				var auth2 = gapi.auth2.getAuthInstance();
+				let auth2 = gapi.auth2.getAuthInstance();
 				auth2.signOut().then(function () {
 					users_email = "";
 					remove_private_database();
@@ -3111,13 +3113,13 @@
 				});
 			}
 
-			var users_email = "";
+			let users_email = "";
 			/**
 			 * Signs the user in based on their GMail/Google+ object
 			 * @param {Object} googleUser
 			 */
 			function onSignIn(googleUser) {
-				var profile = googleUser.getBasicProfile();
+				let profile = googleUser.getBasicProfile();
 				users_email = profile.getEmail();
 				check_if_Google_login();
 				document.getElementById("google_iden_login_button").style.display = "none";
@@ -3127,27 +3129,27 @@
 				document.getElementById("upload_button").classList.remove("spacerBottom");
 			}
 
-			var add_usersFileID = false;
+			let add_usersFileID = false;
 			$(function () {
 				$("#fileID").on("change", function () {
 					emptyLanding();
 					document.getElementById("closemodal_Upload").click();
 					//Get count of selected files
-					var countFiles = $(this)[0].files.length;
-					var imgPath = $(this)[0].value;
-					var extn = imgPath.substring(imgPath.lastIndexOf(".") + 1).toLowerCase();
-					var hold_xml = $("#hold-xml");
+					let countFiles = $(this)[0].files.length;
+					let imgPath = $(this)[0].value;
+					let extn = imgPath.substring(imgPath.lastIndexOf(".") + 1).toLowerCase();
+					let hold_xml = $("#hold-xml");
 					hold_xml.empty();
 					if (extn == "xml") {
 						if (typeof FileReader != "undefined") {
 							//loop for each file selected for uploaded.
-							for (var i = 0; i < countFiles; i++) {
+							for (let i = 0; i < countFiles; i++) {
 								loadNewDataset = true;
 
-								var reader = new FileReader();
+								let reader = new FileReader();
 
 								reader.onload = function (e) {
-									//var data = e.target.result;
+									//let data = e.target.result;
 									//window.alert(data);
 									$("<div />", {
 										src: e.target.result,

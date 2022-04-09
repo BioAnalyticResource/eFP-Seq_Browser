@@ -24,7 +24,7 @@
 			function getParameterByName(name, url) {
 				if (!url) url = window.location.href;
 				name = name.replace(/[\[\]]/g, "\\$&");
-				var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+				let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
 					results = regex.exec(url);
 				if (!results) return null;
 				if (!results[2]) return "";
@@ -48,7 +48,7 @@
 								locus,
 						);
 						// Iterate through all variants and insert their images in the DOM
-						for (var i = 0; i < parseInt(response["variant_count"]); i++) {
+						for (let i = 0; i < parseInt(response["variant_count"]); i++) {
 							$("#gene_structure_images").append(
 								'<img id="variant_index_' +
 									i +

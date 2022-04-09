@@ -4,77 +4,77 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-const version = "v1.3.13-p20220330";
+const version = "v1.3.13-p20220408";
 
 /** Selected RPKM mode */
-var colouring_mode = "abs";
+let colouring_mode = "abs";
 
-var locus;
+let locus;
 if (document.getElementById("locus") != null) {
 	locus = document.getElementById("locus").value;
 }
 
-var old_locus = locus;
-var new_locus;
+let old_locus = locus;
+let new_locus;
 
-var yscale_input;
+let yscale_input;
 if (document.getElementById("yscale_input") != null) {
 	yscale_input = document.getElementById("yscale_input").value;
 }
 
 /** What is the max value for the svg colouring in absolute mode? */
-var max_abs_scale;
+let max_abs_scale;
 if (document.getElementById("rpkm_scale_input") != null) {
 	max_abs_scale = document.getElementById("rpkm_scale_input").value;
 }
 
 /** Gets updated when user changes gene */
-var locus_start = 10326918;
+let locus_start = 10326918;
 /** Gets updated when user changes gene */
-var locus_end = 10330048;
-var splice_variants = "";
+let locus_end = 10330048;
+let splice_variants = "";
 /** Make a list of records and tissues we need to query.... */
-var rnaseq_calls = [];
+let rnaseq_calls = [];
 /** Keep track of the FPKM related information  TODO : rename all exp_info to fpkm_info */
-var exp_info = [];
+let exp_info = [];
 /** Make a list of records and tissues we need to query.... */
-var rnaseq_success = 0;
-var date_obj = new Date();
+let rnaseq_success = 0;
+const date_obj = new Date();
 /** Keep track of start time */
-var rnaseq_success_start_time = date_obj.getTime();
+let rnaseq_success_start_time = date_obj.getTime();
 /** Keep track of start time */
-var rnaseq_success_current_time;
+let rnaseq_success_current_time;
 /**  Keep track of start time */
-var rnaseq_success_end_time;
-var max_absolute_fpkm = -1;
-var max_log_fpkm = -1;
+let rnaseq_success_end_time;
+let max_absolute_fpkm = -1;
+let max_log_fpkm = -1;
 /** The element for inserting the SVG colouring scale legend */
-var svg_colouring_element = null;
+let svg_colouring_element = null;
 /** the element for inserting the gene structure scale legend */
-var gene_structure_colouring_element = null;
+let gene_structure_colouring_element = null;
 
 /** Used to create location for uploaded XML, client side */
-var base_src = "cgi-bin/data/bamdata_araport11.xml";
-var upload_src = "";
-var dataset_dictionary = {
+let base_src = "cgi-bin/data/bamdata_araport11.xml";
+let upload_src = "";
+let dataset_dictionary = {
 	"Araport 11 RNA-seq data": "cgi-bin/data/bamdata_araport11.xml",
 	"Developmental transcriptome - Klepikova et al": "cgi-bin/data/bamdata_Developmental_transcriptome.xml",
 };
-var loadNewDataset = false;
+let loadNewDataset = false;
 
 /** Used to count and determine how many BAM entries are in the XML file */
-var count_bam_entries_in_xml = 113;
+let count_bam_entries_in_xml = 113;
 /**
  * Count the amount of entries in a BAM file
  */
 function count_bam_num() {
 	const xhr = new XMLHttpRequest();
-	let url = base_src;
+	const url = base_src;
 
 	xhr.responseType = "document";
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-			var response = xhr.responseXML;
+			const response = xhr.responseXML;
 
 			if (response && response.getElementsByTagName("file")) {
 				count_bam_entries_in_xml = xhr.responseXML.getElementsByTagName("file").length;
@@ -103,9 +103,9 @@ function loadingScreen(terminate = true) {
 		document.getElementById("loading_screen").removeAttribute("hidden");
 
 		// Disable buttons:
-		let toDisableList = document.getElementsByClassName("disableOnLoading");
-		for (var i = 0; i < toDisableList.length; i++) {
-			$("#" + toDisableList[i].id).prop("disabled", true);
+		const toDisableList = document.getElementsByClassName("disableOnLoading");
+		for (const element of toDisableList) {
+			$("#" + element.id).prop("disabled", true);
 		}
 	} else {
 		document.getElementById("loading_screen").className = "loading done_loading";
@@ -114,9 +114,9 @@ function loadingScreen(terminate = true) {
 		document.getElementById("loading_screen").setAttribute("hidden", true);
 
 		// Enable buttons:
-		let toDisableList = document.getElementsByClassName("disableOnLoading");
-		for (var i = 0; i < toDisableList.length; i++) {
-			$("#" + toDisableList[i].id).prop("disabled", false);
+		const toDisableList = document.getElementsByClassName("disableOnLoading");
+		for (const element of toDisableList) {
+			$("#" + element.id).prop("disabled", false);
 		}
 		addGFF();
 		uploadingData = false;
@@ -124,19 +124,19 @@ function loadingScreen(terminate = true) {
 }
 
 /** Base 64 images */
-var img_loading_base64 =
+const img_loading_base64 =
 	"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAyCAYAAADP/dvoAAAABmJLR0QAwADAAMAanQdUAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAB3RJTUUH4AoRDzYeAMpyUgAABGJJREFUeNrt3TFoE3scwPGvjxtOzKAQMEOECBkyROhQsWOEChURBFtssdJFB9Gl4OJkwaEtRRAUdLAUqYJgwamIEFAwUoS43RCw0AwpOjhkuCHDQd5Qes9q+7A+7cP2+1na5K53cH/Kl19yIfu63W4XSZL2qL+8BJIkQyhJ0h4VfPvExMSEV0WStGt92zknQkmSE+GPFFOSpN00CToRSpJkCCVJhlCSJEMoSZIhlCTJEEqSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKe8HDhw/5/Pnzbzn2/v3709/Hx8d/23kkGULpp01PT9NoNH7LsTudDgBJktBut0mSxAsu/Q8CL4G0fUmSEEURcRxTLpc5ePBguu3Lly9EUUQ2m6VcLm/4u0ajQRzH9PT0/PNPGARcu3aNXC6X7lMqlVheXv5u3/Xt69NjJpOht7fXBZEMobRz2u02Z8+eJY5jCoUCtVqN58+fU6lUePLkCXfu3KGnp4d6vU5vby9zc3PA2peCzs7OUiqVvjvm8ePHWVlZoVAocPr0aQYHB6nX6zSbTSqVSnqMkZGRdHp88+YNw8PDzM/PuyiSIZR2zv3798lms7x9+xZYex/x5s2bLC0tce7cOYaHhwmCgHa7zaFDh5ibm6PZbDI9Pc3Hjx/J5/MsLCxQrVa3PMfhw4d5/fo1rVaLI0eOMDk5CUC1WuXTp08EQcCxY8e4cOGCCyIZQmlnffjwgfPnz6ePBwYGuHr1KrD2UmW1WqVWq7G6upru02w2yeVy5PN5AAYHB//1HOvb1/fvdDpkMhniOGZ5eZlCoUCSJOnLqZIMobRjkiRJb3RZF4YhAFNTUywuLnLr1i2KxSKPHj36df+sQUChUODSpUt0Oh0uXrzo+4PSL+Bdo9I2nThxgsePH6d3eS4sLDAwMADA+/fvOXPmDP39/RtiWSqVaLVaRFEEwN27d7d93iiKCIKA27dv8+DBAy5fvpxuazQa1Ov1dHp89uxZuq1ardJqtVw4yYlQ2r4wDDl58mT6eGZmhuvXr/Pu3TuOHj1KJpMhDENevHgBwNjYGFeuXOHVq1eEYUg2mwUgl8sxMzPDqVOnyOfz9PX1pS97/sgkCFAul2m32zx9+pQkSajVaoyOjjI5Ocns7CxRFPHy5UuiKGJkZIT+/n6y2Szj4+OMjY1x48YNF1TaxL5ut9v9+omJiYkNPyVtLo5jkiTZ8NEJWPv4BJBG8GudTockSchkMts+39TUFKurq9y7dw+Aer3O0NAQKysrLob0A7bqmxOh9JO2itlmAfx6wvxZfX19DA0NEYYhBw4cYHFxkdHRURdC+o8MofSHqFQqLC0tUavVAJifn9/0M4mSDKG0axWLRYrFohdC+oW8a1SSZAglSTKEkiQZQkmSDKEkSYZQkiRDKEmSIZQkyRBKkmQIJUkyhJIkGUJJkgyhJEmGUJKkP9mWX8PkN9RLkpwIJUna5fZ1u92ul0GS5EQoSdIe9DfEVWhcl8IjHgAAAABJRU5ErkJggg==";
 
-var img_gene_struct_1 =
+let img_gene_struct_1 =
 	"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAIBAMAAACYMuIQAAAAFVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQDytQt7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATklEQVQ4jWNgYGANxQnC0iAggQEE0mAA lYcFgBWw4RZIQOEmYJNF0Q4zAQ4Qkqm4XQ8CIMWMw96HgsPdh4zD3oeCwx2MgDgc/vlw2JelAO7V xD0GmsY3AAAAAElFTkSuQmCC ";
-var img_gene_struct_error =
+const img_gene_struct_error =
 	"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAAICAIAAADlfmh0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMBSURBVGhD7Vi7ceswEGQrVBUMxC40wwKYKVANDpwpVuIqVIx6ealxHxzuA9BPsmfMGQOzgQgs7hZH3RrW8O/20dHR0dHxMrqN7gbneZAxLg/3GAlh13R6r8QhmgYQDtc3/Py2TMOwni2hCtg13/UM7M1x/gh06b6JHwxVx2X9zzfb8W10G90NXF/JozhdnNEmCKsNGgUU6EQtTgTsetZG99DJv6Xh18/eEtDt9efRbXQ30O6mH8XpwszjdFDWBu0BF9K40XmlTqSDj/M6ljssBqeBKXDXRASagb0c536k+WE4XjjL7f3KZJ4sHH1HRgF5QFgfKggzoRxnXO5GdluD04mPcGQfwQR/5CNXimNE+rwxi4RKM1ZVYKoPGwfPJc2px4P6ktDwBfGn6HgV3UZ3g9QSeWQ35BH/W6cZaCrXP6m74kbxSmICoWaj9MGR5fIiBPFrMQJYoj50N53yiB1bOCyM5tER0llgMoaKwjY4GBMhqYuGls6sDQoowurB5cgtTqmeSZHgs7SrB0x4rYmZ/m7B0tfFyVkKxy+JHi+sNtPxHLqN7gbwvVctmh+LV4YZ5U0J0Ay52exGB53oK2+iYXvYGwHKKAOWKJHqTyXGuhUKwAHBK6GCsAYnn8jJVhqaOrkIiYlBKgfX5WpxbPVU3nqWjerx0mUdl+sxbQE/rTO1NgRwuM5ZgJOqhfmlEqfjKXQb3Q1cS8gjt19rRrcErkaafKDI+Ehtg52J/Q+7jBGA8cE9ER5zx1KQPANxJCPtdSgdWxLpNpZ7lmyJoYKwBgeVkF9r2TpdUyc4Ow5YrR2cg8uRaxwrUuetZdmsHjDX0zKlFOd5Os4TESJTa0PYFwoCNgoSlkqcjqfQbXQ3wO89j3ShKB2C7Ycd5WfsDUuZhaU5G7W51C5q0dxmzIHfQ9kp3G+UYgTUkDxMV/M8SBUTYeUMpYQ62YeKwuqcnNfJNhqaOrmMJMxF0MGN9zlOQ6Q6rMmyWT1iQhx8dxJk6+CMXGd8WZX3qIWFpY5XcPv4BMHOh4rKP1r3AAAAAElFTkSuQmCC";
 
-var absolute_rpkm_scale =
+const absolute_rpkm_scale =
 	"iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQD//wD//AD/+QD/9wD/9AD/8gD/7wD/7QD/6gD/6AD/5QD/4gD/4AD/3QD/2wD/2AD/1gD/ 0wD/0QD/zgD/zAD/yQD/xgD/xAD/wQD/vwD/vAD/ugD/twD/tQD/sgD/rwD/rQD/qgD/qAD/pQD/ owD/oAD/ngD/mwD/mQD/lgD/kwD/kQD/jgD/jAD/iQD/hwD/hAD/ggD/fwD/fAD/egD/dwD/dQD/ cgD/cAD/bQD/awD/aAD/ZgD/YwD/YAD/XgD/WwD/WQD/VgD/VAD/UQD/TwD/TAD/SQD/RwD/RAD/ QgD/PwD/PQD/OgD/OAD/NQD/MwD/MAD/LQD/KwD/KAD/JgD/IwD/IQD/HgD/HAD/GQD/FgD/FAD/ EQD/DwD/DAD/CgD/BwD/BQD/AgCkIVxRAAAAs0lEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hERLGBmpbgljbBwjiiWMnFyMVLcECOhkCZBIZUzPYKSV JaDgYkxKZkxNY2SkmU8gljDCLaFdxDMmw4NrGOWTUUuItwQAG8496iMoCNwAAAAASUVORK5CYII= ";
-var relative_rpkm_scale =
+const relative_rpkm_scale =
 	"iVBORw0KGgoAAAANSUhEUgAAAGQAAAAPCAMAAAAlD5r/AAABQVBMVEX///8AAADcFDz/jAAAAP+m 3KYAfQAAAP8FBfkKCvQPD+8UFOoZGeUeHuAjI9soKNYtLdEzM8w4OMY9PcFCQrxHR7dMTLJRUa1W VqhbW6NgYJ5mZplra5NwcI51dYl6eoR/f3+EhHqJiXWOjnCTk2uZmWaenmCjo1uoqFatrVGysky3 t0e8vELBwT3GxjjMzDPR0S3W1ijb2yPg4B7l5Rnq6hTv7w/09Ar5+QX//wD/+wD/9gD/8QD/7AD/ 5wD/4gD/3QD/2AD/0wD/zQD/yAD/wwD/vgD/uQD/tAD/rwD/qgD/pQD/oAD/mgD/lQD/kAD/iwD/ hgD/gQD/fAD/dwD/cgD/bQD/ZwD/YgD/XQD/WAD/UwD/TgD/SQD/RAD/PwD/OgD/NAD/LwD/KgD/ JQD/IAD/GwD/FgD/EQD/DAD/BwBUljDTAAAA1klEQVQ4jWNg5+Dk4ubh5eMXEBQSFhEVE5eQlJKW kZWTV1BUUlZRVVPX0NTS1tHV0zcwNDI2MTUzt7C0sraxtbN3cHRydnF1c/fw9PL28fXzDwgMCg4J DQuPiIyKjomNi09ITEpOSU1Lz8jMYhi1hDRLGDi5GICWMBBvCSMjIUsYY+MYUS0BApJ8wmhlzUjI EiDAYgkD0CcMwgxUtQRIpDKmZzCiBBcDgwgDlSwBBRdjUjJjahojI2qcMAhT2RJGNEuAYUasJURH PGMyPLiGTz4ZtYQESwCEoDnh8dGTkQAAAABJRU5ErkJggg==";
-var exon_intron_scale =
+const exon_intron_scale =
 	"iVBORw0KGgoAAAANSUhEUgAAALQAAAAPBAMAAAC/7vi3AAAAGFBMVEX///9QUFAAAADcFDz/jAAA AP+m3KYAfQCnICW7AAAArklEQVQ4jd3UMQ+CQAwF4OaG66ourpcO/DCGm7v17/vKBUU8SozBGBvy xo9HD6DzB3OicK4WTa7RfIGWgiiH0In6tBK/iMpKhsvyWAfB7NGlJEHQFA+6U5ZVjf2OTtfBI6YF OgIpadkaklGjZtrepIsXL63+U2s8vzHpila+0zsLEQe9ty+kQ7OuFgJ+pseY3nr5cIxtIQt6OkY/ 3lxReHMhF4nm1z+Zv6KP+/PdANuwQcLhhEyQAAAAAElFTkSuQmCC";
 
 /**
@@ -160,18 +160,18 @@ function generate_colour(start_color, end_color, percent) {
 	}
 
 	// get colors
-	var start_red = parseInt(start_color.substr(0, 2), 16),
+	let start_red = parseInt(start_color.substr(0, 2), 16),
 		start_green = parseInt(start_color.substr(2, 2), 16),
 		start_blue = parseInt(start_color.substr(4, 2), 16);
 
-	var end_red = parseInt(end_color.substr(0, 2), 16),
+	let end_red = parseInt(end_color.substr(0, 2), 16),
 		end_green = parseInt(end_color.substr(2, 2), 16),
 		end_blue = parseInt(end_color.substr(4, 2), 16);
 
 	// calculate new color
-	var diff_red = end_red - start_red;
-	var diff_green = end_green - start_green;
-	var diff_blue = end_blue - start_blue;
+	let diff_red = end_red - start_red;
+	let diff_green = end_green - start_green;
+	let diff_blue = end_blue - start_blue;
 	diff_red = (diff_red * percent + start_red).toString(16).split(".")[0];
 	diff_green = (diff_green * percent + start_green).toString(16).split(".")[0];
 	diff_blue = (diff_blue * percent + start_blue).toString(16).split(".")[0];
@@ -197,7 +197,7 @@ function round(x, digits) {
 	return parseFloat(x.toFixed(digits));
 }
 
-var colouring_part;
+let colouring_part;
 
 /**
  * Find and colour a particular SVG in the DOM.
@@ -205,9 +205,9 @@ var colouring_part;
 function colour_part_by_id(id, part, fpkm, mode) {
 	colouring_part = "all";
 
-	for (var i = 0; i < sraList.length; i++) {
-		if (id.replace("_svg", "") == sraList[i]) {
-			colouring_part = sraDict[sraList[i]]["svg_part"];
+	for (const sra of sraList) {
+		if (id.replace("_svg", "") == sra) {
+			colouring_part = sraDict[sra]["svg_part"];
 		}
 	}
 
@@ -227,13 +227,13 @@ function colour_part_by_id(id, part, fpkm, mode) {
 		max_abs_scale = 1000;
 	}
 
-	var paths1, paths2;
+	let paths1, paths2;
 	if (document.getElementById(id)) {
-		var paths1 = document.getElementById(id).getElementsByTagName("path");
-		var paths2 = document.getElementById(id).getElementsByTagName("g");
+		paths1 = document.getElementById(id).getElementsByTagName("path");
+		paths2 = document.getElementById(id).getElementsByTagName("g");
 	}
 
-	var paths = null;
+	let paths = null;
 	if (paths1 && paths2) {
 		paths = Array.prototype.slice.call(paths1).concat(Array.prototype.slice.call(paths2));
 	}
@@ -241,38 +241,38 @@ function colour_part_by_id(id, part, fpkm, mode) {
 	if (paths != null) {
 		if (mode == "abs") {
 			// For absolute FPKM colouring
-			var r = 255;
-			var g = 255 - parseInt((fpkmUse / max_abs_scale) * 255);
-			var b = 0;
+			const r = 255;
+			const g = 255 - parseInt((fpkmUse / max_abs_scale) * 255);
+			const b = 0;
 
 			if (colouring_part == "all") {
-				for (i = 0; i < paths.length; i++) {
-					paths[i].style.fill = "rgb(" + r + ", " + g + ", " + b + ")";
+				for (const path of paths) {
+					path.style.fill = "rgb(" + r + ", " + g + ", " + b + ")";
 				}
 			} else {
 				//console.log("\n\n ********** id = " + id + " and svg_part = " + colouring_part);
-				for (i = 0; i < paths.length; i++) {
-					//console.log("Checking if " + paths[i].id + " == " + colouring_part + " and it is " + (paths[i].id == colouring_part));
+				for (const path of paths) {
+					//console.log("Checking if " + path.id + " == " + colouring_part + " and it is " + (path.id == colouring_part));
 
-					if (paths[i].id == colouring_part) {
-						if (paths[i].tagName == "g") {
-							var child_paths = paths[i].getElementsByTagName("path");
+					if (path.id == colouring_part) {
+						if (path.tagName == "g") {
+							const child_paths = path.getElementsByTagName("path");
 							//console.log("It was g with " + child_paths.length + " elements!!!!");
-							for (ii = 0; ii < child_paths.length; ii++) {
-								child_paths[ii].style.fill = "rgb(" + r + ", " + g + ", " + b + ")";
+							for (const child of child_paths) {
+								child.style.fill = "rgb(" + r + ", " + g + ", " + b + ")";
 							}
 						} else {
-							paths[i].style.fill = "rgb(" + r + ", " + g + ", " + b + ")";
+							path.style.fill = "rgb(" + r + ", " + g + ", " + b + ")";
 						}
 					}
 				}
 			}
 		} else if (mode == "rel") {
 			// For relative FPKM colouring
-			var hex = "";
+			let hex = "";
 			// Make the log FPKM a number between 0 and 1 to denote the 0 to +-3 scale.
-			var log_scale_max = 3;
-			var log_scaling = 0;
+			const log_scale_max = 3;
+			let log_scaling = 0;
 			if (fpkmUse != "Missing controls data" && Math.abs(fpkmUse) > log_scale_max) {
 				log_scaling = log_scale_max;
 			} else if (fpkmUse != "Missing controls data") {
@@ -296,22 +296,22 @@ function colour_part_by_id(id, part, fpkm, mode) {
 			//console.log('fpkm = ' + fpkm + ' -> hex = ' + hex);
 
 			if (colouring_part == "all") {
-				for (i = 0; i < paths.length; i++) {
-					paths[i].style.fill = hex;
+				for (const path of paths) {
+					path.style.fill = hex;
 				}
 			} else {
 				//console.log("\n\n ********** id = " + id + " and svg_part = " + colouring_part);
-				for (i = 0; i < paths.length; i++) {
+				for (const path of paths) {
 					//console.log("Checking if " + paths[i].id + " == " + colouring_part + " and it is " + (paths[i].id == colouring_part));
-					if (paths[i].id == colouring_part) {
-						if (paths[i].tagName == "g") {
-							var child_paths = paths[i].getElementsByTagName("path");
+					if (path.id == colouring_part) {
+						if (path.tagName == "g") {
+							const child_paths = path.getElementsByTagName("path");
 							//console.log("It was g with " + child_paths.length + " elements!!!!");
-							for (ii = 0; ii < child_paths.length; ii++) {
-								child_paths[ii].style.fill = hex;
+							for (const child of child_paths) {
+								child.style.fill = hex;
 							}
 						} else {
-							paths[i].style.fill = hex;
+							path.style.fill = hex;
 						}
 					}
 				}
@@ -329,20 +329,20 @@ function colour_part_by_id(id, part, fpkm, mode) {
 }
 
 /** Set to 1 as default so prevents the divide by 0 zero later */
-var rpkmAverage = 1;
+let rpkmAverage = 1;
 /** Set to 1 as default so prevents the divide by 0 zero later */
-var rpkmMedian = 1;
+let rpkmMedian = 1;
 /**
  * Find the RPKM average across all samples
  */
 function findRPKMValuesAcrossAll() {
 	if (sraDict) {
-		var listOfSRA = Object.keys(sraDict);
-		var listOfRPKM = [];
-		var rpkmTotal = 0;
-		for (var l = 0; l < listOfSRA.length; l++) {
-			if (sraDict[listOfSRA[l]]["RPKM"]) {
-				var currentRPKM = sraDict[listOfSRA[l]]["RPKM"][variantPosition];
+		const listOfSRA = Object.keys(sraDict);
+		const listOfRPKM = [];
+		let rpkmTotal = 0;
+		for (const sra of listOfSRA) {
+			if (sraDict[sra]["RPKM"]) {
+				const currentRPKM = sraDict[sra]["RPKM"][variantPosition];
 				if (parseFloat(currentRPKM)) {
 					listOfRPKM.push(currentRPKM);
 					rpkmTotal += currentRPKM;
@@ -403,16 +403,16 @@ function switchRPKMMode(selectedMode) {
  * Find and update each SVG in the DOM.
  */
 function colour_svgs_now() {
-	var mode = colouring_mode;
-	for (var i = 0; i < count_bam_entries_in_xml; i++) {
+	const mode = colouring_mode;
+	for (let i = 0; i < count_bam_entries_in_xml; i++) {
 		if (exp_info[i]) {
-			var currentSRA = exp_info[i][0].slice(0, -4);
+			const currentSRA = exp_info[i][0].slice(0, -4);
 
 			// For every exp, figure out the fpkm average of the controls
-			var ctrl_fpkm_sum = 0;
-			var ctrl_count = 0;
-			var ctrl_avg_fpkm = 0;
-			for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
+			let ctrl_fpkm_sum = 0;
+			let ctrl_count = 0;
+			let ctrl_avg_fpkm = 0;
+			for (let ii = 0; ii < count_bam_entries_in_xml; ii++) {
 				if (exp_info[i][2].indexOf(exp_info[ii][0].slice(0, -4)) != -1) {
 					// experiment ii is a control for experiment i, save FPKM of exp ii
 					ctrl_count++;
@@ -436,9 +436,9 @@ function colour_svgs_now() {
 			}
 
 			// Save the average fpkm of controls and the log fpkm...
-			var relativeRPKMValue = 0;
-			var relativeRPKM = [];
-			var useRPKM = "";
+			let relativeRPKMValue = 0;
+			const relativeRPKM = [];
+			let useRPKM = "";
 			if (sraDict[currentSRA]["RPKM"] && sraDict[currentSRA]["RPKM"][variantPosition]) {
 				useRPKM = sraDict[currentSRA]["RPKM"][variantPosition];
 			} else {
@@ -447,7 +447,6 @@ function colour_svgs_now() {
 
 			if (useRPKM == 0 && ctrl_avg_fpkm == 0) {
 				// Define log2(0/0) = 0 as opposed to undefined
-				relativeRPKMValue = 0;
 				exp_info[i].splice(4, 1, 0);
 			} else {
 				relativeRPKMValue = Math.log2(useRPKM / ctrl_avg_fpkm);
@@ -523,14 +522,12 @@ function update_all_images(status) {
 		if (new_locus === old_locus) {
 			$.xhrPool.abortAll();
 			variants_radio_options(status);
-			send_null_count = 0;
 		} else if (new_locus != old_locus) {
 			getGFF(new_locus);
 			old_locus = new_locus;
 			setTimeout(function () {
 				$.xhrPool.abortAll();
 				variants_radio_options(status);
-				send_null_count = 0;
 			}, 1650);
 		}
 	}
@@ -553,7 +550,7 @@ function variants_radio_options(status) {
 			populate_efp_modal(status);
 
 			// Remove existing variant images.
-			var variants_div = document.getElementById("variants_div");
+			const variants_div = document.getElementById("variants_div");
 			if (variants_div !== null && variants_div.firstChild !== null && variants_div.firstChild !== undefined) {
 				while (variants_div.firstChild) {
 					variants_div.removeChild(variants_div.firstChild);
@@ -561,9 +558,9 @@ function variants_radio_options(status) {
 			}
 			$("#variant_select").ddslick("destroy");
 
-			var append_str = '<select id="variant_select">';
+			let append_str = '<select id="variant_select">';
 			if (gene_res["variant_count"] && parseInt(gene_res["variant_count"]) > 0) {
-				for (var i = 0; i < parseInt(gene_res["variant_count"]); i++) {
+				for (let i = 0; i < parseInt(gene_res["variant_count"]); i++) {
 					if (
 						gene_res["splice_variants"] &&
 						gene_res["splice_variants"][i] &&
@@ -592,18 +589,16 @@ function variants_radio_options(status) {
 			) {
 				img_gene_struct_1 = "data:image/png;base64," + gene_res["splice_variants"][0]["gene_structure"];
 
-				var all_gene_structure_imgs = document.getElementsByClassName("gene_structure_img");
-				for (var i = 0; i < all_gene_structure_imgs.length; i++) {
-					all_gene_structure_imgs[i].src =
-						"data:image/png;base64," + gene_res["splice_variants"][0]["gene_structure"];
+				const all_gene_structure_imgs = document.getElementsByClassName("gene_structure_img");
+				for (const element of all_gene_structure_imgs) {
+					element.src = "data:image/png;base64," + gene_res["splice_variants"][0]["gene_structure"];
 				}
 			} else {
 				img_gene_struct_1 = img_gene_struct_error;
 
-				var all_gene_structure_imgs = document.getElementsByClassName("gene_structure_img");
-				for (var i = 0; i < all_gene_structure_imgs.length; i++) {
-					all_gene_structure_imgs[i].src =
-						"data:image/png;base64," + gene_res["splice_variants"][0]["gene_structure"];
+				const all_gene_structure_imgs = document.getElementsByClassName("gene_structure_img");
+				for (const element of all_gene_structure_imgs) {
+					element.src = "data:image/png;base64," + gene_res["splice_variants"][0]["gene_structure"];
 				}
 			}
 
@@ -619,7 +614,6 @@ function variants_radio_options(status) {
 				$("#variant_select").ddslick({
 					width: "100%",
 					onSelected: function (selectedData) {
-						setData = selectedData;
 						gene_structure_radio_on_change(selectedData);
 					},
 				});
@@ -640,7 +634,7 @@ function variants_radio_options(status) {
  */
 function displayError(errorMessage) {
 	$("#displayError").empty();
-	var append_str =
+	let append_str =
 		'<p class="warning_core" style="text-align:center;">' +
 		errorMessage +
 		" <br /><br /> PLEASE REFRESH PAGE, RELOAD OR RE-INPUT DATA OR TRY AGAIN AT A LATER TIME </p>";
@@ -663,8 +657,8 @@ function logError(errorMessage) {
 	console.error("Error in logic:", errorMessage);
 }
 
-var variantPosition = 0;
-var variant_selected;
+let variantPosition = 0;
+let variant_selected;
 /**
  * When radio button changes, update the gene structure throughout the document and update the rpb values
  */
@@ -679,31 +673,31 @@ function gene_structure_radio_on_change() {
 		variant_selected = document.getElementsByClassName("dd-selected-value")[0].value;
 		variantPosition = variant_selected;
 		/** Image of the variant */
-		var variant_img = document.getElementsByClassName("dd-selected-image")[0].src;
+		let variant_img = document.getElementsByClassName("dd-selected-image")[0].src;
 
 		/** Find all img tags that should be updated (all the <img> with class gene_structure) */
-		var all_gene_structure_imgs = document.getElementsByClassName("gene_structure_img");
+		let all_gene_structure_imgs = document.getElementsByClassName("gene_structure_img");
 		// Change their src to the newly selected variant's src
-		for (var i = 0; i < all_gene_structure_imgs.length; i++) {
+		for (let i = 0; i < all_gene_structure_imgs.length; i++) {
 			all_gene_structure_imgs[i].src = variant_img;
 		}
 
 		// update all rpb and rpkm values
 		// Go through the exp_info array and make changes
-		for (var i = 0; i < exp_info.length; i++) {
-			var itLocus = exp_info[i][0].split("_")[0];
+		for (let i = 0; i < exp_info.length; i++) {
+			let itLocus = exp_info[i][0].split("_")[0];
 			/** Update variant image: */
-			var geneStructureImg = document.getElementById(itLocus + "_gene_structure_img");
+			let geneStructureImg = document.getElementById(itLocus + "_gene_structure_img");
 			geneStructureImg.src = variant_img;
 			/** Update rpb values: */
-			var rpbValue = sraDict[itLocus]["r"][variant_selected].toFixed(2);
+			let rpbValue = sraDict[itLocus]["r"][variant_selected].toFixed(2);
 			document.getElementById(itLocus + "_rpb").innerHTML = rpbValue;
 			if (!sraDict[exp_info[i][0].split("_svg")[0]]) {
 				sraDict[exp_info[i][0].split("_svg")[0]] = {};
 			}
 			sraDict[exp_info[i][0].split("_svg")[0]]["rpb"] = rpbValue;
 			/** Update RPKM values: */
-			var rpkmValue;
+			let rpkmValue;
 			if (sraDict[itLocus]["RPKM"] && sraDict[itLocus]["RPKM"][variant_selected]) {
 				rpkmValue = sraDict[itLocus]["RPKM"][variant_selected].toFixed(2);
 			} else {
@@ -736,7 +730,7 @@ function whichAbsOrRel(preIterate = false, iteratePos = 0) {
 		absOrRel(iteratePos);
 	} else {
 		if (exp_info.length > 0) {
-			for (var i = 0; i < exp_info.length; i++) {
+			for (let i = 0; i < exp_info.length; i++) {
 				absOrRel(i);
 			}
 		}
@@ -749,8 +743,8 @@ function whichAbsOrRel(preIterate = false, iteratePos = 0) {
  * @param {Number} expInfoPos What the index position of exp_info
  */
 function absOrRel(expInfoPos = 0) {
-	var expInfo = exp_info[expInfoPos];
-	var currentSRA = expInfo[0].slice(0, -4);
+	let expInfo = exp_info[expInfoPos];
+	let currentSRA = expInfo[0].slice(0, -4);
 
 	// Update RPKM values and colours
 	if (colouring_mode == "rel" && sraDict[currentSRA]["relativeRPKM"]) {
@@ -759,7 +753,7 @@ function absOrRel(expInfoPos = 0) {
 			expInfo[4] = -999999;
 		}
 
-		var rpkmValue = sraDict[currentSRA]["relativeRPKM"].toFixed(2);
+		let rpkmValue = sraDict[currentSRA]["relativeRPKM"].toFixed(2);
 		document.getElementById(expInfo[0].split("_svg")[0] + "_rpkm").innerHTML = rpkmValue;
 		sraDict[expInfo[0].split("_svg")[0]]["rpkm"] = rpkmValue;
 		colour_part_by_id(
@@ -776,13 +770,13 @@ function absOrRel(expInfoPos = 0) {
 			expInfo[3] = -999999;
 		}
 
-		var useRPKM = "";
+		let useRPKM = "";
 		if (variant_selected && sraDict[currentSRA]["RPKM"] && sraDict[currentSRA]["RPKM"][variant_selected]) {
-			var rpkmValue = sraDict[currentSRA]["RPKM"][variant_selected].toFixed(2);
+			let rpkmValue = sraDict[currentSRA]["RPKM"][variant_selected].toFixed(2);
 			document.getElementById(expInfo[0].split("_svg")[0] + "_rpkm").innerHTML = rpkmValue;
 			useRPKM = rpkmValue;
 		} else {
-			var rpkmValue = 0;
+			let rpkmValue = 0;
 			document.getElementById(expInfo[0].split("_svg")[0] + "_rpkm").innerHTML = rpkmValue;
 			useRPKM = rpkmValue;
 		}
@@ -794,24 +788,24 @@ function absOrRel(expInfoPos = 0) {
  * Converts numbers stored as str to int.
  */
 function parseIntArray(arr) {
-	for (var i = 0, len = arr.length; i < len; i++) {
+	for (let i = 0, len = arr.length; i < len; i++) {
 		arr[i] = parseInt(arr[i], 10);
 	}
 	return arr;
 }
 
-var rnaseq_image_url = "cgi-bin/rnaSeqMapCoverage.cgi";
-var match_drive = "";
-var progress_percent = 0;
-var sraList_check = [];
-var rnaseq_change = 1;
-var totalreadsMapped_dic = {};
-var dumpOutputs = "";
-var dumpMethod = "simple";
-var callDumpOutputs = false;
-var rpkmCount = 1;
+let rnaseq_image_url = "cgi-bin/rnaSeqMapCoverage.cgi";
+let match_drive = "";
+let progress_percent = 0;
+let sraList_check = [];
+let rnaseq_change = 1;
+let totalreadsMapped_dic = {};
+let dumpOutputs = "";
+let dumpMethod = "simple";
+let callDumpOutputs = false;
+let rpkmCount = 1;
 /** An array of all SRA records that have been added to the UI */
-var listOfRecordsDisplayed = [];
+let listOfRecordsDisplayed = [];
 
 /**
  * Makes AJAX request for each RNA-Seq image based on the rnaseq_calls array that was produced by the populate_table() function
@@ -821,9 +815,9 @@ function rnaseq_images(status) {
 	changePublicData();
 
 	// Set variables
-	var awsSplit = "amazonaws.com/";
-	var araportCDN = "araport.cyverse-cdn.tacc.cloud/";
-	var gDriveSplit = "drive.google.com/drive/folders/";
+	let awsSplit = "amazonaws.com/";
+	let araportCDN = "araport.cyverse-cdn.tacc.cloud/";
+	let gDriveSplit = "drive.google.com/drive/folders/";
 
 	// Reset variables
 	dumpOutputs = "";
@@ -839,9 +833,9 @@ function rnaseq_images(status) {
 	if (rnaseq_calls.length === count_bam_entries_in_xml) {
 		sraList_check = [];
 		rnaseq_change = 1;
-		for (var i = 0; i < count_bam_entries_in_xml; i++) {
+		for (let i = 0; i < count_bam_entries_in_xml; i++) {
 			/** Creates the tissue variable for the rnaSeqMapCoverage webservice */
-			var tissueWebservice = rnaseq_calls[i][0] || "undefined";
+			let tissueWebservice = rnaseq_calls[i][0] || "undefined";
 
 			/** SRA Record number */
 			let sraRecordNumber = rnaseq_calls[i][1] || "unknown";
@@ -849,8 +843,8 @@ function rnaseq_images(status) {
 			// Creates the removeDrive link for the rnaSeqMapCoverage webservice
 			if (sraDict[sraList[i]]["bam_type"] === "Google Drive") {
 				// Obtains the Google drive file ID
-				var linkString = sraDict[sraList[i]]["drive_link"];
-				var driveLinkSplit = linkString.split("?usp=sharing");
+				let linkString = sraDict[sraList[i]]["drive_link"];
+				let driveLinkSplit = linkString.split("?usp=sharing");
 				driveLinkSplit = driveLinkSplit[0].split(gDriveSplit);
 
 				if (driveLinkSplit.length > 1) {
@@ -860,8 +854,8 @@ function rnaseq_images(status) {
 				}
 			} else if (sraDict[sraList[i]]["bam_type"] === "Amazon AWS") {
 				// Obtains the S3
-				var linkString = sraDict[sraList[i]]["drive_link"];
-				var driveLinkSplit = linkString.split(awsSplit);
+				let linkString = sraDict[sraList[i]]["drive_link"];
+				let driveLinkSplit = linkString.split(awsSplit);
 
 				if (driveLinkSplit.length === 1) {
 					driveLinkSplit = linkString.split(araportCDN);
@@ -902,7 +896,7 @@ function rnaseq_images(status) {
 				},
 				success: function (response_rnaseq) {
 					// Update the progress bar
-					var stopLoadingScreen = 99;
+					let stopLoadingScreen = 99;
 					if (count_bam_entries_in_xml > 0) {
 						stopLoadingScreen = parseInt(((count_bam_entries_in_xml - 1) / count_bam_entries_in_xml) * 100);
 					}
@@ -960,7 +954,7 @@ function rnaseq_images(status) {
 							throw "ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.";
 						}
 
-						var r = [];
+						let r = [];
 						if (
 							response_rnaseq["ss_y"] &&
 							response_rnaseq["sum_y"] &&
@@ -971,49 +965,49 @@ function rnaseq_images(status) {
 							response_rnaseq["start"]
 						) {
 							// Finalize statistical calculations
-							var ss_y = parseInt(response_rnaseq["ss_y"]);
-							var sum_y = parseInt(response_rnaseq["sum_y"]);
-							var ssy = parseInt(response_rnaseq["ss_y"]);
-							var sum_xy = parseIntArray(
+							let ss_y = parseInt(response_rnaseq["ss_y"]);
+							let sum_y = parseInt(response_rnaseq["sum_y"]);
+							let ssy = parseInt(response_rnaseq["ss_y"]);
+							let sum_xy = parseIntArray(
 								response_rnaseq["sum_xy"]
 									.replace(/\[/g, "")
 									.replace(/\]/g, "")
 									.replace(/"/g, "")
 									.split(","),
 							);
-							var sum_x = parseIntArray(
+							let sum_x = parseIntArray(
 								response_rnaseq["sum_x"]
 									.replace(/\[/g, "")
 									.replace(/\]/g, "")
 									.replace(/"/g, "")
 									.split(","),
 							);
-							var sum_xx = parseIntArray(
+							let sum_xx = parseIntArray(
 								response_rnaseq["sum_xx"]
 									.replace(/\[/g, "")
 									.replace(/\]/g, "")
 									.replace(/"/g, "")
 									.split(","),
 							);
-							var ss_x = parseIntArray(
+							let ss_x = parseIntArray(
 								response_rnaseq["ss_x"]
 									.replace(/\[/g, "")
 									.replace(/\]/g, "")
 									.replace(/"/g, "")
 									.split(","),
 							);
-							var ssx = parseIntArray(
+							let ssx = parseIntArray(
 								response_rnaseq["ss_x"]
 									.replace(/\[/g, "")
 									.replace(/\]/g, "")
 									.replace(/"/g, "")
 									.split(","),
 							);
-							var n = parseInt(response_rnaseq["end"]) - parseInt(response_rnaseq["start"]);
-							var sp = [];
+							let n = parseInt(response_rnaseq["end"]) - parseInt(response_rnaseq["start"]);
+							let sp = [];
 
 							// Compute the r values for each variant
-							for (var i = 0; i < sum_xy.length; i++) {
+							for (let i = 0; i < sum_xy.length; i++) {
 								sp.splice(i, 0, sum_xy[i] - (sum_x[i] * sum_y) / n);
 								r.splice(i, 0, sp[i] / Math.sqrt(ssx[i] * ssy));
 							}
@@ -1159,7 +1153,7 @@ function rnaseq_images(status) {
 						}
 
 						// Save the abs-fpkm, and the stats numbers
-						for (var ii = 0; ii < count_bam_entries_in_xml; ii++) {
+						for (let ii = 0; ii < count_bam_entries_in_xml; ii++) {
 							if (
 								exp_info &&
 								exp_info[ii] &&
@@ -1292,12 +1286,12 @@ function findUnusedRecordDisplayName(recordID = "unknown", listCheckAgainst = sr
  * @param {Number} RPKMCheckAgainst The RPKM value to check against the max to see if needs to change or not
  */
 function updateRPKMAbsoluteMax(RPKMCheckAgainst) {
-	var currentRPKMAbsMax = parseInt(document.getElementById("rpkm_scale_input").value);
+	let currentRPKMAbsMax = parseInt(document.getElementById("rpkm_scale_input").value);
 	if (currentRPKMAbsMax === 1000) {
 		currentRPKMAbsMax = 1;
 	}
 
-	var newRPKMValue = parseInt(RPKMCheckAgainst);
+	let newRPKMValue = parseInt(RPKMCheckAgainst);
 	if (newRPKMValue > currentRPKMAbsMax) {
 		document.getElementById("rpkm_scale_input").value = newRPKMValue;
 	}
@@ -1311,7 +1305,7 @@ function updateRPKMAbsoluteMax(RPKMCheckAgainst) {
  * @return {String} subunit - The SVG tissue corrected subunit if an error occurred, input if not
  */
 function checkAgainstSVG(svg, subunit, returnName = false) {
-	var toReturn = subunit;
+	let toReturn = subunit;
 
 	if (svg === "ath-10dayOldSeedling.svg" || svg === "ath-10dayOldSeedling.min.svg") {
 		if (returnName === true) {
@@ -1555,19 +1549,19 @@ function checkAgainstSVG(svg, subunit, returnName = false) {
 	return toReturn;
 }
 
-var sraList = [];
+let sraList = [];
 /** A dictionary containing all calculated information for all data points */
-var sraDict = {};
-var sraCountDic = {};
-var tissueSRADic = {};
+let sraDict = {};
+let sraCountDic = {};
+let tissueSRADic = {};
 
-var efp_table_column;
+let efp_table_column;
 /** Title of the dataset being loaded */
-var datasetName = "data";
-var variantdiv_str;
-var iteration_num = 1;
-var moreDetails = 'Show More Details <i class="material-icons detailsIcon">arrow_drop_down</i>';
-var lessDetails = 'Show Less Details <i class="material-icons detailsIcon">arrow_drop_up</i>';
+let datasetName = "data";
+let variantdiv_str;
+let iteration_num = 1;
+let moreDetails = 'Show More Details <i class="material-icons detailsIcon">arrow_drop_down</i>';
+let lessDetails = 'Show Less Details <i class="material-icons detailsIcon">arrow_drop_up</i>';
 /**
  * Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make.
  * @param {String | Number} status Index call version
@@ -1593,14 +1587,14 @@ function populate_table(status) {
 	rpkmMedian = 1;
 
 	// Creating exon intron scale image
-	var img_created =
+	let img_created =
 		'<img loading="lazy" src="' +
 		"data:image/png;base64," +
 		exon_intron_scale +
 		'" alt="RNA-Seq mapped image" style="float: right; margin-right: 10px;">';
 
 	// Insert table headers
-	var tableHeader =
+	let tableHeader =
 		"<thead><tr>" +
 		'<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-10">Title</div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg" alt="Sorting arrow"></div></div></th>' +
 		'<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
@@ -1615,7 +1609,7 @@ function populate_table(status) {
 		'<tbody id="data_table_body"></tbody>';
 	$("#theTable").append(tableHeader);
 	// Create compare table header:
-	var compareHeader =
+	let compareHeader =
 		"<thead><tr>" +
 		'<th id="compare_colTitle" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="compare_colTitleRow"><div class="col-xs-10">Title</div></div></th>' +
 		'<th id="compare_colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
@@ -1633,7 +1627,7 @@ function populate_table(status) {
 		url: base_src,
 		dataType: "xml",
 		success: function (xml_res) {
-			var $xmltitle = $(xml_res).find("files");
+			let $xmltitle = $(xml_res).find("files");
 			$xmltitle.each(function () {
 				datasetName = $(this).attr("xmltitle") || "Uploaded dataset";
 				datasetName = datasetName.trim();
@@ -1652,7 +1646,7 @@ function populate_table(status) {
 			document.title += ` ${locus} - ${datasetName}`;
 
 			iteration_num = 1;
-			var $title = $(xml_res).find("file");
+			let $title = $(xml_res).find("file");
 			$title.each(function () {
 				// Iterate over each sub-tag inside the <file> tag.
 				// Extract information
@@ -1667,7 +1661,7 @@ function populate_table(status) {
 				if (sraList.includes(experimentno)) {
 					if (sraCountDic[experimentno]) {
 						sraCountDic[experimentno] += 1;
-						var tempExperimentNo = experimentno + "(" + sraCountDic[experimentno] + ")";
+						let tempExperimentNo = experimentno + "(" + sraCountDic[experimentno] + ")";
 						sraList.push(tempExperimentNo);
 						sraDict[tempExperimentNo] = {};
 					}
@@ -1678,17 +1672,17 @@ function populate_table(status) {
 				}
 
 				/** Title */
-				var title = $(this).attr("description");
+				let title = $(this).attr("description");
 				sraDict[experimentno]["title"] = title;
 
 				/** Description */
-				var description = $(this).attr("info");
+				let description = $(this).attr("info");
 				sraDict[experimentno]["description"] = description;
 
 				/** SVG */
-				var svg = $(this).attr("svgname");
+				let svg = $(this).attr("svgname");
 				sraDict[experimentno]["svg"] = svg;
-				var svg_part = $(this).attr("svg_subunit");
+				let svg_part = $(this).attr("svg_subunit");
 				svg_part = checkAgainstSVG(svg, svg_part);
 				sraDict[experimentno]["svg_part"] = svg_part;
 				if (tissueSRADic[checkAgainstSVG(svg, svg_part, true)]) {
@@ -1698,22 +1692,22 @@ function populate_table(status) {
 				}
 
 				/** SRA URL */
-				var url = $(this).attr("url");
+				let url = $(this).attr("url");
 				sraDict[experimentno]["url"] = url;
 
 				/** Publication URL */
-				var publicationid = $(this).attr("publication_link");
+				let publicationid = $(this).attr("publication_link");
 				sraDict[experimentno]["publicationid"] = publicationid;
 
 				/** Total number of reads */
-				var numberofreads = $(this).attr("total_reads_mapped");
+				let numberofreads = $(this).attr("total_reads_mapped");
 				if (numberofreads == null || numberofreads == "") {
 					numberofreads = "0";
 				}
 				sraDict[experimentno]["numberofreads"] = numberofreads;
 
 				/** Coloured hex code */
-				var hexColourCode;
+				let hexColourCode;
 				if ($(this).attr("hex_colour") == null || $(this).attr("hex_colour") == "") {
 					hexColourCode = "0x64cc65";
 				} else {
@@ -1722,18 +1716,18 @@ function populate_table(status) {
 				sraDict[experimentno]["hexColourCode"] = hexColourCode;
 
 				/** BAM file's filename */
-				var filenameIn = $(this).attr("filename");
+				let filenameIn = $(this).attr("filename");
 				if (filenameIn == null || filenameIn == "" || filenameIn == undefined) {
 					filenameIn = "accepted_hits.bam";
 				}
 				sraDict[experimentno]["filenameIn"] = filenameIn;
 
 				/** Species */
-				var species = $(this).attr("species");
+				let species = $(this).attr("species");
 				sraDict[experimentno]["species"] = species;
 
 				/** Control */
-				var controls = [];
+				let controls = [];
 				if ($(this).find("controls")[0].innerHTML == undefined) {
 					for (i = 1; i < $(this).find("controls")[0].childNodes.length; i + 2) {
 						controls.push($(this).find("controls")[0].childNodes[i].firstChild.textContent);
@@ -1749,9 +1743,9 @@ function populate_table(status) {
 				}
 				sraDict[experimentno]["controls"] = controls;
 
-				var links = "";
+				let links = "";
 				if (controls.length > 0) {
-					for (var i = controls.length; i--; ) {
+					for (let i = controls.length; i--; ) {
 						if (controls[i] != "MEDIAN") {
 							links +=
 								'<a href="https://www.ncbi.nlm.nih.gov/Traces/sra/?run=' +
@@ -1766,9 +1760,9 @@ function populate_table(status) {
 				}
 				sraDict[experimentno]["links"] = links;
 
-				var controlsString = "";
+				let controlsString = "";
 				if (controls.length > 0) {
-					for (var y = 0; y < controls.length; y++) {
+					for (let y = 0; y < controls.length; y++) {
 						controlsString += controls[y].toString();
 						if (y < controls.length - 2) {
 							controlsString += ", ";
@@ -1777,10 +1771,10 @@ function populate_table(status) {
 				}
 				sraDict[experimentno]["controlsString"] = controlsString.trim();
 
-				var name = $(this).attr("name");
+				let name = $(this).attr("name");
 				sraDict[experimentno]["name"] = name;
 
-				var tissue = $(this).attr("svgname");
+				let tissue = $(this).attr("svgname");
 				if (tissue) {
 					if (tissue.trim().substr(0, 4) === "ath-") {
 						tissue = tissue.slice(4, tissue.length).trim();
@@ -1792,17 +1786,17 @@ function populate_table(status) {
 				rnaseq_calls.push([tissue, experimentno]);
 				sraDict[experimentno]["tissue"] = tissue;
 
-				var bam_type = $(this).attr("bam_type");
+				let bam_type = $(this).attr("bam_type");
 				sraDict[experimentno]["bam_type"] = bam_type;
 
-				var drive_link = $(this).attr("name");
+				let drive_link = $(this).attr("name");
 				sraDict[experimentno]["drive_link"] = drive_link;
 
-				var read_map_method = $(this).attr("read_map_method");
+				let read_map_method = $(this).attr("read_map_method");
 				sraDict[experimentno]["read_map_method"] = read_map_method;
 
 				// Setup IGB
-				var igbView_link = "https://bioviz.org/bar.html?";
+				let igbView_link = "https://bioviz.org/bar.html?";
 				igbView_link += "version=A_thaliana_Jun_2009&";
 				// Load custom data
 				igbView_link += "gene_id=" + locus + "&";
@@ -1814,10 +1808,10 @@ function populate_table(status) {
 				igbView_link += "server_url=bar";
 
 				// Construct a table row <tr> element
-				var append_str = '<tr class="mainEntries" id="' + experimentno + '_row">';
+				let append_str = '<tr class="mainEntries" id="' + experimentno + '_row">';
 
 				/** table_dl_str is used for downloading the table as CSV */
-				var table_dl_str = "<table id='table_dl'>\n\t<tbody>\n";
+				let table_dl_str = "<table id='table_dl'>\n\t<tbody>\n";
 				table_dl_str += "\t\t<caption>" + document.getElementById("xmlDatabase").value + "</caption>\n";
 
 				// Append title <td>
@@ -1985,7 +1979,7 @@ function populate_table(status) {
 				$("#theTable").append(append_str);
 
 				/** Check to see if compare column missing classname */
-				var compareColumn = document.getElementsByClassName("fltrow")[0]["childNodes"][6];
+				let compareColumn = document.getElementsByClassName("fltrow")[0]["childNodes"][6];
 				if (
 					(compareColumn && compareColumn.classList[0] === undefined) ||
 					compareColumn.classList[0] === "undefined"
@@ -2083,7 +2077,7 @@ function populate_table(status) {
 		},
 	});
 
-	var filtersConfig = {
+	let filtersConfig = {
 		base_path: "cgi-bin/core/packages/tableFilter/",
 		columns_exact_match: [false, false, false, false, false, false],
 		watermark: ["Filter", "Filter", "Filter", "Filter", "Filter", "Filter"],
@@ -2098,15 +2092,15 @@ function populate_table(status) {
 		alternate_rows: false,
 		msg_filter: "Filtering...",
 	};
-	//var tf = new TableFilter('theTable', {base_path: 'core/tablefilter/'});
-	var tf = new TableFilter("theTable", filtersConfig);
-	//var tf = new TableFilter('demo', filtersConfig);
+	//let tf = new TableFilter('theTable', {base_path: 'core/tablefilter/'});
+	let tf = new TableFilter("theTable", filtersConfig);
+	//let tf = new TableFilter('demo', filtersConfig);
 	tf.init();
 	change_rpkm_colour_scale(colouring_mode);
 
 	// Check if arrows are the right width or not
 	for (i = 0; i < colSortList.length; i++) {
-		var colArrow = colSortList[i] + "Arrow";
+		let colArrow = colSortList[i] + "Arrow";
 		CheckElementWidth(colArrow, 8);
 	}
 
@@ -2134,9 +2128,8 @@ function createVariantDiv() {
 
 	$("#variant_select").ddslick({
 		width: "100%",
-		onSelected: function (selectedData) {
-			setData = selectedData;
-			gene_structure_radio_on_change(selectedData);
+		onSelected: function () {
+			gene_structure_radio_on_change();
 		},
 	});
 }
@@ -2150,13 +2143,13 @@ function clickDetailsTextChange(details_id) {
 		if (document.getElementById(details_id).innerHTML == moreDetails) {
 			document.getElementById(details_id).setAttribute("hidden", true);
 			// Non-truncate the details
-			var innerDescription = document.getElementById(document.getElementById(details_id).name);
+			const innerDescription = document.getElementById(document.getElementById(details_id).name);
 			innerDescription.textContent = innerDescription.getAttribute("name");
 		} else if (document.getElementById(details_id).innerHTML == lessDetails) {
-			var ogID = details_id.substring(0, details_id.length - 5);
+			const ogID = details_id.substring(0, details_id.length - 5);
 			document.getElementById(ogID).removeAttribute("hidden");
 			// Truncate the details
-			var innerDescription = document.getElementById(document.getElementById(details_id).name);
+			const innerDescription = document.getElementById(document.getElementById(details_id).name);
 			innerDescription.textContent = truncateDescription(innerDescription.getAttribute("name"));
 		}
 	}
@@ -2170,18 +2163,17 @@ function clickDetailsTextChange(details_id) {
 function truncateDescription(stringInput) {
 	if (stringInput != undefined || stringInput != null) {
 		if (stringInput.length > 30) {
-			var newString = stringInput.substring(0, 30) + "...";
-			return newString;
+			return stringInput.substring(0, 30) + "...";
 		} else {
 			return stringInput;
 		}
 	}
 }
 
-var remainder_efp = 0;
-var efp_length = 0;
-var eFPSortedSRA = [];
-var efp_RPKM_values = [];
+let remainder_efp = 0;
+let efp_length = 0;
+let eFPSortedSRA = [];
+let efp_RPKM_values = [];
 /**
  * Creates a table of the coloured SVGs and their corresponding RPKM values
  * @param {String | Number} status Index call version
@@ -2193,9 +2185,9 @@ function populate_efp_modal(status) {
 	efp_table_column = "";
 	eFPSortedSRA = [];
 
-	var allSRASorted = document.getElementsByClassName("colTitle");
-	for (s = 2; s < allSRASorted.length; s++) {
-		var SRASortedID = allSRASorted[s].id.substr(0, allSRASorted[s].id.length - 6);
+	const allSRASorted = document.getElementsByClassName("colTitle");
+	for (let s = 2; s < allSRASorted.length; s++) {
+		let SRASortedID = allSRASorted[s].id.substring(0, allSRASorted[s].id.length - 6);
 		if (document.getElementById(SRASortedID + "_row").style.display != "none") {
 			eFPSortedSRA.push(SRASortedID);
 		}
@@ -2206,7 +2198,7 @@ function populate_efp_modal(status) {
 	efp_RPKM_values = [];
 
 	for (i = 0; i < eFPSortedSRA.length; i++) {
-		if (isNaN(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"])) == false) {
+		if (!isNaN(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"]))) {
 			efp_RPKM_values.push(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"]));
 		}
 	}
@@ -2280,7 +2272,7 @@ function populate_efp_modal(status) {
 	for (i = 0; i < ~~(eFPSortedSRA.length / 11) * 11; i += 11) {
 		if (document.getElementById(eFPSortedSRA[i + 10]).outerHTML != "null") {
 			efp_table_column = "<tr>";
-			for (r = 0; r < 11; r++) {
+			for (let r = 0; r < 11; r++) {
 				efp_table_column +=
 					"<td>" +
 					'<div class="efp_table_tooltip" id="' +
@@ -2300,10 +2292,10 @@ function populate_efp_modal(status) {
 		}
 	}
 
-	for (r = 0; r < 12; r++) {
+	for (let r = 0; r < 12; r++) {
 		if (remainder_efp === r) {
 			efp_table_column = "<tr>";
-			for (c = remainder_efp; c > 0; c--) {
+			for (let c = remainder_efp; c > 0; c--) {
 				efp_table_column +=
 					"<td>" +
 					'<div class="efp_table_tooltip" id="' +
@@ -2343,14 +2335,14 @@ function change_rpkm_colour_scale(colouring_mode) {
 	}
 
 	if (colouring_mode == "rel") {
-		var img_created = document.createElement("img");
+		const img_created = document.createElement("img");
 		img_created.src = "data:image/png;base64," + relative_rpkm_scale;
 		img_created.style = "margin-top: 10px;";
 		if (svg_colouring_element) {
 			svg_colouring_element.appendChild(img_created);
 		}
 	} else {
-		var img_created = document.createElement("img");
+		const img_created = document.createElement("img");
 		img_created.src = "data:image/png;base64," + absolute_rpkm_scale;
 		img_created.style = "margin-top: 10px;";
 		if (svg_colouring_element) {
@@ -2359,19 +2351,19 @@ function change_rpkm_colour_scale(colouring_mode) {
 	}
 
 	// Add border to fltrow class tr's child td elements
-	var columnList = ["colTitle", "colRNA", "colrpb", "coleFP", "colRPKM", "colDetails"];
-	var tds = [];
+	const columnList = ["colTitle", "colRNA", "colrpb", "coleFP", "colRPKM", "colDetails"];
+	let tds = [];
 	if (document.getElementsByClassName("fltrow") && document.getElementsByClassName("fltrow")[0]) {
 		tds = document.getElementsByClassName("fltrow")[0].getElementsByTagName("td");
 	}
-	for (var i = 0; i < tds.length; i++) {
+	for (let i = 0; i < tds.length; i++) {
 		tds[i].style = "border: 1px solid #D3D3D3";
 		tds[i].classList.add(columnList[i]);
 	}
 }
 
 function locus_validation() {
-	var loc = document.getElementById("locus").value;
+	const loc = document.getElementById("locus").value;
 	if (
 		loc.length == 9 &&
 		(loc[0] == "A" || loc[0] == "a") &&
@@ -2396,7 +2388,7 @@ function locus_validation() {
 }
 
 function yscale_validation() {
-	var yscale = document.getElementById("yscale_input").value;
+	const yscale = document.getElementById("yscale_input").value;
 	if (parseInt(yscale) > 0 || yscale == "Auto" || yscale == "") {
 		//$("#yscale_button").removeAttr('disabled');
 		$("#locus_button").removeAttr("disabled");
@@ -2407,7 +2399,7 @@ function yscale_validation() {
 }
 
 function rpkm_validation() {
-	var rpkmScale = parseInt(document.getElementById("rpkm_scale_input").value);
+	const rpkmScale = parseInt(document.getElementById("rpkm_scale_input").value);
 	if (rpkmScale > 0) {
 		$("#abs_scale_button").removeAttr("disabled");
 	} else {
@@ -2416,11 +2408,11 @@ function rpkm_validation() {
 }
 
 /* Used for resetting dataset_dictionary */
-var base_dataset_dictionary = {
+const base_dataset_dictionary = {
 	"Araport 11 RNA-seq data": "cgi-bin/data/bamdata_araport11.xml",
 	"Developmental transcriptome - Klepikova et al": "cgi-bin/data/bamdata_Developmental_transcriptome.xml",
 };
-var databasesAdded = false;
+let databasesAdded = false;
 /**
  * Resets the dataset_dictionary and removes users added tags from index.html (document)
  */
@@ -2431,25 +2423,25 @@ function reset_database_options() {
 	databasesAdded = false;
 }
 
-var get_xml_list_output = [];
-var user_exist = false;
-var list_modified = false;
-var check_for_change = 0;
-var xml_title;
-var match_title = {};
-var title_list = [];
+let get_xml_list_output = [];
+let user_exist = false;
+let list_modified = false;
+let check_for_change = 0;
+let xml_title;
+let match_title = {};
+let title_list = [];
 /**
  * Gets list of users private XMLs
  */
 function get_user_XML_display() {
-	var AuthUser = findAuthUser();
+	const AuthUser = findAuthUser();
 
 	// First check to make sure there is is a user logged in or else this script will not run
 	if ((users_email != "" || users_email != undefined || users_email != null) && users_email === AuthUser) {
 		$.ajax({
 			url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/get_xml_list.php?user=" + users_email,
 			dataType: "json",
-			failure: function (get_xml_list_return) {
+			failure: function () {
 				console.log("ERROR! Something went wrong");
 			},
 			success: function (get_xml_list_return) {
@@ -2459,8 +2451,8 @@ function get_user_XML_display() {
 				title_list = [];
 
 				/** Unnamed dataset name number: */
-				var unnamed_title_num = 1;
-				var private_version_num = 1;
+				let unnamed_title_num = 1;
+				let private_version_num = 1;
 
 				// Check if the output is working and store as variable
 				get_xml_list_output = get_xml_list_return;
@@ -2478,11 +2470,8 @@ function get_user_XML_display() {
 					check_for_change = get_xml_list_output["files"].length;
 
 					// Check each file in output
-					var old_data_input = "empty";
-					var new_data_input = "empty";
 					if (get_xml_list_output["files"].length > 0) {
 						for (i = 0; i < get_xml_list_output["files"].length; i++) {
-							var xml_file;
 							xml_title;
 							xml_title = get_xml_list_output["files"][i][1];
 
@@ -2505,7 +2494,7 @@ function get_user_XML_display() {
 								private_version_num += 1;
 							}
 							title_list.push(xml_title);
-							xml_fle_name = get_xml_list_output["files"][i][0];
+							const xml_fle_name = get_xml_list_output["files"][i][0];
 
 							// This needed for later on
 							match_title[xml_title] = xml_fle_name;
@@ -2517,7 +2506,7 @@ function get_user_XML_display() {
 						}
 					}
 					setTimeout(function () {
-						if (list_modified == false) {
+						if (!list_modified) {
 							for (i = 0; i < get_xml_list_output["files"].length; i++) {
 								// Add data to list of accessible datasets
 								dataset_dictionary[title_list[i]] = datalist_Title[title_list[i]];
@@ -2545,39 +2534,43 @@ function get_user_XML_display() {
 	}
 }
 
+let datalist = [];
+let datalist_Title = {};
 /**
  * Creates a list of base64 strings that contains XML of user's private datasets
  * @param {Number} size - How many private datasets the user has
  * @return {List} datalist_Title - Dictionary of base64 strings
  */
-var datalist = [];
-var datalist_Title = {};
 function create_data_list(size) {
 	datalist = []; // Reset
 	datalist_Title = {}; // Reset
-	for (i = 0; i < size; i++) {
-		$.ajax({
-			url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/get_xml.php?file=" + match_title[title_list[i]],
-			dataType: "json",
-			success: function (get_xml_return) {
-				xml_file = get_xml_return;
-				datalist.push(xml_file["data"]);
-			},
-		});
+	if (size > 0) {
+		for (let i = 0; i < size; i++) {
+			$.ajax({
+				url:
+					"https://bar.utoronto.ca/webservices/eFP-Seq_Browser/get_xml.php?file=" +
+					match_title[title_list[i]],
+				dataType: "json",
+				success: function (get_xml_return) {
+					const xml_file = get_xml_return;
+					datalist.push(xml_file["data"]);
+				},
+			});
 
-		if (i === size - 1) {
-			setTimeout(function () {
-				dlCallLength = size;
-				DatalistXHRCall(datalist);
-			}, 200);
+			if (i === size - 1) {
+				setTimeout(function () {
+					dlCallLength = size;
+					DatalistXHRCall(datalist);
+				}, 200);
+			}
 		}
 	}
 }
 
-var dlCallLength = 0;
+let dlCallLength = 0;
 /** Make function recursive */
-var dlCallPosition = 0;
-var testDoc;
+let dlCallPosition = 0;
+let testDoc;
 /**
  * Retrieves information and titles of individual XMLs
  * @param {List} datalist The list of base64/url for the XML's being parsed through
@@ -2585,7 +2578,7 @@ var testDoc;
 function DatalistXHRCall(datalist) {
 	if (dlCallPosition != dlCallLength) {
 		const xhr = new XMLHttpRequest();
-		let url = datalist[dlCallPosition];
+		const url = datalist[dlCallPosition];
 
 		xhr.responseType = "document";
 		xhr.onreadystatechange = () => {
@@ -2613,7 +2606,7 @@ function DatalistXHRCall(datalist) {
  * @param {String} email String being tested if email or not
  */
 function validateEmail(email) {
-	var re = /\S+@\S+\.\S+/;
+	const re = /\S+@\S+\.\S+/;
 	return re.test(email);
 }
 
@@ -2622,22 +2615,22 @@ function validateEmail(email) {
  * @returns {String} AuthUser - The email associated with the OAuth2.0 user logged in if any (empty string if not)
  */
 function findAuthUser() {
-	var AuthUser = "";
+	let AuthUser = "";
 
 	if (gapi) {
-		var currentUser = gapi.auth2.getAuthInstance().currentUser;
+		const currentUser = gapi.auth2.getAuthInstance().currentUser;
 		if (currentUser) {
-			var cUObj = Object.keys(currentUser);
-			for (var i = 0; i < cUObj.length; i++) {
-				var cUDetails = currentUser[cUObj[i]];
+			const cUObj = Object.keys(currentUser);
+			for (const user of cUObj) {
+				const cUDetails = currentUser[user];
 				if (cUDetails && Object.keys(cUDetails).length > 0) {
-					var cUDObj = Object.keys(cUDetails);
-					for (var c = 0; c < cUDObj.length; c++) {
-						var cUDData = cUDetails[cUDObj[c]];
+					const cUDObj = Object.keys(cUDetails);
+					for (const data of cUDObj) {
+						const cUDData = cUDetails[data];
 						if (cUDData && Object.keys(cUDData).length > 0) {
-							var containedDetails = Object.keys(cUDData);
-							for (var d = 0; d < containedDetails.length; d++) {
-								var subDetails = cUDData[containedDetails[d]];
+							const containedDetails = Object.keys(cUDData);
+							for (const details of containedDetails) {
+								const subDetails = cUDData[details];
 								if (typeof subDetails === "string" && validateEmail(subDetails)) {
 									AuthUser = subDetails;
 									break;
@@ -2661,7 +2654,7 @@ function findAuthUser() {
  * Checks if the user is logged in or not
  */
 function check_if_Google_login() {
-	var AuthUser = findAuthUser();
+	const AuthUser = findAuthUser();
 	if (users_email != "" && users_email === AuthUser) {
 		if (databasesAdded === false) {
 			document.getElementById("private_dataset_header").style.display = "block";
@@ -2683,8 +2676,8 @@ function add_user_xml_by_upload() {
 	// setTimeout is necessary due to datasetName taking a while to be generated. Though only requires 3 seconds to obtain, setTimeout set to 4 just in case
 
 	setTimeout(function () {
-		var AuthUser = findAuthUser();
-		if (user_exist == false) {
+		const AuthUser = findAuthUser();
+		if (!user_exist) {
 			// Creates a new user if the user does not already exist
 			if (users_email === AuthUser) {
 				$.ajax({
@@ -2700,7 +2693,7 @@ function add_user_xml_by_upload() {
 				signOut();
 				alert("Error occurred with your account, you have now been logged out. Please log back in");
 			}
-		} else if (user_exist == true) {
+		} else if (user_exist) {
 			if (dataset_dictionary[datasetName] == undefined) {
 				// If the file does not already exist in the account, add it
 				if (users_email === AuthUser) {
@@ -2749,13 +2742,13 @@ function add_user_xml_by_upload() {
 	}, 10000);
 }
 
-var uploadingData = false;
+let uploadingData = false;
 /**
  * UI function: If logged in, upload to account vs not
  */
 function which_upload_option() {
 	uploadingData = true;
-	var AuthUser = findAuthUser();
+	const AuthUser = findAuthUser();
 	if (users_email != "" && users_email === AuthUser) {
 		document.getElementById("upload_modal").click();
 	} else if (users_email != "" && users_email != AuthUser) {
@@ -2767,13 +2760,13 @@ function which_upload_option() {
 }
 
 /* User's private dataset_dictionary */
-var public_dataset_dictionary = {
+const public_dataset_dictionary = {
 	"Araport 11 RNA-seq data": "cgi-bin/data/bamdata_araport11.xml",
 	"Developmental transcriptome - Klepikova et al": "cgi-bin/data/bamdata_Developmental_transcriptome.xml",
 };
 
-var public_title_list = [];
-var total_amount_of_datasets = 0;
+let public_title_list = [];
+let total_amount_of_datasets = 0;
 /**
  * Fills the manage XML modal with all available XMLs to delete from an account
  */
@@ -2781,13 +2774,13 @@ function delete_fill() {
 	$("#delete_fill").empty(); // Empties the manage XML modal every time it is loaded
 	$("#publicDatabaseDownload").empty();
 	public_title_list = [];
-	for (var public_title in public_dataset_dictionary) {
+	for (let public_title in public_dataset_dictionary) {
 		if (public_dataset_dictionary.hasOwnProperty(public_title)) {
 			public_title_list.push(public_title);
 		}
 	}
 
-	var deleteBoxNum = 0;
+	let deleteBoxNum = 0;
 	total_amount_of_datasets = public_title_list.length + title_list.length;
 
 	for (i = 0; i < public_title_list.length; i++) {
@@ -2819,23 +2812,23 @@ function delete_fill() {
 	}
 }
 
-var isDeletePublicDisabled = false;
+let isDeletePublicDisabled = false;
 /**
  * Prevents users from deleting public databases visually... even without this they cannot actually do it
  */
 function disableDeletePublic() {
 	for (i = 0; i < public_title_list.length; i++) {
 		if (
-			document.getElementById("deleteBox_" + i).checked == true &&
+			document.getElementById("deleteBox_" + i).checked &&
 			document.getElementById("deleteBox_" + i).className == "publicDataCheckbox"
 		) {
-			if (isDeletePublicDisabled == false) {
+			if (!isDeletePublicDisabled) {
 				document.getElementById("deleteXML_button").classList.add("disabled");
 				isDeletePublicDisabled = true;
 			}
 			break;
 		} else {
-			if (isDeletePublicDisabled == true) {
+			if (isDeletePublicDisabled) {
 				document.getElementById("deleteXML_button").classList.remove("disabled");
 				isDeletePublicDisabled = false;
 			}
@@ -2847,16 +2840,15 @@ function disableDeletePublic() {
  * Check if any XML's from "Manage Account" has been selected or not
  */
 function CheckIfSelectedXML() {
-	var returnTrue = false;
-	var AuthUser = findAuthUser();
+	let returnTrue = false;
+	const AuthUser = findAuthUser();
 
 	for (i = 0; i < title_list.length; i++) {
 		/** Find id of what is being called */
-		var deleteBox_id = "deleteBox_" + (i + 2);
-		if (document.getElementById(deleteBox_id).checked == true && users_email === AuthUser) {
+		const deleteBox_id = "deleteBox_" + (i + 2);
+		if (document.getElementById(deleteBox_id).checked && users_email === AuthUser) {
 			returnTrue = true;
 			return true;
-			break;
 		}
 	}
 
@@ -2869,15 +2861,15 @@ function CheckIfSelectedXML() {
  * Delete selected XMLs from their private account
  */
 function delete_selectedXML() {
-	var AuthUser = findAuthUser();
+	const AuthUser = findAuthUser();
 
 	for (i = 0; i < title_list.length; i++) {
 		/** Find id of what is being called */
-		var deleteBox_id = "deleteBox_" + (i + 2);
+		const deleteBox_id = "deleteBox_" + (i + 2);
 
 		if (
-			document.getElementById(deleteBox_id) != null &&
-			document.getElementById(deleteBox_id).checked == true &&
+			document.getElementById(deleteBox_id) &&
+			document.getElementById(deleteBox_id).checked &&
 			users_email === AuthUser
 		) {
 			$.ajax({
@@ -2897,7 +2889,7 @@ function delete_selectedXML() {
  * Confirm the action of delete all users and if so, begin deletion process
  */
 function confirm_deleteUser() {
-	var AuthUser = findAuthUser();
+	const AuthUser = findAuthUser();
 	if (users_email != "" && users_email === AuthUser && $("#logoutModal").is(":visible")) {
 		delete_allXMLs(AuthUser);
 	}
@@ -2908,12 +2900,12 @@ function confirm_deleteUser() {
  * @param {String} verify Verification code related to an account
  */
 function delete_allXMLs(verify) {
-	var AuthUser = findAuthUser();
+	const AuthUser = findAuthUser();
 
 	if (verify === AuthUser) {
 		for (i = 0; i < title_list.length; i++) {
 			/** Find id of what is being called */
-			var deleteBox_id = "deleteBox_" + (i + 2);
+			const deleteBox_id = "deleteBox_" + (i + 2);
 			if (users_email === AuthUser) {
 				$.ajax({
 					url:
@@ -2933,7 +2925,7 @@ function delete_allXMLs(verify) {
  * Delete the currently logged in user from the BAR
  */
 function delete_user() {
-	var AuthUser = findAuthUser();
+	const AuthUser = findAuthUser();
 	if (users_email != "" && users_email === AuthUser) {
 		$.ajax({
 			url: "https://bar.utoronto.ca/webservices/eFP-Seq_Browser/delete_user.php?user=" + users_email,
@@ -2942,8 +2934,8 @@ function delete_user() {
 	signOut();
 }
 
-var warningActive_index_XML = "nope";
-var warningActive_index_account = "nope";
+let warningActive_index_XML = "nope";
+let warningActive_index_account = "nope";
 /**
  * Show warning before making permanent decision
  * @param {Number} whichWarning Which warning to be displayed? 1 for XML, 2 for accounts
@@ -2951,7 +2943,7 @@ var warningActive_index_account = "nope";
 function showWarning_index(whichWarning) {
 	if (whichWarning === 1) {
 		// Delete single XML
-		if (isDeletePublicDisabled == false) {
+		if (!isDeletePublicDisabled) {
 			if (warningActive_index_XML == "nope") {
 				document.getElementById("warning_index_xml").className = "warning_index";
 				warningActive_index_XML = "yes";
@@ -2991,12 +2983,12 @@ function hideWarning_index(whichWarning) {
  * @return {File} XML - Download selected file as an XML
  */
 function manage_DownloadXML() {
-	var numberOfOptions = title_list.length + 2;
-	for (i = 0; i < numberOfOptions; i++) {
+	const numberOfOptions = title_list.length + 2;
+	for (let i = 0; i < numberOfOptions; i++) {
 		/** Find id of what is being called */
-		var downloadBox_id = "deleteBox_" + i;
+		const downloadBox_id = "deleteBox_" + i;
 
-		if (document.getElementById(downloadBox_id).checked == true) {
+		if (document.getElementById(downloadBox_id).checked) {
 			$("#downloadXML")
 				.attr("href", dataset_dictionary[document.getElementById(downloadBox_id).value])
 				.attr("download", document.getElementById(downloadBox_id).value + ".xml");
@@ -3005,16 +2997,16 @@ function manage_DownloadXML() {
 	}
 }
 
-var table_base =
+const table_base =
 	"\t\t<tr>\n\t\t\t<th>Title*</th>\n\t\t\t<th>Description*</th>\n\t\t\t<th>Record Number *</th>\n\t\t\t<th>RNA-Seq Data/BAM file repository link*</th>\n\t\t\t<th>Repository type*</th>\n\t\t\t<th>BAM Filename*</th>\n\t\t\t<th>Publication Link</th>\n\t\t\t<th>SRA/NCBI Link</th>\n\t\t\t<th>Total Reads Mapped*</th>\n\t\t\t<th>Read Map Method</th>\n\t\t\t<th>Species*</th>\n\t\t\t<th>Tissue*</th>\n\t\t\t<th>Tissue subunit*</th>\n\t\t\t<th>Controls</th>\n\t\t\t<th>Replicate Controls</th>\n\t\t</tr>\n";
 /**
  * Initializes and fills a hidden table (#XMLtoCSVtable) to be filled with potentially downloadable CSV files
  */
 function fill_tableCSV() {
 	$("#XMLtoCSVtable").empty();
-	for (i = 0; i < total_amount_of_datasets; i++) {
+	for (let i = 0; i < total_amount_of_datasets; i++) {
 		/** Find id of what is being called */
-		var downloadBox_id = "deleteBox_" + i;
+		const downloadBox_id = "deleteBox_" + i;
 		//console.log("Initializing fill_tableCSV() on " + downloadBox_id);
 
 		$.ajax({
@@ -3024,17 +3016,17 @@ function fill_tableCSV() {
 				console.log("Failed at opening XML for conversion into a CSV file. Please contact an admin");
 			},
 			success: function (xml_data) {
-				var $xmltitle = $(xml_data).find("files");
+				const $xmltitle = $(xml_data).find("files");
 				$xmltitle.each(function () {
-					fileTitle = $(this).attr("xmltitle");
+					let fileTitle = $(this).attr("xmltitle");
 					if (fileTitle == "" || fileTitle == "Uploaded dataset") {
 						fileTitle = "Uploaded dataset";
 					}
 					fileTitle = fileTitle.split(" ").join("_");
 				});
 				/** XML title */
-				var $title = $(xml_data).find("file");
-				var table_add = "";
+				const $title = $(xml_data).find("file");
+				let table_add = "";
 				table_add += "<table id='" + fileTitle + "'>\n\t<tbody>\n";
 				table_add += "\t\t<caption>" + fileTitle + "</caption>\n";
 				table_add += table_base; // CSV header
@@ -3042,27 +3034,27 @@ function fill_tableCSV() {
 					table_add += "\t\t<tr>\n";
 
 					/** Title */
-					var title = $(this).attr("description");
+					const title = $(this).attr("description");
 					table_add += "\t\t\t<td>" + title + "</td>\n";
 
 					/** Description */
-					var desc = $(this).attr("info");
+					const desc = $(this).attr("info");
 					table_add += "\t\t\t<td>" + desc + "</td>\n";
 
 					/** Record number */
-					var record_number = $(this).attr("record_number");
+					const record_number = $(this).attr("record_number");
 					table_add += "\t\t\t<td>" + record_number + "</td>\n";
 
 					/** BAM/repository link */
-					var bam_link = $(this).attr("name");
+					const bam_link = $(this).attr("name");
 					table_add += "\t\t\t<td>" + bam_link + "</td>\n";
 
 					/** BAM/repo type */
-					var bam_type = $(this).attr("bam_type");
+					const bam_type = $(this).attr("bam_type");
 					table_add += "\t\t\t<td>" + bam_type + "</td>\n";
 
 					/** BAM/repo type */
-					var bam_filename = $(this).attr("filename");
+					let bam_filename = $(this).attr("filename");
 					if (
 						bam_filename === null ||
 						bam_filename === undefined ||
@@ -3074,44 +3066,44 @@ function fill_tableCSV() {
 					table_add += "\t\t\t<td>" + bam_filename + "</td>\n";
 
 					/** Publication link */
-					var publication_link = $(this).attr("publication_link");
+					const publication_link = $(this).attr("publication_link");
 					table_add += "\t\t\t<td>" + publication_link + "</td>\n";
 
 					/** Publication URL */
-					var publication_url = $(this).attr("url");
+					const publication_url = $(this).attr("url");
 					table_add += "\t\t\t<td>" + publication_url + "</td>\n";
 
 					/** Total reads mapped */
-					var total_reads_mapped = $(this).attr("total_reads_mapped");
+					let total_reads_mapped = $(this).attr("total_reads_mapped");
 					if (total_reads_mapped == null || total_reads_mapped == "") {
 						total_reads_mapped = "0";
 					}
 					table_add += "\t\t\t<td>" + total_reads_mapped + "</td>\n";
 
 					/** Read mapped method */
-					var read_map_method = $(this).attr("read_map_method");
+					const read_map_method = $(this).attr("read_map_method");
 					table_add += "\t\t\t<td>" + read_map_method + "</td>\n";
 
 					/** Species */
-					var species = $(this).attr("species");
+					let species = $(this).attr("species");
 					if (species == null || species == "") {
 						species = "Arabidopsis thaliana";
 					}
 					table_add += "\t\t\t<td>" + species + "</td>\n";
 
 					/** Tissue */
-					var svgname = $(this).attr("svgname");
+					const svgname = $(this).attr("svgname");
 					table_add += "\t\t\t<td>" + svgname + "</td>\n";
 
 					/** Tissue subunit */
-					var svg_subunit = $(this).attr("svg_subunit");
+					const svg_subunit = $(this).attr("svg_subunit");
 					table_add += "\t\t\t<td>" + svg_subunit + "</td>\n";
 
 					/** Controls */
-					var controlsXMLString = "";
-					if ($(this).find("controls")[0].innerHTML != undefined) {
-						for (i = 1; i < $(this).find("controls")[0].childNodes.length; i = i + 2) {
-							if ($(this).find("controls")[0].childNodes[i].firstChild != undefined) {
+					let controlsXMLString = "";
+					if ($(this).find("controls")[0].innerHTML) {
+						for (let i = 1; i < $(this).find("controls")[0].childNodes.length; i = i + 2) {
+							if ($(this).find("controls")[0].childNodes[i].firstChild) {
 								controlsXMLString += $(this).find("controls")[0].childNodes[i].firstChild.textContent;
 								if (i < $(this).find("controls")[0].childNodes.length - 2) {
 									controlsXMLString += ", ";
@@ -3122,10 +3114,10 @@ function fill_tableCSV() {
 					table_add += "\t\t\t<td>" + controlsXMLString + "</td>\n";
 
 					/** Replicate Controls */
-					var RcontrolsXMLString = "";
-					if ($(this).find("groupwith")[0].innerHTML != undefined) {
-						for (i = 1; i < $(this).find("groupwith")[0].childNodes.length; i = i + 2) {
-							if ($(this).find("groupwith")[0].childNodes[i].firstChild != undefined) {
+					let RcontrolsXMLString = "";
+					if ($(this).find("groupwith")[0].innerHTML) {
+						for (let i = 1; i < $(this).find("groupwith")[0].childNodes.length; i = i + 2) {
+							if ($(this).find("groupwith")[0].childNodes[i].firstChild) {
 								RcontrolsXMLString += $(this).find("groupwith")[0].childNodes[i].firstChild.textContent;
 								if (i < $(this).find("groupwith")[0].childNodes.length - 2) {
 									RcontrolsXMLString += ", ";
@@ -3154,17 +3146,17 @@ function fill_tableCSV() {
  * @return {File} CSV - Download selected file as an CSV
  */
 function download_XMLtableCSV() {
-	for (i = 0; i < total_amount_of_datasets; i++) {
+	for (let i = 0; i < total_amount_of_datasets; i++) {
 		/** Find id of what is being called */
-		var downloadBox_id = "deleteBox_" + i;
-		if (document.getElementById(downloadBox_id).checked == true) {
-			var tableTitle = document.getElementById(downloadBox_id).value.split(" ").join("_");
+		const downloadBox_id = "deleteBox_" + i;
+		if (document.getElementById(downloadBox_id).checked) {
+			const tableTitle = document.getElementById(downloadBox_id).value.split(" ").join("_");
 			$("#" + tableTitle).tableToCSV();
 		}
 	}
 }
 
-var downloadIndexTable_base =
+const downloadIndexTable_base =
 	"\t\t<tr>\n\t\t\t<th>Title</th>\n\t\t\t<th>Record Number</th>\n\t\t\t<th>Tissue</th>\n\t\t\t<th>Tissue subunit</th>\n\t\t\t<th>Locus</th>\n\t\t\t<th>bp Length</th>\n\t\t\t<th>bp Start site</th>\n\t\t\t<th>bp End site</th>\n\t\t\t<th>Total number of reads</th>\n\t\t\t<th>Reads mapped to locus</th>\n\t\t\t<th>rpb</th>\n\t\t\t<th>RPKM</th>\n\t\t\t<th>Controls</th>\n\t\t</tr>\n";
 /**
  * Converts and downloads index's (document) main table as an CSV
@@ -3175,30 +3167,27 @@ function download_mainTableCSV() {
 	document.getElementById("bodyContainer").classList.add("progressLoading");
 	populate_efp_modal(1); // Needed for the filtered_2d_x variables
 	$("#hiddenDownloadModal_table").empty(); // reset
-	var downloadIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
+	let downloadIndexTable_str = "<table id='downloadIndexTable'>\n\t<tbody>\n";
 	downloadIndexTable_str += "\t\t<caption>" + datasetName.split(" ").join("_") + "</caption>\n";
 	downloadIndexTable_str += downloadIndexTable_base;
 
 	// Looping through each row of the table
-	for (i = 0; i < eFPSortedSRA.length; i++) {
+	for (const sra of eFPSortedSRA) {
 		downloadIndexTable_str += "\t\t<tr>\n";
-		downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["title"] + "</td>\n";
-		downloadIndexTable_str += "\t\t\t<td>" + eFPSortedSRA[i] + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + sraDict[sra]["title"] + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + sra + "</td>\n";
 		downloadIndexTable_str +=
-			"\t\t\t<td>" +
-			sraDict[eFPSortedSRA[i]]["svg"].substr(4, sraDict[eFPSortedSRA[i]]["svg"].length - 8) +
-			"</td>\n";
-		downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["svg_part"] + "</td>\n";
-		downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["locusValue"] + "</td>\n";
-		downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_length"]) + "</td>\n";
-		downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_start"]) + "</td>\n";
-		downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["bp_end"]) + "</td>\n";
-		downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["numberofreads"] + "</td>\n";
-		downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["MappedReads"]) + "</td>\n";
-		downloadIndexTable_str += "\t\t\t<td>" + sraDict[eFPSortedSRA[i]]["rpb"] + "</td>\n";
-		downloadIndexTable_str +=
-			"\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["RPKM"][variantPosition].toFixed(2)) + "</td>\n";
-		downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[eFPSortedSRA[i]]["controlsString"]) + "</td>\n";
+			"\t\t\t<td>" + sraDict[sra]["svg"].substr(4, sraDict[sra]["svg"].length - 8) + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + sraDict[sra]["svg_part"] + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + sraDict[sra]["locusValue"] + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[sra]["bp_length"]) + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[sra]["bp_start"]) + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[sra]["bp_end"]) + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + sraDict[sra]["numberofreads"] + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[sra]["MappedReads"]) + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + sraDict[sra]["rpb"] + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[sra]["RPKM"][variantPosition].toFixed(2)) + "</td>\n";
+		downloadIndexTable_str += "\t\t\t<td>" + String(sraDict[sra]["controlsString"]) + "</td>\n";
 		downloadIndexTable_str += "\t\t</tr>\n";
 	}
 
@@ -3209,7 +3198,7 @@ function download_mainTableCSV() {
 	document.getElementById("bodyContainer").classList.remove("progressLoading");
 }
 
-var publicData = true;
+let publicData = true;
 /**
  * Checks if the index.html's (document) "RNA-Seq Database" is currently selected on a public or private database
  * @return {Boolean} forceFalse - Force a the publicData boolean to be false or have it be decided by design
@@ -3227,7 +3216,7 @@ function changePublicData(forceFalse = false) {
 	}
 }
 
-var isPrecache = true;
+let isPrecache = true;
 /**
  * Determines if dataset should load a preCached data or new set of information
  */
@@ -3252,7 +3241,7 @@ function checkPreload() {
 		}
 
 		// Check if public data or not
-		if (publicData == true && locus == "AT2G24270" && dumpMethod == "simple" && callDumpOutputs === false) {
+		if (publicData && locus == "AT2G24270" && dumpMethod == "simple" && !callDumpOutputs) {
 			variants_radio_options(1);
 			isPrecache = true;
 		} else {
@@ -3275,24 +3264,20 @@ function verifyLoci(locus) {
 	// Check if locus is a string
 	if (typeof locus === "string") {
 		/** Arabidopsis thaliana locus pattern */
-		let arabidopsisThalianaPattern = `^[A][T][MC0-9][G][0-9]{5}[.][0-9]{1,2}$|^[A][T][MC0-9][G][0-9]{5}$`;
+		const arabidopsisThalianaPattern = `^[A][T][MC0-9][G][0-9]{5}[.][0-9]{1,2}$|^[A][T][MC0-9][G][0-9]{5}$`;
 
 		/** Reg Exp for the locus pattern */
-		let regexPattern = new RegExp(arabidopsisThalianaPattern, "i");
+		const regexPattern = new RegExp(arabidopsisThalianaPattern, "i");
 
 		// If match, then return true, else return false
-		if (locus.trim().match(regexPattern)) {
-			return true;
-		} else {
-			return false;
-		}
+		return locus.trim().match(regexPattern);
 	} else {
 		return false;
 	}
 }
 
-var GFF_List = [];
-var parse_output;
+let GFF_List = [];
+let parse_output;
 /**
  * Gets the variant ID for the splice variants and adds as a title/tooltip to each splice variant image
  * @param {String} locusID - The locus ID
@@ -3303,13 +3288,13 @@ function getGFF(locusID) {
 	$.ajax({
 		url: "https://bar.utoronto.ca/webservices/bar_araport/gene_structure_by_locus.php?locus=" + locusID,
 		dataType: "json",
-		failure: function (gene_res) {
+		failure: function () {
 			console.log("Getting GFFs (getGFF) information failed to retrieve locus information from Araport11");
 		},
 		success: function (gene_res) {
 			parse_output = gene_res;
-			if (parse_output["wasSuccessful"] != false) {
-				var parsed_features = parse_output["features"][0]["subfeatures"];
+			if (parse_output["wasSuccessful"]) {
+				const parsed_features = parse_output["features"][0]["subfeatures"];
 				for (i = 0; i < parsed_features.length; i++) {
 					if (parsed_features[i]["uniqueID"] != null) {
 						GFF_List.push(parsed_features[i]["uniqueID"]);
@@ -3338,9 +3323,9 @@ function getGFF(locusID) {
  * Adds to the GFFs to the ddSlick dropdown
  */
 function addGFF() {
-	eachVariant = document.getElementsByClassName("dd-option");
+	const eachVariant = document.getElementsByClassName("dd-option");
 	if (eachVariant.length > 0) {
-		for (i = 0; i < GFF_List.length; i++) {
+		for (let i = 0; i < GFF_List.length; i++) {
 			if (document.getElementsByClassName("dd-option")[i]) {
 				document.getElementsByClassName("dd-option")[i].setAttribute("title", GFF_List[i]);
 			}
@@ -3352,8 +3337,8 @@ function addGFF() {
  * Modifies and adds a id attribute to the hidden g-signin2 on the index page
  */
 function hiddenGoogleSignin() {
-	var signInButtonList = document.getElementsByClassName("abcRioButtonLightBlue");
-	for (i = 0; i < signInButtonList.length; i++) {
+	const signInButtonList = document.getElementsByClassName("abcRioButtonLightBlue");
+	for (let i = 0; i < signInButtonList.length; i++) {
 		if (signInButtonList[i]) {
 			signInButtonList[i].setAttribute("id", "loginClick" + i);
 		}
@@ -3365,8 +3350,8 @@ function hiddenGoogleSignin() {
  */
 function remove_private_database() {
 	document.getElementById("private_dataset_header").style.display = "none";
-	var privateList = document.getElementsByClassName("userAdded");
-	for (i = 0; i < privateList.length; i++) {
+	const privateList = document.getElementsByClassName("userAdded");
+	for (let i = 0; i < privateList.length; i++) {
 		$("#xmlDatabase option:last").remove();
 	}
 	check_for_change = 0;
@@ -3381,7 +3366,7 @@ function correctAGIIDInput() {
 		document.getElementById("locus").value &&
 		document.getElementById("locus").value.trim().length > 0
 	) {
-		var locusID = document.getElementById("locus").value.trim().split("/");
+		const locusID = document.getElementById("locus").value.trim().split("/");
 		if (locusID[0]) {
 			document.getElementById("locus").value = locusID[0].toUpperCase().trim();
 		} else {
@@ -3396,7 +3381,7 @@ function correctAGIIDInput() {
  * Return back to top of page
  */
 function returnBackToTop() {
-	mainBody = document.getElementById("main_content");
+	const mainBody = document.getElementById("main_content");
 	mainBody.scrollTop = 0;
 }
 
@@ -3418,7 +3403,7 @@ function toggleOptionsTable() {
  */
 function toggleTableOptionsView() {
 	/** true if already enabled for filtered columns being displayed, false for filtere eFP images */
-	let filterCols = document.getElementById("tableFilter-tab").classList.value.includes("active");
+	const filterCols = document.getElementById("tableFilter-tab").classList.value.includes("active");
 
 	if (filterCols) {
 		// Change navigation buttons
@@ -3439,7 +3424,7 @@ function toggleTableOptionsView() {
 	}
 }
 
-var downloadDivNum = 1;
+let downloadDivNum = 1;
 /**
  * Download the DIV as a image
  * @param {String} id - The string of the body's ID
@@ -3481,18 +3466,16 @@ function displayNavBAR(hideNavbar = false) {
  * Adjust the size of the navbar menu footer to fit the size of the navbar itself
  */
 function adjustFooterSize() {
-	var navbar = document.getElementById("navbar_menu");
+	const navbar = document.getElementById("navbar_menu");
 	if (navbar) {
 		document.getElementById("nm_footer").style.width = navbar.offsetWidth + "px";
 		if (navbar.scrollHeight == navbar.clientHeight) {
-			if (document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_abs") == false) {
+			if (!document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_abs")) {
 				document.getElementById("nm_footer").classList.remove("navbar_menu_footer_overflow_sticky");
 				document.getElementById("nm_footer").classList.add("navbar_menu_footer_overflow_abs");
 			}
 		} else if (navbar.scrollHeight > navbar.clientHeight) {
-			if (
-				document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_sticky") == false
-			) {
+			if (!document.getElementById("nm_footer").classList.contains("navbar_menu_footer_overflow_sticky")) {
 				document.getElementById("nm_footer").classList.remove("navbar_menu_footer_overflow_abs");
 				document.getElementById("nm_footer").classList.add("navbar_menu_footer_overflow_sticky");
 			}
@@ -3516,45 +3499,45 @@ function adjustTableOptionsDropdownSize() {
  * Adjust the submission iFrame (generate data modal) based on window's height
  */
 function adjustSubmissionIFrameSize() {
-	var iFrameSize = window.innerHeight * 0.7;
+	const iFrameSize = window.innerHeight * 0.7;
 	document.getElementById("submissioniframe").height = iFrameSize + "px";
 }
 
-var usedToggle = false;
+let usedToggle = false;
 /**
  * Toggles columns in the RNA-Seq table
  * @param {String} colClass The class that is being toggled
  * @param {Boolean} enable True = toggle on, False = toggle off
  */
 function toggleTableCol(colClass, enable) {
-	var column = document.getElementsByClassName(colClass);
-	if (enable == true) {
-		for (i = 0; i < column.length; i++) {
-			if (column[i]) {
-				column[i].removeAttribute("hidden");
+	const column = document.getElementsByClassName(colClass);
+	if (enable) {
+		for (const element of column) {
+			if (element) {
+				element.removeAttribute("hidden");
 			}
 		}
-	} else if (enable == false) {
-		for (i = 0; i < column.length; i++) {
-			if (column[i]) {
-				column[i].setAttribute("hidden", true);
+	} else if (!enable) {
+		for (const element of column) {
+			if (element) {
+				element.setAttribute("hidden", true);
 			}
 		}
 	}
 }
 
-var responsiveRNAWidthAdjusted = false;
+let responsiveRNAWidthAdjusted = false;
 /**
  * Creates a responsive design for the RNA-Seq images
  */
 function responsiveRNAWidthResize() {
-	var responsive = document.getElementsByClassName("responsiveRNAWidth");
+	const responsive = document.getElementsByClassName("responsiveRNAWidth");
 	if (window.innerWidth <= 575) {
 		for (i = 0; i < responsive.length; i++) {
 			responsive[i].style.minWidth = window.innerWidth * 0.93 + "px";
 		}
 		responsiveRNAWidthAdjusted = true;
-	} else if (window.innerWidth > 575 && responsiveRNAWidthAdjusted == true) {
+	} else if (window.innerWidth > 575 && responsiveRNAWidthAdjusted) {
 		for (i = 0; i < responsive.length; i++) {
 			responsive[i].style.minWidth = "420px";
 		}
@@ -3625,28 +3608,28 @@ function determineResponsiveTable() {
 function toggleResponsiveTable(forceToggle = 0) {
 	if (document.getElementById("tableToggle").style.display != "none") {
 		// Mobile design
-		if (forceToggle == 1 || (window.innerWidth <= 575 && usedToggle == false)) {
+		if (forceToggle == 1 || (window.innerWidth <= 575 && !usedToggle)) {
 			toggleResponsiveTableOptions(false, true, false, false, false, false, false);
-		} else if (forceToggle == 2 || (window.innerWidth >= 1100 && usedToggle == false)) {
+		} else if (forceToggle == 2 || (window.innerWidth >= 1100 && !usedToggle)) {
 			// Default
 			toggleResponsiveTableOptions(true, true, true, true, true, true, false);
-		} else if (forceToggle == 3 || (window.innerWidth < 830 && usedToggle == false)) {
+		} else if (forceToggle == 3 || (window.innerWidth < 830 && !usedToggle)) {
 			// Toggle off same as below but also rpb values at windows resolution less than 830 pixels
 			toggleResponsiveTableOptions(true, true, false, false, false, false, false);
-		} else if (forceToggle == 4 || (window.innerWidth < 900 && usedToggle == false)) {
+		} else if (forceToggle == 4 || (window.innerWidth < 900 && !usedToggle)) {
 			// Toggle off same as below but also RPKM count at windows resolution less than 900 pixels
 			toggleResponsiveTableOptions(true, true, true, false, false, false, false);
-		} else if (forceToggle == 5 || (window.innerWidth < 990 && usedToggle == false)) {
+		} else if (forceToggle == 5 || (window.innerWidth < 990 && !usedToggle)) {
 			// Toggle off same as below but also eFP images at windows resolution less than 990 pixels
 			toggleResponsiveTableOptions(true, true, true, false, true, false, false);
-		} else if (forceToggle == 6 || (window.innerWidth < 1100 && usedToggle == false)) {
+		} else if (forceToggle == 6 || (window.innerWidth < 1100 && !usedToggle)) {
 			// Toggle off details at windows resolution less than 1100 pixels
 			toggleResponsiveTableOptions(true, true, true, true, true, false, false);
 		}
 	}
 }
 
-var ToggledTable = [true, true, true, true, true, true, false];
+let ToggledTable = [true, true, true, true, true, true, false];
 /**
  * Remember what toggle options were chosen in the RNA table
  * @param {boolean} [title=true] Title
@@ -3669,15 +3652,15 @@ function RememberToggleOptions(
 	ToggledTable = [title, rna, rpb, efp, rpkm, details, compare];
 }
 
-var colSortList = ["colTitle", "colrpb", "colRPKM", "colDetails"];
+const colSortList = ["colTitle", "colrpb", "colRPKM", "colDetails"];
 /**
  * Resize the directional arrows to more accurately fix the column size
  */
 function ResizeArrowRow() {
-	for (i = 0; i < colSortList.length; i++) {
-		var colRow = colSortList[i] + "Row";
+	for (const col of colSortList) {
+		const colRow = col + "Row";
 		document.getElementById(colRow).style.width = document.getElementById(colRow).parentNode.offsetWidth - 2 + "px";
-		var colArrow = colSortList[i] + "Arrow";
+		const colArrow = col + "Arrow";
 		CheckElementWidth(colArrow, 8);
 	}
 }
@@ -3698,17 +3681,17 @@ function CheckElementWidth(arrowID, widthCheckFor) {
  * @param {String} tableArrowID The element ID for the table's icon that will change
  */
 function ChangeColArrow(tableArrowID) {
-	var arrowDown = "./cgi-bin/SVGs/arrowSortDown.min.svg";
-	var arrowUp = "./cgi-bin/SVGs/arrowSortUp.min.svg";
+	const arrowDown = "./cgi-bin/SVGs/arrowSortDown.min.svg";
+	const arrowUp = "./cgi-bin/SVGs/arrowSortUp.min.svg";
 	setTimeout(function () {
-		var arrowColID = tableArrowID + "Arrow";
+		const arrowColID = tableArrowID + "Arrow";
 		if (document.getElementById(tableArrowID).classList.contains("headerSortDown")) {
 			document.getElementById(arrowColID).src = arrowDown;
 		} else if (document.getElementById(tableArrowID).classList.contains("headerSortUp")) {
 			document.getElementById(arrowColID).src = arrowUp;
 		}
-		for (i = 0; i < colSortList.length; i++) {
-			var colArrow = colSortList[i] + "Arrow";
+		for (const col of colSortList) {
+			const colArrow = col + "Arrow";
 			CheckElementWidth(colArrow, 8);
 		}
 	}, 100);
@@ -3753,14 +3736,14 @@ function IfPressEnter(event, toClickButton) {
 	}
 }
 
-var BrowserDetected = false;
+let BrowserDetected = false;
 /**
  * Detect the browser the user is using and change the manage cookies string
  */
 function DetectBrowser() {
 	if (BrowserDetected === false) {
 		/** userAgent Browser detection object */
-		var userAgentParser = {
+		const userAgentParser = {
 			"Microsoft+Edge": {
 				Contain: ["Edge"],
 			},
@@ -3791,44 +3774,39 @@ function DetectBrowser() {
 		};
 
 		/** Retrieve keys from userAgent in the instance this is modified */
-		var userAgentParserKeys;
+		let userAgentParserKeys;
 		if (userAgentParser) {
 			userAgentParserKeys = Object.keys(userAgentParser);
 		} else {
 			logError("Unable retrieve userAgentParser");
 		}
-		var detectBrowser;
-		var notDetectedBrowser = true;
+		let detectBrowser;
+		let notDetectedBrowser = true;
 
-		for (i = 0; i < userAgentParserKeys.length; i++) {
+		for (const userAgent of userAgentParserKeys) {
 			// If contains the required keyword
-			for (c = 0; c < userAgentParser[userAgentParserKeys[i]]["Contain"].length; c++) {
-				if (
-					notDetectedBrowser &&
-					navigator.userAgent.indexOf(userAgentParser[userAgentParserKeys[i]]["Contain"][c]) !== -1
-				) {
+			for (let c = 0; c < userAgentParser[userAgent]["Contain"].length; c++) {
+				if (notDetectedBrowser && navigator.userAgent.indexOf(userAgentParser[element]["Contain"][c]) !== -1) {
 					// If detected key has a exclusion, go through those
-					if (userAgentParser[userAgentParserKeys[i]]["NContain"]) {
+					if (userAgentParser[element]["NContain"]) {
 						// If pass is the same as fail, then it contains the excluded keywords and fails the test
-						var failLength = userAgentParser[userAgentParserKeys[i]]["NContain"].length;
-						var passLength = 0;
-						for (n = 0; n < userAgentParser[userAgentParserKeys[i]]["NContain"].length; n++) {
+						const failLength = userAgentParser[element]["NContain"].length;
+						let passLength = 0;
+
+						userAgentParser[element]["NContain"].forEach((agent) => {
 							// If contains exclusion word, increase pass count towards failure
-							if (
-								navigator.userAgent.indexOf(userAgentParser[userAgentParserKeys[i]]["NContain"][n]) !==
-								-1
-							) {
+							if (navigator.userAgent.indexOf(agent) !== -1) {
 								passLength++;
 							}
-						}
+						});
 
 						if (passLength != failLength) {
-							detectBrowser = userAgentParserKeys[i];
+							detectBrowser = element;
 							notDetectedBrowser = false;
 							break;
 						}
 					} else {
-						detectBrowser = userAgentParserKeys[i];
+						detectBrowser = element;
 						notDetectedBrowser = false;
 						break;
 					}
@@ -3839,7 +3817,7 @@ function DetectBrowser() {
 		// Change the help string to manage cookies
 		if (detectBrowser) {
 			$("#notChrome").empty();
-			append_str =
+			const append_str =
 				' or through the following <a href="https://www.google.com/search?q=manage+cookies+in+' +
 				detectBrowser +
 				'" target="_blank" rel="noopener">Google search results</a>';
@@ -3859,16 +3837,16 @@ function CreateFilteredeFPList() {
 
 	// Add individual Tissues
 	if (tissueSRADic) {
-		var allTissuesDisplayed = Object.keys(tissueSRADic);
-		for (i = 0; i < allTissuesDisplayed.length; i++) {
-			var append_str = '<li class="form-check">';
+		const allTissuesDisplayed = Object.keys(tissueSRADic);
+		for (const tissue of allTissuesDisplayed) {
+			let append_str = '<li class="form-check">';
 			append_str +=
 				'<input class="form-check-input" type="checkbox" id="' +
-				allTissuesDisplayed[i].replace(" ", "_") +
+				tissue.replace(" ", "_") +
 				'" onclick="ToggleFilteredeFP(this.id, this.checked);" style="margin: 6px 5px 0;" value="toggleeFP" checked>';
 			append_str +=
 				'<p class="form-check-label" for="toggleTitle" style="padding-left: 20px; font-weight: 10;">' +
-				allTissuesDisplayed[i] +
+				tissue +
 				"</p>";
 			append_str += "</li>";
 			$("#filtereFPList").append(append_str);
@@ -3884,8 +3862,8 @@ function CreateFilteredeFPList() {
  * @param {Boolean} OnOrOff True = visible, False = filtered out
  */
 function ToggleFilteredeFP(whichToToggle, OnOrOff) {
-	var whichSVG = whichToToggle.replace("_", " ");
-	var whichSRA = tissueSRADic[whichSVG];
+	const whichSVG = whichToToggle.replace("_", " ");
+	const whichSRA = tissueSRADic[whichSVG];
 
 	if (OnOrOff === true) {
 		for (i = 0; i < whichSRA.length; i++) {
@@ -3917,13 +3895,13 @@ function LoadSubmittedData() {
 	update_all_images(0);
 }
 
-var shareLink;
+let shareLink;
 /**
  * Generate a share link
  */
 function generateShareLink(changeURL = false) {
 	/** Generate base link */
-	var url = "https://" + window.location.host + window.location.pathname;
+	let url = "https://" + window.location.host + window.location.pathname;
 
 	// If a public dataset, generate link for that information
 	url += "?locus=" + locus + "&dataset=" + base_src;
@@ -3938,33 +3916,33 @@ function generateShareLink(changeURL = false) {
 	document.getElementById("shareLinkTextArea").textContent = shareLink;
 }
 
-var shareLinkInputs = {};
+const shareLinkInputs = {};
 /**
  * Read shared link and display data if appropriate
  */
 function readShareLink() {
 	/** Find share link information */
-	var query = window.location.search.substr(1);
+	const query = window.location.search.substr(1);
 
 	// If this value hits 2, then all the essential information has been called for it to be loaded
-	var locusInput = false;
-	var datasetInput = false;
+	let locusInput = false;
+	let datasetInput = false;
 
 	// If exists, continue
 	if (query != "") {
-		var inputs = query.split("&");
-		for (var i = 0; i < inputs.length; i++) {
-			var queryInputs = inputs[i].split("=");
+		const inputs = query.split("&");
+		for (const input of inputs) {
+			const queryInputs = input.split("=");
 
 			if (queryInputs.length > 1) {
 				// If locus
 				if (queryInputs[0].split("%20").join(" ").trim() === "locus") {
-					var qIValue = inputs[i].substr(6).split("%20").join(" ").trim();
+					const qIValue = input.substring(6).split("%20").join(" ").trim();
 					shareLinkInputs["locus"] = qIValue;
 					document.getElementById("locus").value = qIValue;
 					locusInput = true;
 				} else if (queryInputs[0].split("%20").join(" ").trim() === "dataset") {
-					var qIValue = inputs[i].substr(8).split("%20").join(" ").trim();
+					const qIValue = input.substring(8).split("%20").join(" ").trim();
 					shareLinkInputs["dataset"] = qIValue;
 					base_src = qIValue;
 					datasetInput = true;
@@ -3985,7 +3963,7 @@ function readShareLink() {
 				disableAllComparison();
 				checkPreload();
 			}, 200);
-			toggleResponsiveTable(0, true);
+			toggleResponsiveTable(0);
 		} else if (locusInput && datasetInput === false) {
 			displayError("ERROR IN SHARE LINK! Missing dataset");
 		} else if (locusInput === false && datasetInput) {
@@ -4007,26 +3985,26 @@ function copyToClipboard() {
 }
 
 /** All checked and currently displayed comparisons */
-var allCheckedOptions = [];
+let allCheckedOptions = [];
 /**
  * Functionality of the table's individual entry's check box for comparison
  * @param {String} whatID The ID of what table entry is being checked
  * @param {Boolean} disableAll If want to disable all at once, make this true
  */
 function tableCheckbox(whatID, disableAll = false) {
-	var whatSRA = whatID.split("_")[0]; // Retrieve SRA number
+	const whatSRA = whatID.split("_")[0]; // Retrieve SRA number
 
 	if (disableAll) {
 		disableAllComparison();
 	} else if (disableAll === false && document.getElementById(whatID) && document.getElementById(whatID).checked) {
 		// If checked, then add compare entries
 		allCheckedOptions.push(whatSRA); // Add to list of displayed comparisons
-		var iterationProcess = {};
+		const iterationProcess = {};
 
 		// Add other tables based on the list of variants available
-		for (var i = 0; i < GFF_List.length; i++) {
+		for (let i = 0; i < GFF_List.length; i++) {
 			/** Construct a table row <tr> element  */
-			var append_str = '<tr class="compareDataRow" id="' + whatSRA + "_compareRow" + i + '">';
+			let append_str = '<tr class="compareDataRow" id="' + whatSRA + "_compareRow" + i + '">';
 
 			// Append title <td>
 			if (parseInt(i) === parseInt(variantPosition)) {
@@ -4197,7 +4175,7 @@ function tableCheckbox(whatID, disableAll = false) {
  * @param {String} whatSRA What SRA comparison to remove
  */
 function disableCompare(whatSRA) {
-	for (var i = 0; i < GFF_List.length; i++) {
+	for (let i = 0; i < GFF_List.length; i++) {
 		if (document.getElementById(whatSRA + "_compareRow" + i) != undefined) {
 			document.getElementById(whatSRA + "_compareRow" + i).remove();
 		}
@@ -4210,24 +4188,24 @@ function disableCompare(whatSRA) {
 function disableAllComparison() {
 	if (document.getElementById("allCheckbox")) {
 		// Disable loaded comparisons
-		var compareDataRows = document.getElementsByClassName("compareDataRow");
-		for (var c = compareDataRows.length - 1; c >= 0; c--) {
+		let compareDataRows = document.getElementsByClassName("compareDataRow");
+		for (let c = compareDataRows.length - 1; c >= 0; c--) {
 			document.getElementsByClassName("compareDataRow")[c].remove();
 		}
 		allCheckedOptions = [];
 
 		// Remove all check marks
-		var compareDataRows = document.getElementsByClassName("compareCheckbox");
-		for (var c = 0; c < compareDataRows.length; c++) {
+		compareDataRows = document.getElementsByClassName("compareCheckbox");
+		for (let c = 0; c < compareDataRows.length; c++) {
 			document.getElementsByClassName("compareCheckbox")[c].checked = false;
 		}
 		document.getElementById("allCheckbox").checked = false;
 
 		// Double check
-		var listOfEntries = [];
-		var mainEntries = document.getElementsByClassName("mainEntries");
-		for (var m = 0; m < mainEntries.length; m++) {
-			var mainID = mainEntries[m].id;
+		const listOfEntries = [];
+		const mainEntries = document.getElementsByClassName("mainEntries");
+		for (let m = 0; m < mainEntries.length; m++) {
+			const mainID = mainEntries[m].id;
 			if (listOfEntries.includes(mainID) === false) {
 				listOfEntries.push(mainID);
 			} else {
@@ -4254,15 +4232,15 @@ function PnCDisappear() {
  */
 function setUpCookies() {
 	/** An array of all existing cookies for the eFP-Seq Browser */
-	var cookies = document.cookie.split(";");
+	const cookies = document.cookie.split(";");
 	/** Determine if the cookies T&S have been accepted or not (undefined means not accepted) */
-	var cookieAccept = undefined;
+	let cookieAccept = undefined;
 	/** Determine the version of the eFP-Seq Browser (undefined means not yet designated) */
-	var cookieVersion = undefined;
+	let cookieVersion = undefined;
 
-	for (var c = 0; c < cookies.length; c++) {
+	for (const cookie of cookies) {
 		/** An array of the cookies where [0] should be cookie name/key and [1] should be cookie value */
-		var whichCookie = cookies[c].split("=");
+		const whichCookie = cookie.split("=");
 
 		// Look for eSBAcceptedCookies which is if the user has accepted the T&S or not (0 = false, 1 = true)
 		if (whichCookie[0] && whichCookie[0].trim() === "eSBAcceptedCookies") {
@@ -4357,14 +4335,14 @@ function init() {
 		rpkm_validation();
 	});
 
-	if ((signInButton = document.getElementsByClassName("abcRioButtonLightBlue").length > 0)) {
+	if (document.getElementsByClassName("abcRioButtonLightBlue").length > 0) {
 		hiddenGoogleSignin();
 	}
 	getGFF(locus);
 
 	$("#locus").autocomplete({
 		source: function (request, response) {
-			var last = request.term.split(/,\s*/).pop();
+			const last = request.term.split(/,\s*/).pop();
 			$.ajax({
 				type: "GET",
 				url:
@@ -4385,7 +4363,7 @@ function init() {
 	});
 
 	// Delay and resize the iFrame for submission page
-	var subiFrame = document.getElementById("submissioniframe");
+	const subiFrame = document.getElementById("submissioniframe");
 	if (subiFrame) {
 		subiFrame.setAttribute("src", subiFrame.getAttribute("data-src"));
 	}

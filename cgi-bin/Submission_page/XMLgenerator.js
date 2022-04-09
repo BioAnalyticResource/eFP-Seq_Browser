@@ -3,16 +3,16 @@
 // Purpose: Required for generating new XMLs based on submitted data
 //
 //=============================================================================
-var count_clicks = 1;
-var base64 = "";
+let count_clicks = 1;
+let base64 = "";
 
 // When clicking on the generate data button, the following aggregates all the data and creates the XML
 $(function () {
 	$("#GenerateButton").click(function () {
-		var file_name = document.getElementById("reqxml").value.replace(/ /g, "_");
+		const file_name = document.getElementById("reqxml").value.replace(/ /g, "_");
 		document.getElementById("not_filled").innerHTML = "";
-		var formatXML = "";
-		var filledbase = updatebase(filledbase);
+		let formatXML = "";
+		const filledbase = updatebase();
 		correct_links(".sub_link");
 		correct_ReadMapCount(".readNumberClass");
 		remove_outline(".reqfield");
@@ -40,14 +40,14 @@ $(function () {
 				btoa(unescape(encodeURIComponent(filledbase + formatXML + existingXML + end)));
 			$("#generated").show();
 		} else {
-			if (check_req(".reqfield") == false) {
+			if (!check_req(".reqfield")) {
 				outline_req(".reqfield");
 			}
-			if (check_req_tissue(".reqtissuebutton") == false) {
+			if (!check_req_tissue(".reqtissuebutton")) {
 				outline_req_tissue(".reqtissuebutton");
 			}
 			document.getElementById("not_filled").innerHTML += "Please fill in all red highlighted fields. ";
-			if (check_links(".channelbamType", ".bam_link") == false) {
+			if (!check_links(".channelbamType", ".bam_link")) {
 				outline_links(".channelbamType", ".bam_link");
 				document.getElementById("not_filled").innerHTML +=
 					"<br> Please only use proper and valid links only. BAM Repository Links can only contain Google Drive URLs and/or Amazon AWS URLs. ";
@@ -65,22 +65,22 @@ $(function () {
 	$("#CloneForm").click(CloneSection);
 });
 
-var end = ["\t</files>"].join("\r\n");
-var base = [
+const end = ["\t</files>"].join("\r\n");
+const base = [
 	'<?xml version="1.0" encoding="UTF-8"?>',
 	'\t<files xmltitle="<?channelxmltitle?>" author="<?channelauthor?>" contact="<?channelcontact?>">',
 	"\n",
 ].join("\r\n");
-var topXML = [
+const topXML = [
 	'\t\t<file info="<?channeldescription?>" record_number="<?channelrecordnumber?>" foreground="<?channelforeground?>" hex_colour="<?channelhexcolor?>" bam_type="<?channelbamType?>" name="<?channelbamlink?>" filename="<?channelfilename?>" total_reads_mapped="<?channeltotalreadsmapped?>" read_map_method="<?channelreadmapmethod?>" publication_link="<?channelpublicationlink?>" svg_subunit="<?channeltissue?>" svgname="<?channelsvgname?>" description="<?channeltitle?>" url="<?channelsralink?>" species="<?channelspecies?>" title="<?channeligbtitle?>">',
 	"\t\t\t<controls>\n",
 ].join("\r\n");
-var controlsXML = [].join("\r\n");
-var replicatesXML = ["\t\t\t</controls>", "\t\t\t<groupwith>\n"].join("\r\n");
-var endingXML = ["\t\t\t</groupwith>", "\t\t</file>", "\n"].join("\r\n");
-var existingXML = [].join("\r\n");
-var all_controls = "";
-var all_replicates = "";
+let controlsXML = [].join("\r\n");
+let replicatesXML = ["\t\t\t</controls>", "\t\t\t<groupwith>\n"].join("\r\n");
+const endingXML = ["\t\t\t</groupwith>", "\t\t</file>", "\n"].join("\r\n");
+let existingXML = [].join("\r\n");
+let all_controls = "";
+let all_replicates = "";
 
 /**
  * Update potentially generated XML will form filled strings
@@ -91,19 +91,19 @@ var all_replicates = "";
 function update(formatXML, v) {
 	controlsXML = [].join("\r\n");
 	all_controls = $(v).find(".channelcontrols").val().split(",");
-	for (i = 0; i < all_controls.length; i++) {
+	for (let i = 0; i < all_controls.length; i++) {
 		all_controls[i] = all_controls[i].trim();
 		controlsXML += "\t\t\t\t<bam_exp>" + all_controls[i] + "</bam_exp>\n";
 	}
 
 	replicatesXML = ["\t\t\t</controls>", "\t\t\t<groupwith>\n"].join("\r\n");
 	all_replicates = $(v).find(".channelgroupwidtho").val().split(",");
-	for (i = 0; i < all_replicates.length; i++) {
+	for (let i = 0; i < all_replicates.length; i++) {
 		all_replicates[i] = all_replicates[i].trim();
 		replicatesXML += "\t\t\t\t<bam_exp>" + all_replicates[i] + "</bam_exp>\n";
 	}
 
-	var variables = {
+	const variables = {
 		channeldescription: $(v).find(".channeldescription").val(),
 		channelrecordnumber: $(v).find(".channelrecordnumber").val(),
 		channelhexcolor: $(v).find(".channelhexcolor").val(),
@@ -124,7 +124,7 @@ function update(formatXML, v) {
 		channeligbtitle: document.getElementById("reqxml").value + "/" + $(v).find(".channelrecordnumber").val(),
 	};
 
-	var fillXML = topXML.replace(/<\?(\w+)\?>/g, function (match, name) {
+	let fillXML = topXML.replace(/<\?(\w+)\?>/g, function (match, name) {
 		return variables[name];
 	});
 
@@ -137,27 +137,24 @@ function update(formatXML, v) {
 
 /**
  * An updated top portion of the XML
- * @param {Any} filledbase The variable that will be replaced with the filled top XML
  * @return {String} fillbase - The filled top portion of the XML
  */
-function updatebase(filledbase) {
-	var variables = {
+function updatebase() {
+	const variables = {
 		channelxmltitle: document.getElementById("reqxml").value,
 		channelauthor: document.getElementById("reqauthor").value,
 		channelcontact: document.getElementById("contectinfo").value,
 	};
-	var fillbase = base.replace(/<\?(\w+)\?>/g, function (match, name) {
+	return base.replace(/<\?(\w+)\?>/g, function (match, name) {
 		return variables[name];
 	});
-
-	return fillbase;
 }
 
-var tissue_sub_name = "";
-var new_tissue = "";
-var new_tissue_subunit = "";
-var new_svg = "";
-var new_hexID = "";
+let tissue_sub_name = "";
+let new_tissue = "";
+let new_tissue_subunit = "";
+let new_svg = "";
+let new_hexID = "";
 /**
  * Resets the values of the last form entry
  */
@@ -191,7 +188,7 @@ function resetLastEntryValues() {
 function CloneSection() {
 	count_clicks = document.getElementsByClassName("channeltitle").length;
 
-	var cacheQuery =
+	const cacheQuery =
 		document.getElementsByClassName("tissueInput")[document.getElementsByClassName("tissueInput").length - 1].value;
 
 	document.getElementsByClassName("tissueInput")[document.getElementsByClassName("tissueInput").length - 1].value =
@@ -208,11 +205,11 @@ function CloneSection() {
 
 	new_tissue = "tissue" + (count_clicks + 1);
 	new_tissue_subunit = "tissue" + (count_clicks + 1) + "_subunit";
-	new_tissue_select = "tissue" + (count_clicks + 1) + "_select";
+	const new_tissue_select = "tissue" + (count_clicks + 1) + "_select";
 	new_svg = "svg" + (count_clicks + 1);
 	new_hexID = "hexID_num" + (count_clicks + 1);
-	new_foregroundID = "foregroundID_num" + (count_clicks + 1);
-	tissueInput = "tissueInput" + (count_clicks + 1);
+	const new_foregroundID = "foregroundID_num" + (count_clicks + 1);
+	const tissueInput = "tissueInput" + (count_clicks + 1);
 	$("legend:last").text("Entry " + (count_clicks + 1));
 	$(".change_div_id").last().attr("name", new_tissue);
 	$(".change_button_id").last().attr("id", new_tissue);
@@ -267,13 +264,13 @@ function resetForm() {
  * @param {String} class_name The HTML <class=""> that is being parsed through
  */
 function correct_links(class_name) {
-	var x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	var i;
-	var gDriveChecking = "?usp=sharing";
+	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
+	let i;
+	const gDriveChecking = "?usp=sharing";
 	for (i = 0; i < x.length; i++) {
 		if (x[i].value.length > 0) {
 			x[i].value = x[i].value.trim();
-			if ((x[i].value.substring(0, 7) == "http://" || x[i].value.substring(0, 8) == "https://") == false) {
+			if (x[i].value.substring(0, 7) == "http://" || x[i].value.substring(0, 8) !== "https://") {
 				x[i].value = "https://" + x[i].value;
 			}
 			if (x[i].id == "bam_input") {
@@ -285,15 +282,14 @@ function correct_links(class_name) {
 	}
 }
 
-var read_num = "";
+let read_num = "";
 /**
  * Parses through links and corrects number formatting to match what we require
  * @param {String} class_name The HTML <class=""> that is being parsed through
  */
 function correct_ReadMapCount(class_name) {
-	var x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	var i;
-	var u;
+	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
+	let i;
 	for (i = 0; i < x.length; i++) {
 		x[i].value = x[i].value.trim();
 		if (x[i].value === ("" || null || undefined)) {
@@ -309,10 +305,10 @@ function correct_ReadMapCount(class_name) {
  * @return {Number} input_string - Integer
  */
 function only_ReadNum(input_string) {
-	var u;
+	let u;
 	read_num = "";
 	for (u = 0; u < input_string.length; u++) {
-		if (isNaN(input_string[u]) == false) {
+		if (!isNaN(input_string[u])) {
 			read_num += input_string[u];
 		}
 	}
@@ -328,55 +324,45 @@ function only_ReadNum(input_string) {
  * @return {bool} bool - Valid link or not
  */
 function check_links(bam_name, repo_name) {
-	var repo_match = document.getElementById("Entries_all").querySelectorAll(repo_name).length;
-	var x = document.getElementById("Entries_all").querySelectorAll(repo_name);
-	var bam_x = document.getElementById("Entries_all").querySelectorAll(bam_name);
-	var i;
+	const x = document.getElementById("Entries_all").querySelectorAll(repo_name);
+	const bam_x = document.getElementById("Entries_all").querySelectorAll(bam_name);
+	let i;
 	for (i = 0; i < x.length; i++) {
-		if ((x[i].id = "bam_input")) {
+		if (x[i].id === "bam_input") {
 			if (x[i].value.length > 0) {
 				if (bam_x[i].value == "Google Drive") {
 					// Verify if Google Link
-					var driveLink = x[i].value.split("//");
+					const driveLink = x[i].value.split("//");
 					if (driveLink.length > 1) {
 						// If starts with https
-						var driveURL = driveLink[1];
-						if (
+						const driveURL = driveLink[1];
+						return (
 							driveURL.split("/")[0] === "drive.google.com" ||
 							driveURL.split("/")[0] === "www.drive.google.com"
-						) {
-							return true;
-						} else {
-							return false;
-						}
+						);
 					} else if (driveLink.length === 0) {
 						// If does not start with https
-						if (
+						return (
 							driveLink.split("/")[0] === "drive.google.com" ||
 							driveLink.split("/")[0] === "www.drive.google.com"
-						) {
-							return true;
-						} else {
-							return false;
-						}
+						);
 					} else {
 						// Not URL
 						return false;
 					}
 				} else if (bam_x[i].value == "Amazon AWS") {
 					/** Link from string to URL format */
-					let urlString = new URL(x[i].value);
+					const urlString = new URL(x[i].value);
 
 					if (
-						((urlString.host("s3.amazonaws.com") ||
-							x[i].value.includes("araport.cyverse-cdn.tacc.cloud")) &&
-							check_amazon_for_bam(x[i].value) == true) == true
+						(urlString.host("s3.amazonaws.com") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud")) &&
+						check_amazon_for_bam(x[i].value)
 					) {
 						return true;
 					} else if (
-						((urlString.host("s3.amazonaws.com") ||
+						(urlString.host("s3.amazonaws.com") ||
 							x[i].value.includes("araport.cyverse-cdn.tacc.cloud/")) &&
-							check_amazon_for_bam(x[i].value) == true) == false
+						check_amazon_for_bam(x[i].value)
 					) {
 						return false;
 					} else {
@@ -397,20 +383,20 @@ function check_links(bam_name, repo_name) {
  * @param {String} classname Filename HTML <class=""> location
  */
 function check_filename(classname) {
-	var filenameDoc = document.getElementsByClassName(classname);
-	for (i = 0; i < filenameDoc.length; i++) {
+	const filenameDoc = document.getElementsByClassName(classname);
+	for (const doc of filenameDoc) {
 		// If ends in period, remove that:
-		var filenameDocLength = filenameDoc[i].value.trim().length;
-		if (filenameDoc[i].value[filenameDocLength - 1] == ".") {
-			filenameDoc[i].value = filenameDoc[i].value.substring(0, filenameDocLength - 1);
+		const filenameDocLength = doc.value.trim().length;
+		if (doc.value[filenameDocLength - 1] == ".") {
+			doc.value = doc.value.substring(0, filenameDocLength - 1);
 		}
 		// Check if ends in .bam or not and then add that
-		if (filenameDoc[i].value.trim().endsWith(".bam") == false) {
-			cacheValue = filenameDoc[i].value.trim();
+		if (doc.value.trim().endsWith(".bam") == false) {
+			let cacheValue = doc.value.trim();
 			cacheValue += ".bam";
-			filenameDoc[i].value = cacheValue;
-		} else if (filenameDoc[i].value.trim().endsWith(".bam") == true) {
-			filenameDoc[i].value = filenameDoc[i].value.trim();
+			doc.value = cacheValue;
+		} else if (doc.value.trim().endsWith(".bam") == true) {
+			doc.value = doc.value.trim();
 		}
 	}
 }
@@ -421,21 +407,17 @@ function check_filename(classname) {
  * @return {bool} bool - Meet requirements or not
  */
 function check_req(class_name) {
-	var filled = 0;
-	var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
-	var x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	var i;
+	let filled = 0;
+	const match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
+	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
+	let i;
 	for (i = 0; i < x.length; i++) {
 		if (x[i].value.length > 0) {
 			x[i].value = x[i].value.trim();
 			filled += 1;
 		}
 	}
-	if (filled == match) {
-		return true;
-	} else {
-		return false;
-	}
+	return filled == match;
 }
 
 /**
@@ -443,14 +425,14 @@ function check_req(class_name) {
  * @param {String} class_name Entries' HTML <class="">
  */
 function check_inputs(class_name) {
-	var inputDoc = document.getElementsByClassName(class_name);
-	for (i = 0; i < inputDoc.length; i++) {
+	const inputDoc = document.getElementsByClassName(class_name);
+	for (const element of inputDoc) {
 		// If has an " in it, get rid of it
-		if (inputDoc[i].value.length > 0) {
-			inputDoc[i].value = inputDoc[i].value.trim();
-			if (inputDoc[i].value.includes('"') == true) {
-				var temp = inputDoc[i].value.replace(/["]/g, "'");
-				inputDoc[i].value = temp;
+		if (element.value.length > 0) {
+			element.value = element.value.trim();
+			if (element.value.includes('"')) {
+				let temp = element.value.replace(/["]/g, "'");
+				element.value = temp;
 			}
 		}
 	}
@@ -461,22 +443,15 @@ function check_inputs(class_name) {
  * @param {String} class_name Entries' HTML <class="">
  * @return {bool} bool - Meet requirements or not
  */
-function check_req_tissue(class_name) {
-	var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
-	var x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	var i;
-	var sub_filled = 0;
-	for (i = 1; i <= count_clicks; i++) {
-		var tissue_sub_parse = "tissue" + i + "_subunit";
+function check_req_tissue() {
+	let sub_filled = 0;
+	for (let i = 1; i <= count_clicks; i++) {
+		const tissue_sub_parse = "tissue" + i + "_subunit";
 		if (document.getElementById(tissue_sub_parse).value.length > 0) {
 			sub_filled += 1;
 		}
 	}
-	if (sub_filled == count_clicks) {
-		return true;
-	} else {
-		return false;
-	}
+	return sub_filled == count_clicks;
 }
 
 /**
@@ -484,14 +459,11 @@ function check_req_tissue(class_name) {
  * @param {String} class_name Entries' HTML <class="">
  */
 function outline_req(class_name) {
-	var filled = 0;
-	var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
-	var x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	var i;
-	for (i = 0; i < x.length; i++) {
-		if (x[i].value.length <= 0) {
-			x[i].style.borderColor = "#ff2626";
-			x[i].style.boxShadow = "0 0 10px #ff2626";
+	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
+	for (const element of x) {
+		if (element.value.length <= 0) {
+			element.style.borderColor = "#ff2626";
+			element.style.boxShadow = "0 0 10px #ff2626";
 		}
 	}
 }
@@ -500,12 +472,10 @@ function outline_req(class_name) {
  * Outline all unfilled required tissue fields
  * @param {String} class_name Entries' HTML <class="">
  */
-function outline_req_tissue(class_name) {
-	var match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
-	var x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	var i;
-	for (i = 0; i < x.length; i++) {
-		var tissue_sub_parse = "tissue" + (i + 1) + "_subunit";
+function outline_req_tissue() {
+	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
+	for (let i = 0; i < x.length; i++) {
+		const tissue_sub_parse = "tissue" + (i + 1) + "_subunit";
 		if (document.getElementById(tissue_sub_parse).value.length <= 0) {
 			x[i].style.borderColor = "#ff2626";
 			x[i].style.boxShadow = "0 0 10px #ff2626";
@@ -518,11 +488,10 @@ function outline_req_tissue(class_name) {
  * @param {String} class_name - Entries' HTML <class="">
  */
 function outline_links(bam_name, repo_name) {
-	var repo_match = document.getElementById("Entries_all").querySelectorAll(repo_name).length;
-	var x = document.getElementById("Entries_all").querySelectorAll(repo_name);
-	var bam_x = document.getElementById("Entries_all").querySelectorAll(bam_name);
-	var i;
-	for (i = 0; i < repo_match; i++) {
+	const repo_match = document.getElementById("Entries_all").querySelectorAll(repo_name).length;
+	const x = document.getElementById("Entries_all").querySelectorAll(repo_name);
+	const bam_x = document.getElementById("Entries_all").querySelectorAll(bam_name);
+	for (let i = 0; i < repo_match; i++) {
 		if (x[i].id === "bam_input") {
 			if (x[i].value.length > 0) {
 				/** Where the BAM file is being hosted */
@@ -584,12 +553,7 @@ function outline_links(bam_name, repo_name) {
  * @return {bool} bool - Meet requirements or not
  */
 function check_amazon_for_bam(input) {
-	var checking = ".bam";
-	if (input.slice(-4) == checking) {
-		return true;
-	} else {
-		return false;
-	}
+	return input.slice(-4) == ".bam";
 }
 
 /**
@@ -598,27 +562,25 @@ function check_amazon_for_bam(input) {
  */
 function remove_outline(class_name) {
 	document.getElementById("not_filled").innerHTML = "";
-	var x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	var i;
-	for (i = 0; i < x.length; i++) {
-		if (x[i].value.length > 0) {
-			x[i].style.borderColor = null;
-			x[i].style.boxShadow = null;
+	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
+	for (const element of x) {
+		if (element.value.length > 0) {
+			element.style.borderColor = null;
+			element.style.boxShadow = null;
 		}
 	}
 }
 
-var tissue_doc;
-var tissue_sub_parse_remove;
+let tissue_doc;
+let tissue_sub_parse_remove;
 /**
  * Removes the outline of class_name tagged entries' tissues
  * @param {String} class_name Entries' HTML <class="">
  */
 function remove_outline_tissue(class_name) {
 	document.getElementById("not_filled").innerHTML = "";
-	var x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	var i;
-	for (i = 0; i < x.length; i++) {
+	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
+	for (let i = 0; i < x.length; i++) {
 		tissue_doc = "tissue" + (i + 1);
 		tissue_sub_parse_remove = "tissue" + (i + 1) + "_subunit";
 		if (document.getElementById(tissue_sub_parse_remove).value.length > 0) {
@@ -637,7 +599,7 @@ function no_null_contact() {
 	}
 }
 
-var tissue_click = "";
+let tissue_click = "";
 /**
  * Designate which tissue is being clicked
  * @param {String} whichTissue Which tissue is being clicked
@@ -648,9 +610,9 @@ function designateTissueClick(whichTissue) {
 	}
 }
 
-var which_svg = "";
-var tissue_subunit = "";
-var clicked_id = "";
+let which_svg = "";
+let tissue_subunit = "";
+let clicked_id = "";
 
 /**
  * Determine which SVG was clicked
@@ -663,10 +625,10 @@ function clickclick(clickid) {
 		clicked_id = clickid;
 		tissue_sub_name = document.getElementById(clickid).className.split(" ")[1];
 		document.getElementById(tissue_subunit).value = tissue_sub_name;
-		var count_which_click = tissue_click.match(/\d/g).join("");
+		const count_which_click = tissue_click.match(/\d/g).join("");
 		which_svg = "svg" + count_which_click;
-		which_hex = "hexID_num" + count_which_click;
-		which_foreground = "foregroundID_num" + count_which_click;
+		const which_hex = "hexID_num" + count_which_click;
+		const which_foreground = "foregroundID_num" + count_which_click;
 		document.getElementById(which_svg).value = determine_svgname(clickid);
 		document.getElementById(which_hex).value = determine_hexcode(determine_svgname(clickid), clickid);
 		document.getElementById(which_foreground).value = determine_foreground(
@@ -987,12 +949,12 @@ function convert_to_json() {
 	document.getElementById("closeExcel_modal").click();
 
 	/** Excel input as an array of objects */
-	let excelOutput = [];
+	const excelOutput = [];
 	/** Inputted data from Excel */
-	let dataInput = document.getElementById("dataInput").value.trim().split("\n");
+	const dataInput = document.getElementById("dataInput").value.trim().split("\n");
 
 	/** All input headers */
-	let inputHeaders = [
+	const inputHeaders = [
 		"title",
 		"description",
 		"record number",
@@ -1014,13 +976,13 @@ function convert_to_json() {
 	for (let i in dataInput) {
 		if (dataInput[i].split("\t")[0]) {
 			/** A list of all the input values */
-			let inputValuesArray = dataInput[i].split("\t");
+			const inputValuesArray = dataInput[i].split("\t");
 
 			if (i == 0 && inputValuesArray[0].trim() === "Title*") {
 				continue;
 			} else {
 				/** Temporary data which will be added to excelOutput */
-				let tempData = {};
+				const tempData = {};
 				for (let v in inputValuesArray) {
 					if (inputHeaders[v]) {
 						tempData[inputHeaders[v]] = inputValuesArray[v].trim();
@@ -1061,24 +1023,24 @@ function convert_to_json() {
 
 		$("select[id=reqspecies]").last().val(excelOutput[i]["species"]);
 
-		var json_svg = "svg" + (parseInt(i) + 1);
+		const json_svg = "svg" + (parseInt(i) + 1);
 		$("input[id=" + json_svg + "]")
 			.last()
 			.val(determine_svgname(excelOutput[i]["tissue"]));
 
-		var json_tissue = "tissue" + (parseInt(i) + 1);
+		const json_tissue = "tissue" + (parseInt(i) + 1);
 		$("button[id=" + json_tissue + "]")
 			.last()
 			.html(excelOutput[i]["tissue"].split("_").join(" "));
 		console.log(json_tissue, excelOutput[i]["tissue"]);
 
-		var json_subunit = "tissue" + (parseInt(i) + 1) + "_subunit";
+		const json_subunit = "tissue" + (parseInt(i) + 1) + "_subunit";
 		$("input[id=" + json_subunit + "]")
 			.last()
 			.val(excelOutput[i]["tissue subunit"]);
 
-		var hexColour = "hexID_num" + (parseInt(i) + 1);
-		var hexColourCode = determine_hexcode(
+		const hexColour = "hexID_num" + (parseInt(i) + 1);
+		const hexColourCode = determine_hexcode(
 			determine_svgname(excelOutput[i]["tissue"]),
 			excelOutput[i]["tissue subunit*"],
 		);
@@ -1086,7 +1048,7 @@ function convert_to_json() {
 			.last()
 			.val(hexColourCode.toString());
 
-		var foregroundColour = "foregroundID_num" + (parseInt(i) + 1);
+		const foregroundColour = "foregroundID_num" + (parseInt(i) + 1);
 		$("input[id=" + foregroundColour + "]")
 			.last()
 			.val(determine_foreground(hexColourCode));
@@ -1097,7 +1059,7 @@ function convert_to_json() {
 	}
 }
 
-var warningActive = "nope";
+let warningActive = "nope";
 /**
  * Show a warning sign before an action
  */
@@ -1125,22 +1087,22 @@ function update_accountAdd_options() {
 	// Unfinished
 	if (parent.users_email != "" && parent.title_list.length > 0) {
 		document.getElementById("account_dataDisplay").removeAttribute("style");
-		for (i = 0; i < parent.title_list.length; i++) {
-			var account_SRR_var = "'" + parent.title_list[i] + "'";
+		for (const element of parent.title_list) {
+			const account_SRR_let = "'" + element + "'";
 			$("#existingDropdown_menu").append(
 				'<li style="padding-left: 3px;" onclick="openDataset(event, ' +
-					account_SRR_var +
+					account_SRR_let +
 					'); display_add_button(true); display_or = true;">' +
-					parent.title_list[i] +
+					element +
 					"</li>",
 			);
 			$("#privateDatasets").append(
 				'<div id="' +
-					parent.title_list[i] +
+					element +
 					'" class="tabcontent"><h3>' +
-					parent.title_list[i] +
+					element +
 					'</h3><div id="' +
-					parent.title_list[i] +
+					element +
 					'_xml"></div></div>',
 			);
 		}
@@ -1160,7 +1122,7 @@ function update_existingAdd_options() {
 	update_accountAdd_options();
 
 	// Add Araport 11 database:
-	var araport11XML = new XMLHttpRequest();
+	const araport11XML = new XMLHttpRequest();
 	araport11XML.open("GET", "cgi-bin/data/bamdata_araport11.xml", true);
 	araport11XML.responseType = "document";
 	araport11XML.send();
@@ -1169,7 +1131,7 @@ function update_existingAdd_options() {
 	}, 1000);
 
 	// Add Klepikova database:
-	var klepikovaXML = new XMLHttpRequest();
+	const klepikovaXML = new XMLHttpRequest();
 	klepikovaXML.open("GET", "cgi-bin/data/bamdata_Developmental_transcriptome.xml", true);
 	klepikovaXML.responseType = "document";
 	klepikovaXML.send();
@@ -1178,15 +1140,15 @@ function update_existingAdd_options() {
 	}, 1000);
 }
 
-var display_or = false;
+const display_or = false;
 /**
  * Determine whether the button to add data is visible or not
  * @param {Boolean} display_out Default is false which means do not show/display
  */
 function display_add_button(display_out) {
-	if (display_out == true) {
+	if (display_out) {
 		document.getElementById("addToData").removeAttribute("style");
-	} else if (display_out == false) {
+	} else if (!display_out) {
 		document.getElementById("addToData").style.display = "none";
 	}
 }
@@ -1197,15 +1159,14 @@ function display_add_button(display_out) {
  * @param {String} SRR_num The record number
  */
 function retrieveCONTENT_existing(xml, SRR_num) {
-	var x, xmlDoc;
+	let x, xmlDoc;
 	xmlDoc = xml.responseXML;
 	x = xmlDoc.getElementsByTagName("file");
-	var i;
-	for (i = 0; i < x.length; i++) {
-		if (x[i].getAttribute("record_number") == SRR_num) {
-			console.log(x[i]);
+	for (const element of x) {
+		if (element.getAttribute("record_number") == SRR_num) {
+			console.log(element);
 			existingXML += "\t\t";
-			existingXML += x[i].outerHTML;
+			existingXML += element.outerHTML;
 			existingXML += "\n";
 		}
 	}
@@ -1218,11 +1179,11 @@ function addPublic_toExisting() {
 	existingXML = [].join("\r\n");
 
 	// See what Araport 11 data the user wants to add to their dataset:
-	var araport11_count = document.getElementById("araport11XML").childElementCount / 2;
-	for (i = 0; i < araport11_count; i++) {
-		var addBox_id = "addBox" + i;
-		if (document.getElementById(addBox_id).checked == true) {
-			var araport11XML = new XMLHttpRequest();
+	const araport11_count = document.getElementById("araport11XML").childElementCount / 2;
+	for (let i = 0; i < araport11_count; i++) {
+		const addBox_id = "addBox" + i;
+		if (document.getElementById(addBox_id).checked) {
+			const araport11XML = new XMLHttpRequest();
 			araport11XML.open("GET", "cgi-bin/data/bamdata_araport11.xml", true);
 			araport11XML.responseType = "document";
 			araport11XML.send();
@@ -1233,11 +1194,11 @@ function addPublic_toExisting() {
 	}
 
 	// See what Araport 11 data the user wants to add to their dataset:
-	var klepikovaXML_count = document.getElementById("klepikovaXML").childElementCount / 2;
-	for (i = 0; i < klepikovaXML_count; i++) {
-		var addBox_id = "addBox" + i;
-		if (document.getElementById(addBox_id).checked == true) {
-			var klepikovaXML = new XMLHttpRequest();
+	const klepikovaXML_count = document.getElementById("klepikovaXML").childElementCount / 2;
+	for (let i = 0; i < klepikovaXML_count; i++) {
+		const addBox_id = "addBox" + i;
+		if (document.getElementById(addBox_id).checked) {
+			const klepikovaXML = new XMLHttpRequest();
 			klepikovaXML.open("GET", "cgi-bin/data/bamdata_Developmental_transcriptome.xml", true);
 			klepikovaXML.responseType = "document";
 			klepikovaXML.send();
@@ -1255,14 +1216,14 @@ function addPublic_toExisting() {
  * @param {String} datasetName Information of which dataset to retrieve, usually done by record number
  */
 function openDataset(evt, datasetName) {
-	var i, tabcontent, tablinks;
+	let tabcontent, tablinks;
 	tabcontent = document.getElementsByClassName("tabcontent");
-	for (i = 0; i < tabcontent.length; i++) {
-		tabcontent[i].style.display = "none";
+	for (const element of tabcontent) {
+		element.style.display = "none";
 	}
 	tablinks = document.getElementsByClassName("tablinks");
-	for (i = 0; i < tablinks.length; i++) {
-		tablinks[i].className = tablinks[i].className.replace(" active", "");
+	for (const element of tablinks) {
+		element.className = element.className.replace(" active", "");
 	}
 	document.getElementById(datasetName).style.display = "block";
 	evt.currentTarget.className += " active";
@@ -1283,18 +1244,18 @@ function changeWidthConverter() {
  * @param {String} tableIndicator Which table to sort through
  */
 function updateTable(tableIndicator) {
-	var input, filter, table, td, i;
+	let input, filter, table, td;
 	input = document.getElementById(tableIndicator);
 	filter = input.value.toLowerCase();
 	table = document.getElementById("tissueTable_" + tableIndicator);
-	th = table.getElementsByTagName("td");
-	for (i = 0; i < th.length; i++) {
-		td = th[i];
+	const th = table.getElementsByTagName("td");
+	for (const element of th) {
+		td = element;
 		if (td) {
 			if (td.innerHTML.toLowerCase().indexOf(filter) > -1) {
-				th[i].style.display = "";
+				element.style.display = "";
 			} else {
-				th[i].style.display = "none";
+				element.style.display = "none";
 			}
 		}
 	}

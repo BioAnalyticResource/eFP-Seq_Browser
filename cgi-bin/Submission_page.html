@@ -139,7 +139,7 @@
 									<script>
 										// Code taken from http://stackoverflow.com/questions/7144167/only-allow-english-characters-and-numbers-for-text-input
 										$("#reqxml").keypress(function (event) {
-											var ew = event.which;
+											let ew = event.which;
 											if (48 <= ew && ew <= 57) return true;
 											if (65 <= ew && ew <= 90) return true;
 											if (97 <= ew && ew <= 122) return true;
@@ -396,7 +396,7 @@
 									<script>
 										// Code taken from http://stackoverflow.com/questions/7144167/only-allow-english-characters-and-numbers-for-text-input
 										$("#reqread").keypress(function (event) {
-											var ew = event.which;
+											let ew = event.which;
 											if (48 <= ew && ew <= 57) return true;
 											if (ew == 31) return true;
 											if (ew == 8) return true;
@@ -521,6 +521,7 @@
 													id="tissueTable_tissueInput1"
 													class="tissue_table"
 													style="margin-left: 2px; margin-right: 4px"
+													aria-describedby="Tissue search"
 												>
 													<tr>
 														<td
@@ -16285,7 +16286,7 @@
 
 					<!-- Script for changing base_src and uploading XML, clienside. This script is based off the following StackOverFlow http://stackoverflow.com/questions/37699927/file-not-uploading-in-file-reader -->
 					<script>
-						var generatesrc = "";
+						let generatesrc = "";
 						$(function () {
 							$("#sendXML").click(function () {
 								generatesrc = base64;
