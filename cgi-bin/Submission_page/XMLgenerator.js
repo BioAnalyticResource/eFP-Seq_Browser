@@ -25,10 +25,10 @@ $(function () {
 			document.getElementById("reqxml").value.length > 0 &&
 			document.getElementById("reqauthor").value.length > 0 &&
 			check_req(".reqfield") &&
-			check_req_tissue(".reqtissuebutton") &&
+			check_req_tissue() &&
 			check_links(".channelbamType", ".bam_link")
 		) {
-			$(".Entries").each(function (i, v) {
+			$(".Entries").each(function (_i, v) {
 				formatXML += update(formatXML, v);
 			});
 			$("#ResultXml").val(filledbase + formatXML + existingXML + end);
@@ -43,8 +43,8 @@ $(function () {
 			if (!check_req(".reqfield")) {
 				outline_req(".reqfield");
 			}
-			if (!check_req_tissue(".reqtissuebutton")) {
-				outline_req_tissue(".reqtissuebutton");
+			if (!check_req_tissue()) {
+				outline_req_tissue();
 			}
 			document.getElementById("not_filled").innerHTML += "Please fill in all red highlighted fields. ";
 			if (!check_links(".channelbamType", ".bam_link")) {
@@ -84,11 +84,11 @@ let all_replicates = "";
 
 /**
  * Update potentially generated XML will form filled strings
- * @param {String} formatXML The file/XML body portion of the XML that will be filled
+ * @param {String} _formatXML The file/XML body portion of the XML that will be filled
  * @param {Any} v Document's (Submission_page.html) filled form area
  * @return {String} fillXML - The filled XML
  */
-function update(formatXML, v) {
+function update(_formatXML, v) {
 	controlsXML = [].join("\r\n");
 	all_controls = $(v).find(".channelcontrols").val().split(",");
 	for (let i = 0; i < all_controls.length; i++) {
@@ -124,7 +124,7 @@ function update(formatXML, v) {
 		channeligbtitle: document.getElementById("reqxml").value + "/" + $(v).find(".channelrecordnumber").val(),
 	};
 
-	let fillXML = topXML.replace(/<\?(\w+)\?>/g, function (match, name) {
+	let fillXML = topXML.replace(/<\?(\w+)\?>/g, function (_match, name) {
 		return variables[name];
 	});
 
@@ -145,7 +145,7 @@ function updatebase() {
 		channelauthor: document.getElementById("reqauthor").value,
 		channelcontact: document.getElementById("contectinfo").value,
 	};
-	return base.replace(/<\?(\w+)\?>/g, function (match, name) {
+	return base.replace(/<\?(\w+)\?>/g, function (_match, name) {
 		return variables[name];
 	});
 }
@@ -391,11 +391,11 @@ function check_filename(classname) {
 			doc.value = doc.value.substring(0, filenameDocLength - 1);
 		}
 		// Check if ends in .bam or not and then add that
-		if (doc.value.trim().endsWith(".bam") == false) {
+		if (!doc.value.trim().endsWith(".bam")) {
 			let cacheValue = doc.value.trim();
 			cacheValue += ".bam";
 			doc.value = cacheValue;
-		} else if (doc.value.trim().endsWith(".bam") == true) {
+		} else if (doc.value.trim().endsWith(".bam")) {
 			doc.value = doc.value.trim();
 		}
 	}

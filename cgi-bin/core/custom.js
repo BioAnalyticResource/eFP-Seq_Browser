@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-const version = "v1.3.13-p20220408";
+const version = "v1.3.13-p20220502";
 
 /** Selected RPKM mode */
 let colouring_mode = "abs";
@@ -613,8 +613,8 @@ function variants_radio_options(status) {
 			if (document.getElementById("variant_select")) {
 				$("#variant_select").ddslick({
 					width: "100%",
-					onSelected: function (selectedData) {
-						gene_structure_radio_on_change(selectedData);
+					onSelected: function () {
+						gene_structure_radio_on_change();
 					},
 				});
 			}
@@ -797,7 +797,6 @@ function parseIntArray(arr) {
 let rnaseq_image_url = "cgi-bin/rnaSeqMapCoverage.cgi";
 let match_drive = "";
 let progress_percent = 0;
-let sraList_check = [];
 let rnaseq_change = 1;
 let totalreadsMapped_dic = {};
 let dumpOutputs = "";
@@ -831,7 +830,6 @@ function rnaseq_images(status) {
 	get_input_values();
 	CreateFilteredeFPList();
 	if (rnaseq_calls.length === count_bam_entries_in_xml) {
-		sraList_check = [];
 		rnaseq_change = 1;
 		for (let i = 0; i < count_bam_entries_in_xml; i++) {
 			/** Creates the tissue variable for the rnaSeqMapCoverage webservice */
@@ -891,7 +889,7 @@ function rnaseq_images(status) {
 				url: rnaseq_image_url,
 				data: data,
 				dataType: "json",
-				failure: function (failure_response) {
+				failure: function () {
 					$("#failure").show();
 				},
 				success: function (response_rnaseq) {
@@ -902,7 +900,7 @@ function rnaseq_images(status) {
 					}
 
 					rnaseq_success++;
-					date_obj3 = new Date();
+					let date_obj3 = new Date();
 					rnaseq_success_current_time = date_obj3.getTime();
 					progress_percent = (rnaseq_change / count_bam_entries_in_xml) * 100;
 					$("div#progress").width(progress_percent + "%");
@@ -939,7 +937,6 @@ function rnaseq_images(status) {
 
 						listOfRecordsDisplayed = [];
 
-						sraList_check.push(responseRecord);
 						sraDict[responseRecord]["bp_length"] =
 							parseFloat(response_rnaseq["end"]) - parseFloat(response_rnaseq["start"]);
 						sraDict[responseRecord]["bp_start"] = parseFloat(response_rnaseq["start"]);
@@ -951,7 +948,9 @@ function rnaseq_images(status) {
 						sraDict[responseRecord]["dataVisualization"] = response_rnaseq["rnaseqbase64"];
 
 						if (locus != response_rnaseq["locus"]) {
-							throw "ERROR: " + locus + "'s RNA-Seq API request returned with data for some other locus.";
+							throw new Error(
+								`ERROR: ${locus}'s RNA-Seq API request returned with data for some other locus.`,
+							);
 						}
 
 						let r = [];
@@ -1073,7 +1072,7 @@ function rnaseq_images(status) {
 							"Total reads = " + response_rnaseq["totalReadsMapped"];
 
 						// Generate pre-caching information
-						if (callDumpOutputs == true) {
+						if (callDumpOutputs) {
 							dumpOutputs += '\t\telif (record == "' + response_rnaseq["record"] + '"):\n';
 							if (dumpMethod == "complex") {
 								dumpOutputs +=
@@ -1113,7 +1112,7 @@ function rnaseq_images(status) {
 								}
 
 								dumpOutputs += "], {";
-								for (e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
+								for (let e = 0; e < response_rnaseq["expected_expr_in_variant"].length; e++) {
 									dumpOutputs += '"' + GFF_List[e].replace(locus, "") + '": ';
 									dumpOutputs += "[" + response_rnaseq["expected_expr_in_variant"][e] + "]";
 									if (e != response_rnaseq["expected_expr_in_variant"].length - 1) {
@@ -1596,14 +1595,14 @@ function populate_table(status) {
 	// Insert table headers
 	let tableHeader =
 		"<thead><tr>" +
-		'<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-10">Title</div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg" alt="Sorting arrow"></div></div></th>' +
+		'<th class="sortable colTitle" id="colTitle" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 250px;"><div class="row" id="colTitleRow"><div class="col-10">Title</div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colTitleArrow" src="./cgi-bin/SVGs/arrowDefault.svg" alt="Sorting arrow"></div></div></th>' +
 		'<th class="colRNA" id="colRNA" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 576px;">RNA-Seq Coverage' +
 		img_created +
 		"</th>" +
-		'<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-7" >r<sub>pb</sub></div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg" alt="Default sort arrow"></div></div></th>' +
+		'<th class="sortable colrpb" id="colrpb" onclick="ChangeColArrow(this.id)" title="Point biserial correlation coefficient. Closer to 1 suggests a \'best\' match" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colrpbRow"><div class="col-7" >r<sub>pb</sub></div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colrpbArrow" src="./cgi-bin/SVGs/arrowDefault.svg" alt="Default sort arrow"></div></div></th>' +
 		'<th class="coleFP" id="eFP_th" class="sortable" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 100px;">eFP (RPKM)</th>' +
-		'<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-8">RPKM</div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg" alt="Default sort arrow"></div></div></th>' +
-		'<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-10">Details</div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.min.svg" alt="Default sort arrow"></div></div></th>' +
+		'<th class="sortable colRPKM" id="colRPKM" onclick="ChangeColArrow(this.id)" title="Reads Per Kilobase of transcript per Million mapped reads. Higher number suggest more mapped reads/expression" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 75px;"><div class="row" id="colRPKMRow"><div class="col-8">RPKM</div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colRPKMArrow" src="./cgi-bin/SVGs/arrowDefault.svg" alt="Default sort arrow"></div></div></th>' +
+		'<th class="sortable colDetails" id="colDetails" onclick="ChangeColArrow(this.id)" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; width: 275px;"><div class="row" id="colDetailsRow"><div class="col-10">Details</div><div class="col-1"><img loading="lazy" class="sortingArrow" id="colDetailsArrow" src="./cgi-bin/SVGs/arrowDefault.svg" alt="Default sort arrow"></div></div></th>' +
 		'<th class="sortable colCompare" id="colCompare" style="border: 1px solid #D3D3D3; background-color: #F0F0F0; max-width: 30px;" hidden><div class="row" id="colCompareRow"></div></th>' +
 		"</tr></thead>" +
 		'<tbody id="data_table_body"></tbody>';
@@ -1729,7 +1728,7 @@ function populate_table(status) {
 				/** Control */
 				let controls = [];
 				if ($(this).find("controls")[0].innerHTML == undefined) {
-					for (i = 1; i < $(this).find("controls")[0].childNodes.length; i + 2) {
+					for (let i = 1; i < $(this).find("controls")[0].childNodes.length; i + 2) {
 						controls.push($(this).find("controls")[0].childNodes[i].firstChild.textContent);
 					}
 				} else if ($(this).find("controls")[0].innerHTML != undefined) {
@@ -1964,7 +1963,6 @@ function populate_table(status) {
 					lessDetails +
 					"</a></div></td>\n";
 
-				// // Append compare variants
 				append_str +=
 					'<td class="colCompare" style="font-size: 12px; max-width: 30px;"><div id="' +
 					experimentno +
@@ -2446,7 +2444,7 @@ function get_user_XML_display() {
 			},
 			success: function (get_xml_list_return) {
 				// Reset all variables
-				xml_title;
+				xml_title = undefined;
 				match_title = {};
 				title_list = [];
 
@@ -2471,8 +2469,8 @@ function get_user_XML_display() {
 
 					// Check each file in output
 					if (get_xml_list_output["files"].length > 0) {
-						for (i = 0; i < get_xml_list_output["files"].length; i++) {
-							xml_title;
+						for (let i = 0; i < get_xml_list_output["files"].length; i++) {
+							xml_title = undefined;
 							xml_title = get_xml_list_output["files"][i][1];
 
 							// Make sure there is a title or if not, make one
@@ -2573,12 +2571,12 @@ let dlCallPosition = 0;
 let testDoc;
 /**
  * Retrieves information and titles of individual XMLs
- * @param {List} datalist The list of base64/url for the XML's being parsed through
+ * @param {List} datalistData The list of base64/url for the XML's being parsed through
  */
-function DatalistXHRCall(datalist) {
+function DatalistXHRCall(datalistData) {
 	if (dlCallPosition != dlCallLength) {
 		const xhr = new XMLHttpRequest();
-		const url = datalist[dlCallPosition];
+		const url = datalistData[dlCallPosition];
 
 		xhr.responseType = "document";
 		xhr.onreadystatechange = () => {
@@ -2586,11 +2584,11 @@ function DatalistXHRCall(datalist) {
 				let response = xhr.responseXML;
 				if (response) {
 					let responseTitle = response.getElementsByTagName("files")[0].attributes.xmltitle.nodeValue;
-					datalist_Title[responseTitle] = datalist[dlCallPosition];
+					datalist_Title[responseTitle] = datalistData[dlCallPosition];
 
 					// Make function recursive
 					dlCallPosition += 1;
-					DatalistXHRCall(datalist);
+					DatalistXHRCall(datalistData);
 				}
 			}
 		};
@@ -2847,12 +2845,11 @@ function CheckIfSelectedXML() {
 		/** Find id of what is being called */
 		const deleteBox_id = "deleteBox_" + (i + 2);
 		if (document.getElementById(deleteBox_id).checked && users_email === AuthUser) {
-			returnTrue = true;
 			return true;
 		}
 	}
 
-	if (returnTrue === false) {
+	if (!returnTrue) {
 		return false;
 	}
 }
@@ -3012,7 +3009,7 @@ function fill_tableCSV() {
 		$.ajax({
 			url: dataset_dictionary[document.getElementById(downloadBox_id).value],
 			dataType: "xml",
-			failure: function (xml_data) {
+			failure: function () {
 				console.log("Failed at opening XML for conversion into a CSV file. Please contact an admin");
 			},
 			success: function (xml_data) {
@@ -3102,10 +3099,10 @@ function fill_tableCSV() {
 					/** Controls */
 					let controlsXMLString = "";
 					if ($(this).find("controls")[0].innerHTML) {
-						for (let i = 1; i < $(this).find("controls")[0].childNodes.length; i = i + 2) {
-							if ($(this).find("controls")[0].childNodes[i].firstChild) {
-								controlsXMLString += $(this).find("controls")[0].childNodes[i].firstChild.textContent;
-								if (i < $(this).find("controls")[0].childNodes.length - 2) {
+						for (let j = 1; j < $(this).find("controls")[0].childNodes.length; j = j + 2) {
+							if ($(this).find("controls")[0].childNodes[j].firstChild) {
+								controlsXMLString += $(this).find("controls")[0].childNodes[j].firstChild.textContent;
+								if (j < $(this).find("controls")[0].childNodes.length - 2) {
 									controlsXMLString += ", ";
 								}
 							}
@@ -3116,10 +3113,10 @@ function fill_tableCSV() {
 					/** Replicate Controls */
 					let RcontrolsXMLString = "";
 					if ($(this).find("groupwith")[0].innerHTML) {
-						for (let i = 1; i < $(this).find("groupwith")[0].childNodes.length; i = i + 2) {
-							if ($(this).find("groupwith")[0].childNodes[i].firstChild) {
-								RcontrolsXMLString += $(this).find("groupwith")[0].childNodes[i].firstChild.textContent;
-								if (i < $(this).find("groupwith")[0].childNodes.length - 2) {
+						for (let j = 1; j < $(this).find("groupwith")[0].childNodes.length; j = j + 2) {
+							if ($(this).find("groupwith")[0].childNodes[j].firstChild) {
+								RcontrolsXMLString += $(this).find("groupwith")[0].childNodes[j].firstChild.textContent;
+								if (j < $(this).find("groupwith")[0].childNodes.length - 2) {
 									RcontrolsXMLString += ", ";
 								}
 							}
@@ -3256,13 +3253,13 @@ function checkPreload() {
 /**
  * Verify that the locus being called is valid
  * IMPORTANT: The current script only works for Arabidopsis thaliana
- * @param {String} locus The AGI ID (example: AT3G24650 or AT3G24650.1)
+ * @param {String} locusToVerify The AGI ID (example: AT3G24650 or AT3G24650.1)
  * @returns {Boolean} If locus is valid [true] or not [false, default]
  * @TODO: Add support for other languages. Fill list of loci patterns can be found within GAIA's tools (accessible only to BAR developer at the moment)
  */
-function verifyLoci(locus) {
+function verifyLoci(locusToVerify) {
 	// Check if locus is a string
-	if (typeof locus === "string") {
+	if (typeof locusToVerify === "string") {
 		/** Arabidopsis thaliana locus pattern */
 		const arabidopsisThalianaPattern = `^[A][T][MC0-9][G][0-9]{5}[.][0-9]{1,2}$|^[A][T][MC0-9][G][0-9]{5}$`;
 
@@ -3270,7 +3267,7 @@ function verifyLoci(locus) {
 		const regexPattern = new RegExp(arabidopsisThalianaPattern, "i");
 
 		// If match, then return true, else return false
-		return locus.trim().match(regexPattern);
+		return locusToVerify.trim().match(regexPattern);
 	} else {
 		return false;
 	}
