@@ -105,6 +105,8 @@
 	"background_color": "#cddaa7",
 	"display": "standalone",
 	"scope": "/eFP-Seq_Browser",
-	"start_url": "/eFP-Seq_Browser",
-	"prefer_related_applications": false
+	"start_url": "https://bar.utoronto.ca/",
+	"id": "/",
+	"prefer_related_applications": false,
+	"orientation": "any"
 }

@@ -675,6 +675,15 @@ function gene_structure_radio_on_change() {
 		/** Image of the variant */
 		let variant_img = document.getElementsByClassName("dd-selected-image")[0].src;
 
+		// Check if the variant image has an alt attribute, if not, then add it
+		if (
+			document.getElementsByClassName("dd-selected-image") &&
+			document.getElementsByClassName("dd-selected-image")[0] &&
+			!document.getElementsByClassName("dd-selected-image")[0].alt
+		) {
+			document.getElementsByClassName("dd-selected-image")[0].alt = "RNA-Seq Coverage";
+		}
+
 		/** Find all img tags that should be updated (all the <img> with class gene_structure) */
 		let all_gene_structure_imgs = document.getElementsByClassName("gene_structure_img");
 		// Change their src to the newly selected variant's src
@@ -2343,6 +2352,7 @@ function change_rpkm_colour_scale(colouring_mode) {
 		const img_created = document.createElement("img");
 		img_created.src = "data:image/png;base64," + absolute_rpkm_scale;
 		img_created.style = "margin-top: 10px;";
+		img_created.alt = "Absolute RPKM Scale";
 		if (svg_colouring_element) {
 			svg_colouring_element.appendChild(img_created);
 		}
