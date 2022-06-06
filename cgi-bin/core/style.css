@@ -395,6 +395,28 @@ a {
 	border-color: #6c757d !important;
 }
 
+.navbar_menu_buttons.navbar_radio_buttons {
+	color: rgb(0, 0, 0) !important;
+	background-color: #d9d9d9 !important;
+	border-color: #d9d9d9 !important;
+}
+
+.navbar_menu_buttons.navbar_radio_buttons:hover {
+	background-color: #c5c3c3 !important;
+	border-color: #99cc0080 !important;
+}
+
+.navbar_menu_buttons.navbar_radio_buttons.active {
+	color: #fff !important;
+	background-color: #565e64 !important;
+	border-color: #565e64 !important;
+}
+
+.navbar_menu_buttons.navbar_radio_buttons.active:hover {
+	background-color: #464d52 !important;
+	border-color: #99cc0080 !important;
+}
+
 .navbar_menu_footer_help {
 	color: white;
 	line-height: 100%;
