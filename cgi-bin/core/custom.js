@@ -2212,11 +2212,14 @@ function populate_efp_modal(status) {
 
 	// Insert eFP Table header
 	$("#efpModalTable").append(
-		'<p class="eFP_thead"> AGI-ID: <a href="https://www.arabidopsis.org/servlets/TairObject?type=locus&name=' +
-			locus +
-			'" target="_blank" rel="noopener">' +
-			locus +
-			"</a></p>",
+		`
+			<p class="eFP_thead">
+				AGI-ID:
+					<a href="https://www.arabidopsis.org/servlets/TairObject?type=locus&name=${locus} target="_blank" rel="noopener">
+						${locus}
+					</a>
+			</p>
+		`,
 	);
 
 	// Check radio
@@ -2625,7 +2628,7 @@ function validateEmail(email) {
 function findAuthUser() {
 	let AuthUser = "";
 
-	if (gapi) {
+	if (gapi && window.location.host === "bar.utoronto.ca") {
 		const currentUser = gapi.auth2.getAuthInstance().currentUser;
 		if (currentUser) {
 			const cUObj = Object.keys(currentUser);
@@ -3293,8 +3296,12 @@ let parse_output;
 function getGFF(locusID) {
 	GFF_List = [];
 	$.ajax({
-		url: "https://bar.utoronto.ca/webservices/bar_araport/gene_structure_by_locus.php?locus=" + locusID,
+		url: `https://bar.utoronto.ca/webservices/bar_araport/gene_structure_by_locus.php?locus=${locusID}`,
 		dataType: "json",
+		crossDomain: true,
+		headers: {
+			"Access-Control-Allow-Origin": "*",
+		},
 		failure: function () {
 			console.log("Getting GFFs (getGFF) information failed to retrieve locus information from Araport11");
 		},

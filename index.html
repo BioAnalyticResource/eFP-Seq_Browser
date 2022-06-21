@@ -3152,16 +3152,18 @@
 			 * Log the user out
 			 */
 			function signOut() {
-				let auth2 = gapi.auth2.getAuthInstance();
-				auth2.signOut().then(function () {
-					users_email = "";
-					remove_private_database();
-					document.getElementById("google_iden_login_button").style.display = "";
-					document.getElementById("google_iden_logout_button").style.display = "none";
-					document.getElementById("manageAccount_button").style.display = "none";
-					document.getElementById("manageXMLs").classList.remove("spacerBottom");
-					document.getElementById("upload_button").classList.add("spacerBottom");
-				});
+				if (window.location.host === "bar.utoronto.ca") {
+					let auth2 = gapi.auth2.getAuthInstance();
+					auth2.signOut().then(function () {
+						users_email = "";
+						remove_private_database();
+						document.getElementById("google_iden_login_button").style.display = "";
+						document.getElementById("google_iden_logout_button").style.display = "none";
+						document.getElementById("manageAccount_button").style.display = "none";
+						document.getElementById("manageXMLs").classList.remove("spacerBottom");
+						document.getElementById("upload_button").classList.add("spacerBottom");
+					});
+				}
 			}
 
 			let users_email = "";
@@ -3170,14 +3172,16 @@
 			 * @param {Object} googleUser
 			 */
 			function onSignIn(googleUser) {
-				let profile = googleUser.getBasicProfile();
-				users_email = profile.getEmail();
-				check_if_Google_login();
-				document.getElementById("google_iden_login_button").style.display = "none";
-				document.getElementById("google_iden_logout_button").style.display = "";
-				document.getElementById("manageAccount_button").style.display = "";
-				document.getElementById("manageXMLs").classList.add("spacerBottom");
-				document.getElementById("upload_button").classList.remove("spacerBottom");
+				if (window.location.host === "bar.utoronto.ca") {
+					let profile = googleUser.getBasicProfile();
+					users_email = profile.getEmail();
+					check_if_Google_login();
+					document.getElementById("google_iden_login_button").style.display = "none";
+					document.getElementById("google_iden_logout_button").style.display = "";
+					document.getElementById("manageAccount_button").style.display = "";
+					document.getElementById("manageXMLs").classList.add("spacerBottom");
+					document.getElementById("upload_button").classList.remove("spacerBottom");
+				}
 			}
 
 			let add_usersFileID = false;
