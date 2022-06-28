@@ -1,0 +1,37 @@
+engines:
+    checkstyle:
+        enabled: true
+        checks:
+            com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck:
+                enabled: false
+    fixme:
+        enabled: true
+    csslint:
+        enabled: true
+        checks:
+            important:
+                enabled: false
+            order-alphabetical:
+                enabled: false
+    scss-lint:
+        enabled: true
+        checks:
+            ColorVariable:
+                enabled: false
+            LeadingZero:
+                enabled: false
+            Indentation:
+                enabled: false
+            ImportantRule:
+                enabled: false
+            SelectorFormat:
+                enabled: false
+    markdownlint:
+        enabled: true
+        checks:
+            MD013:
+                enabled: false
+            MD029:
+                enabled: false
+            MD030:
+                enabled: false
