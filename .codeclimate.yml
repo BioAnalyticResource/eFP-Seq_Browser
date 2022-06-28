@@ -35,3 +35,14 @@ engines:
                 enabled: false
             MD030:
                 enabled: false
+exclude_patterns:
+    - ".Rproj.user"
+    - ".Rhistory"
+    - ".RData"
+    - ".Ruserdata"
+    - ".htaccess"
+    - "cgi-bin/gDriveFast.pm"
+    - "cgi-bin/gDriveMountFast.pl"
+    - "cgi-bin/core/packages"
+    - "**/*.min.js"
+    - "**/*.min.css"
