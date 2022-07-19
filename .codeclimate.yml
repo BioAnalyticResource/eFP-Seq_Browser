@@ -6,6 +6,9 @@ engines:
                 enabled: false
     fixme:
         enabled: true
+        checks:
+            TODO:
+                enabled: false
     csslint:
         enabled: true
         checks:
@@ -18,6 +21,8 @@ engines:
         checks:
             ColorVariable:
                 enabled: false
+            Comment:
+                enabled: false
             LeadingZero:
                 enabled: false
             Indentation:
@@ -25,6 +30,8 @@ engines:
             ImportantRule:
                 enabled: false
             SelectorFormat:
+                enabled: false
+            StringQuotes:
                 enabled: false
     markdownlint:
         enabled: true
@@ -34,6 +41,8 @@ engines:
             MD029:
                 enabled: false
             MD030:
+                enabled: false
+            MD034:
                 enabled: false
 exclude_patterns:
     - ".Rproj.user"
