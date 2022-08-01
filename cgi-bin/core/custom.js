@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-const version = "v1.3.14-p20220606";
+const version = "v1.3.14-p20220731";
 
 /** Selected RPKM mode */
 let colouring_mode = "abs";
@@ -1051,12 +1051,10 @@ function rnaseq_images(status) {
 								);
 							}
 						} else {
-							if (document.getElementById(responseRecord + "_rnaseq_img")) {
-								document.getElementById(responseRecord + "_rnaseq_img").src =
-									"https://" +
-									window.location.host +
-									window.location.pathname +
-									"cgi-bin/img/error.webp";
+							if (document.getElementById(`${responseRecord}_rnaseq_img`)) {
+								document.getElementById(
+									`${responseRecord}_rnaseq_img`,
+								).src = `https://${window.location.host}${window.location.pathname}/cgi-bin/img/error.webp`;
 							}
 
 							console.error(
@@ -1195,9 +1193,10 @@ function rnaseq_images(status) {
 						}
 
 						// Update image to error
-						if (responseRecord && document.getElementById(responseRecord + "_rnaseq_img")) {
-							document.getElementById(responseRecord + "_rnaseq_img").src =
-								"https://" + window.location.host + window.location.pathname + "cgi-bin/img/error.webp";
+						if (responseRecord && document.getElementById(`${responseRecord}_rnaseq_img`)) {
+							document.getElementById(
+								`${responseRecord}_rnaseq_img`,
+							).src = `https://${window.location.host}${window.location.pathname}/cgi-bin/img/error.webp`;
 						}
 						rnaseq_change += 1;
 
@@ -1306,6 +1305,159 @@ function updateRPKMAbsoluteMax(RPKMCheckAgainst) {
 }
 
 /**
+ * Data object for checkAgainstSVG to find the appropriate SVG subunit name
+ * Organization: [svg file name]: {
+ * 	"name" {string}: "Human readable name",
+ * 	"subunit"? {string[]}: ["default subunit name", "other subunit name", "other subunit name", ...]
+ *	"subunitName"? {string}: "custom default subunit name (output) not listed in subunit"
+ * }
+ */
+const svgAgainstData = {
+	"ath-10dayOldSeedling": {
+		name: "10 Day Old Seedling",
+		subunit: ["all", "root", "shoot"],
+	},
+	"ath-15dayOldSeedling": {
+		name: "15 Day Old Seedling",
+		subunit: ["all", "root", "shoot"],
+	},
+	"ath-etiolatedSeedling": {
+		name: "Etiolated Seedling",
+		subunit: ["etiolatedseedling"],
+	},
+	"ath-Flower": {
+		name: "Flower",
+		subunit: ["flower", "receptacle"],
+	},
+	"ath-FlowerParts": {
+		name: "Flower Parts",
+		subunit: ["all", "petals", "stamen", "sepals", "carpels"],
+	},
+	"ath-GerminatingSeed": {
+		name: "Germinating Seed",
+	},
+	"ath-Internode": {
+		name: "Internode",
+	},
+	"ath-leaf": {
+		name: "Leaf",
+		subunit: ["leaf"],
+	},
+	"ath-LeafParts": {
+		name: "Leaf Parts",
+		subunit: ["all", "lamina", "petiole", "veins"],
+	},
+	"ath-Pollen": {
+		name: "Pollen",
+	},
+	"ath-RootTip": {
+		name: "Root Tip",
+	},
+	"ath-rosettePlusRoot": {
+		name: "Rosette Plus Root",
+		subunit: ["all", "shoot", "root"],
+	},
+	"ath-Seed1-4": {
+		name: "Seed 1-4",
+	},
+	"ath-Seed5-7": {
+		name: "Seed 5-7",
+	},
+	"ath-Seed8+": {
+		name: "Seed 8+",
+	},
+	"ath-SenescentLeaf": {
+		name: "Senescent Leaf",
+	},
+	"ath-ShootApexInflorescense": {
+		name: "Shoot Apex Inflorescense",
+	},
+	"ath-ShootApexVegetative-Transition": {
+		name: "Shoot Apex Vegetative-Transition",
+	},
+	"ath-Silique1-5": {
+		name: "Silique 1-5",
+	},
+	"ath-Silique6-10": {
+		name: "Silique 6-10",
+	},
+	"ath-YoungLeaf1-4": {
+		name: "Young Leaf 1-4",
+	},
+	"ath-EarlyBuddingFlower": {
+		name: "Early Budding Flower",
+		subunit: ["all", "shoot", "buds"],
+	},
+	"ath-EarlyBuddingFlower": {
+		name: "Early Budding Flower",
+		subunit: ["all", "shoot", "buds"],
+	},
+	"ath-FlowerBud": {
+		name: "Flower Bud",
+		subunit: ["flowerBud"],
+	},
+	"ath-Stamen": {
+		name: "Stamen",
+		subunit: ["all", "anthers", "filament"],
+	},
+	"ath-StigmaAndOvaries": {
+		name: "Stigma And Ovaries",
+		subunit: ["all", "Stigma_tissue", "Ovary_tissue"],
+	},
+	"ath-WholeSilique": {
+		name: "Whole Silique",
+		subunit: ["silique", "all", "seed"],
+	},
+	"ath-youngSeedling": {
+		name: "Young Seedling",
+		subunit: ["all", "root", "hypocotyl", "cotyledon"],
+	},
+	"ath-FlowerDevelopment1": {
+		name: "Late Flower Development (1)",
+		subunit: ["flowerDevelopmentPart1"],
+	},
+	"ath-FlowerDevelopment2": {
+		name: "Flower Development 2",
+		subunit: ["flowerDevelopmentPart2"],
+	},
+	"ath-FlowerDevelopment3": {
+		name: "Flower Development 3",
+		subunit: ["flowerDevelopmentPart3"],
+	},
+	"ath-FlowerDevelopment4": {
+		name: "Flower Development 4",
+		subunit: ["flowerDevelopmentPart4"],
+	},
+	"ath-FlowerDevelopment5": {
+		name: "Flower Development 5",
+		subunit: ["flowerDevelopmentPart5"],
+	},
+	"ath-FlowerDevelopment6-8": {
+		name: "Flower Development 6-8",
+		subunit: ["flowerDevelopmentPart6"],
+	},
+	"ath-FlowerDevelopment9-11": {
+		name: "Flower Development 9-11",
+		subunit: ["flowerDevelopmentPart9"],
+	},
+	"ath-FlowerDevelopment12-14": {
+		name: "Flower Development 12-14",
+		subunit: ["flowerDevelopmentPart12"],
+	},
+	"ath-FlowerDevelopment15-18": {
+		name: "Flower Development 15-18",
+		subunit: ["flowerDevelopmentPart15"],
+	},
+	"ath-FlowerDevelopment19": {
+		name: "Flower Development 19",
+		subunit: ["flowerDevelopmentPart19"],
+	},
+	"ath-Other": {
+		name: "Other",
+	},
+};
+
+/**
  * Checking to make sure the subunit matches tissue
  * @param {String} svg SVG name starting with ath- and ending with .svg
  * @param {String} subunit SVG subunit
@@ -1313,244 +1465,24 @@ function updateRPKMAbsoluteMax(RPKMCheckAgainst) {
  * @return {String} subunit - The SVG tissue corrected subunit if an error occurred, input if not
  */
 function checkAgainstSVG(svg, subunit, returnName = false) {
-	let toReturn = subunit;
+	/** SVG file name */
+	let svgName = svg.split(".")[0];
 
-	if (svg === "ath-10dayOldSeedling.svg" || svg === "ath-10dayOldSeedling.min.svg") {
-		if (returnName === true) {
-			toReturn = "10 Day Old Seedling";
-		} else if (subunit != "all" && subunit != "root" && subunit != "shoot") {
+	let toReturn = returnName ? svgAgainstData[svgName]["name"] : subunit;
+
+	// Get subunit name
+	if (svgAgainstData[svgName] && !returnName) {
+		// If there is a list of subunits, check if it contains the given subunit and what subunit name should be used
+		if (svgAgainstData[svgName]["subunit"]) {
+			if (!svgAgainstData[svgName]["subunit"].includes(subunit)) {
+				if (svgAgainstData[svgName]["subunit_name"]) {
+					toReturn = svgAgainstData[svgName]["subunit_name"];
+				} else if (svgAgainstData[svgName]["subunit"][0]) {
+					toReturn = svgAgainstData[svgName]["subunit"][0];
+				}
+			}
+		} else if (subunit !== "all") {
 			toReturn = "all";
-		}
-	} else if (svg === "ath-15dayOldSeedling.svg" || svg === "ath-15dayOldSeedling.min.svg") {
-		if (returnName === true) {
-			toReturn = "15 Day Old Seedling";
-		} else if (subunit != "all" && subunit != "root" && subunit != "shoot") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-etiolatedSeedling.svg" || svg === "ath-etiolatedSeedling.min.svg") {
-		if (returnName === true) {
-			toReturn = "Etiolated Seedling";
-		} else if (subunit != "etiolatedseedling") {
-			toReturn = "etiolatedseedling";
-		}
-	} else if (svg === "ath-Flower.svg" || svg === "ath-Flower.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower";
-		} else if (subunit != "flower" && subunit != "receptacle") {
-			toReturn = "flower";
-		}
-	} else if (svg === "ath-FlowerParts.svg" || svg === "ath-FlowerParts.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower Parts";
-		} else if (
-			subunit != "all" &&
-			subunit != "petals" &&
-			subunit != "stamen" &&
-			subunit != "sepals" &&
-			subunit != "carpels"
-		) {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-GerminatingSeed.svg" || svg === "ath-GerminatingSeed.min.svg") {
-		if (returnName === true) {
-			toReturn = "Germinating Seed";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-Internode.svg" || svg === "ath-Internode.min.svg") {
-		if (returnName === true) {
-			toReturn = "Internode";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-leaf.svg" || svg === "ath-leaf.min.svg") {
-		if (returnName === true) {
-			toReturn = "Leaf";
-		} else if (subunit != "leaf") {
-			toReturn = "leaf";
-		}
-	} else if (svg === "ath-LeafParts.svg" || svg === "ath-LeafParts.min.svg") {
-		if (returnName === true) {
-			toReturn = "Leaf Parts";
-		} else if (subunit != "all" && subunit != "lamina" && subunit != "petiole" && subunit != "veins") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-Pollen.svg" || svg === "ath-Pollen.min.svg") {
-		if (returnName === true) {
-			toReturn = "Pollen";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-RootTip.svg" || svg === "ath-RootTip.min.svg") {
-		if (returnName === true) {
-			toReturn = "Root Tip";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-rosettePlusRoot.svg" || svg === "ath-rosettePlusRoot.min.svg") {
-		if (returnName === true) {
-			toReturn = "Rosette Plus Root";
-		} else if (subunit != "all" && subunit != "shoot" && subunit != "root") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-Seed1-4.svg" || svg === "ath-Seed1-4.min.svg") {
-		if (returnName === true) {
-			toReturn = "Seed 1-4";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-Seed5-7.svg" || svg === "ath-Seed5-7.min.svg") {
-		if (returnName === true) {
-			toReturn = "Seed 5-7";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-Seed8+.svg" || svg === "ath-Seed8+.min.svg") {
-		if (returnName === true) {
-			toReturn = "Seed 8+";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-SenescentLeaf.svg" || svg === "ath-SenescentLeaf.min.svg") {
-		if (returnName === true) {
-			toReturn = "Senescent Leaf";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-ShootApexInflorescense.svg" || svg === "ath-ShootApexInflorescense.min.svg") {
-		if (returnName === true) {
-			toReturn = "Shoot Apex Inflorescense";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (
-		svg === "ath-ShootApexVegetative-Transition.svg" ||
-		svg === "ath-ShootApexVegetative-Transition.min.svg"
-	) {
-		if (returnName === true) {
-			toReturn = "Shoot Apex Vegetative-Transition";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-Silique1-5.svg" || svg === "ath-Silique1-5.min.svg") {
-		if (returnName === true) {
-			toReturn = "Silique 1-5";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-Silique6-10.svg" || svg === "ath-Silique6-10.min.svg") {
-		if (returnName === true) {
-			toReturn = "Silique 6-10";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-YoungLeaf1-4.svg" || svg === "ath-YoungLeaf1-4.min.svg") {
-		if (returnName === true) {
-			toReturn = "Young Leaf 1-4";
-		} else if (subunit != "all") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-EarlyBuddingFlower.svg" || svg === "ath-EarlyBuddingFlower.min.svg") {
-		if (returnName === true) {
-			toReturn = "Early Budding Flower";
-		} else if (subunit != "all" && subunit != "shoot" && subunit != "buds") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-FlowerBud.svg" || svg === "ath-FlowerBud.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower Bud";
-		} else if (subunit != "flowerBud" || svg === "ath-10dayOldSeedling.min.svg") {
-			toReturn = "flowerBud";
-		}
-	} else if (svg === "ath-Stamen.svg" || svg === "ath-Stamen.min.svg") {
-		if (returnName === true) {
-			toReturn = "Stamen";
-		} else if (subunit != "all" && subunit != "anthers" && subunit != "filament") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-StigmaAndOvaries.svg" || svg === "ath-StigmaAndOvaries.min.svg") {
-		if (returnName === true) {
-			toReturn = "Stigma And Ovaries";
-		} else if (subunit != "all" && subunit != "Stigma_tissue" && subunit != "Ovary_tissue") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-WholeSilique.svg" || svg === "ath-WholeSilique.min.svg") {
-		if (returnName === true) {
-			toReturn = "Whole Silique";
-		} else if (subunit != "all" && subunit != "silique" && subunit != "seed") {
-			toReturn = "silique";
-		}
-	} else if (svg === "ath-youngSeedling.svg" || svg === "ath-youngSeedling.min.svg") {
-		if (returnName === true) {
-			toReturn = "Young Seedling";
-		} else if (subunit != "all" && subunit != "root" && subunit != "hypocotyl" && subunit != "cotyledon") {
-			toReturn = "all";
-		}
-	} else if (svg === "ath-FlowerDevelopment1.svg" || svg === "ath-FlowerDevelopment1.min.svg") {
-		if (returnName === true) {
-			toReturn = "Late Flower Development (1)";
-		} else if (subunit != "flowerDevelopmentPart1") {
-			toReturn = "flowerDevelopmentPart1";
-		}
-	} else if (svg === "ath-FlowerDevelopment2.svg" || svg === "ath-FlowerDevelopment2.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower Development 2";
-		} else if (subunit != "flowerDevelopmentPart2") {
-			toReturn = "flowerDevelopmentPart2";
-		}
-	} else if (svg === "ath-FlowerDevelopment3.svg" || svg === "ath-FlowerDevelopment3.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower Development 3";
-		} else if (subunit != "flowerDevelopmentPart3") {
-			toReturn = "flowerDevelopmentPart3";
-		}
-	} else if (svg === "ath-FlowerDevelopment4.svg" || svg === "ath-FlowerDevelopment4.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower Development 4";
-		} else if (subunit != "flowerDevelopmentPart4") {
-			toReturn = "flowerDevelopmentPart4";
-		}
-	} else if (svg === "ath-FlowerDevelopment5.svg" || svg === "ath-FlowerDevelopment5.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower Development 5";
-		} else if (subunit != "flowerDevelopmentPart5") {
-			toReturn = "flowerDevelopmentPart5";
-		}
-	} else if (svg === "ath-FlowerDevelopment6-8.svg" || svg === "ath-FlowerDevelopment6-8.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower Development 6-8";
-		} else if (subunit != "flowerDevelopmentPart6") {
-			toReturn = "flowerDevelopmentPart6";
-		}
-	} else if (svg === "ath-FlowerDevelopment9-11.svg" || svg === "ath-FlowerDevelopment9-11.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower Development 9-11";
-		} else if (subunit != "flowerDevelopmentPart9") {
-			toReturn = "flowerDevelopmentPart9";
-		}
-	} else if (svg === "ath-FlowerDevelopment12-14.svg" || svg === "ath-FlowerDevelopment12-14.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower Development 12-14";
-		} else if (subunit != "flowerDevelopmentPart12") {
-			toReturn = "flowerDevelopmentPart12";
-		}
-	} else if (svg === "ath-FlowerDevelopment15-18.svg" || svg === "ath-FlowerDevelopment15-18.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower Development 15-18";
-		} else if (subunit != "flowerDevelopmentPart15") {
-			toReturn = "flowerDevelopmentPart15";
-		}
-	} else if (svg === "ath-FlowerDevelopment19.svg" || svg === "ath-FlowerDevelopment19.min.svg") {
-		if (returnName === true) {
-			toReturn = "Flower Development 19";
-		} else if (subunit != "flowerDevelopmentPart19") {
-			toReturn = "flowerDevelopmentPart19";
-		}
-	} else if (svg === "ath-Other.svg" || svg === "ath-Other.min.svg") {
-		if (returnName === true) {
-			toReturn = "Other";
-		} else if (subunit != "all") {
-			return "all";
 		}
 	}
 
@@ -2106,8 +2038,8 @@ function populate_table(status) {
 	change_rpkm_colour_scale(colouring_mode);
 
 	// Check if arrows are the right width or not
-	for (i = 0; i < colSortList.length; i++) {
-		let colArrow = colSortList[i] + "Arrow";
+	for (let j = 0; j < colSortList.length; j++) {
+		let colArrow = colSortList[j] + "Arrow";
 		CheckElementWidth(colArrow, 8);
 	}
 
@@ -2204,7 +2136,7 @@ function populate_efp_modal(status) {
 	efp_length = eFPSortedSRA.length;
 	efp_RPKM_values = [];
 
-	for (i = 0; i < eFPSortedSRA.length; i++) {
+	for (let i = 0; i < eFPSortedSRA.length; i++) {
 		if (!isNaN(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"]))) {
 			efp_RPKM_values.push(parseFloat(sraDict[eFPSortedSRA[i]]["RPKM"]));
 		}
@@ -2279,23 +2211,11 @@ function populate_efp_modal(status) {
 	$("#efpModalTable").append('<table id="eFPtable" class="table"></table>');
 
 	// Creating eFP representative table
-	for (i = 0; i < ~~(eFPSortedSRA.length / 11) * 11; i += 11) {
+	for (let i = 0; i < ~~(eFPSortedSRA.length / 11) * 11; i += 11) {
 		if (document.getElementById(eFPSortedSRA[i + 10]).outerHTML != "null") {
 			efp_table_column = "<tr>";
 			for (let r = 0; r < 11; r++) {
-				efp_table_column +=
-					"<td>" +
-					'<div class="efp_table_tooltip" id="' +
-					eFPSortedSRA[i + r] +
-					'_rep" onclick="ScrollToRNARow(\'' +
-					eFPSortedSRA[i + r] +
-					"_row')\">" +
-					document.getElementById(eFPSortedSRA[i + r] + "_svg").outerHTML +
-					'<span class="efp_table_tooltip_text">' +
-					eFPSortedSRA[i + r] +
-					" - " +
-					sraDict[eFPSortedSRA[i + r]]["title"] +
-					"</span></div></td>";
+				efp_table_column += generateEFPTableItem(eFPSortedSRA[i + r], sraDict[eFPSortedSRA[i + r]]["title"]);
 			}
 			efp_table_column += "</tr>";
 			$("#eFPtable").append(efp_table_column);
@@ -2306,19 +2226,10 @@ function populate_efp_modal(status) {
 		if (remainder_efp === r) {
 			efp_table_column = "<tr>";
 			for (let c = remainder_efp; c > 0; c--) {
-				efp_table_column +=
-					"<td>" +
-					'<div class="efp_table_tooltip" id="' +
-					eFPSortedSRA[efp_length - c] +
-					'_rep" onclick="ScrollToRNARow(\'' +
-					eFPSortedSRA[efp_length - c] +
-					"')\">" +
-					document.getElementById(eFPSortedSRA[efp_length - c] + "_svg").outerHTML +
-					'<span class="efp_table_tooltip_text">' +
-					eFPSortedSRA[efp_length - c] +
-					" - " +
-					sraDict[eFPSortedSRA[efp_length - c]]["title"] +
-					"</span></div></td>";
+				efp_table_column += generateEFPTableItem(
+					eFPSortedSRA[efp_length - c],
+					sraDict[eFPSortedSRA[efp_length - c]]["title"],
+				);
 			}
 			efp_table_column += "</tr>";
 			$("#eFPtable").append(efp_table_column);
@@ -2326,6 +2237,36 @@ function populate_efp_modal(status) {
 	}
 
 	toggleResponsiveTable();
+}
+
+/**
+ * Generates eFP table items, based on given title and ID, and returns as a HTML in string
+ * @param {String} id SRA or project ID
+ * @param {String} title Title of project
+ * @return {String} Custom HTML as a string for the eFP table items (item wrapped in a tag element/data cell: <td>)
+ * @example <caption>When generating eFP table items for the eFP overview, use this function to create multiple table elements within a container/parent table.</caption>
+ * generateEFPTableItem("ERR274310", "Aerial part of long-day-grown leaf")
+ * // return '<td><div class="efp_table_tooltip" id="ERR274310_rep" onclick="ScrollToRNARow('ERR274310_row')">${document.getElementById("ERR274310_row_svg").outerHTML}<span class="efp_table_tooltip_text">ERR274310 - Aerial part of long-day-grown leaf</span></div></td>'
+ */
+function generateEFPTableItem(id, title) {
+	if (id && title) {
+		return `
+			<td>
+				<div
+					class="efp_table_tooltip"
+					id="${id}_rep"
+					onclick="ScrollToRNARow('${id}_row')"
+				>
+					${document.getElementById(id + "_svg").outerHTML}
+					<span class="efp_table_tooltip_text">
+					${id} - ${title}
+					</span>
+				</div>
+			</td>
+		`;
+	}
+
+	return "";
 }
 
 /**
@@ -2487,12 +2428,7 @@ function get_user_XML_display() {
 							xml_title = get_xml_list_output["files"][i][1];
 
 							// Make sure there is a title or if not, make one
-							if (
-								xml_title == "" ||
-								xml_title == "Uploaded dataset" ||
-								xml_title == undefined ||
-								xml_title == null
-							) {
+							if (!xml_title || xml_title.trim()?.length === 0 || xml_title === "Uploaded dataset") {
 								xml_title = "Uploaded dataset - Unnamed dataset #" + unnamed_title_num;
 								unnamed_title_num += 1;
 							} else if (xml_title == "Araport 11 RNA-seq data") {
@@ -2518,19 +2454,21 @@ function get_user_XML_display() {
 					}
 					setTimeout(function () {
 						if (!list_modified) {
-							for (i = 0; i < get_xml_list_output["files"].length; i++) {
+							for (let c = 0; c < get_xml_list_output["files"].length; c++) {
 								// Add data to list of accessible datasets
-								dataset_dictionary[title_list[i]] = datalist_Title[title_list[i]];
+								dataset_dictionary[title_list[c]] = datalist_Title[title_list[c]];
 
 								// Create option to select data from user
-								document.getElementById("xmlDatabase").innerHTML +=
-									'<option class="userAdded" tag="private" value="' +
-									title_list[i] +
-									'" id="' +
-									title_list[i] +
-									'">' +
-									title_list[i] +
-									"</option>";
+								document.getElementById("xmlDatabase").innerHTML += `
+									<option
+										class="userAdded"
+										tag="private"
+										value="${title_list[c]}"
+										id="${title_list[c]}"
+									>
+										${title_list[c]}
+									</option>
+								`;
 							}
 						}
 						list_modified = true;
@@ -2705,7 +2643,7 @@ function add_user_xml_by_upload() {
 				alert("Error occurred with your account, you have now been logged out. Please log back in");
 			}
 		} else if (user_exist) {
-			if (dataset_dictionary[datasetName] == undefined) {
+			if (!dataset_dictionary[datasetName]) {
 				// If the file does not already exist in the account, add it
 				if (users_email === AuthUser) {
 					$.ajax({
@@ -2721,7 +2659,7 @@ function add_user_xml_by_upload() {
 					signOut();
 					alert("Error occurred with your account, you have now been logged out. Please log back in");
 				}
-			} else if (dataset_dictionary[datasetName] != undefined) {
+			} else if (dataset_dictionary[datasetName]) {
 				if (users_email === AuthUser) {
 					// reset variables for get_user_XML_display
 					list_modified = false;
@@ -2794,30 +2732,42 @@ function delete_fill() {
 	let deleteBoxNum = 0;
 	total_amount_of_datasets = public_title_list.length + title_list.length;
 
-	for (i = 0; i < public_title_list.length; i++) {
+	for (let i = 0; i < public_title_list.length; i++) {
 		// Fills the manage XML modal with available XMLs on the account
 		$("#publicDatabaseDownload").append(
-			'<input type="checkbox" tag="publicDataCheckbox" class="publicDataCheckbox" onchange="disableDeletePublic()" id="deleteBox_' +
-				deleteBoxNum +
-				'" value="' +
-				public_title_list[i] +
-				'"> ' +
-				public_title_list[i] +
-				"</input><br>",
+			`
+				<input
+					type="checkbox"
+					tag="publicDataCheckbox"
+					class="publicDataCheckbox"
+					onchange="disableDeletePublic()"
+					id="deleteBox_${deleteBoxNum}"
+					value="${public_title_list[i]}"
+				>
+					${public_title_list[i]}
+				</input>
+				<br />
+			`,
 		);
 		deleteBoxNum += 1;
 	}
 
-	for (i = 0; i < title_list.length; i++) {
+	for (let i = 0; i < title_list.length; i++) {
 		// Fills the manage XML modal with available XMLs on the account
 		$("#delete_fill").append(
-			'<input type="checkbox" tag="privateDataCheckbox" class="privateDataCheckbox" onchange="disableDeletePublic()" id="deleteBox_' +
-				deleteBoxNum +
-				'" value="' +
-				title_list[i] +
-				'"> ' +
-				title_list[i] +
-				"</input><br>",
+			`
+				<input
+					type="checkbox"
+					tag="privateDataCheckbox"
+					class="privateDataCheckbox"
+					onchange="disableDeletePublic()"
+					id="deleteBox_${deleteBoxNum}"
+					value="${title_list[i]}"
+				>
+					${title_list[i]}
+				</input>
+				<br />
+			`,
 		);
 		deleteBoxNum += 1;
 	}
@@ -2828,7 +2778,7 @@ let isDeletePublicDisabled = false;
  * Prevents users from deleting public databases visually... even without this they cannot actually do it
  */
 function disableDeletePublic() {
-	for (i = 0; i < public_title_list.length; i++) {
+	for (let i = 0; i < public_title_list.length; i++) {
 		if (
 			document.getElementById("deleteBox_" + i).checked &&
 			document.getElementById("deleteBox_" + i).className == "publicDataCheckbox"
@@ -2854,7 +2804,7 @@ function CheckIfSelectedXML() {
 	let returnTrue = false;
 	const AuthUser = findAuthUser();
 
-	for (i = 0; i < title_list.length; i++) {
+	for (let i = 0; i < title_list.length; i++) {
 		/** Find id of what is being called */
 		const deleteBox_id = "deleteBox_" + (i + 2);
 		if (document.getElementById(deleteBox_id).checked && users_email === AuthUser) {
@@ -2873,7 +2823,7 @@ function CheckIfSelectedXML() {
 function delete_selectedXML() {
 	const AuthUser = findAuthUser();
 
-	for (i = 0; i < title_list.length; i++) {
+	for (let i = 0; i < title_list.length; i++) {
 		/** Find id of what is being called */
 		const deleteBox_id = "deleteBox_" + (i + 2);
 
@@ -2913,7 +2863,7 @@ function delete_allXMLs(verify) {
 	const AuthUser = findAuthUser();
 
 	if (verify === AuthUser) {
-		for (i = 0; i < title_list.length; i++) {
+		for (let i = 0; i < title_list.length; i++) {
 			/** Find id of what is being called */
 			const deleteBox_id = "deleteBox_" + (i + 2);
 			if (users_email === AuthUser) {
@@ -3027,8 +2977,11 @@ function fill_tableCSV() {
 			},
 			success: function (xml_data) {
 				const $xmltitle = $(xml_data).find("files");
+
+				let fileTitle;
+
 				$xmltitle.each(function () {
-					let fileTitle = $(this).attr("xmltitle");
+					fileTitle = $(this).attr("xmltitle");
 					if (fileTitle == "" || fileTitle == "Uploaded dataset") {
 						fileTitle = "Uploaded dataset";
 					}
@@ -3308,8 +3261,9 @@ function getGFF(locusID) {
 		success: function (gene_res) {
 			parse_output = gene_res;
 			if (parse_output["wasSuccessful"]) {
-				const parsed_features = parse_output["features"][0]["subfeatures"];
-				for (i = 0; i < parsed_features.length; i++) {
+				let parsed_features = parse_output["features"][0]["subfeatures"];
+
+				for (let i = 0; i < parsed_features.length; i++) {
 					if (parsed_features[i]["uniqueID"] != null) {
 						GFF_List.push(parsed_features[i]["uniqueID"]);
 					} else {
@@ -3459,18 +3413,15 @@ function downloadDiv(id) {
  * @param {Boolean} hideNavbar Force hide the navbar [true] or base on window [default, false]
  */
 function displayNavBAR(hideNavbar = false) {
-	if ($("#navbar_menu").is(":visible") || hideNavbar) {
-		document.getElementById("navbar_menu").style.display = "none";
-		document.getElementById("main_content").className = "col-sm-12";
-		document.getElementById("openMenu").style.display = "block";
-		if (document.getElementById("theTable")) {
+	const displayNav = $("#navbar_menu").is(":visible") || hideNavbar;
+
+	document.getElementById("navbar_menu").style.display = displayNav ? "none" : "block";
+	document.getElementById("main_content").className = displayNav ? "col-sm-12" : "col-sm-9";
+	document.getElementById("openMenu").style.display = displayNav ? "block" : "none";
+	if (document.getElementById("theTable")) {
+		if (displayNav) {
 			document.getElementById("theTable").classList.add("RNATable");
-		}
-	} else if ($("#navbar_menu").is(":visible") === false) {
-		document.getElementById("navbar_menu").style.display = "block";
-		document.getElementById("main_content").className = "col-sm-9";
-		document.getElementById("openMenu").style.display = "none";
-		if (document.getElementById("theTable")) {
+		} else {
 			document.getElementById("theTable").classList.remove("RNATable");
 		}
 	}
@@ -3547,12 +3498,12 @@ let responsiveRNAWidthAdjusted = false;
 function responsiveRNAWidthResize() {
 	const responsive = document.getElementsByClassName("responsiveRNAWidth");
 	if (window.innerWidth <= 575) {
-		for (i = 0; i < responsive.length; i++) {
+		for (let i = 0; i < responsive.length; i++) {
 			responsive[i].style.minWidth = window.innerWidth * 0.93 + "px";
 		}
 		responsiveRNAWidthAdjusted = true;
 	} else if (window.innerWidth > 575 && responsiveRNAWidthAdjusted) {
-		for (i = 0; i < responsive.length; i++) {
+		for (let i = 0; i < responsive.length; i++) {
 			responsive[i].style.minWidth = "420px";
 		}
 	}
@@ -3880,13 +3831,13 @@ function ToggleFilteredeFP(whichToToggle, OnOrOff) {
 	const whichSRA = tissueSRADic[whichSVG];
 
 	if (OnOrOff === true) {
-		for (i = 0; i < whichSRA.length; i++) {
+		for (let i = 0; i < whichSRA.length; i++) {
 			if (document.getElementById(whichSRA[i] + "_row")) {
 				document.getElementById(whichSRA[i] + "_row").removeAttribute("hidden");
 			}
 		}
 	} else if (OnOrOff === false) {
-		for (i = 0; i < whichSRA.length; i++) {
+		for (let i = 0; i < whichSRA.length; i++) {
 			if (document.getElementById(whichSRA[i] + "_row")) {
 				document.getElementById(whichSRA[i] + "_row").setAttribute("hidden", true);
 			}

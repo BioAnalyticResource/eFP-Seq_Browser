@@ -40,7 +40,6 @@ Current known issues:
 
 -   The IGB links do not work with Google Drive repositories
 -   If the web service timeouts, the eFP-Seq Browser will load continuously
--   Loading circle is not centred
 
 ## Contributing
 

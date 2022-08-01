@@ -93,14 +93,14 @@ function update(_formatXML, v) {
 	all_controls = $(v).find(".channelcontrols").val().split(",");
 	for (let i = 0; i < all_controls.length; i++) {
 		all_controls[i] = all_controls[i].trim();
-		controlsXML += "\t\t\t\t<bam_exp>" + all_controls[i] + "</bam_exp>\n";
+		controlsXML += `\t\t\t\t<bam_exp>${all_controls[i]}</bam_exp>\n`;
 	}
 
 	replicatesXML = ["\t\t\t</controls>", "\t\t\t<groupwith>\n"].join("\r\n");
 	all_replicates = $(v).find(".channelgroupwidtho").val().split(",");
 	for (let i = 0; i < all_replicates.length; i++) {
 		all_replicates[i] = all_replicates[i].trim();
-		replicatesXML += "\t\t\t\t<bam_exp>" + all_replicates[i] + "</bam_exp>\n";
+		replicatesXML += `\t\t\t\t<bam_exp>${all_replicates[i]}</bam_exp>\n`;
 	}
 
 	const variables = {
@@ -267,7 +267,7 @@ function correct_links(class_name) {
 	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
 	let i;
 	const gDriveChecking = "?usp=sharing";
-	for (i = 0; i < x.length; i++) {
+	for (let i = 0; i < x.length; i++) {
 		if (x[i].value.length > 0) {
 			x[i].value = x[i].value.trim();
 			if (x[i].value.substring(0, 7) == "http://" || x[i].value.substring(0, 8) !== "https://") {
@@ -290,7 +290,7 @@ let read_num = "";
 function correct_ReadMapCount(class_name) {
 	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
 	let i;
-	for (i = 0; i < x.length; i++) {
+	for (let i = 0; i < x.length; i++) {
 		x[i].value = x[i].value.trim();
 		if (x[i].value === ("" || null || undefined)) {
 			x[i].value = 0;
@@ -327,7 +327,7 @@ function check_links(bam_name, repo_name) {
 	const x = document.getElementById("Entries_all").querySelectorAll(repo_name);
 	const bam_x = document.getElementById("Entries_all").querySelectorAll(bam_name);
 	let i;
-	for (i = 0; i < x.length; i++) {
+	for (let i = 0; i < x.length; i++) {
 		if (x[i].id === "bam_input") {
 			if (x[i].value.length > 0) {
 				if (bam_x[i].value == "Google Drive") {
@@ -411,7 +411,7 @@ function check_req(class_name) {
 	const match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
 	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
 	let i;
-	for (i = 0; i < x.length; i++) {
+	for (let i = 0; i < x.length; i++) {
 		if (x[i].value.length > 0) {
 			x[i].value = x[i].value.trim();
 			filled += 1;
