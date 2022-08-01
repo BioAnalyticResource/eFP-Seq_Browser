@@ -12,6 +12,8 @@ engines:
     csslint:
         enabled: true
         checks:
+            ids:
+                enabled: false
             important:
                 enabled: false
             order-alphabetical:
