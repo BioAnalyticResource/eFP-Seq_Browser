@@ -34,7 +34,7 @@ Outside of that, there is nothing to install, just download all the files and ha
 
 ## Known issues
 
-We aim to make the eFP-Seq Browser as perfect as possible but unfortunately, there may be some unforeseen bugs. If you manage to find one that is not here, feel free to create a [bug report](https://github.com/ASully/eFP-Seq-Browser/issues/new?template=bug_report.md) so we can fix it.
+We aim to make the eFP-Seq Browser as perfect as possible but unfortunately, there may be some unforeseen bugs. If you manage to find one that is not here, feel free to create a [bug report](https://github.com/BioAnalyticResource/eFP-Seq_Browser/issues/new?template=bug_report.md) so we can fix it.
 
 Current known issues:
 
@@ -52,7 +52,7 @@ For rest: [GPL-2.0](LICENSE.md)
 
 ## Authors
 
--   Alexander Sullivan - [GitHub](https://github.com/ASully), [Twitter](https://twitter.com/alexjsully), [ORCiD](https://orcid.org/0000-0002-4463-4473), [LinkedIn](https://www.linkedin.com/in/alexanderjsullivan/), [Website](https://alexjsully.me/)
+-   Alexander Sullivan - [GitHub](https://github.com/AlexJSully), [Twitter](https://twitter.com/alexjsully), [ORCiD](https://orcid.org/0000-0002-4463-4473), [LinkedIn](https://www.linkedin.com/in/alexanderjsullivan/), [Website](https://alexjsully.me/)
 -   Priyank Purohit - [GitHub](https://github.com/priyank-purohit)
 -   Nowlan H. Freese
 -   Asher Pasha - [Github](https://github.com/asherpasha), [Twitter](https://twitter.com/AsherPasha), [ORCiD](https://orcid.org/0000-0002-9315-0520)
