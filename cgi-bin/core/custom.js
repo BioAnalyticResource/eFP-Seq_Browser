@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-const version = "v1.3.14-p20220731";
+const version = "v1.3.14-p20220816";
 
 /** Selected RPKM mode */
 let colouring_mode = "abs";
@@ -4188,8 +4188,9 @@ function disableAllComparison() {
  */
 function PnCDisappear() {
 	document.getElementById("PrivacyAndCookies").setAttribute("hidden", true);
-	document.cookie = "eSBAcceptedCookies=1; expires=Friday, December 31, 9999 at 7:00:00 AM;";
-	document.cookie = "eSBVersion=" + version + "; expires=Friday, December 31, 9999 at 7:00:00 AM;";
+	document.cookie = "eSBAcceptedCookies=1; expires=Friday, December 31, 9999 at 7:00:00 AM; SameSite=Lax; Secure";
+	document.cookie =
+		"eSBVersion=" + version + "; expires=Friday, December 31, 9999 at 7:00:00 AM; SameSite=Lax; Secure";
 }
 
 /**
@@ -4237,7 +4238,7 @@ function setUpCookies() {
 	if (cookieVersion && cookieVersion !== version) {
 		// If version does not match, display T&S
 		document.getElementById("PrivacyAndCookies").removeAttribute("hidden");
-		document.cookie = "eSBAcceptedCookies=0";
+		document.cookie = "eSBAcceptedCookies=0; SameSite=Lax; Secure";
 	}
 }
 
