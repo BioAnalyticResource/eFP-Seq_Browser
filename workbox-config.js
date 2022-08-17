@@ -1,9 +1,9 @@
 module.exports = {
   "globDirectory": "./cgi-bin/",
   "globPatterns": [
-    "**/*.{js,css,png,html,bai,xml,ico,svg,webmanifest,xlsx,jpg,md,json,yml,codepoints,otf,txt,cgi,bed,Rproj,Rmd,webp}"
+    "**/*.{js,css,png,html,bai,xml,ico,svg,webmanifest,xlsx,jpg,md,json,yml,codepoints,otf,txt,bed,Rproj,Rmd,webp}"
   ],
-  "swDest": "sw.js",
+  "swDest": "./cgi-bin/core/serviceWorker/sw.js",
   "globIgnores": [
     'index.html',
     'workbox-config.js',

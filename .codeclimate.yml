@@ -47,6 +47,7 @@ engines:
             MD034:
                 enabled: false
 exclude_patterns:
+    - "**/node_modules/"
     - ".Rproj.user"
     - ".Rhistory"
     - ".RData"
