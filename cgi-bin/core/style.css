@@ -4,12 +4,6 @@
 	src: local("Arial");
 }
 
-.vcenter {
-	display: inline-block;
-	float: none;
-	vertical-align: middle;
-}
-
 th.sortable {
 	cursor: pointer;
 }
@@ -144,12 +138,6 @@ a {
 	padding: 3%;
 	transition: 1s ease-in-out;
 	width: 100%;
-}
-
-.warning_core_nope {
-	height: 0px;
-	opacity: 0;
-	transition: 1s ease;
 }
 
 .warning_index {
@@ -291,16 +279,6 @@ a {
 	outline: 0;
 }
 
-.dropdown-menu-right {
-	left: auto;
-	right: 0;
-}
-
-.dropdown-menu-left {
-	left: 0;
-	right: auto;
-}
-
 .dropdown-header {
 	color: #636c72;
 	display: block;
@@ -308,15 +286,6 @@ a {
 	margin-bottom: 0;
 	padding: 0.5rem 1.5rem;
 	white-space: nowrap;
-}
-
-.dropdown-backdrop {
-	bottom: 0;
-	left: 0;
-	position: fixed;
-	right: 0;
-	top: 0;
-	z-index: 990;
 }
 
 .dropup .dropdown-menu {
