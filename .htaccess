@@ -1,19 +1,19 @@
 ## BROWSER CACHING FOR STATIC FILES ##
 <IfModule mod_expires.c>
     ExpiresActive On
-    ExpiresByType cgi-bin/SVG/OpenMenu/SVG "access 1 week"
-    ExpiresByType cgi-bin/core/APInLibraries/GoogleMaterial/material.green-pink.min.css "access 1 week"
-    ExpiresByType cgi-bin/core/APInLibraries/GoogleMaterial/material.min.js "access 1 week"
-    ExpiresByType cgi-bin/core/bootstrap/bootstrap4-0-0-beta-2.min.css "access 1 week"
-    ExpiresByType cgi-bin/core/bootstrap/bootstrap4-0-0.min.js "access 1 week"
-    ExpiresByType cgi-bin/core/bootstrap/popper.min.js "access 1 week"
-    ExpiresByType cgi-bin/core/ddslick/jquery.ddslick.min.js "access 1 week"
-    ExpiresByType cgi-bin/core/html2canvas/html2canvas.js "access 1 week"
-    ExpiresByType cgi-bin/core/jquery-3.3.1/jquery.min.js "access 1 week"
-    ExpiresByType cgi-bin/core/jquery-ui-1.12.1.custom/jquery-ui.min.js "access 1 week"
-    ExpiresByType cgi-bin/core/tablefilter/tablefilter.min.js "access 1 week"
-    ExpiresByType cgi-bin/core/tabletoCSV/jquery.tabletoCSV.js "access 1 week"
-    ExpiresByType cgi-bin/img/BAR.png "access 1 week"
+    ExpiresByType cgi-bin/SVGs/OpenMenu.svg "access 1 week"
+    ExpiresByType cgi-bin/core/packages/GoogleMaterial/material.green-pink.min.css "access 1 week"
+    ExpiresByType cgi-bin/core/packages/GoogleMaterial/material.min.js "access 1 week"
+    ExpiresByType cgi-bin/core/packages/bootstrap/css/bootstrap.min.css "access 1 week"
+    ExpiresByType cgi-bin/core/packages/bootstrap/js/bootstrap.min.js "access 1 week"
+    ExpiresByType cgi-bin/core/packages/ddslick/jquery.ddslick.min.js "access 1 week"
+    ExpiresByType cgi-bin/core/packages/html2canvas/html2canvas.min.js "access 1 week"
+    ExpiresByType cgi-bin/core/packages/jQuery/jquery.min.js "access 1 week"
+    ExpiresByType cgi-bin/core/packages/jQuery-ui/jquery-ui.min.js "access 1 week"
+    ExpiresByType cgi-bin/core/packages/tablefilter/tablefilter.min.js "access 1 week"
+    ExpiresByType cgi-bin/core/packages/tabletoCSV/jquery.tabletoCSV.js "access 1 week"
+    ExpiresByType cgi-bin/img/BAR-logo.png "access 1 week"
+    ExpiresByType cgi-bin/img/BAR-logo.svg "access 1 week"
     ExpiresByType cgi-bin/img/helpModal/0001_geneLocusAutofill.png "access 1 week"
     ExpiresByType cgi-bin/img/helpModal/0002_selectDataset.png "access 1 week"
     ExpiresByType cgi-bin/img/helpModal/0003_selectOptions.png "access 1 week"
@@ -29,7 +29,8 @@
     ExpiresByType cgi-bin/img/helpModal/0013_bulkTemplate.png "access 1 week"
     ExpiresByType cgi-bin/img/helpModal/0014_manageAccount.png "access 1 week"
     ExpiresByType cgi-bin/img/helpModal/0015_downloadTableAsImage.png "access 1 week"
-    ExpiresByType cgi-bin/img/landingPage_w1240.png "access 1 week"
+    ExpiresByType cgi-bin/img/landingPage.jpg "access 1 week"
+    ExpiresByType cgi-bin/img/landingPage.webp "access 1 week"
 </IfModule>
 ## BROWSER CACHING FOR STATIC FILES ##
 
@@ -37,7 +38,7 @@
 <IfModule mod_gzip.c>
     mod_gzip_on Yes
     mod_gzip_dechunk Yes
-    mod_gzip_item_include file .(html?|txt|js|css|jpg|png|bai|xml|ico|svg|webmanifest|xlsx|webp)$
+    mod_gzip_item_include file .(html?|js|css|jpg|png|bai|xml|ico|svg|webmanifest|xlsx|webp|txt)$
     mod_gzip_item_include handler ^cgi-script$
     mod_gzip_item_include mime ^text/.*
     mod_gzip_item_include mime ^application/x-javascript.*
@@ -51,9 +52,10 @@
     Header set X-XSS-Protection "1; mode=block"
     Header set X-Content-Type-Options nosniff
     Header add Content-Security-Policy "default-src 'self' 'unsafe-inline' *.google-analytics.com *.googleapis.com *.googletagmanager.com *.google.com *.google.ca *.gstatic.com *.utoronto.ca *.nih.gov *.amazonaws.com *.tacc.cloud *.w3schools.com data:; object-src 'self'"
-    <FilesMatch "\.(js|css|jpg|png|html|bai|xml|ico|svg|webmanifest|xlsx|webp)$">
-        Header set Cache-Control "no-cache"
+
+    <FilesMatch "\.(js|css|jpg|png|html|bai|xml|ico|svg|webmanifest|xlsx|webp|txt)$">
+        Header set Cache-Control "max-age=604800"
         Header append Vary: Accept-Encoding
     </FilesMatch>
 </IfModule>
-## CAche Control
+## Cache Control
