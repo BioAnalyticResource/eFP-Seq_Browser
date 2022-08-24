@@ -53,7 +53,8 @@
     Header set X-Content-Type-Options "nosniff"
     Header set Referrer-Policy "same-origin"
     Header set X-XSS-Protection "1; mode=block"
-    Header add Content-Security-Policy "default-src 'self' 'unsafe-inline' *.google-analytics.com *.googleapis.com *.googletagmanager.com *.google.com *.google.ca *.gstatic.com *.utoronto.ca *.nih.gov *.amazonaws.com *.tacc.cloud *.w3schools.com data:; object-src 'self'"
+    Header set Permissions-Policy "fullscreen=*, picture-in-picture=*, xr-spatial-tracking=*, gamepad=*, hid=*, idle-detection=*, window-placement=*"
+    Header add Content-Security-Policy "default-src 'self' 'unsafe-inline' *.google-analytics.com *.googleapis.com *.googletagmanager.com *.google.com *.google.ca *.gstatic.com *.utoronto.ca *.nih.gov *.amazonaws.com *.tacc.cloud *.w3schools.com data:; object-src 'self'; form-action 'self';"
 
     <FilesMatch "\.(js|css|jpg|png|html|bai|xml|ico|svg|webmanifest|xlsx|webp|txt)$">
         Header set Cache-Control "max-age=604800"
