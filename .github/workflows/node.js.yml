@@ -6,8 +6,12 @@ name: Node.js CI
 on:
     push:
         branches: [master]
+        paths-ignore:
+            - "cgi-bin/core/packages/**"
     pull_request:
         branches: [master]
+        paths-ignore:
+            - "cgi-bin/core/packages/**"
 
 jobs:
     build:
