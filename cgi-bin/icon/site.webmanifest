@@ -1,6 +1,6 @@
 {
-	"name": "eFP-Seq Browser",
-	"short_name": "eFP-Seq Browser",
+	"name": "BAR",
+	"short_name": "BAR",
 	"icons": [
 		{
 			"src": "./android-chrome-36x36.png",
@@ -91,22 +91,126 @@
 		},
 		{
 			"src": "./maskable_icon.png",
+			"sizes": "any",
 			"type": "image/png",
 			"purpose": "any maskable"
 		},
 		{
 			"src": "./safari-pinned-tab.svg",
+			"sizes": "any",
 			"purpose": "monochrome",
 			"type": "image/svg+xml"
+		},
+		{
+			"src": "./favicon.ico",
+			"sizes": "any",
+			"type": "image/x-icon"
 		}
 	],
-	"description": "An RNA-Seq data exploration tool that shows read map coverage of a gene along with a coloured eFP image",
+	"screenshots": [
+		{
+			"src": "./screenshot1.webp",
+			"sizes": "1600x1089",
+			"type": "image/webp",
+			"platform": "wide",
+			"label": "Landing page"
+		},
+		{
+			"src": "./screenshot2.webp",
+			"sizes": "1088x1938",
+			"type": "image/webp",
+			"platform": "narrow",
+			"label": "Mobile Landing page"
+		},
+		{
+			"src": "./screenshot3.webp",
+			"sizes": "1600x1089",
+			"type": "image/webp",
+			"platform": "wide",
+			"label": "Example plant bioinformatic web applications available"
+		},
+		{
+			"src": "./screenshot4.webp",
+			"sizes": "1600x1089",
+			"type": "image/webp",
+			"platform": "wide",
+			"label": "Example search results using GAIA"
+		},
+		{
+			"src": "./screenshot5.webp",
+			"sizes": "1088x1938",
+			"type": "image/webp",
+			"platform": "narrow",
+			"label": "Example mobile search results using GAIA"
+		},
+		{
+			"src": "./screenshot6.webp",
+			"sizes": "1600x1089",
+			"type": "image/webp",
+			"platform": "wide",
+			"label": "Example usage of the eFP-Seq Browser"
+		},
+		{
+			"src": "./screenshot7.webp",
+			"sizes": "1600x1089",
+			"type": "image/webp",
+			"platform": "wide",
+			"label": "Example tissue expression viewer from ePlant"
+		},
+		{
+			"src": "./screenshot8.webp",
+			"sizes": "1600x1089",
+			"type": "image/webp",
+			"platform": "wide",
+			"label": "Landing page for the ePlant"
+		}
+	],
+	"shortcuts": [
+		{
+			"name": "ePlant",
+			"url": "/eplant",
+			"description": "ePlant helps biologists visualize the natural connections between DNA sequences, natural variation (polymorphisms), molecular structures, protein-protein interactions, and gene expression patterns by combining several data visualization tools with a zoomable user interface."
+		},
+		{
+			"name": "eFP-Seq Browser",
+			"url": "/eFP-Seq_Browser",
+			"description": "Search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome. The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model"
+		}
+	],
+	"description": "The BAR and other Data Analysis Tools for Plant Biology",
 	"theme_color": "#cddaa7",
 	"background_color": "#cddaa7",
-	"display": "standalone",
-	"scope": "/eFP-Seq_Browser",
 	"start_url": "https://bar.utoronto.ca/",
 	"id": "/",
+	"display": "standalone",
 	"prefer_related_applications": false,
-	"orientation": "any"
+	"orientation": "any",
+	"categories": [
+		"Affymetrix",
+		"Arabidopsis",
+		"AtGenExpress",
+		"Medicago truncatula",
+		"PopGenExpress",
+		"Venn selection",
+		"barley",
+		"bioinformatics",
+		"cis-element prediction",
+		"coexpression analysis",
+		"data analysis",
+		"data visualization",
+		"expression profiling",
+		"genomics",
+		"mRNA-seq",
+		"microarray",
+		"polymorphism",
+		"poplar",
+		"protein structure",
+		"protein-protein interactions",
+		"proteomics",
+		"proteomics",
+		"rice",
+		"soybean",
+		"subcellular localization",
+		"transcriptomics"
+	]
 }
