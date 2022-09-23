@@ -35,6 +35,8 @@ engines:
                 enabled: false
             StringQuotes:
                 enabled: false
+            VendorPrefix:
+                enabled: false
     markdownlint:
         enabled: true
         checks:
