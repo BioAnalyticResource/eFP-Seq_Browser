@@ -337,15 +337,15 @@ a {
 }
 
 .navbar_menu_loadData {
-	background-color: #9c0 !important;
-	border-color: #9c0 !important;
+	background-color: #a1d600 !important;
+	border-color: #a1d600 !important;
 	color: black !important;
 	font-weight: 600 !important;
 	text-align: center;
 }
 
 .navbar_menu_loadData:hover {
-	background-color: #588e02 !important;
+	background-color: #106100 !important;
 	border-color: #3d6302 !important;
 	color: white !important;
 }
@@ -353,13 +353,13 @@ a {
 .navbar_menu_buttons {
 	background-color: #d9d9d9 !important;
 	border-color: #b7b7b7 !important;
-	color: black;
+	color: #fff;
 	font-weight: 600;
 	white-space: normal;
 }
 
 .navbar_menu_buttons:hover {
-	background-color: #727b84 !important;
+	background-color: #4E545A !important;
 	border-color: #6c757d !important;
 	color: #fff !important;
 }
@@ -372,18 +372,18 @@ a {
 
 .navbar_menu_buttons.navbar_radio_buttons:hover {
 	background-color: #c5c3c3 !important;
-	border-color: #99cc0080 !important;
+	border-color: #a4db0080 !important;
 }
 
 .navbar_menu_buttons.navbar_radio_buttons.active {
-	background-color: #565e64 !important;
-	border-color: #565e64 !important;
+	background-color: #2b4b64 !important;
+	border-color: #2b4b64 !important;
 	color: #fff !important;
 }
 
 .navbar_menu_buttons.navbar_radio_buttons.active:hover {
 	background-color: #464d52 !important;
-	border-color: #99cc0080 !important;
+	border-color: #a4db0080 !important;
 }
 
 .navbar_menu_footer_help {
