@@ -9,7 +9,7 @@
 		<link rel="canonical" href="https://bar.utoronto.ca/eFP-Seq_Browser/" />
 		<meta
 			http-equiv="Content-Security-Policy"
-			content="default-src 'self' 'unsafe-inline' *.google-analytics.com *.googleapis.com *.googletagmanager.com *.google.com *.google.ca *.gstatic.com *.utoronto.ca *.nih.gov *.amazonaws.com *.tacc.cloud *.w3schools.com data:; object-src 'self'; base-uri 'self'; form-action 'self';"
+			content="default-src 'self' 'unsafe-inline' *.google-analytics.com *.googleapis.com *.googletagmanager.com *.google.com *.google.ca *.googleusercontent.com *.gstatic.com *.utoronto.ca *.nih.gov *.amazonaws.com *.tacc.cloud *.w3schools.com data:; object-src 'self'; base-uri 'self'; form-action 'self';"
 		/>
 		<meta http-equiv="Cache-Control" content="max-age=604800" />
 		<!-- Metadata -->
@@ -137,11 +137,7 @@
 		</script>
 		<!-- End Google Tag Manager -->
 		<!-- Google Identity login -->
-		<script rel="preconnect" src="https://apis.google.com/js/platform.js" async defer></script>
-		<meta
-			name="google-signin-client_id"
-			content="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com"
-		/>
+		<script src="https://accounts.google.com/gsi/client" async defer></script>
 		<!-- End Google Identity login -->
 		<!-- jQuery UI -->
 		<link rel="stylesheet preload" href="cgi-bin/core/packages/jQuery-ui/jquery-ui.min.css" as="style" />
@@ -580,30 +576,41 @@
 						<!-- Sign in/out using Google -->
 						<div class="col-6">
 							<div class="container-fluid" style="padding-left: 0px; margin-left: -5px; margin-top: -5px">
-								<a
-									id="google_iden_login_button"
-									href="#"
-									class="btn btn-lg btn-primary signin disableOnLoading"
-									onclick="document.getElementById('loginClick0').click();"
-									><img
-										loading="lazy"
-										src="cgi-bin/img/googleSignin/btn_google_light_normal_ios.svg"
-										alt="GoogleSigninIcon"
-										style="height: 1.5em"
-										id="signinIcon"
-										onmousedown="console.log(this.src)"
-									/>
-									Sign In</a
-								>
-								<div class="g-signin2" data-onsuccess="onSignIn" id="google_login" hidden></div>
-								<a
-									id="google_iden_logout_button"
-									href="#"
-									class="btn btn-lg btn-primary signout disableOnLoading"
-									style="display: none"
-									onclick="signOut();"
-									><span class="glyphicon glyphicon-user"> Sign Out</span></a
-								>
+								<div
+									id="g_id_onload"
+									data-client_id="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com"
+									data-context="signin"
+									data-ux_mode="popup"
+									data-callback="onSignIn"
+									data-auto_select="true"
+									data-itp_support="true"
+								></div>
+								<div
+									id="g_id_signin"
+									class="g_id_signin"
+									data-type="standard"
+									data-shape="rectangular"
+									data-theme="outline"
+									data-text="signin"
+									data-size="large"
+									data-logo_alignment="left"
+								></div>
+								<div id="custom_g_signed_in" class="custom_g_signed_in" hidden>
+									<button
+										id="signOut"
+										class="btn btn-block custom_g_signed_in_button"
+										onclick="signOut();"
+									>
+										<img
+											id="signed_in_profile_pic"
+											src=""
+											alt=""
+											class="custom_g_signed_in_profile_pic"
+											style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px"
+										/>
+										<span id="signOut_text" class="custom_g_signed_in_text">Sign Out</span>
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -633,7 +640,7 @@
 								id="landingPage_image"
 								src="cgi-bin/img/landingPage.webp"
 								alt="Welcome to the eFP-Seq Browser!"
-								style="max-width: 90%; height: auto; display: block; margin: auto"
+								style="max-width: 90%; height: auto; display: block; margin: auto; width: 90%"
 							/>
 							<br />
 							<p style="text-align: justify; font-family: Arial">
@@ -3166,36 +3173,117 @@
 			 */
 			function signOut() {
 				if (window.location.host === "bar.utoronto.ca") {
-					let auth2 = gapi.auth2.getAuthInstance();
-					auth2.signOut().then(function () {
+					document.getElementById("g_id_signin").removeAttribute("hidden");
+
+					if (global_user) {
+						// Reset values:
 						users_email = "";
-						remove_private_database();
-						document.getElementById("google_iden_login_button").style.display = "";
-						document.getElementById("google_iden_logout_button").style.display = "none";
+						global_user = undefined;
+
+						// UI changes:
+
+						const signOutButton = document.getElementById("custom_g_signed_in");
+						if (signOutButton) {
+							signOutButton.setAttribute("hidden", true);
+
+							const signedInProfilePic = document.getElementById("signed_in_profile_pic");
+
+							signedInProfilePic.src = "";
+							signedInProfilePic.alt = "";
+						}
+
 						document.getElementById("manageAccount_button").style.display = "none";
 						document.getElementById("manageXMLs").classList.remove("spacerBottom");
 						document.getElementById("upload_button").classList.add("spacerBottom");
-					});
+
+						remove_private_database();
+					}
 				}
 			}
 
+			function decodeJwtResponse(token) {
+				// Taken from https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
+				let base64Url = token.split(".")[1];
+				let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+				let jsonPayload = decodeURIComponent(
+					window
+						.atob(base64)
+						.split("")
+						.map(function (c) {
+							return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+						})
+						.join(""),
+				);
+
+				return JSON.parse(jsonPayload);
+			}
+
 			let users_email = "";
+			let global_user = undefined;
 			/**
 			 * Signs the user in based on their GMail/Google+ object
 			 * @param {Object} googleUser
 			 */
 			function onSignIn(googleUser) {
 				if (window.location.host === "bar.utoronto.ca") {
-					let profile = googleUser.getBasicProfile();
-					users_email = profile.getEmail();
-					check_if_Google_login();
-					document.getElementById("google_iden_login_button").style.display = "none";
-					document.getElementById("google_iden_logout_button").style.display = "";
-					document.getElementById("manageAccount_button").style.display = "";
-					document.getElementById("manageXMLs").classList.add("spacerBottom");
-					document.getElementById("upload_button").classList.remove("spacerBottom");
+					if (!global_user) {
+						global_user = decodeJwtResponse(googleUser.credential);
+						users_email = global_user.email;
+
+						check_if_Google_login();
+
+						// Customize sign-out button
+						const signOutButton = document.getElementById("custom_g_signed_in");
+						if (signOutButton) {
+							document.getElementById("g_id_signin").setAttribute("hidden", true);
+
+							// Make visible
+							signOutButton.removeAttribute("hidden");
+
+							if (global_user.picture && global_user.name) {
+								const signedInProfilePic = document.getElementById("signed_in_profile_pic");
+
+								signedInProfilePic.src = global_user.picture;
+								signedInProfilePic.alt = `${global_user?.name}'s profile picture`;
+							}
+						}
+
+						document.getElementById("manageAccount_button").style.display = "";
+						document.getElementById("manageXMLs").classList.add("spacerBottom");
+						document.getElementById("upload_button").classList.remove("spacerBottom");
+					}
+				} else {
+					signOut();
 				}
 			}
+
+			window.onload = function () {
+				google.accounts.id.initialize({
+					allowed_parent_origin: [
+						"https://bar.utoronto.ca",
+						"https://bar.utoronto.ca/~asullivan/RNA-Browser/",
+						"https://bar.utoronto.ca/eFP-Seq_Browser/",
+					],
+					auto_select: true,
+					client_id: "505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com",
+					callback: onSignIn,
+					itp_support: true,
+					ux_mode: "popup",
+				});
+
+				google.accounts.id.renderButton(
+					document.getElementById("g_id_signin"),
+					{
+						type: "standard",
+						shape: "rectangular",
+						theme: "outline",
+						text: "signin",
+						size: "large",
+						logo_alignment: "left",
+					}, // customization attributes
+				);
+				google.accounts.id.prompt();
+			};
 
 			let add_usersFileID = false;
 			$(function () {

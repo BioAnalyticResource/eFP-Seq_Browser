@@ -353,7 +353,7 @@ a {
 .navbar_menu_buttons {
 	background-color: #d9d9d9 !important;
 	border-color: #b7b7b7 !important;
-	color: #fff;
+	color: #000;
 	font-weight: 600;
 	white-space: normal;
 }
@@ -643,4 +643,38 @@ select {
 	background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
 	background-repeat: no-repeat;
 	background-size: 5px 5px, 5px 5px, 1px 1.5em;
+}
+
+/* Sign-in buttons */
+.custom_g_signed_in_button {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: normal;
+	background-color: #fff;
+}
+
+.custom_g_signed_in_button:hover {
+	background-color: #fff !important;
+}
+
+.custom_g_signed_in_profile_pic {
+	display: block;
+	flex-grow: 0;
+	flex-shrink: 1;
+	flex-basis: auto;
+	align-self: auto;
+	order: 0;
+}
+
+.custom_g_signed_in_text {
+	display: block;
+	flex-grow: 1;
+	flex-shrink: 1;
+	flex-basis: auto;
+	align-self: auto;
+	order: 0;
 }

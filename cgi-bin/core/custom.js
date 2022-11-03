@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-const version = "v1.3.14-p20220922";
+const version = "v1.3.14-p20221102";
 
 /** Selected RPKM mode */
 let colouring_mode = "abs";
@@ -2564,39 +2564,11 @@ function validateEmail(email) {
  * @returns {String} AuthUser - The email associated with the OAuth2.0 user logged in if any (empty string if not)
  */
 function findAuthUser() {
-	let AuthUser = "";
-
-	if (gapi && window.location.host === "bar.utoronto.ca") {
-		const currentUser = gapi.auth2.getAuthInstance().currentUser;
-		if (currentUser) {
-			const cUObj = Object.keys(currentUser);
-			for (const user of cUObj) {
-				const cUDetails = currentUser[user];
-				if (cUDetails && Object.keys(cUDetails).length > 0) {
-					const cUDObj = Object.keys(cUDetails);
-					for (const data of cUDObj) {
-						const cUDData = cUDetails[data];
-						if (cUDData && Object.keys(cUDData).length > 0) {
-							const containedDetails = Object.keys(cUDData);
-							for (const details of containedDetails) {
-								const subDetails = cUDData[details];
-								if (typeof subDetails === "string" && validateEmail(subDetails)) {
-									AuthUser = subDetails;
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
-		} else {
-			logError("Unable to reach current user from OAuth");
-		}
+	if (global_user && global_user.email) {
+		return global_user.email;
 	} else {
-		logError("Unable to reach data from OAuth");
+		return "";
 	}
-
-	return AuthUser;
 }
 
 /**
@@ -2604,15 +2576,13 @@ function findAuthUser() {
  */
 function check_if_Google_login() {
 	const AuthUser = findAuthUser();
-	if (users_email != "" && users_email === AuthUser) {
+	if (users_email && AuthUser && users_email === AuthUser) {
 		if (databasesAdded === false) {
 			document.getElementById("private_dataset_header").style.display = "block";
 			get_user_XML_display();
 		}
-	} else if (users_email != "" && users_email != AuthUser) {
-		signOut();
-		alert("Error occurred with your account, you have now been logged out. Please log back in");
 	} else {
+		signOut();
 		remove_private_database();
 	}
 }
@@ -3317,6 +3287,7 @@ function hiddenGoogleSignin() {
  * Makes all privates databases none-visible anymore
  */
 function remove_private_database() {
+	databasesAdded = false;
 	document.getElementById("private_dataset_header").style.display = "none";
 	const privateList = document.getElementsByClassName("userAdded");
 	for (let i = 0; i < privateList.length; i++) {
