@@ -3642,7 +3642,7 @@ function ScrollToRNARow(rowID) {
 	document.getElementById("closemodal_efPOverview").click();
 
 	// Scroll to RNA row
-	$("#main_content").animate({scrollTop: $("#" + rowID).offset().top}, "slow");
+	$("#main_content").animate({ scrollTop: $("#" + rowID).offset().top }, "slow");
 
 	if (document.getElementById(rowID)) {
 		// Add background colour of selected row for clarity

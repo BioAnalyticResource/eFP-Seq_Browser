@@ -48,3 +48,6 @@ cgi-bin/core/serviceWorker
 .gz
 .xlsx
 .csv
+
+# Ignore minified files
+*.min.*

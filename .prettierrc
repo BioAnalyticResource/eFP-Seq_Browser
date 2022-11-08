@@ -1,9 +1,9 @@
 {
+	"arrowParens": "always",
+	"bracketSpacing": true,
 	"printWidth": 120,
-	"tabWidth": 4,
-	"useTabs": true,
 	"semi": true,
+	"tabWidth": 4,
 	"trailingComma": "all",
-	"bracketSpacing": false,
-	"endOfLine": "auto"
+	"useTabs": true
 }

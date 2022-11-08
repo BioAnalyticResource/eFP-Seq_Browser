@@ -60,7 +60,7 @@ $(function () {
 		}
 
 		setTimeout(() => {
-			$("html, body").animate({scrollTop: $(document).height()}, "slow");
+			$("html, body").animate({ scrollTop: $(document).height() }, "slow");
 		}, 50);
 	});
 });
