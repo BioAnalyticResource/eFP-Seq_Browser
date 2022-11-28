@@ -93,7 +93,7 @@
 			"src": "./maskable_icon.png",
 			"sizes": "any",
 			"type": "image/png",
-			"purpose": "any maskable"
+			"purpose": "any"
 		},
 		{
 			"src": "./safari-pinned-tab.svg",
@@ -182,9 +182,13 @@
 	"background_color": "#cddaa7",
 	"start_url": "https://bar.utoronto.ca/",
 	"id": "/",
+	"display_override": ["standalone", "minimal-ui", "window-controls-overlay"],
 	"display": "standalone",
 	"prefer_related_applications": false,
 	"orientation": "any",
+	"dir": "ltr",
+	"lang": "en",
+	"scope": "/",
 	"categories": [
 		"Affymetrix",
 		"Arabidopsis",
