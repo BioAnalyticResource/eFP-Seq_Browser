@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-const version = "v1.3.14-p20221110";
+const version = "v1.3.14-p20221207";
 
 /** Selected RPKM mode */
 let colouring_mode = "abs";
@@ -622,8 +622,10 @@ function variants_radio_options(status) {
 			document.getElementById("landing").setAttribute("hidden", "true");
 			$("#theTable").trigger("update");
 		},
-		error: function () {
+		error: function (xhr, textStatus, errorThrown) {
 			displayError("ERROR IN get_gene_structures !");
+			generateToastNotification(`Error processing gene structures: ${error.message}`, "ERROR");
+			console.log(`Error processing gene structures: ${error.message}`);
 		},
 	});
 }
@@ -1258,6 +1260,13 @@ function rnaseq_images(status) {
 					$("#theTable").trigger("update");
 					responsiveRNAWidthResize();
 					toggleResponsiveTable();
+				},
+				error: function (xhr, status, error) {
+					generateToastNotification(
+						`Error getting RNA-Seq map coverage for ${data.record} - ${error.message}`,
+						"ERROR",
+					);
+					console.error("Error getting RNA-Seq map coverage!", xhr, status, error);
 				},
 			});
 		}
@@ -2014,6 +2023,10 @@ function populate_table(status) {
 			});
 			$("#theTable").trigger("update");
 		},
+		error: function (xhr, status, error) {
+			generateToastNotification(`Error getting data from data file: ${error.message}`, "ERROR");
+			console.log("Error getting data from data file: " + error.message);
+		},
 	});
 
 	let filtersConfig = {
@@ -2476,6 +2489,10 @@ function get_user_XML_display() {
 				}
 				databasesAdded = true;
 			},
+			error: function (xhr, status, error) {
+				generateToastNotification(`Error getting user data: ${error.message}`, "ERROR");
+				console.log(`Error getting user data: ${error.message}`);
+			},
 		});
 	} else if (users_email != "" && users_email != AuthUser) {
 		signOut();
@@ -2503,6 +2520,10 @@ function create_data_list(size) {
 				success: function (get_xml_return) {
 					const xml_file = get_xml_return;
 					datalist.push(xml_file["data"]);
+				},
+				error: function (xhr, status, error) {
+					generateToastNotification(`Error getting user private datasets: ${error.message}`, "ERROR");
+					console.log(`Error getting user private datasets: ${error.message}`);
 				},
 			});
 
@@ -3070,6 +3091,10 @@ function fill_tableCSV() {
 
 				document.getElementById("XMLtoCSVtable").innerHTML += table_add;
 			},
+			error: function (xhr, status, error) {
+				generateToastNotification(`Error filling data table: ${error.message}`, "ERROR");
+				console.log(`Error filling data table: ${error.message}`);
+			},
 		});
 	}
 }
@@ -3253,6 +3278,15 @@ function getGFF(locusID) {
 					console.log("Error: Cannot find GFF ID's with parse output. Please contact admin");
 				}
 			}
+		},
+		error: function (xhr, status, error) {
+			generateToastNotification(
+				`Error getting GFFs (getGFF) information failed to retrieve locus information from Araport11: ${error.message}`,
+				"ERROR",
+			);
+			console.log(
+				`Error getting GFFs (getGFF) information failed to retrieve locus information from Araport11: ${error.message}`,
+			);
 		},
 	});
 }
@@ -4219,6 +4253,39 @@ function setUpCookies() {
 function displayVersionNumber() {
 	document.getElementById("feedbackText").innerHTML +=
 		"<br><br>The eFP-Seq Browser's current version number is: " + version;
+}
+
+let toastCounter = 0;
+function generateToastNotification(message, header = "Notification") {
+	// Adds a new toast notification to the page
+	if (message) {
+		let dataAttributeValue = `toast-${toastCounter}`;
+
+		const toast = `
+		<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-toast="${dataAttributeValue}">
+			<div class="toast-header">
+				<img
+					src="cgi-bin/img/BAR-logo.svg"
+					class="rounded me-2"
+					alt="BAR notification"
+					style="width: 20px; height: 20px"
+				/>
+				<strong class="me-auto">${header}</strong>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+			<div class="toast-body">${message}</div>
+		</div>
+		`;
+
+		// Add toast to id="toast-container"
+		document.getElementById("toast-container").innerHTML += toast;
+
+		// Initialize the toast
+		$(`[data-toast="${dataAttributeValue}"]`).toast({
+			autohide: false,
+		});
+		$(`[data-toast="${dataAttributeValue}"]`).toast("show");
+	}
 }
 
 // Whenever browser resized, checks to see if footer class needs to be changed
