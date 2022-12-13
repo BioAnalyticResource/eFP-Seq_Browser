@@ -68,7 +68,7 @@
 	},
 	"main": "index.html",
 	"scripts": {
-		"prettier": "prettier --write --end-of-line auto ./",
+		"prettier": "prettier --write ./",
 		"workbox": "workbox generateSW"
 	},
 	"bugs": {
