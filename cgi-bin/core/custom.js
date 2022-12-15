@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-const version = "v1.3.14-p20221207";
+const version = "v1.3.14-p20221215";
 
 /** Selected RPKM mode */
 let colouring_mode = "abs";
@@ -4374,6 +4374,17 @@ function init() {
 	adjustSubmissionIFrameSize();
 
 	readShareLink();
+
+	// Adjust canonical URL in meta tags
+	// Looks at the URL and changes the rel="canonical" to current URL if valid
+	let validHost = "bar.utoronto.ca";
+
+	// Check if the host is valid
+	if (document && document.location.host === validHost && document.location.href) {
+		if (document.querySelector('link[rel="canonical"]')) {
+			document.querySelector('link[rel="canonical"]').setAttribute("href", document.location.href);
+		}
+	}
 }
 
 // Adjust right away so does not look weird
