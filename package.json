@@ -69,6 +69,7 @@
 	"main": "index.html",
 	"scripts": {
 		"prettier": "prettier --write ./",
+		"prettier:check": "prettier --check ./",
 		"workbox": "workbox generateSW"
 	},
 	"bugs": {
