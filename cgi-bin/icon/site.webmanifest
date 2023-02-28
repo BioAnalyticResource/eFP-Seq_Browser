@@ -169,12 +169,28 @@
 		{
 			"name": "ePlant",
 			"url": "/eplant",
-			"description": "ePlant helps biologists visualize the natural connections between DNA sequences, natural variation (polymorphisms), molecular structures, protein-protein interactions, and gene expression patterns by combining several data visualization tools with a zoomable user interface."
+			"description": "ePlant helps biologists visualize the natural connections between DNA sequences, natural variation (polymorphisms), molecular structures, protein-protein interactions, and gene expression patterns by combining several data visualization tools with a zoomable user interface.",
+			"icons": [
+				{
+					"src": "./maskable_icon_x96.png",
+					"sizes": "96x96",
+					"type": "image/png",
+					"purpose": "maskable"
+				}
+			]
 		},
 		{
 			"name": "eFP-Seq Browser",
 			"url": "/eFP-Seq_Browser",
-			"description": "Search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome. The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model"
+			"description": "Search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome. The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model",
+			"icons": [
+				{
+					"src": "./maskable_icon_x96.png",
+					"sizes": "96x96",
+					"type": "image/png",
+					"purpose": "maskable"
+				}
+			]
 		}
 	],
 	"description": "The BAR and other Data Analysis Tools for Plant Biology",
@@ -182,39 +198,39 @@
 	"background_color": "#cddaa7",
 	"start_url": "https://bar.utoronto.ca/",
 	"id": "/",
-	"display_override": ["standalone", "minimal-ui", "window-controls-overlay"],
 	"display": "standalone",
+	"display_override": ["standalone", "minimal-ui", "window-controls-overlay"],
 	"prefer_related_applications": false,
 	"orientation": "any",
 	"dir": "ltr",
 	"lang": "en",
-	"scope": "/",
+	"scope": "https://bar.utoronto.ca/",
 	"categories": [
-		"Affymetrix",
-		"Arabidopsis",
-		"AtGenExpress",
-		"Medicago truncatula",
-		"PopGenExpress",
-		"Venn selection",
-		"barley",
+		"arabidopsis",
 		"bioinformatics",
 		"cis-element prediction",
 		"coexpression analysis",
 		"data analysis",
 		"data visualization",
+		"education",
+		"entertainment",
 		"expression profiling",
+		"food",
 		"genomics",
+		"health",
 		"mRNA-seq",
+		"medical",
 		"microarray",
+		"personalization",
 		"polymorphism",
-		"poplar",
+		"productivity",
 		"protein structure",
 		"protein-protein interactions",
-		"proteomics",
 		"proteomics",
 		"rice",
 		"soybean",
 		"subcellular localization",
-		"transcriptomics"
+		"transcriptomics",
+		"utilities"
 	]
 }
