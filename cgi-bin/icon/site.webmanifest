@@ -1,6 +1,19 @@
 {
 	"name": "BAR",
+	"background_color": "#cddaa7",
+	"description": "The BAR and other Data Analysis Tools for Plant Biology",
+	"dir": "ltr",
+	"display": "minimal-ui",
+	"display_override": ["minimal-ui", "standalone", "window-controls-overlay"],
+	"id": "/",
+	"lang": "en",
+	"orientation": "any",
+	"prefer_related_applications": false,
+	"scope": "https://bar.utoronto.ca/",
 	"short_name": "BAR",
+	"start_url": "https://bar.utoronto.ca/",
+	"theme_color": "#cddaa7",
+	"edge_side_panel": {},
 	"icons": [
 		{
 			"src": "./android-chrome-36x36.png",
@@ -193,18 +206,6 @@
 			]
 		}
 	],
-	"description": "The BAR and other Data Analysis Tools for Plant Biology",
-	"theme_color": "#cddaa7",
-	"background_color": "#cddaa7",
-	"start_url": "https://bar.utoronto.ca/",
-	"id": "/",
-	"display": "standalone",
-	"display_override": ["standalone", "minimal-ui", "window-controls-overlay"],
-	"prefer_related_applications": false,
-	"orientation": "any",
-	"dir": "ltr",
-	"lang": "en",
-	"scope": "https://bar.utoronto.ca/",
 	"categories": [
 		"arabidopsis",
 		"bioinformatics",
