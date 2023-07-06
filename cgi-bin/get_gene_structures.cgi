@@ -88,26 +88,26 @@ for subfeature in map_info['features'][0]['subfeatures']:
         # We want to graph all types of features in the gene structure image
         if region['type'] == 'exon':
             exongraph.rectangle((
-                (int(float(region['start'] - start) / (end - start) * EXON_IMG_WIDTH), EXON_IMG_HEIGHT),
-                (int(float(region['end'] - start) / (end - start) * EXON_IMG_WIDTH), 0)), darkgreen)
+                (int(float(region['start'] - start) / (end - start) * EXON_IMG_WIDTH), 0),
+                (int(float(region['end'] - start) / (end - start) * EXON_IMG_WIDTH), EXON_IMG_HEIGHT)), darkgreen)
         elif region['type'] == 'CDS':
             exongraph.rectangle((
-                (int(float(region['start'] - start) / (end - start) * EXON_IMG_WIDTH), EXON_IMG_HEIGHT),
-                (int(float(region['end'] - start) / (end - start) * EXON_IMG_WIDTH), 0)), darkgreen)
+                (int(float(region['start'] - start) / (end - start) * EXON_IMG_WIDTH), 0),
+                (int(float(region['end'] - start) / (end - start) * EXON_IMG_WIDTH), EXON_IMG_HEIGHT)), darkgreen)
         elif region['type'] == 'five_prime_UTR':
             exongraph.rectangle((
-                (int(float(region['start'] - start) / (end - start) * EXON_IMG_WIDTH), EXON_IMG_HEIGHT),
-                (int(float(region['end'] - start) / (end - start) * EXON_IMG_WIDTH), 0)), green)
+                (int(float(region['start'] - start) / (end - start) * EXON_IMG_WIDTH), 0),
+                (int(float(region['end'] - start) / (end - start) * EXON_IMG_WIDTH), EXON_IMG_HEIGHT)), green)
         elif region['type'] == 'three_prime_UTR':
             exongraph.rectangle((
-                (int(float(region['start'] - start) / (end - start) * EXON_IMG_WIDTH), EXON_IMG_HEIGHT),
-                (int(float(region['end'] - start) / (end - start) * EXON_IMG_WIDTH), 0)), green)
+                (int(float(region['start'] - start) / (end - start) * EXON_IMG_WIDTH), 0),
+                (int(float(region['end'] - start) / (end - start) * EXON_IMG_WIDTH), EXON_IMG_HEIGHT)), green)
 
     # Nucleotide padding
     nucleotidePadding = 100
-    exongraph.rectangle(((0, EXON_IMG_HEIGHT), ((EXON_IMG_WIDTH / nucleotidePadding), 0)), white)
-    exongraph.rectangle((((EXON_IMG_WIDTH - (EXON_IMG_WIDTH / nucleotidePadding)), EXON_IMG_HEIGHT),
-                         (EXON_IMG_WIDTH, 0)), white)
+    exongraph.rectangle(((0, 0), ((EXON_IMG_WIDTH / nucleotidePadding), EXON_IMG_HEIGHT)), white)
+    exongraph.rectangle((((EXON_IMG_WIDTH - (EXON_IMG_WIDTH / nucleotidePadding)), 0),
+                         (EXON_IMG_WIDTH, EXON_IMG_HEIGHT)), white)
 
     # Line in the middle
     exongraph.rectangle(((0, EXON_IMG_HEIGHT / 2), (EXON_IMG_WIDTH, EXON_IMG_HEIGHT / 2)), black)

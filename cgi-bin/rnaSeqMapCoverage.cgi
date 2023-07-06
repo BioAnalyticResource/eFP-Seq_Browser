@@ -233,15 +233,15 @@ def makeImage(filedir, filename, chromosome, start, end, record, yscale, hexcode
     rnaseqgraph.rectangle(((0, 5), (RNA_IMG_WIDTH, 5)), gray)
     # Actual RNA-Seq image
     for i in range(len(x_bp_vals)):
-        rnaseqgraph.rectangle(((int(float(x_bp_vals[i] - start) / (end - start) * (RNA_IMG_WIDTH)), RNA_IMG_HEIGHT), (
-        int(float(x_bp_vals[i] - start) / (end - start) * RNA_IMG_WIDTH), RNA_IMG_HEIGHT - y_reads_values[i])),
+        rnaseqgraph.rectangle(((int(float(x_bp_vals[i] - start) / (end - start) * RNA_IMG_WIDTH), RNA_IMG_HEIGHT - y_reads_values[i]), (
+        int(float(x_bp_vals[i] - start) / (end - start) * RNA_IMG_WIDTH), RNA_IMG_HEIGHT)),
                               rnaseq_img_colour)
 
     # Nucleotide padding
     nucleotidePadding = 100
-    rnaseqgraph.rectangle(((0, RNA_IMG_HEIGHT), ((RNA_IMG_WIDTH / nucleotidePadding), 0)), white)
-    rnaseqgraph.rectangle((((RNA_IMG_WIDTH - (RNA_IMG_WIDTH / nucleotidePadding)), RNA_IMG_HEIGHT),
-                                (RNA_IMG_WIDTH, 0)), white)
+    rnaseqgraph.rectangle(((0, 0), ((RNA_IMG_WIDTH / nucleotidePadding), RNA_IMG_HEIGHT)), white)
+    rnaseqgraph.rectangle((((RNA_IMG_WIDTH - (RNA_IMG_WIDTH / nucleotidePadding)), 0),
+                                (RNA_IMG_WIDTH, RNA_IMG_HEIGHT)), white)
 
     rnaseqgraph.text((420, 5), str(int(yscale)), fill=black)  # Y-axis scale label
 
