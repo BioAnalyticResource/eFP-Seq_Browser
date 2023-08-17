@@ -3083,7 +3083,7 @@
 		<!-- In-house Scripts -->
 		<script>
 			// Add service workers
-			if ("serviceWorker" in navigator) {
+			if (typeof navigator !== "undefined" && "serviceWorker" in navigator) {
 				// Use the window load event to keep the page load performant
 				window.addEventListener("load", () => {
 					navigator.serviceWorker.register("./cgi-bin/core/serviceWorker/sw.js");
