@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-const version = "v1.3.14-p20230118";
+const version = "v1.3.14-p20231220";
 
 /** Selected RPKM mode */
 let colouring_mode = "abs";
@@ -4260,7 +4260,7 @@ function generateToastNotification(message, header = "Notification") {
 		let dataAttributeValue = `toast-${toastCounter}`;
 
 		const toast = `
-		<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-toast="${dataAttributeValue}">
+		<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-toast="${dataAttributeValue}" style="background-color: rgba(255, 255, 255, 1);">
 			<div class="toast-header">
 				<img
 					src="cgi-bin/img/BAR-logo.svg"
