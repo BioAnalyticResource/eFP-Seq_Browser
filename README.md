@@ -12,13 +12,13 @@ Official publication of the [eFP-Seq Browser](https://bar.utoronto.ca/eFP-Seq_Br
 
 ## Getting Started
 
-It is recommended that you use the web version available at https://bar.utoronto.ca/eFP-Seq_Browser/ but if you want to download and run the eFP-Seq Browser locally, it is possible though it may require an internet connection to reach our webservices and Araport's APIs.
+It is recommended that you use the web version available at <https://bar.utoronto.ca/eFP-Seq_Browser/> but if you want to download and run the eFP-Seq Browser locally, it is possible though it may require an internet connection to reach our webservices and Araport's APIs.
 
 ## Browser Compatibilities
 
 | Chrome | Firefox | Edge | Safari | Opera | Tor | Mobile |
 | ------ | ------- | ---- | ------ | ----- | --- | ------ |
-| ✔      | ✔       | ✔    | ✔      | ✔     | ✔   | ✔      |
+| ✔     | ✔      | ✔   | ✔     | ✔    | ✔  | ✔     |
 
 ## Installation/Open
 
@@ -30,7 +30,7 @@ git clone https://github.com/BioAnalyticResource/eFP-Seq-Browser.git
 
 If you wish to modify the code, all .CGI files use [Python 3](https://www.python.org) as well as there are a few [Perl](https://www.perl.org/) scripts. The primary webservice ([rnaSeqMapCoverage.cgi](cgi-bin/rnaSeqMapCoverage.cgi)) requires [SAMTools](https://github.com/samtools/samtools) and [bcftools](https://samtools.github.io/bcftools/bcftools.html).
 
-There are also some JavaScript packages that are optional to install. To install these, ensure you have Node version 16.18.0 or higher installed and run the following commands:
+There are also some JavaScript packages that are optional to install. These packages are used for code quality and creating the service workers for the web application. To install these, ensure you have Node version 16.18.0 or higher installed and run the following commands:
 
 ```
 npm install
