@@ -500,7 +500,9 @@ a {
 }
 
 .helpCardImages {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	box-shadow:
+		0 4px 8px 0 rgba(0, 0, 0, 0.2),
+		0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .HelpNoteDiv {
@@ -640,9 +642,15 @@ select {
 	/* CSS taken from https://codepen.io/vkjgr/pen/VYMeXp */
 	background-image: linear-gradient(45deg, transparent 50%, gray 50%),
 		linear-gradient(135deg, gray 50%, transparent 50%), linear-gradient(to right, #ccc, #ccc);
-	background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
+	background-position:
+		calc(100% - 20px) calc(1em + 2px),
+		calc(100% - 15px) calc(1em + 2px),
+		calc(100% - 2.5em) 0.5em;
 	background-repeat: no-repeat;
-	background-size: 5px 5px, 5px 5px, 1px 1.5em;
+	background-size:
+		5px 5px,
+		5px 5px,
+		1px 1.5em;
 }
 
 /* Sign-in buttons */

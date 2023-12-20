@@ -1054,9 +1054,8 @@ function rnaseq_images(status) {
 							}
 						} else {
 							if (document.getElementById(`${responseRecord}_rnaseq_img`)) {
-								document.getElementById(
-									`${responseRecord}_rnaseq_img`,
-								).src = `https://${window.location.host}${window.location.pathname}/cgi-bin/img/error.webp`;
+								document.getElementById(`${responseRecord}_rnaseq_img`).src =
+									`https://${window.location.host}${window.location.pathname}/cgi-bin/img/error.webp`;
 							}
 
 							console.error(
@@ -1196,9 +1195,8 @@ function rnaseq_images(status) {
 
 						// Update image to error
 						if (responseRecord && document.getElementById(`${responseRecord}_rnaseq_img`)) {
-							document.getElementById(
-								`${responseRecord}_rnaseq_img`,
-							).src = `https://${window.location.host}${window.location.pathname}/cgi-bin/img/error.webp`;
+							document.getElementById(`${responseRecord}_rnaseq_img`).src =
+								`https://${window.location.host}${window.location.pathname}/cgi-bin/img/error.webp`;
 						}
 						rnaseq_change += 1;
 
