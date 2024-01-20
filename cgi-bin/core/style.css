@@ -298,10 +298,10 @@ a {
 	background-color: #4a4a4a;
 	float: left;
 	font-size: 0.7em;
-	height: 100vh;
-	height: inherit;
+	height: 100vh !important;
 	overflow-x: hidden;
 	overflow-y: auto;
+	padding-bottom: 2.5rem;
 	padding-top: 1%;
 }
 
@@ -400,8 +400,8 @@ a {
 	bottom: 0;
 	padding-bottom: 14px;
 	padding-top: 14px;
-	position: -webkit-sticky; /* Safari */
-	position: sticky;
+	position: fixed;
+	width: 100%;
 	z-index: 100;
 }
 
