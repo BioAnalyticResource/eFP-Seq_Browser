@@ -10,58 +10,58 @@ To see tags and releases, please go to [Tags](https://github.com/BioAnalyticReso
 
 UI/UX:
 
-- Added toast notifications for error messages
-- Centered the loading indicator
+-   Added toast notifications for error messages
+-   Centered the loading indicator
 
 Optimization:
 
-- Made SEO improvements
-- Made more accessibility adjustments
-- Optimized images
-- Preload styles
-- Reduced complexity of some functions
-- Refactored some code
-- Removed unused CSS
-- Set loading from lazy to auto for largest LCP
-- Update cookies `SameSite` to `Lax` and `Secure`
+-   Made SEO improvements
+-   Made more accessibility adjustments
+-   Optimized images
+-   Preload styles
+-   Reduced complexity of some functions
+-   Refactored some code
+-   Removed unused CSS
+-   Set loading from lazy to auto for largest LCP
+-   Update cookies `SameSite` to `Lax` and `Secure`
 
 Security:
 
-- Update CSP with `base-uri`
-- Update `Permissions-Policy`
-- Update htaccess
+-   Update CSP with `base-uri`
+-   Update `Permissions-Policy`
+-   Update htaccess
 
 Update:
 
-- Migrate to new Google Identity Services library
-- No longer supporting Internet Explorer
-- Update Python 2 to 3
-- Update packages
-- Updated workbox settings
+-   Migrate to new Google Identity Services library
+-   No longer supporting Internet Explorer
+-   Update Python 2 to 3
+-   Update packages
+-   Updated workbox settings
 
 Documentation:
 
-- Added CHANGELOG markdown file
-- Improved readability of some code
-- Sorted uncategorized CSS styles to make them more readable
-- Updated README
+-   Added CHANGELOG markdown file
+-   Improved readability of some code
+-   Sorted uncategorized CSS styles to make them more readable
+-   Updated README
 
 Bug fix:
 
-- Fixed "Duplicate without user-selected canonical"
-- Fixed compatibility with Pillow (PIL) 9.5
-- Fixed deprecated `btoa` functions
-- Fixed eFP-Seq Browser web manifest trying to overwrite BAR's web manifest name - now both use same web manifest
-- Fixed issue where if code is run on a non-BAR server, was still trying to access the BAR's GAPI/Google OAuth
-- Fixed issue where loading indicator was not green
-- Fixed issue where submission page was broken on local instances of the eFP-Seq Browser
-- Fixed issue where the title of the uploaded file to a user from an XML was not reachable
-- Fixed issue where variables were not initialized in loops
-- Fixed issue with service worker not working with Python/CGI scripts
-- Fixed missing Apple metadata
-- Fixed missing Math.js source map
-- Fixed service workers trying to register when is not supported for some users
-- Fixed typos
+-   Fixed "Duplicate without user-selected canonical"
+-   Fixed compatibility with Pillow (PIL) 9.5
+-   Fixed deprecated `btoa` functions
+-   Fixed eFP-Seq Browser web manifest trying to overwrite BAR's web manifest name - now both use same web manifest
+-   Fixed issue where if code is run on a non-BAR server, was still trying to access the BAR's GAPI/Google OAuth
+-   Fixed issue where loading indicator was not green
+-   Fixed issue where submission page was broken on local instances of the eFP-Seq Browser
+-   Fixed issue where the title of the uploaded file to a user from an XML was not reachable
+-   Fixed issue where variables were not initialized in loops
+-   Fixed issue with service worker not working with Python/CGI scripts
+-   Fixed missing Apple metadata
+-   Fixed missing Math.js source map
+-   Fixed service workers trying to register when is not supported for some users
+-   Fixed typos
 
 ## [1.3.14] - 2022-06-09
 
