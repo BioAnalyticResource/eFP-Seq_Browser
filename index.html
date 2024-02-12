@@ -586,36 +586,38 @@
 						<div class="col-6">
 							<div class="container-fluid" style="padding-left: 0px; margin-left: -5px; margin-top: -5px">
 								<div
-									id="g_id_onload"
 									data-auto_select="false"
 									data-callback="onSignIn"
 									data-client_id="505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com"
 									data-context="signin"
 									data-itp_support="true"
+									data-text="signin"
+									data-use_fedcm_for_prompt="true"
 									data-ux_mode="popup"
+									id="g_id_onload"
 								></div>
 								<div
-									id="g_id_signin"
 									class="g_id_signin"
+									data-auto_select="false"
 									data-logo_alignment="left"
 									data-shape="rectangular"
 									data-size="large"
 									data-text="signin"
 									data-theme="outline"
 									data-type="standard"
-									data-use_fedcm_for_prompt="true"
+									id="g_id_signin"
 								></div>
 								<div id="custom_g_signed_in" class="custom_g_signed_in" hidden>
 									<button
-										id="signOut"
 										class="btn btn-block custom_g_signed_in_button"
+										id="signOut"
 										onclick="signOut();"
 									>
 										<img
-											id="signed_in_profile_pic"
-											src=""
 											alt=""
 											class="custom_g_signed_in_profile_pic"
+											id="signed_in_profile_pic"
+											src=""
 											style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px"
 										/>
 										<span id="signOut_text" class="custom_g_signed_in_text">Sign Out</span>
@@ -3278,9 +3280,10 @@
 						"https://bar.utoronto.ca/eFP-Seq_Browser/",
 					],
 					auto_select: true,
-					client_id: "505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com",
 					callback: onSignIn,
+					client_id: "505765553389-ckpd42b8ub1u66gd1fegt585ta48tkkh.apps.googleusercontent.com",
 					itp_support: true,
+					use_fedcm_for_prompt: true,
 					ux_mode: "popup",
 				});
 
