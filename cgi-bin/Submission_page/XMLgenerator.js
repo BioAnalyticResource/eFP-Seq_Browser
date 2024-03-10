@@ -33,16 +33,11 @@ $(function () {
 			});
 			$("#ResultXml").val(filledbase + formatXML + existingXML + end);
 			$("#DownloadLink")
-				.attr(
-					"href",
-					`data:text/xml;base64,${Buffer.from(filledbase + formatXML + existingXML + end).toString(
-						"base64",
-					)}`,
-				)
+				.attr("href", `data:text/xml;base64,${btoa(filledbase + formatXML + existingXML + end)}`)
 				.attr("download", file_name + ".xml");
-			base64 = `data:text/xml;base64,${Buffer.from(
-				unescape(encodeURIComponent(filledbase + formatXML + existingXML + end)),
-			).toString("base64")}`;
+			base64 = `data:text/xml;base64,${btoa(
+				decodeURIComponent(encodeURIComponent(filledbase + formatXML + existingXML + end)),
+			)}`;
 			$("#generated").show();
 		} else {
 			if (!check_req(".reqfield")) {
