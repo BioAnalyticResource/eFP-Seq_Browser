@@ -16292,9 +16292,14 @@
 						let generatesrc = "";
 						$(function () {
 							$("#sendXML").click(function () {
-								generatesrc = base64;
+								if (base64) {
+									generatesrc = base64;
+								} else {
+									generatesrc = document.getElementById("DownloadLink").href;
+								}
+
 								parent.base_src = generatesrc;
-								parent.change_dataset(true);
+								parent.change_dataset(true, generatesrc);
 								parent.document.getElementById("closemodal_GenerateData").click();
 							});
 						});

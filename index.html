@@ -2247,7 +2247,7 @@
 									aria-labelledby="citation"
 									data-bs-parent="#accordion"
 								>
-									<div class="card-body">
+									<div class="card-body" id="citationText">
 										Citation for the eFP-Seq Browser can be found with its official publication at
 										<a target="_blank" rel="noopener" href="https://doi.org/10.1111/tpj.14468"
 											>https://doi.org/10.1111/tpj.14468</a
@@ -3165,13 +3165,19 @@
 			/**
 			 * Change and load a new dataset based on selected one from the navbar
 			 * @param {Boolean} alreadySet Whether a base_src is predetermined or not [false means use dataset selection]
+			 * @param {String} forceBaseSource The base source to force the dataset to change to
 			 */
-			function change_dataset(alreadySet = false) {
+			function change_dataset(alreadySet = false, forceBaseSource) {
 				emptyLanding();
 				progress_percent = 0;
+
 				if (!alreadySet) {
 					base_src = dataset_dictionary[document.getElementById("xmlDatabase").value];
 				}
+				if (forceBaseSource) {
+					base_src = forceBaseSource;
+				}
+
 				sraDict = {};
 				sraCountDic = {};
 				loadNewDataset = false;
