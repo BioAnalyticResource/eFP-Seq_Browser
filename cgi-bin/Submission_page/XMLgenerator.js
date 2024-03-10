@@ -12,7 +12,7 @@ $(function () {
 		const file_name = document.getElementById("reqxml").value.replace(/ /g, "_");
 		document.getElementById("not_filled").innerHTML = "";
 		let formatXML = "";
-		const filledbase = updatebase();
+		const filledbase = updateBase();
 		correct_links(".sub_link");
 		correct_ReadMapCount(".readNumberClass");
 		remove_outline(".reqfield");
@@ -139,7 +139,7 @@ function update(_formatXML, v) {
  * An updated top portion of the XML
  * @return {String} fillbase - The filled top portion of the XML
  */
-function updatebase() {
+function updateBase() {
 	const variables = {
 		channelxmltitle: document.getElementById("reqxml").value,
 		channelauthor: document.getElementById("reqauthor").value,
@@ -265,17 +265,17 @@ function resetForm() {
  */
 function correct_links(class_name) {
 	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	let i;
 	const gDriveChecking = "?usp=sharing";
-	for (let i = 0; i < x.length; i++) {
-		if (x[i].value.length > 0) {
-			x[i].value = x[i].value.trim();
-			if (x[i].value.substring(0, 7) == "http://" || x[i].value.substring(0, 8) !== "https://") {
-				x[i].value = "https://" + x[i].value;
+
+	for (const element of x) {
+		if (element.value.length > 0) {
+			element.value = element.value.trim();
+			if (element.value.substring(0, 7) == "http://" || element.value.substring(0, 8) !== "https://") {
+				element.value = "https://" + element.value;
 			}
-			if (x[i].id == "bam_input") {
-				if (x[i].value.substr(x[i].value.length - gDriveChecking.length) == gDriveChecking) {
-					x[i].value = x[i].value.split(gDriveChecking)[0];
+			if (element.id == "bam_input") {
+				if (element.value.substr(element.value.length - gDriveChecking.length) == gDriveChecking) {
+					element.value = element.value.split(gDriveChecking)[0];
 				}
 			}
 		}
@@ -289,13 +289,13 @@ let read_num = "";
  */
 function correct_ReadMapCount(class_name) {
 	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	let i;
-	for (let i = 0; i < x.length; i++) {
-		x[i].value = x[i].value.trim();
-		if (x[i].value === ("" || null || undefined)) {
-			x[i].value = 0;
+
+	for (const element of x) {
+		element.value = element.value.trim();
+		if (element.value === ("" || null || undefined)) {
+			element.value = 0;
 		}
-		x[i].value = only_ReadNum(x[i].value);
+		element.value = only_ReadNum(element.value);
 	}
 }
 
@@ -326,7 +326,6 @@ function only_ReadNum(input_string) {
 function check_links(bam_name, repo_name) {
 	const x = document.getElementById("Entries_all").querySelectorAll(repo_name);
 	const bam_x = document.getElementById("Entries_all").querySelectorAll(bam_name);
-	let i;
 	for (let i = 0; i < x.length; i++) {
 		if (x[i].id === "bam_input") {
 			if (x[i].value.length > 0) {
@@ -410,13 +409,14 @@ function check_req(class_name) {
 	let filled = 0;
 	const match = document.getElementById("Entries_all").querySelectorAll(class_name).length;
 	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	let i;
-	for (let i = 0; i < x.length; i++) {
-		if (x[i].value.length > 0) {
-			x[i].value = x[i].value.trim();
+
+	for (const element of x) {
+		if (element.value.length > 0) {
+			element.value = element.value.trim();
 			filled += 1;
 		}
 	}
+
 	return filled == match;
 }
 
@@ -501,7 +501,7 @@ function outline_links(bam_name, repo_name) {
 				/** Where the BAM file is being hosted */
 				let bamHostType;
 
-				if (bam_x[i] && bam_x[i].value) {
+				if (bam_x?.[i]?.value) {
 					bamHostType = bam_x[i].value.trim();
 				}
 
@@ -609,7 +609,7 @@ let tissue_click = "";
  * @param {String} whichTissue Which tissue is being clicked
  */
 function designateTissueClick(whichTissue) {
-	if (whichTissue && whichTissue.includes("tissue")) {
+	if (whichTissue?.includes("tissue")) {
 		tissue_click = whichTissue;
 	}
 }
