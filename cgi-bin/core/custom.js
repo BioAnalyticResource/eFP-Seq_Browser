@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-const version = "v1.3.15-p20240223";
+const version = "v1.3.15-p20240310";
 
 /** Selected RPKM mode */
 let colouring_mode = "abs";
@@ -4246,14 +4246,28 @@ function setUpCookies() {
 }
 
 /**
- * Display version number of the eFP-Seq Browser within the Help's section Feedback card
+ * Add version number to the eFP-Seq Browser's given element
+ * @param {String} elementId The element ID to append the version number to
  */
+function appendVersionNumber(elementId) {
+	/** The version number of the eFP-Seq Browser */
+	const versionText = `<br><br>The eFP-Seq Browser's current version number is: ${version}`;
+
+	document.getElementById(elementId).innerHTML += versionText;
+}
+
+/** Display version number of the eFP-Seq Browser within the Help's Feedback and Citation sections */
 function displayVersionNumber() {
-	document.getElementById("feedbackText").innerHTML +=
-		"<br><br>The eFP-Seq Browser's current version number is: " + version;
+	appendVersionNumber("citationText");
+	appendVersionNumber("feedbackText");
 }
 
 let toastCounter = 0;
+/**
+ * Generates a toast notification and adds it to the page.
+ * @param {string} message - The message to display in the notification.
+ * @param {string} [header="Notification"] - The header of the notification.
+ */
 function generateToastNotification(message, header = "Notification") {
 	// Adds a new toast notification to the page
 	if (message) {
