@@ -44,7 +44,7 @@ $(function () {
 				outline_req(".reqfield");
 			}
 			if (!check_req_tissue()) {
-				outline_req_tissue();
+				outline_req_tissue(".reqtissuebutton");
 			}
 			document.getElementById("not_filled").innerHTML += "Please fill in all red highlighted fields. ";
 			if (!check_links(".channelbamType", ".bam_link")) {
@@ -472,13 +472,17 @@ function outline_req(class_name) {
  * Outline all unfilled required tissue fields
  * @param {String} class_name Entries' HTML <class="">
  */
-function outline_req_tissue() {
+function outline_req_tissue(class_name) {
 	const x = document.getElementById("Entries_all").querySelectorAll(class_name);
-	for (let i = 0; i < x.length; i++) {
-		const tissue_sub_parse = "tissue" + (i + 1) + "_subunit";
-		if (document.getElementById(tissue_sub_parse).value.length <= 0) {
-			x[i].style.borderColor = "#ff2626";
-			x[i].style.boxShadow = "0 0 10px #ff2626";
+	for (let i = 0; i < x.length; i += 1) {
+		const tissue_sub_parse = `tissue${i + 1}_subunit`;
+		if (document.getElementById(tissue_sub_parse)?.value?.length <= 0) {
+			const parentEl = document.getElementsByName(`tissue${i + 1}`)[0];
+
+			if (parentEl) {
+				parentEl.style.border = "1px solid #ff2626";
+				parentEl.style.boxShadow = "0 0 10px #ff2626";
+			}
 		}
 	}
 }
