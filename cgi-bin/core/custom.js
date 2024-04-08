@@ -4,7 +4,7 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-const version = "v1.3.15-p20240310";
+const version = "v1.3.15-p20240408";
 
 /** Selected RPKM mode */
 let colouring_mode = "abs";
@@ -56,10 +56,12 @@ let gene_structure_colouring_element = null;
 /** Used to create location for uploaded XML, client side */
 let base_src = "cgi-bin/data/bamdata_araport11.xml";
 let upload_src = "";
-let dataset_dictionary = {
+/* Used for resetting dataset_dictionary */
+const base_dataset_dictionary = {
 	"Araport 11 RNA-seq data": "cgi-bin/data/bamdata_araport11.xml",
 	"Developmental transcriptome - Klepikova et al": "cgi-bin/data/bamdata_Developmental_transcriptome.xml",
 };
+let dataset_dictionary = base_dataset_dictionary;
 let loadNewDataset = false;
 
 /** Used to count and determine how many BAM entries are in the XML file */
@@ -2369,12 +2371,6 @@ function rpkm_validation() {
 		$("#abs_scale_button").prop("disabled", true);
 	}
 }
-
-/* Used for resetting dataset_dictionary */
-const base_dataset_dictionary = {
-	"Araport 11 RNA-seq data": "cgi-bin/data/bamdata_araport11.xml",
-	"Developmental transcriptome - Klepikova et al": "cgi-bin/data/bamdata_Developmental_transcriptome.xml",
-};
 let databasesAdded = false;
 /**
  * Resets the dataset_dictionary and removes users added tags from index.html (document)
@@ -2697,12 +2693,6 @@ function which_upload_option() {
 	}
 }
 
-/* User's private dataset_dictionary */
-const public_dataset_dictionary = {
-	"Araport 11 RNA-seq data": "cgi-bin/data/bamdata_araport11.xml",
-	"Developmental transcriptome - Klepikova et al": "cgi-bin/data/bamdata_Developmental_transcriptome.xml",
-};
-
 let public_title_list = [];
 let total_amount_of_datasets = 0;
 /**
@@ -2712,8 +2702,8 @@ function delete_fill() {
 	$("#delete_fill").empty(); // Empties the manage XML modal every time it is loaded
 	$("#publicDatabaseDownload").empty();
 	public_title_list = [];
-	for (let public_title in public_dataset_dictionary) {
-		if (public_dataset_dictionary.hasOwnProperty(public_title)) {
+	for (let public_title in base_dataset_dictionary) {
+		if (base_dataset_dictionary.hasOwnProperty(public_title)) {
 			public_title_list.push(public_title);
 		}
 	}
@@ -3187,8 +3177,8 @@ function checkPreload() {
 		document.getElementById("progress").title = "0%";
 		$("div#progress").width(progress_percent + "%");
 
-		for (const property in public_dataset_dictionary) {
-			if (base_src === public_dataset_dictionary[property]) {
+		for (const property in base_dataset_dictionary) {
+			if (base_src === base_dataset_dictionary[property]) {
 				publicData = true;
 				break;
 			} else {
