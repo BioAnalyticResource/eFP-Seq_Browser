@@ -68,9 +68,9 @@
 	},
 	"main": "index.html",
 	"scripts": {
-		"pre-commit": "npm run prettier",
 		"prettier": "prettier --write ./",
 		"prettier:check": "prettier --check ./",
+		"validate": "npm run prettier",
 		"workbox": "workbox generateSW"
 	},
 	"bugs": {
