@@ -529,6 +529,24 @@ def main():
                 base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive,
                                       bamType)
 
+        else:
+            # Local
+            bam_file = remoteDrive
+
+            # Now make a image using samtools
+            base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode,
+                                  remoteDrive, bamType)
+
+            if base64img == "FAILED":
+                base64img = makeImage(bam_dir, bam_file, "chr" + chromosome, start, end, record, yscale, hexcode,
+                                      remoteDrive, bamType)
+                region = "chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
+
+            if base64img == "FAILED":
+                base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive,
+                                      bamType)
+
+
         # Correct total reads mapped:
         if totalReadsMapped is None or totalReadsMapped == "0" or totalReadsMapped == 0:
             totalReadsMapped = 0

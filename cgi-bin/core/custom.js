@@ -60,6 +60,7 @@ let upload_src = "";
 const base_dataset_dictionary = {
 	"Araport 11 RNA-seq data": "cgi-bin/data/bamdata_araport11.xml",
 	"Developmental transcriptome - Klepikova et al": "cgi-bin/data/bamdata_Developmental_transcriptome.xml",
+	"Guard Cell": "cgi-bin/data/guard_cell.xml",
 };
 let dataset_dictionary = base_dataset_dictionary;
 let loadNewDataset = false;
@@ -876,6 +877,10 @@ function rnaseq_images(status) {
 				} else {
 					match_drive = linkString;
 				}
+			} else {
+				// This is local drive
+				let linkString = sraDict[sraList[i]]["drive_link"];
+				match_drive = linkString;
 			}
 
 			data = {
