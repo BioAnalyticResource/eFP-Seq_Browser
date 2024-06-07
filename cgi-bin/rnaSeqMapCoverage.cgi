@@ -526,6 +526,7 @@ def main():
                 region = "chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
 
             if base64img == "FAILED":
+                region = str(chromosome) + ":" + str(start) + "-" + str(end)
                 base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive,
                                       bamType)
 
@@ -533,7 +534,7 @@ def main():
             # Local
             bam_file = remoteDrive
 
-            # Now make a image using samtools
+            # Now make an image using samtools
             base64img = makeImage(bam_dir, bam_file, "Chr" + chromosome, start, end, record, yscale, hexcode,
                                   remoteDrive, bamType)
 
@@ -543,9 +544,9 @@ def main():
                 region = "chr" + str(chromosome) + ":" + str(start) + "-" + str(end)
 
             if base64img == "FAILED":
+                region = str(chromosome) + ":" + str(start) + "-" + str(end)
                 base64img = makeImage(bam_dir, bam_file, chromosome, start, end, record, yscale, hexcode, remoteDrive,
                                       bamType)
-
 
         # Correct total reads mapped:
         if totalReadsMapped is None or totalReadsMapped == "0" or totalReadsMapped == 0:
@@ -623,7 +624,12 @@ def main():
             dumpError("Unable to retrieve BAM data", locus, record, base64img, abs_fpkm, r, totalReadsMapped)
 
         os.chdir("../../../")
-        mapped_reads = lines.lower().count('chr')
+
+        # Change this if FPKM is wrong for local data
+        if bamType == "local":
+            mapped_reads = lines.lower().count("\t" + chromosome + "\t")
+        else:
+            mapped_reads = lines.lower().count('chr')
 
         abs_fpkm = []
         for i in range(len(expectedGeneLength)):

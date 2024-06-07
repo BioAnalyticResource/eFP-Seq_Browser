@@ -880,6 +880,8 @@ function rnaseq_images(status) {
 			} else {
 				// This is local drive
 				let linkString = sraDict[sraList[i]]["drive_link"];
+				// Force no cache
+				status = "0"
 				match_drive = linkString;
 			}
 
