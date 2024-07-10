@@ -10,7 +10,7 @@ Official publication of the [eFP-Seq Browser](https://bar.utoronto.ca/eFP-Seq_Br
 [![GitHub](https://img.shields.io/github/license/BioAnalyticResource/eFP-Seq-Browser)](https://github.com/BioAnalyticResource/eFP-Seq-Browser)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fbar.utoronto.ca%2FeFP-Seq_Browser%2F)](https://bar.utoronto.ca/eFP-Seq_Browser/)
 
-## Getting Started
+# Getting Started
 
 It is recommended that you use the web version available at <https://bar.utoronto.ca/eFP-Seq_Browser/> but if you want to download and run the eFP-Seq Browser locally, it is possible though it may require an internet connection to reach our webservices and Araport's APIs.
 
@@ -20,23 +20,42 @@ It is recommended that you use the web version available at <https://bar.utoront
 | ------ | ------- | ---- | ------ | ----- | --- | ------ |
 | ✔     | ✔      | ✔   | ✔     | ✔    | ✔  | ✔     |
 
-## Installation/Open
+## Installation
 
 Clone the repository with git by running the following command:
 
-```
+```bash
 git clone https://github.com/BioAnalyticResource/eFP-Seq-Browser.git
 ```
 
-If you wish to modify the code, all .CGI files use [Python 3](https://www.python.org) as well as there are a few [Perl](https://www.perl.org/) scripts. The primary webservice ([rnaSeqMapCoverage.cgi](cgi-bin/rnaSeqMapCoverage.cgi)) requires [SAMTools](https://github.com/samtools/samtools) and [bcftools](https://samtools.github.io/bcftools/bcftools.html).
+You will need [Node.js](https://nodejs.org/en/) and [Python3](https://www.python.org/downloads/) installed on your system to run the eFP-Seq Browser locally.
 
-There are also some JavaScript packages that are optional to install. These packages are used for code quality and creating the service workers for the web application. To install these, ensure you have Node version 16.18.0 or higher installed and run the following commands:
+To set-up and install the prerequisites, run the following commands:
 
+```bash
+npm run install:all
 ```
-npm install
+
+which will install all the necessary Node and Python dependencies for the eFP-Seq Browser.
+
+## Running locally
+
+To run the eFP-Seq Browser locally, once all packages are installed, simply run the following command and open your browser to [`http://localhost:3030/`](http://localhost:3030/):
+
+```bash
+npm run start
 ```
 
-Outside of that, there is nothing to install, just download all the files and have your server host the [index.html](index.html) file and change all the Python scripts from our server to yours.
+This command will spin up two servers, one for the front-end and one for the back-end. The front-end server will be running on port [3030](http://localhost:3030/) and the back-end server will be running on port [3040](http://localhost:3040/).
+
+> [!NOTE]
+> If you are running the backend Python scripts, because we are using CGI, you may want to run this in a Linux environment or modify the following files to get them working on your system: [`get_gene_structures.cgi`](./cgi-bin/get_gene_structures.cgi) and [`rnaSeqMapCoverage.cgi`](./cgi-bin/rnaSeqMapCoverage.cgi)
+
+## Troubleshooting
+
+### Python3 not found
+
+If you are using `python` instead of `python3` as your Python executable, you can modify the `start:backend` script in [`package.json`](./package.json) to use `python` instead of `python3`.
 
 ## Known issues
 

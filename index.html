@@ -9,7 +9,7 @@
 		<link rel="canonical" href="https://bar.utoronto.ca/eFP-Seq_Browser/" />
 		<meta
 			http-equiv="Content-Security-Policy"
-			content="default-src 'self' 'unsafe-inline' *.google-analytics.com *.googleapis.com *.googletagmanager.com *.google.com *.google.ca *.googleusercontent.com *.gstatic.com *.utoronto.ca *.nih.gov *.amazonaws.com *.tacc.cloud *.w3schools.com data:; object-src 'self'; base-uri 'self'; form-action 'self';"
+			content="default-src 'self' 'unsafe-inline' 'unsafe-eval' *.google-analytics.com *.googleapis.com *.googletagmanager.com *.google.com *.google.ca *.googleusercontent.com *.gstatic.com *.utoronto.ca *.nih.gov *.amazonaws.com *.tacc.cloud *.w3schools.com data:; connect-src 'self' http://localhost:3040; object-src 'self'; base-uri 'self'; form-action 'self';"
 		/>
 		<meta http-equiv="Cache-Control" content="max-age=604800" />
 		<!-- Metadata -->
@@ -3102,7 +3102,7 @@
 				});
 			}
 		</script>
-		<script async rel="preload" as="script" src="cgi-bin/core/custom.min.js"></script>
+		<script async rel="preload" as="script" src="cgi-bin/core/custom.js"></script>
 		<script rel="preload" as="script" src="cgi-bin/Submission_page/XMLgenerator.min.js"></script>
 		<script type="text/javascript">
 			legacy = false;
