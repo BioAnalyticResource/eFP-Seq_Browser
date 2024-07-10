@@ -57,6 +57,18 @@ This command will spin up two servers, one for the front-end and one for the bac
 
 If you are using `python` instead of `python3` as your Python executable, you can modify the `start:backend` script in [`package.json`](./package.json) to use `python` instead of `python3`.
 
+## Validation
+
+To run and test the eFP-Seq Browser code, you can run the following command:
+
+```bash
+npm run validate
+```
+
+Which will run the following commands:
+
+-   Prettier to format the code (`npm run prettier`)
+
 ## Known issues
 
 We aim to make the eFP-Seq Browser as perfect as possible but unfortunately, there may be some unforeseen bugs. If you manage to find one that is not here, feel free to create a [bug report](https://github.com/BioAnalyticResource/eFP-Seq_Browser/issues/new?template=bug_report.md) so we can fix it.
