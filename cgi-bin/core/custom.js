@@ -4,7 +4,13 @@
 //
 //=============================================================================
 /** Current version of eFP-Seq Browser with the following format: [v-version][version number: #.#.#][-][p-public OR d-dev][year - 4 digits][month - 2 digits][day - 2 digits] */
-const version = "v1.3.15-p20240408";
+const version = "v1.3.15-p20240710";
+
+// The following variables are purely meant for local development and testing purposes
+/** If the current environment is a developer environment */
+const isDevEnv = window.location.href.includes("localhost:3030");
+/** The base URL for the backend server */
+const BE_URL = isDevEnv ? "http://localhost:3040" : ".";
 
 /** Selected RPKM mode */
 let colouring_mode = "abs";
@@ -538,12 +544,13 @@ function update_all_images(status) {
 /**
  * Updates the radio button <DIV> with new variants images.
  */
-function variants_radio_options(status) {
+async function variants_radio_options(status) {
 	get_input_values();
-	$.ajax({
-		url: "./cgi-bin/get_gene_structures.cgi?locus=" + locus,
-		dataType: "json",
-		success: function (gene_res) {
+
+	fetch(`${BE_URL}/cgi-bin/get_gene_structures.cgi?locus=${locus}`)
+		.then(async (response) => {
+			const gene_res = await response.json();
+
 			// Update locus_start and locus_end
 			locus_start = gene_res["locus_start"];
 			locus_end = gene_res["locus_end"];
@@ -553,7 +560,7 @@ function variants_radio_options(status) {
 
 			// Remove existing variant images.
 			const variants_div = document.getElementById("variants_div");
-			if (variants_div !== null && variants_div.firstChild !== null && variants_div.firstChild !== undefined) {
+			if (variants_div?.firstChild) {
 				while (variants_div.firstChild) {
 					variants_div.removeChild(variants_div.firstChild);
 				}
@@ -563,11 +570,7 @@ function variants_radio_options(status) {
 			let append_str = '<select id="variant_select">';
 			if (gene_res["variant_count"] && parseInt(gene_res["variant_count"]) > 0) {
 				for (let i = 0; i < parseInt(gene_res["variant_count"]); i++) {
-					if (
-						gene_res["splice_variants"] &&
-						gene_res["splice_variants"][i] &&
-						gene_res["splice_variants"][i]["gene_structure"]
-					) {
+					if (gene_res["splice_variants"]?.[i]?.["gene_structure"]) {
 						// retrieve the base64 and create the element to insert
 						append_str += '<option value="' + i + '"';
 						append_str +=
@@ -584,11 +587,7 @@ function variants_radio_options(status) {
 				// Append the element to the div
 			}
 
-			if (
-				gene_res["splice_variants"] &&
-				gene_res["splice_variants"][0] &&
-				gene_res["splice_variants"][0]["gene_structure"]
-			) {
+			if (gene_res["splice_variants"]?.[0]?.["gene_structure"]) {
 				img_gene_struct_1 = "data:image/png;base64," + gene_res["splice_variants"][0]["gene_structure"];
 
 				const all_gene_structure_imgs = document.getElementsByClassName("gene_structure_img");
@@ -623,13 +622,12 @@ function variants_radio_options(status) {
 
 			document.getElementById("landing").setAttribute("hidden", "true");
 			$("#theTable").trigger("update");
-		},
-		error: function (xhr, textStatus, errorThrown) {
-			displayError("ERROR IN get_gene_structures !");
+		})
+		.catch((error) => {
+			displayError("ERROR processing and getting gene structures!");
 			generateToastNotification(`Error processing gene structures: ${error.message}`, "ERROR");
-			console.log(`Error processing gene structures: ${error.message}`);
-		},
-	});
+			console.error(`Error processing gene structures: ${error.message}`);
+		});
 }
 
 /**
@@ -807,7 +805,7 @@ function parseIntArray(arr) {
 	return arr;
 }
 
-let rnaseq_image_url = "cgi-bin/rnaSeqMapCoverage.cgi";
+let rnaseq_image_url = `${BE_URL}/cgi-bin/rnaSeqMapCoverage.cgi`;
 let match_drive = "";
 let progress_percent = 0;
 let rnaseq_change = 1;
@@ -3639,8 +3637,8 @@ function CheckElementWidth(arrowID, widthCheckFor) {
  * @param {String} tableArrowID The element ID for the table's icon that will change
  */
 function ChangeColArrow(tableArrowID) {
-	const arrowDown = "./cgi-bin/SVGs/arrowSortDown.min.svg";
-	const arrowUp = "./cgi-bin/SVGs/arrowSortUp.min.svg";
+	const arrowDown = "./cgi-bin/SVGs/arrowSortDown.svg";
+	const arrowUp = "./cgi-bin/SVGs/arrowSortUp.svg";
 	setTimeout(function () {
 		const arrowColID = tableArrowID + "Arrow";
 		if (document.getElementById(tableArrowID).classList.contains("headerSortDown")) {
