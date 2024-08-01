@@ -22,3 +22,4 @@ cgi-bin/gDriveMountFast.pl
 .env.test.local
 .env.production.local
 .vscode
+.idea

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<files xmltitle="Guard cell nuclear RNA - progressive drought" author="Provart lab" contact="">
+
+		<file info="D6K20d3" record_number="1" foreground="65CC66" hex_colour="0x65cc66" bam_type="local" name="/DATA/Guard_Cell/D6K20d3_sorted.bam" filename="D6K20d3_sorted.bam" total_reads_mapped="27043856" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-LeafParts.svg" description="Guard cell 20% SWC" url="" species="Arabidopsis thaliana" title="Guard cell nuclear RNA - progressive drought/">
+			<controls>
+				<bam_exp></bam_exp>
+			</controls>
+			<groupwith>
+				<bam_exp></bam_exp>
+			</groupwith>
+		</file>
+
+		<file info="D7K40d2" record_number="2" foreground="65CC66" hex_colour="0x65cc66" bam_type="local" name="/DATA/Guard_Cell/D7K40d2_sorted.bam" filename="D7K40d2_sorted.bam" total_reads_mapped="33630969" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-LeafParts.svg" description="Guard cell 40% SWC" url="" species="Arabidopsis thaliana" title="Guard cell nuclear RNA - progressive drought/">
+			<controls>
+				<bam_exp></bam_exp>
+			</controls>
+			<groupwith>
+				<bam_exp></bam_exp>
+			</groupwith>
+		</file>
+
+		<file info="D7K60d3" record_number="3" foreground="65CC66" hex_colour="0x65cc66" bam_type="local" name="/DATA/Guard_Cell/D7K60d3_sorted.bam" filename="D7K60d3_sorted.bam" total_reads_mapped="30752929" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-LeafParts.svg" description="Guard cell 60% SWC" url="" species="Arabidopsis thaliana" title="Guard cell nuclear RNA - progressive drought/">
+			<controls>
+				<bam_exp></bam_exp>
+			</controls>
+			<groupwith>
+				<bam_exp></bam_exp>
+			</groupwith>
+		</file>
+
+		<file info="D6K20W1" record_number="4" foreground="65CC66" hex_colour="0x65cc66" bam_type="local" name="/DATA/Guard_Cell/D6K20W1_sorted.bam" filename="D6K20W1_sorted.bam" total_reads_mapped="31203425" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-LeafParts.svg" description="Guard cell watered" url="" species="Arabidopsis thaliana" title="Guard cell nuclear RNA - progressive drought/">
+			<controls>
+				<bam_exp></bam_exp>
+			</controls>
+			<groupwith>
+				<bam_exp></bam_exp>
+			</groupwith>
+		</file>
+
+	</files>
