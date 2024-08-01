@@ -65,8 +65,8 @@
 	"devDependencies": {
 		"concurrently": "^8.2.2",
 		"http-server": "^14.1.1",
-		"prettier": "^3.2.5",
 		"nodemon": "^3.1.4",
+		"prettier": "^3.2.5",
 		"workbox-cli": "^7.1.0"
 	},
 	"main": "index.html",
