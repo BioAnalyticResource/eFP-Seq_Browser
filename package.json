@@ -66,6 +66,7 @@
 		"concurrently": "^8.2.2",
 		"http-server": "^14.1.1",
 		"nodemon": "^3.1.4",
+		"workbox-cli": "^7.1.0"
 	},
 	"main": "index.html",
 	"scripts": {
