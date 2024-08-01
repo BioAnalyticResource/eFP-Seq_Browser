@@ -1,0 +1,39 @@
+name: Code Quality Assurance
+
+on:
+    push:
+        branches: [master]
+        paths-ignore:
+            - "cgi-bin/core/packages/**"
+    pull_request:
+        branches: [master]
+        paths-ignore:
+            - "cgi-bin/core/packages/**"
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [20.x]
+                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: Cache Node.js modules
+              uses: actions/cache@v3
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+            - name: Check installs
+              run: npm ci --legacy-peer-deps
+            - name: Quality check - prettier
+              run: npm run prettier:check
