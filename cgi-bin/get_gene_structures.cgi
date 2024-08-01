@@ -1,8 +1,8 @@
 #!/usr/bin/python3
+import base64
 import cgi
 import json
 import urllib.request
-import base64
 from PIL import Image, ImageDraw
 
 print('Access-Control-Allow-Origin: *')
