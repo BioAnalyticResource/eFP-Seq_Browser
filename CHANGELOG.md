@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 To see tags and releases, please go to [Tags](https://github.com/BioAnalyticResource/eFP-Seq_Browser/tags) on [GitHub](https://github.com/BioAnalyticResource/eFP-Seq_Browser).
 
+## [1.4.0] - 2024-08-08
+
+New feature:
+
+-   You can now run the eFP-Seq Browser locally on your machine (internet connection still required)\
+
+UI/UX:
+
+-   Added version number to citations
+-   Minor optimizations to improve readability
+
+Optimizations:
+
+-   Refactored and optimized code
+
+Security:
+
+-   Adjustments made to the Google Identity services for FedCM
+
+Update:
+
+-   Update packages
+-   Update service workers
+
+Bug fix:
+
+-   Fixed duplicate element IDs in generate data dialog
+-   Fixed generate data submit loading default data
+-   Fixed missing tissue input not highlighting correctly
+-   Fixed not being able to generate custom data under certain conditions
+-   Fixed styling issues
+
 ## [1.3.15] - 2024-01-15
 
 UI/UX:
