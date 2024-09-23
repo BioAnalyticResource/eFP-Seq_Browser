@@ -881,7 +881,7 @@ function rnaseq_images(status) {
 				// This is local drive
 				let linkString = sraDict[sraList[i]]["drive_link"];
 				// Force no cache
-				status = "0"
+				status = "0";
 				match_drive = linkString;
 			}
 
@@ -1467,6 +1467,10 @@ const svgAgainstData = {
 	"ath-FlowerDevelopment19": {
 		name: "Flower Development 19",
 		subunit: ["flowerDevelopmentPart19"],
+	},
+	"ath-GuardCell": {
+		name: "Guard Cell",
+		subunit: ["Guard_cells"],
 	},
 	"ath-Other": {
 		name: "Other",
