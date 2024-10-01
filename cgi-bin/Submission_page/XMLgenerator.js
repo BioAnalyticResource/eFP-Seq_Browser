@@ -805,6 +805,8 @@ function determine_svgname(from_svg) {
 		return "ath-FlowerDevelopment12-14.svg";
 	} else if (from_svg == "Other" || from_svg == "ath-Other.svg") {
 		return "ath-Other.svg";
+	} else if (from_svg === "GuardCell.svg" || from_svg === "ath-GuardCell.svg") {
+		return "ath-GuardCell.svg";
 	}
 }
 
@@ -928,6 +930,8 @@ function determine_hexcode(which_svg, svg_subunit) {
 		return "0xffff66";
 	} else if (which_svg == "ath-Other.svg") {
 		return "0x64cc65";
+	} else if (which_svg === "ath-GuardCell.svg") {
+		return "0xd9ffb3";
 	}
 }
 
