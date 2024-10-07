@@ -66,7 +66,7 @@ let upload_src = "";
 const base_dataset_dictionary = {
 	"Araport 11 RNA-seq data": "cgi-bin/data/bamdata_araport11.xml",
 	"Developmental transcriptome - Klepikova et al": "cgi-bin/data/bamdata_Developmental_transcriptome.xml",
-	"Guard Cell": "cgi-bin/data/guard_cell.xml",
+	"Guard Cell Drought": "cgi-bin/data/guard_cell_drought.xml",
 };
 let dataset_dictionary = base_dataset_dictionary;
 let loadNewDataset = false;
