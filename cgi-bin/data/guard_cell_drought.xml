@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files xmltitle="Guard Cell Drought" author="Provart lab" contact="">
+	<file info="GC20w1" record_number="GC20w1" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D6K20W1_nucChr.bam" filename="D6K20W1_nucChr.bam" total_reads_mapped="17891248" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 20% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC20w1">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC20w1</bam_exp>
+			<bam_exp>GC20w2</bam_exp>
+			<bam_exp>GC20w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC20d1" record_number="GC20d1" foreground="d9ffb3" hex_colour="0xd9ffb3" bam_type="local" name="/DATA/Guard_Cell/D6K20d2_nucChr.bam" filename="D6K20d2_nucChr.bam" total_reads_mapped="20114898" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 20% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC20d1">
+		<controls>
+			<bam_exp>GC20w1</bam_exp>
+			<bam_exp>GC20w2</bam_exp>
+			<bam_exp>GC20w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC20d1</bam_exp>
+			<bam_exp>GC20d2</bam_exp>
+			<bam_exp>GC20d3</bam_exp>
+			<bam_exp>GC20d4</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC20d2" record_number="GC20d2" foreground="d9ffb3" hex_colour="0xd9ffb3" bam_type="local" name="/DATA/Guard_Cell/D6K20d3_nucChr.bam" filename="D6K20d3_nucChr.bam" total_reads_mapped="18485143" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 20% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC20d2">
+		<controls>
+			<bam_exp>GC20w1</bam_exp>
+			<bam_exp>GC20w2</bam_exp>
+			<bam_exp>GC20w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC20d1</bam_exp>
+			<bam_exp>GC20d2</bam_exp>
+			<bam_exp>GC20d3</bam_exp>
+			<bam_exp>GC20d4</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GCrw1" record_number="GCrw1" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D6Krw1_nucChr.bam" filename="D6Krw1_nucChr.bam" total_reads_mapped="21293400" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell rewatered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GCrw1">
+		<controls>
+			<bam_exp>GC20d1</bam_exp>
+			<bam_exp>GC20d2</bam_exp>
+			<bam_exp>GC20d3</bam_exp>
+			<bam_exp>GC20d4</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GCrw1</bam_exp>
+			<bam_exp>GCrw2</bam_exp>
+			<bam_exp>GCrw3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GCrw2" record_number="GCrw2" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D6Krw3_nucChr.bam" filename="D6Krw3_nucChr.bam" total_reads_mapped="22866501" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell rewatered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GCrw2">
+		<controls>
+			<bam_exp>GC20d1</bam_exp>
+			<bam_exp>GC20d2</bam_exp>
+			<bam_exp>GC20d3</bam_exp>
+			<bam_exp>GC20d4</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GCrw1</bam_exp>
+			<bam_exp>GCrw2</bam_exp>
+			<bam_exp>GCrw3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L20w1" record_number="L20w1" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6L20W1_nucChr.bam" filename="D6L20W1_nucChr.bam" total_reads_mapped="28723013" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 20% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L20w1">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L20w1</bam_exp>
+			<bam_exp>L20w2</bam_exp>
+			<bam_exp>L20w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L20w2" record_number="L20w2" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6L20W2_nucChr.bam" filename="D6L20W2_nucChr.bam" total_reads_mapped="25714142" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 20% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L20w2">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L20w1</bam_exp>
+			<bam_exp>L20w2</bam_exp>
+			<bam_exp>L20w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L20w3" record_number="L20w3" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6L20W3_nucChr.bam" filename="D6L20W3_nucChr.bam" total_reads_mapped="31076481" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 20% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L20w3">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L20w1</bam_exp>
+			<bam_exp>L20w2</bam_exp>
+			<bam_exp>L20w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L20d1" record_number="L20d1" foreground="4ac837" hex_colour="0x4ac837" bam_type="local" name="/DATA/Guard_Cell/D6L20d1_nucChr.bam" filename="D6L20d1_nucChr.bam" total_reads_mapped="39662580" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 20% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L20d1">
+		<controls>
+			<bam_exp>L20w1</bam_exp>
+			<bam_exp>L20w2</bam_exp>
+			<bam_exp>L20w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L20d1</bam_exp>
+			<bam_exp>L20d2</bam_exp>
+			<bam_exp>L20d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L20d2" record_number="L20d2" foreground="4ac837" hex_colour="0x4ac837" bam_type="local" name="/DATA/Guard_Cell/D6L20d2_nucChr.bam" filename="D6L20d2_nucChr.bam" total_reads_mapped="39803413" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 20% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L20d2">
+		<controls>
+			<bam_exp>L20w1</bam_exp>
+			<bam_exp>L20w2</bam_exp>
+			<bam_exp>L20w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L20d1</bam_exp>
+			<bam_exp>L20d2</bam_exp>
+			<bam_exp>L20d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L20d3" record_number="L20d3" foreground="4ac837" hex_colour="0x4ac837" bam_type="local" name="/DATA/Guard_Cell/D6L20d3_nucChr.bam" filename="D6L20d3_nucChr.bam" total_reads_mapped="31809753" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 20% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L20d3">
+		<controls>
+			<bam_exp>L20w1</bam_exp>
+			<bam_exp>L20w2</bam_exp>
+			<bam_exp>L20w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L20d1</bam_exp>
+			<bam_exp>L20d2</bam_exp>
+			<bam_exp>L20d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L40w1" record_number="L40w1" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6L40W1_nucChr.bam" filename="D6L40W1_nucChr.bam" total_reads_mapped="25290304" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 40% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L40w1">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L40w1</bam_exp>
+			<bam_exp>L40w2</bam_exp>
+			<bam_exp>L40w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L40w2" record_number="L40w2" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6L40W2_nucChr.bam" filename="D6L40W2_nucChr.bam" total_reads_mapped="26263262" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 40% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L40w2">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L40w1</bam_exp>
+			<bam_exp>L40w2</bam_exp>
+			<bam_exp>L40w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L40w3" record_number="L40w3" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6L40W3_nucChr.bam" filename="D6L40W3_nucChr.bam" total_reads_mapped="27693178" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 40% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L40w3">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L40w1</bam_exp>
+			<bam_exp>L40w2</bam_exp>
+			<bam_exp>L40w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L40d1" record_number="L40d1" foreground="348c26" hex_colour="0x348c26" bam_type="local" name="/DATA/Guard_Cell/D6L40d1_nucChr.bam" filename="D6L40d1_nucChr.bam" total_reads_mapped="27066318" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 40% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L40d1">
+		<controls>
+			<bam_exp>L40w1</bam_exp>
+			<bam_exp>L40w2</bam_exp>
+			<bam_exp>L40w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L40d1</bam_exp>
+			<bam_exp>L40d2</bam_exp>
+			<bam_exp>L40d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L40d2" record_number="L40d2" foreground="348c26" hex_colour="0x348c26" bam_type="local" name="/DATA/Guard_Cell/D6L40d2_nucChr.bam" filename="D6L40d2_nucChr.bam" total_reads_mapped="24822936" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 40% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L40d2">
+		<controls>
+			<bam_exp>L40w1</bam_exp>
+			<bam_exp>L40w2</bam_exp>
+			<bam_exp>L40w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L40d1</bam_exp>
+			<bam_exp>L40d2</bam_exp>
+			<bam_exp>L40d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L40d3" record_number="L40d3" foreground="348c26" hex_colour="0x348c26" bam_type="local" name="/DATA/Guard_Cell/D6L40d3_nucChr.bam" filename="D6L40d3_nucChr.bam" total_reads_mapped="28004475" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 40% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L40d3">
+		<controls>
+			<bam_exp>L40w1</bam_exp>
+			<bam_exp>L40w2</bam_exp>
+			<bam_exp>L40w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L40d1</bam_exp>
+			<bam_exp>L40d2</bam_exp>
+			<bam_exp>L40d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L60w1" record_number="L60w1" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6L60W1_nucChr.bam" filename="D6L60W1_nucChr.bam" total_reads_mapped="29689278" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 60% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L60w1">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L60w1</bam_exp>
+			<bam_exp>L60w2</bam_exp>
+			<bam_exp>L60w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L60w2" record_number="L60w2" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6L60W2_nucChr.bam" filename="D6L60W2_nucChr.bam" total_reads_mapped="26164914" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 60% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L60w2">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L60w1</bam_exp>
+			<bam_exp>L60w2</bam_exp>
+			<bam_exp>L60w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L60w3" record_number="L60w3" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6L60W3_nucChr.bam" filename="D6L60W3_nucChr.bam" total_reads_mapped="24588998" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 60% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L60w3">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L60w1</bam_exp>
+			<bam_exp>L60w2</bam_exp>
+			<bam_exp>L60w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L60d1" record_number="L60d1" foreground="25641b" hex_colour="0x25641b" bam_type="local" name="/DATA/Guard_Cell/D6L60d1_nucChr.bam" filename="D6L60d1_nucChr.bam" total_reads_mapped="23788954" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 60% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L60d1">
+		<controls>
+			<bam_exp>L60w1</bam_exp>
+			<bam_exp>L60w2</bam_exp>
+			<bam_exp>L60w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L60d1</bam_exp>
+			<bam_exp>L60d2</bam_exp>
+			<bam_exp>L60d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L60d2" record_number="L60d2" foreground="25641b" hex_colour="0x25641b" bam_type="local" name="/DATA/Guard_Cell/D6L60d2_nucChr.bam" filename="D6L60d2_nucChr.bam" total_reads_mapped="22399313" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 60% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L60d2">
+		<controls>
+			<bam_exp>L60w1</bam_exp>
+			<bam_exp>L60w2</bam_exp>
+			<bam_exp>L60w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L60d1</bam_exp>
+			<bam_exp>L60d2</bam_exp>
+			<bam_exp>L60d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="L60d3" record_number="L60d3" foreground="25641b" hex_colour="0x25641b" bam_type="local" name="/DATA/Guard_Cell/D6L60d3_nucChr.bam" filename="D6L60d3_nucChr.bam" total_reads_mapped="23689437" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf 60% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/L60d3">
+		<controls>
+			<bam_exp>L60w1</bam_exp>
+			<bam_exp>L60w2</bam_exp>
+			<bam_exp>L60w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>L60d1</bam_exp>
+			<bam_exp>L60d2</bam_exp>
+			<bam_exp>L60d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="Lrw1" record_number="Lrw1" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6Lrw1_nucChr.bam" filename="D6Lrw1_nucChr.bam" total_reads_mapped="31482014" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf rewatered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/Lrw1">
+		<controls>
+			<bam_exp>L20d1</bam_exp>
+			<bam_exp>L20d2</bam_exp>
+			<bam_exp>L20d3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>Lrw1</bam_exp>
+			<bam_exp>Lrw2</bam_exp>
+			<bam_exp>Lrw3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="Lrw2" record_number="Lrw2" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6Lrw2_nucChr.bam" filename="D6Lrw2_nucChr.bam" total_reads_mapped="27257340" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf rewatered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/Lrw2">
+		<controls>
+			<bam_exp>L20d1</bam_exp>
+			<bam_exp>L20d2</bam_exp>
+			<bam_exp>L20d3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>Lrw1</bam_exp>
+			<bam_exp>Lrw2</bam_exp>
+			<bam_exp>Lrw3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="Lrw3" record_number="Lrw3" foreground="1a4513" hex_colour="0x1a4513" bam_type="local" name="/DATA/Guard_Cell/D6Lrw3_nucChr.bam" filename="D6Lrw3_nucChr.bam" total_reads_mapped="29375842" read_map_method="" publication_link="" svg_subunit="shoot" svgname="ath-rosettePlusRoot.svg" description="Leaf rewatered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/Lrw3">
+		<controls>
+			<bam_exp>L20d1</bam_exp>
+			<bam_exp>L20d2</bam_exp>
+			<bam_exp>L20d3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>Lrw1</bam_exp>
+			<bam_exp>Lrw2</bam_exp>
+			<bam_exp>Lrw3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC20w2" record_number="GC20w2" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D7K20W1_nucChr.bam" filename="D7K20W1_nucChr.bam" total_reads_mapped="17935274" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 20% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC20w2">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC20w1</bam_exp>
+			<bam_exp>GC20w2</bam_exp>
+			<bam_exp>GC20w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC20w3" record_number="GC20w3" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D7K20W2_nucChr.bam" filename="D7K20W2_nucChr.bam" total_reads_mapped="17240851" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 20% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC20w3">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC20w1</bam_exp>
+			<bam_exp>GC20w2</bam_exp>
+			<bam_exp>GC20w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC20d3" record_number="GC20d3" foreground="d9ffb3" hex_colour="0xd9ffb3" bam_type="local" name="/DATA/Guard_Cell/D7K20d2_nucChr.bam" filename="D7K20d2_nucChr.bam" total_reads_mapped="22247255" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 20% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC20d3">
+		<controls>
+			<bam_exp>GC20w1</bam_exp>
+			<bam_exp>GC20w2</bam_exp>
+			<bam_exp>GC20w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC20d1</bam_exp>
+			<bam_exp>GC20d2</bam_exp>
+			<bam_exp>GC20d3</bam_exp>
+			<bam_exp>GC20d4</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC20d4" record_number="GC20d4" foreground="d9ffb3" hex_colour="0xd9ffb3" bam_type="local" name="/DATA/Guard_Cell/D7K20d5_nucChr.bam" filename="D7K20d5_nucChr.bam" total_reads_mapped="20894283" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 20% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC20d4">
+		<controls>
+			<bam_exp>GC20w1</bam_exp>
+			<bam_exp>GC20w2</bam_exp>
+			<bam_exp>GC20w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC20d1</bam_exp>
+			<bam_exp>GC20d2</bam_exp>
+			<bam_exp>GC20d3</bam_exp>
+			<bam_exp>GC20d4</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC40w1" record_number="GC40w1" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D7K40W2_nucChr.bam" filename="D7K40W2_nucChr.bam" total_reads_mapped="18610925" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 40% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC40w1">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC40w1</bam_exp>
+			<bam_exp>GC40w2</bam_exp>
+			<bam_exp>GC40w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC40w2" record_number="GC40w2" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D7K40W3_nucChr.bam" filename="D7K40W3_nucChr.bam" total_reads_mapped="18859152" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 40% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC40w2">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC40w1</bam_exp>
+			<bam_exp>GC40w2</bam_exp>
+			<bam_exp>GC40w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC40w3" record_number="GC40w3" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D7K40W4_nucChr.bam" filename="D7K40W4_nucChr.bam" total_reads_mapped="18211931" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 40% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC40w3">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC40w1</bam_exp>
+			<bam_exp>GC40w2</bam_exp>
+			<bam_exp>GC40w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC40d1" record_number="GC40d1" foreground="bfff80" hex_colour="0xbfff80" bam_type="local" name="/DATA/Guard_Cell/D7K40d1_nucChr.bam" filename="D7K40d1_nucChr.bam" total_reads_mapped="12695823" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 40% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC40d1">
+		<controls>
+			<bam_exp>GC40w1</bam_exp>
+			<bam_exp>GC40w2</bam_exp>
+			<bam_exp>GC40w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC40d1</bam_exp>
+			<bam_exp>GC40d2</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC40d2" record_number="GC40d2" foreground="bfff80" hex_colour="0xbfff80" bam_type="local" name="/DATA/Guard_Cell/D7K40d2_nucChr.bam" filename="D7K40d2_nucChr.bam" total_reads_mapped="17169378" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 40% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC40d2">
+		<controls>
+			<bam_exp>GC40w1</bam_exp>
+			<bam_exp>GC40w2</bam_exp>
+			<bam_exp>GC40w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC40d1</bam_exp>
+			<bam_exp>GC40d2</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC60w1" record_number="GC60w1" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D7K60W2_nucChr.bam" filename="D7K60W2_nucChr.bam" total_reads_mapped="19792450" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 60% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC60w1">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC60w1</bam_exp>
+			<bam_exp>GC60w2</bam_exp>
+			<bam_exp>GC60w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC60w2" record_number="GC60w2" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D7K60W3_nucChr.bam" filename="D7K60W3_nucChr.bam" total_reads_mapped="18343316" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 60% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC60w2">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC60w1</bam_exp>
+			<bam_exp>GC60w2</bam_exp>
+			<bam_exp>GC60w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC60w3" record_number="GC60w3" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D7K60W4_nucChr.bam" filename="D7K60W4_nucChr.bam" total_reads_mapped="21343051" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 60% SWC watered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC60w3">
+		<controls>
+			<bam_exp></bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC60w1</bam_exp>
+			<bam_exp>GC60w2</bam_exp>
+			<bam_exp>GC60w3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC60d1" record_number="GC60d1" foreground="a6ff4d" hex_colour="0xa6ff4d" bam_type="local" name="/DATA/Guard_Cell/D7K60d1_nucChr.bam" filename="D7K60d1_nucChr.bam" total_reads_mapped="16615529" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 60% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC60d1">
+		<controls>
+			<bam_exp>GC60w1</bam_exp>
+			<bam_exp>GC60w2</bam_exp>
+			<bam_exp>GC60w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC60d1</bam_exp>
+			<bam_exp>GC60d2</bam_exp>
+			<bam_exp>GC60d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC60d2" record_number="GC60d2" foreground="a6ff4d" hex_colour="0xa6ff4d" bam_type="local" name="/DATA/Guard_Cell/D7K60d2_nucChr.bam" filename="D7K60d2_nucChr.bam" total_reads_mapped="18228488" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 60% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC60d2">
+		<controls>
+			<bam_exp>GC60w1</bam_exp>
+			<bam_exp>GC60w2</bam_exp>
+			<bam_exp>GC60w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC60d1</bam_exp>
+			<bam_exp>GC60d2</bam_exp>
+			<bam_exp>GC60d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GC60d3" record_number="GC60d3" foreground="a6ff4d" hex_colour="0xa6ff4d" bam_type="local" name="/DATA/Guard_Cell/D7K60d3_nucChr.bam" filename="D7K60d3_nucChr.bam" total_reads_mapped="17004292" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell 60% SWC droughted" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GC60d3">
+		<controls>
+			<bam_exp>GC60w1</bam_exp>
+			<bam_exp>GC60w2</bam_exp>
+			<bam_exp>GC60w3</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GC60d1</bam_exp>
+			<bam_exp>GC60d2</bam_exp>
+			<bam_exp>GC60d3</bam_exp>
+		</groupwith>
+	</file>
+
+	<file info="GCrw3" record_number="GCrw3" foreground="8cff1a" hex_colour="0x8cff1a" bam_type="local" name="/DATA/Guard_Cell/D7Krw2_nucChr.bam" filename="D7Krw2_nucChr.bam" total_reads_mapped="17887576" read_map_method="" publication_link="" svg_subunit="Guard_cells" svgname="ath-GuardCell.svg" description="Guard cell rewatered" url="" species="Arabidopsis thaliana" title="Guard Cell Drought/GCrw3">
+		<controls>
+			<bam_exp>GC20d1</bam_exp>
+			<bam_exp>GC20d2</bam_exp>
+			<bam_exp>GC20d3</bam_exp>
+			<bam_exp>GC20d4</bam_exp>
+		</controls>
+		<groupwith>
+			<bam_exp>GCrw1</bam_exp>
+			<bam_exp>GCrw2</bam_exp>
+			<bam_exp>GCrw3</bam_exp>
+		</groupwith>
+	</file>
+</files>
