@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files xmltitle="Pollen" author="" contact="">
-	<file info="UNM1" record_number="UNM1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/UNM/SS7-1B1_S1_R1s.bam" filename="SS7-1B1_S1_R1s.bam" total_reads_mapped="19756063" read_map_method="" publication_link="" svg_subunit="unm" svgname="ath-PollenUNM.svg" description="Uninucleate microspore" url="" species="Arabidopsis thaliana" title="Pollen/UNM1">
+	<file info="UNM1" record_number="UNM1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/UNM/SS7-1B1_S1_R1s.bam" filename="SS7-1B1_S1_R1s.bam" total_reads_mapped="18273954" read_map_method="" publication_link="" svg_subunit="unm" svgname="ath-PollenUNM.svg" description="Uninucleate microspore" url="" species="Arabidopsis thaliana" title="Pollen/UNM1">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -11,7 +11,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="UNM2" record_number="UNM2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/UNM/SS7-2B1_S2_R1s.bam" filename="SS7-2B1_S2_R1s.bam" total_reads_mapped="19312252" read_map_method="" publication_link="" svg_subunit="unm" svgname="ath-PollenUNM.svg" description="Uninucleate microspore" url="" species="Arabidopsis thaliana" title="Pollen/UNM2">
+	<file info="UNM2" record_number="UNM2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/UNM/SS7-2B1_S2_R1s.bam" filename="SS7-2B1_S2_R1s.bam" total_reads_mapped="17262482" read_map_method="" publication_link="" svg_subunit="unm" svgname="ath-PollenUNM.svg" description="Uninucleate microspore" url="" species="Arabidopsis thaliana" title="Pollen/UNM2">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -22,7 +22,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="UNM3" record_number="UNM3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/UNM/SS7-3B1_S3_R1s.bam" filename="SS7-3B1_S3_R1s.bam" total_reads_mapped="23561000" read_map_method="" publication_link="" svg_subunit="unm" svgname="ath-PollenUNM.svg" description="Uninucleate microspore" url="" species="Arabidopsis thaliana" title="Pollen/UNM3">
+	<file info="UNM3" record_number="UNM3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/UNM/SS7-3B1_S3_R1s.bam" filename="SS7-3B1_S3_R1s.bam" total_reads_mapped="21822239" read_map_method="" publication_link="" svg_subunit="unm" svgname="ath-PollenUNM.svg" description="Uninucleate microspore" url="" species="Arabidopsis thaliana" title="Pollen/UNM3">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -33,7 +33,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="BCP1" record_number="BCP1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/BCP/SS7-7B3_S7_R1s.bam" filename="SS7-7B3_S7_R1s.bam" total_reads_mapped="24671367" read_map_method="" publication_link="" svg_subunit="bcp" svgname="ath-PollenBCP.svg" description="Bicellular pollen" url="" species="Arabidopsis thaliana" title="Pollen/BCP1">
+	<file info="BCP1" record_number="BCP1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/BCP/SS7-7B3_S7_R1s.bam" filename="SS7-7B3_S7_R1s.bam" total_reads_mapped="21918382" read_map_method="" publication_link="" svg_subunit="bcp" svgname="ath-PollenBCP.svg" description="Bicellular pollen" url="" species="Arabidopsis thaliana" title="Pollen/BCP1">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -44,7 +44,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="BCP2" record_number="BCP2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/BCP/SS7-8B3_S8_R1s.bam" filename="SS7-8B3_S8_R1s.bam" total_reads_mapped="26918858" read_map_method="" publication_link="" svg_subunit="bcp" svgname="ath-PollenBCP.svg" description="Bicellular pollen" url="" species="Arabidopsis thaliana" title="Pollen/BCP2">
+	<file info="BCP2" record_number="BCP2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/BCP/SS7-8B3_S8_R1s.bam" filename="SS7-8B3_S8_R1s.bam" total_reads_mapped="24008222" read_map_method="" publication_link="" svg_subunit="bcp" svgname="ath-PollenBCP.svg" description="Bicellular pollen" url="" species="Arabidopsis thaliana" title="Pollen/BCP2">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -66,7 +66,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="TCP1" record_number="TCP1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/TCP/SS7-10A3_S10_R1s.bam" filename="SS7-10A3_S10_R1s.bam" total_reads_mapped="16603450" read_map_method="" publication_link="" svg_subunit="tcp" svgname="ath-PollenTCP.svg" description="Tricellular pollen" url="" species="Arabidopsis thaliana" title="Pollen/TCP1">
+	<file info="TCP1" record_number="TCP1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/TCP/SS7-10A3_S10_R1s.bam" filename="SS7-10A3_S10_R1s.bam" total_reads_mapped="15837221" read_map_method="" publication_link="" svg_subunit="tcp" svgname="ath-PollenTCP.svg" description="Tricellular pollen" url="" species="Arabidopsis thaliana" title="Pollen/TCP1">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -77,7 +77,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="TCP2" record_number="TCP2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/TCP/SS7-11A3_S11_R1.bam" filename="SS7-11A3_S11_R1.bam" total_reads_mapped="19631952" read_map_method="" publication_link="" svg_subunit="tcp" svgname="ath-PollenTCP.svg" description="Tricellular pollen" url="" species="Arabidopsis thaliana" title="Pollen/TCP2">
+	<file info="TCP2" record_number="TCP2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/TCP/SS7-11A3_S11_R1.bam" filename="SS7-11A3_S11_R1.bam" total_reads_mapped="18932225" read_map_method="" publication_link="" svg_subunit="tcp" svgname="ath-PollenTCP.svg" description="Tricellular pollen" url="" species="Arabidopsis thaliana" title="Pollen/TCP2">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -99,7 +99,7 @@
 		</groupwith>
 	</file>
 
-	<file info="MPG1" record_number="MPG1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/MPG/SS7-13MPG_S13_R1s.bam" filename="SS7-13MPG_S13_R1s.bam" total_reads_mapped="19364644" read_map_method="" publication_link="" svg_subunit="mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain" url="" species="Arabidopsis thaliana" title="Pollen/MPG1">
+	<file info="MPG1" record_number="MPG1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/MPG/SS7-13MPG_S13_R1s.bam" filename="SS7-13MPG_S13_R1s.bam" total_reads_mapped="18801039" read_map_method="" publication_link="" svg_subunit="mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain" url="" species="Arabidopsis thaliana" title="Pollen/MPG1">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -110,7 +110,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="MPG2" record_number="MPG2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/MPG/SS7-14MPG_S14_R1s.bam" filename="SS7-14MPG_S14_R1s.bam" total_reads_mapped="21859222" read_map_method="" publication_link="" svg_subunit="mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain" url="" species="Arabidopsis thaliana" title="Pollen/MPG2">
+	<file info="MPG2" record_number="MPG2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/MPG/SS7-14MPG_S14_R1s.bam" filename="SS7-14MPG_S14_R1s.bam" total_reads_mapped="21429311" read_map_method="" publication_link="" svg_subunit="mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain" url="" species="Arabidopsis thaliana" title="Pollen/MPG2">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -121,7 +121,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="MPG3" record_number="MPG3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/MPG/SS7-15MPG_S15_R1s.bam" filename="SS7-15MPG_S15_R1s.bam" total_reads_mapped="22790992" read_map_method="" publication_link="" svg_subunit="mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain" url="" species="Arabidopsis thaliana" title="Pollen/MPG3">
+	<file info="MPG3" record_number="MPG3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/MPG/SS7-15MPG_S15_R1s.bam" filename="SS7-15MPG_S15_R1s.bam" total_reads_mapped="22243727" read_map_method="" publication_link="" svg_subunit="mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain" url="" species="Arabidopsis thaliana" title="Pollen/MPG3">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -132,7 +132,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="SC_MPG1" record_number="SC_MPG1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_MPG/SC_MPG_Rep1.bam" filename="SC_MPG_Rep1.bam" total_reads_mapped="58109292" read_map_method="" publication_link="" svg_subunit="sc_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_MPG1">
+	<file info="SC_MPG1" record_number="SC_MPG1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_MPG/SC_MPG_Rep1.bam" filename="SC_MPG_Rep1.bam" total_reads_mapped="55117809" read_map_method="" publication_link="" svg_subunit="sc_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_MPG1">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -143,7 +143,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="SC_MPG2" record_number="SC_MPG2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_MPG/SC_MPG_Rep2.bam" filename="SC_MPG_Rep2.bam" total_reads_mapped="94321703" read_map_method="" publication_link="" svg_subunit="sc_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_MPG2">
+	<file info="SC_MPG2" record_number="SC_MPG2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_MPG/SC_MPG_Rep2.bam" filename="SC_MPG_Rep2.bam" total_reads_mapped="88428962" read_map_method="" publication_link="" svg_subunit="sc_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_MPG2">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -154,7 +154,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="SC_MPG3" record_number="SC_MPG3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_MPG/SC_MPG_Rep3.bam" filename="SC_MPG_Rep3.bam" total_reads_mapped="34184223" read_map_method="" publication_link="" svg_subunit="sc_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_MPG3">
+	<file info="SC_MPG3" record_number="SC_MPG3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_MPG/SC_MPG_Rep3.bam" filename="SC_MPG_Rep3.bam" total_reads_mapped="32241090" read_map_method="" publication_link="" svg_subunit="sc_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_MPG3">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -165,7 +165,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="VN_MPG1" record_number="VN_MPG1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_MPG/VN_MPG_Rep2.bam" filename="VN_MPG_Rep2.bam" total_reads_mapped="30781023" read_map_method="" publication_link="" svg_subunit="vn_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_MPG1">
+	<file info="VN_MPG1" record_number="VN_MPG1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_MPG/VN_MPG_Rep2.bam" filename="VN_MPG_Rep2.bam" total_reads_mapped="29781078" read_map_method="" publication_link="" svg_subunit="vn_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_MPG1">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -176,7 +176,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="VN_MPG2" record_number="VN_MPG2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_MPG/VN_MPG_Rep3.bam" filename="VN_MPG_Rep3.bam" total_reads_mapped="41769617" read_map_method="" publication_link="" svg_subunit="vn_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_MPG2">
+	<file info="VN_MPG2" record_number="VN_MPG2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_MPG/VN_MPG_Rep3.bam" filename="VN_MPG_Rep3.bam" total_reads_mapped="40569364" read_map_method="" publication_link="" svg_subunit="vn_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_MPG2">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -187,7 +187,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="VN_MPG3" record_number="VN_MPG3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_MPG/NEW_VN_MPG_Rep4.bam" filename="NEW_VN_MPG_Rep4.bam" total_reads_mapped="86873161" read_map_method="" publication_link="" svg_subunit="vn_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_MPG3">
+	<file info="VN_MPG3" record_number="VN_MPG3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_MPG/NEW_VN_MPG_Rep4.bam" filename="NEW_VN_MPG_Rep4.bam" total_reads_mapped="84246105" read_map_method="" publication_link="" svg_subunit="vn_mpg" svgname="ath-PollenMPG.svg" description="Mature pollen grain - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_MPG3">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -198,7 +198,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="SC_in_vitro1" record_number="SC_in_vitro1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_Invitro/SC_Invitro_Rep1.bam" filename="SC_Invitro_Rep1.bam" total_reads_mapped="32824633" read_map_method="" publication_link="" svg_subunit="sc_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vitro1">
+	<file info="SC_in_vitro1" record_number="SC_in_vitro1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_Invitro/SC_Invitro_Rep1.bam" filename="SC_Invitro_Rep1.bam" total_reads_mapped="30728547" read_map_method="" publication_link="" svg_subunit="sc_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vitro1">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -209,7 +209,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="SC_in_vitro2" record_number="SC_in_vitro2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_Invitro/SC_Invitro_Rep3.bam" filename="SC_Invitro_Rep3.bam" total_reads_mapped="93736805" read_map_method="" publication_link="" svg_subunit="sc_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vitro2">
+	<file info="SC_in_vitro2" record_number="SC_in_vitro2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_Invitro/SC_Invitro_Rep3.bam" filename="SC_Invitro_Rep3.bam" total_reads_mapped="87196924" read_map_method="" publication_link="" svg_subunit="sc_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vitro2">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -220,7 +220,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="SC_in_vitro3" record_number="SC_in_vitro3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_Invitro/NEW_SC_Invitro_Rep4.bam" filename="NEW_SC_Invitro_Rep4.bam" total_reads_mapped="84488108" read_map_method="" publication_link="" svg_subunit="sc_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vitro3">
+	<file info="SC_in_vitro3" record_number="SC_in_vitro3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_Invitro/NEW_SC_Invitro_Rep4.bam" filename="NEW_SC_Invitro_Rep4.bam" total_reads_mapped="78404346" read_map_method="" publication_link="" svg_subunit="sc_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vitro3">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -231,7 +231,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="VN_in_vitro1" record_number="VN_in_vitro1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_Invitro/VN_Invitro_Rep1.bam" filename="VN_Invitro_Rep1.bam" total_reads_mapped="31861713" read_map_method="" publication_link="" svg_subunit="vn_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_in_vitro1">
+	<file info="VN_in_vitro1" record_number="VN_in_vitro1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_Invitro/VN_Invitro_Rep1.bam" filename="VN_Invitro_Rep1.bam" total_reads_mapped="30488118" read_map_method="" publication_link="" svg_subunit="vn_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_in_vitro1">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -242,7 +242,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="VN_in_vitro2" record_number="VN_in_vitro2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_Invitro/VN_Invitro_Rep2.bam" filename="VN_Invitro_Rep2.bam" total_reads_mapped="81433537" read_map_method="" publication_link="" svg_subunit="vn_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_in_vitro2">
+	<file info="VN_in_vitro2" record_number="VN_in_vitro2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_Invitro/VN_Invitro_Rep2.bam" filename="VN_Invitro_Rep2.bam" total_reads_mapped="76384239" read_map_method="" publication_link="" svg_subunit="vn_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_in_vitro2">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -253,7 +253,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="VN_in_vitro3" record_number="VN_in_vitro3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_Invitro/VN_Invitro_Rep3.bam" filename="VN_Invitro_Rep3.bam" total_reads_mapped="63362875" read_map_method="" publication_link="" svg_subunit="vn_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_in_vitro3">
+	<file info="VN_in_vitro3" record_number="VN_in_vitro3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/VN_Invitro/VN_Invitro_Rep3.bam" filename="VN_Invitro_Rep3.bam" total_reads_mapped="59517221" read_map_method="" publication_link="" svg_subunit="vn_invitro" svgname="ath-PollenInVitro.svg" description="in vitro pollen tube growth - vegetative nucleus" url="" species="Arabidopsis thaliana" title="Pollen/VN_in_vitro3">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -264,7 +264,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="SC_in_vivo1" record_number="SC_in_vivo1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_SIVPT/SC_SIVPT_Rep2.bam" filename="SC_SIVPT_Rep2.bam" total_reads_mapped="54840507" read_map_method="" publication_link="" svg_subunit="sc_sivpt" svgname="ath-PollenInVivo.svg" description="semi in vivo pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vivo1">
+	<file info="SC_in_vivo1" record_number="SC_in_vivo1" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_SIVPT/SC_SIVPT_Rep2.bam" filename="SC_SIVPT_Rep2.bam" total_reads_mapped="51295703" read_map_method="" publication_link="" svg_subunit="sc_sivpt" svgname="ath-PollenInVivo.svg" description="semi in vivo pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vivo1">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -275,7 +275,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="SC_in_vivo2" record_number="SC_in_vivo2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_SIVPT/SC_SIVPT_Rep3.bam" filename="SC_SIVPT_Rep3.bam" total_reads_mapped="93167387" read_map_method="" publication_link="" svg_subunit="sc_sivpt" svgname="ath-PollenInVivo.svg" description="semi in vivo pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vivo2">
+	<file info="SC_in_vivo2" record_number="SC_in_vivo2" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_SIVPT/SC_SIVPT_Rep3.bam" filename="SC_SIVPT_Rep3.bam" total_reads_mapped="87237893" read_map_method="" publication_link="" svg_subunit="sc_sivpt" svgname="ath-PollenInVivo.svg" description="semi in vivo pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vivo2">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
@@ -286,7 +286,7 @@
 		</groupwith>
 	</file>
 	
-	<file info="SC_in_vivo3" record_number="SC_in_vivo3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_SIVPT/NEW_SC_SIVPT_Rep4.bam" filename="NEW_SC_SIVPT_Rep4.bam" total_reads_mapped="74923572" read_map_method="" publication_link="" svg_subunit="sc_sivpt" svgname="ath-PollenInVivo.svg" description="semi in vivo pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vivo3">
+	<file info="SC_in_vivo3" record_number="SC_in_vivo3" foreground="ffcc00" hex_colour="0xffcc00" bam_type="local" name="/DATA/pollen/SC_SIVPT/NEW_SC_SIVPT_Rep4.bam" filename="NEW_SC_SIVPT_Rep4.bam" total_reads_mapped="70649354" read_map_method="" publication_link="" svg_subunit="sc_sivpt" svgname="ath-PollenInVivo.svg" description="semi in vivo pollen tube growth - sperm cell" url="" species="Arabidopsis thaliana" title="Pollen/SC_in_vivo3">
 		<controls>
 			<bam_exp></bam_exp>
 		</controls>
