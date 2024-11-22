@@ -1475,18 +1475,6 @@ const svgAgainstData = {
 		name: "Pollen BCP",
 		subunit: ["bcp"],
 	},
-	"ath-PollenInVitro": {
-		name: "Pollen In Vitro",
-		subunit: ["vn_invitro", "sc_invitro"],
-	},
-	"ath-PollenInVivo": {
-		name: "Pollen In Vivo",
-		subunit: ["sc_sivpt", "pt"],
-	},
-	"ath-PollenMPG": {
-		name: "Pollen MPG",
-		subunit: ["vn_mpg", "sc_mpg", "mpg"],
-	},
 	"ath-PollenTCP": {
 		name: "Pollen TCP",
 		subunit: ["tcp"],
@@ -1494,6 +1482,30 @@ const svgAgainstData = {
 	"ath-PollenUNM": {
 		name: "Pollen UNM",
 		subunit: ["unm"],
+	},
+	"ath-PollenMPGAll": {
+		name: "Pollen MPG All",
+		subunit: ["vn_mpg", "sc_mpg", "mpg"],
+	},
+	"ath-PollenMPGSub": {
+		name: "Pollen MPG Sub",
+		subunit: ["vn_mpg", "sc_mpg", "mpg"],
+	},
+	"ath-PollenInVitroSC": {
+		name: "Pollen In Vitro SC",
+		subunit: ["vn_invitro", "sc_invitro"],
+	},
+	"ath-PollenInVitroVN": {
+		name: "Pollen In Vitro VN",
+		subunit: ["vn_invitro", "sc_invitro"],
+	},
+	"ath-PollenInVivoSC": {
+		name: "Pollen In Vivo SC",
+		subunit: ["sc_sivpt", "pt"],
+	},
+	"ath-PollenInVivoPT": {
+		name: "Pollen In Vivo PT",
+		subunit: ["sc_sivpt", "pt"],
 	},
 	"ath-Other": {
 		name: "Other",
