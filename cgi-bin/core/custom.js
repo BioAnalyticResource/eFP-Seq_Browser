@@ -67,6 +67,7 @@ const base_dataset_dictionary = {
 	"Araport 11 RNA-seq data": "cgi-bin/data/bamdata_araport11.xml",
 	"Developmental transcriptome - Klepikova et al": "cgi-bin/data/bamdata_Developmental_transcriptome.xml",
 	"Guard Cell Drought": "cgi-bin/data/guard_cell_drought.xml",
+	Pollen: "cgi-bin/data/pollen.xml",
 };
 let dataset_dictionary = base_dataset_dictionary;
 let loadNewDataset = false;
@@ -1469,6 +1470,42 @@ const svgAgainstData = {
 	"ath-GuardCell": {
 		name: "Guard Cell",
 		subunit: ["Guard_cells"],
+	},
+	"ath-PollenBCP": {
+		name: "Pollen BCP",
+		subunit: ["bcp"],
+	},
+	"ath-PollenTCP": {
+		name: "Pollen TCP",
+		subunit: ["tcp"],
+	},
+	"ath-PollenUNM": {
+		name: "Pollen UNM",
+		subunit: ["unm"],
+	},
+	"ath-PollenMPGAll": {
+		name: "Pollen MPG All",
+		subunit: ["vn_mpg", "sc_mpg", "mpg"],
+	},
+	"ath-PollenMPGSub": {
+		name: "Pollen MPG Sub",
+		subunit: ["vn_mpg", "sc_mpg", "mpg"],
+	},
+	"ath-PollenInVitroSC": {
+		name: "Pollen In Vitro SC",
+		subunit: ["vn_invitro", "sc_invitro"],
+	},
+	"ath-PollenInVitroVN": {
+		name: "Pollen In Vitro VN",
+		subunit: ["vn_invitro", "sc_invitro"],
+	},
+	"ath-PollenInVivoSC": {
+		name: "Pollen In Vivo SC",
+		subunit: ["sc_sivpt", "pt"],
+	},
+	"ath-PollenInVivoPT": {
+		name: "Pollen In Vivo PT",
+		subunit: ["sc_sivpt", "pt"],
 	},
 	"ath-Other": {
 		name: "Other",
