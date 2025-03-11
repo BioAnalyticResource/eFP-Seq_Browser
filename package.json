@@ -63,11 +63,11 @@
 	"private": true,
 	"description": "Search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, http://biorxiv.org/content/early/2016/04/05/047308). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns.",
 	"devDependencies": {
-		"concurrently": "^9.0.1",
+		"concurrently": "^9.1.2",
 		"http-server": "^14.1.1",
-		"nodemon": "^3.1.7",
-		"prettier": "^3.3.3",
-		"workbox-cli": "^7.1.0"
+		"nodemon": "^3.1.9",
+		"prettier": "^3.5.3",
+		"workbox-cli": "^7.3.0"
 	},
 	"main": "index.html",
 	"scripts": {
