@@ -2,11 +2,11 @@ name: Code Quality Assurance
 
 on:
     push:
-        branches: [master]
+        branches: [main]
         paths-ignore:
             - "cgi-bin/core/packages/**"
     pull_request:
-        branches: [master]
+        branches: [main]
         paths-ignore:
             - "cgi-bin/core/packages/**"
 
@@ -23,11 +23,11 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
             - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node-version }}
             - name: Cache Node.js modules
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: ~/.npm
                   key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
