@@ -413,11 +413,11 @@ Version 1.3.2 (dev version: p20200519) includes new visual indicators for loadin
 - Tracking BAR related cookies including the version number and whether a user has already accepted T&S/Cookie policy or not's display prompt
 - Added missing description-meta data (for SEOs)
 
-**Optimization**
+**Optimization:**
 
 - Removed junk files
 
-**Security fix**
+**Security fix:**
 
 - Updated jQuery version to address a security issue
 
@@ -550,11 +550,11 @@ Version 1.2 which includes the following new features, quality of life changes, 
 - Optimized the speed of loading images (and reduce bandwidth requirements for loading the eFP-Seq Browser)
 - Optimized memory usage and fixed memory leak problem
 
-**Supplementary data**
+**Supplementary data:**
 
 - The use of R functions and command-line tools to compute the correlation between SR34 gene structures and RNA-coverage from a pollen data set has been [added](https://github.com/BioAnalyticResource/eFP-Seq-Browser/tree/master/R)
 
-**Updated License**
+**Updated License:**
 
 - Updated license from GPLv3 to [GPLv2](https://github.com/BioAnalyticResource/eFP-Seq-Browser/blob/master/LICENSE.md)
 
@@ -600,6 +600,6 @@ Version 1.1 which includes the following new features and bug fixes:
 
 ## [1.0.0] - 2018-09-25
 
-The official full release of the eFP-Seq Browser is here! You can visit and use it at https://bar.utoronto.ca/eFP-Seq_Browser/ .
+The official full release of the eFP-Seq Browser is here! You can visit and use it at <https://bar.utoronto.ca/eFP-Seq_Browser/> .
 
 Enjoy!
