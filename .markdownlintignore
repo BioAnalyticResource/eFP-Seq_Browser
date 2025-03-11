@@ -1,0 +1,53 @@
+# dependencies
+**/node_modules
+/.pnp
+.pnp.js
+
+# Build files
+*.min.js
+*.min.css
+sw.js
+*.js.map
+
+# Packages
+cgi-bin/core/packages
+
+# R data files
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# Server files
+.htaccess
+cgi-bin/gDriveFast.pm
+cgi-bin/gDriveMountFast.pl
+
+# misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.vscode
+
+# workbox
+workbox-config.js
+cgi-bin/core/serviceWorker
+
+# image data
+.png
+
+# data files
+.bam.bai
+.bai
+.bam
+.bed.gz
+.bed
+.gz
+.xlsx
+.csv
+
+# Ignore minified files
+*.min.*

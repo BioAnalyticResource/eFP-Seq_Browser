@@ -65,6 +65,7 @@
 	"devDependencies": {
 		"concurrently": "^9.1.2",
 		"http-server": "^14.1.1",
+		"markdownlint-cli": "^0.44.0",
 		"nodemon": "^3.1.9",
 		"prettier": "^3.5.3",
 		"workbox-cli": "^7.3.0"
@@ -72,13 +73,14 @@
 	"main": "index.html",
 	"scripts": {
 		"install:all": "npm install && pip install -r requirements.txt && npm audit fix",
+		"lint:markdown": "markdownlint \"**/*.md\"",
 		"prettier": "prettier --write ./",
 		"prettier:check": "prettier --check ./",
 		"start": "nodemon --watch . -e js,html,css,cgi --exec \"npm run start:serve\"",
 		"start:backend": "python3 -m http.server --cgi 3040",
 		"start:serve": "concurrently \"npm run start:backend\" \"npm run start:web\"",
 		"start:web": "http-server ./ -p 3030 --cors -c-1",
-		"validate": "npm run prettier",
+		"validate": "npm run prettier && npm run lint:markdown",
 		"workbox": "workbox generateSW"
 	},
 	"bugs": {

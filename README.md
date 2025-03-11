@@ -9,7 +9,7 @@ Official publication of the [eFP-Seq Browser](https://bar.utoronto.ca/eFP-Seq_Br
 [![GitHub](https://img.shields.io/github/license/BioAnalyticResource/eFP-Seq-Browser)](https://github.com/BioAnalyticResource/eFP-Seq-Browser)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fbar.utoronto.ca%2FeFP-Seq_Browser%2F)](https://bar.utoronto.ca/eFP-Seq_Browser/)
 
-# Getting Started
+## Getting Started
 
 It is recommended that you use the web version available at <https://bar.utoronto.ca/eFP-Seq_Browser/> but if you want to download and run the eFP-Seq Browser locally, it is possible though it may require an internet connection to reach our webservices and Araport's APIs.
 
