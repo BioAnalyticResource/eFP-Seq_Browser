@@ -51,3 +51,15 @@ cgi-bin/core/serviceWorker
 
 # Ignore minified files
 *.min.*
+
+# R renv library
+renv/library
+renv/local
+renv/cellar
+renv/lock
+renv/python
+renv/sandbox
+renv/staging
+
+# Python virtual environment
+venv/

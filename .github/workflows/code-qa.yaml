@@ -3,12 +3,22 @@ name: Code Quality Assurance
 on:
     push:
         branches: [main]
-        paths-ignore:
-            - "cgi-bin/core/packages/**"
+        paths:
+            - "cgi-bin/**"
+            - "**/*.json"
+            - "**/*.js"
+            - "**/*.css"
+            - "**/*.html"
+            - ".github/workflows/code-qa.yaml"
     pull_request:
         branches: [main]
-        paths-ignore:
-            - "cgi-bin/core/packages/**"
+        paths:
+            - "cgi-bin/**"
+            - "**/*.json"
+            - "**/*.js"
+            - "**/*.css"
+            - "**/*.html"
+            - ".github/workflows/code-qa.yaml"
 
 jobs:
     build:
@@ -16,7 +26,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [20.x]
+                node-version: [22.x]
                 # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
         steps:
@@ -34,6 +44,6 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-node-
             - name: Check installs
-              run: npm ci --legacy-peer-deps
+              run: npm ci
             - name: Quality check - prettier
               run: npm run prettier:check

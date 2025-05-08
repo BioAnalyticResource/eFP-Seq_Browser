@@ -1,5 +1,2 @@
-# Pillow is used for image processing tasks
 Pillow==10.4.0
-
-# urllib3 is required for making HTTP requests
 urllib3==2.2.2

@@ -72,7 +72,10 @@
 	},
 	"main": "index.html",
 	"scripts": {
-		"install:all": "npm install && pip install -r requirements.txt && npm audit fix",
+		"audit:fix": "npm i && npm audit fix",
+		"install:python": "pip install -r requirements.txt",
+		"install:r": "Rscript -e 'renv::restore()'",
+		"install:all": "npm run install:python && npm run install:r && npm run audit:fix",
 		"lint:markdown": "markdownlint \"**/*.md\"",
 		"prettier": "prettier --write ./",
 		"prettier:check": "prettier --check ./",
