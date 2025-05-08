@@ -35,6 +35,6 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-node-
             - name: Run installs
-              run: npm ci --legacy-peer-deps
+              run: npm ci
             - name: Run markdownlint on Markdown files
               run: npm run lint:markdown
