@@ -5,45 +5,45 @@ message: >-
     sequencing data
 type: software
 authors:
-    - given-names: "Alexander"
+    - given-names: Alexander
       family-names: Sullivan
       email: alexjsully.connect@outlook.com
       orcid: "https://orcid.org/0000-0002-4463-4473"
-    - given-names: "Priyank K."
+    - given-names: Priyank K.
       family-names: Purohit
-    - given-names: "Nowlan H."
+    - given-names: Nowlan H.
       family-names: Freese
     - given-names: Asher
       family-names: Pasha
       orcid: "https://orcid.org/0000-0002-9315-0520"
-    - given-names: "Eddi"
+    - given-names: Eddi
       family-names: Esteban
       orcid: "https://orcid.org/0000-0001-9016-9202"
-    - given-names: "Jamie"
+    - given-names: Jamie
       family-names: Waese
-    - given-names: "Alison"
+    - given-names: Alison
       family-names: Wu
-    - given-names: "Michelle"
+    - given-names: Michelle
       family-names: Chen
-    - given-names: "Chih Y."
+    - given-names: Chih Y.
       family-names: Chin
     - given-names: Richard
       family-names: Song
-    - given-names: "Sneha R."
+    - given-names: Sneha R.
       family-names: Watharkar
-    - given-names: "Agnes P."
+    - given-names: Agnes P.
       family-names: Chan
-    - given-names: "Vivek"
+    - given-names: Vivek
       family-names: Krishnakumar
-    - given-names: "Matthew W."
+    - given-names: Matthew W.
       family-names: Vaughn
-    - given-names: "Chris"
+    - given-names: Chris
       family-names: Town
-    - given-names: "Ann E."
+    - given-names: Ann E.
       family-names: Loraine
       affiliation: University of North Carolina
       email: ann.loraine@uncc.edu
-    - given-names: "Nicholas J."
+    - given-names: Nicholas J.
       family-names: Provart
       orcid: "https://orcid.org/0000-0001-5551-7232"
       email: nicholas.provart@utoronto.ca
@@ -99,4 +99,4 @@ keywords:
 license: GPL-2.0
 commit: a5b952bf2df11e9c8538b372f2ee0d3c23d1fa90
 version: 1.3.15
-date-released: "2025-01-15"
+date-released: "2024-01-15"
