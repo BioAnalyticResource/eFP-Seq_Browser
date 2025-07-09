@@ -1,102 +1,102 @@
 cff-version: 1.2.0
 title: eFP-Seq Browser
 message: >-
-  An ‘eFP-Seq Browser’ for visualizing and exploring RNA
-  sequencing data
+    An 'eFP-Seq Browser' for visualizing and exploring RNA
+    sequencing data
 type: software
 authors:
-  - given-names: 'Alexander '
-    family-names: Sullivan
-    email: alexander.j.sullivan@hotmail.com
-    orcid: 'https://orcid.org/0000-0002-4463-4473'
-  - given-names: ' Priyank K. '
-    family-names: Purohit
-  - given-names: 'Nowlan H. '
-    family-names: Freese
-  - given-names: Asher
-    family-names: Pasha
-    orcid: 'https://orcid.org/0000-0002-9315-0520'
-  - given-names: 'Eddi '
-    family-names: Esteban
-    orcid: 'https://orcid.org/0000-0001-9016-9202'
-  - given-names: 'Jamie '
-    family-names: Waese
-  - given-names: 'Alison '
-    family-names: Wu
-  - given-names: 'Michelle '
-    family-names: Chen
-  - given-names: 'Chih Y. '
-    family-names: Chin
-  - given-names: Richard
-    family-names: Song
-  - given-names: 'Sneha R. '
-    family-names: Watharkar
-  - given-names: 'Agnes P. '
-    family-names: Chan
-  - given-names: 'Vivek '
-    family-names: Krishnakumar
-  - given-names: 'Matthew W. '
-    family-names: Vaughn
-  - given-names: 'Chris '
-    family-names: Town
-  - given-names: 'Ann E. '
-    family-names: Loraine
-    affiliation: University of North Carolina
-    email: ann.loraine@uncc.edu
-  - given-names: 'Nicholas J. '
-    family-names: Provart
-    orcid: 'https://orcid.org/0000-0001-5551-7232'
-    email: nicholas.provart@utoronto.ca
-    affiliation: University of Toronto
+    - given-names: "Alexander"
+      family-names: Sullivan
+      email: alexander.j.sullivan@hotmail.com
+      orcid: "https://orcid.org/0000-0002-4463-4473"
+    - given-names: "Priyank K."
+      family-names: Purohit
+    - given-names: "Nowlan H."
+      family-names: Freese
+    - given-names: Asher
+      family-names: Pasha
+      orcid: "https://orcid.org/0000-0002-9315-0520"
+    - given-names: "Eddi"
+      family-names: Esteban
+      orcid: "https://orcid.org/0000-0001-9016-9202"
+    - given-names: "Jamie"
+      family-names: Waese
+    - given-names: "Alison"
+      family-names: Wu
+    - given-names: "Michelle"
+      family-names: Chen
+    - given-names: "Chih Y."
+      family-names: Chin
+    - given-names: Richard
+      family-names: Song
+    - given-names: "Sneha R."
+      family-names: Watharkar
+    - given-names: "Agnes P."
+      family-names: Chan
+    - given-names: "Vivek"
+      family-names: Krishnakumar
+    - given-names: "Matthew W."
+      family-names: Vaughn
+    - given-names: "Chris"
+      family-names: Town
+    - given-names: "Ann E."
+      family-names: Loraine
+      affiliation: University of North Carolina
+      email: ann.loraine@uncc.edu
+    - given-names: "Nicholas J."
+      family-names: Provart
+      orcid: "https://orcid.org/0000-0001-5551-7232"
+      email: nicholas.provart@utoronto.ca
+      affiliation: University of Toronto
 identifiers:
-  - type: doi
-    value: 10.1111/tpj.14468
-repository-code: 'https://github.com/BioAnalyticResource/eFP-Seq_Browser'
-url: 'https://bar.utoronto.ca/eFP-Seq_Browser/'
+    - type: doi
+      value: 10.1111/tpj.14468
+repository-code: "https://github.com/BioAnalyticResource/eFP-Seq_Browser"
+url: "https://bar.utoronto.ca/eFP-Seq_Browser/"
 abstract: >-
-  Improvements in next-generation sequencing technologies
-  have resulted in dramatically reduced sequencing costs.
-  This has led to an explosion of ‘-seq’-based methods, of
-  which RNA sequencing (RNA-seq) for generating
-  transcriptomic data is the most popular. By analysing
-  global patterns of gene expression in organs/tissues/cells
-  of interest or in response to chemical or environmental
-  perturbations, researchers can better understand an
-  organism's biology. Tools designed to work with large
-  RNA-seq data sets enable analyses and visualizations to
-  help generate hypotheses about a gene's function. We
-  present here a user-friendly RNA-seq data exploration
-  tool, called the ‘eFP-Seq Browser’, that shows the read
-  map coverage of a gene of interest in each of the samples
-  along with ‘electronic fluorescent pictographic’ (eFP)
-  images that serve as visual representations of expression
-  levels. The tool also summarizes the details of each
-  RNA-seq experiment, providing links to archival databases
-  and publications. It automatically computes the reads per
-  kilobase per million reads mapped expression-level
-  summaries and point biserial correlation scores to sort
-  the samples based on a gene's expression level or by how
-  dissimilar the read map profile is from a gene splice
-  variant, to quickly identify samples with the strongest
-  expression level or where alternative splicing might be
-  occurring. Links to the Integrated Genome Browser desktop
-  visualization tool allow researchers to visualize and
-  explore the details of RNA-seq alignments summarized in
-  eFP-Seq Browser as coverage graphs. We present four cases
-  of use of the eFP-Seq Browser for ABI3, SR34, SR45a and
-  U2AF65B, where we examine expression levels and identify
-  alternative splicing. The URL for the browser is
-  https://bar.utoronto.ca/eFP-Seq_Browser/.
+    Improvements in next-generation sequencing technologies
+    have resulted in dramatically reduced sequencing costs.
+    This has led to an explosion of '-seq'-based methods, of
+    which RNA sequencing (RNA-seq) for generating
+    transcriptomic data is the most popular. By analysing
+    global patterns of gene expression in organs/tissues/cells
+    of interest or in response to chemical or environmental
+    perturbations, researchers can better understand an
+    organism's biology. Tools designed to work with large
+    RNA-seq data sets enable analyses and visualizations to
+    help generate hypotheses about a gene's function. We
+    present here a user-friendly RNA-seq data exploration
+    tool, called the 'eFP-Seq Browser', that shows the read
+    map coverage of a gene of interest in each of the samples
+    along with 'electronic fluorescent pictographic' (eFP)
+    images that serve as visual representations of expression
+    levels. The tool also summarizes the details of each
+    RNA-seq experiment, providing links to archival databases
+    and publications. It automatically computes the reads per
+    kilobase per million reads mapped expression-level
+    summaries and point biserial correlation scores to sort
+    the samples based on a gene's expression level or by how
+    dissimilar the read map profile is from a gene splice
+    variant, to quickly identify samples with the strongest
+    expression level or where alternative splicing might be
+    occurring. Links to the Integrated Genome Browser desktop
+    visualization tool allow researchers to visualize and
+    explore the details of RNA-seq alignments summarized in
+    eFP-Seq Browser as coverage graphs. We present four cases
+    of use of the eFP-Seq Browser for ABI3, SR34, SR45a and
+    U2AF65B, where we examine expression levels and identify
+    alternative splicing. The URL for the browser is
+    https://bar.utoronto.ca/eFP-Seq_Browser/.
 keywords:
-  - bioinformatics
-  - computational biology
-  - rna-seq
-  - data visualization
-  - arabidopsis thaliana
-  - rna-seq mapping
-  - alternative splicing
-  - web application
+    - bioinformatics
+    - computational biology
+    - rna-seq
+    - data visualization
+    - arabidopsis thaliana
+    - rna-seq mapping
+    - alternative splicing
+    - web application
 license: GPL-2.0
 commit: a5b952bf2df11e9c8538b372f2ee0d3c23d1fa90
 version: 1.3.15
-date-released: '2025-01-15'
+date-released: "2025-01-15"
