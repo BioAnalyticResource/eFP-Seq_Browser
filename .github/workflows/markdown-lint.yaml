@@ -16,13 +16,15 @@ on:
             - ".markdownlintignore"
             - ".github/workflows/markdown-lint.yml"
 
+permissions:
+    contents: read
 jobs:
     lint-markdown:
         runs-on: ubuntu-latest
 
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v4
               with:
