@@ -73,7 +73,7 @@
 	"main": "index.html",
 	"scripts": {
 		"audit:fix": "npm i && npm audit fix",
-		"install:all": "npm run install:python && npm run install:r && npm run audit:fix",
+		"install:all": "npm run install:python && npm run install:r && npm ci",
 		"install:python": "pip install -r requirements.txt",
 		"install:r": "Rscript -e 'renv::restore()'",
 		"lint:markdown": "markdownlint \"**/*.md\"",
