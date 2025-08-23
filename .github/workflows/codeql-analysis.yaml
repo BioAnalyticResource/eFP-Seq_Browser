@@ -22,6 +22,8 @@ on:
         paths-ignore:
             - "cgi-bin/core/packages/**"
 
+permissions:
+    contents: read
 jobs:
     analyze:
         name: Analyze
@@ -30,14 +32,14 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                language: ["javascript"]
+                language: ["javascript-typescript", "actions", "python"]
                 # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
                 # Learn more:
                 # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
 
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
 
             # Initializes the CodeQL tools for scanning.
             - name: Initialize CodeQL

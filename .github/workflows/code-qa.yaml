@@ -20,6 +20,8 @@ on:
             - "**/*.html"
             - ".github/workflows/code-qa.yaml"
 
+permissions:
+    contents: read
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -31,7 +33,7 @@ jobs:
 
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v4
               with:

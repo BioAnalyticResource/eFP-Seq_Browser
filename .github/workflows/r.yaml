@@ -16,12 +16,14 @@ on:
             - "**/*.R"
             - ".github/workflows/r.yaml"
 
+permissions:
+    contents: read
 jobs:
     build:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
 
             - name: Set up R
               uses: r-lib/actions/setup-r@v2
