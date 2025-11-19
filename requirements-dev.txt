@@ -1,0 +1,9 @@
+# Python Development Dependencies
+# Include production dependencies
+-r requirements.txt
+
+# Code formatting and linting
+ruff>=0.14.5
+
+# Testing framework and plugins
+pytest>=9.0.1
