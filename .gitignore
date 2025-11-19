@@ -36,6 +36,11 @@ renv/.gitignore
 
 # Python virtual environment
 venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
 
 # Test output
 coverage/

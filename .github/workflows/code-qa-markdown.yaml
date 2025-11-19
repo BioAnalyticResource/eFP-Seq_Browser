@@ -1,4 +1,4 @@
-name: Markdown Lint
+name: Code Quality Assurance - Markdown
 
 on:
     push:
@@ -7,14 +7,14 @@ on:
             - "**/*.md"
             - ".markdownlint.json"
             - ".markdownlintignore"
-            - ".github/workflows/markdown-lint.yml"
+            - ".github/workflows/code-qa-markdown.yml"
     pull_request:
         branches: [main]
         paths:
             - "**/*.md"
             - ".markdownlint.json"
             - ".markdownlintignore"
-            - ".github/workflows/markdown-lint.yml"
+            - ".github/workflows/code-qa-markdown.yml"
 
 permissions:
     contents: read

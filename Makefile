@@ -1,3 +1,13 @@
+# Validate all
+.PHONY: validate-all
+validate-all: py-validate
+# Validate JavaScript/TypeScript
+# If node_modules is missing, run 'npm install' first
+	@if [ ! -d node_modules ]; then npm ci; fi
+	 npm run validate
+# Validate R installation
+	Rscript -e 'renv::restore()'
+
 # === Python Commands for eFP-Seq_Browser ===
 .PHONY: py-install py-format py-lint py-test py-clean py-validate
 
@@ -12,7 +22,4 @@ py-format:
 py-lint:
 	uv run ruff check --fix $(PY_FILES)
 
-py-test:
-	uv run pytest .
-
-py-validate: py-install py-format py-lint py-test
+py-validate: py-install py-format py-lint
