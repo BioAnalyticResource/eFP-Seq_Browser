@@ -56,6 +56,6 @@ jobs:
               run: npm run eslint:check
 
             - name: Unit tests - jest
-              run: npm test:jest
+              run: npm run test:jest
             - name: E2E tests - Playwright
               run: npm run test:playwright:headless
