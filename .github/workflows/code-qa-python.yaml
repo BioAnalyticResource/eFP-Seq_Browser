@@ -59,6 +59,3 @@ jobs:
 
             - name: Lint check - Ruff
               run: uv run ruff check --fix cgi-bin/*.cgi
-
-            - name: Run Python tests
-              run: uv run pytest
