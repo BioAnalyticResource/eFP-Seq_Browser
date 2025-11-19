@@ -23,7 +23,6 @@ describe("count_bam_num", () => {
 		const path = require("path");
 		const code = fs.readFileSync(path.join(__dirname, "custom.js"), "utf8");
 
-		// eslint-disable-next-line no-eval
 		eval(code);
 		count_bam_num = global.count_bam_num || window.count_bam_num;
 	});
@@ -140,7 +139,6 @@ describe("loadingScreen", () => {
 		const path = require("path");
 		const code = fs.readFileSync(path.join(__dirname, "custom.js"), "utf8");
 
-		// eslint-disable-next-line no-eval
 		eval(code);
 
 		// Try to use the real one if available
@@ -208,7 +206,7 @@ describe("generate_colour", () => {
 		if (!fnMatch) throw new Error("generate_colour function not found in custom.js");
 		const args = fnMatch[1];
 		const body = fnMatch[2];
-		// eslint-disable-next-line no-new-func
+
 		generate_colour = new Function(args, body);
 	});
 	const cases = [

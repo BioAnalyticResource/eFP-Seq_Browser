@@ -73,7 +73,6 @@ describe("update (XMLgenerator.js)", () => {
 		const args = fnMatch[1];
 		const body = fnMatch[2];
 
-		// eslint-disable-next-line no-new-func
 		update = new Function(args, body);
 	});
 
