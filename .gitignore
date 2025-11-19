@@ -36,3 +36,6 @@ renv/.gitignore
 
 # Python virtual environment
 venv/
+
+# Test output
+coverage/
