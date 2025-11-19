@@ -1,61 +1,61 @@
 name: Code Quality Assurance - JavaScript
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "cgi-bin/**"
-      - "**/*.json"
-      - "**/*.js"
-      - "**/*.css"
-      - "**/*.html"
-      - ".github/workflows/code-qa-js.yaml"
-  pull_request:
-    branches: [main]
-    paths:
-      - "cgi-bin/**"
-      - "**/*.json"
-      - "**/*.js"
-      - "**/*.css"
-      - "**/*.html"
-      - ".github/workflows/code-qa-js.yaml"
+    push:
+        branches: [main]
+        paths:
+            - "cgi-bin/**"
+            - "**/*.json"
+            - "**/*.js"
+            - "**/*.css"
+            - "**/*.html"
+            - ".github/workflows/code-qa-js.yaml"
+    pull_request:
+        branches: [main]
+        paths:
+            - "cgi-bin/**"
+            - "**/*.json"
+            - "**/*.js"
+            - "**/*.css"
+            - "**/*.html"
+            - ".github/workflows/code-qa-js.yaml"
 
 permissions:
-  contents: read
+    contents: read
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [22.x]
+        strategy:
+            matrix:
+                node-version: [22.x]
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Cache Node.js modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v5
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v6
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: Cache Node.js modules
+              uses: actions/cache@v4
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
 
-      - name: Check installs
-        run: npm ci
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+            - name: Check installs
+              run: npm ci
+            - name: Install Playwright Browsers
+              run: npx playwright install --with-deps
 
-      - name: Quality check - prettier
-        run: npm run prettier:check
-      - name: Lint check - ESLint
-        run: npm run eslint:check
+            - name: Quality check - prettier
+              run: npm run prettier:check
+            - name: Lint check - ESLint
+              run: npm run eslint:check
 
-      - name: Unit tests - jest
-        run: npm test:jest
-      - name: E2E tests - Playwright
-        run: npm run test:playwright:headless
+            - name: Unit tests - jest
+              run: npm test:jest
+            - name: E2E tests - Playwright
+              run: npm run test:playwright:headless

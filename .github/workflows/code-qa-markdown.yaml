@@ -1,46 +1,46 @@
 name: Code Quality Assurance - Markdown
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "**/*.md"
-      - ".markdownlint.json"
-      - ".markdownlintignore"
-      - ".github/workflows/code-qa-markdown.yaml"
-  pull_request:
-    branches: [main]
-    paths:
-      - "**/*.md"
-      - ".markdownlint.json"
-      - ".markdownlintignore"
-      - ".github/workflows/code-qa-markdown.yaml"
+    push:
+        branches: [main]
+        paths:
+            - "**/*.md"
+            - ".markdownlint.json"
+            - ".markdownlintignore"
+            - ".github/workflows/code-qa-markdown.yaml"
+    pull_request:
+        branches: [main]
+        paths:
+            - "**/*.md"
+            - ".markdownlint.json"
+            - ".markdownlintignore"
+            - ".github/workflows/code-qa-markdown.yaml"
 
 permissions:
-  contents: read
+    contents: read
 jobs:
-  lint-markdown:
-    runs-on: ubuntu-latest
+    lint-markdown:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [22.x]
+        strategy:
+            matrix:
+                node-version: [22.x]
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Cache Node.js modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Run installs
-        run: npm ci
-      - name: Run markdownlint on Markdown files
-        run: npm run lint:markdown
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v5
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v6
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: Cache Node.js modules
+              uses: actions/cache@v4
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+            - name: Run installs
+              run: npm ci
+            - name: Run markdownlint on Markdown files
+              run: npm run lint:markdown
