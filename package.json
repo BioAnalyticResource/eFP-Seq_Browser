@@ -63,6 +63,8 @@
 	"private": true,
 	"description": "Search among 113 RNA-seq data sets used by Araport 11 to reannotate the Arabidopsis genome (Cheng et al. 2016, http://biorxiv.org/content/early/2016/04/05/047308). The eFP-Seq Browser will retrieve the number of reads mapped and display these above the desired Araport 11 gene model. You can sort or filter the columns.",
 	"devDependencies": {
+		"@playwright/test": "^1.56.1",
+		"@types/node": "^24.10.1",
 		"concurrently": "^9.2.1",
 		"http-server": "^14.1.1",
 		"jest": "^30.2.0",
@@ -86,11 +88,12 @@
 		"start:serve": "concurrently \"npm run start:backend\" \"npm run start:web\"",
 		"start:web": "http-server ./ -p 3030 --cors -c-1",
 		"start": "nodemon --watch . -e js,html,css,cgi --exec \"npm run start:serve\"",
-		"test:jest": "jest cgi-bin/core/ cgi-bin/Submission_page/",
-		"test:jest:coverage": "jest --coverage cgi-bin/core/ cgi-bin/Submission_page/",
-		"validate": "npm run prettier && npm run lint:markdown && npm run test:jest",
-		"workbox": "workbox generateSW",
-		"test": "jest"
+		"test:jest:coverage": "jest --coverage",
+		"test:jest": "jest",
+		"test:playwright:headless": "npx playwright test --reporter=list",
+		"test:playwright:ui": "npx playwright test --ui",
+		"validate": "npm run prettier && npm run lint:markdown && npm run test:jest && npm run test:playwright:headless",
+		"workbox": "workbox generateSW"
 	},
 	"bugs": {
 		"url": "https://github.com/BioAnalyticResource/eFP-Seq_Browser/issues"

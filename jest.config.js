@@ -10,6 +10,7 @@ const config = {
 	coverageDirectory: "coverage",
 	coverageProvider: "v8",
 	verbose: true,
+	testPathIgnorePatterns: ["/node_modules/", "/tests/playwright/", "cgi-bin/core/packages/"],
 };
 
 module.exports = config;
