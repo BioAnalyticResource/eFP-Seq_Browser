@@ -1,4 +1,4 @@
-name: Code Quality Assurance
+name: Code Quality Assurance - JavaScript
 
 on:
     push:
@@ -9,7 +9,7 @@ on:
             - "**/*.js"
             - "**/*.css"
             - "**/*.html"
-            - ".github/workflows/code-qa.yaml"
+            - ".github/workflows/code-qa-js.yaml"
     pull_request:
         branches: [main]
         paths:
@@ -18,7 +18,7 @@ on:
             - "**/*.js"
             - "**/*.css"
             - "**/*.html"
-            - ".github/workflows/code-qa.yaml"
+            - ".github/workflows/code-qa-js.yaml"
 
 permissions:
     contents: read
@@ -29,13 +29,12 @@ jobs:
         strategy:
             matrix:
                 node-version: [22.x]
-                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
         steps:
             - name: Checkout repository
               uses: actions/checkout@v5
             - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v6
               with:
                   node-version: ${{ matrix.node-version }}
             - name: Cache Node.js modules
@@ -45,7 +44,18 @@ jobs:
                   key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
                   restore-keys: |
                       ${{ runner.os }}-node-
+
             - name: Check installs
               run: npm ci
+            - name: Install Playwright Browsers
+              run: npx playwright install --with-deps
+
             - name: Quality check - prettier
               run: npm run prettier:check
+            - name: Lint check - ESLint
+              run: npm run eslint:check
+
+            - name: Unit tests - jest
+              run: npm run test:jest
+            - name: E2E tests - Playwright
+              run: npm run test:playwright:headless

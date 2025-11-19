@@ -1,0 +1,6 @@
+# Python Development Dependencies
+# Include production dependencies
+-r requirements.txt
+
+# Code formatting and linting
+ruff>=0.14.5

@@ -74,9 +74,8 @@ let loadNewDataset = false;
 
 /** Used to count and determine how many BAM entries are in the XML file */
 let count_bam_entries_in_xml = 113;
-/**
- * Count the amount of entries in a BAM file
- */
+
+/** Count the amount of entries in a BAM file */
 function count_bam_num() {
 	const xhr = new XMLHttpRequest();
 	const url = base_src;

@@ -1,4 +1,4 @@
-name: R Quality Assurance
+name: Code Quality Assurance - R
 
 on:
     push:
@@ -7,14 +7,14 @@ on:
         paths:
             - "**/*.Rmd"
             - "**/*.R"
-            - ".github/workflows/r.yaml"
+            - ".github/workflows/code-qa-r.yaml"
     pull_request:
         branches:
             - main
         paths:
             - "**/*.Rmd"
             - "**/*.R"
-            - ".github/workflows/r.yaml"
+            - ".github/workflows/code-qa-r.yaml"
 
 permissions:
     contents: read

@@ -60,6 +60,22 @@ renv/lock
 renv/python
 renv/sandbox
 renv/staging
+renv/.gitignore
 
 # Python virtual environment
 venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+
+# Test output
+coverage/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
