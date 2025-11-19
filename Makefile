@@ -2,7 +2,6 @@
 .PHONY: validate-all
 validate-all: py-validate
 # Validate JavaScript/TypeScript
-# If node_modules is missing, run 'npm install' first
 	@if [ ! -d node_modules ]; then npm ci; fi
 	 npm run validate
 # Validate R installation

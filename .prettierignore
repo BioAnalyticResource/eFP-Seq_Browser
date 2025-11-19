@@ -52,8 +52,6 @@ cgi-bin/core/serviceWorker
 # Ignore minified files
 *.min.*
 
-
-
 # R renv library
 renv/library
 renv/local
