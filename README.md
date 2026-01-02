@@ -17,7 +17,7 @@ It is recommended that you use the web version available at <https://bar.utoront
 
 | Chrome | Firefox | Edge | Safari | Opera | Tor | Mobile |
 | ------ | ------- | ---- | ------ | ----- | --- | ------ |
-| ✔     | ✔      | ✔   | ✔     | ✔    | ✔  | ✔     |
+| ✔      | ✔       | ✔    | ✔      | ✔     | ✔   | ✔      |
 
 ## Installation
 
