@@ -215,7 +215,7 @@
 								<em
 									class="material-icons"
 									style="color: white; cursor: pointer"
-									onclick="displayNavBAR();"
+									onclick="displayNavBAR()"
 									>menu</em
 								>
 							</div>
@@ -388,7 +388,7 @@
 										<input
 											type="text"
 											class="form-control navbar_menu_clickable navbar_menu_input disableOnLoading"
-											onkeyup="colour_svgs_now();"
+											onkeyup="colour_svgs_now()"
 											name="rpkm_inp"
 											id="rpkm_scale_input"
 											value="1000"
@@ -407,7 +407,10 @@
 							<p class="navbar_menu_general_font">4) Load your dataset</p>
 							<button
 								id="locus_button"
-								onclick="change_dataset(); determineResponsiveTable()"
+								onclick="
+									change_dataset();
+									determineResponsiveTable();
+								"
 								class="btn navbar_menu_loadData btn-block navbar_menu_clickable disableOnLoading"
 							>
 								LOAD DATA
@@ -428,7 +431,10 @@
 								class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading"
 								data-toggle="modal"
 								data-target="#eFPModal"
-								onclick="populate_efp_modal(1); $('#eFPModal').modal('toggle');"
+								onclick="
+									populate_efp_modal(1);
+									$('#eFPModal').modal('toggle');
+								"
 								disabled
 							>
 								eFP Overview
@@ -442,7 +448,7 @@
 								id="download_icon"
 								type="button"
 								class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading"
-								onclick="download_mainTableCSV();"
+								onclick="download_mainTableCSV()"
 								disabled
 							>
 								Download table as CSV
@@ -492,7 +498,10 @@
 								id="generateShareLink"
 								type="button"
 								class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading"
-								onclick="generateShareLink(); $('#ShareLinkModal').modal('toggle');"
+								onclick="
+									generateShareLink();
+									$('#ShareLinkModal').modal('toggle');
+								"
 								data-toggle="modal"
 								data-target="#ShareLinkModal"
 								disabled
@@ -508,7 +517,10 @@
 								id="generateData"
 								type="button"
 								class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading"
-								onclick="get_user_XML_display(); $('#SubmissionModal').modal('toggle');"
+								onclick="
+									get_user_XML_display();
+									$('#SubmissionModal').modal('toggle');
+								"
 								data-toggle="modal"
 								data-target="#SubmissionModal"
 							>
@@ -525,7 +537,11 @@
 								id="upload_button"
 								type="button"
 								class="btn navbar_menu_buttons btn-block spacerBottom navbar_menu_clickable disableOnLoading"
-								onclick="which_upload_option(); uploadingData = true; $('#uploadModal').modal('toggle');"
+								onclick="
+									which_upload_option();
+									uploadingData = true;
+									$('#uploadModal').modal('toggle');
+								"
 							>
 								Upload Data
 							</button>
@@ -533,7 +549,10 @@
 							<button id="upload_modal" data-toggle="modal" data-target="#uploadModal" hidden></button>
 							<button
 								id="upload_logX"
-								onclick="document.getElementById('fileID').click(); emptyLanding();"
+								onclick="
+									document.getElementById('fileID').click();
+									emptyLanding();
+								"
 								hidden
 							></button>
 							<input
@@ -554,7 +573,12 @@
 								id="manageXMLs"
 								type="button"
 								class="btn navbar_menu_buttons btn-block navbar_menu_clickable disableOnLoading"
-								onclick="$('#logoutModal').modal('toggle'); delete_fill(); fill_tableCSV(); hideWarning_index();"
+								onclick="
+									$('#logoutModal').modal('toggle');
+									delete_fill();
+									fill_tableCSV();
+									hideWarning_index();
+								"
 								data-toggle="modal"
 								data-target="#logoutModal"
 							>
@@ -610,7 +634,7 @@
 									<button
 										class="btn btn-block custom_g_signed_in_button"
 										id="signOut"
-										onclick="signOut();"
+										onclick="signOut()"
 									>
 										<img
 											alt=""
@@ -712,7 +736,7 @@
 												role="tab"
 												aria-controls="tableFilter"
 												aria-selected="true"
-												onclick="toggleTableOptionsView();"
+												onclick="toggleTableOptionsView()"
 												>Filter Table</a
 											>
 										</li>
@@ -725,7 +749,7 @@
 												role="tab"
 												aria-controls="eFPFilter"
 												aria-selected="false"
-												onclick="toggleTableOptionsView();"
+												onclick="toggleTableOptionsView()"
 												>Filter eFP Images</a
 											>
 										</li>
@@ -744,7 +768,22 @@
 												class="form-check-input"
 												type="checkbox"
 												id="toggleTitle"
-												onclick="toggleTableCol('colTitle', document.getElementById('toggleTitle').checked); RememberToggleOptions(document.getElementById('toggleTitle').checked, ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;"
+												onclick="
+													toggleTableCol(
+														'colTitle',
+														document.getElementById('toggleTitle').checked,
+													);
+													RememberToggleOptions(
+														document.getElementById('toggleTitle').checked,
+														ToggledTable[1],
+														ToggledTable[2],
+														ToggledTable[3],
+														ToggledTable[4],
+														ToggledTable[5],
+														ToggledTable[6],
+													);
+													usedToggle = true;
+												"
 												style="margin: 6px 5px 0"
 												value="toggleTitle"
 												aria-label="Toggle title for filtering"
@@ -763,7 +802,22 @@
 												class="form-check-input"
 												type="checkbox"
 												id="toggleRNA"
-												onclick="toggleTableCol('colRNA', document.getElementById('toggleRNA').checked); RememberToggleOptions(ToggledTable[0], document.getElementById('toggleRNA').checked, ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;"
+												onclick="
+													toggleTableCol(
+														'colRNA',
+														document.getElementById('toggleRNA').checked,
+													);
+													RememberToggleOptions(
+														ToggledTable[0],
+														document.getElementById('toggleRNA').checked,
+														ToggledTable[2],
+														ToggledTable[3],
+														ToggledTable[4],
+														ToggledTable[5],
+														ToggledTable[6],
+													);
+													usedToggle = true;
+												"
 												style="margin: 6px 5px 0"
 												value="toggleRNA"
 												aria-label="Toggle RNA-Seq coverage map for filtering"
@@ -782,7 +836,22 @@
 												class="form-check-input"
 												type="checkbox"
 												id="togglerpb"
-												onclick="toggleTableCol('colrpb', document.getElementById('togglerpb').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], document.getElementById('togglerpb').checked, ToggledTable[3], ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;"
+												onclick="
+													toggleTableCol(
+														'colrpb',
+														document.getElementById('togglerpb').checked,
+													);
+													RememberToggleOptions(
+														ToggledTable[0],
+														ToggledTable[1],
+														document.getElementById('togglerpb').checked,
+														ToggledTable[3],
+														ToggledTable[4],
+														ToggledTable[5],
+														ToggledTable[6],
+													);
+													usedToggle = true;
+												"
 												style="margin: 6px 5px 0"
 												value="togglerpb"
 												aria-label="Toggle r statistically value for filtering"
@@ -801,7 +870,22 @@
 												class="form-check-input"
 												type="checkbox"
 												id="toggleeFP"
-												onclick="toggleTableCol('coleFP', document.getElementById('toggleeFP').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2],document.getElementById('toggleeFP').checked,  ToggledTable[4], ToggledTable[5], ToggledTable[6]); usedToggle = true;"
+												onclick="
+													toggleTableCol(
+														'coleFP',
+														document.getElementById('toggleeFP').checked,
+													);
+													RememberToggleOptions(
+														ToggledTable[0],
+														ToggledTable[1],
+														ToggledTable[2],
+														document.getElementById('toggleeFP').checked,
+														ToggledTable[4],
+														ToggledTable[5],
+														ToggledTable[6],
+													);
+													usedToggle = true;
+												"
 												style="margin: 6px 5px 0"
 												value="toggleeFP"
 												aria-label="Toggle eFP images for filtering"
@@ -820,7 +904,22 @@
 												class="form-check-input"
 												type="checkbox"
 												id="toggleRPKM"
-												onclick="toggleTableCol('colRPKM', document.getElementById('toggleRPKM').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], document.getElementById('toggleRPKM').checked, ToggledTable[5], ToggledTable[6]); usedToggle = true;"
+												onclick="
+													toggleTableCol(
+														'colRPKM',
+														document.getElementById('toggleRPKM').checked,
+													);
+													RememberToggleOptions(
+														ToggledTable[0],
+														ToggledTable[1],
+														ToggledTable[2],
+														ToggledTable[3],
+														document.getElementById('toggleRPKM').checked,
+														ToggledTable[5],
+														ToggledTable[6],
+													);
+													usedToggle = true;
+												"
 												style="margin: 6px 5px 0"
 												value="toggleRPKM"
 												aria-label="Toggle RPKM for filtering"
@@ -839,7 +938,22 @@
 												class="form-check-input"
 												type="checkbox"
 												id="toggleDetails"
-												onclick="toggleTableCol('colDetails', document.getElementById('toggleDetails').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], document.getElementById('toggleDetails').checked, ToggledTable[6]); usedToggle = true;"
+												onclick="
+													toggleTableCol(
+														'colDetails',
+														document.getElementById('toggleDetails').checked,
+													);
+													RememberToggleOptions(
+														ToggledTable[0],
+														ToggledTable[1],
+														ToggledTable[2],
+														ToggledTable[3],
+														ToggledTable[4],
+														document.getElementById('toggleDetails').checked,
+														ToggledTable[6],
+													);
+													usedToggle = true;
+												"
 												style="margin: 6px 5px 0"
 												value="toggleDetails"
 												aria-label="Toggle details for filtering"
@@ -858,7 +972,22 @@
 												class="form-check-input"
 												type="checkbox"
 												id="toggleCompare"
-												onclick="toggleTableCol('colCompare', document.getElementById('toggleCompare').checked); RememberToggleOptions(ToggledTable[0], ToggledTable[1], ToggledTable[2], ToggledTable[3], ToggledTable[4], ToggledTable[5], document.getElementById('toggleCompare').checked); usedToggle = true;"
+												onclick="
+													toggleTableCol(
+														'colCompare',
+														document.getElementById('toggleCompare').checked,
+													);
+													RememberToggleOptions(
+														ToggledTable[0],
+														ToggledTable[1],
+														ToggledTable[2],
+														ToggledTable[3],
+														ToggledTable[4],
+														ToggledTable[5],
+														document.getElementById('toggleCompare').checked,
+													);
+													usedToggle = true;
+												"
 												style="margin: 6px 5px 0"
 												value="toggleCompare"
 												aria-label="Toggle compare gene variants for filtering"
@@ -943,7 +1072,10 @@
 							data-target="#PnCModal"
 							id="openPnCLearnMore"
 							style="cursor: help; color: #0673e8"
-							onclick="DetectBrowser(); $('#PnCModal').modal('toggle');"
+							onclick="
+								DetectBrowser();
+								$('#PnCModal').modal('toggle');
+							"
 							>Click here to learn more</a
 						>
 					</div>
@@ -2217,7 +2349,10 @@
 											data-target="#PnCModal"
 											id="PnCLearnMore"
 											style="cursor: help; color: #0673e8"
-											onclick="DetectBrowser(); $('#PnCModal').modal('toggle');"
+											onclick="
+												DetectBrowser();
+												$('#PnCModal').modal('toggle');
+											"
 											>click here to learn more</a
 										>.
 									</div>
@@ -2303,7 +2438,10 @@
 											data-target="#PnCModal"
 											id="learnAboutPnC"
 											style="cursor: help; color: #0673e8"
-											onclick="DetectBrowser(); $('#PnCModal').modal('toggle');"
+											onclick="
+												DetectBrowser();
+												$('#PnCModal').modal('toggle');
+											"
 											>click here to learn more</a
 										>.
 									</div>
@@ -2901,7 +3039,10 @@
 									class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
 									data-dismiss="modal"
 									data-upgraded=",MaterialButton,MaterialRipple"
-									onclick="document.getElementById('fileID').click(); add_usersFileID = true;"
+									onclick="
+										document.getElementById('fileID').click();
+										add_usersFileID = true;
+									"
 									data-dismiss="modal"
 								>
 									Yes<span class="mdl-button__ripple-container"
@@ -2914,7 +3055,10 @@
 									data-dismiss="modal"
 									data-upgraded=",MaterialButton,MaterialRipple"
 									style="margin-left: 3%"
-									onclick="document.getElementById('fileID').click(); emptyLanding();"
+									onclick="
+										document.getElementById('fileID').click();
+										emptyLanding();
+									"
 								>
 									No<span class="mdl-button__ripple-container">
 										<span class="mdl-ripple"></span
@@ -2973,7 +3117,7 @@
 							<button
 								class="btn account_manage_button"
 								href="#"
-								onclick="manage_DownloadXML();"
+								onclick="manage_DownloadXML()"
 								id="downloadAsXML_button"
 								style="margin-right: 1%"
 							>
@@ -2985,7 +3129,7 @@
 							<!-- Download selected dataset as an CSV/Excel -->
 							<button
 								class="btn account_manage_button"
-								onclick="download_XMLtableCSV();"
+								onclick="download_XMLtableCSV()"
 								id="downloadAsCSV_button"
 							>
 								Download as CSV
@@ -2993,7 +3137,12 @@
 							<!-- Delete selected datasets -->
 							<button
 								class="btn account_manage_button_delete"
-								onclick="let check = CheckIfSelectedXML(); if (check === true) {showWarning_index(1)}"
+								onclick="
+									let check = CheckIfSelectedXML();
+									if (check === true) {
+										showWarning_index(1);
+									}
+								"
 								id="deleteXML_button"
 								style="margin-left: 1%"
 							>
@@ -3005,7 +3154,13 @@
 								<span class="warning_button_index" onclick="hideWarning_index(1)"> No </span>
 								<span
 									class="warning_button_index modal-close"
-									onclick="delete_selectedXML(); delete_fill(); hideWarning_index(1); document.getElementById('closemodal_Logout').click(); get_user_XML_display();"
+									onclick="
+										delete_selectedXML();
+										delete_fill();
+										hideWarning_index(1);
+										document.getElementById('closemodal_Logout').click();
+										get_user_XML_display();
+									"
 									data-dismiss="modal"
 								>
 									Yes
@@ -3029,10 +3184,15 @@
 							<div class="warning_nope_index" id="warning_index_account">
 								<strong>Warning!</strong> Are you sure you wish to delete your account? This is a
 								permanent choice and you will not be able to recover anything once done.
-								<span class="warning_button_index" onclick="hideWarning_index(2);"> No </span>
+								<span class="warning_button_index" onclick="hideWarning_index(2)"> No </span>
 								<span
 									class="warning_button_index modal-close"
-									onclick="confirm_deleteUser(); hideWarning_index(2); document.getElementById('closemodal_Logout').click(); get_user_XML_display();"
+									onclick="
+										confirm_deleteUser();
+										hideWarning_index(2);
+										document.getElementById('closemodal_Logout').click();
+										get_user_XML_display();
+									"
 									data-dismiss="modal"
 								>
 									Yes
@@ -3374,7 +3534,7 @@
 		<script defer rel="preload" as="script" src="cgi-bin/core/packages/html2canvas/html2canvas.min.js"></script>
 
 		<!-- Open menu -->
-		<a class="openMenu" id="openMenu" onclick="displayNavBAR();" title="Open navigation menu" style="display: none">
+		<a class="openMenu" id="openMenu" onclick="displayNavBAR()" title="Open navigation menu" style="display: none">
 			<img loading="lazy" src="cgi-bin\SVGs\OpenMenu.svg" alt="Other.svg" width="40px" loading="lazy" />
 		</a>
 
