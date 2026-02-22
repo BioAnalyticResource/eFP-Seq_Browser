@@ -1300,3 +1300,10 @@ function initGen() {
 setTimeout(function () {
 	initGen();
 }, 1000);
+
+// Export functions for testing in Node.js environments
+if (typeof module !== "undefined" && module.exports) {
+	module.exports = {
+		update,
+	};
+}

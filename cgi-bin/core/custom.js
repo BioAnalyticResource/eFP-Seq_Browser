@@ -4440,3 +4440,12 @@ adjustFooterSize();
 window.addEventListener("load", function () {
 	init();
 });
+
+// Export functions for testing in Node.js environments
+if (typeof module !== "undefined" && module.exports) {
+	module.exports = {
+		count_bam_num,
+		loadingScreen,
+		generate_colour,
+	};
+}
