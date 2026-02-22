@@ -329,44 +329,26 @@ function check_links(bam_name, repo_name) {
 	for (let i = 0; i < x.length; i++) {
 		if (x[i].id === "bam_input") {
 			if (x[i].value.length > 0) {
-				if (bam_x[i].value == "Google Drive") {
-					// Verify if Google Link
-					const driveLink = x[i].value.split("//");
-					if (driveLink.length > 1) {
-						// If starts with https
-						const driveURL = driveLink[1];
-						return (
-							driveURL.split("/")[0] === "drive.google.com" ||
-							driveURL.split("/")[0] === "www.drive.google.com"
-						);
-					} else if (driveLink.length === 0) {
-						// If does not start with https
-						return (
-							driveLink.split("/")[0] === "drive.google.com" ||
-							driveLink.split("/")[0] === "www.drive.google.com"
-						);
-					} else {
-						// Not URL
-						return false;
-					}
-				} else if (bam_x[i].value == "Amazon AWS") {
-					/** Link from string to URL format */
-					const urlString = new URL(x[i].value);
+				let urlString;
+				try {
+					urlString = new URL(x[i].value);
+				} catch {
+					return false;
+				}
 
+				const hostValue = urlString?.host ?? "";
+
+				if (bam_x[i].value === "Google Drive") {
+					return ["drive.google.com", "www.drive.google.com"].includes(hostValue);
+				} else if (bam_x[i].value === "Amazon AWS") {
 					if (
-						(urlString.host("s3.amazonaws.com") || x[i].value.includes("araport.cyverse-cdn.tacc.cloud")) &&
-						check_amazon_for_bam(x[i].value)
+						check_amazon_for_bam(x[i].value) &&
+						(["s3.amazonaws.com", "araport.cyverse-cdn.tacc.cloud"].includes(hostValue) ||
+							x[i].value.includes("araport.cyverse-cdn.tacc.cloud"))
 					) {
 						return true;
-					} else if (
-						(urlString.host("s3.amazonaws.com") ||
-							x[i].value.includes("araport.cyverse-cdn.tacc.cloud/")) &&
-						check_amazon_for_bam(x[i].value)
-					) {
-						return false;
-					} else {
-						return false;
 					}
+					return false;
 				} else {
 					return false;
 				}
@@ -507,19 +489,21 @@ function outline_links(bam_name, repo_name) {
 
 				/** URL for the hosted BAM file */
 				let urlValue;
+				let hostValue = "";
 
-				// Convert the
+				// Convert the string into a URL object if valid
 				try {
 					urlValue = new URL(x[i].value);
+					hostValue = urlValue.host || "";
 				} catch {
 					console.error("Unreadable URL presented: ", x[i].value);
 				}
 
-				if (bamHostType && urlValue) {
+				if (bamHostType && hostValue) {
 					if (bamHostType === "Amazon AWS") {
 						if (
 							check_amazon_for_bam(x[i].value) &&
-							["s3.amazonaws.com", "araport.cyverse-cdn.tacc.cloud"].includes(urlValue[host])
+							["s3.amazonaws.com", "araport.cyverse-cdn.tacc.cloud"].includes(hostValue)
 						) {
 							x[i].style.borderColor = null;
 							x[i].style.boxShadow = null;
@@ -528,7 +512,7 @@ function outline_links(bam_name, repo_name) {
 							x[i].style.boxShadow = "0 0 10px #ff2626";
 						}
 					} else if (bamHostType === "Google Drive") {
-						if (["drive.google.com"].includes(urlValue[host])) {
+						if (["drive.google.com", "www.drive.google.com"].includes(hostValue)) {
 							x[i].style.borderColor = null;
 							x[i].style.boxShadow = null;
 						} else {
@@ -1305,5 +1289,7 @@ setTimeout(function () {
 if (typeof module !== "undefined" && module.exports) {
 	module.exports = {
 		update,
+		check_links,
+		check_amazon_for_bam,
 	};
 }

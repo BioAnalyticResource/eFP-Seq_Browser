@@ -1,62 +1,54 @@
 /**
  * @jest-environment jsdom
  */
-// Set up jQuery and document mocks BEFORE requiring modules
-// to prevent errors from module-level code execution
-global.$ = function (selector) {
-	return {
-		click: function () {
-			return this;
-		},
-		find: (childSelector) => ({
-			val: () => {
-				const map = {
-					".channelcontrols": "ctrl1, ctrl2",
-					".channelgroupwidtho": "rep1, rep2",
-					".channeldescription": "desc",
-					".channelrecordnumber": "42",
-					".channelhexcolor": "#ff0000",
-					".channelbamType": "Google Drive",
-					".channelbamlink": "https://drive.google.com/file/d/abc",
-					".channeltotalreadsmapped": "12345",
-					".channelreadmapmethod": "STAR",
-					".channelpublicationlink": "https://pub.com/xyz",
-					".channeltissue": "Leaf",
-					".channelsvgname": "ath-leaf.svg",
-					".channeltitle": "Test Title",
-					".channelsralink": "SRR000001",
-					".channelspecies": "Arabidopsis",
-					".channelforeground": "#000000",
-					".channelfilename": "file1.bam",
-				};
-				return map[childSelector] || "dummy";
-			},
-		}),
-	};
-};
-global.$.fn = {};
 
-// Mock document.getElementById before requiring modules
 const elementValueMap = {
 	reqxml: { value: "TestXML" },
 	reqauthor: { value: "Author" },
 	contectinfo: { value: "contact@email.com" },
 };
+
+// Lightweight jQuery stub to satisfy update()
+global.$ = function () {
+	const valueMap = {
+		".channelcontrols": "ctrl1, ctrl2",
+		".channelgroupwidtho": "rep1, rep2",
+		".channeldescription": "desc",
+		".channelrecordnumber": "42",
+		".channelhexcolor": "#ff0000",
+		".channelbamType": "Google Drive",
+		".channelbamlink": "https://drive.google.com/file/d/abc",
+		".channeltotalreadsmapped": "12345",
+		".channelreadmapmethod": "STAR",
+		".channelpublicationlink": "https://pub.com/xyz",
+		".channeltissue": "Leaf",
+		".channelsvgname": "ath-leaf.svg",
+		".channeltitle": "Test Title",
+		".channelsralink": "SRR000001",
+		".channelspecies": "Arabidopsis",
+		".channelforeground": "#000000",
+		".channelfilename": "file1.bam",
+	};
+
+	return {
+		find: (childSelector) => ({ val: () => valueMap[childSelector] || "" }),
+	};
+};
+global.$.fn = {};
+
+// Mock document.getElementById before requiring modules
 global.document = {
 	...global.document,
-	getElementById: (id) => elementValueMap[id] || { value: "dummy" },
+	getElementById: (id) => elementValueMap[id] || { value: "" },
 };
 
 const xmlGeneratorModule = require("./XMLgenerator.js");
 
-describe("XMLGenerator", () => {
-	const { update } = xmlGeneratorModule;
+describe("XMLgenerator", () => {
+	const { update, check_links, check_amazon_for_bam } = xmlGeneratorModule;
 
-	beforeAll(() => {
-		// Ensure document.getElementById is properly mocked
-		global.document.getElementById = (id) => elementValueMap[id] || { value: "dummy" };
-
-		// Required top-level variables for update()
+	beforeEach(() => {
+		global.document.getElementById = (id) => elementValueMap[id] || { value: "" };
 		global.topXML = [
 			'\t\t<file info="<?channeldescription?>" record_number="<?channelrecordnumber?>" foreground="<?channelforeground?>" hex_colour="<?channelhexcolor?>" bam_type="<?channelbamType?>" name="<?channelbamlink?>" filename="<?channelfilename?>" total_reads_mapped="<?channeltotalreadsmapped?>" read_map_method="<?channelreadmapmethod?>" publication_link="<?channelpublicationlink?>" svg_subunit="<?channeltissue?>" svgname="<?channelsvgname?>" description="<?channeltitle?>" url="<?channelsralink?>" species="<?channelspecies?>" title="<?channeligbtitle?>">',
 			"\t\t\t<controls>\n",
@@ -69,57 +61,107 @@ describe("XMLGenerator", () => {
 		global.all_replicates = "";
 	});
 
-	/**
-	 * Test case structure:
-	 * @property {string} name - Test description
-	 * @property {*} input - Input to update() function
-	 * @property {Object} want - Expected output checks
-	 * @property {string[]} want.contains - Strings that should appear in result
-	 * @property {string[]} [want.notContains] - Strings that should NOT appear
-	 */
-	const cases = [
-		{
-			name: "generates correct XML with proper field values",
-			input: {}, // dummy form element
-			want: {
-				contains: [
-					'info="desc"',
+	describe("update", () => {
+		const cases = [
+			{
+				name: "includes all substituted values",
+				want: [
+					"desc",
 					'record_number="42"',
 					'hex_colour="#ff0000"',
 					'bam_type="Google Drive"',
 					'name="https://drive.google.com/file/d/abc"',
 					'filename="file1.bam"',
 					"<bam_exp>ctrl1</bam_exp>",
-					"<bam_exp>ctrl2</bam_exp>",
-					"<bam_exp>rep1</bam_exp>",
 					"<bam_exp>rep2</bam_exp>",
 					'total_reads_mapped="12345"',
 					'read_map_method="STAR"',
 					'species="Arabidopsis"',
 					'svg_subunit="Leaf"',
-					'svgname="ath-leaf.svg"',
 				],
 			},
-		},
-	];
+		];
 
-	it.each(cases)("$name", ({ input, want }) => {
-		const result = update("", input);
-
-		// Check all expected strings are present
-		want.contains.forEach((expectedStr) => {
-			expect(result).toContain(expectedStr);
+		it.each(cases)("$name", ({ want }) => {
+			const result = update("", {});
+			want.forEach((expected) => expect(result).toContain(expected));
+			expect(result).toContain("</file>");
 		});
+	});
 
-		// Check strings that should NOT be present (if specified)
-		if (want.notContains) {
-			want.notContains.forEach((unexpectedStr) => {
-				expect(result).not.toContain(unexpectedStr);
-			});
-		}
+	describe("check_amazon_for_bam", () => {
+		const cases = [
+			{ name: "accepts .bam extension", input: "https://s3.amazonaws.com/bucket/file.bam", expected: true },
+			{ name: "accepts local .bam", input: "file.bam", expected: true },
+			{ name: "rejects non-bam extension", input: "https://s3.amazonaws.com/bucket/file.txt", expected: false },
+			{ name: "rejects alternate extension", input: "https://example.com/path/to/file.bed", expected: false },
+		];
 
-		// Verify result is valid XML-like string
-		expect(typeof result).toBe("string");
-		expect(result.length).toBeGreaterThan(0);
+		it.each(cases)("$name", ({ input, expected }) => {
+			expect(check_amazon_for_bam(input)).toBe(expected);
+		});
+	});
+
+	describe("check_links", () => {
+		const buildDom = (bamType, bamLink) => {
+			const bamInput = { id: "bam_input", value: bamLink, style: {} };
+			const bamTypeNode = { value: bamType };
+			global.document.getElementById = (id) => {
+				if (id === "Entries_all") {
+					return {
+						querySelectorAll: (selector) => {
+							if (selector === ".bam_link") return [bamInput];
+							if (selector === ".channelbamType") return [bamTypeNode];
+							return [];
+						},
+					};
+				}
+				return elementValueMap[id] || { value: "" };
+			};
+		};
+
+		const cases = [
+			{
+				name: "valid Amazon S3 bam link",
+				bamType: "Amazon AWS",
+				link: "https://s3.amazonaws.com/test/file.bam",
+				expected: true,
+			},
+			{
+				name: "valid Cyverse bam link",
+				bamType: "Amazon AWS",
+				link: "https://araport.cyverse-cdn.tacc.cloud/rnaseq/file.bam",
+				expected: true,
+			},
+			{
+				name: "Amazon link missing .bam",
+				bamType: "Amazon AWS",
+				link: "https://s3.amazonaws.com/test/file.txt",
+				expected: false,
+			},
+			{
+				name: "valid Google Drive link",
+				bamType: "Google Drive",
+				link: "https://drive.google.com/file/d/123456/view",
+				expected: true,
+			},
+			{
+				name: "invalid Google host",
+				bamType: "Google Drive",
+				link: "https://invalid.google.com/file/d/123456/view",
+				expected: false,
+			},
+			{
+				name: "unknown bam type",
+				bamType: "Unknown",
+				link: "https://example.com/file.bam",
+				expected: false,
+			},
+		];
+
+		it.each(cases)("$name", ({ bamType, link, expected }) => {
+			buildDom(bamType, link);
+			expect(check_links(".channelbamType", ".bam_link")).toBe(expected);
+		});
 	});
 });

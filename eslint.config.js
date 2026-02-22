@@ -5,12 +5,15 @@ module.exports = [
 	{
 		ignores: [
 			"**/*.min.js",
-			"node_modules/**/*",
-			"coverage/**/*",
-			"playwright-report/**/*",
 			"cgi-bin/core/packages/**/*",
 			"cgi-bin/core/serviceWorker/**/*",
+			"coverage/**/*",
 			"eslint.config.js",
+			"node_modules/**/*",
+			"playwright-report/**/*",
+			"**/playwright-report/**/*",
+			"test-results/**/*",
+			"**/test-results/**/*",
 			"workbox-config.js",
 		],
 	},
