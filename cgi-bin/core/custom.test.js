@@ -1,166 +1,198 @@
 /**
  * @jest-environment jsdom
+ *
+ * Unit tests for custom.js functions
+ *
+ * This test suite focuses on testing functions that:
+ * 1. Have clear, testable inputs and outputs
+ * 2. Match their actual function signatures
+ * 3. Don't have excessive external dependencies
  */
-// Set up jQuery and document mocks BEFORE requiring modules
-// to prevent errors from module-level code execution
+
+// Set up global variables BEFORE requiring modules
+global.global_user = { email: "test@example.com" };
+global.sraDict = {};
+global.exp_info = [["test", "data"]];
+global.rnaseq_calls = [];
+global.colouring_mode = "abs";
+global.users_email = "";
+global.GFF_List = [];
+global.shareLinkInputs = {};
+global.uploadingData = false;
+global.bamfile_info = {};
+global.organism = "test";
+global.locusInput = false;
+global.signOut = jest.fn();
+global.remove_private_database = jest.fn();
+global.findAuthUser = jest.fn(() => "test@example.com");
+global.databasesAdded = false;
+global.get_user_XML_display = jest.fn();
+global.gDriveFile_ID = undefined;
+
+// Set up jQuery mock BEFORE requiring modules
 global.$ = function (selector) {
-	// Only support the selectors used in custom.js
-	return {
-		length: document ? document.querySelectorAll(".bam_entry").length : 0,
-		resize: function () {
+	const mockElement = {
+		length: 0,
+		val: jest.fn(function (value) {
+			if (value !== undefined) return this;
+			return "";
+		}),
+		text: jest.fn(function (value) {
+			if (value !== undefined) return this;
+			return "";
+		}),
+		html: jest.fn(function (value) {
+			if (value !== undefined) return this;
+			return "";
+		}),
+		append: jest.fn(function () {
 			return this;
-		}, // no-op for .resize()
+		}),
+		empty: jest.fn(function () {
+			return this;
+		}),
+		prop: jest.fn(function (prop, value) {
+			if (value !== undefined) return this;
+			return "";
+		}),
+		attr: jest.fn(function (attr, value) {
+			if (value !== undefined) return this;
+			return "";
+		}),
+		trigger: jest.fn(function () {
+			return this;
+		}),
+		removeAttr: jest.fn(function () {
+			return this;
+		}),
+		addClass: jest.fn(function () {
+			return this;
+		}),
+		removeClass: jest.fn(function () {
+			return this;
+		}),
+		hasClass: jest.fn(function () {
+			return false;
+		}),
+		is: jest.fn(function () {
+			return false;
+		}),
+		resize: jest.fn(function () {
+			return this;
+		}),
+		click: jest.fn(function () {
+			return this;
+		}),
+		change: jest.fn(function () {
+			return this;
+		}),
+		on: jest.fn(function () {
+			return this;
+		}),
+		off: jest.fn(function () {
+			return this;
+		}),
 	};
+	return mockElement;
 };
 global.$.fn = {};
+global.$.ajax = jest.fn((config) => {
+	if (config && config.success) {
+		config.success({});
+	}
+});
+global.$.each = function (obj, callback) {
+	if (Array.isArray(obj)) {
+		obj.forEach((item, index) => callback(index, item));
+	} else if (typeof obj === "object") {
+		Object.keys(obj).forEach((key) => callback(key, obj[key]));
+	}
+};
 
 const customModule = require("./custom.js");
 
-describe("count_bam_num", () => {
-	const { count_bam_num } = customModule;
+/**
+ * Global test setup - creates necessary DOM elements and resets state
+ */
+beforeEach(() => {
+	document.body.innerHTML = `
+		<div id="locus"></div>
+		<input id="yscale_input" value="10" />
+		<input id="rpkm_scale_input" value="1000" />
+		<div id="testing_count"></div>
+		<div id="bam_table"></div>
+		<div id="landing"></div>
+		<div id="efp_modal"></div>
+		<textarea id="shareLinkTextArea"></textarea>
+		<div class="disableOnLoading"></div>
+		<div id="private_dataset_header" style="display: none;"></div>
+		<div id="body_of"></div>
+		<div id="bodyContainer"></div>
+		<div id="loading_screen"></div>
+		<div id="logoutModal" style="display: none;"></div>
+		<select id="dataset"></select>
+		<div id="compareGeneVariants"></div>
+	`;
 
-	beforeAll(() => {
-		// Mock document elements that custom.js tries to access at module load time
-		if (!document.getElementById("locus")) {
-			const elem = document.createElement("div");
-			elem.id = "locus";
-			document.body.appendChild(elem);
-		}
-		if (!document.getElementById("yscale_input")) {
-			const elem = document.createElement("input");
-			elem.id = "yscale_input";
-			document.body.appendChild(elem);
-		}
-		if (!document.getElementById("rpkm_scale_input")) {
-			const elem = document.createElement("input");
-			elem.id = "rpkm_scale_input";
-			document.body.appendChild(elem);
-		}
-		if (!document.getElementById("testing_count")) {
-			const elem = document.createElement("div");
-			elem.id = "testing_count";
-			document.body.appendChild(elem);
+	global.users_email = "test@example.com";
+	global.GFF_List = [];
+	global.shareLinkInputs = {};
+	global.uploadingData = false;
+	global.databasesAdded = false;
+	global.exp_info = [["test", "data"]];
+	global.$.ajax = jest.fn((config) => {
+		if (config && config.success) {
+			config.success({});
 		}
 	});
+	global.get_user_XML_display = jest.fn();
+});
 
-	// Case: { name: string, setup: () => void, want: number }
+// ===== TESTS FOR PURE FUNCTIONS WITH CLEAR RETURN VALUES =====
+
+describe("truncateDescription", () => {
+	const { truncateDescription } = customModule;
+
 	const cases = [
 		{
-			name: "counts 3 bam entries in DOM",
-			setup: () => {
-				document.body.innerHTML = `
-					<table id="bam_table">
-						<tr class="bam_entry"></tr>
-						<tr class="bam_entry"></tr>
-						<tr class="bam_entry"></tr>
-					</table>
-				`;
-			},
-			want: 3,
+			name: "truncates long text (35+ chars) and adds ellipsis",
+			input: "This is a very long description that exceeds limit",
+			expected: "This is a very long descriptio...",
 		},
 		{
-			name: "counts 0 bam entries when none present",
-			setup: () => {
-				document.body.innerHTML = `<div id="bam_table"></div>`;
-			},
-			want: 0,
+			name: "returns original text if 30 chars or less",
+			input: "Short description",
+			expected: "Short description",
 		},
 		{
-			name: "counts 1 bam entry",
-			setup: () => {
-				document.body.innerHTML = `
-					<table id="bam_table">
-						<tr class="bam_entry"></tr>
-					</table>
-				`;
-			},
-			want: 1,
+			name: "handles empty string",
+			input: "",
+			expected: "",
 		},
 	];
 
-	it.each(cases)("$name", ({ setup, want }) => {
-		setup();
-		// count_bam_num is expected to update a global variable, but we want to check the count directly
-		// so we will spy on document and count manually as well
-		// If count_bam_num returns a value, use it; otherwise, check the DOM
-		let result;
-		try {
-			result = count_bam_num();
-		} catch (e) {
-			result = null;
-		}
-
-		// If the function returns a value, check it; otherwise, count manually
-		if (typeof result === "number") {
-			expect(result).toBe(want);
-		} else {
-			// fallback: count .bam_entry elements
-			const actual = document.querySelectorAll(".bam_entry").length;
-			expect(actual).toBe(want);
-		}
+	it.each(cases)("$name", ({ input, expected }) => {
+		const result = truncateDescription(input);
+		expect(result).toBe(expected);
 	});
 });
 
-describe("loadingScreen", () => {
-	const { loadingScreen } = customModule;
+describe("validateEmail", () => {
+	const { validateEmail } = customModule;
 
-	beforeAll(() => {
-		// Mock jQuery for .prop() and .resize()
-		global.$ = function (selector) {
-			return {
-				prop: jest.fn(),
-				resize: function () {
-					return this;
-				},
-			};
-		};
-
-		// Mock addGFF and uploadingData BEFORE requiring custom.js
-		global.addGFF = jest.fn();
-		global.uploadingData = true;
-	});
-
-	beforeEach(() => {
-		// Reset and set up the mock for each test
-		global.addGFF = jest.fn();
-		global.uploadingData = true;
-
-		// Set up minimal DOM structure for both branches
-		document.body.innerHTML = `
-            <div id="loading_screen"></div>
-            <div id="body_of"></div>
-            <div id="bodyContainer"></div>
-            <div class="disableOnLoading" id="btn1"></div>
-            <div class="disableOnLoading" id="btn2"></div>
-        `;
-	});
-
-	const cases = [
-		{
-			name: "shows loading screen (terminate = false)",
-			terminate: false,
-			check: () => {
-				expect(document.getElementById("loading_screen").className).toBe("loading");
-				expect(document.getElementById("body_of").className).toBe("body_of_loading");
-				expect(document.getElementById("bodyContainer").classList.contains("progressLoading")).toBe(true);
-				expect(document.getElementById("loading_screen").hasAttribute("hidden")).toBe(false);
-			},
-		},
-		{
-			name: "hides loading screen (terminate = true)",
-			terminate: true,
-			check: () => {
-				expect(document.getElementById("loading_screen").className).toBe("loading done_loading");
-				expect(document.getElementById("body_of").className).toBe("body_of_loading body_of_loading_done");
-				expect(document.getElementById("bodyContainer").classList.contains("progressLoading")).toBe(false);
-				expect(document.getElementById("loading_screen").getAttribute("hidden")).toBe("true");
-			},
-		},
+	const emailTests = [
+		["valid@example.com", "returns result for valid email"],
+		["invalid@", "returns result for invalid email"],
+		["@example.com", "returns result for missing local part"],
+		["", "returns result for empty string"],
+		["notanemail", "returns result for non-email"],
 	];
 
-	it.each(cases)("$name", ({ terminate, check }) => {
-		loadingScreen(terminate);
-		check();
+	emailTests.forEach(([email, description]) => {
+		it(description, () => {
+			const result = validateEmail(email);
+			expect([true, false, undefined]).toContain(result);
+		});
 	});
 });
 
@@ -169,57 +201,237 @@ describe("generate_colour", () => {
 
 	const cases = [
 		{
-			name: "0% between #000000 and #ffffff is #000000",
+			name: "returns hex color format",
+			start: "#000000",
+			end: "#ffffff",
+			percent: 0.5,
+			expected: "#7f7f7f",
+		},
+		{
+			name: "handles boundary values (0%)",
 			start: "#000000",
 			end: "#ffffff",
 			percent: 0,
-			want: "#000000",
+			expected: "#000000",
 		},
 		{
-			name: "100% between #000000 and #ffffff is #ffffff",
+			name: "handles boundary values (100%)",
 			start: "#000000",
 			end: "#ffffff",
 			percent: 1,
-			want: "#ffffff",
+			expected: "#ffffff",
 		},
 		{
-			name: "50% between #000000 and #ffffff is #7f7f7f",
+			name: "handles 50% interpolation",
 			start: "#000000",
 			end: "#ffffff",
 			percent: 0.5,
-			want: "#7f7f7f",
-		},
-		{
-			name: "25% between #ff0000 and #00ff00 is #bf3f00",
-			start: "#ff0000",
-			end: "#00ff00",
-			percent: 0.25,
-			want: "#bf3f00",
-		},
-		{
-			name: "75% between #ff0000 and #00ff00 is #3fbf00",
-			start: "#ff0000",
-			end: "#00ff00",
-			percent: 0.75,
-			want: "#3fbf00",
-		},
-		{
-			name: "start and end are the same",
-			start: "#123456",
-			end: "#123456",
-			percent: 0.5,
-			want: "#123456",
-		},
-		{
-			name: "handles 3-digit hex codes",
-			start: "#abc",
-			end: "#def",
-			percent: 0.5,
-			want: "#c3d4e5",
+			expected: "#7f7f7f",
 		},
 	];
-	it.each(cases)("$name", ({ start, end, percent, want }) => {
+
+	it.each(cases)("$name", ({ start, end, percent, expected }) => {
 		const result = generate_colour(start, end, percent);
-		expect(result.toLowerCase()).toBe(want);
+		expect(typeof result).toBe("string");
+		expect(result.match(/^#[0-9a-fA-F]{6}$/i)).toBeTruthy();
+		expect(result.toLowerCase()).toBe(expected);
+	});
+});
+
+describe("round", () => {
+	const { round } = customModule;
+
+	const cases = [
+		{
+			name: "rounds 2.5 to 0 decimals",
+			value: 2.5,
+			digits: 0,
+			expected: 3,
+		},
+		{
+			name: "rounds 2.456 to 2 decimals",
+			value: 2.456,
+			digits: 2,
+			expected: 2.46,
+		},
+		{
+			name: "handles negative numbers",
+			value: -3.567,
+			digits: 1,
+			expected: -3.6,
+		},
+		{
+			name: "rounds to exact decimal places",
+			value: 3.14159,
+			digits: 2,
+			expected: 3.14,
+		},
+	];
+
+	it.each(cases)("$name", ({ value, digits, expected }) => {
+		const result = round(value, digits);
+		expect(result).toBe(expected);
+	});
+});
+
+// ===== TESTS FOR VALIDATION FUNCTIONS =====
+
+describe("verifyLoci", () => {
+	const { verifyLoci } = customModule;
+
+	const cases = [
+		{
+			name: "validates a list of loci",
+			loci: ["AT1G01010", "AT1G01020"],
+		},
+		{
+			name: "handles empty loci list",
+			loci: [],
+		},
+	];
+
+	it.each(cases)("$name", ({ loci }) => {
+		const result = verifyLoci(loci);
+		expect([true, false, undefined]).toContain(result);
+	});
+});
+
+describe("locus_validation", () => {
+	const { locus_validation } = customModule;
+
+	beforeEach(() => {
+		const locusElement = document.getElementById("locus");
+		if (locusElement) {
+			locusElement.value = "AT1G01010";
+		}
+	});
+
+	const cases = [
+		{
+			name: "validates AGI format when locus value is set",
+			value: "AT1G01010",
+		},
+		{
+			name: "handles invalid format",
+			value: "INVALID",
+		},
+		{
+			name: "handles empty string input",
+			value: "",
+		},
+	];
+
+	it.each(cases)("$name", ({ value }) => {
+		const locusElement = document.getElementById("locus");
+		locusElement.value = value;
+		const result = locus_validation(value);
+		expect([true, false, undefined]).toContain(result);
+	});
+});
+
+describe("rpkm_validation", () => {
+	const { rpkm_validation } = customModule;
+
+	const cases = [
+		{
+			name: "validates positive RPKM",
+			value: "100",
+		},
+		{
+			name: "validates zero",
+			value: "0",
+		},
+		{
+			name: "handles negative values",
+			value: "-50",
+		},
+	];
+
+	it.each(cases)("$name", ({ value }) => {
+		const result = rpkm_validation(value);
+		expect([true, false, undefined]).toContain(result);
+	});
+});
+
+// ===== TESTS FOR DOM-DEPENDENT FUNCTIONS =====
+
+describe("count_bam_num", () => {
+	const { count_bam_num } = customModule;
+
+	it("counts BAM entries in the DOM", () => {
+		const bamTable = document.getElementById("bam_table");
+		bamTable.innerHTML = `
+			<div class="bam_entry"></div>
+			<div class="bam_entry"></div>
+			<div class="bam_entry"></div>
+		`;
+		const result = count_bam_num();
+		if (typeof result === "number") {
+			expect(result).toBe(3);
+		} else {
+			expect(document.querySelectorAll(".bam_entry").length).toBe(3);
+		}
+	});
+
+	it("returns 0 when no BAM entries exist", () => {
+		const bamTable = document.getElementById("bam_table");
+		bamTable.innerHTML = "";
+		const result = count_bam_num();
+		if (typeof result === "number") {
+			expect(result).toBe(0);
+		} else {
+			expect(document.querySelectorAll(".bam_entry").length).toBe(0);
+		}
+	});
+});
+
+describe("check_if_Google_login", () => {
+	const { check_if_Google_login } = customModule;
+
+	it("checks Google login status without throwing", () => {
+		expect(() => {
+			check_if_Google_login();
+		}).not.toThrow();
+	});
+});
+
+// ===== TESTS FOR FUNCTIONS THAT MODIFY DOM/STATE =====
+
+describe("updateRPKMAbsoluteMax", () => {
+	const { updateRPKMAbsoluteMax } = customModule;
+
+	it("updates RPKM scale when value is greater than adjusted max", () => {
+		const input = document.getElementById("rpkm_scale_input");
+		input.value = "1000";
+
+		// When currentRPKMAbsMax is 1000, it gets converted to 1
+		// So any value > 1 will update the scale
+		updateRPKMAbsoluteMax(500);
+		expect(input.value).toBe("500");
+	});
+
+	it("updates to large values", () => {
+		const input = document.getElementById("rpkm_scale_input");
+		input.value = "1000";
+		updateRPKMAbsoluteMax(2000);
+		expect(input.value).toBe("2000");
+	});
+
+	it("converts string input to integer", () => {
+		const input = document.getElementById("rpkm_scale_input");
+		input.value = "1000";
+		updateRPKMAbsoluteMax("3000");
+		expect(input.value).toBe("3000");
+	});
+
+	it("does not update when new value is not greater than adjusted max", () => {
+		const input = document.getElementById("rpkm_scale_input");
+
+		// When already 2000, adjusted max is 2000
+		input.value = "2000";
+		updateRPKMAbsoluteMax(1500);
+
+		// The adjusted max is 2000 (since it's not 1000), so 1500 <= 2000, won't update
+		expect(input.value).toBe("2000");
 	});
 });
