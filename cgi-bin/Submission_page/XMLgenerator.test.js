@@ -2,59 +2,53 @@
  * @jest-environment jsdom
  */
 
-const fs = require("fs");
-const path = require("path");
+const elementValueMap = {
+	reqxml: { value: "TestXML" },
+	reqauthor: { value: "Author" },
+	contectinfo: { value: "contact@email.com" },
+};
 
-describe("update (XMLgenerator.js)", () => {
-	let update;
-	let $;
+// Lightweight jQuery stub to satisfy update()
+global.$ = function () {
+	const valueMap = {
+		".channelcontrols": "ctrl1, ctrl2",
+		".channelgroupwidtho": "rep1, rep2",
+		".channeldescription": "desc",
+		".channelrecordnumber": "42",
+		".channelhexcolor": "#ff0000",
+		".channelbamType": "Google Drive",
+		".channelbamlink": "https://drive.google.com/file/d/abc",
+		".channeltotalreadsmapped": "12345",
+		".channelreadmapmethod": "STAR",
+		".channelpublicationlink": "https://pub.com/xyz",
+		".channeltissue": "Leaf",
+		".channelsvgname": "ath-leaf.svg",
+		".channeltitle": "Test Title",
+		".channelsralink": "SRR000001",
+		".channelspecies": "Arabidopsis",
+		".channelforeground": "#000000",
+		".channelfilename": "file1.bam",
+	};
 
-	beforeAll(() => {
-		// Minimal jQuery mock
-		$ = () => ({
-			find: (selector) => ({
-				val: () => {
-					const map = {
-						".channelcontrols": "ctrl1, ctrl2",
-						".channelgroupwidtho": "rep1, rep2",
-						".channeldescription": "desc",
-						".channelrecordnumber": "42",
-						".channelhexcolor": "#ff0000",
-						".channelbamType": "Google Drive",
-						".channelbamlink": "https://drive.google.com/file/d/abc",
-						".channeltotalreadsmapped": "12345",
-						".channelreadmapmethod": "STAR",
-						".channelpublicationlink": "https://pub.com/xyz",
-						".channeltissue": "Leaf",
-						".channelsvgname": "ath-leaf.svg",
-						".channeltitle": "Test Title",
-						".channelsralink": "SRR000001",
-						".channelspecies": "Arabidopsis",
-						".channelforeground": "#000000",
-						".channelfilename": "file1.bam",
-					};
-					return map[selector] || "dummy";
-				},
-			}),
-		});
+	return {
+		find: (childSelector) => ({ val: () => valueMap[childSelector] || "" }),
+	};
+};
+global.$.fn = {};
 
-		// Robust document.getElementById mock for all ids
-		const getElementByIdMock = (id) => {
-			const values = {
-				reqxml: { value: "TestXML" },
-				reqauthor: { value: "Author" },
-				contectinfo: { value: "contact@email.com" },
-			};
-			return values[id] || { value: "dummy" };
-		};
-		if (global.document) {
-			global.document.getElementById = getElementByIdMock;
-		} else {
-			global.document = { getElementById: getElementByIdMock };
-		}
-		global.$ = $;
+// Mock document.getElementById before requiring modules
+global.document = {
+	...global.document,
+	getElementById: (id) => elementValueMap[id] || { value: "" },
+};
 
-		// Required top-level variables for update()
+const xmlGeneratorModule = require("./XMLgenerator.js");
+
+describe("XMLgenerator", () => {
+	const { update, check_links, check_amazon_for_bam } = xmlGeneratorModule;
+
+	beforeEach(() => {
+		global.document.getElementById = (id) => elementValueMap[id] || { value: "" };
 		global.topXML = [
 			'\t\t<file info="<?channeldescription?>" record_number="<?channelrecordnumber?>" foreground="<?channelforeground?>" hex_colour="<?channelhexcolor?>" bam_type="<?channelbamType?>" name="<?channelbamlink?>" filename="<?channelfilename?>" total_reads_mapped="<?channeltotalreadsmapped?>" read_map_method="<?channelreadmapmethod?>" publication_link="<?channelpublicationlink?>" svg_subunit="<?channeltissue?>" svgname="<?channelsvgname?>" description="<?channeltitle?>" url="<?channelsralink?>" species="<?channelspecies?>" title="<?channeligbtitle?>">',
 			"\t\t\t<controls>\n",
@@ -65,30 +59,125 @@ describe("update (XMLgenerator.js)", () => {
 		global.existingXML = "";
 		global.all_controls = "";
 		global.all_replicates = "";
-
-		// Load the update function from XMLgenerator.js
-		const code = fs.readFileSync(path.join(__dirname, "../Submission_page/XMLgenerator.js"), "utf8");
-		const fnMatch = code.match(/function update\s*\(([^)]*)\)\s*{([\s\S]*?)^}/m);
-		if (!fnMatch) throw new Error("update function not found in XMLgenerator.js");
-		const args = fnMatch[1];
-		const body = fnMatch[2];
-
-		update = new Function(args, body);
 	});
 
-	it("generates correct XML for given form values", () => {
-		const v = {}; // dummy, not used in our $ mock
-		const result = update("", v);
-		// Check for key XML elements and values
-		expect(result).toContain('info="desc"');
-		expect(result).toContain('record_number="42"');
-		expect(result).toContain('hex_colour="#ff0000"');
-		expect(result).toContain('bam_type="Google Drive"');
-		expect(result).toContain('name="https://drive.google.com/file/d/abc"');
-		expect(result).toContain('filename="file1.bam"');
-		expect(result).toContain("<bam_exp>ctrl1</bam_exp>");
-		expect(result).toContain("<bam_exp>ctrl2</bam_exp>");
-		expect(result).toContain("<bam_exp>rep1</bam_exp>");
-		expect(result).toContain("<bam_exp>rep2</bam_exp>");
+	describe("update", () => {
+		const cases = [
+			{
+				name: "includes all substituted values",
+				want: [
+					"desc",
+					'record_number="42"',
+					'hex_colour="#ff0000"',
+					'bam_type="Google Drive"',
+					'name="https://drive.google.com/file/d/abc"',
+					'filename="file1.bam"',
+					"<bam_exp>ctrl1</bam_exp>",
+					"<bam_exp>rep2</bam_exp>",
+					'total_reads_mapped="12345"',
+					'read_map_method="STAR"',
+					'species="Arabidopsis"',
+					'svg_subunit="Leaf"',
+				],
+			},
+		];
+
+		it.each(cases)("$name", ({ want }) => {
+			const result = update("", {});
+			want.forEach((expected) => expect(result).toContain(expected));
+			expect(result).toContain("</file>");
+		});
+	});
+
+	describe("check_amazon_for_bam", () => {
+		const cases = [
+			{ name: "accepts .bam extension", input: "https://s3.amazonaws.com/bucket/file.bam", expected: true },
+			{ name: "accepts local .bam", input: "file.bam", expected: true },
+			{ name: "rejects non-bam extension", input: "https://s3.amazonaws.com/bucket/file.txt", expected: false },
+			{ name: "rejects alternate extension", input: "https://example.com/path/to/file.bed", expected: false },
+		];
+
+		it.each(cases)("$name", ({ input, expected }) => {
+			expect(check_amazon_for_bam(input)).toBe(expected);
+		});
+	});
+
+	describe("check_links", () => {
+		const buildDom = (entries) => {
+			const bamInputs = entries.map((entry) => ({ id: "bam_input", value: entry.link, style: {} }));
+			const bamTypeNodes = entries.map((entry) => ({ value: entry.type }));
+			global.document.getElementById = (id) => {
+				if (id === "Entries_all") {
+					return {
+						querySelectorAll: (selector) => {
+							if (selector === ".bam_link") return bamInputs;
+							if (selector === ".channelbamType") return bamTypeNodes;
+							return [];
+						},
+					};
+				}
+				return elementValueMap[id] || { value: "" };
+			};
+		};
+
+		const cases = [
+			{
+				name: "valid Amazon S3 bam link",
+				bamType: "Amazon AWS",
+				link: "https://s3.amazonaws.com/test/file.bam",
+				expected: true,
+			},
+			{
+				name: "valid Cyverse bam link",
+				bamType: "Amazon AWS",
+				link: "https://araport.cyverse-cdn.tacc.cloud/rnaseq/file.bam",
+				expected: true,
+			},
+			{
+				name: "Amazon link missing .bam",
+				bamType: "Amazon AWS",
+				link: "https://s3.amazonaws.com/test/file.txt",
+				expected: false,
+			},
+			{
+				name: "valid Google Drive link",
+				bamType: "Google Drive",
+				link: "https://drive.google.com/file/d/123456/view",
+				expected: true,
+			},
+			{
+				name: "invalid Google host",
+				bamType: "Google Drive",
+				link: "https://invalid.google.com/file/d/123456/view",
+				expected: false,
+			},
+			{
+				name: "unknown bam type",
+				entries: [{ type: "Unknown", link: "https://example.com/file.bam" }],
+				expected: false,
+			},
+			{
+				name: "fails when any entry is invalid",
+				entries: [
+					{ type: "Amazon AWS", link: "https://s3.amazonaws.com/test/file.bam" },
+					{ type: "Google Drive", link: "https://invalid.google.com/file/d/123456/view" },
+				],
+				expected: false,
+			},
+			{
+				name: "passes when all entries are valid",
+				entries: [
+					{ type: "Amazon AWS", link: "https://s3.amazonaws.com/test/file.bam" },
+					{ type: "Google Drive", link: "https://drive.google.com/file/d/123456/view" },
+				],
+				expected: true,
+			},
+		];
+
+		it.each(cases)("$name", ({ bamType, link, entries, expected }) => {
+			const normalizedEntries = entries || [{ type: bamType, link }];
+			buildDom(normalizedEntries);
+			expect(check_links(".channelbamType", ".bam_link")).toBe(expected);
+		});
 	});
 });

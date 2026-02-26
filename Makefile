@@ -8,7 +8,7 @@ validate-all: py-validate
 	Rscript -e 'renv::restore()'
 
 # === Python Commands for eFP-Seq_Browser ===
-.PHONY: py-install py-format py-lint py-test py-clean py-validate
+.PHONY: py-install py-format py-lint py-validate
 
 PY_FILES = cgi-bin/*.cgi
 
@@ -21,4 +21,4 @@ py-format:
 py-lint:
 	uv run ruff check --fix $(PY_FILES)
 
-py-validate: py-install py-format py-lint
+py-validate: py-format py-lint

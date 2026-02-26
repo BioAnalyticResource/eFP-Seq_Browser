@@ -199,23 +199,20 @@ function generate_colour(start_color, end_color, percent) {
 	return "#" + diff_red + diff_green + diff_blue;
 }
 
-/**
- * Round the float X to DIGIT number of decimal places.
- */
+/** Round the float X to DIGIT number of decimal places. */
 function round(x, digits) {
 	return parseFloat(x.toFixed(digits));
 }
 
 let colouring_part;
 
-/**
- * Find and colour a particular SVG in the DOM.
- */
+/** Find and colour a particular SVG in the DOM. */
 function colour_part_by_id(id, part, fpkm, mode) {
 	colouring_part = "all";
 
-	for (const sra of sraList) {
-		if (id.replace("_svg", "") == sra) {
+	const sraListSafe = Array.isArray(sraList) ? sraList : [];
+	for (const sra of sraListSafe) {
+		if (id.replace("_svg", "") == sra && sraDict && sraDict[sra]) {
 			colouring_part = sraDict[sra]["svg_part"];
 		}
 	}
@@ -223,7 +220,8 @@ function colour_part_by_id(id, part, fpkm, mode) {
 	// Verify which type of input is added as fpkm
 	let fpkmUse = fpkm;
 	if (Array.isArray(fpkmUse)) {
-		fpkmUse = fpkmUse[variantPosition];
+		const variantIndex = Number.isInteger(variantPosition) ? variantPosition : 0;
+		fpkmUse = fpkmUse[variantIndex];
 	} else {
 		fpkmUse = parseFloat(fpkmUse);
 	}
@@ -341,9 +339,8 @@ function colour_part_by_id(id, part, fpkm, mode) {
 let rpkmAverage = 1;
 /** Set to 1 as default so prevents the divide by 0 zero later */
 let rpkmMedian = 1;
-/**
- * Find the RPKM average across all samples
- */
+
+/** Find the RPKM average across all samples */
 function findRPKMValuesAcrossAll() {
 	if (sraDict) {
 		const listOfSRA = Object.keys(sraDict);
@@ -408,9 +405,7 @@ function switchRPKMMode(selectedMode) {
 	}
 }
 
-/**
- * Find and update each SVG in the DOM.
- */
+/** Find and update each SVG in the DOM. */
 function colour_svgs_now() {
 	const mode = colouring_mode;
 	for (let i = 0; i < count_bam_entries_in_xml; i++) {
@@ -503,9 +498,7 @@ function colour_svgs_now() {
 	change_rpkm_colour_scale(colouring_mode);
 }
 
-/**
- * Re-read the value from the input box
- */
+/** Re-read the value from the input box */
 function get_input_values() {
 	// Clean locus input
 	locus = document.getElementById("locus").value;
@@ -521,9 +514,7 @@ function get_input_values() {
 	max_abs_scale = document.getElementById("rpkm_scale_input").value;
 }
 
-/**
- * When user clicks GO button, this function is called to update gene structure AND RNA-Seq images
- */
+/** When user clicks GO button, this function is called to update gene structure AND RNA-Seq images */
 function update_all_images(status) {
 	if (document.getElementById("locus") != null) {
 		new_locus = document.getElementById("locus").value;
@@ -540,11 +531,11 @@ function update_all_images(status) {
 			}, 1650);
 		}
 	}
+
+	return paths != null;
 }
 
-/**
- * Updates the radio button <DIV> with new variants images.
- */
+/** Updates the radio button <DIV> with new variants images. */
 async function variants_radio_options(status) {
 	get_input_values();
 
@@ -662,6 +653,7 @@ function logError(errorMessage) {
 
 let variantPosition = 0;
 let variant_selected;
+
 /**
  * When radio button changes, update the gene structure throughout the document and update the rpb values
  */
@@ -698,9 +690,11 @@ function gene_structure_radio_on_change() {
 		// Go through the exp_info array and make changes
 		for (let i = 0; i < exp_info.length; i++) {
 			let itLocus = exp_info[i][0].split("_")[0];
+
 			/** Update variant image: */
 			let geneStructureImg = document.getElementById(itLocus + "_gene_structure_img");
 			geneStructureImg.src = variant_img;
+
 			/** Update rpb values: */
 			let rpbValue = sraDict[itLocus]["r"][variant_selected].toFixed(2);
 			document.getElementById(itLocus + "_rpb").innerHTML = rpbValue;
@@ -708,6 +702,7 @@ function gene_structure_radio_on_change() {
 				sraDict[exp_info[i][0].split("_svg")[0]] = {};
 			}
 			sraDict[exp_info[i][0].split("_svg")[0]]["rpb"] = rpbValue;
+
 			/** Update RPKM values: */
 			let rpkmValue;
 			if (sraDict[itLocus]["RPKM"] && sraDict[itLocus]["RPKM"][variant_selected]) {
@@ -747,6 +742,7 @@ function whichAbsOrRel(preIterate = false, iteratePos = 0) {
 			}
 		}
 	}
+
 	change_rpkm_colour_scale(colouring_mode);
 }
 
@@ -1556,6 +1552,7 @@ let variantdiv_str;
 let iteration_num = 1;
 let moreDetails = 'Show More Details <i class="material-icons detailsIcon">arrow_drop_down</i>';
 let lessDetails = 'Show Less Details <i class="material-icons detailsIcon">arrow_drop_up</i>';
+
 /**
  * Gets the BAM locator XML to create + populate the table. Leeps track of all RNA-Seq calls it will have to make.
  * @param {String | Number} status Index call version
@@ -2171,6 +2168,7 @@ let remainder_efp = 0;
 let efp_length = 0;
 let eFPSortedSRA = [];
 let efp_RPKM_values = [];
+
 /**
  * Creates a table of the coloured SVGs and their corresponding RPKM values
  * @param {String | Number} status Index call version
@@ -2416,7 +2414,9 @@ function rpkm_validation() {
 		$("#abs_scale_button").prop("disabled", true);
 	}
 }
+
 let databasesAdded = false;
+
 /**
  * Resets the dataset_dictionary and removes users added tags from index.html (document)
  */
@@ -2434,6 +2434,7 @@ let check_for_change = 0;
 let xml_title;
 let match_title = {};
 let title_list = [];
+
 /**
  * Gets list of users private XMLs
  */
@@ -2541,6 +2542,7 @@ function get_user_XML_display() {
 
 let datalist = [];
 let datalist_Title = {};
+
 /**
  * Creates a list of base64 strings that contains XML of user's private datasets
  * @param {Number} size - How many private datasets the user has
@@ -2580,6 +2582,7 @@ let dlCallLength = 0;
 /** Make function recursive */
 let dlCallPosition = 0;
 let testDoc;
+
 /**
  * Retrieves information and titles of individual XMLs
  * @param {List} datalistData The list of base64/url for the XML's being parsed through
@@ -4440,3 +4443,42 @@ adjustFooterSize();
 window.addEventListener("load", function () {
 	init();
 });
+
+// Export functions for testing in Node.js environments
+if (typeof module !== "undefined" && module.exports) {
+	module.exports = {
+		count_bam_num,
+		loadingScreen,
+		generate_colour,
+		round,
+		findRPKMValuesAcrossAll,
+		colour_svgs_now,
+		gene_structure_radio_on_change,
+		absOrRel,
+		rnaseq_images,
+		updateRPKMAbsoluteMax,
+		populate_table,
+		truncateDescription,
+		populate_efp_modal,
+		change_rpkm_colour_scale,
+		locus_validation,
+		rpkm_validation,
+		get_user_XML_display,
+		create_data_list,
+		DatalistXHRCall,
+		validateEmail,
+		findAuthUser,
+		check_if_Google_login,
+		add_user_xml_by_upload,
+		which_upload_option,
+		confirm_deleteUser,
+		delete_user,
+		verifyLoci,
+		getGFF,
+		addGFF,
+		hiddenGoogleSignin,
+		correctAGIIDInput,
+		generateShareLink,
+		readShareLink,
+	};
+}
