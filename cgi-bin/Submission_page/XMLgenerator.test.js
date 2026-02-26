@@ -103,15 +103,15 @@ describe("XMLgenerator", () => {
 	});
 
 	describe("check_links", () => {
-		const buildDom = (bamType, bamLink) => {
-			const bamInput = { id: "bam_input", value: bamLink, style: {} };
-			const bamTypeNode = { value: bamType };
+		const buildDom = (entries) => {
+			const bamInputs = entries.map((entry) => ({ id: "bam_input", value: entry.link, style: {} }));
+			const bamTypeNodes = entries.map((entry) => ({ value: entry.type }));
 			global.document.getElementById = (id) => {
 				if (id === "Entries_all") {
 					return {
 						querySelectorAll: (selector) => {
-							if (selector === ".bam_link") return [bamInput];
-							if (selector === ".channelbamType") return [bamTypeNode];
+							if (selector === ".bam_link") return bamInputs;
+							if (selector === ".channelbamType") return bamTypeNodes;
 							return [];
 						},
 					};
@@ -153,14 +153,30 @@ describe("XMLgenerator", () => {
 			},
 			{
 				name: "unknown bam type",
-				bamType: "Unknown",
-				link: "https://example.com/file.bam",
+				entries: [{ type: "Unknown", link: "https://example.com/file.bam" }],
 				expected: false,
+			},
+			{
+				name: "fails when any entry is invalid",
+				entries: [
+					{ type: "Amazon AWS", link: "https://s3.amazonaws.com/test/file.bam" },
+					{ type: "Google Drive", link: "https://invalid.google.com/file/d/123456/view" },
+				],
+				expected: false,
+			},
+			{
+				name: "passes when all entries are valid",
+				entries: [
+					{ type: "Amazon AWS", link: "https://s3.amazonaws.com/test/file.bam" },
+					{ type: "Google Drive", link: "https://drive.google.com/file/d/123456/view" },
+				],
+				expected: true,
 			},
 		];
 
-		it.each(cases)("$name", ({ bamType, link, expected }) => {
-			buildDom(bamType, link);
+		it.each(cases)("$name", ({ bamType, link, entries, expected }) => {
+			const normalizedEntries = entries || [{ type: bamType, link }];
+			buildDom(normalizedEntries);
 			expect(check_links(".channelbamType", ".bam_link")).toBe(expected);
 		});
 	});

@@ -292,7 +292,7 @@ function correct_ReadMapCount(class_name) {
 
 	for (const element of x) {
 		element.value = element.value.trim();
-		if (element.value === ("" || null || undefined)) {
+		if (!element.value) {
 			element.value = 0;
 		}
 		element.value = only_ReadNum(element.value);
@@ -326,30 +326,37 @@ function only_ReadNum(input_string) {
 function check_links(bam_name, repo_name) {
 	const x = document.getElementById("Entries_all").querySelectorAll(repo_name);
 	const bam_x = document.getElementById("Entries_all").querySelectorAll(bam_name);
+	let foundBamInput = false;
+
 	for (let i = 0; i < x.length; i++) {
 		if (x[i].id === "bam_input") {
-			if (x[i].value.length > 0) {
-				let urlString;
-				try {
-					urlString = new URL(x[i].value);
-				} catch {
+			foundBamInput = true;
+			if (!x[i].value || !bam_x?.[i]?.value) {
+				return false;
+			}
+
+			let urlString;
+			try {
+				urlString = new URL(x[i].value);
+			} catch {
+				return false;
+			}
+
+			const hostValue = urlString?.host ?? "";
+			const bamHostType = bam_x[i].value;
+
+			if (bamHostType === "Google Drive") {
+				if (!["drive.google.com", "www.drive.google.com"].includes(hostValue)) {
 					return false;
 				}
-
-				const hostValue = urlString?.host ?? "";
-
-				if (bam_x[i].value === "Google Drive") {
-					return ["drive.google.com", "www.drive.google.com"].includes(hostValue);
-				} else if (bam_x[i].value === "Amazon AWS") {
-					if (
-						check_amazon_for_bam(x[i].value) &&
-						(["s3.amazonaws.com", "araport.cyverse-cdn.tacc.cloud"].includes(hostValue) ||
-							x[i].value.includes("araport.cyverse-cdn.tacc.cloud"))
-					) {
-						return true;
-					}
-					return false;
-				} else {
+			} else if (bamHostType === "Amazon AWS") {
+				if (
+					!check_amazon_for_bam(x[i].value) ||
+					!(
+						["s3.amazonaws.com", "araport.cyverse-cdn.tacc.cloud"].includes(hostValue) ||
+						x[i].value.includes("araport.cyverse-cdn.tacc.cloud")
+					)
+				) {
 					return false;
 				}
 			} else {
@@ -357,6 +364,8 @@ function check_links(bam_name, repo_name) {
 			}
 		}
 	}
+
+	return foundBamInput;
 }
 
 /**
