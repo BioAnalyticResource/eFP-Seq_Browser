@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 ################################################################################
-# This program return the base64 of the RNA-Seq mapping coverage image.
+# This program returns a JSON object describing the RNA-Seq mapping coverage for a
+# gene, including RPKM (absolute-fpkm), the point biserial correlation (r), reads
+# mapped, and the base64-encoded mapping coverage image (rnaseqbase64).
 #
 # Authors: Asher, Alexander and Priyank
 # Date: January 2016
@@ -135,7 +137,7 @@ def determineReadMapNumber(filedir, filename, readMappedNumber, remoteDrive, bam
         if flagstat is None:
             return "FAILED: determineReadMapNumber-flagstat NONE"
 
-        # Read pileup output
+        # Read flagstat output
         for read in flagstat.splitlines():
             read = str(read.decode("utf-8"))
             if ("mapped" in read) and (
@@ -173,7 +175,7 @@ def makeImage(
     x_bp_vals = []  # Holds nucleotide positions...
     y_reads_values = []  # Holds the valid mapped reads for the position...
 
-    # Call samtools and get mpileup
+    # Call bcftools and get mpileup
     region = chromosome + ":" + str(start) + "-" + str(end)
 
     # Set the environment
@@ -321,7 +323,7 @@ def dumpError(
     Keyword Arguments:
         locus {string} -- The AGI ID of the gene that the RNA-Seq map coverage is interpreting (default: {None})
         record {string} -- The SRA record of the BAM data being interpreted (default: {None})
-        base64img {string} -- The base64 version of the RNA-Seq map coverage image (default: {None})
+        my_base64img {string} -- The base64 version of the RNA-Seq map coverage image (default: {None})
         abs_fpkm {string, integer} -- The absolute FPKM/RPKM value (default: {None})
         r {string, integer} -- The r coefficient value (default: {None})
         totalReadsMapped {string, integer} -- The total number of reads mapped to the gene within the BAM file (default: {None})

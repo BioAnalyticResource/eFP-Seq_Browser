@@ -6,7 +6,7 @@ import urllib.request
 from PIL import Image, ImageDraw
 
 print("Access-Control-Allow-Origin: *")
-print("Content-Type: application/json\n")  # HTML is following
+print("Content-Type: application/json\n")  # JSON is following
 
 # ----- CONSTANTS -----
 EXON_IMG_WIDTH = 450

@@ -301,7 +301,7 @@ function correct_ReadMapCount(class_name) {
 
 /**
  * Makes sure a number is an integer
- * @param {Number} input_string Float
+ * @param {String} input_string String containing a number
  * @return {Number} input_string - Integer
  */
 function only_ReadNum(input_string) {
@@ -806,7 +806,7 @@ function determine_svgname(from_svg) {
 /**
  * Determine hexcode based on svgname and its subunit
  * @param {String} which_svg svgname
- * @param {String} which_svg svg_subunit
+ * @param {String} svg_subunit svg subunit
  * @return {String} - hexcode
  * @TODO: Add hex colour for rosettePlusRoot, SenescentLeaf, ShootApexVegetative-Transition, YoungLeaf1-4, Other
  */
