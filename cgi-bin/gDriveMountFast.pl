@@ -1,10 +1,11 @@
 #!/usr/bin/perl
 ################################################################################
-# This program mount the Google Drive file system and run Sam Tools.
+# This program mounts a Google Drive folder as a FUSE file system so its BAM files
+# can be read remotely (e.g. by samtools/bcftools in rnaSeqMapCoverage.cgi).
 # Author: Asher
 # Date: November, 2016
-# Notice: Add Google API key before running
-# To Start: perl gDriveMountFast.pl <google share folder id> <timestamp>
+# Notice: The Google API key is configured in gDriveFast.pm
+# To Start: perl gDriveMountFast.pl <google share folder id> <timestamp> <bam filename>
 # To Stop: fusermount -u /mnt/gDrive/<folderid>_<timestamp> && rmdir mnt/gDrive/<folderid>_<timestamp>
 ################################################################################
 use warnings;
@@ -82,7 +83,7 @@ sub e_open {
     return (0, $fh);
 }
 
-# This is used by samtools mpileup program
+# FUSE read callback, invoked when a program (e.g. samtools/bcftools) reads the mounted file
 sub e_read {
 	# return an error numeric, or binary/text string.  (note: 0 means EOF, "0" will
 	# give a byte (ascii "0") to the reading program)

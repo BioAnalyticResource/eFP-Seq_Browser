@@ -1,12 +1,12 @@
-# eFP-Seq-Browser
+# eFP-Seq Browser
 
 The eFP-Seq Browser is an RNA-Seq data exploration tool that shows read map coverage of a gene of interest along with an "electronic fluorescent pictographic" (eFP) image. This web-tool also allows the generation of new datasets if provided with SAM/BAM (with their index files) to allow visualization of any RNA-Seq mapping coverage. Gene expression levels and the similarity is also shown by calculating the Reads per Kilobase per Million reads mapped (RPKM) expression levels and Point Biserial Correlation Coefficient (r<sub>pb</sub>) scores amongst its different splice variants.
 
 Official publication of the [eFP-Seq Browser](https://bar.utoronto.ca/eFP-Seq_Browser/) can be found at [https://doi.org/10.1111/tpj.14468](https://doi.org/10.1111/tpj.14468).
 
 [![Follow on Twitter](https://img.shields.io/twitter/follow/BAR_PlantBio?style=social)](https://twitter.com/BAR_PlantBio)
-[![GitHub repo size](https://img.shields.io/github/repo-size/BioAnalyticResource/eFP-Seq-Browser)](https://github.com/BioAnalyticResource/eFP-Seq-Browser)
-[![GitHub](https://img.shields.io/github/license/BioAnalyticResource/eFP-Seq-Browser)](https://github.com/BioAnalyticResource/eFP-Seq-Browser)
+[![GitHub repo size](https://img.shields.io/github/repo-size/BioAnalyticResource/eFP-Seq_Browser)](https://github.com/BioAnalyticResource/eFP-Seq_Browser)
+[![GitHub](https://img.shields.io/github/license/BioAnalyticResource/eFP-Seq_Browser)](https://github.com/BioAnalyticResource/eFP-Seq_Browser)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fbar.utoronto.ca%2FeFP-Seq_Browser%2F)](https://bar.utoronto.ca/eFP-Seq_Browser/)
 
 ## Getting Started
@@ -24,10 +24,10 @@ It is recommended that you use the web version available at <https://bar.utoront
 Clone the repository with git by running the following command:
 
 ```bash
-git clone https://github.com/BioAnalyticResource/eFP-Seq-Browser.git
+git clone https://github.com/BioAnalyticResource/eFP-Seq_Browser.git
 ```
 
-You will need [Node.js](https://nodejs.org/en/) and [Python3](https://www.python.org/downloads/) installed on your system to run the eFP-Seq Browser locally.
+You will need [Node.js](https://nodejs.org/en/), [Python3](https://www.python.org/downloads/) and [R](https://www.r-project.org/) installed on your system to run the eFP-Seq Browser locally.
 
 To set-up and install the prerequisites, run the following commands:
 
@@ -35,7 +35,7 @@ To set-up and install the prerequisites, run the following commands:
 npm run install:all
 ```
 
-which will install all the necessary Node and Python dependencies for the eFP-Seq Browser.
+which will install all the necessary Node, Python and R dependencies for the eFP-Seq Browser.
 
 ## Running locally
 
@@ -64,9 +64,14 @@ To run and test the eFP-Seq Browser code, you can run the following command:
 npm run validate
 ```
 
-Which will run the following commands:
+Which will run the following commands in order:
 
 - Prettier to format the code (`npm run prettier`)
+- ESLint to lint and auto-fix the JavaScript (`npm run eslint`)
+- esbuild to minify the JavaScript and CSS (`npm run minify`)
+- markdownlint to lint the Markdown files (`npm run lint:markdown`)
+- Jest unit tests (`npm run test:jest`)
+- Playwright end-to-end tests in headless mode (`npm run test:playwright:headless`)
 
 ## Known issues
 
