@@ -7,6 +7,7 @@
 # Authors: Asher, Alexander and Priyank
 # Date: January 2016
 ################################################################################
+import base64
 import cgi
 import json
 import math
@@ -15,7 +16,7 @@ import re
 import subprocess
 import sys
 import time
-import base64
+
 from PIL import Image, ImageDraw
 
 print("Access-Control-Allow-Origin: *")
@@ -45,16 +46,10 @@ start_time = str(time.time()).replace(".", "")
 
 
 def validateTissue(tissue):
-    if tissue == "":
+    if tissue == "" or tissue is None:
         return False
-    elif tissue is None:
-        return False
-    if re.search(
-        r"^[a-z0-9\-_\s]{1,20}$", tissue, re.I
-    ):  # Can only have upto 20 alpha numeric charactors
-        return True
-    else:
-        return False
+    # Can only have upto 20 alpha numeric charactors
+    return bool(re.search(r"^[a-z0-9\-_\s]{1,20}$", tissue, re.IGNORECASE))
 
 
 """ Check the format of locus. """
@@ -63,10 +58,7 @@ def validateTissue(tissue):
 def validateLocus(locus):
     if locus == "":
         return False
-    elif re.search(r"^at[12345cm]g\d+$", locus, re.I):
-        return True
-    else:
-        return False
+    return bool(re.search(r"^at[12345cm]g\d+$", locus, re.IGNORECASE))
 
 
 # Validate Chromosome
@@ -217,8 +209,7 @@ def makeImage(
             exp_arr0.append((float(readPos), mapped_reads_count))
             y_reads_values.append(mapped_reads_count)
             # Figure out the max number of reads mapped at any given locus
-            if mapped_reads_count > max_mapped_reads_count:
-                max_mapped_reads_count = mapped_reads_count
+            max_mapped_reads_count = max(max_mapped_reads_count, mapped_reads_count)
 
     # IF the user specified a custom y-scale, use that
     if yscale == -1:
@@ -291,9 +282,8 @@ def makeImage(
 
     tempfile = "/var/www/html/eFP-Seq_Browser/temp/RNASeqGraph.png"
     # Output the GD image to temp PNG file
-    f = open(tempfile, "wb")
-    rnaseq_graph_image.save(f)
-    f.close()
+    with open(tempfile, "wb") as f:
+        rnaseq_graph_image.save(f)
 
     # Convert the PNG to base64
     with open(tempfile, "rb") as fl:
@@ -556,8 +546,7 @@ def main():
         expectedGeneLength = []
         for i in range(variants_count + 1):
             exonGeneLength = (end - start) - expected_exonLength_in_variant[i]
-            if exonGeneLength < 0:
-                exonGeneLength = 0
+            exonGeneLength = max(exonGeneLength, 0)
             expectedGeneLength.append(exonGeneLength)
 
         # Public datasets and their directories:
@@ -569,9 +558,10 @@ def main():
         # Check if data is public or private dataset
         if cachedDatapoints:
             # This won't work after Sep 2025
-            for x in publicDatapoints:  # If public, find tissue (x) to create bam_dir
-                if record in publicDatapoints[x]:
-                    bam_dir = x + "/" + record
+            # If public, find the tissue holding this record to create bam_dir
+            for public_tissue, public_records in publicDatapoints.items():
+                if record in public_records:
+                    bam_dir = public_tissue + "/" + record
             if bam_dir == "":  # If tissue not found, download new bam index file
                 if record is not None:
                     bam_dir = "uploads" + "/" + record + "_" + start_time
@@ -734,7 +724,7 @@ def main():
             if totalReadsMapped:
                 rpkm = (
                     float(mapped_reads)
-                    / (float((expectedGeneLength[i])) / 1000.0)
+                    / (float(expectedGeneLength[i]) / 1000.0)
                     / (float(totalReadsMapped) / 1000000.0)
                 )
             else:
@@ -746,7 +736,7 @@ def main():
         for i in range(len(sum_xy)):
             sp = sum_xy[i] - ((sum_x[i] * sum_y) / float(end - start))
             if math.sqrt(ss_x[i] * ss_y) == 0:
-                r.append(float(0.00000))
+                r.append(0.00000)
             else:
                 r_val = float(sp / (math.sqrt(ss_x[i] * ss_y)))
                 r.append(round(r_val, PRECISION))
