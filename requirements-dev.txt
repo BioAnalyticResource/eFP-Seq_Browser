@@ -3,6 +3,4 @@
 -r requirements.txt
 
 # Code formatting and linting
-# Floor is 0.16.6: Ruff 0.16 widened its default rule set (adding I, SIM, UP,
-# FURB and part of PL), and the CGI scripts are linted clean against it.
 ruff>=0.16.6
