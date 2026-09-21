@@ -3,4 +3,4 @@
 -r requirements.txt
 
 # Code formatting and linting
-ruff>=0.15.2
+ruff>=0.16.6
