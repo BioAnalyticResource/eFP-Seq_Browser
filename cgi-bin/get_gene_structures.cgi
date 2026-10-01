@@ -3,6 +3,7 @@ import base64
 import cgi
 import json
 import urllib.request
+
 from PIL import Image, ImageDraw
 
 print("Access-Control-Allow-Origin: *")
@@ -106,7 +107,7 @@ for subfeature in map_info["features"][0]["subfeatures"]:
                 )
             count = count + 1  # To add a comma only...
         # We want to graph all types of features in the gene structure image
-        if region["type"] == "exon":
+        if region["type"] == "exon":  # noqa: SIM114
             exongraph.rectangle(
                 (
                     (
@@ -150,7 +151,7 @@ for subfeature in map_info["features"][0]["subfeatures"]:
                 ),
                 darkgreen,
             )
-        elif region["type"] == "five_prime_UTR":
+        elif region["type"] == "five_prime_UTR":  # noqa: SIM114
             exongraph.rectangle(
                 (
                     (
@@ -233,9 +234,8 @@ for subfeature in map_info["features"][0]["subfeatures"]:
             black,
         )
 
-    f = open("get_exon_base64_exongraph.png", "wb")
-    exon_graph_image.save(f)
-    f.close()
+    with open("get_exon_base64_exongraph.png", "wb") as f:
+        exon_graph_image.save(f)
 
     printout = (
         printout

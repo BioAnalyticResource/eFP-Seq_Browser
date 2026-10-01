@@ -1736,7 +1736,7 @@ function populate_table(status) {
 
 				let links = "";
 				if (controls.length > 0) {
-					for (let i = controls.length; i--; ) {
+					for (let i = controls.length; i--;) {
 						if (controls[i] != "MEDIAN") {
 							links +=
 								'<a href="https://www.ncbi.nlm.nih.gov/Traces/sra/?run=' +
