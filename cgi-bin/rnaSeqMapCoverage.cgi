@@ -42,13 +42,13 @@ start_time = str(time.time()).replace(".", "")
 # Validation functions
 ################################################################################
 
-""" Check the format of tissue string and returns error if incorrect. """
+"""Return whether the tissue string matches the accepted format."""
 
 
 def validateTissue(tissue):
     if tissue == "" or tissue is None:
         return False
-    # Can only have upto 20 alpha numeric charactors
+    # Accepts 1 to 20 alphanumeric characters, hyphens, underscores, or whitespace.
     return bool(re.search(r"^[a-z0-9\-_\s]{1,20}$", tissue, re.IGNORECASE))
 
 
@@ -550,14 +550,12 @@ def main():
             expectedGeneLength.append(exonGeneLength)
 
         # Public datasets and their directories:
-        # There are no public record as of Sep 2025
         publicDatapoints = {}
 
         ### Generate BAM directory link
         bam_dir = ""  # Reset bam_dir value
         # Check if data is public or private dataset
         if cachedDatapoints:
-            # This won't work after Sep 2025
             # If public, find the tissue holding this record to create bam_dir
             for public_tissue, public_records in publicDatapoints.items():
                 if record in public_records:
